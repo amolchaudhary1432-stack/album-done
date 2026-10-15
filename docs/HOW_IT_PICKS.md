@@ -228,3 +228,23 @@ Lesson: the app is good at moments and at throwing out bad frames; it is weak at
 best expression, the best relationship, the best story beat". Those need a learned eye, not more
 rules. Next: score many weddings this way (a person's or Claude's picks as the answer key) and
 teach a small on-phone model from them.
+
+## 8. Any occasion, not just weddings (owner's decision, October 2026)
+
+Album Done picks the album-worthy photos from any raw folder. The photo checks (eyes, focus,
+light, repeats, moments, variety) are the same for every folder; what changes with the occasion
+is who the album is about and the words used:
+
+| Occasion | Built around | Sides | Notes |
+|---|---|---|---|
+| Wedding, Engagement | the couple (two most photographed, often together) | bride's and groom's family | family albums for each side |
+| Birthday, Baby | the most photographed person (the birthday star, the baby) | none: Family / Friends | the two closest people are guessed as parents |
+| Trip, Other | the most photographed person, plus a second when nearly as frequent and often together | none | a trip keeps about a quarter of places without people |
+
+The occasion is guessed from the folder names (Haldi, Reception → Wedding; Bday → Birthday; Goa
+trip → Trip) and is one tap to change on the New album screen.
+
+Test sets for unseen folders: a Rajasthani wedding seen by a guest (158 photos: sky lanterns at
+night, desert, palace, the wedding), a Garhwali wedding (134 photos, mostly the groom's haldi);
+Claude's blind picks are the answer key. Marathi weddings, birthdays and family functions are
+being searched for on Wikimedia Commons.
