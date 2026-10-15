@@ -232,6 +232,21 @@ class AlbumPlannerTest {
     }
 
     @Test
+    fun aBystanderCutAtTheEdgeDoesNotSpoilThePhotoButTheSubjectDoes() {
+        // From the real wedding: the bride arriving with her garland, sharp; an onlooker out of
+        // focus, half outside the frame at the top right.
+        val arrival = photo("Wedding", faces = listOf(face(BRIDE, x = 0.32f, w = 0.14f, sharp = 1400.0),
+            face(77L, x = 0.9f, w = 0.16f, sharp = 220.0, cut = 0.39f)))
+        val cutBride = photo("Wedding", faces = listOf(face(BRIDE, x = 0.0f, w = 0.14f, sharp = 1400.0, cut = 0.39f)))
+        val cutGuest = photo("Wedding", faces = listOf(face(BRIDE, x = 0.3f, w = 0.14f, sharp = 1400.0),
+            face(78L, x = 0.9f, w = 0.14f, sharp = 1300.0, cut = 0.4f)))
+        val a = AlbumPlanner.analyze(listOf(arrival, cutBride, cutGuest), couple)
+        assertFalse(Issue.FACE_CUT_OFF in a.issues(arrival))
+        assertTrue(Issue.FACE_CUT_OFF in a.issues(cutBride))
+        assertTrue(Issue.FACE_CUT_OFF in a.issues(cutGuest))
+    }
+
+    @Test
     fun eachFamilyGetsItsOwnAlbumFromTheSameFolder() {
         val brideMother = 20L; val brideAunt = 21L; val groomMother = 30L; val groomAunt = 31L
         var t = start

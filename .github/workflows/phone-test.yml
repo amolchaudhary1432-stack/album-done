@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
     inputs:
       photos:
-        description: "Which test wedding: wedding (real, as uploaded) or quirky (replica raw dump)"
+        description: "Which test wedding: wedding (Bengali), quirky (replica raw dump), rajasthan, garhwali"
         default: wedding
       album_size:
         description: "Album size for the test wedding (empty: a quarter of the photos)"

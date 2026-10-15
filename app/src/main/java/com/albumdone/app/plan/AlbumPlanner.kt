@@ -145,6 +145,8 @@ object AlbumPlanner {
 
     // ---- Photo checks ----
     const val BLUR_FACTOR = 0.3
+    /** A face at least this sharp, compared with the sharpest face in the photo, is part of the subject. */
+    const val SUBJECT_SHARPNESS = 0.5
     /** Photos this close in time are the same scene for judging sharpness. */
     const val SCENE_MILLIS = 20 * 60_000L
     const val SCENE_NEIGHBOURS = 12
@@ -477,6 +479,7 @@ object AlbumPlanner {
         val faceDarkLimit = min(45.0, 0.4 * (norms.eventFaceBrightness[event]?.takeIf { it > 0 } ?: 130.0))
 
         val faceScores = HashMap<PlanFace, Double>()
+        val sharpestFace = clear.maxOfOrNull { it.sharpness } ?: 0.0
         for (f in clear) {
             val lenient = vidaai || f.expression == Expression.EMOTIONAL
             val laughingCandid = f.expression == Expression.LAUGH && interaction
@@ -508,7 +511,10 @@ object AlbumPlanner {
             var exposure = 1.0
             if (f.backlit || f.brightness < faceDarkLimit || f.brightness > 235.0) { issues += Issue.FACE_DARK; exposure = 0.6 }
             var visibility = 1.0
-            if (f.cutOff >= CUT_OFF) { issues += Issue.FACE_CUT_OFF; visibility *= 0.3 }
+            // Someone out of focus at the edge of a crowd is background; the photographer focused on
+            // the subject. A cut-off face counts when it is the couple's or as sharp as the subject.
+            val subject = tags.isCouple(f.personId) || f.sharpness >= SUBJECT_SHARPNESS * sharpestFace
+            if (f.cutOff >= CUT_OFF && subject) { issues += Issue.FACE_CUT_OFF; visibility *= 0.3 }
             val blockedByFace = p.faces.any { g ->
                 g !== f && g.box.area > f.box.area && f.box.area > 0 && g.box.intersection(f.box) / f.box.area >= BLOCKED_OVERLAP
             }
