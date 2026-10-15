@@ -185,7 +185,7 @@ TRUTH.json says what is wrong with each). Album of 28, checked on the emulator:
 | Accidental shots: floor, lens covered (4) | 4 | 0 |
 | Burst frames (40), black-and-white copies (6) | never two versions of one shot in the album | - |
 | Flash blown out (6) | 2 | 3, fixed: limits now 185 brightness / 35% burnt white (real photos reached 168 / 25%) |
-| Face cut by the edge (6) | 1 | 0 |
+| Face cut by the edge (6) | 1 | 1 on the re-run, fixed: a face box against the edge that is narrower than any whole face (below 0.55 width/height; whole faces measured 0.59 and up) is cut off |
 | Crooked by 5-9 degrees (6) | 0 | 1 |
 
 Crooked photos: the old measure (strongest edge direction) never fires on wedding photos, because
@@ -195,3 +195,17 @@ current measure never marks a good photo down.
 
 Black-and-white photos are not marked down: some couples ask for them. When the same shot exists
 in colour and black-and-white, only the better-looking one goes in.
+
+After the brightness fix the re-run caught 6 of 6 flash-blown photos (none in the album).
+
+### Face finder confidence (real wedding, 315 finds)
+
+| Confidence | Finds | Not a face |
+|---|---|---|
+| 0.60-0.70 | 32 | about 2 in 5 (flowers, cloth, hands, backs of heads) |
+| 0.70-0.80 | 28 | about 1 in 5 |
+| 0.80-0.90 | 91 | 1 (a flower) |
+| 0.90+ | 164 | none seen |
+
+So a find the face mesh cannot read is kept only from 0.70, and only finds from 0.80 (or read by
+the mesh) are used to recognise people. Pink flower decoration had become a "person" before.
