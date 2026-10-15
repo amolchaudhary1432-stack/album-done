@@ -13,7 +13,6 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollToNode
 import androidx.compose.ui.test.printToString
-import androidx.test.espresso.Espresso
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.albumdone.app.ui.MainActivity
@@ -46,26 +45,39 @@ class AppScreensDeviceTest {
         compose.waitForIdle()
     }
 
+    private fun back() {
+        DeviceTestSupport.device.pressBack()
+        compose.waitForIdle()
+    }
+
     private fun screenshot(name: String) {
+        DeviceTestSupport.dismissSystemDialogs()
         compose.waitForIdle()
         Thread.sleep(900) // let images and animations settle
         val bitmap = InstrumentationRegistry.getInstrumentation().uiAutomation.takeScreenshot()
         DeviceTestSupport.saveScreenshot(name, bitmap)
     }
 
-    /** Runs one step; on failure keeps a screenshot and what was on screen, then goes back once. */
+    /** Runs one step; on failure keeps a screenshot, what was on screen and why, then goes back once. */
     private fun step(name: String, goBackOnFailure: Boolean = true, block: () -> Unit) {
+        DeviceTestSupport.dismissSystemDialogs()
         try {
             block()
         } catch (e: Throwable) {
             Log.e("AlbumDoneTest", "Step $name failed", e)
             failures += "$name: ${e.message?.lineSequence()?.firstOrNull()}"
-            runCatching { screenshot("$name-FAILED") }
-            runCatching {
-                val dir = File(DeviceTestSupport.app.filesDir, "screens").apply { mkdirs() }
-                File(dir, "$name-FAILED-screen.txt").writeText(compose.onAllNodes(isRoot()).printToString())
+            val dir = File(DeviceTestSupport.app.filesDir, "screens").apply { mkdirs() }
+            val notes = StringBuilder(e.stackTraceToString()).append("\n\n")
+            // Errors inside the app's screens are held back by the test tools until the next sync.
+            runCatching { compose.waitForIdle() }.exceptionOrNull()?.let {
+                Log.e("AlbumDoneTest", "Error inside the app during $name", it)
+                notes.append("ERROR INSIDE THE APP:\n").append(it.stackTraceToString()).append("\n\n")
             }
-            if (goBackOnFailure) runCatching { Espresso.pressBack(); compose.waitForIdle() }
+            runCatching { notes.append(compose.onAllNodes(isRoot()).printToString(maxDepth = Int.MAX_VALUE)) }
+                .onFailure { notes.append("Could not read the screen: $it") }
+            File(dir, "$name-FAILED-screen.txt").writeText(notes.toString())
+            runCatching { screenshot("$name-FAILED") }
+            if (goBackOnFailure) runCatching { back() }
         }
     }
 
@@ -88,16 +100,14 @@ class AppScreensDeviceTest {
             compose.onNodeWithTag("couple-bride").performClick()
             waitFor("In ")
             screenshot("04-bride")
-            Espresso.pressBack()
-            compose.waitForIdle()
+            back()
         }
 
         step("05-add-someone") {
             compose.onNodeWithTag("more-people").performClick()
             waitFor("Other people in your photos")
             screenshot("05-add-someone")
-            Espresso.pressBack()
-            compose.waitForIdle()
+            back()
         }
 
         step("06-album-photos", goBackOnFailure = false) {
@@ -127,8 +137,7 @@ class AppScreensDeviceTest {
             compose.onNodeWithContentDescription("Album size and more").performClick()
             waitFor("What we left out")
             screenshot("10-album-size")
-            Espresso.pressBack()
-            compose.waitForIdle()
+            back()
         }
 
         step("11-send") {

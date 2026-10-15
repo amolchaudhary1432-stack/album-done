@@ -11,7 +11,6 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.swipeDown
 import androidx.compose.ui.test.swipeUp
-import androidx.test.espresso.Espresso
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.work.ListenableWorker
@@ -47,6 +46,7 @@ class RealWeddingDeviceTest {
     private fun has(text: String) = compose.onAllNodesWithText(text, substring = true).fetchSemanticsNodes().isNotEmpty()
 
     private fun screenshot(name: String) {
+        DeviceTestSupport.dismissSystemDialogs()
         compose.waitForIdle()
         Thread.sleep(1200)
         DeviceTestSupport.saveScreenshot(name, InstrumentationRegistry.getInstrumentation().uiAutomation.takeScreenshot())
@@ -96,6 +96,7 @@ class RealWeddingDeviceTest {
         Log.i("AlbumDoneTest", "Real wedding: ${files.size} photos in $seconds s")
 
         // Open it in the app, as the couple would after the notification.
+        DeviceTestSupport.dismissSystemDialogs()
         compose.waitUntil(30_000) { has(name) }
         compose.onNodeWithText(name).performClick()
         compose.waitUntil(5 * 60_000) { has("Send list to photographer") }
@@ -112,7 +113,7 @@ class RealWeddingDeviceTest {
             compose.onAllNodesWithTag("person-chip")[0].performClick()
             compose.waitUntil(30_000) { has("In ") }
             screenshot("real-20-family-person")
-            Espresso.pressBack()
+            DeviceTestSupport.device.pressBack()
             compose.waitForIdle()
         }
         if (compose.onAllNodesWithTag("cover").fetchSemanticsNodes().isNotEmpty()) {

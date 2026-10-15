@@ -187,6 +187,16 @@ interface AlbumDao {
     )
     fun peopleWithFaces(projectId: Long): Flow<List<PersonWithFace>>
 
+    /** Thumbnails of the photos where this person's face is biggest and clearest. */
+    @Query(
+        """
+        SELECT ph.thumbPath FROM faces f JOIN photos ph ON ph.id = f.photoId
+        WHERE f.personId = :personId AND ph.thumbPath IS NOT NULL
+        ORDER BY (f.`right` - f.`left`) * f.quality DESC LIMIT 12
+        """
+    )
+    suspend fun sampleThumbs(personId: Long): List<String>
+
     @Query("DELETE FROM people WHERE projectId = :id")
     suspend fun deletePeople(id: Long)
 

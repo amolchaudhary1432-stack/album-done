@@ -270,7 +270,8 @@ private val FRIENDS = listOf("Best friend", "Friend")
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 private fun PersonSheet(vm: AlbumViewModel, projectId: Long, personId: Long, album: AlbumState, onClose: () -> Unit) {
-    val flow = remember(personId) { vm.personDetail(projectId, personId) }
+    val chip = remember(album, personId) { (listOfNotNull(album.bride, album.groom) + album.family + album.others).firstOrNull { it.personId == personId } }
+    val flow = remember(personId) { vm.personDetail(projectId, personId, chip?.side ?: PersonSide.UNKNOWN) }
     val detail by flow.collectAsStateWithLifecycle(initialValue = null)
     val sheet = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     var side by rememberSaveable(personId) { mutableStateOf<String?>(null) }
@@ -281,70 +282,16 @@ private fun PersonSheet(vm: AlbumViewModel, projectId: Long, personId: Long, alb
     ModalBottomSheet(onDismissRequest = onClose, sheetState = sheet) {
         val d = detail
         if (d == null) {
-            Box(Modifier.fillMaxWidth().height(200.dp), contentAlignment = Alignment.Center) { CircularProgressIndicator() }
-            return@ModalBottomSheet
-        }
-        val person = d.person
-        val chosenSide = side ?: person.side.takeIf { it != PersonSide.UNKNOWN } ?: d.guessedSide.takeIf { it != PersonSide.UNKNOWN } ?: PersonSide.BRIDE
-        Column(
-            Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).padding(horizontal = 20.dp).padding(bottom = 28.dp),
-            verticalArrangement = Arrangement.spacedBy(14.dp),
-        ) {
-            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(14.dp)) {
-                FaceAvatar(d.face, 72.dp)
-                Column {
-                    Text(d.role ?: person.name.ifBlank { "Who is this?" }, style = MaterialTheme.typography.headlineSmall)
-                    Text("In ${person.photoCount} photos", color = MaterialTheme.colorScheme.onSurfaceVariant)
+            // The face and name are already known from the album; the rest follows in a moment.
+            Column(Modifier.fillMaxWidth().padding(horizontal = 20.dp).padding(bottom = 28.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
+                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(14.dp)) {
+                    chip?.let { FaceAvatar(it.face, 72.dp) }
+                    Text(chip?.label ?: "", style = MaterialTheme.typography.headlineSmall)
                 }
+                Box(Modifier.fillMaxWidth().height(120.dp), contentAlignment = Alignment.Center) { CircularProgressIndicator() }
             }
-            if (d.samples.isNotEmpty()) {
-                Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                    for (path in d.samples) {
-                        coil.compose.AsyncImage(model = java.io.File(path), contentDescription = null,
-                            contentScale = androidx.compose.ui.layout.ContentScale.Crop,
-                            modifier = Modifier.weight(1f).aspectRatio(1f).clip(RoundedCornerShape(6.dp)))
-                    }
-                }
-            }
-            if (d.role == null) {
-                FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    for ((value, label) in listOf(PersonSide.BRIDE to "Bride's family", PersonSide.GROOM to "Groom's family", PersonSide.UNKNOWN to "Friend")) {
-                        FilterChip(selected = chosenSide == value, onClick = { side = value; relation = "" }, label = { Text(label) })
-                    }
-                }
-                FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    for (r in if (chosenSide == PersonSide.UNKNOWN) FRIENDS else FAMILY) {
-                        FilterChip(selected = relation == r, onClick = { relation = r }, label = { Text(r) }, modifier = Modifier.testTag("relation-$r"))
-                    }
-                }
-                OutlinedTextField(value = name, onValueChange = { name = it.take(30) }, singleLine = true,
-                    label = { Text("Name (optional), e.g. Aai, Nani, Mama") }, modifier = Modifier.fillMaxWidth())
-                val rule = when (relation) {
-                    "" -> "Who is this? That decides how many photos they get."
-                    "Mother", "Father", "Sister", "Brother", "Best friend" -> "At least 5 good photos with the two of you."
-                    "Grandmother", "Grandfather" -> "At least 5 good photos with the two of you, and elders come first."
-                    else -> "At least 2 good photos with the two of you."
-                }
-                Surface(color = MaterialTheme.colorScheme.surfaceVariant, shape = RoundedCornerShape(10.dp)) {
-                    Text(rule, modifier = Modifier.padding(10.dp), style = MaterialTheme.typography.bodyMedium)
-                }
-                Button(
-                    onClick = { vm.setRelation(projectId, person, chosenSide, relation, name); onClose() },
-                    enabled = relation.isNotEmpty() || name.isNotBlank(),
-                    modifier = Modifier.fillMaxWidth().height(50.dp), shape = RoundedCornerShape(14.dp),
-                ) { Text("Save") }
-            }
-            HorizontalDivider()
-            Column {
-                if (d.role == null) {
-                    SheetAction("Not family. Show them less") { vm.notFamily(projectId, person); onClose() }
-                    SheetAction("This is the bride") { vm.setBride(projectId, person.id); onClose() }
-                    SheetAction("This is the groom") { vm.setGroom(projectId, person.id); onClose() }
-                }
-                SheetAction("These photos show two different people") { vm.split(projectId, person.id); onClose() }
-                SheetAction("Same person as someone else…") { merging = true }
-                SheetAction("Find more photos of them") { vm.findMore(projectId, person.id); onClose() }
-            }
+        } else {
+            PersonSheetContent(vm, projectId, d, side, relation, name, { side = it }, { relation = it }, { name = it }, { merging = true }, onClose)
         }
     }
 
@@ -368,6 +315,78 @@ private fun PersonSheet(vm: AlbumViewModel, projectId: Long, personId: Long, alb
             },
             confirmButton = { TextButton(onClick = { merging = false }) { Text("Cancel") } },
         )
+    }
+}
+
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+private fun PersonSheetContent(
+    vm: AlbumViewModel, projectId: Long, d: PersonDetail,
+    side: String?, relation: String, name: String,
+    setSide: (String) -> Unit, setRelation: (String) -> Unit, setName: (String) -> Unit,
+    startMerge: () -> Unit, onClose: () -> Unit,
+) {
+    val person = d.person
+    val chosenSide = side ?: person.side.takeIf { it != PersonSide.UNKNOWN } ?: d.guessedSide.takeIf { it != PersonSide.UNKNOWN } ?: PersonSide.BRIDE
+    Column(
+        Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).padding(horizontal = 20.dp).padding(bottom = 28.dp),
+        verticalArrangement = Arrangement.spacedBy(14.dp),
+    ) {
+        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(14.dp)) {
+            FaceAvatar(d.face, 72.dp)
+            Column {
+                Text(d.role ?: person.name.ifBlank { "Who is this?" }, style = MaterialTheme.typography.headlineSmall)
+                Text("In ${person.photoCount} photo${if (person.photoCount == 1) "" else "s"}", color = MaterialTheme.colorScheme.onSurfaceVariant)
+            }
+        }
+        if (d.samples.isNotEmpty()) {
+            Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                for (path in d.samples) {
+                    coil.compose.AsyncImage(model = java.io.File(path), contentDescription = null,
+                        contentScale = androidx.compose.ui.layout.ContentScale.Crop,
+                        modifier = Modifier.weight(1f).aspectRatio(1f).clip(RoundedCornerShape(6.dp)))
+                }
+            }
+        }
+        if (d.role == null) {
+            FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                for ((value, label) in listOf(PersonSide.BRIDE to "Bride's family", PersonSide.GROOM to "Groom's family", PersonSide.UNKNOWN to "Friend")) {
+                    FilterChip(selected = chosenSide == value, onClick = { setSide(value); setRelation("") }, label = { Text(label) })
+                }
+            }
+            FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                for (r in if (chosenSide == PersonSide.UNKNOWN) FRIENDS else FAMILY) {
+                    FilterChip(selected = relation == r, onClick = { setRelation(r) }, label = { Text(r) }, modifier = Modifier.testTag("relation-$r"))
+                }
+            }
+            OutlinedTextField(value = name, onValueChange = { setName(it.take(30)) }, singleLine = true,
+                label = { Text("Name (optional), e.g. Aai, Nani, Mama") }, modifier = Modifier.fillMaxWidth())
+            val rule = when (relation) {
+                "" -> "Who is this? That decides how many photos they get."
+                "Mother", "Father", "Sister", "Brother", "Best friend" -> "At least 5 good photos with the two of you."
+                "Grandmother", "Grandfather" -> "At least 5 good photos with the two of you, and elders come first."
+                else -> "At least 2 good photos with the two of you."
+            }
+            Surface(color = MaterialTheme.colorScheme.surfaceVariant, shape = RoundedCornerShape(10.dp)) {
+                Text(rule, modifier = Modifier.padding(10.dp), style = MaterialTheme.typography.bodyMedium)
+            }
+            Button(
+                onClick = { vm.setRelation(projectId, person, chosenSide, relation, name); onClose() },
+                enabled = relation.isNotEmpty() || name.isNotBlank(),
+                modifier = Modifier.fillMaxWidth().height(50.dp), shape = RoundedCornerShape(14.dp),
+            ) { Text("Save") }
+        }
+        HorizontalDivider()
+        Column {
+            if (d.role == null) {
+                SheetAction("Not family. Show them less") { vm.notFamily(projectId, person); onClose() }
+                SheetAction("This is the bride") { vm.setBride(projectId, person.id); onClose() }
+                SheetAction("This is the groom") { vm.setGroom(projectId, person.id); onClose() }
+            }
+            SheetAction("These photos show two different people") { vm.split(projectId, person.id); onClose() }
+            SheetAction("Same person as someone else…") { startMerge() }
+            SheetAction("Find more photos of them") { vm.findMore(projectId, person.id); onClose() }
+        }
     }
 }
 
@@ -401,6 +420,8 @@ private fun SettingsSheet(vm: AlbumViewModel, projectId: Long, s: AlbumState, on
     ModalBottomSheet(onDismissRequest = onClose, sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)) {
         Column(Modifier.padding(horizontal = 20.dp).padding(bottom = 28.dp).verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(14.dp)) {
             Text("Album size", style = MaterialTheme.typography.headlineSmall)
+            Text("Your album has ${s.total} photos now. Choose another size and it is remade at once.",
+                color = MaterialTheme.colorScheme.onSurfaceVariant)
             FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 for (n in listOf(150, 250, 350, 500)) {
                     FilterChip(selected = s.project.albumSize == n, onClick = { vm.setAlbumSize(projectId, n); onClose() }, label = { Text("$n") })

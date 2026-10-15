@@ -5,7 +5,7 @@ name: Phone test
 on:
   push:
     branches: ['claude/**']
-    paths-ignore: ['tools/test-photos/**', '.github/workflows/test-photos.yml']
+    paths-ignore: ['tools/**', '.github/workflows/test-photos.yml', '.github/workflows/scene-eval.yml', 'docs/**', '*.md', '.gitignore']
   workflow_dispatch:
   workflow_call:
 
@@ -56,6 +56,9 @@ jobs:
           disable-animations: true
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           script: |
+            adb shell settings put global hide_error_dialogs 1 || true
+            adb shell cmd uimode night yes || true
+            adb shell cmd uimode night no || true
             gradle --no-daemon connectedDebugAndroidTest -Pandroid.injected.androidTest.leaveApksInstalledAfterRun=true || touch tests-failed
             mkdir -p screens && (adb exec-out run-as com.albumdone.app tar -c files/screens > screens/screens.tar || true)
             adb logcat -d > logcat.txt || true
@@ -158,6 +161,9 @@ jobs:
           disable-animations: true
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           script: |
+            adb shell settings put global hide_error_dialogs 1 || true
+            adb shell cmd uimode night yes || true
+            adb shell cmd uimode night no || true
             gradle --no-daemon connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.albumdone.app.RealWeddingDeviceTest -Pandroid.injected.androidTest.leaveApksInstalledAfterRun=true || touch tests-failed
             mkdir -p screens && (adb exec-out run-as com.albumdone.app tar -c files/screens > screens/screens.tar || true)
             adb logcat -d > logcat.txt || true

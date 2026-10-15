@@ -3,6 +3,7 @@ package com.albumdone.app.ui
 import android.app.Application
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -35,6 +36,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.stateIn
@@ -79,6 +81,8 @@ data class PersonChip(
     val inAlbum: Int,
     val target: Int,
     val warning: String?,
+    /** Whose side the app thinks they are on (PersonSide). */
+    val side: String = PersonSide.UNKNOWN,
 )
 
 data class AlbumPhoto(
@@ -119,6 +123,8 @@ data class PersonDetail(
 data class Alternative(val photo: PhotoEntity, val note: String, val crop: Pair<Float, Float>)
 
 data class ViewerState(val photo: AlbumPhoto, val alternatives: List<Alternative>, val inAlbum: Boolean)
+
+private const val TAG = "AlbumDone"
 
 class AlbumViewModel(app: Application) : AndroidViewModel(app) {
 
@@ -348,6 +354,11 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
                 inAlbum = analysis.photos.count { it.id in selectedIds && id in it.people },
                 target = c?.target ?: 0,
                 warning = c?.warning,
+                side = when (tags.tag(id).side) {
+                    com.albumdone.app.plan.Side.BRIDE -> PersonSide.BRIDE
+                    com.albumdone.app.plan.Side.GROOM -> PersonSide.GROOM
+                    else -> PersonSide.UNKNOWN
+                },
             )
         }
 
@@ -486,27 +497,24 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
 
     // ---- People ----
 
-    fun personDetail(projectId: Long, personId: Long): Flow<PersonDetail?> =
+    /** One person for the "Who is this?" sheet. [guessedSide] is the app's guess, from the album. */
+    fun personDetail(projectId: Long, personId: Long, guessedSide: String): Flow<PersonDetail?> =
         combine(dao.peopleWithFaces(projectId), dao.projectSummary(projectId)) { persons, summary ->
-            val p = persons.firstOrNull { it.person.id == personId } ?: return@combine null
+            val p = persons.firstOrNull { it.person.id == personId }
+            Log.d(TAG, "person $personId: found=${p != null} among ${persons.size}")
+            if (p == null) return@combine null
             val project = summary?.project
-            val faces = dao.faceRows(projectId).filter { it.personId == personId }
-                .sortedByDescending { (it.right - it.left) * it.quality }
-            val thumbs = dao.photos(projectId).associate { it.id to it.thumbPath }
-            val samples = faces.map { it.photoId }.distinct().mapNotNull { thumbs[it] }.take(4)
-            val analysis = analysisFor(projectId)
-            val guessed = when (analysis.tags.tag(personId).side) {
-                com.albumdone.app.plan.Side.BRIDE -> PersonSide.BRIDE
-                com.albumdone.app.plan.Side.GROOM -> PersonSide.GROOM
-                else -> PersonSide.UNKNOWN
-            }
+            val samples = dao.sampleThumbs(personId).distinct().take(4)
             PersonDetail(
                 person = p.person,
                 face = FaceCrop(p.thumbPath, faceBox(p)),
                 samples = samples,
                 role = when (personId) { project?.brideId -> "Bride"; project?.groomId -> "Groom"; else -> null },
-                guessedSide = guessed,
-            )
+                guessedSide = guessedSide,
+            ).also { Log.d(TAG, "person $personId: ready, ${samples.size} samples") }
+        }.catch { e ->
+            Log.e(TAG, "person $personId could not be loaded", e)
+            throw e
         }.flowOn(Dispatchers.Default)
 
     private fun editPeople(projectId: Long, done: String? = null, block: suspend () -> Unit) {
