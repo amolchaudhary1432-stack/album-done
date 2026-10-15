@@ -209,3 +209,22 @@ After the brightness fix the re-run caught 6 of 6 flash-blown photos (none in th
 
 So a find the face mesh cannot read is kept only from 0.70, and only finds from 0.80 (or read by
 the mesh) are used to recognise people. Pink flower decoration had become a "person" before.
+
+### Claude as the judge: same 114 photos, album of 28 (`docs/eval/claude-vs-app-real-wedding.jpg`)
+
+Claude looked at every photo and picked 28 the way a person would; compared with the app's 28
+(clean run, couple not confirmed):
+
+- Same photo: 10. Same moment, a neighbouring frame: about 8 more. So about 18 of 28 moments agree.
+- What a person keeps that the app missed: the bride's best smiling, eye-contact close-ups (the
+  app took her looking down or in profile), the one close photo of the bride and groom together
+  (the app was unsure who the groom is and nobody answered), mother and daughter together, the
+  bride arriving with her garland, a playful veil shot, a family moment at the ritual.
+- What the app took that a person would not: the bride's face hidden under her veil (counted as a
+  "detail"), the altar with the bride's back, a busy crowd where the bride is not the subject, a
+  third and fourth frame of the same ritual.
+
+Lesson: the app is good at moments and at throwing out bad frames; it is weak at "is this the
+best expression, the best relationship, the best story beat". Those need a learned eye, not more
+rules. Next: score many weddings this way (a person's or Claude's picks as the answer key) and
+teach a small on-phone model from them.
