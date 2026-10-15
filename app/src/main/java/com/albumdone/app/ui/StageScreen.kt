@@ -82,7 +82,7 @@ fun StageCard(s: AlbumState, onOpen: () -> Unit, modifier: Modifier = Modifier) 
             Spacer(Modifier.width(10.dp))
             Column(Modifier.weight(1f)) {
                 Text("Family groups", style = MaterialTheme.typography.titleSmall)
-                Text("${s.stage.size} groups photographed with you · $inAlbum in your album",
+                Text("${s.stage.size} groups photographed with ${if (s.occasion.couple) "you" else s.mainWords} · $inAlbum in your album",
                     style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
             Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = null)
@@ -119,7 +119,7 @@ fun StageScreen(vm: AlbumViewModel, projectId: Long) {
         ) {
             item(key = "intro", span = wholeRow) {
                 Column(Modifier.padding(horizontal = 4.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                    Text("${items.size} groups were photographed with the two of you. $inAlbum are in your album.",
+                    Text("${items.size} groups were photographed with ${s.mainWords}. $inAlbum are in your album.",
                         style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     Text("Tap a photo to put it in or take it out. Name a family once and everyone in it is named.",
                         style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
@@ -138,6 +138,7 @@ fun StageScreen(vm: AlbumViewModel, projectId: Long) {
         naming?.let { item ->
             NameGroupSheet(
                 item,
+                couple = s.occasion.couple,
                 onSave = { side, name -> vm.tagGroup(projectId, item.guests.map { it.personId }, side, name, notFamily = false); naming = null },
                 onNotFamily = { vm.tagGroup(projectId, item.guests.map { it.personId }, PersonSide.UNKNOWN, "", notFamily = true); naming = null },
                 onClose = { naming = null },
@@ -190,9 +191,18 @@ private fun StageTile(item: StageItem, onToggle: () -> Unit, onName: () -> Unit)
 /** Names everyone in one family group at once. */
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
-private fun NameGroupSheet(item: StageItem, onSave: (side: String, name: String) -> Unit, onNotFamily: () -> Unit, onClose: () -> Unit) {
+private fun NameGroupSheet(
+    item: StageItem,
+    couple: Boolean,
+    onSave: (side: String, name: String) -> Unit,
+    onNotFamily: () -> Unit,
+    onClose: () -> Unit,
+) {
     val guessed = item.guests.map { it.side }.filter { it != PersonSide.UNKNOWN }.groupingBy { it }.eachCount().maxByOrNull { it.value }?.key
-    var side by rememberSaveable(item.photo.photo.id) { mutableStateOf(guessed ?: PersonSide.BRIDE) }
+    // A wedding has two families; a birthday or a trip just has family and friends.
+    val choices = if (couple) listOf(PersonSide.BRIDE to "Bride's family", PersonSide.GROOM to "Groom's family", PersonSide.UNKNOWN to "Friends")
+        else listOf(FAMILY to "Family", PersonSide.UNKNOWN to "Friends")
+    var side by rememberSaveable(item.photo.photo.id) { mutableStateOf(guessed ?: choices.first().first) }
     var name by rememberSaveable(item.photo.photo.id) { mutableStateOf("") }
     ModalBottomSheet(onDismissRequest = onClose, sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)) {
         Column(
@@ -207,14 +217,19 @@ private fun NameGroupSheet(item: StageItem, onSave: (side: String, name: String)
             Text("All ${item.guests.size} ${if (item.guests.size == 1) "person is" else "people are"} named at once.",
                 style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                for ((value, label) in listOf(PersonSide.BRIDE to "Bride's family", PersonSide.GROOM to "Groom's family", PersonSide.UNKNOWN to "Friends")) {
+                for ((value, label) in choices) {
                     FilterChip(selected = side == value, onClick = { side = value }, label = { Text(label) }, modifier = Modifier.testTag("group-side-$value"))
                 }
             }
             OutlinedTextField(value = name, onValueChange = { name = it.take(30) }, singleLine = true, shape = RoundedCornerShape(16.dp),
                 label = { Text("Family name (optional), e.g. Mama's family") }, modifier = Modifier.fillMaxWidth())
-            BigButton("Save", onClick = { onSave(side, name) }, modifier = Modifier.testTag("save-group"))
+            BigButton("Save", onClick = {
+                if (side == FAMILY) onSave(PersonSide.UNKNOWN, name.ifBlank { "Family" }) else onSave(side, name)
+            }, modifier = Modifier.testTag("save-group"))
             TextButton(onClick = onNotFamily, modifier = Modifier.fillMaxWidth()) { Text("Not family. Show them less") }
         }
     }
 }
+
+/** "Family" when a folder has no bride's and groom's sides (saved as no side, named Family). */
+private const val FAMILY = "FAMILY"

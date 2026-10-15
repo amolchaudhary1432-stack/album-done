@@ -198,7 +198,6 @@ object AlbumPlanner {
     const val FREQUENT_PERSON = 5
 
     // ---- Variety ----
-    const val DETAIL_SHARE = 0.10
     /** A photo this much covered by people, with no face visible, shows people facing away. */
     const val PEOPLE_NOT_DETAIL = 0.15f
     /** Pull of a moment that has not yet had its share of the event's places. */
@@ -801,7 +800,7 @@ object AlbumPlanner {
                     count >= target || t.guessed -> null
                     !anyPhoto -> "Not found in any photo"
                     t.id in usedPoorPhoto -> "Only poor photos found. We used the best one"
-                    good < target -> "Only $good good photo${if (good == 1) "" else "s"} with the couple"
+                    good < target -> "Only $good good photo${if (good == 1) "" else "s"} with ${if (tags.groomId != null) tags.pair() else tags.who(tags.brideId ?: 0)}"
                     else -> "Below the minimum of $target"
                 }
                 Coverage(t.id, tags.label(t.id), t.priority, t.side, t.elder, count, target, good, warning)
@@ -888,9 +887,9 @@ object AlbumPlanner {
             val couple = pool { isCoverCandidate(it) }
                 .maxByOrNull { it.quality * dressed(it) * (if (it.shot == ShotType.COUPLE_CLOSE) 1.1 else 1.0) }
             val (best, reason) = when {
-                couple != null -> couple to "Cover: the best portrait of the couple"
+                couple != null -> couple to "Cover: the best portrait of ${tags.pair()}"
                 else -> (pool { it.usable && it.shot == ShotType.BRIDE_SOLO }
-                    .maxByOrNull { it.quality * dressed(it) } ?: return) to "Cover: the bride's best portrait"
+                    .maxByOrNull { it.quality * dressed(it) } ?: return) to "Cover: ${tags.who(tags.brideId ?: 0)}'s best portrait"
             }
             coverId = best.id
             if (best.id in picked) reasons.getOrPut(best.id) { mutableListOf() }.add(0, reason)
@@ -912,12 +911,12 @@ object AlbumPlanner {
                     if (room() <= 0) return
                     if ((typeCount[event to type] ?: 0) > 0) continue
                     inEvent.filter { it.shot == type && available(it) }.maxByOrNull { it.quality }
-                        ?.let { add(it, if (type == ShotType.BRIDE_SOLO) "Portrait of the bride" else "Portrait of the groom") }
+                        ?.let { add(it, portraitOf(type)) }
                 }
                 // The best candid of the couple looking at each other.
                 if (quota >= 8 && room() > 0 && inEvent.none { it.id in picked && it.coupleLookingAtEachOther }) {
                     inEvent.filter { it.coupleLookingAtEachOther && available(it) }.maxByOrNull { it.quality }
-                        ?.let { add(it, "The couple looking at each other") }
+                        ?.let { add(it, lookingAtEachOther()) }
                 }
             }
             // At least one solo portrait of each overall, even in small albums.
@@ -925,9 +924,14 @@ object AlbumPlanner {
                 if (room() <= 0) return
                 if (picked.any { a.byId.getValue(it).shot == type }) continue
                 clean.filter { it.shot == type && available(it) }.maxByOrNull { it.quality }
-                    ?.let { add(it, if (type == ShotType.BRIDE_SOLO) "Portrait of the bride" else "Portrait of the groom") }
+                    ?.let { add(it, portraitOf(type)) }
             }
         }
+
+        fun portraitOf(type: ShotType): String =
+            "Portrait of " + tags.who((if (type == ShotType.BRIDE_SOLO) tags.brideId else tags.groomId) ?: 0)
+
+        fun lookingAtEachOther(): String = tags.pair().capitalized() + " looking at each other"
 
         // ---- 1. People: the family ----
 
@@ -980,7 +984,7 @@ object AlbumPlanner {
             return g + 0.5 * c.quality + (if (both) 0.2 else 0.0) + sideBonus(c)
         }
 
-        /** In plain words: "Aai and Baba with the couple", "Family elder with the bride". */
+        /** In plain words: "Aai and Baba with the couple", "Family elder with the bride", "Nani with the birthday star". */
         fun peopleReason(c: AssessedPhoto, needy: Set<Long>): String {
             val who = c.people.filter { it in needy }.map { id ->
                 val t = tags.tag(id)
@@ -994,9 +998,9 @@ object AlbumPlanner {
             val bride = tags.brideId != null && tags.brideId in c.people
             val groom = tags.groomId != null && tags.groomId in c.people
             val with = when {
-                bride && groom -> " with the couple"
-                bride -> " with the bride"
-                groom -> " with the groom"
+                bride && groom -> " with ${tags.pair()}"
+                bride -> " with ${tags.who(tags.brideId!!)}"
+                groom -> " with ${tags.who(tags.groomId!!)}"
                 else -> ""
             }
             return names + with
@@ -1032,10 +1036,10 @@ object AlbumPlanner {
             }
         }
 
-    /** About 10% of each event: details without faces (mehendi hands, jewellery, decor, food). */
+    /** About 10% of each event (a quarter on a trip): no faces (mehendi hands, jewellery, decor, food, places). */
         fun pickDetails(event: String, budget: Int): Int {
             val quota = quotas[event] ?: 0
-            val want = (quota * DETAIL_SHARE).roundToInt() - (typeCount[event to ShotType.DETAIL] ?: 0)
+            val want = (quota * tags.occasion.detailShare).roundToInt() - (typeCount[event to ShotType.DETAIL] ?: 0)
             var n = 0
             val details = clean.filter { it.event == event && it.shot == ShotType.DETAIL }
             while (n < min(want, budget) && room() > 0) {
@@ -1044,7 +1048,7 @@ object AlbumPlanner {
                     val hasDetail = momentPicks[d.momentId]?.any { it.shot == ShotType.DETAIL } == true
                     d.quality - (if (hasDetail) 0.5 else 0.0)
                 } ?: break
-                add(c, "Detail shot for variety (no faces)")
+                add(c, if (tags.occasion == Occasion.TRIP) "The place, for variety (no faces)" else "Detail shot for variety (no faces)")
                 n++
             }
             return n
@@ -1115,10 +1119,10 @@ object AlbumPlanner {
             // Shot type mix within the event.
             val inEvent = (eventCount[c.event] ?: 0) + 1
             val share = (typeCount[c.event to c.shot] ?: 0).toDouble() / inEvent
-            val wantShare = TYPE_SHARE[c.shot] ?: 0.1
+            val wantShare = if (c.shot == ShotType.DETAIL) tags.occasion.detailShare else TYPE_SHARE[c.shot] ?: 0.1
             if (share < wantShare) v += 0.08
             // Details are about a tenth of each event, not more.
-            if (c.shot == ShotType.DETAIL && share > 1.5 * DETAIL_SHARE) v -= 0.15
+            if (c.shot == ShotType.DETAIL && share > 1.5 * tags.occasion.detailShare) v -= 0.15
 
             // No repeated pose back to back.
             if (repeatsNeighbour(c)) v -= 0.3
@@ -1178,15 +1182,14 @@ object AlbumPlanner {
             if (list.isEmpty()) list += "Kept from your shortlist"
             if (p.similarShots > 1) list += "Best of ${p.similarShots} similar shots"
             if (p.allEyesOpenAndLooking) list += "Everyone's eyes open and looking at the camera"
-            if (p.coupleLookingAtEachOther && list.none { it.contains("looking at each other") }) list += "The couple looking at each other"
+            if (p.coupleLookingAtEachOther && list.none { it.contains("looking at each other") }) list += lookingAtEachOther()
             if (p.emotional) list += "Real emotion: tears are never a flaw"
             if (p.interaction && !p.allEyesOpenAndLooking) list += "Natural moment: people interacting"
             val kind = when (p.shot) {
-                ShotType.COUPLE_CLOSE -> "Close-up of the couple"
-                ShotType.COUPLE_FULL -> "The couple, full length"
-                ShotType.BRIDE_SOLO -> "Portrait of the bride"
-                ShotType.GROOM_SOLO -> "Portrait of the groom"
-                ShotType.GROUP -> "Family group photo"
+                ShotType.COUPLE_CLOSE -> "Close-up of ${tags.pair()}"
+                ShotType.COUPLE_FULL -> "${tags.pair().capitalized()}, full length"
+                ShotType.BRIDE_SOLO, ShotType.GROOM_SOLO -> portraitOf(p.shot)
+                ShotType.GROUP -> if (tags.occasion.couple) "Family group photo" else "Group photo"
                 ShotType.CANDID -> "Candid moment"
                 ShotType.GUEST -> "Portrait"
                 ShotType.DETAIL -> null

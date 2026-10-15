@@ -153,4 +153,25 @@ class FamilyGuessTest {
         assertTrue(g.isNotEmpty())
         assertTrue(g.values.all { it.side == Side.UNKNOWN })
     }
+
+    @Test
+    fun aBirthdayHasFamilyButNoSides() {
+        val star = 1L; val mummy = 10L; val papa = 11L; val nani = 12L
+        val day = 1_700_000_000_000L
+        val photos = (0 until 8).flatMap { visit ->
+            val t = day + visit * 30 * 60_000L
+            listOf(
+                PhotoPeople(nextPhoto++, "Party", true, setOf(star, mummy), t),
+                PhotoPeople(nextPhoto++, "Party", true, setOf(star, papa), t + 60_000L),
+                PhotoPeople(nextPhoto++, "Party", true, setOf(star, mummy, papa), t + 120_000L),
+                PhotoPeople(nextPhoto++, "Party", true, setOf(star, nani), t + 180_000L),
+            )
+        } + (100L..120L).map { g -> PhotoPeople(nextPhoto++, "Party", true, setOf(star, g), day + 4 * 3_600_000L) }
+        val g = FamilyGuess.guess(photos, star, null, sides = false)
+        assertTrue(g.values.all { it.side == Side.UNKNOWN })
+        for (id in listOf(mummy, papa, nani)) assertTrue("person $id", g.getValue(id).closeFamily)
+        assertEquals(2, g.values.count { it.priority == Priority.MUST })
+        assertFalse(g.getValue(105L).closeFamily)
+    }
 }
+

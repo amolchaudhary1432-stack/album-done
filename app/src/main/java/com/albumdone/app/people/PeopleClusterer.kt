@@ -207,6 +207,35 @@ object PeopleClusterer {
         return score >= 1.5 * next
     }
 
+    /**
+     * Who a birthday, a baby's function, a trip or any other folder is about: the most photographed
+     * person, plus a second one when the two are photographed nearly as often and often together (a
+     * couple on a trip). [pairs]: whether a second main person makes sense for the occasion at all.
+     */
+    fun mainPeople(photosOf: Map<Long, Set<Long>>, pairs: Boolean): Pair<Long, Long?>? {
+        val ranked = photosOf.entries.filter { it.value.size >= 2 }.sortedByDescending { it.value.size }
+        val first = ranked.firstOrNull() ?: return null
+        if (!pairs) return first.key to null
+        val second = ranked.drop(1).take(8).maxByOrNull { e -> e.value.count { it in first.value } }
+            ?: return first.key to null
+        val together = second.value.count { it in first.value }
+        val ok = second.value.size >= SECOND_MAIN_SHARE * first.value.size && together >= MAIN_TOGETHER_SHARE * second.value.size
+        return first.key to second.key.takeIf { ok }
+    }
+
+    /** The main people stand out clearly from everyone else, so there is nothing to ask. */
+    fun mainSure(photosOf: Map<Long, Set<Long>>, main: Pair<Long, Long?>): Boolean {
+        val mains = listOfNotNull(main.first, main.second)
+        val least = mains.minOf { photosOf[it]?.size ?: 0 }
+        val next = photosOf.filterKeys { it !in mains }.values.maxOfOrNull { it.size } ?: 0
+        return least >= 3 && least >= 1.5 * next
+    }
+
+    /** A second main person is photographed at least this share as often as the first... */
+    const val SECOND_MAIN_SHARE = 0.5
+    /** ...and is with the first in at least this share of their own photos. */
+    const val MAIN_TOGETHER_SHARE = 0.3
+
     /** How much a photo together counts towards being the couple, by the kind of function. */
     const val WEDDING_WEIGHT = 2.0
     const val OWN_FUNCTION_WEIGHT = 0.4

@@ -12,6 +12,7 @@ import com.albumdone.app.plan.AlbumPlanner
 import com.albumdone.app.plan.Box
 import com.albumdone.app.plan.EventKind
 import com.albumdone.app.plan.EyeState
+import com.albumdone.app.plan.Occasion
 import com.albumdone.app.plan.Expression
 import com.albumdone.app.plan.PeopleTags
 import com.albumdone.app.plan.PersonTag
@@ -20,7 +21,7 @@ import com.albumdone.app.plan.PlanPhoto
 import com.albumdone.app.plan.Priority
 import com.albumdone.app.plan.Side
 
-/** Saves and edits the people of a wedding, and loads everything the planner needs. */
+/** Saves and edits the people in a folder (a wedding, a birthday...), and loads everything the planner needs. */
 class PeopleRepository(private val dao: AlbumDao) {
 
     private fun FaceEmbeddingRow.vector() = FaceVector(id, photoId, FaceEmbedder.fromBytes(embedding), quality)
@@ -58,6 +59,15 @@ class PeopleRepository(private val dao: AlbumDao) {
         val byPhoto = clear.groupBy { it.photoId }
         val twoShots = byPhoto.filter { it.value.size == 2 }.keys
         val portraits = byPhoto.filter { (_, f) -> f.size == 2 && f.all { it.right - it.left >= 0.08f } }.keys
+        val occasion = Occasion.of(dao.project(projectId)?.occasion)
+        if (!occasion.couple) {
+            // A birthday, a baby, a trip: the album is about the most photographed person (or two).
+            val pairs = occasion == Occasion.TRIP || occasion == Occasion.OTHER
+            val main = PeopleClusterer.mainPeople(photosOf, pairs)
+            dao.setCouple(projectId, main?.first, main?.second)
+            dao.setCoupleSure(projectId, main != null && PeopleClusterer.mainSure(photosOf, main))
+            return
+        }
         val couple = PeopleClusterer.detectCouple(photosOf, hints, { weight[it] ?: 1.0 }, twoShots)
         dao.setCouple(projectId, couple?.first, couple?.second)
         dao.setCoupleSure(projectId, couple != null && PeopleClusterer.coupleSure(photosOf, couple, { weight[it] ?: 1.0 }, portraits))
@@ -158,11 +168,12 @@ class PeopleRepository(private val dao: AlbumDao) {
                 takenAt = p.takenAt,
             )
         }
-        val guesses = FamilyGuess.guess(forGuess, project.brideId, project.groomId)
+        val occasion = Occasion.of(project.occasion)
+        val guesses = FamilyGuess.guess(forGuess, project.brideId, project.groomId, sides = occasion.couple)
         val userTagged = people.filter {
             it.priority != PersonPriority.NORMAL || it.side != PersonSide.UNKNOWN || it.elder
         }.map { it.id }.toSet()
-        val tags = FamilyGuess.mergeWithUserTags(guesses, PeopleTags(project.brideId, project.groomId, userTags), userTagged)
+        val tags = FamilyGuess.mergeWithUserTags(guesses, PeopleTags(project.brideId, project.groomId, userTags, occasion = occasion), userTagged)
         return photos to tags
     }
 

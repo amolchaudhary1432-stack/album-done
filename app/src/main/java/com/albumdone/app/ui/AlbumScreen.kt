@@ -208,7 +208,10 @@ fun AlbumScreen(vm: AlbumViewModel, projectId: Long) {
 
         personSheet?.let { id -> PersonSheet(vm, projectId, id, s, onClose = { personSheet = null }) }
         if (settingsSheet) SettingsSheet(vm, projectId, s, onClose = { settingsSheet = false })
-        if (chooseGroom) ChooseGroomSheet(s, onPick = { chooseGroom = false; vm.setGroom(projectId, it) }, onClose = { chooseGroom = false })
+        if (chooseGroom) ChooseGroomSheet(s, onPick = {
+            chooseGroom = false
+            if (s.occasion.couple) vm.setGroom(projectId, it) else vm.setMain(projectId, it)
+        }, onClose = { chooseGroom = false })
     }
 }
 
@@ -330,36 +333,54 @@ fun QuickTagCard(toName: List<PersonChip>, onClick: () -> Unit, modifier: Modifi
 
 @Composable
 private fun CoupleCard(s: AlbumState, onTap: (Long) -> Unit, onSwap: () -> Unit, onConfirm: () -> Unit, onChoose: () -> Unit) {
-    val unsure = s.bride != null && s.groom != null && !s.project.coupleSure
+    val couple = s.occasion.couple
+    val main = listOfNotNull(s.bride, s.groom)
+    val found = if (couple) main.size == 2 else main.isNotEmpty()
+    val unsure = found && !s.project.coupleSure
     val bg = if (unsure) MaterialTheme.colorScheme.secondaryContainer else MaterialTheme.colorScheme.surfaceContainer
     Surface(color = bg, shape = RoundedCornerShape(20.dp), modifier = Modifier.fillMaxWidth().testTag("couple-card")) {
         Column(Modifier.padding(start = 14.dp, top = 12.dp, bottom = if (unsure) 6.dp else 12.dp, end = 6.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                if (s.bride == null || s.groom == null) {
-                    Text("We could not tell who the bride and groom are. Tap See all below and choose them.",
-                        modifier = Modifier.weight(1f).padding(end = 10.dp))
+                if (!found) {
+                    Text(
+                        if (couple) "We could not tell who the bride and groom are. Tap See all below and choose them."
+                        else "We could not tell who these photos are about. Tap See all below and choose.",
+                        modifier = Modifier.weight(1f).padding(end = 10.dp),
+                    )
                     return@Row
                 }
-                // Two overlapping faces; each opens that person.
-                Box(Modifier.width(88.dp)) {
-                    Box(Modifier.clip(CircleShape).clickable { onTap(s.bride.personId) }.testTag("couple-bride")) { FaceAvatar(s.bride.face, 52.dp) }
-                    Box(Modifier.padding(start = 36.dp).border(3.dp, bg, CircleShape).clip(CircleShape)
-                        .clickable { onTap(s.groom.personId) }.testTag("couple-groom")) { FaceAvatar(s.groom.face, 52.dp) }
+                // One or two overlapping faces; each opens that person.
+                Box(Modifier.width(if (main.size == 2) 88.dp else 52.dp)) {
+                    main.forEachIndexed { i, c ->
+                        val ring = if (i > 0) Modifier.border(3.dp, bg, CircleShape) else Modifier
+                        Box(Modifier.padding(start = (i * 36).dp).then(ring).clip(CircleShape)
+                            .clickable { onTap(c.personId) }.testTag(if (i == 0) "couple-bride" else "couple-groom")) { FaceAvatar(c.face, 52.dp) }
+                    }
                 }
                 Spacer(Modifier.width(10.dp))
                 Column(Modifier.weight(1f)) {
                     if (unsure) {
-                        Text("Is this the groom?", style = MaterialTheme.typography.titleMedium)
+                        Text(
+                            when {
+                                couple -> "Is this the groom?"
+                                main.size == 1 -> "Are the photos about ${main[0].label.takeIf { main[0].known } ?: "this person"}?"
+                                else -> "Are the photos about these two?"
+                            },
+                            style = MaterialTheme.typography.titleMedium,
+                        )
                         Text("We are not sure from the photos", style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 2)
                     } else {
-                        val named = s.bride.label != "Bride" || s.groom.label != "Groom"
-                        Text(if (named) "${s.bride.label} & ${s.groom.label}" else "Bride & groom", style = MaterialTheme.typography.titleMedium,
-                            maxLines = 1, overflow = TextOverflow.Ellipsis)
-                        Text("Tap a face to see their photos", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 2)
+                        val title = when {
+                            couple && s.bride!!.label == "Bride" && s.groom!!.label == "Groom" -> "Bride & groom"
+                            else -> main.joinToString(" & ") { it.label }
+                        }
+                        Text(title, style = MaterialTheme.typography.titleMedium, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                        Text(if (couple) "Tap a face to see their photos" else "The album is built around ${if (main.size == 1) "them" else "these two"}",
+                            style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 2)
                     }
                 }
-                if (!unsure) TextButton(onClick = onSwap) { Text("Swap") }
+                if (!unsure && couple) TextButton(onClick = onSwap) { Text("Swap") }
             }
             if (unsure) {
                 Row(Modifier.fillMaxWidth().padding(end = 6.dp), horizontalArrangement = Arrangement.End) {
@@ -371,19 +392,21 @@ private fun CoupleCard(s: AlbumState, onTap: (Long) -> Unit, onSwap: () -> Unit,
     }
 }
 
-/** "Who is the groom?": the most photographed people, tap one. */
+/** "Who is the groom?" (or for a birthday or a trip, "Who are the photos about?"): the most photographed people, tap one. */
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 private fun ChooseGroomSheet(s: AlbumState, onPick: (Long) -> Unit, onClose: () -> Unit) {
-    val people = (s.family + s.others + listOfNotNull(s.groom))
-        .filter { it.personId != s.bride?.personId }
+    val couple = s.occasion.couple
+    val people = (s.family + s.others + listOfNotNull(s.groom) + (if (couple) emptyList() else listOfNotNull(s.bride)))
+        .filter { !couple || it.personId != s.bride?.personId }
         .distinctBy { it.personId }
         .sortedByDescending { it.photoCount }
         .take(24)
     ModalBottomSheet(onDismissRequest = onClose, sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)) {
         Column(Modifier.padding(horizontal = 20.dp).padding(bottom = 28.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-            Text("Who is the groom?", style = MaterialTheme.typography.headlineSmall)
-            Text("Tap his face. The album is remade around the two of you.", color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Text(if (couple) "Who is the groom?" else "Who are the photos about?", style = MaterialTheme.typography.headlineSmall)
+            Text(if (couple) "Tap his face. The album is remade around the two of you." else "Tap their face. The album is remade around them.",
+                color = MaterialTheme.colorScheme.onSurfaceVariant)
             FlowRow(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalArrangement = Arrangement.spacedBy(12.dp),
                 modifier = Modifier.verticalScroll(rememberScrollState())) {
                 for (c in people) {
@@ -445,7 +468,7 @@ internal fun PersonSheet(vm: AlbumViewModel, projectId: Long, personId: Long, al
                 Box(Modifier.fillMaxWidth().height(120.dp), contentAlignment = Alignment.Center) { CircularProgressIndicator() }
             }
         } else {
-            PersonSheetContent(vm, projectId, d, side, relation, name, { side = it }, { relation = it }, { name = it }, { merging = true }, onClose)
+            PersonSheetContent(vm, projectId, d, album, side, relation, name, { side = it }, { relation = it }, { name = it }, { merging = true }, onClose)
         }
     }
 
@@ -475,13 +498,18 @@ internal fun PersonSheet(vm: AlbumViewModel, projectId: Long, personId: Long, al
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun PersonSheetContent(
-    vm: AlbumViewModel, projectId: Long, d: PersonDetail,
+    vm: AlbumViewModel, projectId: Long, d: PersonDetail, album: AlbumState,
     side: String?, relation: String, name: String,
     setSide: (String) -> Unit, setRelation: (String) -> Unit, setName: (String) -> Unit,
     startMerge: () -> Unit, onClose: () -> Unit,
 ) {
     val person = d.person
-    val chosenSide = side ?: person.side.takeIf { it != PersonSide.UNKNOWN } ?: d.guessedSide.takeIf { it != PersonSide.UNKNOWN } ?: PersonSide.BRIDE
+    val couple = album.occasion.couple
+    // A wedding has the bride's family and the groom's; a birthday or a trip just has family and friends.
+    val sides = if (couple) listOf(PersonSide.BRIDE to "Bride's family", PersonSide.GROOM to "Groom's family", PersonSide.UNKNOWN to "Friend")
+        else listOf(FAMILY_SIDE to "Family", PersonSide.UNKNOWN to "Friend")
+    val chosenSide = side ?: person.side.takeIf { it != PersonSide.UNKNOWN } ?: d.guessedSide.takeIf { it != PersonSide.UNKNOWN }
+        ?: sides.first().first
     Column(
         Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).padding(horizontal = 20.dp).padding(bottom = 28.dp),
         verticalArrangement = Arrangement.spacedBy(14.dp),
@@ -504,7 +532,7 @@ private fun PersonSheetContent(
         }
         if (d.role == null) {
             FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                for ((value, label) in listOf(PersonSide.BRIDE to "Bride's family", PersonSide.GROOM to "Groom's family", PersonSide.UNKNOWN to "Friend")) {
+                for ((value, label) in sides) {
                     FilterChip(selected = chosenSide == value, onClick = { setSide(value); setRelation("") }, label = { Text(label) })
                 }
             }
@@ -515,24 +543,34 @@ private fun PersonSheetContent(
             }
             OutlinedTextField(value = name, onValueChange = { setName(it.take(30)) }, singleLine = true,
                 label = { Text("Name (optional), e.g. Aai, Nani, Mama") }, modifier = Modifier.fillMaxWidth())
+            val with = album.mainWords
             val rule = when (relation) {
                 "" -> "Who is this? That decides how many photos they get."
-                "Mother", "Father", "Sister", "Brother", "Best friend" -> "At least 5 good photos with the two of you."
-                "Grandmother", "Grandfather" -> "At least 5 good photos with the two of you, and elders come first."
-                else -> "At least 2 good photos with the two of you."
+                "Mother", "Father", "Sister", "Brother", "Best friend" -> "At least 5 good photos with $with."
+                "Grandmother", "Grandfather" -> "At least 5 good photos with $with, and elders come first."
+                else -> "At least 2 good photos with $with."
             }
             Surface(color = MaterialTheme.colorScheme.surfaceContainer, shape = RoundedCornerShape(14.dp)) {
                 Text(rule, modifier = Modifier.padding(12.dp), style = MaterialTheme.typography.bodyMedium)
             }
-            BigButton("Save", onClick = { vm.setRelation(projectId, person, chosenSide, relation, name); onClose() },
+            BigButton("Save", onClick = {
+                vm.setRelation(projectId, person, if (chosenSide == FAMILY_SIDE) PersonSide.UNKNOWN else chosenSide, relation, name); onClose()
+            },
                 enabled = relation.isNotEmpty() || name.isNotBlank())
         }
         HorizontalDivider()
         Column {
             if (d.role == null) {
                 SheetAction("Not family. Show them less") { vm.notFamily(projectId, person); onClose() }
-                SheetAction("This is the bride") { vm.setBride(projectId, person.id); onClose() }
-                SheetAction("This is the groom") { vm.setGroom(projectId, person.id); onClose() }
+                if (couple) {
+                    SheetAction("This is the bride") { vm.setBride(projectId, person.id); onClose() }
+                    SheetAction("This is the groom") { vm.setGroom(projectId, person.id); onClose() }
+                } else {
+                    SheetAction("The photos are about this person") { vm.setMain(projectId, person.id); onClose() }
+                    if (album.bride != null && album.groom == null) {
+                        SheetAction("The photos are about this person too") { vm.setGroom(projectId, person.id); onClose() }
+                    }
+                }
             }
             SheetAction("These photos show two different people") { vm.split(projectId, person.id); onClose() }
             SheetAction("Same person as someone else…") { startMerge() }
@@ -581,3 +619,6 @@ private fun SettingsSheet(vm: AlbumViewModel, projectId: Long, s: AlbumState, on
         }
     }
 }
+
+/** "Family" in a folder without a bride's and a groom's side: saved as no side. */
+private const val FAMILY_SIDE = "FAMILY"

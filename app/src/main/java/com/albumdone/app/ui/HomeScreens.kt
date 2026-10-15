@@ -64,6 +64,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -74,6 +75,7 @@ import com.albumdone.app.data.ProjectStatus
 import com.albumdone.app.data.ProjectSummary
 import com.albumdone.app.plan.AlbumSize
 import com.albumdone.app.plan.Display
+import com.albumdone.app.plan.Occasion
 import java.io.File
 
 /** Deep plum to a softer plum: the brand, the same in light and dark mode. */
@@ -140,16 +142,16 @@ private fun Welcome(modifier: Modifier) {
             Box(Modifier.size(48.dp).clip(CircleShape).background(Gold), contentAlignment = Alignment.Center) {
                 Icon(Icons.Default.Check, contentDescription = null, tint = Color(0xFF3B1F45), modifier = Modifier.size(28.dp))
             }
-            Text("Your wedding album, picked the way you would.", style = MaterialTheme.typography.headlineLarge, color = Color.White)
+            Text("Your album, picked the way you would.", style = MaterialTheme.typography.headlineLarge, color = Color.White)
             Text(
-                "Choose the folder your photographer gave you. We pick the best photos; you make the final calls.",
+                "Wedding, birthday, trip: choose the folder of photos. We pick the album-worthy ones; you make the final calls.",
                 style = MaterialTheme.typography.bodyLarge, color = Color.White.copy(alpha = 0.85f),
             )
         }
         Column(verticalArrangement = Arrangement.spacedBy(18.dp)) {
             Step(Icons.Default.Check, "We check every photo", "Blur, closed eyes, repeats, bad light. Even with the phone locked.")
-            Step(Icons.Default.Face, "Your album, with your family in it", "The best of the two of you, and the people who matter.")
-            Step(Icons.Default.Share, "Swap, then send", "Change any photo you don't love, then send the list to your photographer.")
+            Step(Icons.Default.Face, "Your album, with your people in it", "The best of whoever the photos are about, and the people who matter.")
+            Step(Icons.Default.Share, "Swap, then send", "Change any photo you don't love, then send the list to your photographer or print shop.")
         }
         Row(
             Modifier.fillMaxWidth().clip(RoundedCornerShape(16.dp)).background(MaterialTheme.colorScheme.surfaceContainer).padding(14.dp),
@@ -273,7 +275,7 @@ fun NewAlbumScreen(vm: AlbumViewModel, screen: Screen.NewAlbum) {
                 }
                 scan.found == 0 -> {
                     Text("No photos in this folder.", style = MaterialTheme.typography.headlineSmall)
-                    Text("Pick the folder with the photographer's photos (JPG, PNG or HEIC).")
+                    Text("Pick the folder with the photos (JPG, PNG or HEIC).")
                     BigButton("Choose another folder", onClick = { pickFolder.launch(null) })
                 }
                 scan.tooMany -> {
@@ -287,7 +289,7 @@ fun NewAlbumScreen(vm: AlbumViewModel, screen: Screen.NewAlbum) {
                             style = MaterialTheme.typography.bodyLarge, color = MaterialTheme.colorScheme.onSecondaryContainer,
                         )
                         Text(
-                            "Choose one function's folder (like Wedding or Reception), or the photographer's selected photos.",
+                            "Choose a smaller folder (one function, like Wedding or Reception, or one day of a trip), or the photographer's selected photos.",
                             style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSecondaryContainer,
                         )
                     }
@@ -315,6 +317,20 @@ fun NewAlbumScreen(vm: AlbumViewModel, screen: Screen.NewAlbum) {
                         value = name, onValueChange = { name = it }, label = { Text("Album name") },
                         singleLine = true, modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(16.dp),
                     )
+                    Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                        Text("What are these photos of?", style = MaterialTheme.typography.titleMedium)
+                        FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                            for (o in Occasion.values()) {
+                                FilterChip(selected = vm.newOccasion == o, onClick = { vm.newOccasion = o }, label = { Text(o.label) },
+                                    modifier = Modifier.testTag("occasion-${o.name}"))
+                            }
+                        }
+                        Text(
+                            if (vm.newOccasion.couple) "We find the couple and both families by ourselves."
+                            else "We find who the photos are about by ourselves.",
+                            style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                    }
                     Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                         Text("How many photos in your album?", style = MaterialTheme.typography.titleMedium)
                         FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {

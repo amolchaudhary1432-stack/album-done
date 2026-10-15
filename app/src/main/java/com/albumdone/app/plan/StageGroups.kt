@@ -2,7 +2,7 @@ package com.albumdone.app.plan
 
 /**
  * Family groups photographed with the couple: on the reception stage, at the mandap, at any
- * function. Pure Kotlin, unit-tested.
+ * function (at a birthday, with the birthday star). Pure Kotlin, unit-tested.
  *
  * Each group is one visit: the same people with the bride and groom, a few minutes apart at most.
  * The photographer usually takes two or three frames of each; the planner already marks the
@@ -15,29 +15,35 @@ object StageGroups {
         val photoId: Long,
         /** Every frame of this group, best first. */
         val photoIds: List<Long>,
-        /** Everyone in it besides the bride and groom. */
+        /** Everyone in it besides the bride and groom (the main people). */
         val guests: Set<Long>,
         /** Capture order of the first frame, to list groups as they happened. */
         val order: Int,
     )
 
+    /**
+     * A group is at least this many people besides the couple. One relative with the couple is a
+     * portrait, covered with that person's photos; counting those made 150 "groups" at a big wedding.
+     */
+    const val MIN_GUESTS = 2
     /** Frames of one group this far apart at most. */
     const val SAME_VISIT_MILLIS = 5 * 60_000L
     /** Two frames show the same group when this share of their guests is the same. */
     const val SAME_GUESTS = 0.5
 
     fun find(analysis: AlbumAnalysis): List<Group> {
-        val bride = analysis.tags.brideId ?: return emptyList()
-        val groom = analysis.tags.groomId ?: return emptyList()
+        // The bride and groom; at a birthday or any other occasion, the main person (or two).
+        val main = listOfNotNull(analysis.tags.brideId, analysis.tags.groomId).toSet()
+        if (main.isEmpty()) return emptyList()
         val withCouple = analysis.photos
-            .filter { bride in it.people && groom in it.people && Issue.UNREADABLE !in it.issues }
-            .filter { (it.people - bride - groom).isNotEmpty() }
+            .filter { main.all { m -> m in it.people } && Issue.UNREADABLE !in it.issues }
+            .filter { (it.people - main).size >= MIN_GUESTS }
             .sortedBy { it.order }
 
         class Open(val frames: MutableList<AssessedPhoto>, val guests: MutableSet<Long>)
         val groups = ArrayList<Open>()
         for (p in withCouple) {
-            val guests = p.people - bride - groom
+            val guests = p.people - main
             val last = groups.lastOrNull()
             val prev = last?.frames?.last()
             val close = prev != null && when {

@@ -1,6 +1,7 @@
 # Album Done
 
-Android app (Kotlin, Jetpack Compose) that helps Indian couples pick their wedding album photos.
+Android app (Kotlin, Jetpack Compose) that picks the album-worthy photos from a raw folder: weddings
+first (Indian couples), also birthdays, baby functions, trips and any other occasion.
 Everything runs on the phone. Photos are never uploaded. The app has no internet permission, and
 that must stay true.
 
@@ -13,6 +14,14 @@ that must stay true.
 - **The job is picking good photos like a person would.** No ritual sorting or ritual labels in
   the app (owner's decision); the photographer's sub-folders are only used as given.
 - Indian weddings are huge: the app must handle 40+ relatives smoothly, not 6.
+- **Not a wedding-only app** (owner's decision): "Album Done picks the album-worthy photos from any
+  raw folder, on your phone." Weddings are the first and biggest use. New album asks "What are these
+  photos of?" (`plan/Occasion`: Wedding, Engagement, Birthday, Baby, Trip, Other), guessed from the
+  folder names. Only Wedding and Engagement have a couple and the bride's/groom's sides; other
+  occasions have one main person (or two on a trip), found as the most photographed, and the
+  words follow ("the birthday star", "Portrait of Riya"). Photo judging is the same for all.
+- Bride's family and groom's family each keep their own album copy: the Send screen makes either
+  from the same folder (`PeopleTags.forFamily`).
 - **Promise:** "Your wedding album shortlist in a few taps, without uploading a single photo."
 
 ## How the owner works
@@ -84,6 +93,7 @@ Design mock-up: https://claude.ai/artifact/KzbjcqjdAW5KkNJ47pFf6f
 
 - Detect the couple automatically (the two most frequent people, often together). Both present and
   both looking good; bride's face visible. Bonus when they look at each other (best candids).
+  Other occasions: `PeopleClusterer.mainPeople`; the database keeps them in `brideId`/`groomId`.
 - Include solo bride and solo groom portraits. Reserve the best couple portrait as the cover.
 
 ### People coverage

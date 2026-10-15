@@ -23,13 +23,17 @@ data class ProjectEntity(
     /** Time spent actually analysing (excludes time the app was stopped). */
     val activeMillis: Long = 0,
     val albumSize: Int = 300,
+    /** The bride, or for other occasions the main person. */
     val brideId: Long? = null,
+    /** The groom, or for other occasions a second main person. */
     val groomId: Long? = null,
     val coverPhotoId: Long? = null,
     /** The couple has been through the "Tag your family" screen. */
     val familyTagged: Boolean = false,
     /** The bride and groom are clear from the photos, or the couple confirmed them. Otherwise ask. */
     val coupleSure: Boolean = false,
+    /** What the folder is for ([com.albumdone.app.plan.Occasion]): a wedding, a birthday, a trip... */
+    val occasion: String = "WEDDING",
 )
 
 /** One photo inside the chosen folder, plus everything we measured about it. */

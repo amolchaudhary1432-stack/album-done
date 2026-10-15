@@ -163,4 +163,28 @@ class PeopleClustererTest {
     fun emptyInput() {
         assertTrue(PeopleClusterer.cluster(emptyList()).isEmpty())
     }
+
+    @Test
+    fun aBirthdayIsAboutTheMostPhotographedPerson() {
+        // The birthday girl in 60 photos, her mother in 40 of them, a cousin in 15.
+        val photosOf = mapOf(1L to (1L..60L).toSet(), 2L to (1L..40L).toSet(), 3L to (45L..59L).toSet())
+        assertEquals(1L to null, PeopleClusterer.mainPeople(photosOf, pairs = false))
+        assertTrue(PeopleClusterer.mainSure(photosOf, 1L to null))
+    }
+
+    @Test
+    fun aCoupleOnATripAreBothMainPeopleButAFriendIsNot() {
+        // She is in 100 photos, he is in 50 (often together), a friend in 30 (rarely with her).
+        val photosOf = mapOf(1L to (1L..100L).toSet(), 2L to (70L..119L).toSet(), 3L to (200L..229L).toSet())
+        assertEquals(1L to 2L, PeopleClusterer.mainPeople(photosOf, pairs = true))
+        assertTrue(PeopleClusterer.mainSure(photosOf, 1L to 2L))
+        // A friend photographed a little with her is not a second main person.
+        val friend = mapOf(1L to (1L..100L).toSet(), 3L to (95L..124L).toSet())
+        assertEquals(1L to null, PeopleClusterer.mainPeople(friend, pairs = true))
+        // Two people photographed about as often: not sure who the folder is about, so ask.
+        val even = mapOf(1L to (1L..40L).toSet(), 3L to (100L..135L).toSet())
+        assertFalse(PeopleClusterer.mainSure(even, 1L to null))
+        assertNull(PeopleClusterer.mainPeople(emptyMap(), pairs = true))
+    }
 }
+

@@ -29,6 +29,7 @@ import com.albumdone.app.plan.AlbumSize
 import com.albumdone.app.plan.Box
 import com.albumdone.app.plan.Display
 import com.albumdone.app.plan.Issue
+import com.albumdone.app.plan.Occasion
 import com.albumdone.app.plan.PlanPhoto
 import com.albumdone.app.plan.Priority
 import com.albumdone.app.plan.Side
@@ -142,7 +143,11 @@ data class AlbumState(
     val stage: List<StageItem>,
     val events: List<EventSection>,
     val leftOut: LeftOut,
-)
+    /** Who the album is about, in a sentence: "the two of you", "the birthday star", "Riya". */
+    val mainWords: String = "the two of you",
+) {
+    val occasion: Occasion get() = Occasion.of(project.occasion)
+}
 
 data class PersonDetail(
     val person: PersonEntity,
@@ -184,6 +189,8 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
 
     /** Album size chosen on the new-album screen. */
     var newAlbumSize by mutableStateOf(150)
+    /** What the new album is for; guessed from the folder names, one tap to change. */
+    var newOccasion by mutableStateOf(Occasion.OTHER)
 
     var busy by mutableStateOf(false)
         private set
@@ -290,24 +297,32 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
         } catch (_: SecurityException) {
             // Some folders cannot be kept open after a restart; scanning still works now.
         }
-        val name = DocumentFile.fromTreeUri(app, uri)?.name ?: "Our wedding"
+        val name = DocumentFile.fromTreeUri(app, uri)?.name ?: "Our album"
         screen = Screen.NewAlbum(uri, name)
         scan = ScanState()
         viewModelScope.launch {
-            scan = withContext(Dispatchers.IO) {
+            val photos = withContext(Dispatchers.IO) {
                 try {
-                    val photos = FolderScanner.scan(app, uri) { count -> scan = scan.copy(found = count) }
-                    val plan = photos.mapIndexed { i, p -> PlanPhoto(id = i.toLong(), name = p.name, folder = p.folder) }
-                    val eventOf = AlbumPlanner.assignEvents(plan)
-                    val order = AlbumPlanner.orderEvents(plan, eventOf)
-                    val counts = eventOf.values.groupingBy { it }.eachCount()
-                    newAlbumSize = AlbumSize.suggested(photos.size)
-                    ScanState(scanning = false, found = photos.size, photos = photos, events = order.map { it to (counts[it] ?: 0) })
+                    FolderScanner.scan(app, uri) { count -> scan = scan.copy(found = count) }
                 } catch (e: Exception) {
-                    ScanState(scanning = false, error = "Could not read this folder. Please pick it again.")
+                    null
                 }
             }
+            if (photos == null) scan = ScanState(scanning = false, error = "Could not read this folder. Please pick it again.")
+            else showScanned(uri, name, photos)
         }
+    }
+
+    /** The folder has been read: what is in it, and first guesses for the album. The phone test calls this directly. */
+    fun showScanned(uri: Uri, name: String, photos: List<FoundPhoto>) {
+        val plan = photos.mapIndexed { i, p -> PlanPhoto(id = i.toLong(), name = p.name, folder = p.folder) }
+        val eventOf = AlbumPlanner.assignEvents(plan)
+        val order = AlbumPlanner.orderEvents(plan, eventOf)
+        val counts = eventOf.values.groupingBy { it }.eachCount()
+        newAlbumSize = AlbumSize.suggested(photos.size)
+        newOccasion = Occasion.guess(listOf(name) + photos.map { it.folder }.distinct())
+        screen = Screen.NewAlbum(uri, name)
+        scan = ScanState(scanning = false, found = photos.size, photos = photos, events = order.map { it to (counts[it] ?: 0) })
     }
 
     fun startAnalysis(name: String) {
@@ -323,6 +338,7 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
                         treeUri = s.treeUri.toString(),
                         createdAt = System.currentTimeMillis(),
                         albumSize = newAlbumSize,
+                        occasion = newOccasion.name,
                     )
                 )
                 photos.chunked(1000).forEach { chunk ->
@@ -499,8 +515,13 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
                     if (couple.isEmpty()) ap else ap.copy(crop = Display.cropBias(ap.photo.width, ap.photo.height, couple.map { it.box }))
                 }
             },
-            bride = tags.brideId?.let { chip(it, personById[it]?.person?.name?.takeIf { n -> n.isNotBlank() } ?: "Bride") },
-            groom = tags.groomId?.let { chip(it, personById[it]?.person?.name?.takeIf { n -> n.isNotBlank() } ?: "Groom") },
+            mainWords = when {
+                tags.occasion.couple -> "the two of you"
+                tags.groomId != null -> tags.pair()
+                else -> tags.brideId?.let { tags.who(it) } ?: "you"
+            },
+            bride = tags.brideId?.let { chip(it, personById[it]?.person?.name?.takeIf { n -> n.isNotBlank() } ?: tags.occasion.title(first = true)) },
+            groom = tags.groomId?.let { chip(it, personById[it]?.person?.name?.takeIf { n -> n.isNotBlank() } ?: tags.occasion.title(first = false)) },
             family = family,
             others = others,
             toName = toName,
@@ -617,7 +638,7 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
     fun setGroupInAlbum(projectId: Long, item: StageItem, inAlbum: Boolean) {
         viewModelScope.launch {
             if (inAlbum) {
-                dao.selectAsChoice(item.photo.photo.id, "Your choice: a family group with the two of you")
+                dao.selectAsChoice(item.photo.photo.id, "Your choice: a family group")
                 growToFit(projectId)
                 say("Added to your album")
             } else {
@@ -688,7 +709,9 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
                 person = p.person,
                 face = faceCrop(projectId, p),
                 samples = samples,
-                role = when (personId) { project?.brideId -> "Bride"; project?.groomId -> "Groom"; else -> null },
+                role = Occasion.of(project?.occasion).let { o ->
+                    when (personId) { project?.brideId -> o.title(first = true); project?.groomId -> o.title(first = false); else -> null }
+                },
                 guessedSide = guessedSide,
             ).also { Log.d(TAG, "person $personId: ready, ${samples.size} samples") }
         }.catch { e ->
@@ -760,15 +783,21 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
     fun notFamily(projectId: Long, person: PersonEntity) =
         editPeople(projectId, "Album updated") { dao.updatePerson(person.copy(priority = PersonPriority.SKIP)) }
 
-    fun setBride(projectId: Long, personId: Long) = editPeople(projectId, "Bride updated") {
+    fun setBride(projectId: Long, personId: Long) = editPeople(projectId, "Album updated") {
         val p = dao.project(projectId) ?: return@editPeople
         dao.setCouple(projectId, personId, if (p.groomId == personId) p.brideId else p.groomId)
         dao.setCoupleSure(projectId, true)
     }
 
-    fun setGroom(projectId: Long, personId: Long) = editPeople(projectId, "Groom updated") {
+    fun setGroom(projectId: Long, personId: Long) = editPeople(projectId, "Album updated") {
         val p = dao.project(projectId) ?: return@editPeople
         dao.setCouple(projectId, if (p.brideId == personId) p.groomId else p.brideId, personId)
+        dao.setCoupleSure(projectId, true)
+    }
+
+    /** For a birthday, a baby or a trip: the photos are about this one person. */
+    fun setMain(projectId: Long, personId: Long) = editPeople(projectId, "Album updated") {
+        dao.setCouple(projectId, personId, null)
         dao.setCoupleSure(projectId, true)
     }
 

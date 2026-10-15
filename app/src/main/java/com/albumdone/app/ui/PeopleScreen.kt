@@ -91,10 +91,11 @@ fun PeopleScreen(vm: AlbumViewModel, projectId: Long) {
         val couple = listOfNotNull(s.bride, s.groom)
         val rest = s.family + s.others
         val everyone = couple + rest
-        val filters = listOf(
+        // Sides only at a wedding; a birthday or a trip has no bride's side and groom's side.
+        val filters = listOfNotNull(
             "all" to "All ${everyone.size}",
-            PersonSide.BRIDE to "Bride's side ${rest.count { it.side == PersonSide.BRIDE }}",
-            PersonSide.GROOM to "Groom's side ${rest.count { it.side == PersonSide.GROOM }}",
+            (PersonSide.BRIDE to "Bride's side ${rest.count { it.side == PersonSide.BRIDE }}").takeIf { s.occasion.couple },
+            (PersonSide.GROOM to "Groom's side ${rest.count { it.side == PersonSide.GROOM }}").takeIf { s.occasion.couple },
             "unnamed" to "Not named ${rest.count { !it.known }}",
         )
         val shown = when (filter) {
@@ -215,7 +216,7 @@ fun QuickTagScreen(vm: AlbumViewModel, projectId: Long) {
         ) { i ->
             val c = q.getOrNull(i)
             if (c != null) {
-                FaceQuestion(vm, c, i, q.size) { side, relation ->
+                FaceQuestion(vm, c, i, q.size, sides = state?.occasion?.couple ?: true) { side, relation ->
                     vm.quickTag(c.personId, side, relation)
                     named++
                     index++
@@ -227,7 +228,7 @@ fun QuickTagScreen(vm: AlbumViewModel, projectId: Long) {
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun FaceQuestion(vm: AlbumViewModel, c: PersonChip, i: Int, total: Int, onAnswer: (side: String, relation: String) -> Unit) {
+private fun FaceQuestion(vm: AlbumViewModel, c: PersonChip, i: Int, total: Int, sides: Boolean, onAnswer: (side: String, relation: String) -> Unit) {
     var side by remember(c.personId) { mutableStateOf(c.side) }
     val samples by produceState(emptyList<String>(), c.personId) { value = vm.samples(c.personId) }
     Column(
@@ -257,10 +258,12 @@ private fun FaceQuestion(vm: AlbumViewModel, c: PersonChip, i: Int, total: Int, 
                 repeat(3 - samples.size) { Spacer(Modifier.weight(1f)) }
             }
         }
-        SectionLabel("Whose side")
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            for ((value, label) in listOf(PersonSide.BRIDE to "Bride's side", PersonSide.GROOM to "Groom's side")) {
-                FilterChip(selected = side == value, onClick = { side = if (side == value) PersonSide.UNKNOWN else value }, label = { Text(label) })
+        if (sides) {
+            SectionLabel("Whose side")
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                for ((value, label) in listOf(PersonSide.BRIDE to "Bride's side", PersonSide.GROOM to "Groom's side")) {
+                    FilterChip(selected = side == value, onClick = { side = if (side == value) PersonSide.UNKNOWN else value }, label = { Text(label) })
+                }
             }
         }
         SectionLabel("Tap one")

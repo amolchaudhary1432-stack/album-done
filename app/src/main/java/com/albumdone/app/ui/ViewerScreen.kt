@@ -217,11 +217,14 @@ fun SendScreen(vm: AlbumViewModel, projectId: Long) {
                     }
                     s.cover?.let { c -> PhotoThumb(c.photo, c.crop, Modifier.size(84.dp).clip(RoundedCornerShape(16.dp))) }
                 }
-                SectionLabel("Whose album")
-                FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    for ((value, label) in listOf(null to "The two of you", Side.BRIDE to "Bride's family", Side.GROOM to "Groom's family")) {
-                        FilterChip(selected = forWhom == value, onClick = { forWhom = value }, label = { Text(label) },
-                            modifier = Modifier.testTag("album-for-${value ?: "couple"}"))
+                // Only a wedding has two families who each keep their own copy.
+                if (s.occasion.couple) {
+                    SectionLabel("Whose album")
+                    FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        for ((value, label) in listOf(null to "The two of you", Side.BRIDE to "Bride's family", Side.GROOM to "Groom's family")) {
+                            FilterChip(selected = forWhom == value, onClick = { forWhom = value }, label = { Text(label) },
+                                modifier = Modifier.testTag("album-for-${value ?: "couple"}"))
+                        }
                     }
                 }
                 if (forWhom != null) {
@@ -229,7 +232,7 @@ fun SendScreen(vm: AlbumViewModel, projectId: Long) {
                         style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
             }
-            Text("Your photographer gets a simple list with the exact file names. It works in WhatsApp or email. Only the list is sent, never the photos.",
+            Text("Your photographer or print shop gets a simple list with the exact file names. It works in WhatsApp or email. Only the list is sent, never the photos.",
                 style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
             if (s != null) {
                 SectionLabel("Preview")

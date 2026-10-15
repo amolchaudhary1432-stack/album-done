@@ -37,6 +37,7 @@ class StageGroupsTest {
             shot(start + 185 * second, listOf(BRIDE, GROOM) + familyB),
             shot(start + 200 * second, listOf(GROOM) + familyB),                // bride not in it
             shot(start + 3_600 * second, listOf(BRIDE, GROOM) + familyA),        // family A again, an hour later
+            shot(start + 4_000 * second, listOf(BRIDE, GROOM, 30L)),              // one aunt with the couple: a portrait
         )
         val a = AlbumPlanner.analyze(photos, PeopleTags(BRIDE, GROOM))
         val groups = StageGroups.find(a)
@@ -54,5 +55,19 @@ class StageGroupsTest {
     fun noCoupleNoGroups() {
         val photos = listOf(shot(start, listOf(10L, 11L, 12L)))
         assertTrue(StageGroups.find(AlbumPlanner.analyze(photos, PeopleTags())).isEmpty())
+    }
+
+    @Test
+    fun aBirthdayHasGroupsWithTheBirthdayStar() {
+        val star = 5L
+        val photos = listOf(
+            shot(start, listOf(star, 30L, 31L)),
+            shot(start + 20 * second, listOf(star, 30L, 31L)),
+            shot(start + 600 * second, listOf(star, 40L, 41L, 42L)),
+            shot(start + 700 * second, listOf(40L, 41L)),                     // the star is not in it
+        )
+        val tags = PeopleTags(brideId = star, occasion = Occasion.BIRTHDAY)
+        val groups = StageGroups.find(AlbumPlanner.analyze(photos, tags))
+        assertEquals(listOf(setOf(30L, 31L), setOf(40L, 41L, 42L)), groups.map { it.guests })
     }
 }

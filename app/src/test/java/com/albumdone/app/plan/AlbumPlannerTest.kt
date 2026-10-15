@@ -917,4 +917,48 @@ class AlbumPlannerTest {
             assertTrue("ritual $r missing", s.ids.any { it in ids })
         }
     }
+
+    @Test
+    fun aBirthdayAlbumIsAboutTheBirthdayStarInItsOwnWords() {
+        val star = 5L
+        val nani = 6L
+        val tags = PeopleTags(brideId = star, occasion = Occasion.BIRTHDAY, tags = mapOf(nani to PersonTag(nani, "Nani", Priority.MUST, elder = true)))
+        val solo = List(10) { photo("Party", t = start + it * 15 * minute, faces = listOf(face(star, x = 0.4f, w = 0.2f))) }
+        val withNani = List(6) { photo("Party", t = start + (5 + it * 15) * minute, faces = listOf(face(star, x = 0.3f), face(nani, x = 0.5f))) }
+        val cake = List(4) { photo("Party", t = start + (8 + it * 15) * minute) }
+        val a = AlbumPlanner.analyze(solo + withNani + cake, tags)
+        val s = AlbumPlanner.shortlist(a, 12)
+        val words = s.reasons.values.flatten()
+        assertTrue(words.toString(), words.any { it == "Cover: the birthday star's best portrait" })
+        assertTrue(words.toString(), words.any { it == "Nani with the birthday star" })
+        assertTrue(words.toString(), words.none { it.contains("bride", ignoreCase = true) || it.contains("couple", ignoreCase = true) })
+        assertTrue(s.ids.count { it in withNani.map { p -> p.id } } >= 2)
+    }
+
+    @Test
+    fun namedMainPeopleAreCalledByTheirNames() {
+        val tags = PeopleTags(BRIDE, GROOM, occasion = Occasion.TRIP,
+            tags = mapOf(BRIDE to PersonTag(BRIDE, "Riya"), GROOM to PersonTag(GROOM, "Arjun")))
+        assertEquals("Riya and Arjun", tags.pair())
+        assertEquals("Riya", tags.who(BRIDE))
+        assertEquals("Main person", PeopleTags(BRIDE, GROOM, occasion = Occasion.TRIP).label(GROOM))
+        assertEquals("the couple", couple.pair())
+        assertEquals("Bride", couple.label(BRIDE))
+    }
+
+    @Test
+    fun aTripKeepsMorePlacesWithoutPeopleThanAWedding() {
+        fun album(occasion: Occasion): Int {
+            nextId = 1
+            val people = List(30) { couplePhoto("Goa", t = start + it * 10 * minute) }
+            val places = List(30) { photo("Goa", t = start + it * 10 * minute + 5 * minute) }
+            val tags = PeopleTags(BRIDE, GROOM, occasion = occasion)
+            val s = AlbumPlanner.shortlist(AlbumPlanner.analyze(people + places, tags), 20)
+            return s.ids.count { it in places.map { p -> p.id } }
+        }
+        val wedding = album(Occasion.WEDDING)
+        val trip = album(Occasion.TRIP)
+        assertTrue("trip $trip places, wedding $wedding", trip >= 4 && trip > wedding)
+    }
 }
+

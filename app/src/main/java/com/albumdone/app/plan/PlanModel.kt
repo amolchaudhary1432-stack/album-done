@@ -107,13 +107,60 @@ data class PersonTag(
     val guessed: Boolean = false,
 )
 
-/** What the couple told us about their family, plus who the couple are. */
+/**
+ * What the folder is for. It decides who the album is built around and the words the app uses;
+ * how photos are judged is the same for every occasion.
+ */
+enum class Occasion(val label: String) {
+    WEDDING("Wedding"), ENGAGEMENT("Engagement"), BIRTHDAY("Birthday"), BABY("Baby"), TRIP("Trip"), OTHER("Other");
+
+    /** Built around a couple, each with their own family (the bride's side and the groom's side). */
+    val couple: Boolean get() = this == WEDDING || this == ENGAGEMENT
+
+    /** Share of each event for photos without faces: a trip is as much about the places as the people. */
+    val detailShare: Double get() = if (this == TRIP) 0.25 else 0.10
+
+    /** Who the album is about, when nobody has named them: "the bride", "the birthday star". */
+    fun role(first: Boolean): String = when {
+        couple -> if (first) "the bride" else "the groom"
+        first && this == BIRTHDAY -> "the birthday star"
+        first && this == BABY -> "the baby"
+        else -> "the main person"
+    }
+
+    /** The same as a label: "Bride", "Birthday star", "Main person". */
+    fun title(first: Boolean): String = role(first).removePrefix("the ").capitalized()
+
+    companion object {
+        fun of(name: String?): Occasion = values().firstOrNull { it.name == name } ?: WEDDING
+
+        private val GUESS = listOf(
+            WEDDING to listOf("wedding", "shaadi", "shadi", "vivah", "lagna", "lagn", "haldi", "mehendi", "mehndi", "sangeet",
+                "reception", "baraat", "pheras", "mandap", "marriage", "kalyanam"),
+            ENGAGEMENT to listOf("engagement", "sagai", "sakharpuda", "roka", "ring ceremony", "mangni", "nischitartham"),
+            BIRTHDAY to listOf("birthday", "bday", "b'day", "janmadin", "vadhdivas"),
+            BABY to listOf("baby", "naming", "namkaran", "barsa", "annaprashan", "mundan", "godh bharai", "baby shower", "dohale"),
+            TRIP to listOf("trip", "tour", "travel", "holiday", "vacation", "honeymoon", "trek"),
+        )
+
+        /** A first guess from the folder names (a wedding's folders often include the engagement), so most people never change it. */
+        fun guess(names: Collection<String>): Occasion {
+            val text = names.joinToString(" ").lowercase()
+            return GUESS.firstOrNull { (_, words) -> words.any { it in text } }?.first ?: OTHER
+        }
+    }
+}
+
+/** What the family told us about their people, plus who the album is about (the couple, or the main people). */
 data class PeopleTags(
+    /** The bride, or for other occasions the main person (the birthday star, the baby). */
     val brideId: Long? = null,
+    /** The groom, or for other occasions a second main person when there clearly is one. */
     val groomId: Long? = null,
     val tags: Map<Long, PersonTag> = emptyMap(),
     /** Whose album this is: UNKNOWN for the couple's own (both sides balanced), else one family's. */
     val albumFor: Side = Side.UNKNOWN,
+    val occasion: Occasion = Occasion.WEDDING,
 ) {
     /**
      * The same wedding as one family's album (both families usually keep their own copy): their
@@ -131,12 +178,25 @@ data class PeopleTags(
 
     fun tag(id: Long): PersonTag = tags[id] ?: PersonTag(id)
     fun isCouple(id: Long?): Boolean = id != null && (id == brideId || id == groomId)
-    fun label(id: Long): String = when (id) {
-        brideId -> "Bride"
-        groomId -> "Groom"
-        else -> tags[id]?.name?.takeIf { it.isNotBlank() } ?: "Person $id"
+    fun label(id: Long): String = tags[id]?.name?.takeIf { it.isNotBlank() } ?: when (id) {
+        brideId -> occasion.title(first = true)
+        groomId -> occasion.title(first = false)
+        else -> "Person $id"
+    }
+
+    /** In a sentence: their name when given, otherwise "the bride", "the birthday star". */
+    fun who(id: Long): String = tags[id]?.name?.takeIf { it.isNotBlank() } ?: occasion.role(first = id == brideId)
+
+    /** Both main people in a sentence: "the couple", "Riya and Arjun", "the two of them". */
+    fun pair(): String {
+        if (occasion.couple) return "the couple"
+        val a = brideId?.let { tags[it]?.name }?.takeIf { it.isNotBlank() }
+        val b = groomId?.let { tags[it]?.name }?.takeIf { it.isNotBlank() }
+        return if (a != null && b != null) "$a and $b" else "the two of them"
     }
 }
+
+fun String.capitalized(): String = replaceFirstChar { it.uppercaseChar() }
 
 /** Small helpers for showing photos and names the way people expect. */
 object Display {

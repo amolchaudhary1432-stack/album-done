@@ -51,7 +51,11 @@ object FamilyGuess {
     /** Photos of someone this far apart are separate visits (not one trip to the stage). */
     const val VISIT_GAP_MILLIS = 10 * 60_000L
 
-    fun guess(photos: List<PhotoPeople>, brideId: Long?, groomId: Long?): Map<Long, Guess> {
+    /**
+     * [brideId] and [groomId] are the couple, or for other occasions the main person (or two).
+     * [sides]: a wedding has a bride's side and a groom's side; a birthday or a trip does not.
+     */
+    fun guess(photos: List<PhotoPeople>, brideId: Long?, groomId: Long?, sides: Boolean = true): Map<Long, Guess> {
         val couple = setOfNotNull(brideId, groomId)
         val events = photos.map { it.event }.toSet()
         val eventCount = max(1, events.size)
@@ -117,6 +121,7 @@ object FamilyGuess {
             .take(maxClose).map { it.key }.toSet()
 
         fun sideOf(s: Stats): Side {
+            if (!sides) return Side.UNKNOWN
             val diff = s.withBrideOnly - s.withGroomOnly
             val margin = max(2, (0.2 * (s.withBrideOnly + s.withGroomOnly)).toInt())
             return when {
@@ -127,9 +132,14 @@ object FamilyGuess {
         }
 
         // The two closest people on each side are most likely the parents: they get the most photos.
+        // Without sides (a birthday, a baby's function), the two closest people overall.
         val mustIds = HashSet<Long>()
-        for (side in listOf(Side.BRIDE, Side.GROOM)) {
-            ranked.filter { it.key in close && sideOf(stats.getValue(it.key)) == side }.take(2).forEach { mustIds += it.key }
+        if (sides) {
+            for (side in listOf(Side.BRIDE, Side.GROOM)) {
+                ranked.filter { it.key in close && sideOf(stats.getValue(it.key)) == side }.take(2).forEach { mustIds += it.key }
+            }
+        } else {
+            ranked.filter { it.key in close }.take(2).forEach { mustIds += it.key }
         }
 
         return stats.keys.associateWith { id ->

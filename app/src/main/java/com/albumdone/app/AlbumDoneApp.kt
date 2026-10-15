@@ -13,7 +13,7 @@ class AlbumDoneApp : Application() {
                 CHANNEL_ANALYSIS,
                 "Photo analysis",
                 NotificationManager.IMPORTANCE_LOW,
-            ).apply { description = "Shows progress while your wedding photos are checked" }
+            ).apply { description = "Shows progress while your photos are checked" }
         )
         manager.createNotificationChannel(
             NotificationChannel(

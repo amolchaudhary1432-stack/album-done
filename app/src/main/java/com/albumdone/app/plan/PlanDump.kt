@@ -9,7 +9,7 @@ package com.albumdone.app.plan
 object PlanDump {
 
     fun write(photos: List<PlanPhoto>, tags: PeopleTags): String = buildString {
-        appendLine(listOf("TAGS", tags.brideId ?: "", tags.groomId ?: "").joinToString("\t"))
+        appendLine(listOf("TAGS", tags.brideId ?: "", tags.groomId ?: "", tags.occasion).joinToString("\t"))
         for (t in tags.tags.values) {
             appendLine(listOf("TAG", t.id, clean(t.name), t.priority, t.side, t.elder, t.guessed).joinToString("\t"))
         }
@@ -31,13 +31,14 @@ object PlanDump {
     fun read(text: String): Pair<List<PlanPhoto>, PeopleTags> {
         var bride: Long? = null
         var groom: Long? = null
+        var occasion = Occasion.WEDDING
         val tags = LinkedHashMap<Long, PersonTag>()
         val photos = ArrayList<PlanPhoto>()
         val faces = HashMap<Long, MutableList<PlanFace>>()
         for (line in text.lineSequence()) {
             val c = line.split('\t')
             when (c[0]) {
-                "TAGS" -> { bride = c[1].toLongOrNull(); groom = c[2].toLongOrNull() }
+                "TAGS" -> { bride = c[1].toLongOrNull(); groom = c[2].toLongOrNull(); occasion = Occasion.of(c.getOrNull(3)) }
                 "TAG" -> tags[c[1].toLong()] = PersonTag(
                     c[1].toLong(), c[2], Priority.valueOf(c[3]), Side.valueOf(c[4]), c[5].toBoolean(), c[6].toBoolean(),
                 )
@@ -56,7 +57,7 @@ object PlanDump {
                 )
             }
         }
-        return photos.map { it.copy(faces = faces[it.id].orEmpty()) } to PeopleTags(bride, groom, tags)
+        return photos.map { it.copy(faces = faces[it.id].orEmpty()) } to PeopleTags(bride, groom, tags, occasion = occasion)
     }
 
     private fun clean(s: String) = s.replace('\t', ' ').replace('\n', ' ')
