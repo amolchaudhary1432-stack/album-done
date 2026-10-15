@@ -93,8 +93,13 @@ class AppScreensDeviceTest {
         // Checking, then the album appears by itself.
         compose.waitUntil(60_000) { has("photos checked") || has("Finding the people") || has("Making your album") }
         screenshot("02-checking")
-        waitFor("Send list to photographer", timeout = 8 * 60_000)
-        screenshot("03-album")
+        var opened = false
+        step("03-album", goBackOnFailure = false) {
+            waitFor("Send list to photographer", timeout = 8 * 60_000)
+            screenshot("03-album")
+            opened = true
+        }
+        assertTrue("The album did not open:\n" + failures.joinToString("\n"), opened)
 
         step("04-bride") {
             compose.onNodeWithTag("couple-bride").performClick()

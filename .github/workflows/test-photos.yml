@@ -11,6 +11,11 @@ on:
 permissions:
   contents: write
 
+# Only the newest request counts; an older run still going would overwrite its photos.
+concurrency:
+  group: test-photos
+  cancel-in-progress: true
+
 jobs:
   photos:
     runs-on: ubuntu-latest

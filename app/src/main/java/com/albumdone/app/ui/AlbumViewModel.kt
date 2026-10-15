@@ -162,10 +162,12 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
 
     private suspend fun analysisFor(projectId: Long): AlbumAnalysis = analysisLock.withLock {
         cachedAnalysis?.let { (id, a) -> if (id == projectId) return@withLock a }
+        val started = System.currentTimeMillis()
         val project = dao.project(projectId) ?: error("No such album")
         val (photos, tags) = people.planInput(project)
         val analysis = withContext(Dispatchers.Default) { AlbumPlanner.analyze(photos, tags) }
         cachedAnalysis = projectId to analysis
+        Log.d(TAG, "analysis of ${photos.size} photos in ${System.currentTimeMillis() - started} ms")
         analysis
     }
 
@@ -203,6 +205,7 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
     /** Analysis finished: the album is made straight away, so the couple sees results first. */
     fun openAlbum(projectId: Long) {
         viewModelScope.launch {
+            Log.d(TAG, "open album $projectId")
             forgetAnalysis()
             val photos = dao.photos(projectId)
             if (photos.none { it.selected || it.removed }) {
@@ -210,6 +213,7 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
                 replan(projectId)
                 busy = false
             }
+            Log.d(TAG, "album $projectId ready to show")
             screen = Screen.Album(projectId)
         }
     }
@@ -308,18 +312,25 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
             val keep = photos.filter { it.selected && it.userChoice }.map { it.id }.toSet()
             val removed = photos.filter { it.removed }.map { it.id }.toSet()
             val list = AlbumPlanner.shortlist(analysis, project.albumSize, removed, keep)
+            Log.d(TAG, "album planned: ${list.ids.size} of ${photos.size} photos")
             dao.replaceSelection(projectId, list.ids)
             dao.setPickReasons(list.ids.filter { it !in keep }.associateWith { list.reasons[it].orEmpty().joinToString("\n") })
             dao.setCover(projectId, list.coverId)
+            Log.d(TAG, "album saved")
         }
     }
 
     fun album(projectId: Long): Flow<AlbumState?> =
         combine(dao.photosFlow(projectId), dao.peopleWithFaces(projectId), dao.projectSummary(projectId)) { photos, persons, summary ->
             val project = summary?.project ?: return@combine null
-            if (photos.none { it.selected }) return@combine null
+            val selected = photos.count { it.selected }
+            Log.d(TAG, "album update: $selected selected of ${photos.size}, ${persons.size} people")
+            if (selected == 0) return@combine null
             val analysis = analysisFor(projectId)
             buildAlbum(project, photos, persons, analysis)
+        }.catch { e ->
+            Log.e(TAG, "album could not be shown", e)
+            throw e
         }.flowOn(Dispatchers.Default)
 
     private fun buildAlbum(project: ProjectEntity, photos: List<PhotoEntity>, persons: List<PersonWithFace>, analysis: AlbumAnalysis): AlbumState {
