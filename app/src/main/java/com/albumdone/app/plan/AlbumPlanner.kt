@@ -852,7 +852,7 @@ object AlbumPlanner {
                     val m = a.momentById[c.momentId]
                     val planned = (got[c.momentId] ?: 0) < (plan[c.momentId] ?: 0)
                     got[c.momentId] = (got[c.momentId] ?: 0) + 1
-                    add(c, if (m != null && planned) momentReason(m, moments) else "Adds variety to ${event}")
+                    add(c, if (m != null && planned) momentReason(m, moments) else "Adds variety to ${Display.eventName(event)}")
                 }
             }
         }
@@ -912,9 +912,9 @@ object AlbumPlanner {
             return when {
                 m.key && m.start > 0 -> "Key moment: ${m.photoIds.size} photos taken in ${max(1, minutes)} min"
                 m.key -> "Key moment: ${m.photoIds.size} photos taken together"
-                m.id == moments.first().id -> "Start of ${m.event}"
-                m.id == moments.last().id -> "End of ${m.event}"
-                else -> "Part of the ${m.event} story"
+                m.id == moments.first().id -> "Start of ${Display.eventName(m.event)}"
+                m.id == moments.last().id -> "End of ${Display.eventName(m.event)}"
+                else -> "Part of the ${Display.eventName(m.event)} story"
             }
         }
 
@@ -1001,7 +1001,17 @@ object AlbumPlanner {
             if (p.ritual && p.photo.faces.isNotEmpty()) list += "Serious faces are right during rituals"
             if (p.emotional) list += "Real emotion: tears are never a flaw"
             if (p.interaction && !p.allEyesOpenAndLooking) list += "Natural moment: people interacting"
-            if (p.shot != ShotType.DETAIL) list += "Shot type: ${p.shot.label}"
+            val kind = when (p.shot) {
+                ShotType.COUPLE_CLOSE -> "Close-up of the couple"
+                ShotType.COUPLE_FULL -> "The couple, full length"
+                ShotType.BRIDE_SOLO -> "Portrait of the bride"
+                ShotType.GROOM_SOLO -> "Portrait of the groom"
+                ShotType.GROUP -> "Family group photo"
+                ShotType.CANDID -> "Candid moment"
+                ShotType.GUEST -> "Portrait"
+                ShotType.DETAIL -> null
+            }
+            if (kind != null && list.none { it.equals(kind, ignoreCase = true) }) list += kind
             val soft = p.issues.filter { !it.hard }
             if (soft.isNotEmpty() && p.usable) list += "Small flaw: " + soft.joinToString(", ") { it.label.lowercase() }
         }

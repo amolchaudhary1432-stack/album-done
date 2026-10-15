@@ -116,3 +116,35 @@ data class PeopleTags(
         else -> tags[id]?.name?.takeIf { it.isNotBlank() } ?: "Person $id"
     }
 }
+
+/** Small helpers for showing photos and names the way people expect. */
+object Display {
+
+    /** "01 Haldi" -> "Haldi", "3. Wedding" -> "Wedding", "02_Reception" -> "Reception". */
+    fun eventName(folder: String): String {
+        val cleaned = folder.replace(Regex("^\\s*\\d+\\s*[._\\-)]*\\s*"), "").replace('_', ' ').trim()
+        return cleaned.ifEmpty { folder }
+    }
+
+    /**
+     * Where to centre a square thumbnail of a [width] x [height] photo so the faces show.
+     * Returns (horizontal, vertical) alignment from -1 (left/top) to 1 (right/bottom).
+     */
+    fun cropBias(width: Int, height: Int, faces: List<Box>): Pair<Float, Float> {
+        if (width <= 0 || height <= 0) return 0f to 0f
+        val visible = faces.filter { it.width >= 0.03f }
+        if (visible.isEmpty()) return 0f to if (height > width) -0.4f else 0f // people's heads are usually high
+        val l = visible.minOf { it.left }; val r = visible.maxOf { it.right }
+        val t = visible.minOf { it.top }; val b = visible.maxOf { it.bottom }
+        fun bias(center: Float, shown: Float): Float {
+            if (shown >= 1f) return 0f
+            val start = (center - shown / 2f).coerceIn(0f, 1f - shown)
+            return start / (1f - shown) * 2f - 1f
+        }
+        return if (height > width) {
+            0f to bias((t + b) / 2f, width.toFloat() / height)
+        } else {
+            bias((l + r) / 2f, height.toFloat() / width) to 0f
+        }
+    }
+}

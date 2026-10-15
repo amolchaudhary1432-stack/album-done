@@ -11,11 +11,28 @@ class SceneRulesTest {
     @Test
     fun backOfAGuestInTheForeground() {
         val back = Box(0.1f, 0.5f, 0.45f, 1f)        // big, from the bottom edge, no face
-        val guestFacing = Box(0.55f, 0.4f, 0.9f, 1f)  // same, but with a face in the head area
+        val guestFacing = Box(0.55f, 0.4f, 0.9f, 1f)  // same, but with a face in the outline
         val face = Box(0.65f, 0.42f, 0.75f, 0.55f)
         assertEquals(1, SceneRules.foregroundBacks(listOf(back, guestFacing), listOf(face)))
         // Someone small in the distance is not blocking anything.
-        assertEquals(0, SceneRules.foregroundBacks(listOf(Box(0.4f, 0.3f, 0.45f, 0.5f)), emptyList()))
+        assertEquals(0, SceneRules.foregroundBacks(listOf(Box(0.4f, 0.3f, 0.45f, 0.5f)), listOf(face)))
+    }
+
+    @Test
+    fun closeUpPortraitIsNotSomeonesBack() {
+        // Found on the phone test: a tight portrait, the face fills the middle of the person outline.
+        val person = Box(0.0f, 0.03f, 0.99f, 1.0f)
+        val face = Box(0.33f, 0.24f, 0.67f, 0.8f)
+        assertEquals(0, SceneRules.foregroundBacks(listOf(person), listOf(face)))
+    }
+
+    @Test
+    fun aBackNeedsSomeoneElseToBeBlocked() {
+        // A photo of only someone's back (a detail shot, a saree from behind) is not "blocked".
+        assertEquals(0, SceneRules.foregroundBacks(listOf(Box(0.2f, 0.3f, 0.8f, 1f)), emptyList()))
+        // A big person at the very edge is not in the way.
+        val face = Box(0.4f, 0.2f, 0.5f, 0.35f)
+        assertEquals(0, SceneRules.foregroundBacks(listOf(Box(0.75f, 0.4f, 1f, 1f)), listOf(face)))
     }
 
     @Test

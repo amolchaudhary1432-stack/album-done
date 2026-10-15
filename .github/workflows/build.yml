@@ -13,7 +13,13 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  # The real app on an Android emulator: analysis on real photos and every screen.
+  # Nothing is published unless this passes.
+  phone-test:
+    uses: ./.github/workflows/phone-test.yml
+
   build:
+    needs: phone-test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

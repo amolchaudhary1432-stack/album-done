@@ -35,6 +35,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.albumdone.app.data.ProjectStatus
+import com.albumdone.app.plan.Display
 import com.albumdone.app.plan.Issue
 import kotlin.math.roundToInt
 
@@ -143,7 +144,7 @@ fun ResultsScreen(vm: AlbumViewModel, projectId: Long) {
                 Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                     for (e in a.eventStats) {
                         Row {
-                            Text(e.name, Modifier.weight(1f))
+                            Text(Display.eventName(e.name), Modifier.weight(1f))
                             Text("${e.usable} good of ${e.total}")
                         }
                     }

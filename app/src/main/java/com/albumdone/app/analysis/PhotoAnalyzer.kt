@@ -128,12 +128,14 @@ class PhotoAnalyzer(private val context: Context) : AutoCloseable {
             val found = objects.detect(image).detections()
             val people = found.filter { d -> d.categories().any { it.categoryName() == "person" && it.score() >= 0.45f } }
                 .map { toBox(it.boundingBox(), bitmap) }
+            val surePeople = found.filter { d -> d.categories().any { it.categoryName() == "person" && it.score() >= 0.6f } }
+                .map { toBox(it.boundingBox(), bitmap) }
             val phones = found.filter { d -> d.categories().any { it.categoryName() == "cell phone" } }
                 .map { toBox(it.boundingBox(), bitmap) }
 
             val raw = findFaces(bitmap, people)
             val faces = raw.map { measureFace(bitmap, gray, qw, qh, it) }
-            val backs = SceneRules.foregroundBacks(people, faces.map { it.reading.box })
+            val backs = SceneRules.foregroundBacks(surePeople, faces.map { it.reading.box })
 
             writeThumbnail(bitmap, thumbFile)
             val rotatedSides = orientation == ExifInterface.ORIENTATION_ROTATE_90 ||

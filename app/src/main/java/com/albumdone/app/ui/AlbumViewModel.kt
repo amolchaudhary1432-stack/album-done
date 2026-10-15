@@ -21,6 +21,7 @@ import com.albumdone.app.people.PeopleRepository
 import com.albumdone.app.plan.AlbumAnalysis
 import com.albumdone.app.plan.AlbumPlanner
 import com.albumdone.app.plan.Coverage
+import com.albumdone.app.plan.Display
 import com.albumdone.app.plan.PlanPhoto
 import com.albumdone.app.scan.FolderScanner
 import com.albumdone.app.scan.FoundPhoto
@@ -65,7 +66,14 @@ data class ResultsState(
     val coverage: List<Coverage>,
 )
 
-data class ShortlistPhoto(val photo: PhotoEntity, val event: String, val reasons: List<String>, val cover: Boolean)
+data class ShortlistPhoto(
+    val photo: PhotoEntity,
+    val event: String,
+    val reasons: List<String>,
+    val cover: Boolean,
+    /** Where to centre the square thumbnail so the faces show (-1..1 each way). */
+    val crop: Pair<Float, Float> = 0f to 0f,
+)
 
 data class ShortlistState(
     val project: ProjectEntity?,
@@ -348,7 +356,13 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
             val byEvent = analysis.events.mapNotNull { event ->
                 val items = ordered.filter { it.event == event }.map {
                     val p = selected.getValue(it.id)
-                    ShortlistPhoto(p, event, p.pickReason?.split('\n')?.filter(String::isNotBlank).orEmpty(), p.id == project?.coverPhotoId)
+                    ShortlistPhoto(
+                        photo = p,
+                        event = event,
+                        reasons = p.pickReason?.split('\n')?.filter(String::isNotBlank).orEmpty(),
+                        cover = p.id == project?.coverPhotoId,
+                        crop = Display.cropBias(p.width, p.height, it.photo.faces.map { f -> f.box }),
+                    )
                 }
                 if (items.isEmpty()) null else event to items
             }
@@ -396,7 +410,7 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
         append("Album selection: ").append(state.project?.name ?: "").append('\n')
         append(state.selectedCount).append(" photos\n")
         for ((event, items) in state.byEvent) {
-            append('\n').append(event).append(" (").append(items.size).append(")\n")
+            append('\n').append(Display.eventName(event)).append(" (").append(items.size).append(")\n")
             for (item in items) {
                 val p = item.photo
                 if (p.folder.isEmpty()) append(p.name) else append(p.folder).append('/').append(p.name)

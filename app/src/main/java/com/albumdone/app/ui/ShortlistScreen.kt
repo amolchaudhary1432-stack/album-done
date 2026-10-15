@@ -43,6 +43,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.BiasAlignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -51,6 +52,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
+import com.albumdone.app.plan.Display
 import kotlinx.coroutines.launch
 import java.io.File
 
@@ -88,7 +90,11 @@ fun ShortlistScreen(vm: AlbumViewModel, projectId: Long) {
                         verticalArrangement = Arrangement.spacedBy(8.dp),
                     ) {
                         if (missing > 0 && s.canReplace) {
-                            OutlinedButton(onClick = { vm.replaceRemoved(projectId) }, enabled = !vm.busy, modifier = Modifier.fillMaxWidth()) {
+                            OutlinedButton(
+                                onClick = { snackbar.currentSnackbarData?.dismiss(); vm.replaceRemoved(projectId) },
+                                enabled = !vm.busy,
+                                modifier = Modifier.fillMaxWidth(),
+                            ) {
                                 Icon(Icons.Default.Refresh, contentDescription = null)
                                 Text("  Replace removed ($missing)")
                             }
@@ -129,7 +135,7 @@ fun ShortlistScreen(vm: AlbumViewModel, projectId: Long) {
             for ((event, photos) in s.byEvent) {
                 item(key = "event-$event", span = { GridItemSpan(maxLineSpan) }) {
                     Row(Modifier.padding(start = 8.dp, top = 16.dp, bottom = 4.dp)) {
-                        Text(event, style = MaterialTheme.typography.titleMedium, modifier = Modifier.weight(1f))
+                        Text(Display.eventName(event), style = MaterialTheme.typography.titleMedium, modifier = Modifier.weight(1f))
                         Text("${photos.size}", style = MaterialTheme.typography.titleMedium)
                     }
                 }
@@ -139,6 +145,7 @@ fun ShortlistScreen(vm: AlbumViewModel, projectId: Long) {
                             model = item.photo.thumbPath?.let { File(it) } ?: item.photo.docUri,
                             contentDescription = item.photo.name,
                             contentScale = ContentScale.Crop,
+                            alignment = BiasAlignment(item.crop.first, item.crop.second),
                             modifier = Modifier.fillMaxSize(),
                         )
                         if (item.cover) {
@@ -169,7 +176,7 @@ fun ShortlistScreen(vm: AlbumViewModel, projectId: Long) {
                         modifier = Modifier.fillMaxWidth().heightIn(max = 320.dp),
                     )
                     Text(item.photo.name, style = MaterialTheme.typography.labelMedium)
-                    val reasons = item.reasons.ifEmpty { listOf("Picked as one of the best photos of ${item.event}") }
+                    val reasons = item.reasons.ifEmpty { listOf("Picked as one of the best photos of ${Display.eventName(item.event)}") }
                     for (r in reasons) Text("• $r", style = MaterialTheme.typography.bodyMedium)
                 }
             },

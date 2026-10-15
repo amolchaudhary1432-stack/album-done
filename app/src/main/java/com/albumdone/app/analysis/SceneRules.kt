@@ -11,12 +11,16 @@ import kotlin.math.min
 object SceneRules {
 
     /**
-     * Guests with their back to the camera, blocking the view: a big person box rising from the
-     * bottom edge with no face in its head area.
+     * Guests with their back to the camera, blocking the view: a big person rising from the
+     * bottom edge, across the middle of the frame, with no face anywhere in their outline, while
+     * someone else's face is visible (the people the photo was meant to show).
+     * Only confidently detected people should be passed in.
      */
     fun foregroundBacks(people: List<Box>, faces: List<Box>): Int = people.count { p ->
-        p.bottom >= 0.95f && p.height >= 0.3f && p.area >= 0.08f &&
-            faces.none { f -> f.centerX in p.left..p.right && f.centerY in p.top..(p.top + p.height * 0.5f) }
+        p.bottom >= 0.95f && p.height >= 0.35f && p.area >= 0.10f &&
+            p.left < 0.7f && p.right > 0.3f &&
+            faces.none { f -> f.centerX in p.left..p.right && f.centerY in p.top..p.bottom } &&
+            faces.any { f -> f.width >= 0.03f && !(f.centerX in p.left..p.right && f.centerY in p.top..p.bottom) }
     }
 
     /** Person boxes whose head area has no face yet: faces too small for the first look. */
