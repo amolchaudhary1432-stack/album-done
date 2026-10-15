@@ -41,6 +41,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
@@ -142,6 +143,13 @@ data class ViewerState(val photo: AlbumPhoto, val alternatives: List<Alternative
 
 private const val TAG = "AlbumDone"
 
+/**
+ * Screens always get new values on the main thread. Work inside the flows runs elsewhere; without
+ * this, a value could arrive from a worker thread and (in the phone test's tools) the screen would
+ * be drawn there, which crashes lists.
+ */
+private fun <T> Flow<T>.onMain(): Flow<T> = flowOn(Dispatchers.Main)
+
 /** People listed on the people screen besides the family; a big wedding has many. */
 private const val MAX_PEOPLE_SHOWN = 80
 
@@ -176,9 +184,9 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
     val projects: StateFlow<List<ProjectSummary>> = dao.projectSummaries()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
 
-    fun projectSummary(id: Long) = dao.projectSummary(id)
+    fun projectSummary(id: Long) = dao.projectSummary(id).onMain()
 
-    fun recentThumbs(projectId: Long) = dao.recentThumbs(projectId, 5)
+    fun recentThumbs(projectId: Long) = dao.recentThumbs(projectId, 5).onMain()
 
     // The planner's view of a wedding. Worked out once and reused until the family changes.
     private val analysisLock = Mutex()
@@ -366,7 +374,7 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
         }.catch { e ->
             Log.e(TAG, "album could not be shown", e)
             throw e
-        }
+        }.onMain()
 
     private fun buildAlbum(project: ProjectEntity, photos: List<PhotoEntity>, persons: List<PersonWithFace>, analysis: AlbumAnalysis): AlbumState {
         val byId = photos.associateBy { it.id }
@@ -496,7 +504,7 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
             val project = summary?.project ?: return@combine null
             val analysis = analysisFor(projectId)
             withContext(Dispatchers.Default) { viewerState(project, photos, photoId, analysis) }
-        }
+        }.onMain()
 
     private fun viewerState(project: ProjectEntity, photos: List<PhotoEntity>, photoId: Long, analysis: AlbumAnalysis): ViewerState? {
         val byId = photos.associateBy { it.id }
@@ -581,7 +589,7 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
         }.catch { e ->
             Log.e(TAG, "person $personId could not be loaded", e)
             throw e
-        }
+        }.onMain()
 
     private fun editPeople(projectId: Long, done: String? = null, block: suspend () -> Unit) {
         viewModelScope.launch {
