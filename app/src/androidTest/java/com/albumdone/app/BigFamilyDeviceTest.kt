@@ -12,6 +12,7 @@ import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performScrollToIndex
 import androidx.compose.ui.test.performScrollToNode
 import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.swipeUp
@@ -100,7 +101,8 @@ class BigFamilyDeviceTest {
         compose.waitUntil(30_000) { has("Send list to photographer") }
 
         // Who's who: a few faces, one tap each, then back to the album.
-        compose.onNodeWithTag("album-grid").performScrollToNode(hasTestTag("quick-tag"))
+        compose.onNodeWithTag("album-grid").performScrollToIndex(2)
+        compose.waitForIdle()
         tap("quick-tag")
         compose.waitUntil(30_000) { hasTag("quick-Aunt") }
         screenshot("big-07-whos-who")
@@ -119,7 +121,9 @@ class BigFamilyDeviceTest {
         assertEquals("bride, groom and the three people named", 5, named)
 
         // Family groups: one photo per group, name a whole family at once, add every family.
-        compose.onNodeWithTag("album-grid").performScrollToNode(hasTestTag("stage-card"))
+        // The card at the top of the screen, clear of the floating Send button (hero 0, couple 1, family 2, groups 3).
+        compose.onNodeWithTag("album-grid").performScrollToIndex(3)
+        compose.waitForIdle()
         tap("stage-card")
         compose.waitUntil(30_000) { hasTag("stage-tile") }
         screenshot("big-11-family-groups")
