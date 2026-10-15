@@ -86,6 +86,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.albumdone.app.data.PersonEntity
 import com.albumdone.app.data.PersonSide
@@ -400,9 +401,9 @@ fun PersonChipView(c: PersonChip, onClick: () -> Unit) {
             if (low) DotBadge("!", MaterialTheme.colorScheme.error, Modifier.align(Alignment.BottomEnd))
         }
         Spacer(Modifier.height(4.dp))
-        // Names in full; the app's own guesses ("Groom's side") a little smaller so they fit.
-        Text(c.label, style = if (c.known) MaterialTheme.typography.labelLarge else MaterialTheme.typography.labelMedium,
-            maxLines = 1, overflow = TextOverflow.Ellipsis,
+        // Two lines, so "Bride's mother" and "Groom's side" show in full.
+        Text(c.label, style = MaterialTheme.typography.labelMedium, maxLines = 2, minLines = 2, overflow = TextOverflow.Ellipsis,
+            textAlign = TextAlign.Center, lineHeight = 15.sp,
             color = if (c.known) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurfaceVariant)
         Text("${c.inAlbum} photo${if (c.inAlbum == 1) "" else "s"}", style = MaterialTheme.typography.labelMedium,
             color = if (low) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant)

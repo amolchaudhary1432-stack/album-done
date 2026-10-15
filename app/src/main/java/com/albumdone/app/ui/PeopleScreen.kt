@@ -147,7 +147,7 @@ private fun PersonTile(c: PersonChip, onClick: () -> Unit) {
             if (low) DotBadge("!", MaterialTheme.colorScheme.error, Modifier.align(Alignment.BottomEnd))
         }
         Spacer(Modifier.height(6.dp))
-        Text(c.label, style = MaterialTheme.typography.labelLarge, maxLines = 1, overflow = TextOverflow.Ellipsis,
+        Text(c.label, style = MaterialTheme.typography.labelLarge, maxLines = 2, overflow = TextOverflow.Ellipsis, textAlign = TextAlign.Center,
             color = if (c.known) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.padding(horizontal = 4.dp))
         Text(
