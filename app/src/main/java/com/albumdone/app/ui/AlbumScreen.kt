@@ -336,6 +336,8 @@ private fun CoupleCard(s: AlbumState, onTap: (Long) -> Unit, onSwap: () -> Unit,
     val couple = s.occasion.couple
     val main = listOfNotNull(s.bride, s.groom)
     val found = if (couple) main.size == 2 else main.isNotEmpty()
+    // A child's album shows the child with mummy and papa: the family the album is about.
+    val faces = main + (if (s.occasion.child && found) s.parents.take(2) else emptyList())
     val unsure = found && !s.project.coupleSure
     val bg = if (unsure) MaterialTheme.colorScheme.secondaryContainer else MaterialTheme.colorScheme.surfaceContainer
     Surface(color = bg, shape = RoundedCornerShape(20.dp), modifier = Modifier.fillMaxWidth().testTag("couple-card")) {
@@ -349,12 +351,12 @@ private fun CoupleCard(s: AlbumState, onTap: (Long) -> Unit, onSwap: () -> Unit,
                     )
                     return@Row
                 }
-                // One or two overlapping faces; each opens that person.
-                Box(Modifier.width(if (main.size == 2) 88.dp else 52.dp)) {
-                    main.forEachIndexed { i, c ->
+                // Overlapping faces; each opens that person.
+                Box(Modifier.width((52 + 36 * (faces.size - 1)).dp)) {
+                    faces.forEachIndexed { i, c ->
                         val ring = if (i > 0) Modifier.border(3.dp, bg, CircleShape) else Modifier
                         Box(Modifier.padding(start = (i * 36).dp).then(ring).clip(CircleShape)
-                            .clickable { onTap(c.personId) }.testTag(if (i == 0) "couple-bride" else "couple-groom")) { FaceAvatar(c.face, 52.dp) }
+                            .clickable { onTap(c.personId) }.testTag(if (i == 0) "couple-bride" else if (c in main) "couple-groom" else "parent-$i")) { FaceAvatar(c.face, 52.dp) }
                     }
                 }
                 Spacer(Modifier.width(10.dp))
@@ -376,8 +378,17 @@ private fun CoupleCard(s: AlbumState, onTap: (Long) -> Unit, onSwap: () -> Unit,
                             else -> main.joinToString(" & ") { it.label }
                         }
                         Text(title, style = MaterialTheme.typography.titleMedium, maxLines = 1, overflow = TextOverflow.Ellipsis)
-                        Text(if (couple) "Tap a face to see their photos" else "The album is built around ${if (main.size == 1) "them" else "these two"}",
-                            style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 2)
+                        val parents = s.parents.take(2)
+                        Text(
+                            when {
+                                couple -> "Tap a face to see their photos"
+                                s.occasion.child && parents.size == 2 ->
+                                    if (parents.all { it.known }) "With ${parents[0].label} & ${parents[1].label}"
+                                    else "With mummy & papa (our guess). Tap a face to fix"
+                                else -> "The album is built around ${if (main.size == 1) "them" else "these two"}"
+                            },
+                            style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 2,
+                        )
                     }
                 }
                 if (!unsure && couple) TextButton(onClick = onSwap) { Text("Swap") }

@@ -33,7 +33,8 @@ import org.junit.runner.RunWith
 /**
  * Album Done is not only for weddings: a child's birthday folder, made up and drawn like the big
  * family test. Checks that the occasion is guessed from the folder name, that the album is built
- * around the birthday star, and that no screen talks about a bride, a groom or their sides.
+ * around the birthday star with mummy and papa, and that no screen talks about a bride, a groom
+ * or their sides.
  */
 @RunWith(AndroidJUnit4::class)
 class BirthdayDeviceTest {
@@ -89,8 +90,8 @@ class BirthdayDeviceTest {
             val vm = ViewModelProvider(compose.activity)[AlbumViewModel::class.java]
             val photos = List(240) { FoundPhoto(Uri.parse("file:///test/IMG_%04d.jpg".format(it + 1)), "IMG_%04d.jpg".format(it + 1), "", 1, 0) }
             compose.runOnUiThread { vm.showScanned(Uri.parse("file:///test"), "Aarav 1st Birthday", photos) }
-            compose.waitUntil(10_000) { hasTag("occasion-BIRTHDAY") }
-            assertEquals(Occasion.BIRTHDAY, vm.newOccasion)
+            compose.waitUntil(10_000) { hasTag("occasion-sub-KIDS_BIRTHDAY") }
+            assertEquals(Occasion.KIDS_BIRTHDAY, vm.newOccasion)
             screenshot("bday-01-new-album")
             compose.runOnUiThread { vm.back() }
         }
@@ -104,8 +105,17 @@ class BirthdayDeviceTest {
         step("bday-02-album") {
             screenshot("bday-02-album")
             assertTrue("main person card", has("Birthday star"))
+            assertTrue("mummy and papa guessed", has("mummy & papa"))
             noWeddingWords("the album")
         }
+        step("bday-02b-parent") {
+            tap("parent-1")
+            compose.waitUntil(30_000) { has("In ") }
+            Thread.sleep(1_500)
+            screenshot("bday-02b-parent")
+            DeviceTestSupport.pressBack()
+        }
+        backToAlbum()
         step("bday-03-family") {
             compose.onNodeWithTag("album-grid").performScrollToNode(hasTestTag("quick-tag"))
             screenshot("bday-03-family")
@@ -171,18 +181,23 @@ class BirthdayDeviceTest {
         val dao = AppDatabase.get(app).dao()
         val pid = dao.insertProject(
             ProjectEntity(name = name, treeUri = "file:///bday", createdAt = System.currentTimeMillis(), albumSize = 40,
-                status = ProjectStatus.DONE, occasion = Occasion.BIRTHDAY.name),
+                status = ProjectStatus.DONE, occasion = Occasion.KIDS_BIRTHDAY.name),
         )
         val star = dao.insertPerson(PersonEntity(projectId = pid))
+        val mummy = dao.insertPerson(PersonEntity(projectId = pid))
+        val papa = dao.insertPerson(PersonEntity(projectId = pid))
         val family = List(10) { dao.insertPerson(PersonEntity(projectId = pid)) }
         val friends = List(12) { dao.insertPerson(PersonEntity(projectId = pid)) }
         val labels = HashMap<Long, String>().apply {
-            put(star, "A")
+            put(star, "A"); put(mummy, "M"); put(papa, "P")
             family.forEachIndexed { i, id -> put(id, "F${i + 1}") }
             friends.forEachIndexed { i, id -> put(id, "f${i + 1}") }
         }
         val shots = ArrayList<Pair<List<Long>, Int>>()
         repeat(70) { k -> shots += listOf(star) to k * 4 }
+        // Mummy and papa all day: with the child, and the three of them together.
+        repeat(30) { k -> shots += listOf(star, if (k % 2 == 0) mummy else papa) to k * 9 + 1 }
+        repeat(8) { k -> shots += listOf(mummy, star, papa) to k * 35 + 3 }
         family.forEachIndexed { i, r -> for (visit in 0..3) repeat(2) { shots += listOf(star, r) to visit * 70 + i * 3 + 1 } }
         family.chunked(4).forEachIndexed { g, group -> repeat(2) { shots += (listOf(star) + group) to 150 + g * 5 } }
         friends.forEachIndexed { j, f -> repeat(2) { shots += listOf(star, f) to 230 + j } }

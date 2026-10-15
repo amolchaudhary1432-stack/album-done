@@ -320,14 +320,28 @@ fun NewAlbumScreen(vm: AlbumViewModel, screen: Screen.NewAlbum) {
                     Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                         Text("What are these photos of?", style = MaterialTheme.typography.titleMedium)
                         FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                            for (o in Occasion.values()) {
-                                FilterChip(selected = vm.newOccasion == o, onClick = { vm.newOccasion = o }, label = { Text(o.label) },
-                                    modifier = Modifier.testTag("occasion-${o.name}"))
+                            // One chip per kind; a birthday then asks whose (a child's needs mummy and papa in it).
+                            for (o in Occasion.values().distinctBy { it.label }) {
+                                FilterChip(selected = vm.newOccasion.label == o.label, onClick = { if (vm.newOccasion.label != o.label) vm.newOccasion = o },
+                                    label = { Text(o.label) }, modifier = Modifier.testTag("occasion-${o.name}"))
+                            }
+                        }
+                        val subs = Occasion.values().filter { it.label == vm.newOccasion.label && it.sub != null }
+                        if (subs.isNotEmpty()) {
+                            Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
+                                Text("Whose?", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                for (o in subs) {
+                                    FilterChip(selected = vm.newOccasion == o, onClick = { vm.newOccasion = o }, label = { Text(o.sub!!) },
+                                        modifier = Modifier.testTag("occasion-sub-${o.name}"))
+                                }
                             }
                         }
                         Text(
-                            if (vm.newOccasion.couple) "We find the couple and both families by ourselves."
-                            else "We find who the photos are about by ourselves.",
+                            when {
+                                vm.newOccasion.couple -> "We find the couple and both families by ourselves."
+                                vm.newOccasion.child -> "We find the child, mummy and papa by ourselves."
+                                else -> "We find who the photos are about by ourselves."
+                            },
                             style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
                     }

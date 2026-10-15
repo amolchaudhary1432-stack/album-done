@@ -54,12 +54,16 @@ class RealWeddingDeviceTest {
 
     @Test
     fun realWedding() {
-        val folders = DeviceTestSupport.testAssets("wedding").filter { DeviceTestSupport.testAssets("wedding/$it").isNotEmpty() }
-        assumeTrue("No real wedding photos in this build", folders.isNotEmpty())
+        val top = DeviceTestSupport.testAssets("wedding")
+        val folders = top.filter { DeviceTestSupport.testAssets("wedding/$it").isNotEmpty() }
+        // A guest's or a family's folder often has no sub-folders: the photos sit at the top.
+        val loose = top.filter { it.substringAfterLast('.').lowercase() in setOf("jpg", "jpeg", "png", "heic", "webp") }
+        assumeTrue("No real wedding photos in this build", folders.isNotEmpty() || loose.isNotEmpty())
         val name = "Real wedding"
         val dao = AppDatabase.get(DeviceTestSupport.app).dao()
 
-        val files = folders.sorted().flatMap { f -> DeviceTestSupport.testAssets("wedding/$f").sorted().map { f to it } }
+        val files = loose.sorted().map { "" to it } +
+            folders.sorted().flatMap { f -> DeviceTestSupport.testAssets("wedding/$f").sorted().map { f to it } }
         val asked = InstrumentationRegistry.getArguments().getString("albumSize")?.toIntOrNull() ?: 0
         val albumSize = if (asked > 0) asked else (files.size / 4).coerceIn(12, 60)
         val id = runBlocking {
@@ -67,7 +71,8 @@ class RealWeddingDeviceTest {
             dao.insertPhotos(files.map { (folder, file) ->
                 PhotoEntity(
                     projectId = id,
-                    docUri = DeviceTestSupport.copyAsset("wedding/$folder/$file", "real-wedding/$folder", file).toString(),
+                    docUri = (if (folder.isEmpty()) DeviceTestSupport.copyAsset("wedding/$file", "real-wedding", file)
+                        else DeviceTestSupport.copyAsset("wedding/$folder/$file", "real-wedding/$folder", file)).toString(),
                     name = file, folder = folder, size = 1, lastModified = 0,
                 )
             })

@@ -111,11 +111,19 @@ data class PersonTag(
  * What the folder is for. It decides who the album is built around and the words the app uses;
  * how photos are judged is the same for every occasion.
  */
-enum class Occasion(val label: String) {
-    WEDDING("Wedding"), ENGAGEMENT("Engagement"), BIRTHDAY("Birthday"), BABY("Baby"), TRIP("Trip"), OTHER("Other");
+enum class Occasion(val label: String, val sub: String? = null) {
+    WEDDING("Wedding"), ENGAGEMENT("Engagement"),
+    KIDS_BIRTHDAY("Birthday", "A child's"), BIRTHDAY("Birthday", "A grown-up's"),
+    BABY("Baby"), TRIP("Trip"), OTHER("Other");
 
     /** Built around a couple, each with their own family (the bride's side and the groom's side). */
     val couple: Boolean get() = this == WEDDING || this == ENGAGEMENT
+
+    /** About a child: the album needs the child with mummy and papa, not just the child. */
+    val child: Boolean get() = this == KIDS_BIRTHDAY || this == BABY
+
+    /** A second main person makes sense (a couple on a trip, a grown-up and their partner). */
+    val pairs: Boolean get() = this == BIRTHDAY || this == TRIP || this == OTHER
 
     /** Share of each event for photos without faces: a trip is as much about the places as the people. */
     val detailShare: Double get() = if (this == TRIP) 0.25 else 0.10
@@ -123,7 +131,7 @@ enum class Occasion(val label: String) {
     /** Who the album is about, when nobody has named them: "the bride", "the birthday star". */
     fun role(first: Boolean): String = when {
         couple -> if (first) "the bride" else "the groom"
-        first && this == BIRTHDAY -> "the birthday star"
+        first && (this == KIDS_BIRTHDAY || this == BIRTHDAY) -> "the birthday star"
         first && this == BABY -> "the baby"
         else -> "the main person"
     }
@@ -138,15 +146,23 @@ enum class Occasion(val label: String) {
             WEDDING to listOf("wedding", "shaadi", "shadi", "vivah", "lagna", "lagn", "haldi", "mehendi", "mehndi", "sangeet",
                 "reception", "baraat", "pheras", "mandap", "marriage", "kalyanam"),
             ENGAGEMENT to listOf("engagement", "sagai", "sakharpuda", "roka", "ring ceremony", "mangni", "nischitartham"),
-            BIRTHDAY to listOf("birthday", "bday", "b'day", "janmadin", "vadhdivas"),
+            BIRTHDAY to listOf("birthday", "bday", "b'day", "janmadin", "vadhdivas", "shashtipoorti", "amrut mahotsav"),
             BABY to listOf("baby", "naming", "namkaran", "barsa", "annaprashan", "mundan", "godh bharai", "baby shower", "dohale"),
             TRIP to listOf("trip", "tour", "travel", "holiday", "vacation", "honeymoon", "trek"),
         )
 
+        /** "Aarav 5th birthday": a child; "Baba 60th": a grown-up. Most birthday folders are a child's. */
+        private fun birthday(text: String): Occasion {
+            if (listOf("shashtipoorti", "amrut mahotsav").any { it in text }) return BIRTHDAY
+            val age = Regex("""(\d{1,3})\s*(st|nd|rd|th)\b""").find(text)?.groupValues?.get(1)?.toIntOrNull()
+            return if (age != null && age >= 18) BIRTHDAY else KIDS_BIRTHDAY
+        }
+
         /** A first guess from the folder names (a wedding's folders often include the engagement), so most people never change it. */
         fun guess(names: Collection<String>): Occasion {
             val text = names.joinToString(" ").lowercase()
-            return GUESS.firstOrNull { (_, words) -> words.any { it in text } }?.first ?: OTHER
+            val found = GUESS.firstOrNull { (_, words) -> words.any { it in text } }?.first ?: OTHER
+            return if (found == BIRTHDAY) birthday(text) else found
         }
     }
 }
@@ -161,6 +177,8 @@ data class PeopleTags(
     /** Whose album this is: UNKNOWN for the couple's own (both sides balanced), else one family's. */
     val albumFor: Side = Side.UNKNOWN,
     val occasion: Occasion = Occasion.WEDDING,
+    /** A child's mummy and papa (named, or the app's guess): the album needs the three of them together. */
+    val parents: List<Long> = emptyList(),
 ) {
     /**
      * The same wedding as one family's album (both families usually keep their own copy): their

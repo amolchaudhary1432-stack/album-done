@@ -195,7 +195,7 @@ jobs:
         if: always() && steps.photos.outputs.found == 'true'
         run: |
           mkdir -p out/screens
-          if [ -f screens/screens.tar ]; then tar -xf screens/screens.tar -C out/screens; fi
+          if [ -s screens/screens.tar ]; then tar -xf screens/screens.tar -C out/screens || echo "no screenshots"; fi
           [ -f crash.txt ] && cp crash.txt out/ || true
           [ -f logcat.txt ] && tail -n 20000 logcat.txt > out/logcat.txt || true
           [ -d app/build/outputs/androidTest-results ] && cp -r app/build/outputs/androidTest-results out/ || true

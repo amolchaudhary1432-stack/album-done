@@ -960,5 +960,26 @@ class AlbumPlannerTest {
         val trip = album(Occasion.TRIP)
         assertTrue("trip $trip places, wedding $wedding", trip >= 4 && trip > wedding)
     }
+
+    @Test
+    fun aChildsBirthdayHasTheChildWithMummyAndPapa() {
+        val star = 5L; val mummy = 6L; val papa = 7L
+        val tags = PeopleTags(brideId = star, occasion = Occasion.KIDS_BIRTHDAY, parents = listOf(mummy, papa), tags = mapOf(
+            mummy to PersonTag(mummy, priority = Priority.MUST, guessed = true),
+            papa to PersonTag(papa, priority = Priority.MUST, guessed = true),
+        ))
+        // Lots of lovely solo photos of the child; the three of them together only twice, a little less sharp.
+        val solo = List(30) { photo("Party", t = start + it * 6 * minute, faces = listOf(face(star, x = 0.4f, w = 0.2f))) }
+        val withMummy = List(6) { photo("Party", t = start + (2 + it * 25) * minute, faces = listOf(face(star, x = 0.3f), face(mummy, x = 0.5f))) }
+        val withPapa = List(6) { photo("Party", t = start + (4 + it * 25) * minute, faces = listOf(face(star, x = 0.3f), face(papa, x = 0.5f))) }
+        val family = List(2) { photo("Party", t = start + (100 + it) * minute,
+            faces = listOf(face(mummy, x = 0.2f, sharp = 80.0), face(star, x = 0.4f, sharp = 80.0), face(papa, x = 0.6f, sharp = 80.0))) }
+        val s = AlbumPlanner.shortlist(AlbumPlanner.analyze(solo + withMummy + withPapa + family, tags), 10)
+        val words = s.reasons.values.flatten()
+        assertTrue(words.toString(), s.ids.any { it in family.map { p -> p.id } })
+        assertTrue(words.toString(), words.any { it == "Family photo: the birthday star with mummy and papa" })
+        assertTrue(words.toString(), words.none { it.contains("Family with") })
+        assertTrue(s.ids.any { it in withMummy.map { p -> p.id } } && s.ids.any { it in withPapa.map { p -> p.id } })
+    }
 }
 

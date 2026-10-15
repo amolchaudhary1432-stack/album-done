@@ -861,6 +861,7 @@ object AlbumPlanner {
             if (size <= 0) return Shortlist(emptyList(), emptyMap(), null, emptyList())
             pickCover()
             pickCouple()
+            pickParents()
             pickPeople()
             pickStory()
             fillRest()
@@ -933,6 +934,31 @@ object AlbumPlanner {
 
         fun lookingAtEachOther(): String = tags.pair().capitalized() + " looking at each other"
 
+        /**
+         * A child's album (a birthday, a baby's function): the child with mummy and papa together,
+         * once in every big event and at least once overall. Few others in it: a family photo.
+         */
+        fun pickParents() {
+            val star = tags.brideId ?: return
+            if (!tags.occasion.child || tags.parents.size < 2) return
+            fun together(p: AssessedPhoto) = star in p.people && tags.parents.all { it in p.people }
+            fun best(ok: (AssessedPhoto) -> Boolean) =
+                clean.filter { available(it) && together(it) && ok(it) }.maxByOrNull { it.quality - 0.05 * (it.people.size - 3) }
+            for (event in a.events) {
+                if (room() <= 0) return
+                if ((quotas[event] ?: 0) < 8 || picked.any { id -> a.byId.getValue(id).let { it.event == event && together(it) } }) continue
+                best { it.event == event }?.let { add(it, familyPhoto()) }
+            }
+            if (room() > 0 && picked.none { together(a.byId.getValue(it)) }) best { true }?.let { add(it, familyPhoto()) }
+        }
+
+        /** "Family photo: the birthday star with mummy and papa", or with their names when given. */
+        fun familyPhoto(): String {
+            val names = tags.parents.mapNotNull { tags.tags[it]?.name?.takeIf { n -> n.isNotBlank() } }
+            val who = if (names.size == 2) "${names[0]} and ${names[1]}" else "mummy and papa"
+            return "Family photo: ${tags.who(tags.brideId!!)} with $who"
+        }
+
         // ---- 1. People: the family ----
 
         fun weight(t: PersonTag): Double = when (t.priority) {
@@ -986,9 +1012,15 @@ object AlbumPlanner {
 
         /** In plain words: "Aai and Baba with the couple", "Family elder with the bride", "Nani with the birthday star". */
         fun peopleReason(c: AssessedPhoto, needy: Set<Long>): String {
+            // A child's parents the family has not named yet: "Mummy and papa", or "Parent".
+            val unnamedParents = c.people.filter { it in needy && it in tags.parents && tags.tag(it).name.isBlank() }
             val who = c.people.filter { it in needy }.map { id ->
                 val t = tags.tag(id)
-                t.name.takeIf { it.isNotBlank() } ?: if (t.elder) "Family elder" else "Family"
+                t.name.takeIf { it.isNotBlank() } ?: when {
+                    id in unnamedParents -> if (unnamedParents.size == 2) "Mummy and papa" else "Parent"
+                    t.elder -> "Family elder"
+                    else -> "Family"
+                }
             }.distinct()
             val names = when (who.size) {
                 0 -> "Family"

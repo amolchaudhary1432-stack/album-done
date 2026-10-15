@@ -41,6 +41,8 @@ object FamilyGuess {
         val closeFamily: Boolean,
         val side: Side,
         val priority: Priority,
+        /** Without sides (a child's birthday, a baby): one of the two closest people, most likely a parent. */
+        val parent: Boolean = false,
     )
 
     const val MIN_PHOTOS = 3
@@ -156,6 +158,7 @@ object FamilyGuess {
                     isClose -> Priority.IMPORTANT
                     else -> Priority.NORMAL
                 },
+                parent = !sides && id in mustIds,
             )
         }
     }
@@ -183,6 +186,9 @@ object FamilyGuess {
     // ---- What a relation means ----
 
     private val PARENTS = setOf("aai", "baba", "mummy", "mom", "mother", "papa", "dad", "father", "maa", "pappa", "amma", "appa")
+
+    /** "Mummy", "Aai", "Father": a name that says this is a parent. */
+    fun isParent(name: String): Boolean = name.trim().lowercase() in PARENTS
     private val GRANDPARENTS = setOf("aaji", "ajoba", "aji", "dadi", "nani", "nana", "grandmother", "grandfather", "grandma", "grandpa")
     private val SIBLINGS = setOf("tai", "dada", "bhau", "didi", "bhaiya", "bhai", "behen", "bahin", "sister", "brother", "best friend")
 

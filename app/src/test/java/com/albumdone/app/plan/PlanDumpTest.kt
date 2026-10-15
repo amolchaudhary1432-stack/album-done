@@ -17,7 +17,8 @@ class PlanDumpTest {
                 phones = listOf(Box(0.5f, 0.5f, 0.6f, 0.7f)), foregroundBacks = 1, peopleArea = 0.3f),
             PlanPhoto(id = 2, name = "IMG_0002.jpg", folder = "", failed = true),
         )
-        val tags = PeopleTags(7L, 8L, mapOf(9L to PersonTag(9L, "Aai", Priority.MUST, Side.BRIDE, elder = true, guessed = false)))
+        val tags = PeopleTags(7L, 8L, mapOf(9L to PersonTag(9L, "Aai", Priority.MUST, Side.BRIDE, elder = true, guessed = false)),
+            occasion = Occasion.KIDS_BIRTHDAY, parents = listOf(9L, 10L))
         val (back, backTags) = PlanDump.read(PlanDump.write(photos, tags))
         assertEquals(photos, back)
         assertEquals(tags, backTags)

@@ -8,9 +8,7 @@ import com.albumdone.app.data.PersonPriority
 import com.albumdone.app.data.PersonSide
 import com.albumdone.app.data.PhotoEntity
 import com.albumdone.app.data.ProjectEntity
-import com.albumdone.app.plan.AlbumPlanner
 import com.albumdone.app.plan.Box
-import com.albumdone.app.plan.EventKind
 import com.albumdone.app.plan.EyeState
 import com.albumdone.app.plan.Occasion
 import com.albumdone.app.plan.Expression
@@ -40,37 +38,10 @@ class PeopleRepository(private val dao: AlbumDao) {
     }
 
     suspend fun detectCouple(projectId: Long) {
-        val rows = dao.faceRows(projectId)
-        val clear = rows.filter { it.right - it.left >= 0.03f }
-        val photosOf = clear.filter { it.personId != null }
-            .groupBy { it.personId!! }.mapValues { e -> e.value.map { it.photoId }.toSet() }
-        val photos = dao.photos(projectId)
-        val hints = photos.filter { isBrideEvent(it.folder) }.map { it.id }.toSet()
-        // Where each photo was taken decides how much "together" counts (see detectCouple).
-        val eventOf = AlbumPlanner.assignEvents(photos.map { PlanPhoto(id = it.id, name = it.name, folder = it.folder) })
-        val weight = photos.associate { p ->
-            val event = eventOf[p.id] ?: ""
-            p.id to when {
-                AlbumPlanner.ownFunction(event) -> PeopleClusterer.OWN_FUNCTION_WEIGHT
-                AlbumPlanner.eventKind(event) == EventKind.RITUAL || AlbumPlanner.eventKind(event) == EventKind.PARTY -> PeopleClusterer.WEDDING_WEIGHT
-                else -> 1.0
-            }
-        }
-        val byPhoto = clear.groupBy { it.photoId }
-        val twoShots = byPhoto.filter { it.value.size == 2 }.keys
-        val portraits = byPhoto.filter { (_, f) -> f.size == 2 && f.all { it.right - it.left >= 0.08f } }.keys
-        val occasion = Occasion.of(dao.project(projectId)?.occasion)
-        if (!occasion.couple) {
-            // A birthday, a baby, a trip: the album is about the most photographed person (or two).
-            val pairs = occasion == Occasion.TRIP || occasion == Occasion.OTHER
-            val main = PeopleClusterer.mainPeople(photosOf, pairs)
-            dao.setCouple(projectId, main?.first, main?.second)
-            dao.setCoupleSure(projectId, main != null && PeopleClusterer.mainSure(photosOf, main))
-            return
-        }
-        val couple = PeopleClusterer.detectCouple(photosOf, hints, { weight[it] ?: 1.0 }, twoShots)
-        dao.setCouple(projectId, couple?.first, couple?.second)
-        dao.setCoupleSure(projectId, couple != null && PeopleClusterer.coupleSure(photosOf, couple, { weight[it] ?: 1.0 }, portraits))
+        val project = dao.project(projectId) ?: return
+        val main = PeoplePlan.findMain(Occasion.of(project.occasion), planPhotos(projectId))
+        dao.setCouple(projectId, main.first, main.second)
+        dao.setCoupleSure(projectId, main.sure)
     }
 
     /** Photo counts and best face of every person; people left with no photos are removed. */
@@ -134,8 +105,21 @@ class PeopleRepository(private val dao: AlbumDao) {
 
     /** Everything the planner needs: photos with their faces, and the couple's tags. */
     suspend fun planInput(project: ProjectEntity): Pair<List<PlanPhoto>, PeopleTags> {
-        val faces = dao.faceRows(project.id).groupBy { it.photoId }
-        val photos = dao.photos(project.id).map { p -> p.toPlan(faces[p.id].orEmpty().map { f ->
+        val photos = planPhotos(project.id)
+        val people = dao.people(project.id)
+        val userTags = people.associate { p ->
+            p.id to PersonTag(p.id, p.name, enumOr(p.priority, Priority.NORMAL), enumOr(p.side, Side.UNKNOWN), p.elder)
+        }
+        val userTagged = people.filter {
+            it.priority != PersonPriority.NORMAL || it.side != PersonSide.UNKNOWN || it.elder
+        }.map { it.id }.toSet()
+        return photos to PeoplePlan.tags(Occasion.of(project.occasion), photos, project.brideId, project.groomId, userTags, userTagged)
+    }
+
+    /** Every photo of the project with its faces, as the planner sees them. */
+    private suspend fun planPhotos(projectId: Long): List<PlanPhoto> {
+        val faces = dao.faceRows(projectId).groupBy { it.photoId }
+        return dao.photos(projectId).map { p -> p.toPlan(faces[p.id].orEmpty().map { f ->
             PlanFace(
                 personId = f.personId,
                 box = Box(f.left, f.top, f.right, f.bottom),
@@ -151,30 +135,6 @@ class PeopleRepository(private val dao: AlbumDao) {
                 cutOff = f.cutOff,
             )
         }) }
-        val people = dao.people(project.id)
-        val userTags = people.associate { p ->
-            p.id to PersonTag(p.id, p.name, enumOr(p.priority, Priority.NORMAL), enumOr(p.side, Side.UNKNOWN), p.elder)
-        }
-        // The couple's own tags win; the app's guess of the close family fills in everyone else,
-        // so the album covers the family even if nobody tags anyone.
-        val eventOf = AlbumPlanner.assignEvents(photos)
-        val forGuess = photos.map { p ->
-            val event = eventOf[p.id] ?: ""
-            FamilyGuess.PhotoPeople(
-                photoId = p.id,
-                event = event,
-                familyEvent = AlbumPlanner.eventKind(event) != EventKind.PARTY,
-                people = p.faces.filter { it.box.width >= AlbumPlanner.VISIBLE_FACE }.mapNotNull { it.personId }.toSet(),
-                takenAt = p.takenAt,
-            )
-        }
-        val occasion = Occasion.of(project.occasion)
-        val guesses = FamilyGuess.guess(forGuess, project.brideId, project.groomId, sides = occasion.couple)
-        val userTagged = people.filter {
-            it.priority != PersonPriority.NORMAL || it.side != PersonSide.UNKNOWN || it.elder
-        }.map { it.id }.toSet()
-        val tags = FamilyGuess.mergeWithUserTags(guesses, PeopleTags(project.brideId, project.groomId, userTags, occasion = occasion), userTagged)
-        return photos to tags
     }
 
     private fun PhotoEntity.toPlan(faces: List<PlanFace>) = PlanPhoto(
@@ -199,9 +159,6 @@ class PeopleRepository(private val dao: AlbumDao) {
     )
 
     companion object {
-        private val BRIDE_WORDS = listOf("mehendi", "mehndi", "mehandi", "bride", "bridal", "dulhan", "chooda", "chuda")
-
-        fun isBrideEvent(folder: String): Boolean = folder.lowercase().let { f -> BRIDE_WORDS.any { f.contains(it) } }
 
         inline fun <reified T : Enum<T>> enumOr(name: String, fallback: T): T =
             enumValues<T>().firstOrNull { it.name == name } ?: fallback

@@ -171,6 +171,10 @@ class FamilyGuessTest {
         assertTrue(g.values.all { it.side == Side.UNKNOWN })
         for (id in listOf(mummy, papa, nani)) assertTrue("person $id", g.getValue(id).closeFamily)
         assertEquals(2, g.values.count { it.priority == Priority.MUST })
+        // The two closest are the likely parents; a wedding never marks anyone this way.
+        assertEquals(setOf(mummy, papa), g.values.filter { it.parent }.map { it.personId }.toSet())
+        assertTrue(FamilyGuess.guess(wedding(), BRIDE, GROOM).values.none { it.parent })
+        assertTrue(FamilyGuess.isParent(" Mummy") && FamilyGuess.isParent("Father") && !FamilyGuess.isParent("Nani"))
         assertFalse(g.getValue(105L).closeFamily)
     }
 }

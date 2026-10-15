@@ -145,6 +145,8 @@ data class AlbumState(
     val leftOut: LeftOut,
     /** Who the album is about, in a sentence: "the two of you", "the birthday star", "Riya". */
     val mainWords: String = "the two of you",
+    /** A child's album: mummy and papa (named, or the app's guess). */
+    val parents: List<PersonChip> = emptyList(),
 ) {
     val occasion: Occasion get() = Occasion.of(project.occasion)
 }
@@ -444,9 +446,10 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
             val c = coverage[id]
             val known = entity?.name?.isNotBlank() == true
             // Not named yet: say what the app thinks, humbly, instead of a row of question marks.
-            val guess = when (tags.tag(id).side) {
-                com.albumdone.app.plan.Side.BRIDE -> "Bride's side"
-                com.albumdone.app.plan.Side.GROOM -> "Groom's side"
+            val guess = when {
+                id in tags.parents -> "Parent"
+                tags.tag(id).side == com.albumdone.app.plan.Side.BRIDE -> "Bride's side"
+                tags.tag(id).side == com.albumdone.app.plan.Side.GROOM -> "Groom's side"
                 else -> if (family) "Family" else "Not named"
             }
             return PersonChip(
@@ -515,6 +518,7 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
                     if (couple.isEmpty()) ap else ap.copy(crop = Display.cropBias(ap.photo.width, ap.photo.height, couple.map { it.box }))
                 }
             },
+            parents = tags.parents.map { chip(it, family = true) },
             mainWords = when {
                 tags.occasion.couple -> "the two of you"
                 tags.groomId != null -> tags.pair()
