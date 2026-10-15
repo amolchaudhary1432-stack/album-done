@@ -46,12 +46,11 @@ class AppScreensDeviceTest {
     }
 
     private fun back() {
-        DeviceTestSupport.device.pressBack()
+        DeviceTestSupport.pressBack()
         compose.waitForIdle()
     }
 
     private fun screenshot(name: String) {
-        DeviceTestSupport.dismissSystemDialogs()
         compose.waitForIdle()
         Thread.sleep(900) // let images and animations settle
         val bitmap = InstrumentationRegistry.getInstrumentation().uiAutomation.takeScreenshot()
@@ -60,7 +59,6 @@ class AppScreensDeviceTest {
 
     /** Runs one step; on failure keeps a screenshot, what was on screen and why, then goes back once. */
     private fun step(name: String, goBackOnFailure: Boolean = true, block: () -> Unit) {
-        DeviceTestSupport.dismissSystemDialogs()
         try {
             block()
         } catch (e: Throwable) {

@@ -3,8 +3,6 @@ package com.albumdone.app
 import android.graphics.Bitmap
 import android.net.Uri
 import androidx.test.platform.app.InstrumentationRegistry
-import androidx.test.uiautomator.By
-import androidx.test.uiautomator.UiDevice
 import com.albumdone.app.plan.AlbumAnalysis
 import com.albumdone.app.plan.Shortlist
 import java.io.File
@@ -25,18 +23,15 @@ object DeviceTestSupport {
         return Uri.fromFile(file)
     }
 
-    val device: UiDevice get() = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
-
     /**
-     * Taps "Wait" on Android's "... isn't responding" popup. On the slow test emulator other apps
-     * (the home screen) sometimes stall while our app works; the popup would cover the screen.
+     * Presses the phone's Back button through the system, the way a person does. (UiAutomator is
+     * not used: its accessibility scanning interferes with the app's screens.)
      */
-    fun dismissSystemDialogs() {
-        repeat(3) {
-            if (device.findObject(By.textContains("isn't responding")) == null) return
-            device.findObject(By.text("Wait"))?.click() ?: return
-            device.waitForIdle(2_000)
-        }
+    fun pressBack() {
+        InstrumentationRegistry.getInstrumentation().uiAutomation
+            .executeShellCommand("input keyevent KEYCODE_BACK")
+            .use { pfd -> java.io.FileInputStream(pfd.fileDescriptor).use { it.readBytes() } }
+        Thread.sleep(500)
     }
 
     /** Saves a screenshot where the build workflow collects it. */

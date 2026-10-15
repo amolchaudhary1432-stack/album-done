@@ -63,6 +63,7 @@ jobs:
             adb shell settings put global hide_error_dialogs 1 || true
             adb shell cmd uimode night yes || true
             adb shell cmd uimode night no || true
+            adb shell am force-stop com.google.android.apps.nexuslauncher || true
             gradle --no-daemon connectedDebugAndroidTest -Pandroid.injected.androidTest.leaveApksInstalledAfterRun=true || touch tests-failed
             mkdir -p screens && (adb exec-out run-as com.albumdone.app tar -c files/screens > screens/screens.tar || true)
             adb logcat -d > logcat.txt || true
@@ -169,6 +170,7 @@ jobs:
             adb shell settings put global hide_error_dialogs 1 || true
             adb shell cmd uimode night yes || true
             adb shell cmd uimode night no || true
+            adb shell am force-stop com.google.android.apps.nexuslauncher || true
             gradle --no-daemon connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.albumdone.app.RealWeddingDeviceTest -Pandroid.injected.androidTest.leaveApksInstalledAfterRun=true || touch tests-failed
             mkdir -p screens && (adb exec-out run-as com.albumdone.app tar -c files/screens > screens/screens.tar || true)
             adb logcat -d > logcat.txt || true
