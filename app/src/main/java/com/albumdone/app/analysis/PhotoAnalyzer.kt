@@ -174,6 +174,8 @@ class PhotoAnalyzer(private val context: Context) : AutoCloseable {
     private fun findFaces(bitmap: Bitmap): List<Face> {
         val found = finder.find(bitmap).sortedByDescending { it.box.width }.take(MAX_FACES)
         return found.map { f -> Face(f, if (f.box.width >= MIN_MESH_FACE) readCrop(bitmap, f) else null) }
+            // Unsure finds the face mesh cannot read are mostly flowers, cloth or the back of a head.
+            .filter { it.mesh != null || it.found.score >= MIN_UNREAD_SCORE }
     }
 
     /** The face mesh for [face], read from a square crop around it. */
@@ -253,7 +255,8 @@ class PhotoAnalyzer(private val context: Context) : AutoCloseable {
 
         // Fingerprint for recognising the person; only for faces big enough to be reliable.
         // Small or strongly side-on faces give unreliable fingerprints that mix people up.
-        val embedding = if (box.width >= MIN_RECOGNISE_FACE && r.cutOff < 0.2f && r.yaw <= 50f) {
+        val sure = f != null || face.found.score >= MIN_RECOGNISE_SCORE
+        val embedding = if (sure && box.width >= MIN_RECOGNISE_FACE && r.cutOff < 0.2f && r.yaw <= 50f) {
             try {
                 val points = if (f != null) FaceMetrics.alignmentPoints(f.xs, f.ys, bitmap.width, bitmap.height)
                 else FloatArray(10) { k -> face.found.points[k] * (if (k % 2 == 0) bitmap.width else bitmap.height) }
@@ -340,6 +343,13 @@ class PhotoAnalyzer(private val context: Context) : AutoCloseable {
         const val CROP_SIDE = 256f
         /** Faces at least this wide (share of the photo) get a fingerprint to recognise the person. */
         const val MIN_RECOGNISE_FACE = 0.04f
+        /**
+         * Face finder confidence needed when the face mesh cannot read the face: to keep it at all,
+         * and to recognise the person. On a real wedding, finds at 0.6-0.7 were about 2 in 5 not
+         * faces (flowers, cloth, hands, backs of heads), 0.7-0.8 about 1 in 5, 0.8+ about 1 in 250.
+         */
+        const val MIN_UNREAD_SCORE = 0.7f
+        const val MIN_RECOGNISE_SCORE = 0.8f
         /** Smaller faces are counted, but too small to read their eyes. */
         const val MIN_MESH_FACE = 0.015f
 

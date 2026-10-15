@@ -133,12 +133,34 @@ object FaceMetrics {
             roll = roll(lx * aspect, points[1], rx * aspect, points[3]),
             directionX = directionX(turn, 0f),
             lookingAtCamera = false,
-            cutOff = cutOffFraction(box),
+            cutOff = max(cutOffFraction(box), edgeCutOff(box, aspect)),
         )
     }
 
     /** Mesh box height / YuNet box height, measured on 150 faces of a real wedding (median). */
     const val YUNET_HEIGHT_TO_MESH = 0.87f
+
+    /**
+     * The face finder only boxes the part of a face inside the photo. A box against the photo's
+     * edge that is much narrower than a face is tall (or much flatter than it is wide) has the rest
+     * of the face outside. On 389 faces away from the edge of a real wedding, width / height was
+     * never below 0.59 (median 0.90); a face cut in half by the edge measured 0.42.
+     */
+    fun edgeCutOff(box: Box, aspect: Float): Float {
+        if (box.width <= 0f || box.height <= 0f) return 0f
+        val ratio = box.width * aspect / box.height
+        val atSide = box.left <= EDGE || box.right >= 1f - EDGE
+        val atTopOrBottom = box.top <= EDGE || box.bottom >= 1f - EDGE
+        return when {
+            atSide && ratio < NARROW_AT_EDGE -> 1f - ratio / FACE_RATIO
+            atTopOrBottom && ratio > FACE_RATIO / NARROW_AT_EDGE -> 1f - FACE_RATIO / ratio
+            else -> 0f
+        }.coerceIn(0f, 1f)
+    }
+
+    private const val EDGE = 0.02f
+    private const val FACE_RATIO = 0.9f
+    private const val NARROW_AT_EDGE = 0.55f
 
     fun box(xs: FloatArray, ys: FloatArray): Box {
         var l = Float.MAX_VALUE; var t = Float.MAX_VALUE; var r = -Float.MAX_VALUE; var b = -Float.MAX_VALUE

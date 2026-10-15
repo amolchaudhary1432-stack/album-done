@@ -226,4 +226,19 @@ class FaceMetricsTest {
         val v = FaceMetrics.normalize(floatArrayOf(3f, 4f))
         assertEquals(0.6f, v[0], 1e-6f); assertEquals(0.8f, v[1], 1e-6f)
     }
+
+    @Test
+    fun faceCutByThePhotoEdgeIsSeenFromItsShape() {
+        // A tall photo (1046 x 2880): half a face against the left edge, from the replica dump.
+        val aspect = 1046f / 2880f
+        val half = Box(0.01f, 0.52f, 0.22f, 0.70f)
+        assertTrue(FaceMetrics.edgeCutOff(half, aspect) >= 0.4f)
+        // A whole face of normal shape against the edge is not cut.
+        val whole = Box(0.0f, 0.52f, 0.45f, 0.70f)
+        assertEquals(0f, FaceMetrics.edgeCutOff(whole, aspect), 1e-6f)
+        // A narrow-looking face away from the edges is just turned; that is not this check's job.
+        assertEquals(0f, FaceMetrics.edgeCutOff(Box(0.4f, 0.52f, 0.61f, 0.70f), aspect), 1e-6f)
+        // The chin cut off by the bottom edge: a flat box at the bottom.
+        assertTrue(FaceMetrics.edgeCutOff(Box(0.4f, 0.9f, 0.6f, 1.0f), 1.5f) > 0.3f)
+    }
 }
