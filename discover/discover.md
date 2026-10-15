@@ -1,0 +1,1808 @@
+# Candidate single-wedding sets
+
+## Ser Amantio di Nicolao on 2019-10-09: 260 photos, width ~6720
+- categories: [('Category:The Birthday Party (play)', 260)]
+- licences: [('CC BY 2.0', 260)]
+  - File:Z5D 7615 (48981178438).jpg
+  - File:Z5D 7618 (48981734971).jpg
+  - File:Z5D 7617 (48981735311).jpg
+  - File:Z5D 7619 (48981177173).jpg
+  - File:Z5D 7620 (48981920727).jpg
+  - File:Z5D 7621 (48981733866).jpg
+  - File:Z5D 7622 (48981175993).jpg
+  - File:Z5D 7626 (48981732036).jpg
+  - File:Z5D 7623 (48981175658).jpg
+  - File:Z5D 7625 (48981918847).jpg
+  - File:Z5D 7624 (48981919307).jpg
+  - File:Z5D 7629 (48981917797).jpg
+  - File:Z5D 7628 (48981832852).jpg
+  - File:Z5D 7627 (48981918152).jpg
+  - File:Z5D 7630 (48981173588).jpg
+
+## CarlAlbertArchives on 1976-05-10: 222 photos, width ~5061
+- categories: [('Category:Birthday parties in the United States', 222)]
+- licences: [('CC BY-SA 4.0', 222)]
+  - File:CAC CC 001 18 24 0000 2381a.jpg
+  - File:CAC CC 001 18 24 0000 2381b.jpg
+  - File:CAC CC 001 18 24 0000 2382.jpg
+  - File:CAC CC 001 18 24 0000 2383.jpg
+  - File:CAC CC 001 18 24 0000 2385.jpg
+  - File:CAC CC 001 18 24 0000 2384.jpg
+  - File:CAC CC 001 18 24 0000 2386a.jpg
+  - File:CAC CC 001 18 24 0000 2386b.jpg
+  - File:CAC CC 001 18 24 0000 2386c.jpg
+  - File:CAC CC 001 18 24 0000 2387a.jpg
+  - File:CAC CC 001 18 24 0000 2387b.jpg
+  - File:CAC CC 001 18 24 0000 2388.jpg
+  - File:CAC CC 001 18 24 0000 2389.jpg
+  - File:CAC CC 001 18 24 0000 2390b.jpg
+  - File:CAC CC 001 18 24 0000 2390a.jpg
+
+## Yakshitha on 2025-09-20: 215 photos, width ~4000
+- categories: [('Category:Wedding ceremonies in Karnataka', 215)]
+- licences: [('CC BY-SA 4.0', 215)]
+  - File:Ghost Marriage Ceremony (Kule Madime)1.jpg
+  - File:Ghost Marriage Ceremony (Kule Madime)10.jpg
+  - File:Ghost Marriage Ceremony (Kule Madime)11.jpg
+  - File:Ghost Marriage Ceremony (Kule Madime)12.jpg
+  - File:Ghost Marriage Ceremony (Kule Madime)13.jpg
+  - File:Ghost Marriage Ceremony (Kule Madime)14.jpg
+  - File:Ghost Marriage Ceremony (Kule Madime)100.jpg
+  - File:Ghost Marriage Ceremony (Kule Madime)101.jpg
+  - File:Ghost Marriage Ceremony (Kule Madime)102.jpg
+  - File:Ghost Marriage Ceremony (Kule Madime)103.jpg
+  - File:Ghost Marriage Ceremony (Kule Madime)104.jpg
+  - File:Ghost Marriage Ceremony (Kule Madime)105.jpg
+  - File:Ghost Marriage Ceremony (Kule Madime)107.jpg
+  - File:Ghost Marriage Ceremony (Kule Madime)108.jpg
+  - File:Ghost Marriage Ceremony (Kule Madime)109.jpg
+
+## Sebastián Arena on 2014-02-01: 159 photos, width ~1465
+- categories: [('Category:Arena family', 159)]
+- licences: [('CC BY-SA 2.0', 159)]
+  - File:Documento escaneadoI (12252624903).jpg
+  - File:Documento escaneadoIII (12252620113).jpg
+  - File:Documento escaneadoIIII (12252878624).jpg
+  - File:Documento escaneadoV (12252607103).jpg
+  - File:Documento escaneadoVII (12252596393).jpg
+  - File:Documento escaneadoVIII (12252593243).jpg
+  - File:Documento escaneadoVIIII (12252588523).jpg
+  - File:Documento escaneadoX (12252407885).jpg
+  - File:Documento escaneadoXI (12252843564).jpg
+  - File:Documento escaneadoXII (12252961666).jpg
+  - File:Documento escaneadoXIII (12252828424).jpg
+  - File:Documento escaneadoXV (12252942356).jpg
+  - File:Documento escaneadoXIIII (12252822574).jpg
+  - File:Documento escaneadoXVI (12252936256).jpg
+  - File:Documento escaneadoXVII (12252805354).jpg
+
+## Mr.Nostalgic on 2018-03-19: 125 photos, width ~2883
+- categories: [('Category:Kindertuinfeest Paleis Soestdijk 1945', 125)]
+- licences: [('CC0', 125)]
+  - File:Reportage van het kindertuinfeest paleis soestdijk, Bestanddeelnr 900-7055.jpg
+  - File:Reportage van het kindertuinfeest paleis soestdijk, Bestanddeelnr 900-7056.jpg
+  - File:Reportage van het kindertuinfeest paleis soestdijk, Bestanddeelnr 900-7057.jpg
+  - File:Reportage van het kindertuinfeest paleis soestdijk, Bestanddeelnr 900-7058.jpg
+  - File:Reportage van het kindertuinfeest paleis soestdijk, Bestanddeelnr 900-7059.jpg
+  - File:Reportage van het kindertuinfeest paleis soestdijk, Bestanddeelnr 900-7060.jpg
+  - File:Reportage van het kindertuinfeest paleis soestdijk, Bestanddeelnr 900-7061.jpg
+  - File:Reportage van het kindertuinfeest paleis soestdijk, Bestanddeelnr 900-7062.jpg
+  - File:Reportage van het kindertuinfeest paleis soestdijk, Bestanddeelnr 900-7063.jpg
+  - File:Reportage van het kindertuinfeest paleis soestdijk, Bestanddeelnr 900-7064.jpg
+  - File:Reportage van het kindertuinfeest paleis soestdijk, Bestanddeelnr 900-7065.jpg
+  - File:Reportage van het kindertuinfeest paleis soestdijk, Bestanddeelnr 900-7066.jpg
+  - File:Reportage van het kindertuinfeest paleis soestdijk, Bestanddeelnr 900-7067.jpg
+  - File:Reportage van het kindertuinfeest paleis soestdijk, Bestanddeelnr 900-7068.jpg
+  - File:Reportage van het kindertuinfeest paleis soestdijk, Bestanddeelnr 900-7069.jpg
+
+## Jeanhousen on 2023-10-28: 117 photos, width ~6000
+- categories: [('Category:The family reunion BRUEGHEL De familiereünie (2023-2024)', 117)]
+- licences: [('CC BY-SA 4.0', 117)]
+  - File:20231028 Hertogenbosch184.jpg
+  - File:20231028 Hertogenbosch185.jpg
+  - File:20231028 Hertogenbosch186.jpg
+  - File:20231028 Hertogenbosch189.jpg
+  - File:20231028 Hertogenbosch187.jpg
+  - File:20231028 Hertogenbosch188.jpg
+  - File:20231028 Hertogenbosch190.jpg
+  - File:20231028 Hertogenbosch191.jpg
+  - File:20231028 Hertogenbosch192.jpg
+  - File:20231028 Hertogenbosch193.jpg
+  - File:20231028 Hertogenbosch194.jpg
+  - File:20231028 Hertogenbosch195.jpg
+  - File:20231028 Hertogenbosch197.jpg
+  - File:20231028 Hertogenbosch196.jpg
+  - File:20231028 Hertogenbosch198.jpg
+
+## Gohe007 on 2011-11-25: 105 photos, width ~405
+- categories: [("Category:Jack Lawrence's Birthday Party", 105)]
+- licences: [('CC BY-SA 2.5', 105)]
+  - File:Jack Lawrence, Bianca Dagger at Jack Lawrence's Birthday Party 1.jpg
+  - File:Jack Lawrence, Bianca Dagger at Jack Lawrence's Birthday Party 2.jpg
+  - File:Jack Lawrence, Bianca Dagger at Jack Lawrence's Birthday Party 3.jpg
+  - File:Bianca Dagger at Jack Lawrence's Birthday Party 1.jpg
+  - File:Bianca Dagger at Jack Lawrence's Birthday Party 2.jpg
+  - File:Bianca Dagger at Jack Lawrence's Birthday Party 3.jpg
+  - File:Bianca Dagger at Jack Lawrence's Birthday Party 4.jpg
+  - File:Bianca Dagger at Jack Lawrence's Birthday Party 5.jpg
+  - File:Bianca Dagger at Jack Lawrence's Birthday Party 6.jpg
+  - File:Bianca Dagger at Jack Lawrence's Birthday Party 7.jpg
+  - File:Bianca Dagger at Jack Lawrence's Birthday Party 8.jpg
+  - File:Bianca Dagger at Jack Lawrence's Birthday Party 9.jpg
+  - File:Christina Aguchi, Donny Long at Jack Lawrence's Birthday Party 1.jpg
+  - File:Jeff Mullen, Adam & Eve's Peter Reynolds, Renee Cruz at Jack Lawrence's Birthday Party 1.jpg
+  - File:Jack Lawrence with his biggest fan at Jack Lawrence's Birthday Party 1.jpg
+
+## File Upload Bot (Magnus Manske) on 2009-08-06: 100 photos, width ~1200
+- categories: [("Category:Smokey Bear's 65th Birthday Party", 100)]
+- licences: [('CC BY 2.0', 100)]
+  - File:SAS7500 (3809112275).jpg
+  - File:SAS7486 (3809111889).jpg
+  - File:SAS7477 (3809924894).jpg
+  - File:SAS7480 (3809111413).jpg
+  - File:SAS7484 (3809111655).jpg
+  - File:SAS7470 (3809109999).jpg
+  - File:SAS7475 (3809924608).jpg
+  - File:SAS7463 (3809109293).jpg
+  - File:SAS7466 (3809109659).jpg
+  - File:SAS7460 (3809108943).jpg
+  - File:SAS7449 (3809922250).jpg
+  - File:SAS7455 (3809108555).jpg
+  - File:SAS7472 (3809110399).jpg
+  - File:SAS7422 (3809107559).jpg
+  - File:SAS7403 (3809921032).jpg
+
+## Jmabel on 2008-10-03: 74 photos, width ~3264
+- categories: [("Category:Vivian McPeak's 50th birthday party", 74)]
+- licences: [('CC BY-SA 3.0', 74)]
+  - File:Randy Hansen 01.jpg
+  - File:Randy Hansen 01A.jpg
+  - File:Randy Hansen 02.jpg
+  - File:Michal Miller Band 01.jpg
+  - File:Michal Miller Band 01A.jpg
+  - File:Randy Hansen 03.jpg
+  - File:Randy Hansen 04.jpg
+  - File:Herbivores (band) 01.jpg
+  - File:Herbivores (band) 02.jpg
+  - File:Herbivores (band) 05.jpg
+  - File:Herbivores (band) 03A.jpg
+  - File:Herbivores (band) 03.jpg
+  - File:Herbivores (band) 04.jpg
+  - File:Supersonic Soul Pimps 01.jpg
+  - File:Supersonic Soul Pimps 01B.jpg
+
+## AmanAgrahari01 on 2021-01-24: 65 photos, width ~6000
+- categories: [('Category:Engagement ceremonies in India', 65)]
+- licences: [('CC BY-SA 4.0', 65)]
+  - File:Indian Engagement ceremony 01.jpg
+  - File:Indian Engagement ceremony 02.jpg
+  - File:Indian Engagement ceremony 03.jpg
+  - File:Indian Engagement ceremony 04.jpg
+  - File:Indian Engagement ceremony 05.jpg
+  - File:Indian Engagement ceremony 06.jpg
+  - File:Indian Engagement ceremony 07.jpg
+  - File:Indian Engagement ceremony 08.jpg
+  - File:Indian Engagement ceremony 09.jpg
+  - File:Indian Engagement ceremony 10.jpg
+  - File:Indian Engagement ceremony 11.jpg
+  - File:Indian Engagement ceremony 12.jpg
+  - File:Indian Engagement ceremony 13.jpg
+  - File:Indian Engagement ceremony 14.jpg
+  - File:Indian Engagement ceremony 15.jpg
+
+## Simoncromptonreid on 2026-07-03: 64 photos, width ~6000
+- categories: [('Category:Wikimedia UK Big Birthday Party', 64)]
+- licences: [('CC BY-SA 4.0', 64)]
+  - File:WMUK 25 15-001.jpg
+  - File:WMUK 25 15-002.jpg
+  - File:WMUK 25 15-003.jpg
+  - File:WMUK 25 15-004.jpg
+  - File:WMUK 25 15-006.jpg
+  - File:WMUK 25 15-005.jpg
+  - File:WMUK 25 15-007.jpg
+  - File:WMUK 25 15-008.jpg
+  - File:WMUK 25 15-009.jpg
+  - File:WMUK 25 15-010.jpg
+  - File:WMUK 25 15-011.jpg
+  - File:WMUK 25 15-012.jpg
+  - File:WMUK 25 15-014.jpg
+  - File:WMUK 25 15-013.jpg
+  - File:WMUK 25 15-015.jpg
+
+## Ralf Roletschek on 2014-01-10: 63 photos, width ~5346
+- categories: [('Category:Geburtstagsempfang von Thomas Bach am 10. Januar 2014 in Tauberbischofsheim', 63)]
+- licences: [('CC BY 3.0', 63)]
+  - File:14-01-10-tbh-001.jpg
+  - File:14-01-10-tbh-200.JPG
+  - File:14-01-10-tbh-201.JPG
+  - File:14-01-10-tbh-202.JPG
+  - File:14-01-10-tbh-203.JPG
+  - File:14-01-10-tbh-204.JPG
+  - File:14-01-10-tbh-205.JPG
+  - File:14-01-10-tbh-206.JPG
+  - File:14-01-10-tbh-207.JPG
+  - File:14-01-10-tbh-208.JPG
+  - File:14-01-10-tbh-209.JPG
+  - File:14-01-10-tbh-210.JPG
+  - File:14-01-10-tbh-211.JPG
+  - File:14-01-10-tbh-220.JPG
+  - File:14-01-10-tbh-221.JPG
+
+## Shadab on 2026-02-04: 62 photos, width ~3072
+- categories: [('Category:Wikipedia25 Celebration at WikiClub Tech UU', 62)]
+- licences: [('CC BY-SA 4.0', 62)]
+  - File:Wikipedia Birthday 2026 WikiClub Tech UU Group Photo 01.jpg
+  - File:Wikipedia Birthday 2026 WikiClub Tech UU Group Photo 02.jpg
+  - File:Wikipedia Birthday 2026 WikiClub Tech UU Group Photo 03.jpg
+  - File:Wikipedia Birthday 2026 WikiClub Tech UU Group Photo 04.jpg
+  - File:Wikipedia Birthday 2026 WikiClub Tech UU Group Photo 05.jpg
+  - File:Wikipedia Birthday 2026 WikiClub Tech UU Group Photo 06.jpg
+  - File:Wikipedia Birthday 2026 WikiClub Tech UU Group Photo 07.jpg
+  - File:Wikipedia Birthday 2026 WikiClub Tech UU Group Photo 08.jpg
+  - File:Wikipedia Birthday 2026 WikiClub Tech UU Group Photo 10.jpg
+  - File:Wikipedia Birthday 2026 WikiClub Tech UU Group Photo 11.jpg
+  - File:Wikipedia Birthday 2026 WikiClub Tech UU Group Photo 12.jpg
+  - File:Wikipedia Birthday 2026 WikiClub Tech UU Group Photo 13.jpg
+  - File:Wikipedia Birthday 2026 WikiClub Tech UU Group Photo 14.jpg
+  - File:Wikipedia Birthday 2026 WikiClub Tech UU Group Photo 15.jpg
+  - File:Wikipedia Birthday 2026 WikiClub Tech UU Group Photo 16.jpg
+
+## Atibrarian on 2023-11-18: 58 photos, width ~4032
+- categories: [('Category:Wikidata 11th anniversary in Gombe', 58)]
+- licences: [('CC BY-SA 4.0', 58)]
+  - File:Wikidata 11th Anniversary in Gombe Wikimedia Community 01.jpg
+  - File:Wikidata 11th Anniversary in Gombe Wikimedia Community 02.jpg
+  - File:Wikidata 11th Anniversary in Gombe Wikimedia Community 03.jpg
+  - File:Wikidata 11th Anniversary in Gombe Wikimedia Community 05.jpg
+  - File:Wikidata 11th Anniversary in Gombe Wikimedia Community 04.jpg
+  - File:Wikidata 11th Anniversary in Gombe Wikimedia Community 06.jpg
+  - File:Wikidata 11th Anniversary in Gombe Wikimedia Community 07.jpg
+  - File:Wikidata 11th Anniversary in Gombe Wikimedia Community 09.jpg
+  - File:Wikidata 11th Anniversary in Gombe Wikimedia Community 08.jpg
+  - File:Wikidata 11th Anniversary in Gombe Wikimedia Community 10.jpg
+  - File:Wikidata 11th Anniversary in Gombe Wikimedia Community 11.jpg
+  - File:Wikidata 11th Anniversary in Gombe Wikimedia Community 12.jpg
+  - File:Wikidata 11th Anniversary in Gombe Wikimedia Community 13.jpg
+  - File:Wikidata 11th Anniversary in Gombe Wikimedia Community 15.jpg
+  - File:Wikidata 11th Anniversary in Gombe Wikimedia Community 14.jpg
+
+## Fæ on 2014-04-02: 58 photos, width ~1024
+- categories: [("Category:University of the Fraser Valley's 40th birthday", 58)]
+- licences: [('CC BY 2.0', 58)]
+  - File:UNIVERSITY OF THE FRASER VALLEY PHOTOGRAPHY (13686768453).jpg
+  - File:UNIVERSITY OF THE FRASER VALLEY PHOTOGRAPHY (13687076794).jpg
+  - File:UNIVERSITY OF THE FRASER VALLEY PHOTOGRAPHY (13686770883).jpg
+  - File:UNIVERSITY OF THE FRASER VALLEY PHOTOGRAPHY (13687078194).jpg
+  - File:UNIVERSITY OF THE FRASER VALLEY PHOTOGRAPHY (13687079044).jpg
+  - File:UNIVERSITY OF THE FRASER VALLEY PHOTOGRAPHY (13686730875).jpg
+  - File:UNIVERSITY OF THE FRASER VALLEY PHOTOGRAPHY (13686731625).jpg
+  - File:UNIVERSITY OF THE FRASER VALLEY PHOTOGRAPHY (13687081394).jpg
+  - File:UNIVERSITY OF THE FRASER VALLEY PHOTOGRAPHY (13686775703).jpg
+  - File:UNIVERSITY OF THE FRASER VALLEY PHOTOGRAPHY (13687083014).jpg
+  - File:UNIVERSITY OF THE FRASER VALLEY PHOTOGRAPHY (13687083814).jpg
+  - File:UNIVERSITY OF THE FRASER VALLEY PHOTOGRAPHY (13686736195).jpg
+  - File:UNIVERSITY OF THE FRASER VALLEY PHOTOGRAPHY (13686779213).jpg
+  - File:UNIVERSITY OF THE FRASER VALLEY PHOTOGRAPHY (13686737935).jpg
+  - File:UNIVERSITY OF THE FRASER VALLEY PHOTOGRAPHY (13687087134).jpg
+
+## Tm on 2018-04-21: 54 photos, width ~5911
+- categories: [("Category:The Queen's Birthday Party 2018", 54)]
+- licences: [('CC BY 2.0', 54)]
+  - File:QueenbdayRAH210418 (41713404022).jpg
+  - File:QueenbdayRAH210418-100 (41713200952).jpg
+  - File:QueenbdayRAH210418-101 (41713199782).jpg
+  - File:QueenbdayRAH210418-102 (27885168688).jpg
+  - File:QueenbdayRAH210418-103 (41713197222).jpg
+  - File:QueenbdayRAH210418-105 (41036733364).jpg
+  - File:QueenbdayRAH210418-104 (39946579950).jpg
+  - File:QueenbdayRAH210418-106 (41754558761).jpg
+  - File:QueenbdayRAH210418-4 (41754747871).jpg
+  - File:QueenbdayRAH210418-2 (41754750801).jpg
+  - File:QueenbdayRAH210418-3 (41713400552).jpg
+  - File:QueenbdayRAH210418-12 (41036923924).jpg
+  - File:QueenbdayRAH210418-13 (41713381292).jpg
+  - File:QueenbdayRAH210418-11 (40855439535).jpg
+  - File:QueenbdayRAH210418-15 (40855431395).jpg
+
+## Gohe007 on 2006-05-29: 53 photos, width ~485
+- categories: [("Category:Luke Ford's 40th birthday party", 53)]
+- licences: [('CC BY-SA 2.5', 53)]
+  - File:Derrick Pierce, Lexxi Tyler at Luke Ford's 40th birthday party 1.jpg
+  - File:Lexxi Tyler, Eric Mittleman at Luke Ford's 40th birthday party.jpg
+  - File:Derrick Pierce, Lexxi Tyler at Luke Ford's 40th birthday party 2.jpg
+  - File:Lexxi Tyler, Justin Levine at Luke Ford's 40th birthday party 1.jpg
+  - File:Lexxi Tyler, Justin Levine at Luke Ford's 40th birthday party 2.jpg
+  - File:Heather Veitch of JCsGirls at Luke Ford's 40th birthday party 1.jpg
+  - File:Martina Warren at Luke Ford's 40th birthday party 2.jpg
+  - File:Martina Warren at Luke Ford's 40th birthday party 1.jpg
+  - File:Martina Warren, Luke Y. Thompson at Luke Ford's 40th birthday party.jpg
+  - File:Martina Warren, Luke Y. Thompson at Luke Ford's 40th birthday party 2.jpg
+  - File:Martina Warren, Luke Y. Thompson at Luke Ford's 40th birthday party 3.jpg
+  - File:Heather Veitch, Steve at Luke Ford's 40th birthday party.jpg
+  - File:Aria Giovanni, Luke Y. Thompson at Luke Ford's 40th birthday party 1.jpg
+  - File:Aria Giovanni, Luke Y. Thompson at Luke Ford's 40th birthday party 2.jpg
+  - File:Aria Giovanni, Luke Y. Thompson at Luke Ford's 40th birthday party 3.jpg
+
+## CallyMc on 2016-07-09: 50 photos, width ~5496
+- categories: [('Category:Family Reunion convention', 50)]
+- licences: [('CC BY-SA 2.0', 50)]
+  - File:Family Reunion IMG 5594 GF GF (28087694570).jpg
+  - File:Family Reunion IMG 5595 GF GF (28370132175).jpg
+  - File:Family Reunion IMG 5606 GF GF (28336568456).jpg
+  - File:Family Reunion IMG 5604 GF GF (28087630630).jpg
+  - File:Family Reunion IMG 5608 GF GF (28266389782).jpg
+  - File:Family Reunion IMG 5619 GF GF (28336486496).jpg
+  - File:Family Reunion IMG 5623 GF GF (28369919955).jpg
+  - File:Family Reunion IMG 5625 GF GF (27754224733).jpg
+  - File:Family Reunion IMG 5629 GF GF (27753416864).jpg
+  - File:Family Reunion IMG 5635 GF GF (28291142111).jpg
+  - File:Family Reunion IMG 5644 GF GF (28336211816).jpg
+  - File:Family Reunion IMG 5651 GF GF (28087106340).jpg
+  - File:Family Reunion IMG 5656 GF GF (28369523335).jpg
+  - File:Family Reunion IMG 5654 GF GF (28336121606).jpg
+  - File:Family Reunion IMG 5657 GF GF (28265794702).jpg
+
+## Infrogmation on 2013-04-27: 50 photos, width ~3872
+- categories: [("Category:Eeyore's Birthday Party 2013", 50)]
+- licences: [('CC BY-SA 2.0', 50)]
+  - File:Eeyore's Birthday 2013 Austin Texas 03.jpg
+  - File:Eeyore's Birthday 2013 Austin Texas 01.jpg
+  - File:Eeyore's Birthday 2013 Austin Texas 02.jpg
+  - File:Eeyore's Birthday 2013 Austin Texas 04.jpg
+  - File:Eeyore's Birthday 2013 Austin Texas 05.jpg
+  - File:Eeyore's Birthday 2013 Austin Texas 06.jpg
+  - File:Eeyore's Birthday 2013 Austin Texas 07.jpg
+  - File:Eeyore's Birthday 2013 Austin Texas 09.jpg
+  - File:Eeyore's Birthday 2013 Austin Texas 08.jpg
+  - File:Eeyore's Birthday 2013 Austin Texas 11.jpg
+  - File:Eeyore's Birthday 2013 Austin Texas 12.jpg
+  - File:Eeyore's Birthday 2013 Austin Texas 10.jpg
+  - File:Eeyore's Birthday 2013 Austin Texas 15.jpg
+  - File:Eeyore's Birthday 2013 Austin Texas 13.jpg
+  - File:Eeyore's Birthday 2013 Austin Texas 14.jpg
+
+## Infrogmation on 2010-12-18: 49 photos, width ~2816
+- categories: [("Category:Jazz party for Helen Arlt, Norwegian Seamen's Church, 2010", 48), ('Category:Birthday cakes of the United States', 1)]
+- licences: [('CC BY-SA 3.0', 49)]
+  - File:Helens Jazz Party Jazzy Cake.JPG
+  - File:Helens Jazz Party Band 1.JPG
+  - File:Helens Jazz Party Band 3.JPG
+  - File:Helens Jazz Party Band 5.JPG
+  - File:Helens Jazz Party Band 6.JPG
+  - File:Helens Jazz Party Band 7.JPG
+  - File:Helens Jazz Party Band 8.JPG
+  - File:Helens Jazz Party Band Lights.JPG
+  - File:Helens Jazz Party Band Videotaper.JPG
+  - File:Helens Jazz Party Boedinghaus Parker Jones.JPG
+  - File:Helens Jazz Party Christopher Koelmeyer Saunders Wilson L Jones Venet.JPG
+  - File:Helens Jazz Party Christopher Laughlin 1.JPG
+  - File:Helens Jazz Party Christopher Laughlin 2.JPG
+  - File:Helens Jazz Party Christopher Laughlin 4.JPG
+  - File:Helens Jazz Party Christopher Parker Gibson Wilson.JPG
+
+## Bhaiyaji Smile 123 on 2026-07-18: 48 photos, width ~4284
+- categories: [('Category:Wikipedia 25th Birthday celebrations in Central India (2026)', 48)]
+- licences: [('CC BY 4.0', 48)]
+  - File:Wikipedia 25th birthday celebration 01.jpg
+  - File:Wikipedia 25th birthday celebration 02.jpg
+  - File:Wikipedia 25th birthday celebration 03.jpg
+  - File:Wikipedia 25th birthday celebration 04.jpg
+  - File:Wikipedia 25th birthday celebration 05.jpg
+  - File:Wikipedia 25th birthday celebration 06.jpg
+  - File:Wikipedia 25th birthday celebration 07.jpg
+  - File:Wikipedia 25th birthday celebration 08.jpg
+  - File:Wikipedia 25th birthday celebration 09.jpg
+  - File:Wikipedia 25th birthday celebration 11.jpg
+  - File:Wikipedia 25th birthday celebration 12.jpg
+  - File:Wikipedia 25th birthday celebration 13.jpg
+  - File:Wikipedia 25th birthday celebration 14.jpg
+  - File:Wikipedia 25th birthday celebration 15.jpg
+  - File:Wikipedia 25th birthday celebration 16.jpg
+
+## SecretName101 on 2011-03-26: 43 photos, width ~682
+- categories: [('Category:Rally to Recall Senator Dan Kapanke held outside of the La Crosse Republican headquarters housewarming event (March 26, 2011)', 43)]
+- licences: [('CC BY 2.0', 43)]
+  - File:At the start of the rally (5562503796).jpg
+  - File:"Stop the war on workers" (5561926951).jpg
+  - File:"Electricans for Working Families" (5561927421).jpg
+  - File:Demonstrators (5562503900).jpg
+  - File:"All religions believe in justice" (5561927831).jpg
+  - File:"Can you hear us now?" (5562504424).jpg
+  - File:"Fox news wants Walker. He's a great liar!" (5562504702).jpg
+  - File:"Stop Attacks on Workers Rights" (5562504890).jpg
+  - File:"Kapanke Struck Out" (5561927531).jpg
+  - File:"Kapanke log off the Walker bandwagon" (5562504780).jpg
+  - File:"Stop the Attack on Wisconsin Families" (5562504990).jpg
+  - File:"Tell me what democracy looks like!" (5562505198).jpg
+  - File:"WORKERS UNITED Can never be defeated" (5561928669).jpg
+  - File:"lalalalala I can't hear you" (5561928759).jpg
+  - File:"I'll give everything for Wisconsin except my rights" (5562504624).jpg
+
+## YEUNAMCHGOA 20533 on 2022-04-30: 43 photos, width ~4000
+- categories: [('Category:Birthday parties of Keung To 姜濤', 43)]
+- licences: [('CC BY-SA 4.0', 43)]
+  - File:HK CWB 銅鑼灣 Causeway Bay 東角道 East Point Road Happy Birthday to 姜濤 Keung To n fans 軒尼詩道 Hennessy Road April 2022 Px3 02.jpg
+  - File:HK CWB 銅鑼灣 Causeway Bay 東角道 East Point Road Happy Birthday to 姜濤 Keung To n fans 軒尼詩道 Hennessy Road April 2022 Px3 03.jpg
+  - File:HK CWB 銅鑼灣 Causeway Bay 東角道 East Point Road Happy Birthday to 姜濤 Keung To n fans 軒尼詩道 Hennessy Road April 2022 Px3 01.jpg
+  - File:HK CWB 銅鑼灣 Causeway Bay 東角道 East Point Road Happy Birthday to 姜濤 Keung To n fans 軒尼詩道 Hennessy Road April 2022 Px3 05.jpg
+  - File:HK CWB 銅鑼灣 Causeway Bay 東角道 East Point Road Happy Birthday to 姜濤 Keung To n fans 軒尼詩道 Hennessy Road April 2022 Px3 06.jpg
+  - File:HK CWB 銅鑼灣 Causeway Bay 東角道 East Point Road Happy Birthday to 姜濤 Keung To n fans 軒尼詩道 Hennessy Road April 2022 Px3 04.jpg
+  - File:HK CWB 銅鑼灣 Causeway Bay 東角道 East Point Road Happy Birthday to 姜濤 Keung To n fans 軒尼詩道 Hennessy Road April 2022 Px3 09.jpg
+  - File:HK CWB 銅鑼灣 Causeway Bay 東角道 East Point Road Happy Birthday to 姜濤 Keung To n fans 軒尼詩道 Hennessy Road April 2022 Px3 07.jpg
+  - File:HK CWB 銅鑼灣 Causeway Bay 東角道 East Point Road Happy Birthday to 姜濤 Keung To n fans 軒尼詩道 Hennessy Road April 2022 Px3 08.jpg
+  - File:HK CWB 銅鑼灣 Causeway Bay 東角道 East Point Road Happy Birthday to 姜濤 Keung To n fans 軒尼詩道 Hennessy Road April 2022 Px3 10.jpg
+  - File:HK CWB 銅鑼灣 Causeway Bay 東角道 East Point Road Happy Birthday to 姜濤 Keung To n fans 軒尼詩道 Hennessy Road April 2022 Px3 11.jpg
+  - File:HK CWB 銅鑼灣 Causeway Bay 東角道 East Point Road Happy Birthday to 姜濤 Keung To n fans 軒尼詩道 Hennessy Road April 2022 Px3 12.jpg
+  - File:HK CWB 銅鑼灣 Causeway Bay 東角道 East Point Road Happy Birthday to 姜濤 Keung To n fans 軒尼詩道 Hennessy Road April 2022 Px3 13.jpg
+  - File:HK CWB 銅鑼灣 Causeway Bay 東角道 East Point Road Happy Birthday to 姜濤 Keung To n fans 軒尼詩道 Hennessy Road April 2022 Px3 15.jpg
+  - File:HK CWB 銅鑼灣 Causeway Bay 東角道 East Point Road Happy Birthday to 姜濤 Keung To n fans 軒尼詩道 Hennessy Road April 2022 Px3 14.jpg
+
+## Subin manakody on 2026-02-01: 42 photos, width ~1920
+- categories: [('Category:Wikipedia 25th birthday celebration at Kochi', 42)]
+- licences: [('CC BY-SA 4.0', 42)]
+  - File:Wikipedia 25th Birthday celebrations at Kochi 03.jpg
+  - File:Wikipedia 25th Birthday celebrations at Kochi 02.jpg
+  - File:Wikipedia 25th Birthday celebrations at Kochi 01.jpg
+  - File:Wikipedia 25th Birthday celebrations at Kochi 04.jpg
+  - File:Wikipedia 25th Birthday celebrations at Kochi 05.jpg
+  - File:Wikipedia 25th Birthday celebrations at Kochi 06.jpg
+  - File:Wikipedia 25th Birthday celebrations at Kochi 07.jpg
+  - File:Wikipedia 25th Birthday celebrations at Kochi 08.jpg
+  - File:Wikipedia 25th Birthday celebrations at Kochi 09.jpg
+  - File:Wikipedia 25th Birthday celebrations at Kochi 10.jpg
+  - File:Wikipedia 25th Birthday celebrations at Kochi 11.jpg
+  - File:Wikipedia 25th Birthday celebrations at Kochi 12.jpg
+  - File:Wikipedia 25th Birthday celebrations at Kochi 13.jpg
+  - File:Wikipedia 25th Birthday celebrations at Kochi 14.jpg
+  - File:Wikipedia 25th Birthday celebrations at Kochi 15.jpg
+
+## HeminKurdistan on 2023-05-20: 41 photos, width ~1280
+- categories: [('Category:Family reunions', 41)]
+- licences: [('CC BY 4.0', 41)]
+  - File:Iranian naval personnel reunite with their family after the first voyage around the world (40).jpg
+  - File:Iranian naval personnel reunite with their family after the first voyage around the world (44).jpg
+  - File:Iranian naval personnel reunite with their family after the first voyage around the world (47).jpg
+  - File:Iranian naval personnel reunite with their family after the first voyage around the world (45).jpg
+  - File:Iranian naval personnel reunite with their family after the first voyage around the world (34).jpg
+  - File:Iranian naval personnel reunite with their family after the first voyage around the world (42).jpg
+  - File:Iranian naval personnel reunite with their family after the first voyage around the world (36).jpg
+  - File:Iranian naval personnel reunite with their family after the first voyage around the world (43).jpg
+  - File:Iranian naval personnel reunite with their family after the first voyage around the world (32).jpg
+  - File:Iranian naval personnel reunite with their family after the first voyage around the world (41).jpg
+  - File:Iranian naval personnel reunite with their family after the first voyage around the world (46).jpg
+  - File:Iranian naval personnel reunite with their family after the first voyage around the world (35).jpg
+  - File:Iranian naval personnel reunite with their family after the first voyage around the world (33).jpg
+  - File:Iranian naval personnel reunite with their family after the first voyage around the world (75).jpg
+  - File:Iranian naval personnel reunite with their family after the first voyage around the world (48).jpg
+
+## Mr.Nostalgic on 1945-08-04: 41 photos, width ~2883
+- categories: [('Category:Kindertuinfeest Paleis Soestdijk 1945', 41)]
+- licences: [('CC0', 41)]
+  - File:Verjaardag prinses Irene reportage van het kindertuinfeest paleis soestdijk, Bestanddeelnr 900-7001.jpg
+  - File:Verjaardag prinses Irene reportage van het kindertuinfeest paleis soestdijk, Bestanddeelnr 900-7002.jpg
+  - File:Verjaardag prinses Irene reportage van het kindertuinfeest paleis soestdijk, Bestanddeelnr 900-7003.jpg
+  - File:Verjaardag prinses Irene reportage van het kindertuinfeest paleis soestdijk, Bestanddeelnr 900-7004.jpg
+  - File:Verjaardag prinses Irene reportage van het kindertuinfeest paleis soestdijk, Bestanddeelnr 900-7005.jpg
+  - File:Verjaardag prinses Irene reportage van het kindertuinfeest paleis soestdijk, Bestanddeelnr 900-7007.jpg
+  - File:Verjaardag prinses Irene reportage van het kindertuinfeest paleis soestdijk, Bestanddeelnr 900-7008.jpg
+  - File:Verjaardag prinses Irene reportage van het kindertuinfeest paleis soestdijk, Bestanddeelnr 900-7009.jpg
+  - File:Verjaardag prinses Irene reportage van het kindertuinfeest paleis soestdijk, Bestanddeelnr 900-7010.jpg
+  - File:Verjaardag prinses Irene reportage van het kindertuinfeest paleis soestdijk, Bestanddeelnr 900-7011.jpg
+  - File:Verjaardag prinses Irene reportage van het kindertuinfeest paleis soestdijk, Bestanddeelnr 900-7012.jpg
+  - File:Verjaardag prinses Irene reportage van het kindertuinfeest paleis soestdijk, Bestanddeelnr 900-7013.jpg
+  - File:Verjaardag prinses Irene reportage van het kindertuinfeest paleis soestdijk, Bestanddeelnr 900-7014.jpg
+  - File:Verjaardag prinses Irene reportage van het kindertuinfeest paleis soestdijk, Bestanddeelnr 900-7015.jpg
+  - File:Verjaardag prinses Irene reportage van het kindertuinfeest paleis soestdijk, Bestanddeelnr 900-7016.jpg
+
+## Gohe007 on 2007-03-10: 41 photos, width ~454
+- categories: [("Category:Ron Jeremy's Birthday Party", 41)]
+- licences: [('CC BY-SA 2.5', 41)]
+  - File:Coolio and co at Ron Jeremy's Birthday Party 1.jpg
+  - File:Coolio and co at Ron Jeremy's Birthday Party 2.jpg
+  - File:Anna Chudoba at Ron Jeremy's Birthday Party 1.jpg
+  - File:Anna Chudoba at Ron Jeremy's Birthday Party 2.jpg
+  - File:Karyn Harbey at Ron Jeremy's Birthday Party 1.jpg
+  - File:Karyn Harbey, Jen Martinez at Ron Jeremy's Birthday Party 1.jpg
+  - File:Cindy Sutherland, Karyn Harbey at Ron Jeremy's Birthday Party 1.jpg
+  - File:Coco Johnson at Ron Jeremy's Birthday Party 1.jpg
+  - File:Coco Johnson at Ron Jeremy's Birthday Party 2.jpg
+  - File:Coco Johnson at Ron Jeremy's Birthday Party 3.jpg
+  - File:Coco Johnson at Ron Jeremy's Birthday Party 4.jpg
+  - File:Coco Johnson at Ron Jeremy's Birthday Party 5.jpg
+  - File:Coco Johnson at Ron Jeremy's Birthday Party 6.jpg
+  - File:Fabian Kaelin, Lizzy Valentine at Ron Jeremy's Birthday Party 1.jpg
+  - File:Amber Peach, DJ Batman at Ron Jeremy's Birthday Party 1.jpg
+
+## Romaine on 2018-10-29: 41 photos, width ~4032
+- categories: [('Category:Wikidata workshop Brussels, 29 October 2018', 41)]
+- licences: [('CC0', 41)]
+  - File:Wikidata workshop Brussels 2018-10-29 (3).jpg
+  - File:Wikidata workshop Brussels 2018-10-29 (2).jpg
+  - File:Wikidata workshop Brussels 2018-10-29 (1).jpg
+  - File:Wikidata workshop Brussels 2018-10-29 (11).jpg
+  - File:Wikidata workshop Brussels 2018-10-29 (12).jpg
+  - File:Wikidata workshop Brussels 2018-10-29 (10).jpg
+  - File:Wikidata workshop Brussels 2018-10-29 (13).jpg
+  - File:Wikidata workshop Brussels 2018-10-29 (14).jpg
+  - File:Wikidata workshop Brussels 2018-10-29 (15).jpg
+  - File:Wikidata workshop Brussels 2018-10-29 (16).jpg
+  - File:Wikidata workshop Brussels 2018-10-29 (17).jpg
+  - File:Wikidata workshop Brussels 2018-10-29 (18).jpg
+  - File:Wikidata workshop Brussels 2018-10-29 (19).jpg
+  - File:Wikidata workshop Brussels 2018-10-29 (21).jpg
+  - File:Wikidata workshop Brussels 2018-10-29 (22).jpg
+
+## Gangulybiswarup on 2012-02-24: 36 photos, width ~4000
+- categories: [('Category:Upanayana', 36)]
+- licences: [('CC BY-SA 3.0', 36)]
+  - File:Hindu Sacred Thread Winding - Baduria 2012-02-24 2388.JPG
+  - File:Sacred Thread Ceremony - Baduria 2012-02-24 2364.JPG
+  - File:Sacred Thread Ceremony - Baduria 2012-02-24 2365.JPG
+  - File:Sacred Thread Ceremony - Baduria 2012-02-24 2366.JPG
+  - File:Sacred Thread Ceremony - Baduria 2012-02-24 2367.JPG
+  - File:Sacred Thread Ceremony - Baduria 2012-02-24 2368.JPG
+  - File:Sacred Thread Ceremony - Baduria 2012-02-24 2370.JPG
+  - File:Sacred Thread Ceremony - Baduria 2012-02-24 2373.JPG
+  - File:Sacred Thread Ceremony - Baduria 2012-02-24 2374.JPG
+  - File:Sacred Thread Ceremony - Baduria 2012-02-24 2378.JPG
+  - File:Sacred Thread Ceremony - Baduria 2012-02-24 2383.JPG
+  - File:Sacred Thread Ceremony - Baduria 2012-02-24 2386.JPG
+  - File:Sacred Thread Ceremony - Baduria 2012-02-24 2387.JPG
+  - File:Sacred Thread Ceremony - Baduria 2012-02-24 2390.JPG
+  - File:Sacred Thread Ceremony - Baduria 2012-02-24 2392.JPG
+
+## Rahul Sankar on 2026-01-25: 36 photos, width ~6000
+- categories: [('Category:Wikipedia25 with Jimmy Wales', 36)]
+- licences: [('CC BY-SA 4.0', 36)]
+  - File:KLF 2026 (35).jpg
+  - File:KLF 2026 (37).jpg
+  - File:KLF 2026 (36).jpg
+  - File:KLF 2026 (34).jpg
+  - File:KLF 2026 (55).jpg
+  - File:KLF 2026 (54).jpg
+  - File:KLF 2026 (53).jpg
+  - File:KLF 2026 (52).jpg
+  - File:KLF 2026 (51).jpg
+  - File:KLF 2026 (50).jpg
+  - File:KLF 2026 (49).jpg
+  - File:KLF 2026 (48).jpg
+  - File:KLF 2026 (47).jpg
+  - File:KLF 2026 (46).jpg
+  - File:KLF 2026 (45).jpg
+
+## Gangulybiswarup on 2015-01-30: 34 photos, width ~6016
+- categories: [('Category:Upanayana', 34)]
+- licences: [('CC BY 3.0', 34)]
+  - File:Almsgiving to Brahmachari - Upanayana Ceremony - Simurali 2015-01-30 5675.JPG
+  - File:Almsgiving to Brahmachari - Upanayana Ceremony - Simurali 2015-01-30 5680.JPG
+  - File:Baran Dala - Upanayana Ceremony - Simurali 2015-01-30 5325.JPG
+  - File:Incense Burning over Baran Dala - Upanayana Ceremony - Simurali 2015-01-30 5328.JPG
+  - File:Incense Burning over Baran Dala - Upanayana Ceremony - Simurali 2015-01-30 5329.JPG
+  - File:Goddess Ganga Inviting Procession - Upanayana Ceremony - Simurali 2015-01-30 5273.JPG
+  - File:Goddess Ganga Inviting Procession - Upanayana Ceremony - Simurali 2015-01-30 5274.JPG
+  - File:Goddess Ganga Inviting Women - Upanayana Ceremony - Simurali 2015-01-30 5323.JPG
+  - File:Holy Water Collection - Upanayana Ceremony - Simurali 2015-01-30 5350.JPG
+  - File:Brahmachari under Saffron Coloured Veil - Upanayana Ceremony - Simurali 2015-01-30 5682.JPG
+  - File:Collected Holy Water - Upanayana Ceremony - Simurali 2015-01-30 5358.JPG
+  - File:Collected Holy Water - Upanayana Ceremony - Simurali 2015-01-30 5359.JPG
+  - File:Collected Holy Water Procession - Upanayana Ceremony - Simurali 2015-01-30 5406.JPG
+  - File:Goddess Ganga Invitation and Holy Water Collection Gathering - Upanayana Ceremony - Simurali 2015-01-30 5303.JPG
+  - File:Haldi Paste Making - Upanayana Ceremony - Simurali 2015-01-30 5642.JPG
+
+## AmanAgrahari01 on 2023-02-23: 30 photos, width ~299
+- categories: [('Category:Wedding ceremonies in Uttar Pradesh', 30)]
+- licences: [('CC BY-SA 4.0', 30)]
+  - File:Indian UttarPradesh Brides Images (09).jpg
+  - File:Indian UttarPradesh Brides Images (10).jpg
+  - File:Indian UttarPradesh Brides Images (11).jpg
+  - File:Indian UttarPradesh Brides Images (12).jpg
+  - File:Indian UttarPradesh Brides Images (13).jpg
+  - File:Indian UttarPradesh Brides Images (14).jpg
+  - File:Indian UttarPradesh Brides Images (15).jpg
+  - File:Indian UttarPradesh Brides Images (16).jpg
+  - File:Indian UttarPradesh Brides Images (17).jpg
+  - File:Indian UttarPradesh Brides Images (18).jpg
+  - File:Indian UttarPradesh Brides Images (19).jpg
+  - File:Indian UttarPradesh Brides Images (20).jpg
+  - File:Indian UttarPradesh Brides Images (21).jpg
+  - File:Indian UttarPradesh Brides Images (22).jpg
+  - File:Indian UttarPradesh Brides Images (23).jpg
+
+## BotMultichillT on 2009-10-23: 29 photos, width ~3000
+- categories: [('Category:Ship christenings in the United States Navy', 26), ('Category:Birthday cakes of the United States', 3)]
+- licences: [('Public domain', 29)]
+  - File:US Navy 050521-N-1577S-022 Chief of Naval Operations Adm. Vern Clark arrives for the christening ceremony of Military Sealift Command (MSC) auxiliary dry cargo carrier USNS Lewis and Clark.jpg
+  - File:US Navy 050521-N-1577S-049 Chief of Naval Operations Adm. Vern Clark salutes the national ensign during the christening ceremony for the Military Sealift Command (MSC) auxiliary dry cargo carrier USNS Lewis and Clark.jpg
+  - File:US Navy 050521-N-1577S-125 Ship Sponsor, Mrs. Jane Lewis Sale Henley, descendant of Meriwether Lewis, launches the Military Sealift Command (MSC) auxiliary dry cargo carrier USNS Lewis and Clark.jpg
+  - File:US Navy 050521-N-1577S-133 The Military Sealift Command (MSC) auxiliary dry cargo carrier USNS Lewis and Clark, (T-AKE 1), is launched into San Diego Harbor after a christening ceremony.jpg
+  - File:US Navy 050521-N-1577S-040 The official party for the christening ceremony of United States Naval Ship (USNS), Lewis and Clark (T-AKE 1), pause for a photograph at the National Steel and Shipbuilding Company (NASSCO).jpg
+  - File:US Navy 070515-N-4658L-046 Richard E. Byrd is the forth ship of an expected class of 11 T-AKE dry-cargo-ammunition ships built by General Dynamics NASSCO for the Military Sealift Command.jpg
+  - File:US Navy 070515-N-4995K-056 Secretary of the Navy (SECNAV), the Honorable Dr. Donald Winter addresses the crowd during the christening and launching of the USNS Richard E. Byrd (T-AKE 4).jpg
+  - File:US Navy 050824-N-7676W-033 Chief of Naval Research, Rear Adm. Jay Cohen, delivers the principal address at the christening of the Advanced Electric Ship Demonstrator (AESD), Sea Jet.jpg
+  - File:US Navy 050824-N-7676W-069 Chief of Naval Research, Rear Adm. Jay Cohen, explains the underwater discharge water jet prior to the christening of the Advanced Electric Ship Demonstrator (AESD), Sea Jet.jpg
+  - File:US Navy 080918-N-7643B-063 Military and civilian guests listen to Chief of Naval Operations Adm. Gary Roughead's speech during the christening and launch ceremony for USNS Carl Brashear (T-AKE 7) at General Dynamics NASSCO in S.jpg
+  - File:US Navy 080918-N-8273J-078 Chief of Naval Operations (CNO) Adm. Gary Roughead delivers his remarks during the christening and launch ceremony of USNS Carl Brashear (T-AKE 7) at General Dynamics NASSCO shipyard.jpg
+  - File:US Navy 080918-N-8273J-094 Chief of Naval Operations (CNO) Adm. Gary Roughead delivers his remarks during the christening and launch ceremony of USNS Carl Brashear (T-AKE 7) at General Dynamics NASSCO shipyard.jpg
+  - File:US Navy 080918-N-8273J-139 The Matrons of Honor, Sandra Brashear and Joy Harris, along with the ship's sponsor, Lauren Brashear launch the Military Sealift Command (MSC) auxiliary dry cargo carrier, USNS Carl Brashear (T-AKE 7).jpg
+  - File:US Navy 080918-N-8273J-153 The Military Sealift Command (MSC) auxiliary dry cargo carrier, USNS Carl Brashear (T-AKE 7) slides into the San Diego Bay during the christening and launch ceremony at General Dynamics NASSCO shipyar.jpg
+  - File:US Navy 080918-N-8273J-187 Chief of Naval Operations (CNO) Adm. Gary Roughead speaks with media at the conclusion of the christening and launch ceremony of USNS Carl Brashear (T-AKE 7) at General Dynamics NASSCO shipyard.jpg
+
+## Hiàn (alt) on 2017-08-08: 28 photos, width ~2703
+- categories: [('Category:Ship christenings in the United States Navy', 28)]
+- licences: [('Public domain', 28)]
+  - File:80-G-409403 (35641429423).jpg
+  - File:428-GX-K-3415 (36311986621).jpg
+  - File:428-GX-K-3416 (36403492906).jpg
+  - File:80-G-409404 (35614132224).jpg
+  - File:80-G-409410 (35614127634).jpg
+  - File:80-G-409417 (35614125334).jpg
+  - File:80-G-409422 (35614120604).jpg
+  - File:80-G-409429 (36280911952).jpg
+  - File:80-G-409435 (35614112874).jpg
+  - File:80-G-409436 (35614106354).jpg
+  - File:80-G-409442 (36403580316).jpg
+  - File:80-G-409444 (35614100524).jpg
+  - File:80-G-409447 (35614096284).jpg
+  - File:80-G-409524 (35641412003).jpg
+  - File:80-G-409525 (35614087794).jpg
+
+## Sunkanmi12 on 2023-10-29: 28 photos, width ~4032
+- categories: [("Category:Wikidata's 11th birthday celebration with Global Open Initiative", 28)]
+- licences: [('CC0', 28)]
+  - File:Wikidata's 11th birthday celebration with Global Open Initiative.jpg
+  - File:GOIF-Wikidata 11th Anniversary.jpg
+  - File:Wikidata's 11th birthday celebration with Global Open Initiative 1.jpg
+  - File:Wikidata's 11th birthday celebration with Global Open Initiative 2.jpg
+  - File:Wikidata's 11th birthday celebration with Global Open Initiative 3.jpg
+  - File:Wikidata's 11th birthday celebration with Global Open Initiative 4.jpg
+  - File:Wikidata's 11th birthday celebration with Global Open Initiative 5.jpg
+  - File:Wikidata's 11th birthday celebration with Global Open Initiative 7.jpg
+  - File:Wikidata's 11th birthday celebration with Global Open Initiative 6.jpg
+  - File:Wikidata's 11th birthday celebration with Global Open Initiative 8.jpg
+  - File:Wikidata's 11th birthday celebration with Global Open Initiative 10.jpg
+  - File:Wikidata's 11th birthday celebration with Global Open Initiative 9.jpg
+  - File:Wikidata's 11th birthday celebration with Global Open Initiative 13.jpg
+  - File:Wikidata's 11th birthday celebration with Global Open Initiative 12.jpg
+  - File:Wikidata's 11th birthday celebration with Global Open Initiative 11.jpg
+
+## Ssgapu22 on 2026-01-24: 27 photos, width ~2304
+- categories: [('Category:Wikipedia 25th birthday celebration at Odisha', 27)]
+- licences: [('CC BY-SA 4.0', 27)]
+  - File:Poet Sasmita Sahoo with Wikipedia25 Standee at Bhadrak Mahotsav.jpg
+  - File:Poet Monalisa Sahoo with Wikipedia25 Standee at Bhadrak Mahotsav.jpg
+  - File:Odia lyricist and poet Arupananda Nayak with Wikipedia25 Standee at Bhadrak Mahotsav.jpg
+  - File:People with Wikipedia25 Standee at Bhadrak Mahotsav 03.jpg
+  - File:Anshuman Swain with Wikipedia25 Standee at Bhadrak Mahotsav.jpg
+  - File:Arun Khilar with Wikipedia25 Standee at Bhadrak Mahotsav.jpg
+  - File:Ruturaj Akshaya with Wikipedia25 Standee at Bhadrak Mahotsav.jpg
+  - File:Poet Bichitrananda Jena with Wikipedia25 Standee at Bhadrak Mahotsav.jpg
+  - File:People with Wikipedia25 Standee at Bhadrak Mahotsav 04.jpg
+  - File:People with Wikipedia25 Standee at Bhadrak Mahotsav 05.jpg
+  - File:Rupak Ray with Wikipedia25 Standee at Bhadrak Mahotsav.jpg
+  - File:People with Wikipedia25 Standee at Bhadrak Mahotsav 06.jpg
+  - File:People with Wikipedia25 Standee at Bhadrak Mahotsav 07.jpg
+  - File:Poem Manas Panda with Wikipedia25 Standee at Bhadrak Mahotsav.jpg
+  - File:Rajashree Nayak with Wikipedia25 Standee at Bhadrak Mahotsav.jpg
+
+## File Upload Bot (Magnus Manske) on 2013-07-30: 25 photos, width ~2073
+- categories: [('Category:Asphodelaceae in Mozambique', 25)]
+- licences: [('CC BY-SA 2.0', 25)]
+  - File:Aloe parvibracteata 3 (9434122783).jpg
+  - File:Aloe marlothii 7 (9434122477).jpg
+  - File:Aloe marlothii 2 (9436840766).jpg
+  - File:Aloe marlothii 1 (9436840670).jpg
+  - File:Aloe marlothii 3 (9436840890).jpg
+  - File:Aloe spicata 18 (9434358825).jpg
+  - File:Aloe spicata19 (9434966297).jpg
+  - File:Aloe spicata 16 (9434358607).jpg
+  - File:Aloe spicata 17 (9434358743).jpg
+  - File:Aloe spicata21 (9434966405).jpg
+  - File:Aloe spicata 14 (9434358383).jpg
+  - File:Aloe spicata 13 (9434358273).jpg
+  - File:Aloe spicata 15 (9434358509).jpg
+  - File:Aloe spicata 8 (9437089224).jpg
+  - File:Aloe spicata 11 (9437089572).jpg
+
+## Gangulybiswarup on 2009-04-05: 25 photos, width ~2560
+- categories: [('Category:Upanayana', 25)]
+- licences: [('CC BY-SA 3.0', 25)]
+  - File:Inviting Goddess Ganga - Hindu Sacred Thread Ceremony - Simurali 2009-04-05 4050047.JPG
+  - File:Inviting Goddess Ganga - Hindu Sacred Thread Ceremony - Simurali 2009-04-05 4050048.JPG
+  - File:Inviting Goddess Ganga - Hindu Sacred Thread Ceremony - Simurali 2009-04-05 4050050.JPG
+  - File:Inviting Goddess Ganga - Hindu Sacred Thread Ceremony - Simurali 2009-04-05 4050051.JPG
+  - File:Inviting Goddess Ganga - Hindu Sacred Thread Ceremony - Simurali 2009-04-05 4050052.JPG
+  - File:Inviting Goddess Ganga - Hindu Sacred Thread Ceremony - Simurali 2009-04-05 4050053.JPG
+  - File:Inviting Goddess Ganga - Hindu Sacred Thread Ceremony - Simurali 2009-04-05 4050058.JPG
+  - File:Inviting Goddess Ganga - Hindu Sacred Thread Ceremony - Simurali 2009-04-05 4050059.JPG
+  - File:Inviting Goddess Ganga - Hindu Sacred Thread Ceremony - Simurali 2009-04-05 4050060.JPG
+  - File:Inviting Goddess Ganga - Hindu Sacred Thread Ceremony - Simurali 2009-04-05 4050061.JPG
+  - File:Inviting Goddess Ganga - Hindu Sacred Thread Ceremony - Simurali 2009-04-05 4050062.JPG
+  - File:Inviting Goddess Ganga - Hindu Sacred Thread Ceremony - Simurali 2009-04-05 4050063.JPG
+  - File:Inviting Goddess Ganga - Hindu Sacred Thread Ceremony - Simurali 2009-04-05 4050064.JPG
+  - File:Inviting Goddess Ganga - Hindu Sacred Thread Ceremony - Simurali 2009-04-05 4050065.JPG
+  - File:Inviting Goddess Ganga - Hindu Sacred Thread Ceremony - Simurali 2009-04-05 4050066.JPG
+
+## Fabe56 on 2011-02-25: 25 photos, width ~4288
+- categories: [('Category:Holden Racing Team 21st Birthday', 18), ('Category:Birthday cakes of Australia', 7)]
+- licences: [('CC BY 2.0', 25)]
+  - File:HRT 21st Birthday (5477970048).jpg
+  - File:HRT 21st Birthday (5477971430).jpg
+  - File:HRT 21st Birthday (5477370439).jpg
+  - File:HRT 21st Birthday (5477972362).jpg
+  - File:HRT 21st Birthday (5477971900).jpg
+  - File:HRT 21st Birthday (5477374431).jpg
+  - File:HRT 21st Birthday (5477974830).jpg
+  - File:HRT 21st Birthday (5477367619).jpg
+  - File:HRT 21st Birthday (5477967004).jpg
+  - File:HRT 21st Birthday (5477967262).jpg
+  - File:HRT 21st Birthday (5477966584).jpg
+  - File:HRT 21st Birthday (5477967746).jpg
+  - File:HRT 21st Birthday (5477968292).jpg
+  - File:HRT 21st Birthday (5477368083).jpg
+  - File:HRT 21st Birthday (5477968696).jpg
+
+## Olaf Kosinsky on 2014-01-10: 25 photos, width ~6622
+- categories: [('Category:Geburtstagsempfang von Thomas Bach am 10. Januar 2014 in Tauberbischofsheim', 25)]
+- licences: [('CC BY-SA 3.0 de', 25)]
+  - File:Empfang IOC Präsident Thomas Bach mit Jacques Rogge (1 von 9).jpg
+  - File:Empfang IOC Präsident Thomas Bach mit Jacques Rogge (2 von 9).jpg
+  - File:Empfang IOC Präsident Thomas Bach mit Jacques Rogge (3 von 9).jpg
+  - File:Empfang IOC Präsident Thomas Bach mit Jacques Rogge (4 von 9).jpg
+  - File:Empfang IOC Präsident Thomas Bach mit Jacques Rogge (5 von 9).jpg
+  - File:Empfang IOC Präsident Thomas Bach mit Jacques Rogge (6 von 9).jpg
+  - File:Empfang IOC Präsident Thomas Bach mit Jacques Rogge (7 von 9).jpg
+  - File:Empfang IOC Präsident Thomas Bach mit Jacques Rogge (8 von 9).jpg
+  - File:Empfang IOC Präsident Thomas Bach mit Jacques Rogge (9 von 9).jpg
+  - File:IOC Präsident Thomas Bach Empfang 20140110-1.jpg
+  - File:IOC Präsident Thomas Bach Empfang 20140110-10.jpg
+  - File:IOC Präsident Thomas Bach Empfang 20140110-11.jpg
+  - File:IOC Präsident Thomas Bach Empfang 20140110-12.jpg
+  - File:IOC Präsident Thomas Bach Empfang 20140110-13.jpg
+  - File:IOC Präsident Thomas Bach Empfang 20140110-14.jpg
+
+## AmanAgrahari01 on 2023-03-28: 25 photos, width ~1066
+- categories: [('Category:Wedding ceremonies in Uttar Pradesh', 25)]
+- licences: [('CC BY-SA 4.0', 25)]
+  - File:Indian UttarPradesh Brides Images (39).jpeg
+  - File:Indian UttarPradesh Brides Images (40).jpeg
+  - File:Indian UttarPradesh Brides Images (41).jpeg
+  - File:Indian UttarPradesh Brides Images (42).jpeg
+  - File:Indian UttarPradesh Brides Images (43).jpeg
+  - File:Indian UttarPradesh Brides Images (44).jpeg
+  - File:Indian UttarPradesh Brides Images (45).jpeg
+  - File:Indian UttarPradesh Brides Images (46).jpeg
+  - File:Indian UttarPradesh Brides Images (47).jpeg
+  - File:Indian UttarPradesh Brides Images (48).jpeg
+  - File:Indian UttarPradesh Brides Images (49).jpeg
+  - File:Indian UttarPradesh Brides Images (50).jpeg
+  - File:Indian UttarPradesh Brides Images (51).jpeg
+  - File:Indian UttarPradesh Brides Images (52).jpeg
+  - File:Indian UttarPradesh Brides Images (53).jpeg
+
+## Hiàn (alt) on 2016-01-12: 24 photos, width ~2620
+- categories: [('Category:Ship christenings in the United States Navy', 24)]
+- licences: [('Public domain', 24)]
+  - File:80-G-207920 (24328135446).jpg
+  - File:80-G-207927 (24328133316).jpg
+  - File:80-G-207928 (24271839831).jpg
+  - File:80-G-207929 (24271836161).jpg
+  - File:80-G-207930 (24058747070).jpg
+  - File:80-G-207933 (23727499373).jpg
+  - File:80-G-207934 (24271829251).jpg
+  - File:80-G-207935 (23986514149).jpg
+  - File:80-G-207938 (24058736720).jpg
+  - File:80-G-207939 (24058734440).jpg
+  - File:80-G-207949 (24271819881).jpg
+  - File:80-G-207950 (24246069362).jpg
+  - File:80-G-207951 (23726119754).jpg
+  - File:80-G-207952 (24271812511).jpg
+  - File:80-G-207953 (24246062492).jpg
+
+## Shrinivaskulkarni1388 on 2018-02-05: 24 photos, width ~3008
+- categories: [('Category:Bhausaheb Shinde', 24)]
+- licences: [('CC BY-SA 4.0', 24)]
+  - File:Actor Bhausaheb Shinde 03.jpg
+  - File:Actor Bhausaheb Shinde 02.jpg
+  - File:Actor Bhausaheb Shinde 01.jpg
+  - File:Actor Bhausaheb Shinde 05.jpg
+  - File:Actor Bhausaheb Shinde 04.jpg
+  - File:Actor Bhausaheb Shinde 06.jpg
+  - File:Actor Bhausaheb Shinde 07.jpg
+  - File:Actor Bhausaheb Shinde 08.jpg
+  - File:Actor Bhausaheb Shinde 09.jpg
+  - File:Actor Bhausaheb Shinde 10.jpg
+  - File:Actor Bhausaheb Shinde 11.jpg
+  - File:Actor Bhausaheb Shinde 12.jpg
+  - File:Actor Bhausaheb Shinde 13.jpg
+  - File:Actor Bhausaheb Shinde 14.jpg
+  - File:Actor Bhausaheb Shinde 15.jpg
+
+## Tonynirappathu on 2026-01-15: 24 photos, width ~5184
+- categories: [('Category:Wikipedia 25th birthday celebration at Kottayam', 24)]
+- licences: [('CC0', 24)]
+  - File:Wiki bday 25 at Kottayam 01.jpg
+  - File:Wiki bday 25 at Kottayam 02.jpg
+  - File:Wiki bday 25 at Kottayam 03.jpg
+  - File:Wiki bday 25 at Kottayam 04.jpg
+  - File:Wiki bday 25 at Kottayam 06.jpg
+  - File:Wiki bday 25 at Kottayam 05.jpg
+  - File:Wiki bday 25 at Kottayam 07.jpg
+  - File:Wiki bday 25 at Kottayam 08.jpg
+  - File:Wiki bday 25 at Kottayam 10.jpg
+  - File:Wiki bday 25 at Kottayam 09.jpg
+  - File:Wiki bday 25 at Kottayam 11.jpg
+  - File:Wiki bday 25 at Kottayam 12.jpg
+  - File:Wiki bday 25 at Kottayam 13.jpg
+  - File:Wiki bday 25 at Kottayam 14.jpg
+  - File:Wiki bday 25 at Kottayam 15.jpg
+
+## Ssgapu22 on 2026-03-06: 23 photos, width ~4096
+- categories: [('Category:Wikipedia 25th birthday celebration at Odisha', 23)]
+- licences: [('CC BY-SA 4.0', 23)]
+  - File:Aliva Sahoo at Gangadhar Mohapatra Law College, Puri for Wikimedia Workshop.jpg
+  - File:Aliva Sahoo at Gangadhar Mohapatra Law College, Puri for Wikimedia Workshop 01.jpg
+  - File:Aliva Sahoo at Gangadhar Mohapatra Law College, Puri for Wikimedia Workshop 02.jpg
+  - File:Aliva Sahoo at Gangadhar Mohapatra Law College, Puri for Wikimedia Workshop 03.jpg
+  - File:Sangram Keshari Senapati at Gangadhar Mohapatra Law College, Puri for Wikimedia Workshop.jpg
+  - File:Sangram Keshari Senapati at Gangadhar Mohapatra Law College, Puri for Wikimedia Workshop 01.jpg
+  - File:Sangram Keshari Senapati at Gangadhar Mohapatra Law College, Puri for Wikimedia Workshop 02.jpg
+  - File:Wikimedia Workshop at Gangadhar Mohapatra Law College, Puri 01.jpg
+  - File:Wikimedia Workshop at Gangadhar Mohapatra Law College, Puri 03.jpg
+  - File:Wikimedia Workshop at Gangadhar Mohapatra Law College, Puri 02.jpg
+  - File:Wikimedia Workshop at Gangadhar Mohapatra Law College, Puri 11.jpg
+  - File:Wikimedia Workshop at Gangadhar Mohapatra Law College, Puri 12.jpg
+  - File:Wikimedia Workshop at Gangadhar Mohapatra Law College, Puri 13.jpg
+  - File:Wikimedia Workshop at Gangadhar Mohapatra Law College, Puri 14.jpg
+  - File:Wikimedia Workshop at Gangadhar Mohapatra Law College, Puri 15.jpg
+
+## Rahul Sankar on 2026-01-24: 23 photos, width ~6000
+- categories: [('Category:Wikipedia 25th birthday celebration at Kozhikode', 23)]
+- licences: [('CC BY-SA 4.0', 23)]
+  - File:Jimmy Wales kerala literature festival 2026 03.jpg
+  - File:Jimmy Wales kerala literature festival 2026 02.jpg
+  - File:Jimmy Wales kerala literature festival 2026 01.jpg
+  - File:Jimmy Wales kerala literature festival 2026 04.jpg
+  - File:Jimmy Wales kerala literature festival 2026 05.jpg
+  - File:Jimmy Wales kerala literature festival 2026 06.jpg
+  - File:Jimmy Wales kerala literature festival 2026 07.jpg
+  - File:Jimmy Wales kerala literature festival 2026 08.jpg
+  - File:Jimmy Wales kerala literature festival 2026 09.jpg
+  - File:Jimmy Wales kerala literature festival 2026 10.jpg
+  - File:Jimmy Wales kerala literature festival 2026 11.jpg
+  - File:Jimmy Wales kerala literature festival 2026 12.jpg
+  - File:Jimmy Wales kerala literature festival 2026 13.jpg
+  - File:Jimmy Wales kerala literature festival 2026 14.jpg
+  - File:Jimmy Wales kerala literature festival 2026 15.jpg
+
+## Manojk on 2026-03-04: 23 photos, width ~4080
+- categories: [('Category:Wikipedia 25th birthday celebration at University of Calicut', 23)]
+- licences: [('CC BY-SA 4.0', 23)]
+  - File:Wikipedia25 University of Calicut, India 01.jpg
+  - File:Wikipedia25 University of Calicut, India 03.jpg
+  - File:Wikipedia25 University of Calicut, India 02.jpg
+  - File:Wikipedia25 University of Calicut, India 04.jpg
+  - File:Wikipedia25 University of Calicut, India 05.jpg
+  - File:Wikipedia25 University of Calicut, India 06.jpg
+  - File:Wikipedia25 University of Calicut, India 07.jpg
+  - File:Wikipedia25 University of Calicut, India 08.jpg
+  - File:Wikipedia25 University of Calicut, India 09.jpg
+  - File:Wikipedia25 University of Calicut, India 10.jpg
+  - File:Wikipedia25 University of Calicut, India 11.jpg
+  - File:Wikipedia25 University of Calicut, India 12.jpg
+  - File:Wikipedia25 University of Calicut, India 13.jpg
+  - File:Wikipedia25 University of Calicut, India 14.jpg
+  - File:Wikipedia25 University of Calicut, India 15.jpg
+
+## Fabe56 on 2010-07-04: 21 photos, width ~3216
+- categories: [('Category:Birthday cakes of Australia', 21)]
+- licences: [('CC BY 2.0', 21)]
+  - File:Playgroup 2nd birthdays 04 (4760411266).jpg
+  - File:Playgroup 2nd birthdays 03 (4759776665).jpg
+  - File:Playgroup 2nd birthdays 02 (4759776271).jpg
+  - File:Playgroup 2nd birthdays 06 (4759777467).jpg
+  - File:Playgroup 2nd birthdays 07 (4760412162).jpg
+  - File:Playgroup 2nd birthdays 08 (4759778135).jpg
+  - File:Playgroup 2nd birthdays 11 (4760413468).jpg
+  - File:Playgroup 2nd birthdays 12 (4760413884).jpg
+  - File:Playgroup 2nd birthdays 09 (4759778467).jpg
+  - File:Playgroup 2nd birthdays 13 (4760414306).jpg
+  - File:Playgroup 2nd birthdays 14 (4760414730).jpg
+  - File:Playgroup 2nd birthdays 15 (4760415182).jpg
+  - File:Playgroup 2nd birthdays 10 (4759778687).jpg
+  - File:Playgroup 2nd birthdays 17 (4760415972).jpg
+  - File:Playgroup 2nd birthdays 18 (4759782101).jpg
+
+## Athulvis on 2026-02-03: 21 photos, width ~4000
+- categories: [('Category:Wikipedia 25th birthday celebration at Kozhikode', 21)]
+- licences: [('CC BY-SA 4.0', 21)]
+  - File:Wikimedians of Kerala User Group Wikipedia 25th birthday celebration stall at Kerala Literature Festival Kozhikode (61225).jpg
+  - File:Kerala Literature Festival Kozhikode.jpg
+  - File:Kerala Literature Festival Kozhikode (20889).jpg
+  - File:Wikimedians of Kerala User Group Wikipedia 25th birthday celebration stall at Kerala Literature Festival Kozhikode (59428).jpg
+  - File:Wikimedians of Kerala User Group Wikipedia 25th birthday celebration stall at Kerala Literature Festival Kozhikode (73986).jpg
+  - File:Wikimedians of Kerala User Group Wikipedia 25th birthday celebration stall at Kerala Literature Festival Kozhikode (63885).jpg
+  - File:Wikimedians of Kerala User Group Wikipedia 25th birthday celebration stall at Kerala Literature Festival Kozhikode (66394).jpg
+  - File:Wikimedians of Kerala User Group Wikipedia 25th birthday celebration stall at Kerala Literature Festival Kozhikode (84147).jpg
+  - File:Wikimedians of Kerala User Group Wikipedia 25th birthday celebration stall at Kerala Literature Festival Kozhikode (85022).jpg
+  - File:Wikimedians of Kerala User Group Wikipedia 25th birthday celebration stall at Kerala Literature Festival Kozhikode (42816).jpg
+  - File:Wikimedians of Kerala User Group Wikipedia 25th birthday celebration stall at Kerala Literature Festival Kozhikode (26830).jpg
+  - File:Wikimedians of Kerala User Group Wikipedia 25th birthday celebration stall at Kerala Literature Festival Kozhikode (83811).jpg
+  - File:Wikimedians of Kerala User Group Wikipedia 25th birthday celebration stall at Kerala Literature Festival Kozhikode.jpg
+  - File:Wikimedians of Kerala User Group Wikipedia 25th birthday celebration stall at Kerala Literature Festival Kozhikode (96588).jpg
+  - File:Wikimedians of Kerala User Group Wikipedia 25th birthday celebration stall at Kerala Literature Festival Kozhikode (90511).jpg
+
+## Luiz79 on 2008-04-04: 21 photos, width ~3072
+- categories: [('Category:Birthday parties in Brazil', 21)]
+- licences: [('CC BY 2.0', 21)]
+  - File:Ita's Birthday (2388314168).jpg
+  - File:Itacyara Birthday (2388316646).jpg
+  - File:Ita's Birthday (2388311378).jpg
+  - File:Ita's Birthday (2387477871).jpg
+  - File:Ita's Birthday (2388304678).jpg
+  - File:Ita's Birthday (2388301752).jpg
+  - File:Ita's Birthday (2387468903).jpg
+  - File:Ita's Birthday (2388291462).jpg
+  - File:Ita's Birthday (2388295244).jpg
+  - File:Ita's Birthday (2388280954).jpg
+  - File:Ita's Birthday (2388287176).jpg
+  - File:Ita's Birthday (2388283622).jpg
+  - File:Ita's Birthday (2387444869).jpg
+  - File:Ita's Birthday (2387448419).jpg
+  - File:Ita's Birthday (2388272176).jpg
+
+## Mike Peel on 2026-07-03: 20 photos, width ~8064
+- categories: [('Category:Wikimedia UK Big Birthday Party', 20)]
+- licences: [('CC BY-SA 4.0', 20)]
+  - File:Wikimedia UK Big Birthday Party (MP) 2026 01.jpg
+  - File:Wikimedia UK Big Birthday Party (MP) 2026 02.jpg
+  - File:Wikimedia UK Big Birthday Party (MP) 2026 03.jpg
+  - File:Wikimedia UK Big Birthday Party (MP) 2026 04.jpg
+  - File:Wikimedia UK Big Birthday Party (MP) 2026 05.jpg
+  - File:Wikimedia UK Big Birthday Party (MP) 2026 06.jpg
+  - File:Wikimedia UK Big Birthday Party (MP) 2026 07.jpg
+  - File:Wikimedia UK Big Birthday Party (MP) 2026 08.jpg
+  - File:Wikimedia UK Big Birthday Party (MP) 2026 09.jpg
+  - File:Wikimedia UK Big Birthday Party (MP) 2026 10.jpg
+  - File:Wikimedia UK Big Birthday Party (MP) 2026 11.jpg
+  - File:Wikimedia UK Big Birthday Party (MP) 2026 12.jpg
+  - File:Wikimedia UK Big Birthday Party (MP) 2026 13.jpg
+  - File:Wikimedia UK Big Birthday Party (MP) 2026 14.jpg
+  - File:Wikimedia UK Big Birthday Party (MP) 2026 15.jpg
+
+## Discott on 2026-07-03: 20 photos, width ~4000
+- categories: [('Category:Wikimedia UK Big Birthday Party', 20)]
+- licences: [('CC BY 4.0', 20)]
+  - File:Wikimedia UK Big Birthday Party 2026 0703 02.jpg
+  - File:Wikimedia UK Big Birthday Party 2026 0703 01.jpg
+  - File:Wikimedia UK Big Birthday Party 2026 0703 03.jpg
+  - File:Wikimedia UK Big Birthday Party 2026 0703 04.jpg
+  - File:Wikimedia UK Big Birthday Party 2026 0703 05.jpg
+  - File:Wikimedia UK Big Birthday Party 2026 0703 06.jpg
+  - File:Wikimedia UK Big Birthday Party 2026 0703 07.jpg
+  - File:Wikimedia UK Big Birthday Party 2026 0703 08.jpg
+  - File:Wikimedia UK Big Birthday Party 2026 0703 09.jpg
+  - File:Wikimedia UK Big Birthday Party 2026 0703 10.jpg
+  - File:Wikimedia UK Big Birthday Party 2026 0703 11.jpg
+  - File:Wikimedia UK Big Birthday Party 2026 0703 12.jpg
+  - File:Wikimedia UK Big Birthday Party 2026 0703 13.jpg
+  - File:Wikimedia UK Big Birthday Party 2026 0703 15.jpg
+  - File:Wikimedia UK Big Birthday Party 2026 0703 14.jpg
+
+## Fabe56 on 2010-07-27: 20 photos, width ~3216
+- categories: [('Category:Birthday cakes of Australia', 20)]
+- licences: [('CC BY 2.0', 20)]
+  - File:Harry Turned Two (4838693373).jpg
+  - File:Harry Turned Two (4839307708).jpg
+  - File:Harry Turned Two (4838696487).jpg
+  - File:Harry Turned Two (4839307858).jpg
+  - File:Harry Turned Two (4838696849).jpg
+  - File:Harry Turned Two (4839308290).jpg
+  - File:Harry Turned Two (4838696589).jpg
+  - File:Harry Turned Two (4838697007).jpg
+  - File:Harry Turned Two (4838697487).jpg
+  - File:Harry Turned Two (4838698475).jpg
+  - File:Harry Turned Two (4838699023).jpg
+  - File:Harry Turned Two (4838698833).jpg
+  - File:Harry Turned Two (4839308378).jpg
+  - File:Harry Turned Two (4839308718).jpg
+  - File:Harry Turned Two (4839308812).jpg
+
+## Lionel Allorge on 2014-08-10: 18 photos, width ~5184
+- categories: [('Category:Jimmy Wales at the closing ceremony of Wikimania 2014', 18)]
+- licences: [('CC BY-SA 3.0', 18)]
+  - File:Wikimania 2014 - 083.jpg
+  - File:Wikimania 2014 - 084.jpg
+  - File:Wikimania 2014 - 085.jpg
+  - File:Wikimania 2014 - 086.jpg
+  - File:Wikimania 2014 - 087.jpg
+  - File:Wikimania 2014 - 089.jpg
+  - File:Wikimania 2014 - 090.jpg
+  - File:Wikimania 2014 - 091.jpg
+  - File:Wikimania 2014 - 093.jpg
+  - File:Wikimania 2014 - 094.jpg
+  - File:Wikimania 2014 - 096.jpg
+  - File:Wikimania 2014 - 099.jpg
+  - File:Wikimania 2014 - 103.jpg
+  - File:Wikimania 2014 - 104.jpg
+  - File:Wikimania 2014 - 105.jpg
+
+## Neyakkoo on 2026-01-31: 18 photos, width ~6000
+- categories: [('Category:Wikipedia 25th Birthday Celebration – Tamil Community Event', 18)]
+- licences: [('CC0', 18)]
+  - File:Wikipedia 25th Birthday Celebration – Tamil Community Event (2026) 01.jpg
+  - File:Wikipedia 25th Birthday Celebration – Tamil Community Event (2026) 02.jpg
+  - File:Wikipedia 25th Birthday Celebration – Tamil Community Event (2026) 04.jpg
+  - File:Wikipedia 25th Birthday Celebration – Tamil Community Event (2026) 05.jpg
+  - File:Wikipedia 25th Birthday Celebration – Tamil Community Event (2026) 06.jpg
+  - File:Wikipedia 25th Birthday Celebration – Tamil Community Event (2026) 07.jpg
+  - File:Wikipedia 25th Birthday Celebration – Tamil Community Event (2026) 08.jpg
+  - File:Wikipedia 25th Birthday Celebration – Tamil Community Event (2026) 09.jpg
+  - File:Wikipedia 25th Birthday Celebration – Tamil Community Event (2026) 10.jpg
+  - File:Wikipedia 25th Birthday Celebration – Tamil Community Event (2026) 11.jpg
+  - File:Wikipedia 25th Birthday Celebration – Tamil Community Event (2026) 12.jpg
+  - File:Wikipedia 25th Birthday Celebration – Tamil Community Event (2026) 13.jpg
+  - File:Wikipedia 25th Birthday Celebration – Tamil Community Event (2026) 14.jpg
+  - File:Wikipedia 25th Birthday Celebration – Tamil Community Event (2026) 15.jpg
+  - File:Wikipedia 25th Birthday Celebration – Tamil Community Event (2026) 16.jpg
+
+## Hiàn (alt) on 2016-03-10: 17 photos, width ~2872
+- categories: [('Category:Ship christenings in the United States Navy', 17)]
+- licences: [('Public domain', 17)]
+  - File:Lot 3000-S-1 (25560597852).jpg
+  - File:Lot 3000-S-2 (25052571473).jpg
+  - File:Launching of USS Nashville (PG-7) by Emma Thompson, Newport News, Virginia, 1895 (25560513292).jpg
+  - File:Lot 3000-S-9 (25679192645).jpg
+  - File:Launch of USS New York (BB 34) October 30, 1912, at Brooklyn Navy Yard, New York (25560402352).jpg
+  - File:Lot 3000-S-12 (25679080935).jpg
+  - File:Lot 3000-S-15 (25652841976).jpg
+  - File:Lot 3000-S-16 (25378147960).jpg
+  - File:Preparing to launch the USS Maine (ACR-1) (25378103840).jpg
+  - File:U.S. Navy armored cruiser, USS Maine (ACR-1) (25378433020).jpg
+  - File:U.S. Navy armored cruiser, USS Maine (ACR-1) (25052561143).jpg
+  - File:USS Georgia (BB-15) just after being launched (25378262600).jpg
+  - File:USS New York (BB-34) launching, October 30, 1912, Brooklyn Navy Yard, New York (25679271295).jpg
+  - File:USS New York (BB-34) christened October 30, 1912, at the Brooklyn Navy Yard (25378376250).jpg
+  - File:USS New York (BB 34) launch on October 30, 1912, Brookly Navy Yard, New York (25052469733).jpg
+
+## Kian bless on 2026-04-05: 17 photos, width ~4928
+- categories: [('Category:Birthday cakes of Rwanda', 17)]
+- licences: [('CC BY-SA 4.0', 17)]
+  - File:Birthday show 02.jpg
+  - File:Birthday show 01.jpg
+  - File:Birthday show 03.jpg
+  - File:Birthday show 05.jpg
+  - File:Birthday show 04.jpg
+  - File:Birthday show 06.jpg
+  - File:Birthday show 07.jpg
+  - File:Birthday show 09.jpg
+  - File:Birthday show 08.jpg
+  - File:Birthday show 10.jpg
+  - File:Birthday show 11.jpg
+  - File:Birthday show 12.jpg
+  - File:Birthday show 13.jpg
+  - File:Birthday show 14.jpg
+  - File:Birthday show 15.jpg
+
+## HeminKurdistan on 2004-12-28: 17 photos, width ~387
+- categories: [("Category:Family reunion of former members of the People's Mujahedin of Iran (2004-12-28)", 17)]
+- licences: [('CC BY 4.0', 17)]
+  - File:Family reunion of 28 PMOI former members in Iran (05).jpg
+  - File:Family reunion of 28 PMOI former members in Iran (04).jpg
+  - File:Family reunion of 28 PMOI former members in Iran (01).jpg
+  - File:Family reunion of 28 PMOI former members in Iran (06).jpg
+  - File:Family reunion of 28 PMOI former members in Iran (02).jpg
+  - File:Family reunion of 28 PMOI former members in Iran (03).jpg
+  - File:Family reunion of 28 PMOI former members in Iran (12).jpg
+  - File:Family reunion of 28 PMOI former members in Iran (07).jpg
+  - File:Family reunion of 28 PMOI former members in Iran (10).jpg
+  - File:Family reunion of 28 PMOI former members in Iran (08).jpg
+  - File:Family reunion of 28 PMOI former members in Iran (11).jpg
+  - File:Family reunion of 28 PMOI former members in Iran (09).jpg
+  - File:Family reunion of 28 PMOI former members in Iran (15).jpg
+  - File:Family reunion of 28 PMOI former members in Iran (13).jpg
+  - File:Family reunion of 28 PMOI former members in Iran (14).jpg
+
+## Landsil on 2026-07-03: 16 photos, width ~5152
+- categories: [('Category:Wikimedia UK Big Birthday Party', 16)]
+- licences: [('CC BY-SA 4.0', 16)]
+  - File:Wikimedia UK Birthday 2026 03.jpg
+  - File:Wikimedia UK Birthday 2026 01.jpg
+  - File:Wikimedia UK Birthday 2026 02.jpg
+  - File:Wikimedia UK Birthday 2026 04.jpg
+  - File:Wikimedia UK Birthday 2026 05.jpg
+  - File:Wikimedia UK Birthday 2026 06.jpg
+  - File:Wikimedia UK Birthday 2026 07.jpg
+  - File:Wikimedia UK Birthday 2026 08.jpg
+  - File:Wikimedia UK Birthday 2026 09.jpg
+  - File:Wikimedia UK Birthday 2026 10.jpg
+  - File:Wikimedia UK Birthday 2026 11.jpg
+  - File:Wikimedia UK Birthday 2026 12.jpg
+  - File:Wikimedia UK Birthday 2026 13.jpg
+  - File:Wikimedia UK Birthday 2026 14.jpg
+  - File:Wikimedia UK Birthday 2026 15.jpg
+
+## David Shankbone on 2012-05-18: 16 photos, width ~2324
+- categories: [('Category:Brian Moylan birthday party', 16)]
+- licences: [('CC BY 3.0', 16)]
+  - File:Alex Pareene 2012 Shankbone.JPG
+  - File:Alex Pareene 2012 Shankbone 2.JPG
+  - File:Brian Moylan 2012 Birthday Shankbone 10.JPG
+  - File:Brian Moylan Brian Doherty 2012 Shankbone.JPG
+  - File:David Shankbone Alex Pareene 2012.JPG
+  - File:Maureen OConnor Brian Moylan 2012 Shankbone.JPG
+  - File:Maureen OConnor Brian Moylan 2012 Shankbone 2.JPG
+  - File:Christopher David Bousquet 2012 Shankbone.JPG
+  - File:Christopher David Bousquet 2012 Shankbone 2.JPG
+  - File:Christopher David Bousquet 2012 Shankbone 3.JPG
+  - File:Christopher David Bousquet 2012 Shankbone 4.JPG
+  - File:Brian Moylan 2012 Birthday Shankbone 5.JPG
+  - File:Christopher David Bousquet 2012 Shankbone 6.JPG
+  - File:Christopher David Bousquet 2012 Shankbone 7.JPG
+  - File:Christopher David Bousquet 2012 Shankbone 8.JPG
+
+## Piotrus on 2024-02-05: 16 photos, width ~5927
+- categories: [('Category:Doljanchi', 16)]
+- licences: [('CC BY-SA 4.0', 16)]
+  - File:Neil Doljanchi 2024 138.jpg
+  - File:Neil Doljanchi 2024 034.jpg
+  - File:Neil Doljanchi 2024 014.jpg
+  - File:Neil Doljanchi 2024 165.jpg
+  - File:Neil Doljanchi 2024 232.jpg
+  - File:Neil Doljanchi 2024 306.jpg
+  - File:Neil Doljanchi 2024 317.jpg
+  - File:Neil Doljanchi 2024 337.jpg
+  - File:Neil Doljanchi 2024 323.jpg
+  - File:Neil Doljanchi 2024 422.jpg
+  - File:Neil Doljanchi 2024 413.jpg
+  - File:Neil Doljanchi 2024 527.jpg
+  - File:Neil Doljanchi 2024 586.jpg
+  - File:Neil Doljanchi 2024 606.jpg
+  - File:Neil Doljanchi 2024 611.jpg
+
+## Boseritwik on 2012-07-05: 15 photos, width ~585
+- categories: [('Category:Riteish Deshmukh', 15)]
+- licences: [('CC BY 3.0', 15)]
+  - File:Sarah Jane Dias, Riteish Deshmukh, Tusshar Kapoor, Neha Sharma, Daler Mehndi at the Audio release of 'Kyaa Super Kool Hain Hum' 01.jpg
+  - File:Manmeet Gulzar, Harmeet Gulzar, Sarah Jane Dias, Riteish Deshmukh, Tusshar Kapoor, Neha Sharma at the Audio release of 'Kyaa Super Kool Hain Hum' 02.jpg
+  - File:Sarah Jane Dias, Riteish Deshmukh, Tusshar Kapoor, Neha Sharma at the Audio release of 'Kyaa Super Kool Hain Hum' 03.jpg
+  - File:Sarah Jane Dias, Riteish Deshmukh, Tusshar Kapoor, Neha Sharma at the Audio release of 'Kyaa Super Kool Hain Hum' 04.jpg
+  - File:Sarah Jane Dias, Riteish Deshmukh, Tusshar Kapoor, Neha Sharma at the Audio release of 'Kyaa Super Kool Hain Hum' 05.jpg
+  - File:Riteish Deshmukh, Tusshar Kapoor at the Audio release of 'Kyaa Super Kool Hain Hum' 06.jpg
+  - File:Riteish Deshmukh, Tusshar Kapoor at the Audio release of 'Kyaa Super Kool Hain Hum' 07.jpg
+  - File:Riteish Deshmukh, Tusshar Kapoor, Daler Mehndi at the Audio release of 'Kyaa Super Kool Hain Hum' 11.jpg
+  - File:Sarah Jane Dias, Riteish Deshmukh at the Audio release of 'Kyaa Super Kool Hain Hum' 13.jpg
+  - File:Riteish Deshmukh at the Audio release of 'Kyaa Super Kool Hain Hum' 17.jpg
+  - File:Riteish Deshmukh Kyaa Super Kool Hain Hum' team at 98.3 FM Radio Mirchi 04.jpg
+  - File:Riteish Deshmukh Kyaa Super Kool Hain Hum' team at 98.3 FM Radio Mirchi 06.jpg
+  - File:Tusshar Kapoor, Riteish Deshmukh Kyaa Super Kool Hain Hum' team at 98.3 FM Radio Mirchi.jpg
+  - File:Tusshar Kapoor, Riteish Deshmukh Kyaa Super Kool Hain Hum' team at 98.3 FM Radio Mirchi 01.jpg
+  - File:Tusshar Kapoor, Riteish Deshmukh Kyaa Super Kool Hain Hum' team at 98.3 FM Radio Mirchi 03.jpg
+
+## Chatsam on 2014-02-23: 15 photos, width ~3648
+- categories: [('Category:Château de Monte-Cristo', 15)]
+- licences: [('CC BY-SA 3.0', 15)]
+  - File:Château de Monte-Cristo 1.JPG
+  - File:Château de Monte-Cristo 3.JPG
+  - File:Château de Monte-Cristo 2.JPG
+  - File:Château de Monte-Cristo 4.JPG
+  - File:Château de Monte-Cristo 5.JPG
+  - File:Château de Monte-Cristo 6.JPG
+  - File:Château de Monte-Cristo deco 1.JPG
+  - File:Château de Monte-Cristo deco 4.JPG
+  - File:Château de Monte-Cristo deco 2.JPG
+  - File:Château de Monte-Cristo deco 3.JPG
+  - File:Château de Monte-Cristo deco 6.JPG
+  - File:Château de Monte-Cristo deco 7.JPG
+  - File:Château de Monte-Cristo deco 5.JPG
+  - File:Château de Monte-Cristo et d'if.JPG
+  - File:Château de Monte-Cristo entree.JPG
+
+## Shashikumara Naik K C on 2025-08-16: 15 photos, width ~918
+- categories: [('Category:Hero stones', 15)]
+- licences: [('CC BY-SA 4.0', 15)]
+  - File:Digital Image of the K R Puram 750CE Posaura Ralgoya and Mareya Herostone With Inscription 02.png
+  - File:Digital Image of the K R Puram 750CE Posaura Ralgoya and Mareya Herostone With Inscription 01.png
+  - File:Digital Image of the K R Puram 750CE Posaura Ralgoya and Mareya Herostone With Inscription 03.png
+  - File:Digital Image of The Sakalavara 750CE Ravichuttaʼs Hulibete Herostone With Inscription 02.png
+  - File:Digital Image of The Sakalavara 750CE Ravichuttaʼs Hulibete Herostone With Inscription 03.png
+  - File:Digital Image of The Sakalavara 750CE Ravichuttaʼs Hulibete Herostone With Inscription 01.png
+  - File:Digital Image of the Totagere 800CE Delatholdora, Uralajatta, Talavuraʼs Herostone With Inscription 01.png
+  - File:Digital Image of the Totagere 800CE Delatholdora, Uralajatta, Talavuraʼs Herostone With Inscription 03.png
+  - File:Digital Image of the Totagere 800CE Delatholdora, Uralajatta, Talavuraʼs Herostone With Inscription 02.png
+  - File:Digital Image of the Kumbalahalli 900CE Nelmalli Herostone With Inscription 02.png
+  - File:Digital Image of the Kumbalahalli 900CE Nelmalli Herostone With Inscription 01.png
+  - File:Digital Image of the Kumbalahalli 900CE Nelmalli Herostone With Inscription 03.png
+  - File:Digital Image of the Malurpatna 900CE Permaluru Herostone With Inscription 01.png
+  - File:Digital Image of the Malurpatna 900CE Permaluru Herostone With Inscription 03.png
+  - File:Digital Image of the Malurpatna 900CE Permaluru Herostone With Inscription 02.png
+
+## Sandesh9822 on 2016-05-14: 15 photos, width ~2896
+- categories: [('Category:Navayana Buddhist weddings', 15)]
+- licences: [('CC BY-SA 4.0', 15)]
+  - File:Buddhist wedding in Maharashtra, India 01.jpg
+  - File:Buddhist wedding in Maharashtra, India 03.jpg
+  - File:Buddhist wedding in Maharashtra, India 02.jpg
+  - File:Buddhist wedding in Maharashtra, India 04.jpg
+  - File:Buddhist wedding in Maharashtra, India 05.jpg
+  - File:Buddhist wedding in Maharashtra, India 06.jpg
+  - File:Buddhist wedding in Maharashtra, India 08.jpg
+  - File:Buddhist wedding in Maharashtra, India 07.jpg
+  - File:Buddhist wedding in Maharashtra, India 09.jpg
+  - File:Buddhist wedding in Maharashtra, India 10.jpg
+  - File:Buddhist wedding in Maharashtra 13.jpg
+  - File:Buddhist wedding in Maharashtra 11.jpg
+  - File:Buddhist wedding in Maharashtra 12.jpg
+  - File:Buddhist wedding in Maharashtra 14.jpg
+  - File:Buddhist wedding in Maharashtra 15.jpg
+
+## HWUANGIAO Maeomn on 2021-12-12: 15 photos, width ~4128
+- categories: [('Category:Birthday parties in Hong Kong', 15)]
+- licences: [('CC BY-SA 4.0', 15)]
+  - File:HK food 美心西餅 Maxim's Cakes 粟子蛋糕 Chestnut cream birthday cake party December 2021 SS2 04.jpg
+  - File:HK food 美心西餅 Maxim's Cakes 粟子蛋糕 Chestnut cream birthday cake party December 2021 SS2 06.jpg
+  - File:HK food 美心西餅 Maxim's Cakes 粟子蛋糕 Chestnut cream birthday cake party December 2021 SS2 05.jpg
+  - File:HK food 美心西餅 Maxim's Cakes 粟子蛋糕 Chestnut cream birthday cake party December 2021 SS2 08.jpg
+  - File:HK food 美心西餅 Maxim's Cakes 粟子蛋糕 Chestnut cream birthday cake party December 2021 SS2 07.jpg
+  - File:HK food 美心西餅 Maxim's Cakes 粟子蛋糕 Chestnut cream birthday cake party December 2021 SS2 09.jpg
+  - File:HK food 美心西餅 Maxim's Cakes 粟子蛋糕 Chestnut cream birthday cake party December 2021 SS2 10.jpg
+  - File:HK food 美心西餅 Maxim's Cakes 粟子蛋糕 Chestnut cream birthday cake party December 2021 SS2 11.jpg
+  - File:HK food 美心西餅 Maxim's Cakes 粟子蛋糕 Chestnut cream birthday cake party December 2021 SS2 12.jpg
+  - File:HK food 美心西餅 Maxim's Cakes 粟子蛋糕 Chestnut cream birthday cake party December 2021 SS2 14.jpg
+  - File:HK food 美心西餅 Maxim's Cakes 粟子蛋糕 Chestnut cream birthday cake party December 2021 SS2 13.jpg
+  - File:HK food 美心西餅 Maxim's Cakes 粟子蛋糕 Chestnut cream birthday cake party December 2021 SS2 15.jpg
+  - File:HK food 美心西餅 Maxim's Cakes 粟子蛋糕 Chestnut cream birthday cake party December 2021 SS2 16.jpg
+  - File:HK food 美心西餅 Maxim's Cakes 粟子蛋糕 Chestnut cream birthday cake party December 2021 SS2 17.jpg
+  - File:HK food 美心西餅 Maxim's Cakes 粟子蛋糕 Chestnut cream birthday cake party December 2021 SS2 18.jpg
+
+## Sir Amugi on 2023-10-28: 15 photos, width ~960
+- categories: [('Category:Wiki Loves Living Heritage launch event Dagbani Wikimedians User Group', 15)]
+- licences: [('CC BY-SA 4.0', 15)]
+  - File:Dagbani Wikimedians User Group launches Wiki Loves Living Heritage and Wikidata Birthday Celebration 01.jpg
+  - File:Dagbani Wikimedians User Group launches Wiki Loves Living Heritage and Wikidata Birthday Celebration 03.jpg
+  - File:Dagbani Wikimedians User Group launches Wiki Loves Living Heritage and Wikidata Birthday Celebration 02.jpg
+  - File:Dagbani Wikimedians User Group launches Wiki Loves Living Heritage and Wikidata Birthday Celebration 04.jpg
+  - File:Dagbani Wikimedians User Group launches Wiki Loves Living Heritage and Wikidata Birthday Celebration 05.jpg
+  - File:Dagbani Wikimedians User Group launches Wiki Loves Living Heritage and Wikidata Birthday Celebration 06.jpg
+  - File:Dagbani Wikimedians User Group launches Wiki Loves Living Heritage and Wikidata Birthday Celebration 08.jpg
+  - File:Dagbani Wikimedians User Group launches Wiki Loves Living Heritage and Wikidata Birthday Celebration 07.jpg
+  - File:Dagbani Wikimedians User Group launches Wiki Loves Living Heritage and Wikidata Birthday Celebration 09.jpg
+  - File:Dagbani Wikimedians User Group launches Wiki Loves Living Heritage and Wikidata Birthday Celebration 10.jpg
+  - File:Dagbani Wikimedians User Group launches Wiki Loves Living Heritage and Wikidata Birthday Celebration 11.jpg
+  - File:Dagbani Wikimedians User Group launches Wiki Loves Living Heritage and Wikidata Birthday Celebration 13.jpg
+  - File:Dagbani Wikimedians User Group launches Wiki Loves Living Heritage and Wikidata Birthday Celebration 14.jpg
+  - File:Dagbani Wikimedians User Group launches Wiki Loves Living Heritage and Wikidata Birthday Celebration 15.jpg
+  - File:Dagbani Wikimedians User Group launches Wiki Loves Living Heritage and Wikidata Birthday Celebration 16.jpg
+
+## Manojk on 2026-02-13: 15 photos, width ~4608
+- categories: [('Category:Wikipedia 25th birthday celebration at Palakkad', 15)]
+- licences: [('CC BY-SA 4.0', 15)]
+  - File:Wikipedia 25 Celebrations Palakkad DSCN9484.jpg
+  - File:Wikipedia 25 Celebrations Palakkad DSCN9476.jpg
+  - File:Wikipedia 25 Celebrations Palakkad DSCN9479.jpg
+  - File:Wikipedia 25 Celebrations Palakkad DSCN9487.jpg
+  - File:Wikipedia 25 Celebrations Palakkad DSCN9486.jpg
+  - File:Wikipedia 25 Celebrations Palakkad DSCN9488.jpg
+  - File:Wikipedia 25 Celebrations Palakkad DSCN9489.jpg
+  - File:Wikipedia 25 Celebrations Palakkad DSCN9490.jpg
+  - File:Wikipedia 25 Celebrations Palakkad DSCN9493.jpg
+  - File:Wikipedia 25 Celebrations Palakkad DSCN9492.jpg
+  - File:Wikipedia 25 Celebrations Palakkad DSCN9494.jpg
+  - File:Wikipedia 25 Celebrations Palakkad DSCN9497.jpg
+  - File:Wikipedia 25 Celebrations Palakkad DSCN9498.jpg
+  - File:Wikipedia 25 Celebrations Palakkad DSCN9503.jpg
+  - File:Wikipedia 25 Celebrations Palakkad DSCN9482.jpg
+
+## Hiàn (alt) on 2016-07-08: 14 photos, width ~2940
+- categories: [('Category:Ship christenings in the United States Navy', 14)]
+- licences: [('Public domain', 14)]
+  - File:Lot 10788-1 (28099208211).jpg
+  - File:Launch of USS Tennessee (BB-43), New York Naval Shipyard, April 20, 1919 (27561541553).jpg
+  - File:Lot 10788-2 (27561948103).jpg
+  - File:Lot 10784-1 (28100385691).jpg
+  - File:Lot 10784-2 (28074320702).jpg
+  - File:Elizabeth Kolb and launch party of USS Pennsylvania (BB-38), Newport News, Virginia, 1915 (27898110120).jpg
+  - File:Launching of USS Proteus (AC-9), Newport News Shipbuilding and Dry Dock Company, Virginia, 1912 (28101062711).jpg
+  - File:Lot-10784-8 (28179419975).jpg
+  - File:Lot-10784-9 (28145147386).jpg
+  - File:Lot-10784-10 (27563536334).jpg
+  - File:Lot-10784-11 (28101135521).jpg
+  - File:Lot-10784-12 (28101141591).jpg
+  - File:Lot-10784-13 (27898252650).jpg
+  - File:USS Tennessee (BB-43), Helen Roberts christening ship, April 30, 1919 (27561550443).jpg
+
+## Klodl on 2006-05-29: 14 photos, width ~380
+- categories: [("Category:Luke Ford's 40th birthday party", 14)]
+- licences: [('CC BY-SA 2.5', 14)]
+  - File:Shay Laren at Luke Ford's 40th birthday party.jpg
+  - File:Shay Laren at Luke Ford's 40th birthday party 2.jpg
+  - File:Shay Laren at Luke Ford's 40th birthday party 3.jpg
+  - File:Shay Laren at Luke Ford's 40th birthday party 4.jpg
+  - File:Shay Laren at Luke Ford's 40th birthday party 5.jpg
+  - File:Shay Laren at Luke Ford's 40th birthday party 6.jpg
+  - File:Shay Laren at Luke Ford's 40th birthday party 7.jpg
+  - File:Shay Laren at Luke Ford's 40th birthday party 8.jpg
+  - File:Shay Laren at Luke Ford's 40th birthday party 9.jpg
+  - File:Shay Laren at Luke Ford's 40th birthday party 10.jpg
+  - File:Shay Laren at Luke Ford's 40th birthday party 11.jpg
+  - File:Shay Laren at Luke Ford's 40th birthday party 13.jpg
+  - File:Shay Laren at Luke Ford's 40th birthday party 14.jpg
+  - File:Shay Laren at Luke Ford's 40th birthday party 15.jpg
+
+## Athulvis on 2026-02-11: 14 photos, width ~4000
+- categories: [('Category:Wikipedia 25th birthday celebration at Kozhikode', 14)]
+- licences: [('CC BY-SA 4.0', 14)]
+  - File:Wikimedians of Kerala User Group members meeting Jimmy Wales as part of Kerala Literature Festuval 26.jpg
+  - File:Celebrating Wikipedia 25 Wikimedians of Kerala User Group members meeting Jimmy Wales as part of Kerala Literature Festival 2026.jpg
+  - File:Celebrating Wikipedia 25 Wikimedians of Kerala User Group members meeting Jimmy Wales as part of Kerala Literature Festival 2026 (23307).jpg
+  - File:Celebrating Wikipedia 25 Wikimedians of Kerala User Group members meeting Jimmy Wales as part of Kerala Literature Festival 2026 (78637).jpg
+  - File:Celebrating Wikipedia 25 Wikimedians of Kerala User Group members meeting Jimmy Wales as part of Kerala Literature Festival 2026 (12513).jpg
+  - File:Celebrating Wikipedia 25 Wikimedians of Kerala User Group members meeting Jimmy Wales as part of Kerala Literature Festival 2026 (54038).jpg
+  - File:Celebrating Wikipedia 25 Wikimedians of Kerala User Group members meeting Jimmy Wales as part of Kerala Literature Festival 2026 (35531).jpg
+  - File:Celebrating Wikipedia 25 Wikimedians of Kerala User Group members meeting Jimmy Wales as part of Kerala Literature Festival 2026 (69517).jpg
+  - File:Celebrating Wikipedia 25 Wikimedians of Kerala User Group members meeting Jimmy Wales as part of Kerala Literature Festival 2026 (64182).jpg
+  - File:Celebrating Wikipedia 25 Wikimedians of Kerala User Group members meeting Jimmy Wales as part of Kerala Literature Festival 2026 (48708).jpg
+  - File:Celebrating Wikipedia 25 Wikimedians of Kerala User Group members meeting Jimmy Wales as part of Kerala Literature Festival 2026 (52697).jpg
+  - File:Celebrating Wikipedia 25 Wikimedians of Kerala User Group members meeting Jimmy Wales as part of Kerala Literature Festival 2026 (97858).jpg
+  - File:Celebrating Wikipedia 25 Wikimedians of Kerala User Group members meeting Jimmy Wales as part of Kerala Literature Festival 2026 (59800).jpg
+  - File:Celebrating Wikipedia 25 Wikimedians of Kerala User Group members meeting Jimmy Wales as part of Kerala Literature Festival 2026 (82752).jpg
+
+## PJeganathan on 2023-08-20: 14 photos, width ~2592
+- categories: [('Category:Gruha Pravesh', 14)]
+- licences: [('CC BY-SA 4.0', 14)]
+  - File:House warming ceremony in Tamil Nadu India JEG IMG 7185.JPG
+  - File:House warming ceremony in Tamil Nadu India JEG IMG 7187.JPG
+  - File:House warming ceremony in Tamil Nadu India JEG IMG 7188.JPG
+  - File:House warming ceremony in Tamil Nadu India JEG IMG 7190.JPG
+  - File:House warming ceremony in Tamil Nadu India JEG IMG 7191.JPG
+  - File:House warming ceremony in Tamil Nadu India JEG IMG 7192.JPG
+  - File:House warming ceremony in Tamil Nadu India JEG IMG 7193.JPG
+  - File:House warming ceremony in Tamil Nadu India JEG IMG 7195.JPG
+  - File:House warming ceremony in Tamil Nadu India JEG IMG 7197.JPG
+  - File:House warming ceremony in Tamil Nadu India JEG IMG 7198.JPG
+  - File:House warming ceremony in Tamil Nadu India JEG IMG 7202.JPG
+  - File:House warming ceremony in Tamil Nadu India JEG IMG 7203.JPG
+  - File:House warming ceremony in Tamil Nadu India JEG IMG 7204.JPG
+  - File:House warming ceremony in Tamil Nadu India JEG IMG 7207.JPG
+
+## Amcaja on 2007-07-02: 14 photos, width ~491
+- categories: [("Category:Br'er Rabbit", 14)]
+- licences: [('Public domain', 14)]
+  - File:Brer Rabbit cover, 1881.jpg
+  - File:Brer Rabbit and Brer Wolf, 1881.jpg
+  - File:Brer Rabbit and the tar baby, 1881.jpg
+  - File:Women, Brer Rabbit, and Brer Fox, 1881.jpg
+  - File:Miss Cow falls a victim to Brer Rabbit's deceit, 1881.jpg
+  - File:Brer Rabbit and women, 1881.jpg
+  - File:Brer Rabbit and family, 1881.jpg
+  - File:Miss Meadows en de gals, 1881.jpg
+  - File:Brer Rabbit at the table, 1881.jpg
+  - File:Brer Rabbit meets his match again, 1881.jpg
+  - File:Brer Bear and Brer Fox, 1881.jpg
+  - File:Brer Rabbit and an owl, 1881.jpg
+  - File:Brer Rabbit dream, 1881.jpg
+  - File:Br'er Rabbit and Tar-Baby.jpg
+
+## Flickr upload bot on 2009-04-25: 14 photos, width ~800
+- categories: [("Category:Eeyore's Birthday Party 2009", 14)]
+- licences: [('CC BY-SA 2.0', 13), ('CC BY 2.0', 1)]
+  - File:Eeyore's Birthday Party 2009 Hoop and Smiles.jpg
+  - File:Eeyore's Birthday Party 2009 Little Fairy.jpg
+  - File:Eeyore's Birthday Party 2009 Hats.jpg
+  - File:Eeyore's Birthday Party 2009 Red Blue Green.jpg
+  - File:Eeyore's Birthday Party 2009 Young Aztec.jpg
+  - File:Eeyore's Birthday Party 2009 Beanie Cake Bee.jpg
+  - File:Eeyore's Birthday Party 2009 Hoop Kitty.jpg
+  - File:Eeyore's Birthday Party 2009 Tigger Dog.jpg
+  - File:Eeyore's Birthday Party 2009 Parasol.jpg
+  - File:Eeyore's Birthday Party 2009 Rooster Belly Dancer.jpg
+  - File:Eeyore's Birthday Party 2009 Boots Braids and Hoops.jpg
+  - File:Eeyore's Birthday Party 2009 Donkey of Honor.jpg
+  - File:Eeyore's Birthday Party 2009 Bo Peep.jpg
+  - File:Eeyore's Birthday Party 2009 Moustache Man.jpg
+
+## Jim.henderson on 2023-10-29: 14 photos, width ~4959
+- categories: [('Category:Wikidata Day 2023 at the Butler Library - Columbia', 14)]
+- licences: [('CC BY 4.0', 14)]
+  - File:WD Day Columbia 2023 (04) jeh.jpg
+  - File:WD Day Columbia 2023 (03) jeh.jpg
+  - File:WD Day Columbia 2023 (02) jeh.jpg
+  - File:WD Day Columbia 2023 (01) jeh.jpg
+  - File:WD Day Columbia 2023 (05) jeh.jpg
+  - File:WD Day Columbia 2023 (07) jeh.jpg
+  - File:WD Day Columbia 2023 (06) jeh.jpg
+  - File:WD Day Columbia 2023 (08) jeh.jpg
+  - File:WD Day Columbia 2023 (09) jeh.jpg
+  - File:WD Day Columbia 2023 (10) jeh.jpg
+  - File:WD Day Columbia 2023 (13) jeh.jpg
+  - File:WD Day Columbia 2023 (12) jeh.jpg
+  - File:WD Day Columbia 2023 (11) jeh.jpg
+  - File:WD Day Columbia 2023 (15) jeh.jpg
+
+## Gohe007 on 2010-08-28: 14 photos, width ~400
+- categories: [("Category:April Storm's Birthday Party", 14)]
+- licences: [('CC BY-SA 2.5', 14)]
+  - File:Alex Sanders, Phyllisha Anne at April Storm's Birthday Party 1.jpg
+  - File:Alex Sanders, Phyllisha Anne at April Storm's Birthday Party 2.jpg
+  - File:April Storm at April Storm's Birthday Party 1.jpg
+  - File:Nick Manning at April Storm's Birthday Party 1.jpg
+  - File:Hailey Young at April Storm's Birthday Party 1.jpg
+  - File:Amber Rayne at April Storm's Birthday Party 1.jpg
+  - File:Amber Rayne at April Storm's Birthday Party 2.jpg
+  - File:Amber Rayne at April Storm's Birthday Party 3.jpg
+  - File:Erika Cole at April Storm's Birthday Party 1.jpg
+  - File:Seymour Satin, Hailey Young at April Storm's Birthday Party 1.jpg
+  - File:Kane at April Storm's Birthday Party 1.jpg
+  - File:Kane at April Storm's Birthday Party 2.jpg
+  - File:Chloe, Kane at April Storm's Birthday Party 1.jpg
+  - File:Sunny Lane, Flower Tucci at April Storm's Birthday Party 1.jpg
+
+## Kinoko kokonotsu on 2008-08-10: 13 photos, width ~3488
+- categories: [('Category:Bene Israel', 13)]
+- licences: [('CC BY 2.0', 13)]
+  - File:Tisha Be'Av with the Jewish Community of Ahmedabad, India (August 2008) (2793837144).jpg
+  - File:Tisha Be'Av with the Jewish Community of Ahmedabad, India (August 2008) (2793841492).jpg
+  - File:Tisha Be'Av with the Jewish Community of Ahmedabad, India (August 2008) (2793843098).jpg
+  - File:Tisha Be'Av with the Jewish Community of Ahmedabad, India (August 2008) (2792994511).jpg
+  - File:Tisha Be'Av with the Jewish Community of Ahmedabad, India (August 2008) (2793849880).jpg
+  - File:Tisha Be'Av with the Jewish Community of Ahmedabad, India (August 2008) (2793833654).jpg
+  - File:Tisha Be'Av with the Jewish Community of Ahmedabad, India (August 2008) (2793795690).jpg
+  - File:Tisha Be'Av with the Jewish Community of Ahmedabad, India (August 2008) (2792947159).jpg
+  - File:Tisha Be'Av with the Jewish Community of Ahmedabad, India (August 2008) (2792988225).jpg
+  - File:Tisha Be'Av with the Jewish Community of Ahmedabad, India (August 2008) (2793794046).jpg
+  - File:Tisha Be'Av with the Jewish Community of Ahmedabad, India (August 2008) (2793835384).jpg
+  - File:Tisha Be'Av with the Jewish Community of Ahmedabad, India (August 2008) (2793848334).jpg
+  - File:Tisha Be'Av with the Jewish Community of Ahmedabad, India (August 2008) (2793005559).jpg
+
+## Kritzolina on 2023-04-27: 13 photos, width ~5472
+- categories: [('Category:Wedding ceremonies in Tamil Nadu', 13)]
+- licences: [('CC BY-SA 4.0', 13)]
+  - File:Percussion instruments at a wedding in South India 02.jpg
+  - File:Percussion instruments at a wedding in South India 03.jpg
+  - File:Percussion instruments at a wedding in South India 01.jpg
+  - File:Percussion instruments at a wedding in South India 04.jpg
+  - File:Percussion instruments at a wedding in South India 05.jpg
+  - File:Incense at a wedding in South India.jpg
+  - File:Wedding ceremony in Tamil Nadu 01.jpg
+  - File:Wedding ceremony in Tamil Nadu 02.jpg
+  - File:Wedding ceremony in Tamil Nadu 03.jpg
+  - File:Wedding ceremony in Tamil Nadu 04.jpg
+  - File:Diya at a wedding in Tamil Nadu 02.jpg
+  - File:Diya at a wedding in Tamil Nadu 03.jpg
+  - File:Diya at a wedding in Tamil Nadu 01.jpg
+
+## Jmabel on 2016-02-28: 13 photos, width ~4288
+- categories: [('Category:OK Hotel Family Reunion 2016', 13)]
+- licences: [('CC BY-SA 4.0', 13)]
+  - File:OK Hotel Reunion - Wayne Horvitz 10 (25175155539).jpg
+  - File:OK Hotel Reunion - Wayne Horvitz 01 (24916362343).jpg
+  - File:OK Hotel Reunion - Wayne Horvitz 03 (24916277223).jpg
+  - File:OK Hotel Reunion - Carla Torgerson 05 (25434895576).jpg
+  - File:OK Hotel Reunion - Carla Torgerson 01 (24834017293).jpg
+  - File:OK Hotel Reunion - Glenn Slater (Carla Torgerson's accompanist) 01 (25165415260).jpg
+  - File:OK Hotel Reunion - Glenn Slater (Carla Torgerson's accompanist), Wayne Horvitz in background 02 (25367992101).jpg
+  - File:OK Hotel Reunion - Michael Shrieve 03 (25248504000).jpg
+  - File:OK Hotel Reunion - Matt Cameron 01 (25451641371).jpg
+  - File:OK Hotel Reunion - Matt Cameron 03 (25518178646).jpg
+  - File:OK Hotel Reunion - Matt Cameron 04 (24913940294).jpg
+  - File:OK Hotel Reunion - Matt Cameron 04 (24913940294) (cropped).jpg
+  - File:OK Hotel Reunion - Matt Cameron 01 - B&W.jpg
+
+## Hiàn (alt) on 2015-07-02: 12 photos, width ~2638
+- categories: [('Category:Ship christenings in the United States Navy', 12)]
+- licences: [('Public domain', 12)]
+  - File:Christening of USS Beatty (DD-640), Charleston Naval Shipyard, South Carolina, 1941 (19194543590).jpg
+  - File:Lot 5399-12 (18759684434).jpg
+  - File:Lot 5399-11 (19196009789).jpg
+  - File:Lot 5399-10 (18761546433).jpg
+  - File:Dual launching of USS Tillman (DD-641) and USS Beatty (DD-640), 1941 (19376000432).jpg
+  - File:Launching of USS Tillman (DD-641) and USS Beatty (DD-640), 1941 (18759618214).jpg
+  - File:Launching of USS Tillman (DD 641) and USS Beatty (DD 640) 1941 (19194550928).jpg
+  - File:Lot 5399-1 (19386202051).jpg
+  - File:Lot 5399-9 (19194604468).jpg
+  - File:Lot 5399-8 (19194598418).jpg
+  - File:Rear Admiral Allen speaking at dual launching of USS Beatty (DD-640) and USS Tillman (DD-641), 1941 (19382169285).jpg
+  - File:Lot 5399-2 (19356042246).jpg
+
+
+# Categories by size
+
+- 921 Category:Recorded for Wikipedia25 celebration in Odisha
+- 436 Category:Ship christenings in the United States Navy
+- 363 Category:Family Reunion convention
+- 320 Category:Birthday parties in the United States
+- 315 Category:Cuisine of Maharashtra
+- 260 Category:The Birthday Party (play)
+- 242 Category:Feast of Herod
+- 218 Category:Wedding ceremonies in Karnataka
+- 215 Category:Family reunions
+- 212 Category:Birthday parties in Australia
+- 208 Category:Wedding ceremonies in Rajasthan
+- 188 Category:Asphodelaceae in Mozambique
+- 185 Category:Birthday cakes of the United States
+- 179 Category:Smokey Bear's 65th Birthday Party
+- 169 Category:Kindertuinfeest Paleis Soestdijk 1945
+- 169 Category:Upanayana
+- 164 Category:The Queen's Birthday Party 2018
+- 161 Category:Arena family
+- 156 Category:Euphorbiaceae in Mozambique
+- 150 Category:Social meetings
+- 147 Category:Arecaceae in Morocco
+- 121 Category:Wikimedia UK Big Birthday Party
+- 117 Category:The family reunion BRUEGHEL De familiereünie (2023-2024)
+- 114 Category:Ron Jeremy's Birthday Party
+- 108 Category:Birthday cakes of Australia
+- 106 Category:Birthday parties
+- 105 Category:Barracks of Ulhasnagar: An Oral History of a Refugee City
+- 105 Category:Ship christenings
+- 105 Category:Jack Lawrence's Birthday Party
+- 95 Category:Marathi people
+- 91 Category:Geburtstagsempfang von Thomas Bach am 10. Januar 2014 in Tauberbischofsheim
+- 79 Category:Wikipedia 25th birthday celebration at Odisha
+- 78 Category:Wikidata workshop Brussels, 29 October 2018
+- 78 Category:Birthday cakes of Italy
+- 77 Category:Vivian McPeak's 50th birthday party
+- 72 Category:Luke Ford's 40th birthday party
+- 72 Category:Wikipedia 25th birthday celebration at Kozhikode
+- 70 Category:Engagement ceremonies in India
+- 70 Category:Birthday cakes of Canada
+- 69 Category:Jimmy Wales at the closing ceremony of Wikimania 2014
+- 66 Category:Sai Sin
+- 65 Category:Wedding ceremonies in Uttar Pradesh
+- 64 Category:Wikipedia25 Celebration at WikiClub Tech UU
+- 59 Category:Wikidata 11th anniversary in Gombe
+- 59 Category:Wikipedia 25th birthday celebration at Thrissur
+- 58 Category:Riteish Deshmukh
+- 58 Category:University of the Fraser Valley's 40th birthday
+- 58 Category:Malvaceae in Mozambique
+- 54 Category:Marathi writers
+- 54 Category:Bene Israel
+- 52 Category:Wikipedia 25th birthday celebration at Thiruvananthapuram
+- 51 Category:Wikipedia 25th Birthday celebrations in Central India (2026)
+- 51 Category:Gruha Pravesh
+- 50 Category:Jazz party for Helen Arlt, Norwegian Seamen's Church, 2010
+- 50 Category:FamSAC reunions
+- 50 Category:Eeyore's Birthday Party 2013
+- 48 Category:Children's parties
+- 47 Category:Topping out
+- 46 Category:Wedding ceremonies in Tamil Nadu
+- 45 Category:Wedding ceremonies in West Bengal
+- 44 Category:Wikipedia 25th birthday celebration at Kochi
+- 44 Category:Gaye holud
+- 43 Category:Rally to Recall Senator Dan Kapanke held outside of the La Crosse Republican headquarters housewarming event (March 26, 2011)
+- 43 Category:Birthday parties of Keung To 姜濤
+- 42 Category:Rani Lakshmibai
+- 41 Category:Asparagaceae in Mozambique
+- 40 Category:Wikidata's 11th birthday celebration with Global Open Initiative
+- 39 Category:Br'er Rabbit
+- 37 Category:Lars Jacob birthday parties
+- 36 Category:Wikipedia25 with Jimmy Wales
+- 33 Category:Wikidata's 11th birthday
+- 31 Category:Rahul Dravid
+- 31 Category:Château de Monte-Cristo
+- 30 Category:Eeyore's Birthday Party 2009
+- 30 Category:Wikidata Day 2023 at the Butler Library - Columbia
+- 29 Category:Birthday parties in Brazil
+- 28 Category:Wedding ceremonies in Assam
+- 28 Category:Birthday parties in Italy
+- 28 Category:Wikidata's 11th birthday cakes
+- 27 Category:Hero stones
+- 26 Category:Madhur Bhandarkar
+- 26 Category:Patti Davis
+- 25 Category:Naming and commissioning of P61 L.É. Samuel Beckett
+- 25 Category:Housewarming
+- 25 Category:Brian Moylan birthday party
+- 25 Category:Holden Racing Team 21st Birthday
+- 24 Category:Bhausaheb Shinde
+- 24 Category:Doljanchi
+- 24 Category:Wikipedia 25th birthday celebration at Kottayam
+- 24 Category:Wikimedia Workshop at Gangadhar Mohapatra Law College, Puri
+- 24 Category:Iridaceae in Mozambique
+- 23 Category:Wikipedia 25th birthday celebration at University of Calicut
+- 22 Category:Christian weddings in Kerala
+- 22 Category:Eeyore's Birthday Party 2015
+- 22 Category:April Storm's Birthday Party
+- 21 Category:Amruta Khanvilkar
+- 20 Category:Maratha people
+- 20 Category:Salwe
+- 19 Category:Calixte de Nigremont
+- 19 Category:Putting up a mezuzah
+- 18 Category:Navayana Buddhist weddings
+- 18 Category:Wikipedia 25th Birthday Celebration – Tamil Community Event
+- 18 Category:Birthday parties in Hong Kong
+- 18 Category:Reunions in the von Reis Family
+- 18 Category:Family reunion of former members of the People's Mujahedin of Iran (2004-10-25)
+- 18 Category:OK Hotel Family Reunion 2016
+- 18 Category:2024 Marcus & von Reis reunion
+- 18 Category:Birthday cakes of Rwanda
+- 18 Category:Cactaceae in Morocco
+- 17 Category:People of the Maratha Empire
+- 17 Category:Locomotive naming ceremonies in the United Kingdom
+- 17 Category:Family reunion of former members of the People's Mujahedin of Iran (2004-12-28)
+- 17 Category:Wiki Loves Living Heritage launch event Dagbani Wikimedians User Group
+- 17 Category:Wikipedia 25th birthday celebration at Palakkad
+- 17 Category:Wikimedia UK Silver Jubilee Awards
+- 16 Category:Birthday parties in Canada
+- 16 Category:Birthday cakes of the United Kingdom
+- 15 Category:Military people of Maharashtra
+- 15 Category:Trued Family reunions
+- 15 Category:Gomez Addams
+- 15 Category:Oprah Winfrey's 50th birthday party at the Hotel Bel Air
+- 14 Category:Supriya Pilgaonkar
+- 14 Category:Arecaceae in Benin
+- 14 Category:Orchidaceae in Mozambique
+- 13 Category:Wikimedians of Kerala UG Wikidata Birthday Celebration 2018
+- 13 Category:Birthday parties in India
+- 13 Category:Wikidata's 12th birthday Celebration at KochiFOSS Meetup 2024
+- 13 Category:Näktergals Anders Family reunions
+- 12 Category:Dr. Ketaki and Dr. Vaibhav's wedding preparations in Dr. Ulhas Patil Medical College And Hospital, Jalgaon
+- 12 Category:Vasudeo Sitaram Bendrey
+- 12 Category:Birthday parties in Bangladesh
+- 12 Category:Date With Wikidata
+- 12 Category:The Bellelli Family (Degas)
+- 12 Category:Eeyore's Birthday Party 2010
+- 12 Category:Choklong
+- 12 Category:FamSAC membership meetings
+- 12 Category:Arecaceae in Mozambique
+- 12 Category:Araceae in Mozambique
+- 11 Category:Cuttack Odia Workshop 2012Jan29
+- 11 Category:Wikipedia 25th birthday celebration at SCMS Karukutty
+- 11 Category:Birthday parties in Sweden
+- 11 Category:Zugló 90 Festival
+- 11 Category:Arecaceae in Seychelles
+- 11 Category:Lauraceae in Réunion
+- 11 Category:Eeyore's Birthday Party 2011
+- 10 Category:Wedding ceremonies in Maharashtra
+- 10 Category:Mahadev Govind Ranade
+- 10 Category:Wikipedia 25th birthday celebration at Puliyanam
+- 10 Category:Birthday parties in Germany
+- 10 Category:Celebrant (Australia)
+- 10 Category:Shrek Forever After
+- 10 Category:Birthday parties in the United Kingdom
+- 10 Category:Family reunion of former members of the People's Mujahedin of Iran (2005-01-19)
+- 10 Category:Arecaceae in Ethiopia
+- 10 Category:Hindu weddings in Kerala
+- 10 Category:Tuloni Biya
+- 9 Category:Marathi folk arts
+- 9 Category:Gandhi's birthday celebration in Shimla
+- 9 Category:Uncle Fester
+- 9 Category:Eeyore's Birthday Party 2008
+- 9 Category:Buddha's Birthday in Hong Kong
+- 9 Category:Eeyore's Birthday Party 2023
+- 9 Category:Fabaceae in Mozambique
+- 8 Category:Wedding ceremonies in Andhra Pradesh
+- 8 Category:Ramakrishna Gopal Bhandarkar
+- 8 Category:Kishor Kawathe
+- 8 Category:Pratibha Patil
+- 8 Category:Shiv Thakare
+- 8 Category:Wikipedia 25 Birthday Celebration by WikiClub Tech UIT
+- 8 Category:The Wiggles Movie
+- 8 Category:Confederate Reunion Grounds
+- 8 Category:Family reunion of former members of the People's Mujahedin of Iran (2005-10-21)
+- 8 Category:Ron Jeremy's Birthday Party to check
+- 8 Category:The Birthday Party at the Stella Adler Academy of Acting Los Angeles
+- 7 Category:Atul Kulkarni
+- 7 Category:Bal Gandharva
+- 7 Category:Bashir Momin Kavathekar
+- 7 Category:Wikipedia 25 birthday celebration at GHSS Velliyode
+- 7 Category:Birthday parties in China
+- 7 Category:Kaj Family reunions
+- 7 Category:Réunion de famille (Frédéric Bazille)
+- 7 Category:National Black Family Reunion
+- 7 Category:Wikidata's 11th birthday in Turkey
+- 7 Category:Türkan Mamedyarova's 19th birthday party
+- 7 Category:Birthday cakes of Spain
+- 7 Category:100th birth anniversary of Birgit Ridderstedt
+- 7 Category:Boraginaceae in Mozambique
+- 6 Category:Sachin Kundalkar
+- 6 Category:Kanhopatra
+- 6 Category:Birthday parties in Mozambique
+- 6 Category:Birthday parties in Finland
+- 6 Category:Birthday party of Else Berg in 1931
+- 6 Category:The birthday of Małachowskiego Street in Sosnowiec
+- 6 Category:The Birthday Party (film)
+- 6 Category:Birthday parties in Rwanda
+- 6 Category:Everyone Has a Name (ceremony)
+- 6 Category:Royal Headgear
+- 6 Category:Joan Truhlsen Johns
+- 6 Category:Internet Archive document briefhistoryofjoh00fret
+- 6 Category:2025-03-25 (Dr. Elmer E. Lytle House — Bothell, Washington) by Steven Pavlov
+- 6 Category:World Meeting of Families
+- 6 Category:Moraceae in Réunion
+- 6 Category:Eeyore's Birthday Party 2012
+- 6 Category:John Lewis' 80th birthday party, Washington, D.C. (2020-03-03)
+- 6 Category:Lamiaceae in Mozambique
+- 5 Category:Shriram Lagoo
+- 5 Category:Girish Kulkarni
+- 5 Category:Spruha Joshi
+- 5 Category:Hari Narayan Apte
+- 5 Category:Narayan Vaman Tilak
+- 5 Category:Eeyore's Birthday Party
+- 5 Category:Birthday parties in Austria
+- 5 Category:Birthday parties in Iran
+- 5 Category:Birthday parties in Macau
+- 5 Category:Birthday parties in South Korea
+- 5 Category:Birthday parties in the Philippines
+- 5 Category:Hildegard von Reis death centenary
+- 5 Category:J. P. Andersson Family reunions
+- 5 Category:Arecaceae in Sudan
+- 5 Category:Wikipedia 25th birthday celebration at Kaprassery
+- 4 Category:Sonali Bendre
+- 4 Category:Neelesh Limaye
+- 4 Category:Marathi Wikipedians
+- 4 Category:Household stories from the collection of the bros. Grimm (1914)/How Mrs. Fox Married again
+- 4 Category:Aadesh Bandekar
+- 4 Category:John Singer Sargent, The Birthday Party
+- 4 Category:Trued Abrehamsson & Karna Johansdotter monument in North Sandby
+- 4 Category:Allegory of Elector Max Emanuel being reunited with his family by Joseph Vivien
+- 4 Category:Eeyore's Birthday Party 2019
+- 4 Category:Birthday parties at McDonald's Restaurants
+- 4 Category:Annonaceae in Mozambique
+- 4 Category:The Harpagans concert on the birthday of Małachowskiego Street in Sosnowiec, 24/08/2024
+- 4 Category:Celastraceae in Mozambique
+- 4 Category:Phyllanthaceae in Mozambique
+- 4 Category:Fabaceae in Sudan
+- 3 Category:Shefali Jariwala
+- 3 Category:Wikidata's 8th birthday Kochi
+- 3 Category:Baba Padmanji
+- 3 Category:Wikipedia 25 Birthday Celebration Meetup in India
+- 3 Category:Photographs created by Judgefloro - October-December, 2020
+- 3 Category:Republican baptism
+- 3 Category:Birthday parties in Moldova
+- 3 Category:Lattin family reunion
+- 3 Category:Onagraceae in Réunion
+- 3 Category:Arecaceae in Réunion
+- 3 Category:Zsóry Zsibongó Gyermeküdülő és Ifjúsági Tábor
+- 3 Category:Muslim weddings in Kerala
+- 3 Category:Eeyore's Birthday Party 2007
+- 3 Category:Anacardiaceae in Mozambique
+- 3 Category:Rubiaceae in Réunion
+- 3 Category:Lena Horne's 80th birthday party
+- 3 Category:Combretaceae in Mozambique
+- 3 Category:Smilacaceae in Morocco
+- 3 Category:Pandanaceae in Mozambique
+- 3 Category:Tecophilaeaceae in Mozambique
+- 3 Category:Cytinaceae in Morocco
+- 3 Category:Asparagaceae in Sudan
+- 2 Category:Vikram Pandit
+- 2 Category:Pandurang Sadashiv Sane
+- 2 Category:Lalit Prabhakar
+- 2 Category:F. M. Shahajinde
+- 2 Category:Birthday parties in Japan
+- 2 Category:Birthday parties in Spain
+- 2 Category:Birthday parties in Russia
+- 2 Category:The Birthday Party (1931 film)
+- 2 Category:Birthday parties in France
+- 2 Category:Shipbuilding ceremonies
+- 2 Category:Communist baptism
+- 2 Category:Locomotive naming ceremonies
+- 2 Category:St. Nicholas (magazine)/Volume 32/Number 4/Hetty Macdonald
+- 2 Category:L-VOKAL
+- 2 Category:Electric Light dress
+- 2 Category:Wikipedia 25 Odia logos
+- 2 Category:Wikipedia 25 Banners and Designs in Odia
+- 2 Category:2016-07-06 Andor Izsák 72. Geburtstag, Feier in der Villa Seligmann in Hannover
+- 2 Category:Birthday cakes of Iran
+- 2 Category:Birthday cakes of New Zealand
+- 2 Category:Relazione delle pubbliche feste fatte dalla città di Milano alli 7. di giugno 1716, per la nascita del Serenissimo arciduca Leopoldo
+- 2 Category:Cyatheaceae in Mozambique
+- 2 Category:Geraniaceae in Morocco
+- 2 Category:Meliaceae in Sudan
+- 1 Category:Marathi film actors
+- 1 Category:Wedding ceremonies in Telangana
+- 1 Category:Babarao Musale
+- 1 Category:Muslim weddings in Maharashtra
+- 1 Category:Shreedhar Swami
+- 1 Category:Francis Pereira
+- 1 Category:Mrunal Dusanis
+- 1 Category:Birthday celebrations in India
+- 1 Category:Birthday parties in Ukraine
+- 1 Category:Home birthday parties
+- 1 Category:First Rice Eating
+- 1 Category:Birthday parties in Saudi Arabia
+- 1 Category:Animal baptism
+- 1 Category:Dvija
+- 1 Category:GSOM Family Day
+- 1 Category:Christian weddings in Karnataka
+- 1 Category:Araliaceae in Mozambique
+- 1 Category:Birthday party foods in Ukraine
+- 1 Category:Buddha's Birthday in Macau

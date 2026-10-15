@@ -1,0 +1,1238 @@
+{
+ "01 Adhibaas/IMG_0001.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "01 Adhibaas/IMG_0001.jpg",
+  "title": "File:Adhibaas in a Bengali Marriage 01.jpg"
+ },
+ "01 Adhibaas/IMG_0002.jpg": {
+  "defect": "accidental shot",
+  "expect": "NOT_PICKED",
+  "source": "01 Adhibaas/IMG_0001.jpg",
+  "title": "File:Adhibaas in a Bengali Marriage 01.jpg"
+ },
+ "01 Adhibaas/IMG_0003.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "01 Adhibaas/IMG_0002.jpg",
+  "title": "File:Adhibaas in a Bengali Marriage 02.jpg"
+ },
+ "01 Adhibaas/IMG_0004.jpg": {
+  "defect": "burst",
+  "expect": "DUPLICATE",
+  "source": "01 Adhibaas/IMG_0002.jpg",
+  "title": "File:Adhibaas in a Bengali Marriage 02.jpg"
+ },
+ "01 Adhibaas/IMG_0005.jpg": {
+  "defect": "burst",
+  "expect": "DUPLICATE",
+  "source": "01 Adhibaas/IMG_0002.jpg",
+  "title": "File:Adhibaas in a Bengali Marriage 02.jpg"
+ },
+ "01 Adhibaas/IMG_0006.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "01 Adhibaas/IMG_0003.jpg",
+  "title": "File:Adhibaas in a Bengali Marriage 03.jpg"
+ },
+ "01 Adhibaas/IMG_0007.jpg": {
+  "defect": "burst",
+  "expect": "DUPLICATE",
+  "source": "01 Adhibaas/IMG_0003.jpg",
+  "title": "File:Adhibaas in a Bengali Marriage 03.jpg"
+ },
+ "01 Adhibaas/IMG_0008.jpg": {
+  "defect": "burst",
+  "expect": "DUPLICATE",
+  "source": "01 Adhibaas/IMG_0003.jpg",
+  "title": "File:Adhibaas in a Bengali Marriage 03.jpg"
+ },
+ "01 Adhibaas/IMG_0009.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "01 Adhibaas/IMG_0004.jpg",
+  "title": "File:Adhibaas in a Bengali Marriage 04.jpg"
+ },
+ "01 Adhibaas/IMG_0010.jpg": {
+  "defect": "face cut by the edge",
+  "expect": "FACE_CUT_OFF",
+  "source": "01 Adhibaas/IMG_0004.jpg",
+  "title": "File:Adhibaas in a Bengali Marriage 04.jpg"
+ },
+ "01 Adhibaas/IMG_0011.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "01 Adhibaas/IMG_0005.jpg",
+  "title": "File:Adhibaas in a Bengali Marriage 05.jpg"
+ },
+ "01 Adhibaas/IMG_0012.jpg": {
+  "defect": "out of focus",
+  "expect": "BLURRY",
+  "source": "01 Adhibaas/IMG_0005.jpg",
+  "title": "File:Adhibaas in a Bengali Marriage 05.jpg"
+ },
+ "01 Adhibaas/IMG_0013.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "01 Adhibaas/IMG_0006.jpg",
+  "title": "File:Adhibaas in a Bengali Marriage 06.jpg"
+ },
+ "01 Adhibaas/IMG_0014.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "01 Adhibaas/IMG_0007.jpg",
+  "title": "File:Adhibaas in a Bengali Marriage 11.jpg"
+ },
+ "01 Adhibaas/IMG_0015.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "01 Adhibaas/IMG_0008.jpg",
+  "title": "File:Adhibaas in a Bengali Marriage 12.jpg"
+ },
+ "01 Adhibaas/IMG_0016.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "01 Adhibaas/IMG_0009.jpg",
+  "title": "File:Adhibaas in a Bengali Marriage 13.jpg"
+ },
+ "01 Adhibaas/IMG_0017.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "01 Adhibaas/IMG_0010.jpg",
+  "title": "File:Adhibaas in a Bengali Marriage 14.jpg"
+ },
+ "01 Adhibaas/IMG_0018.jpg": {
+  "defect": "shaky",
+  "expect": "BLURRY",
+  "source": "01 Adhibaas/IMG_0010.jpg",
+  "title": "File:Adhibaas in a Bengali Marriage 14.jpg"
+ },
+ "01 Adhibaas/IMG_0019.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "01 Adhibaas/IMG_0011.jpg",
+  "title": "File:Adhibaas in a Bengali Marriage 18.jpg"
+ },
+ "01 Adhibaas/IMG_0020.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "01 Adhibaas/IMG_0012.jpg",
+  "title": "File:Adhibaas in a Bengali Marriage 19.jpg"
+ },
+ "01 Adhibaas/IMG_0021.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "01 Adhibaas/IMG_0013.jpg",
+  "title": "File:Adhibaas in a Bengali Marriage 20.jpg"
+ },
+ "01 Adhibaas/IMG_0022.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "01 Adhibaas/IMG_0014.jpg",
+  "title": "File:Adhibaas in a Bengali Marriage 25.jpg"
+ },
+ "01 Adhibaas/IMG_0023.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "01 Adhibaas/IMG_0015.jpg",
+  "title": "File:Adhibaas in a Bengali Marriage 26.jpg"
+ },
+ "01 Adhibaas/IMG_0024.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "01 Adhibaas/IMG_0016.jpg",
+  "title": "File:Adhibaas in a Bengali Marriage 27.jpg"
+ },
+ "01 Adhibaas/IMG_0025.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "01 Adhibaas/IMG_0017.jpg",
+  "title": "File:Adhibaas in a Bengali Marriage 28.jpg"
+ },
+ "01 Adhibaas/IMG_0026.jpg": {
+  "defect": "burst",
+  "expect": "DUPLICATE",
+  "source": "01 Adhibaas/IMG_0017.jpg",
+  "title": "File:Adhibaas in a Bengali Marriage 28.jpg"
+ },
+ "01 Adhibaas/IMG_0027.jpg": {
+  "defect": "burst",
+  "expect": "DUPLICATE",
+  "source": "01 Adhibaas/IMG_0017.jpg",
+  "title": "File:Adhibaas in a Bengali Marriage 28.jpg"
+ },
+ "01 Adhibaas/IMG_0028.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "01 Adhibaas/IMG_0018.jpg",
+  "title": "File:Adhibaas in a Bengali Marriage 29.jpg"
+ },
+ "01 Adhibaas/IMG_0029.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "01 Adhibaas/IMG_0019.jpg",
+  "title": "File:Adhibaas in a Bengali Marriage 30.jpg"
+ },
+ "01 Adhibaas/IMG_0030.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "01 Adhibaas/IMG_0020.jpg",
+  "title": "File:Adhibaas in a Bengali Marriage 31.jpg"
+ },
+ "01 Adhibaas/IMG_0031.jpg": {
+  "defect": "out of focus",
+  "expect": "BLURRY",
+  "source": "01 Adhibaas/IMG_0020.jpg",
+  "title": "File:Adhibaas in a Bengali Marriage 31.jpg"
+ },
+ "01 Adhibaas/IMG_0032.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "01 Adhibaas/IMG_0021.jpg",
+  "title": "File:Adhibaas in a Bengali Marriage 32.jpg"
+ },
+ "01 Adhibaas/IMG_0033.jpg": {
+  "defect": "face cut by the edge",
+  "expect": "FACE_CUT_OFF",
+  "source": "01 Adhibaas/IMG_0021.jpg",
+  "title": "File:Adhibaas in a Bengali Marriage 32.jpg"
+ },
+ "01 Adhibaas/IMG_0034.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "01 Adhibaas/IMG_0022.jpg",
+  "title": "File:Adhibaas in a Bengali Marriage 33.jpg"
+ },
+ "01 Adhibaas/IMG_0035.jpg": {
+  "defect": "black-and-white copy",
+  "expect": "DUPLICATE",
+  "source": "01 Adhibaas/IMG_0022.jpg",
+  "title": "File:Adhibaas in a Bengali Marriage 33.jpg"
+ },
+ "01 Adhibaas/IMG_0036.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "01 Adhibaas/IMG_0023.jpg",
+  "title": "File:Adhibaas in a Bengali Marriage 34.jpg"
+ },
+ "01 Adhibaas/IMG_0037.jpg": {
+  "defect": "burst",
+  "expect": "DUPLICATE",
+  "source": "01 Adhibaas/IMG_0023.jpg",
+  "title": "File:Adhibaas in a Bengali Marriage 34.jpg"
+ },
+ "01 Adhibaas/IMG_0038.jpg": {
+  "defect": "burst",
+  "expect": "DUPLICATE",
+  "source": "01 Adhibaas/IMG_0023.jpg",
+  "title": "File:Adhibaas in a Bengali Marriage 34.jpg"
+ },
+ "01 Adhibaas/IMG_0039.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "01 Adhibaas/IMG_0024.jpg",
+  "title": "File:Adhibaas in a Bengali Marriage 35.jpg"
+ },
+ "01 Adhibaas/IMG_0040.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "01 Adhibaas/IMG_0025.jpg",
+  "title": "File:Adhibaas in a Bengali Marriage 36.jpg"
+ },
+ "01 Adhibaas/IMG_0041.jpg": {
+  "defect": "burst",
+  "expect": "DUPLICATE",
+  "source": "01 Adhibaas/IMG_0025.jpg",
+  "title": "File:Adhibaas in a Bengali Marriage 36.jpg"
+ },
+ "01 Adhibaas/IMG_0042.jpg": {
+  "defect": "burst",
+  "expect": "DUPLICATE",
+  "source": "01 Adhibaas/IMG_0025.jpg",
+  "title": "File:Adhibaas in a Bengali Marriage 36.jpg"
+ },
+ "01 Adhibaas/IMG_0043.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "01 Adhibaas/IMG_0026.jpg",
+  "title": "File:Adhibaas in a Bengali Marriage 37.jpg"
+ },
+ "02 Haldi/IMG_0044.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "02 Haldi/IMG_0027.jpg",
+  "title": "File:Haldi Ceremony in a Bengali Wedding 01.jpg"
+ },
+ "02 Haldi/IMG_0045.jpg": {
+  "defect": "face cut by the edge",
+  "expect": "FACE_CUT_OFF",
+  "source": "02 Haldi/IMG_0027.jpg",
+  "title": "File:Haldi Ceremony in a Bengali Wedding 01.jpg"
+ },
+ "02 Haldi/IMG_0046.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "02 Haldi/IMG_0028.jpg",
+  "title": "File:Haldi Ceremony in a Bengali Wedding 02.jpg"
+ },
+ "02 Haldi/IMG_0047.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "02 Haldi/IMG_0029.jpg",
+  "title": "File:Haldi Ceremony in a Bengali Wedding 03.jpg"
+ },
+ "02 Haldi/IMG_0048.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "02 Haldi/IMG_0030.jpg",
+  "title": "File:Haldi Ceremony in a Bengali Wedding 04.jpg"
+ },
+ "02 Haldi/IMG_0049.jpg": {
+  "defect": "out of focus",
+  "expect": "BLURRY",
+  "source": "02 Haldi/IMG_0029.jpg",
+  "title": "File:Haldi Ceremony in a Bengali Wedding 03.jpg"
+ },
+ "02 Haldi/IMG_0050.jpg": {
+  "defect": "burst",
+  "expect": "DUPLICATE",
+  "source": "02 Haldi/IMG_0030.jpg",
+  "title": "File:Haldi Ceremony in a Bengali Wedding 04.jpg"
+ },
+ "02 Haldi/IMG_0051.jpg": {
+  "defect": "burst",
+  "expect": "DUPLICATE",
+  "source": "02 Haldi/IMG_0030.jpg",
+  "title": "File:Haldi Ceremony in a Bengali Wedding 04.jpg"
+ },
+ "02 Haldi/IMG_0052.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "02 Haldi/IMG_0031.jpg",
+  "title": "File:Haldi Ceremony in a Bengali Wedding 05.jpg"
+ },
+ "02 Haldi/IMG_0053.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "02 Haldi/IMG_0032.jpg",
+  "title": "File:Haldi Ceremony in a Bengali Wedding 06.jpg"
+ },
+ "02 Haldi/IMG_0054.jpg": {
+  "defect": "shaky",
+  "expect": "BLURRY",
+  "source": "02 Haldi/IMG_0032.jpg",
+  "title": "File:Haldi Ceremony in a Bengali Wedding 06.jpg"
+ },
+ "02 Haldi/IMG_0055.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "02 Haldi/IMG_0033.jpg",
+  "title": "File:Haldi Ceremony in a Bengali Wedding 07.jpg"
+ },
+ "02 Haldi/IMG_0056.jpg": {
+  "defect": "too dark",
+  "expect": "TOO_DARK",
+  "source": "02 Haldi/IMG_0033.jpg",
+  "title": "File:Haldi Ceremony in a Bengali Wedding 07.jpg"
+ },
+ "02 Haldi/IMG_0057.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "02 Haldi/IMG_0034.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 122.jpg"
+ },
+ "02 Haldi/IMG_0058.jpg": {
+  "defect": "burst",
+  "expect": "DUPLICATE",
+  "source": "02 Haldi/IMG_0034.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 122.jpg"
+ },
+ "02 Haldi/IMG_0059.jpg": {
+  "defect": "burst",
+  "expect": "DUPLICATE",
+  "source": "02 Haldi/IMG_0034.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 122.jpg"
+ },
+ "02 Haldi/IMG_0060.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "02 Haldi/IMG_0035.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 123.jpg"
+ },
+ "02 Haldi/IMG_0061.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "02 Haldi/IMG_0036.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 124.jpg"
+ },
+ "02 Haldi/IMG_0062.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "02 Haldi/IMG_0037.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 125.jpg"
+ },
+ "02 Haldi/IMG_0063.jpg": {
+  "defect": "shaky",
+  "expect": "BLURRY",
+  "source": "02 Haldi/IMG_0035.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 123.jpg"
+ },
+ "02 Haldi/IMG_0064.jpg": {
+  "defect": "crooked",
+  "expect": "TILTED",
+  "source": "02 Haldi/IMG_0036.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 124.jpg"
+ },
+ "02 Haldi/IMG_0065.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "02 Haldi/IMG_0038.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 126.jpg"
+ },
+ "02 Haldi/IMG_0066.jpg": {
+  "defect": "black-and-white copy",
+  "expect": "DUPLICATE",
+  "source": "02 Haldi/IMG_0038.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 126.jpg"
+ },
+ "02 Haldi/IMG_0067.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "02 Haldi/IMG_0039.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 127.jpg"
+ },
+ "02 Haldi/IMG_0068.jpg": {
+  "defect": "out of focus",
+  "expect": "BLURRY",
+  "source": "02 Haldi/IMG_0039.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 127.jpg"
+ },
+ "02 Haldi/IMG_0069.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "02 Haldi/IMG_0040.jpg",
+  "title": "File:Haldi Ceremony in a Bengali Wedding 08.jpg"
+ },
+ "02 Haldi/IMG_0070.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "02 Haldi/IMG_0041.jpg",
+  "title": "File:Haldi Ceremony in a Bengali Wedding 09.jpg"
+ },
+ "02 Haldi/IMG_0071.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "02 Haldi/IMG_0042.jpg",
+  "title": "File:Haldi Ceremony in a Bengali Wedding 10.jpg"
+ },
+ "02 Haldi/IMG_0072.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "02 Haldi/IMG_0043.jpg",
+  "title": "File:Haldi Ceremony in a Bengali Wedding 11.jpg"
+ },
+ "02 Haldi/IMG_0073.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "02 Haldi/IMG_0044.jpg",
+  "title": "File:Haldi Ceremony in a Bengali Wedding 12.jpg"
+ },
+ "02 Haldi/IMG_0074.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "02 Haldi/IMG_0045.jpg",
+  "title": "File:Haldi Ceremony in a Bengali Wedding 13.jpg"
+ },
+ "02 Haldi/IMG_0075.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "02 Haldi/IMG_0046.jpg",
+  "title": "File:Haldi Ceremony in a Bengali Wedding 14.jpg"
+ },
+ "02 Haldi/IMG_0076.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "02 Haldi/IMG_0047.jpg",
+  "title": "File:Haldi Ceremony in a Bengali Wedding 15.jpg"
+ },
+ "02 Haldi/IMG_0077.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "02 Haldi/IMG_0048.jpg",
+  "title": "File:Haldi Ceremony in a Bengali Wedding 16.jpg"
+ },
+ "02 Haldi/IMG_0078.jpg": {
+  "defect": "out of focus",
+  "expect": "BLURRY",
+  "source": "02 Haldi/IMG_0048.jpg",
+  "title": "File:Haldi Ceremony in a Bengali Wedding 16.jpg"
+ },
+ "02 Haldi/IMG_0079.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "02 Haldi/IMG_0049.jpg",
+  "title": "File:Haldi Ceremony in a Bengali Wedding 17.jpg"
+ },
+ "02 Haldi/IMG_0080.jpg": {
+  "defect": "burst",
+  "expect": "DUPLICATE",
+  "source": "02 Haldi/IMG_0049.jpg",
+  "title": "File:Haldi Ceremony in a Bengali Wedding 17.jpg"
+ },
+ "02 Haldi/IMG_0081.jpg": {
+  "defect": "burst",
+  "expect": "DUPLICATE",
+  "source": "02 Haldi/IMG_0049.jpg",
+  "title": "File:Haldi Ceremony in a Bengali Wedding 17.jpg"
+ },
+ "02 Haldi/IMG_0082.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "02 Haldi/IMG_0050.jpg",
+  "title": "File:Haldi Ceremony in a Bengali Wedding 18.jpg"
+ },
+ "02 Haldi/IMG_0083.jpg": {
+  "defect": "burst",
+  "expect": "DUPLICATE",
+  "source": "02 Haldi/IMG_0050.jpg",
+  "title": "File:Haldi Ceremony in a Bengali Wedding 18.jpg"
+ },
+ "02 Haldi/IMG_0084.jpg": {
+  "defect": "burst",
+  "expect": "DUPLICATE",
+  "source": "02 Haldi/IMG_0050.jpg",
+  "title": "File:Haldi Ceremony in a Bengali Wedding 18.jpg"
+ },
+ "02 Haldi/IMG_0085.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "02 Haldi/IMG_0051.jpg",
+  "title": "File:Haldi Ceremony in a Bengali Wedding 19.jpg"
+ },
+ "02 Haldi/IMG_0086.jpg": {
+  "defect": "crooked",
+  "expect": "TILTED",
+  "source": "02 Haldi/IMG_0051.jpg",
+  "title": "File:Haldi Ceremony in a Bengali Wedding 19.jpg"
+ },
+ "02 Haldi/IMG_0087.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "02 Haldi/IMG_0052.jpg",
+  "title": "File:Haldi Ceremony in a Bengali Wedding 20.jpg"
+ },
+ "02 Haldi/IMG_0088.jpg": {
+  "defect": "face cut by the edge",
+  "expect": "FACE_CUT_OFF",
+  "source": "02 Haldi/IMG_0052.jpg",
+  "title": "File:Haldi Ceremony in a Bengali Wedding 20.jpg"
+ },
+ "02 Haldi/IMG_0089.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "02 Haldi/IMG_0053.jpg",
+  "title": "File:Haldi Ceremony in a Bengali Wedding 21.jpg"
+ },
+ "02 Haldi/IMG_0090.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "02 Haldi/IMG_0054.jpg",
+  "title": "File:Haldi Ceremony in a Bengali Wedding 22.jpg"
+ },
+ "02 Haldi/IMG_0091.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "02 Haldi/IMG_0055.jpg",
+  "title": "File:Haldi Ceremony in a Bengali Wedding 23.jpg"
+ },
+ "02 Haldi/IMG_0092.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "02 Haldi/IMG_0056.jpg",
+  "title": "File:Haldi Ceremony in a Bengali Wedding 24.jpg"
+ },
+ "02 Haldi/IMG_0093.jpg": {
+  "defect": "crooked",
+  "expect": "TILTED",
+  "source": "02 Haldi/IMG_0056.jpg",
+  "title": "File:Haldi Ceremony in a Bengali Wedding 24.jpg"
+ },
+ "02 Haldi/IMG_0094.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "02 Haldi/IMG_0057.jpg",
+  "title": "File:Haldi Ceremony in a Bengali Wedding 25.jpg"
+ },
+ "03 Wedding/IMG_0095.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0058.jpg",
+  "title": "File:Portrait of a Bengali Bride 01.jpg"
+ },
+ "03 Wedding/IMG_0096.jpg": {
+  "defect": "flash blown out",
+  "expect": "TOO_BRIGHT",
+  "source": "03 Wedding/IMG_0058.jpg",
+  "title": "File:Portrait of a Bengali Bride 01.jpg"
+ },
+ "03 Wedding/IMG_0097.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0059.jpg",
+  "title": "File:Portrait of a Bengali Bride 02.jpg"
+ },
+ "03 Wedding/IMG_0098.jpg": {
+  "defect": "burst",
+  "expect": "DUPLICATE",
+  "source": "03 Wedding/IMG_0059.jpg",
+  "title": "File:Portrait of a Bengali Bride 02.jpg"
+ },
+ "03 Wedding/IMG_0099.jpg": {
+  "defect": "burst",
+  "expect": "DUPLICATE",
+  "source": "03 Wedding/IMG_0059.jpg",
+  "title": "File:Portrait of a Bengali Bride 02.jpg"
+ },
+ "03 Wedding/IMG_0100.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0060.jpg",
+  "title": "File:Portrait of a Bengali Bride 03.jpg"
+ },
+ "03 Wedding/IMG_0101.jpg": {
+  "defect": "burst",
+  "expect": "DUPLICATE",
+  "source": "03 Wedding/IMG_0060.jpg",
+  "title": "File:Portrait of a Bengali Bride 03.jpg"
+ },
+ "03 Wedding/IMG_0102.jpg": {
+  "defect": "burst",
+  "expect": "DUPLICATE",
+  "source": "03 Wedding/IMG_0060.jpg",
+  "title": "File:Portrait of a Bengali Bride 03.jpg"
+ },
+ "03 Wedding/IMG_0103.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0061.jpg",
+  "title": "File:Portrait of a Bengali Bride 04.jpg"
+ },
+ "03 Wedding/IMG_0104.jpg": {
+  "defect": "too dark",
+  "expect": "TOO_DARK",
+  "source": "03 Wedding/IMG_0061.jpg",
+  "title": "File:Portrait of a Bengali Bride 04.jpg"
+ },
+ "03 Wedding/IMG_0105.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0062.jpg",
+  "title": "File:Portrait of a Bengali Bride 05.jpg"
+ },
+ "03 Wedding/IMG_0106.jpg": {
+  "defect": "accidental shot",
+  "expect": "NOT_PICKED",
+  "source": "03 Wedding/IMG_0062.jpg",
+  "title": "File:Portrait of a Bengali Bride 05.jpg"
+ },
+ "03 Wedding/IMG_0107.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0063.jpg",
+  "title": "File:Portrait of a Bengali Bride 06.jpg"
+ },
+ "03 Wedding/IMG_0108.jpg": {
+  "defect": "burst",
+  "expect": "DUPLICATE",
+  "source": "03 Wedding/IMG_0063.jpg",
+  "title": "File:Portrait of a Bengali Bride 06.jpg"
+ },
+ "03 Wedding/IMG_0109.jpg": {
+  "defect": "burst",
+  "expect": "DUPLICATE",
+  "source": "03 Wedding/IMG_0063.jpg",
+  "title": "File:Portrait of a Bengali Bride 06.jpg"
+ },
+ "03 Wedding/IMG_0110.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0064.jpg",
+  "title": "File:Portrait of a Bengali Bride 07.jpg"
+ },
+ "03 Wedding/IMG_0111.jpg": {
+  "defect": "flash blown out",
+  "expect": "TOO_BRIGHT",
+  "source": "03 Wedding/IMG_0064.jpg",
+  "title": "File:Portrait of a Bengali Bride 07.jpg"
+ },
+ "03 Wedding/IMG_0112.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0065.jpg",
+  "title": "File:Portrait of a Bengali Bride 08.jpg"
+ },
+ "03 Wedding/IMG_0113.jpg": {
+  "defect": "out of focus",
+  "expect": "BLURRY",
+  "source": "03 Wedding/IMG_0065.jpg",
+  "title": "File:Portrait of a Bengali Bride 08.jpg"
+ },
+ "03 Wedding/IMG_0114.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0066.jpg",
+  "title": "File:Portrait of a Bengali Bride 09.jpg"
+ },
+ "03 Wedding/IMG_0115.jpg": {
+  "defect": "burst",
+  "expect": "DUPLICATE",
+  "source": "03 Wedding/IMG_0066.jpg",
+  "title": "File:Portrait of a Bengali Bride 09.jpg"
+ },
+ "03 Wedding/IMG_0116.jpg": {
+  "defect": "burst",
+  "expect": "DUPLICATE",
+  "source": "03 Wedding/IMG_0066.jpg",
+  "title": "File:Portrait of a Bengali Bride 09.jpg"
+ },
+ "03 Wedding/IMG_0117.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0067.jpg",
+  "title": "File:Portrait of a Bengali Bride 10.jpg"
+ },
+ "03 Wedding/IMG_0118.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0068.jpg",
+  "title": "File:Portrait of a Bengali Bride 11.jpg"
+ },
+ "03 Wedding/IMG_0119.jpg": {
+  "defect": "shaky",
+  "expect": "BLURRY",
+  "source": "03 Wedding/IMG_0068.jpg",
+  "title": "File:Portrait of a Bengali Bride 11.jpg"
+ },
+ "03 Wedding/IMG_0120.jpg": {
+  "defect": "accidental shot",
+  "expect": "NOT_PICKED",
+  "source": "03 Wedding/IMG_0068.jpg",
+  "title": "File:Portrait of a Bengali Bride 11.jpg"
+ },
+ "03 Wedding/IMG_0121.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0069.jpg",
+  "title": "File:Portrait of a Bengali Bride 12.jpg"
+ },
+ "03 Wedding/IMG_0122.jpg": {
+  "defect": "burst",
+  "expect": "DUPLICATE",
+  "source": "03 Wedding/IMG_0069.jpg",
+  "title": "File:Portrait of a Bengali Bride 12.jpg"
+ },
+ "03 Wedding/IMG_0123.jpg": {
+  "defect": "burst",
+  "expect": "DUPLICATE",
+  "source": "03 Wedding/IMG_0069.jpg",
+  "title": "File:Portrait of a Bengali Bride 12.jpg"
+ },
+ "03 Wedding/IMG_0124.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0070.jpg",
+  "title": "File:Portrait of a Bengali Bride 13.jpg"
+ },
+ "03 Wedding/IMG_0125.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0071.jpg",
+  "title": "File:Portrait of a Bengali Bride 14.jpg"
+ },
+ "03 Wedding/IMG_0126.jpg": {
+  "defect": "too dark",
+  "expect": "TOO_DARK",
+  "source": "03 Wedding/IMG_0070.jpg",
+  "title": "File:Portrait of a Bengali Bride 13.jpg"
+ },
+ "03 Wedding/IMG_0127.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0072.jpg",
+  "title": "File:Portrait of a Bengali Bride 15.jpg"
+ },
+ "03 Wedding/IMG_0128.jpg": {
+  "defect": "flash blown out",
+  "expect": "TOO_BRIGHT",
+  "source": "03 Wedding/IMG_0072.jpg",
+  "title": "File:Portrait of a Bengali Bride 15.jpg"
+ },
+ "03 Wedding/IMG_0129.jpg": {
+  "defect": "accidental shot",
+  "expect": "NOT_PICKED",
+  "source": "03 Wedding/IMG_0072.jpg",
+  "title": "File:Portrait of a Bengali Bride 15.jpg"
+ },
+ "03 Wedding/IMG_0130.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0073.jpg",
+  "title": "File:Portrait of a Bengali Bride 16.jpg"
+ },
+ "03 Wedding/IMG_0131.jpg": {
+  "defect": "shaky",
+  "expect": "BLURRY",
+  "source": "03 Wedding/IMG_0073.jpg",
+  "title": "File:Portrait of a Bengali Bride 16.jpg"
+ },
+ "03 Wedding/IMG_0132.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0074.jpg",
+  "title": "File:Portrait of a Bengali Bride 17.jpg"
+ },
+ "03 Wedding/IMG_0133.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0075.jpg",
+  "title": "File:Portrait of a Bengali Bride 18.jpg"
+ },
+ "03 Wedding/IMG_0134.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0076.jpg",
+  "title": "File:Portrait of a Bengali Bride 19.jpg"
+ },
+ "03 Wedding/IMG_0135.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0077.jpg",
+  "title": "File:Portrait of a Bengali Bride 20.jpg"
+ },
+ "03 Wedding/IMG_0136.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0078.jpg",
+  "title": "File:Portrait of a Bengali Bride 21.jpg"
+ },
+ "03 Wedding/IMG_0137.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0079.jpg",
+  "title": "File:Portrait of a Bengali Bride 22.jpg"
+ },
+ "03 Wedding/IMG_0138.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0080.jpg",
+  "title": "File:Portrait of a Bengali Bride 23.jpg"
+ },
+ "03 Wedding/IMG_0139.jpg": {
+  "defect": "out of focus",
+  "expect": "BLURRY",
+  "source": "03 Wedding/IMG_0080.jpg",
+  "title": "File:Portrait of a Bengali Bride 23.jpg"
+ },
+ "03 Wedding/IMG_0140.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0081.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 128.jpg"
+ },
+ "03 Wedding/IMG_0141.jpg": {
+  "defect": "burst",
+  "expect": "DUPLICATE",
+  "source": "03 Wedding/IMG_0081.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 128.jpg"
+ },
+ "03 Wedding/IMG_0142.jpg": {
+  "defect": "burst",
+  "expect": "DUPLICATE",
+  "source": "03 Wedding/IMG_0081.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 128.jpg"
+ },
+ "03 Wedding/IMG_0143.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0082.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 129.jpg"
+ },
+ "03 Wedding/IMG_0144.jpg": {
+  "defect": "shaky",
+  "expect": "BLURRY",
+  "source": "03 Wedding/IMG_0082.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 129.jpg"
+ },
+ "03 Wedding/IMG_0145.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0083.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 130.jpg"
+ },
+ "03 Wedding/IMG_0146.jpg": {
+  "defect": "flash blown out",
+  "expect": "TOO_BRIGHT",
+  "source": "03 Wedding/IMG_0083.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 130.jpg"
+ },
+ "03 Wedding/IMG_0147.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0084.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 131.jpg"
+ },
+ "03 Wedding/IMG_0148.jpg": {
+  "defect": "shaky",
+  "expect": "BLURRY",
+  "source": "03 Wedding/IMG_0084.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 131.jpg"
+ },
+ "03 Wedding/IMG_0149.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0085.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 132.jpg"
+ },
+ "03 Wedding/IMG_0150.jpg": {
+  "defect": "shaky",
+  "expect": "BLURRY",
+  "source": "03 Wedding/IMG_0085.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 132.jpg"
+ },
+ "03 Wedding/IMG_0151.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0086.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 133.jpg"
+ },
+ "03 Wedding/IMG_0152.jpg": {
+  "defect": "black-and-white copy",
+  "expect": "DUPLICATE",
+  "source": "03 Wedding/IMG_0086.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 133.jpg"
+ },
+ "03 Wedding/IMG_0153.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0087.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 134.jpg"
+ },
+ "03 Wedding/IMG_0154.jpg": {
+  "defect": "flash blown out",
+  "expect": "TOO_BRIGHT",
+  "source": "03 Wedding/IMG_0087.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 134.jpg"
+ },
+ "03 Wedding/IMG_0155.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0088.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 135.jpg"
+ },
+ "03 Wedding/IMG_0156.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0089.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 136.jpg"
+ },
+ "03 Wedding/IMG_0157.jpg": {
+  "defect": "crooked",
+  "expect": "TILTED",
+  "source": "03 Wedding/IMG_0089.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 136.jpg"
+ },
+ "03 Wedding/IMG_0158.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0090.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 137.jpg"
+ },
+ "03 Wedding/IMG_0159.jpg": {
+  "defect": "burst",
+  "expect": "DUPLICATE",
+  "source": "03 Wedding/IMG_0090.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 137.jpg"
+ },
+ "03 Wedding/IMG_0160.jpg": {
+  "defect": "burst",
+  "expect": "DUPLICATE",
+  "source": "03 Wedding/IMG_0090.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 137.jpg"
+ },
+ "03 Wedding/IMG_0161.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0091.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 138.jpg"
+ },
+ "03 Wedding/IMG_0162.jpg": {
+  "defect": "burst",
+  "expect": "DUPLICATE",
+  "source": "03 Wedding/IMG_0091.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 138.jpg"
+ },
+ "03 Wedding/IMG_0163.jpg": {
+  "defect": "burst",
+  "expect": "DUPLICATE",
+  "source": "03 Wedding/IMG_0091.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 138.jpg"
+ },
+ "03 Wedding/IMG_0164.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0092.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 139.jpg"
+ },
+ "03 Wedding/IMG_0165.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0093.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 140.jpg"
+ },
+ "03 Wedding/IMG_0166.jpg": {
+  "defect": "face cut by the edge",
+  "expect": "FACE_CUT_OFF",
+  "source": "03 Wedding/IMG_0093.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 140.jpg"
+ },
+ "03 Wedding/IMG_0167.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0094.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 141.jpg"
+ },
+ "03 Wedding/IMG_0168.jpg": {
+  "defect": "flash blown out",
+  "expect": "TOO_BRIGHT",
+  "source": "03 Wedding/IMG_0094.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 141.jpg"
+ },
+ "03 Wedding/IMG_0169.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0095.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 142.jpg"
+ },
+ "03 Wedding/IMG_0170.jpg": {
+  "defect": "shaky",
+  "expect": "BLURRY",
+  "source": "03 Wedding/IMG_0095.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 142.jpg"
+ },
+ "03 Wedding/IMG_0171.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0096.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 143.jpg"
+ },
+ "03 Wedding/IMG_0172.jpg": {
+  "defect": "face cut by the edge",
+  "expect": "FACE_CUT_OFF",
+  "source": "03 Wedding/IMG_0096.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 143.jpg"
+ },
+ "03 Wedding/IMG_0173.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0097.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 144.jpg"
+ },
+ "03 Wedding/IMG_0174.jpg": {
+  "defect": "shaky",
+  "expect": "BLURRY",
+  "source": "03 Wedding/IMG_0097.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 144.jpg"
+ },
+ "03 Wedding/IMG_0175.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0098.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 145.jpg"
+ },
+ "03 Wedding/IMG_0176.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0099.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 146.jpg"
+ },
+ "03 Wedding/IMG_0177.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0100.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 147.jpg"
+ },
+ "03 Wedding/IMG_0178.jpg": {
+  "defect": "too dark",
+  "expect": "TOO_DARK",
+  "source": "03 Wedding/IMG_0100.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 147.jpg"
+ },
+ "03 Wedding/IMG_0179.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0101.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 148.jpg"
+ },
+ "03 Wedding/IMG_0180.jpg": {
+  "defect": "out of focus",
+  "expect": "BLURRY",
+  "source": "03 Wedding/IMG_0101.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 148.jpg"
+ },
+ "03 Wedding/IMG_0181.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0102.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 149.jpg"
+ },
+ "03 Wedding/IMG_0182.jpg": {
+  "defect": "burst",
+  "expect": "DUPLICATE",
+  "source": "03 Wedding/IMG_0102.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 149.jpg"
+ },
+ "03 Wedding/IMG_0183.jpg": {
+  "defect": "burst",
+  "expect": "DUPLICATE",
+  "source": "03 Wedding/IMG_0102.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 149.jpg"
+ },
+ "03 Wedding/IMG_0184.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0103.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 150.jpg"
+ },
+ "03 Wedding/IMG_0185.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0104.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 151.jpg"
+ },
+ "03 Wedding/IMG_0186.jpg": {
+  "defect": "burst",
+  "expect": "DUPLICATE",
+  "source": "03 Wedding/IMG_0104.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 151.jpg"
+ },
+ "03 Wedding/IMG_0187.jpg": {
+  "defect": "burst",
+  "expect": "DUPLICATE",
+  "source": "03 Wedding/IMG_0104.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 151.jpg"
+ },
+ "03 Wedding/IMG_0188.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0105.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 152.jpg"
+ },
+ "03 Wedding/IMG_0189.jpg": {
+  "defect": "too dark",
+  "expect": "TOO_DARK",
+  "source": "03 Wedding/IMG_0105.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 152.jpg"
+ },
+ "03 Wedding/IMG_0190.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0106.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 153.jpg"
+ },
+ "03 Wedding/IMG_0191.jpg": {
+  "defect": "too dark",
+  "expect": "TOO_DARK",
+  "source": "03 Wedding/IMG_0106.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 153.jpg"
+ },
+ "03 Wedding/IMG_0192.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0107.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 154.jpg"
+ },
+ "03 Wedding/IMG_0193.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0108.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 155.jpg"
+ },
+ "03 Wedding/IMG_0194.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0109.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 156.jpg"
+ },
+ "03 Wedding/IMG_0195.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0110.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 157.jpg"
+ },
+ "03 Wedding/IMG_0196.jpg": {
+  "defect": "black-and-white copy",
+  "expect": "DUPLICATE",
+  "source": "03 Wedding/IMG_0110.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 157.jpg"
+ },
+ "03 Wedding/IMG_0197.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0111.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 158.jpg"
+ },
+ "03 Wedding/IMG_0198.jpg": {
+  "defect": "crooked",
+  "expect": "TILTED",
+  "source": "03 Wedding/IMG_0109.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 156.jpg"
+ },
+ "03 Wedding/IMG_0199.jpg": {
+  "defect": "black-and-white copy",
+  "expect": "DUPLICATE",
+  "source": "03 Wedding/IMG_0111.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 158.jpg"
+ },
+ "03 Wedding/IMG_0200.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0112.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 159.jpg"
+ },
+ "03 Wedding/IMG_0201.jpg": {
+  "defect": "black-and-white copy",
+  "expect": "DUPLICATE",
+  "source": "03 Wedding/IMG_0112.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 159.jpg"
+ },
+ "03 Wedding/IMG_0202.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0113.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 160.jpg"
+ },
+ "03 Wedding/IMG_0203.jpg": {
+  "defect": null,
+  "expect": "OK",
+  "source": "03 Wedding/IMG_0114.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 161.jpg"
+ },
+ "03 Wedding/IMG_0204.jpg": {
+  "defect": "crooked",
+  "expect": "TILTED",
+  "source": "03 Wedding/IMG_0113.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 160.jpg"
+ },
+ "03 Wedding/IMG_0205.jpg": {
+  "defect": "burst",
+  "expect": "DUPLICATE",
+  "source": "03 Wedding/IMG_0114.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 161.jpg"
+ },
+ "03 Wedding/IMG_0206.jpg": {
+  "defect": "burst",
+  "expect": "DUPLICATE",
+  "source": "03 Wedding/IMG_0114.jpg",
+  "title": "File:Bengali Wedding Rituals in Kolkata 161.jpg"
+ }
+}
