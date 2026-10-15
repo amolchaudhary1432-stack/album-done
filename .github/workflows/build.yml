@@ -1,0 +1,42 @@
+name: Build app
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.9"
+
+      - name: Run tests and build the app
+        run: gradle --no-daemon testReleaseUnitTest assembleRelease
+
+      - name: Publish the app file for the phone
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cp app/build/outputs/apk/release/app-release.apk AlbumDone.apk
+          gh release delete test-build --cleanup-tag --yes || true
+          gh release create test-build AlbumDone.apk \
+            --prerelease \
+            --title "Album Done test build ${{ github.run_number }}" \
+            --notes "Built from commit ${{ github.sha }}. Download AlbumDone.apk on your Android phone and open it to install."
