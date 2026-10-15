@@ -135,6 +135,13 @@ class BigFamilyDeviceTest {
         screenshot("big-14-every-family-added")
         DeviceTestSupport.pressBack()
         compose.waitUntil(30_000) { has("Send list to photographer") }
+
+        // One family's own copy of the album.
+        compose.onNodeWithText("Send list to photographer").performClick()
+        compose.waitUntil(30_000) { has("Share list") }
+        tap("album-for-BRIDE")
+        compose.waitUntil(60_000) { has("Bride's family album") }
+        screenshot("big-15-bride-family-album")
     }
 
     private class Seeded(val projectId: Long, val relatives: List<Long>, val guests: List<Long>)

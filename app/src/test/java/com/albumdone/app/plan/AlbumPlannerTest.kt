@@ -232,6 +232,35 @@ class AlbumPlannerTest {
     }
 
     @Test
+    fun eachFamilyGetsItsOwnAlbumFromTheSameFolder() {
+        val brideMother = 20L; val brideAunt = 21L; val groomMother = 30L; val groomAunt = 31L
+        var t = start
+        fun next() = t.also { t += 3 * minute }
+        // Each relative with the couple at six different times of the day (not one stage visit).
+        val photos = (0 until 6).flatMap { listOf(brideMother, brideAunt, groomMother, groomAunt).map { r ->
+            couplePhoto("Wedding", next(), extra = listOf(face(r, x = 0.7f)))
+        } } + List(20) { couplePhoto("Wedding", next()) }
+        val tags = couple.copy(tags = mapOf(
+            brideMother to PersonTag(brideMother, "Aai", Priority.MUST, Side.BRIDE),
+            brideAunt to PersonTag(brideAunt, "Mavshi", Priority.IMPORTANT, Side.BRIDE),
+            groomMother to PersonTag(groomMother, "Sasubai", Priority.MUST, Side.GROOM),
+            groomAunt to PersonTag(groomAunt, "Kaku", Priority.IMPORTANT, Side.GROOM),
+        ))
+        fun count(tags: PeopleTags, person: Long): Int {
+            val a = AlbumPlanner.analyze(photos, tags)
+            return AlbumPlanner.shortlist(a, 16).ids.count { person in a.byId.getValue(it).people }
+        }
+        val couples = tags; val brides = tags.forFamily(Side.BRIDE); val grooms = tags.forFamily(Side.GROOM)
+        // The bride's family album: her aunt gets a close family's share, the groom's side much less.
+        assertTrue(count(brides, brideAunt) > count(couples, brideAunt))
+        assertTrue(count(brides, groomMother) < count(couples, groomMother))
+        assertTrue(count(brides, groomAunt) <= count(couples, groomAunt))
+        // And the other way round.
+        assertTrue(count(grooms, groomAunt) > count(couples, groomAunt))
+        assertTrue(count(grooms, brideMother) < count(couples, brideMother))
+    }
+
+    @Test
     fun aDimNightRitualIsJudgedAgainstItselfNotTheDaylightPortraits() {
         // Daylight portraits (sharp) and, three hours later, the night ritual (soft, dim, long lens).
         val day = List(12) { photo("Wedding", start + it * 20_000L, listOf(face(10L + it, sharp = 300.0))) }

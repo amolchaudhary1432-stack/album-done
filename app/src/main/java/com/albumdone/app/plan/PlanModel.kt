@@ -112,7 +112,23 @@ data class PeopleTags(
     val brideId: Long? = null,
     val groomId: Long? = null,
     val tags: Map<Long, PersonTag> = emptyMap(),
+    /** Whose album this is: UNKNOWN for the couple's own (both sides balanced), else one family's. */
+    val albumFor: Side = Side.UNKNOWN,
 ) {
+    /**
+     * The same wedding as one family's album (both families usually keep their own copy): their
+     * relatives come first, with close relatives getting a close family's share; the other side's
+     * relatives appear only where they share a photo.
+     */
+    fun forFamily(side: Side): PeopleTags = copy(albumFor = side, tags = tags.mapValues { (_, t) ->
+        when {
+            t.side == side && t.priority == Priority.IMPORTANT -> t.copy(priority = Priority.MUST)
+            t.side != side && t.side != Side.UNKNOWN && (t.priority == Priority.MUST || t.priority == Priority.IMPORTANT) ->
+                t.copy(priority = Priority.NORMAL)
+            else -> t
+        }
+    })
+
     fun tag(id: Long): PersonTag = tags[id] ?: PersonTag(id)
     fun isCouple(id: Long?): Boolean = id != null && (id == brideId || id == groomId)
     fun label(id: Long): String = when (id) {

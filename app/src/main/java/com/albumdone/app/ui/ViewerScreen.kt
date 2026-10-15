@@ -6,6 +6,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
@@ -31,6 +33,7 @@ import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.FilterChip
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -45,6 +48,10 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.produceState
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -59,6 +66,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.albumdone.app.plan.Display
+import com.albumdone.app.plan.Side
 
 /** Behind the photo: near black, so the photo's own colours show true. */
 private val Backdrop = Color(0xFF0F0B11)
@@ -163,28 +171,39 @@ fun ViewerScreen(vm: AlbumViewModel, projectId: Long, photoId: Long) {
     }
 }
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun SendScreen(vm: AlbumViewModel, projectId: Long) {
     val flow = remember(projectId) { vm.album(projectId) }
     val state by flow.collectAsStateWithLifecycle()
     val context = LocalContext.current
+    // Whose album: the couple's own, or one family's copy (both families usually keep one).
+    var forWhom by rememberSaveable { mutableStateOf<Side?>(null) }
+    val familyText by produceState<String?>(null, forWhom, state?.total) {
+        value = null
+        value = forWhom?.let { vm.familyListText(projectId, it) }
+    }
+    val s = state
+    val text = when {
+        s == null -> null
+        forWhom == null -> vm.shareText(s)
+        else -> familyText
+    }
     Scaffold(
         topBar = { AppBar("Send to photographer", onBack = vm::back) },
         bottomBar = {
-            val s = state
-            if (s != null) {
+            if (s != null && text != null) {
                 BottomBar {
                     BigButton("Share list", icon = Icons.Default.Share, onClick = {
                         val send = Intent(Intent.ACTION_SEND).setType("text/plain")
-                            .putExtra(Intent.EXTRA_SUBJECT, "Album selection: ${s.project.name}")
-                            .putExtra(Intent.EXTRA_TEXT, vm.shareText(s))
+                            .putExtra(Intent.EXTRA_SUBJECT, text.lineSequence().first())
+                            .putExtra(Intent.EXTRA_TEXT, text)
                         context.startActivity(Intent.createChooser(send, "Send list to photographer"))
                     })
                 }
             }
         },
     ) { padding ->
-        val s = state
         Column(Modifier.fillMaxSize().padding(padding).padding(horizontal = 20.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
             if (s != null) {
                 Row(
@@ -192,10 +211,22 @@ fun SendScreen(vm: AlbumViewModel, projectId: Long) {
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Column(Modifier.weight(1f)) {
-                        Text("${s.total}", style = MaterialTheme.typography.displayMedium, color = MaterialTheme.colorScheme.primary)
+                        val count = text?.lineSequence()?.drop(1)?.firstOrNull()?.substringBefore(' ') ?: "${s.total}"
+                        Text(count, style = MaterialTheme.typography.displayMedium, color = MaterialTheme.colorScheme.primary)
                         Text("photos" + if (s.events.size > 1) " from ${s.events.size} folders" else "", color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                     s.cover?.let { c -> PhotoThumb(c.photo, c.crop, Modifier.size(84.dp).clip(RoundedCornerShape(16.dp))) }
+                }
+                SectionLabel("Whose album")
+                FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    for ((value, label) in listOf(null to "The two of you", Side.BRIDE to "Bride's family", Side.GROOM to "Groom's family")) {
+                        FilterChip(selected = forWhom == value, onClick = { forWhom = value }, label = { Text(label) },
+                            modifier = Modifier.testTag("album-for-${value ?: "couple"}"))
+                    }
+                }
+                if (forWhom != null) {
+                    Text("The same wedding, with ${if (forWhom == Side.BRIDE) "the bride's" else "the groom's"} relatives first. Your own swaps are kept.",
+                        style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
             }
             Text("Your photographer gets a simple list with the exact file names. It works in WhatsApp or email. Only the list is sent, never the photos.",
@@ -203,9 +234,13 @@ fun SendScreen(vm: AlbumViewModel, projectId: Long) {
             if (s != null) {
                 SectionLabel("Preview")
                 Surface(color = MaterialTheme.colorScheme.surfaceContainerLow, shape = RoundedCornerShape(16.dp), modifier = Modifier.weight(1f, fill = false)) {
-                    SelectionContainer {
-                        Text(vm.shareText(s), fontFamily = FontFamily.Monospace, style = MaterialTheme.typography.bodySmall,
-                            modifier = Modifier.padding(16.dp).verticalScroll(rememberScrollState()))
+                    if (text == null) {
+                        Box(Modifier.fillMaxWidth().height(120.dp), contentAlignment = Alignment.Center) { CircularProgressIndicator() }
+                    } else {
+                        SelectionContainer {
+                            Text(text, fontFamily = FontFamily.Monospace, style = MaterialTheme.typography.bodySmall,
+                                modifier = Modifier.padding(16.dp).verticalScroll(rememberScrollState()))
+                        }
                     }
                 }
             }

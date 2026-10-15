@@ -1133,6 +1133,8 @@ object AlbumPlanner {
             val bride = sideCount[Side.BRIDE] ?: 0
             val groom = sideCount[Side.GROOM] ?: 0
             val sides = c.people.filter { !tags.isCouple(it) }.map { tags.tag(it).side }
+            // One family's album leans to its own side instead of balancing the two.
+            if (tags.albumFor != Side.UNKNOWN) return if (tags.albumFor in sides) 0.05 else 0.0
             return when {
                 groom - bride >= 3 && Side.BRIDE in sides -> 0.05
                 bride - groom >= 3 && Side.GROOM in sides -> 0.05

@@ -31,6 +31,7 @@ import com.albumdone.app.plan.Display
 import com.albumdone.app.plan.Issue
 import com.albumdone.app.plan.PlanPhoto
 import com.albumdone.app.plan.Priority
+import com.albumdone.app.plan.Side
 import com.albumdone.app.plan.StageGroups
 import com.albumdone.app.scan.FolderScanner
 import com.albumdone.app.scan.FoundPhoto
@@ -807,6 +808,40 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     // ---- Sending ----
+
+    /**
+     * The list for one family's own copy of the album (both families usually keep one): the same
+     * folder and the couple's own choices, with that family's relatives first.
+     */
+    suspend fun familyListText(projectId: Long, side: Side): String {
+        val project = dao.project(projectId) ?: return ""
+        val (photos, tags) = people.planInput(project)
+        val saved = dao.photos(projectId)
+        return withContext(Dispatchers.Default) {
+            val a = AlbumPlanner.analyze(photos, tags.forFamily(side))
+            val keep = saved.filter { it.selected && it.userChoice }.map { it.id }.toSet()
+            val removed = saved.filter { it.removed }.map { it.id }.toSet()
+            val list = AlbumPlanner.shortlist(a, project.albumSize, removed, keep)
+            val byId = saved.associateBy { it.id }
+            val picked = list.ids.mapNotNull { id -> a.byId[id]?.let { it to byId[id] } }
+            val who = if (side == Side.BRIDE) "Bride's family" else "Groom's family"
+            buildString {
+                append("Album selection: ").append(project.name).append(" (").append(who).append(" album)\n")
+                append(picked.size).append(" photos\n")
+                for (e in a.events) {
+                    val inEvent = picked.filter { it.first.event == e }
+                    if (inEvent.isEmpty()) continue
+                    append('\n').append(Display.eventName(e)).append(" (").append(inEvent.size).append(")\n")
+                    for ((ap, entity) in inEvent) {
+                        val p = entity ?: continue
+                        if (p.folder.isEmpty()) append(p.name) else append(p.folder).append('/').append(p.name)
+                        if (ap.id == list.coverId) append("  (cover)")
+                        append('\n')
+                    }
+                }
+            }
+        }
+    }
 
     /** Plain text for the photographer: event headings, then file names. */
     fun shareText(state: AlbumState): String = buildString {
