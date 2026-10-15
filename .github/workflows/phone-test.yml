@@ -55,6 +55,8 @@ jobs:
             mkdir -p screens && (adb exec-out run-as com.albumdone.app tar -c files/screens > screens/screens.tar || true)
             adb logcat -d > logcat.txt || true
             adb logcat -d -s AlbumDoneTest > test-log.txt || true
+            echo "===== crash log =====" && (adb logcat -d -b crash | tail -n 120 || true)
+            echo "===== app errors =====" && (grep -E " E (AndroidRuntime|DEBUG|libc|MediaPipe|onnxruntime|tflite|AlbumDone)|F (DEBUG|libc)|Fatal signal|SIGILL|SIGSEGV|SIGABRT" logcat.txt | tail -n 80 || true)
             test ! -f tests-failed
 
       - name: Keep the screenshots and reports
