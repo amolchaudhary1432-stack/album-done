@@ -17,8 +17,8 @@ that must stay true.
 - Builds happen only on GitHub Actions (`.github/workflows/build.yml`). Every push to `main`
   runs unit tests, builds a signed APK and publishes it as the `test-build` GitHub release.
   Amol installs that APK on his phone from the release page.
-- After pushing, check the run with `gh run list` / `gh run view --log-failed` and fix until green.
-  Do not hand over a build that has not passed.
+- After pushing, check the run (GitHub Actions) and fix until green. Do not hand over a build
+  that has not passed. Amol wants Claude to test the app itself (the phone test) before he does.
 - Explain things to Amol in plain words, no jargon. Keep replies short.
 
 ## Version 1 scope (build this, nothing more)
@@ -37,14 +37,15 @@ pure Kotlin, unit-tested).
 - Model files are bundled in the APK under `app/src/main/assets/models/`; their checksums are pinned
   in `app/models.sha256` and checked by the workflow. Licences: `THIRD_PARTY_NOTICES.md`.
 
-### Flow (unchanged from before)
+### Flow (album first: the couple should not have to do anything)
 
 Choose folder (`OpenDocumentTree`, persistable read permission, no gallery-wide permission) → scan
-(`scan/FolderScanner.kt`) → analyse in background (`work/AnalyzeWorker.kt`: WorkManager foreground
-job, works with the screen locked, saves each photo's result immediately, one lane on low-RAM or
-under-6-core phones, two otherwise; photos decoded at about 1280px, never full size) → find people
-→ "Tag your family" → results → album size → shortlist (remove, "Replace removed") → "Send list to
-photographer" (share sheet, plain text). Ask for notification permission on Android 13+ first.
+(`scan/FolderScanner.kt`, shows photo count and events) → album size → analyse in background
+(`work/AnalyzeWorker.kt`: WorkManager foreground job, works with the screen locked, saves each
+photo's result immediately, one lane on low-RAM or under-6-core phones, two otherwise; photos
+decoded at about 1280px, never full size) → find people → the finished album opens straight away.
+Everything after that is optional fixing. Ask for notification permission on Android 13+ first.
+Design mock-up: https://claude.ai/artifact/KzbjcqjdAW5KkNJ47pFf6f
 
 ### Events
 
@@ -110,14 +111,35 @@ photographer" (share sheet, plain text). Ask for notification permission on Andr
 
 ### Screens (`ui/`)
 
-- Home, new album (scan count), progress, "Tag your family", results (counts per problem, per
-  event, coverage per tagged person e.g. "Aai: 12 photos" with warnings below their minimum),
-  album size, shortlist grid by event (tap a photo to see why it was picked, take out, "Replace
-  removed", cover marked), "Send list to photographer".
+- Home (albums, start new), new album (photo count, events found, name, album size), progress
+  (count, time left, "you can lock your phone").
+- Album (`AlbumScreen.kt`): cover, photo count, couple card (found automatically, swap), family
+  strip (faces the app guessed as close family with photo counts and a warning when someone is
+  short; tap a face for "Who is this?" with relation chips that set priority, elder and side;
+  "Add someone" lists other frequent people), event sections with key-moment chips and photos.
+  Album size and "what we left out" in one sheet. Fix actions: not family, this is the
+  bride/groom, two different people (split), same person (merge), find more photos.
+- Photo view (`ViewerScreen.kt`): why it is in the album, look-alike photos to swap in with one
+  tap, Remove (the next best photo fills the place at once, with Undo). Swaps are the couple's
+  own choices (`PhotoEntity.userChoice`) and are kept when the album is re-made.
+- Send: the exact list (event headings, folder/file names) shared as plain text.
+- Fonts: Mukta (body, covers Devanagari) and Marcellus (headings), both OFL, in `res/font/`.
 
 ### Tests
 
 - Unit tests for every rule above (`app/src/test/`).
+- Phone test (`.github/workflows/phone-test.yml`): runs on every push to a `claude/**` branch and
+  before every main build. Builds the debug app (arm64 only; the emulator runs it through ARM
+  translation, MediaPipe has no x86 build), starts an Android 14 emulator, runs
+  `app/src/androidTest/` (real models on real photos, the real background worker, and a walk
+  through every screen with screenshots), and force-pushes screenshots, the per-photo decision
+  report (`analysis-report.txt`) and logs to the `phone-test-results` branch. Read them with
+  `git fetch origin phone-test-results` and look at every screenshot like a tester before
+  handing anything over. Android 11 emulators crash in MediaPipe (ARM translation), use 14.
+- Test photos: `tools/test-photos/` + `.github/workflows/test-photos.yml` find and download freely
+  licensed wedding photos from Wikimedia Commons on the build machine (this session cannot reach
+  those sites) and put them on the `test-photos` branch with credits. Test data only, never in the
+  app.
 
 ## Not in version 1
 
@@ -126,9 +148,12 @@ photographer" (share sheet, plain text). Ask for notification permission on Andr
 ## Status
 
 Done: everything in the scope above, with unit tests for the planner, face rules, people grouping,
-image measurements and scene rules. Not yet tried on a real phone with a real wedding folder:
-thresholds (blink, smile, same-person similarity) may need tuning after Amol's first test.
-The build fails if the APK ever asks for the internet permission or a model file's checksum changes.
+image measurements and scene rules, and the phone test on an Android 14 emulator. Not yet tried
+with a real couple's wedding folder: thresholds (blink, smile, same-person similarity) may need
+tuning. The build fails if the APK ever asks for the internet permission or a model file's
+checksum changes, and main only publishes after the phone test passes.
+Legal and Play Store notes: `docs/LEGAL_CHECK.md` (target API 36 is needed for new Play uploads).
+How the picking works and planned upgrades: `docs/HOW_IT_PICKS.md`.
 
 ## Build notes
 

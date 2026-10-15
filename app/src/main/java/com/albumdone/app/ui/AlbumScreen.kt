@@ -1,5 +1,6 @@
 package com.albumdone.app.ui
 
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -150,10 +151,10 @@ fun AlbumScreen(vm: AlbumViewModel, projectId: Long) {
                 }
             }
             item(key = "summary", span = full) {
-                Row(Modifier.padding(top = 12.dp, bottom = 4.dp), verticalAlignment = Alignment.Bottom) {
+                Column(Modifier.padding(top = 12.dp, bottom = 6.dp)) {
                     Text("${s.total} photos", style = MaterialTheme.typography.headlineMedium, color = MaterialTheme.colorScheme.primary)
-                    Text("  ·  ${s.events.size} event${if (s.events.size == 1) "" else "s"} · ready to send",
-                        color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(bottom = 3.dp))
+                    Text("${s.events.size} event${if (s.events.size == 1) "" else "s"} · ready to send",
+                        color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
             }
             item(key = "couple", span = full) { CoupleCard(s, onTap = { personSheet = it }, onSwap = { vm.swapCouple(projectId) }) }
@@ -222,16 +223,23 @@ fun AlbumScreen(vm: AlbumViewModel, projectId: Long) {
 @Composable
 private fun CoupleCard(s: AlbumState, onTap: (Long) -> Unit, onSwap: () -> Unit) {
     Surface(color = MaterialTheme.colorScheme.surfaceVariant, shape = RoundedCornerShape(16.dp), modifier = Modifier.fillMaxWidth()) {
-        Row(Modifier.padding(14.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+        Row(Modifier.padding(start = 14.dp, top = 12.dp, bottom = 12.dp, end = 4.dp), verticalAlignment = Alignment.CenterVertically) {
             if (s.bride == null || s.groom == null) {
-                Text("We could not tell who the bride and groom are. Tap + below and choose them.", modifier = Modifier.weight(1f))
+                Text("We could not tell who the bride and groom are. Tap + below and choose them.", modifier = Modifier.weight(1f).padding(end = 10.dp))
                 return@Row
             }
-            Box(Modifier.clickable { onTap(s.bride.personId) }.testTag("couple-bride")) { FaceAvatar(s.bride.face, 48.dp) }
-            Box(Modifier.clickable { onTap(s.groom.personId) }.testTag("couple-groom")) { FaceAvatar(s.groom.face, 48.dp) }
+            // Two overlapping faces; each opens that person.
+            Box(Modifier.width(78.dp)) {
+                Box(Modifier.clip(CircleShape).clickable { onTap(s.bride.personId) }.testTag("couple-bride")) { FaceAvatar(s.bride.face, 44.dp) }
+                Box(Modifier.padding(start = 34.dp).clip(CircleShape).border(2.dp, MaterialTheme.colorScheme.surfaceVariant, CircleShape)
+                    .clickable { onTap(s.groom.personId) }.testTag("couple-groom")) { FaceAvatar(s.groom.face, 44.dp) }
+            }
+            Spacer(Modifier.width(10.dp))
             Column(Modifier.weight(1f)) {
-                Text("${s.bride.label} · ${s.groom.label}", style = MaterialTheme.typography.titleSmall, maxLines = 2)
-                Text("Found automatically", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                val named = s.bride.label != "Bride" || s.groom.label != "Groom"
+                Text(if (named) "${s.bride.label} & ${s.groom.label}" else "Bride & groom", style = MaterialTheme.typography.titleSmall,
+                    maxLines = 1, overflow = TextOverflow.Ellipsis)
+                Text("Found automatically", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 2)
             }
             TextButton(onClick = onSwap) { Text("Swap") }
         }

@@ -1,0 +1,42 @@
+name: Test photos
+
+# Finds or downloads freely licensed wedding photos for the phone test (test data only, never
+# inside the app), and puts them on the test-photos branch. Runs when tools/test-photos changes.
+on:
+  push:
+    branches: ['claude/**']
+    paths: ['tools/test-photos/**']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  photos:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Find or download the photos
+        run: |
+          mode=$(python3 -c "import json; print(json.load(open('tools/test-photos/request.json'))['mode'])")
+          mkdir -p out
+          if [ "$mode" = discover ]; then
+            python3 tools/test-photos/commons.py discover out/discover
+          else
+            pip install --quiet piexif
+            python3 tools/test-photos/commons.py fetch tools/test-photos/request.json out/wedding
+            du -sh out/wedding
+          fi
+
+      - name: Put them on the test-photos branch
+        run: |
+          echo "Run ${{ github.run_number }} for commit ${{ github.sha }}" > out/RUN.txt
+          cd out
+          git init -q -b test-photos
+          git config user.name "test-photos"
+          git config user.email "test-photos@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Test photos run ${{ github.run_number }}"
+          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" test-photos
