@@ -2,7 +2,8 @@
  "mode": "probe",
  "models": [
   "google/siglip2-base-patch16-224",
-  "google/siglip2-base-patch32-256"
+  "wkcn/TinyCLIP-ViT-39M-16-Text-19M-YFCC15M",
+  "wkcn/TinyCLIP-ViT-8M-16-Text-3M-YFCC15M"
  ],
  "per_class": 70,
  "C": 2.0,

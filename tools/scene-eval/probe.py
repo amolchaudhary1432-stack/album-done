@@ -21,7 +21,7 @@ from eval import as_tensor, load  # noqa: E402
 import numpy as np  # noqa: E402
 import torch  # noqa: E402
 from sklearn.linear_model import LogisticRegression  # noqa: E402
-from sklearn.model_selection import StratifiedKFold, cross_val_predict  # noqa: E402
+from sklearn.model_selection import StratifiedGroupKFold, cross_val_predict  # noqa: E402
 from transformers import AutoModel, AutoProcessor  # noqa: E402
 
 
@@ -36,7 +36,8 @@ def main(request_path, out_dir):
                 if n >= req.get("per_class", 80) or f["title"] in seen:
                     continue
                 seen.add(f["title"])
-                photos.append({"moment": moment, "title": f["title"], "thumb": f["thumb"]})
+                photos.append({"moment": moment, "title": f["title"], "thumb": f["thumb"],
+                               "group": f["user"] + "|" + commons.day(f)})
                 n += 1
         print(moment, n, "photos from categories")
     titled = req.get("photos", [])
@@ -45,7 +46,8 @@ def main(request_path, out_dir):
         for t in titled:
             if t["title"] in info and t["title"] not in seen:
                 seen.add(t["title"])
-                photos.append({"moment": t["moment"], "title": t["title"], "thumb": info[t["title"]]["thumb"]})
+                photos.append({"moment": t["moment"], "title": t["title"], "thumb": info[t["title"]]["thumb"],
+                               "group": "test-wedding"})
 
     images = []
     for p in photos:
@@ -60,8 +62,13 @@ def main(request_path, out_dir):
 
     results = {}
     for model_id in req["models"]:
-        model = AutoModel.from_pretrained(model_id).eval()
-        proc = AutoProcessor.from_pretrained(model_id)
+        try:
+            model = AutoModel.from_pretrained(model_id).eval()
+            proc = AutoProcessor.from_pretrained(model_id)
+        except Exception as e:
+            print("could not load", model_id, e)
+            continue
+        size_mb = sum(p.numel() for n, p in model.named_parameters() if "text" not in n) * 4 / 1e6
         feats, t0 = [], time.time()
         with torch.no_grad():
             for _, img in images:
@@ -70,7 +77,9 @@ def main(request_path, out_dir):
         X = np.stack(feats)
         y = np.array([p["moment"] for p, _ in images])
         clf = LogisticRegression(max_iter=3000, C=req.get("C", 2.0), class_weight="balanced")
-        pred = cross_val_predict(clf, X, y, cv=StratifiedKFold(5, shuffle=True, random_state=0))
+        # Whole weddings (same uploader, same day) stay on one side, so the test is honest.
+        groups = np.array([p.get("group", p["title"]) for p, _ in images])
+        pred = cross_val_predict(clf, X, y, groups=groups, cv=StratifiedGroupKFold(5, shuffle=True, random_state=0))
         per = {}
         for m in sorted(set(y)):
             idx = y == m
@@ -79,7 +88,7 @@ def main(request_path, out_dir):
                       "precision": float((y[pred == m] == m).mean()) if (pred == m).any() else 0.0,
                       "mistaken_for": dict(wrong.most_common(3))}
         results[model_id] = {"accuracy": float((pred == y).mean()), "per_moment": per,
-                             "seconds_per_photo": (time.time() - t0) / len(images)}
+                             "seconds_per_photo": (time.time() - t0) / len(images), "image_model_mb_float32": size_mb}
         print(model_id, "accuracy %.2f" % results[model_id]["accuracy"])
         # The classifier trained on everything, for the app if it is good enough.
         clf.fit(X, y)
@@ -89,10 +98,11 @@ def main(request_path, out_dir):
     json.dump(results, open(os.path.join(out_dir, "probe.json"), "w"), indent=1)
     with open(os.path.join(out_dir, "probe.md"), "w") as fh:
         for model_id, r in results.items():
-            fh.write(f"# {model_id}\n\naccuracy {r['accuracy']:.2f} on unseen photos, {r['seconds_per_photo']:.2f} s per photo (build machine)\n\n")
+            fh.write(f"# {model_id}\n\naccuracy {r['accuracy']:.2f} on unseen weddings, {r['seconds_per_photo']:.2f} s per photo (build machine), "
+                     f"image model {r['image_model_mb_float32']:.0f} MB as float32 (about a quarter as int8)\n\n")
             fh.write("| moment | photos | found (recall) | right when it says so (precision) | mistaken for |\n|---|---|---|---|---|\n")
             for m, v in r["per_moment"].items():
-                fh.write(f"| {m} | {v['n']} | {v['recall']:.2f} | {v['precision']:.2f} | {v['mistaken_for']} |\n")
+                fh.write(f"| {m} | {v['n']} | {v['recall']:.2f} | {v['precision']:.2f} | { {str(k): n for k, n in v['mistaken_for'].items()} } |\n")
             fh.write("\n")
 
 
