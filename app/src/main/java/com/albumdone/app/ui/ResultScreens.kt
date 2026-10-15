@@ -44,7 +44,7 @@ fun ProgressScreen(vm: AlbumViewModel, projectId: Long) {
     val summary by flow.collectAsStateWithLifecycle(initialValue = null)
 
     LaunchedEffect(summary?.project?.status) {
-        if (summary?.project?.status == ProjectStatus.DONE) vm.showResults(projectId)
+        if (summary?.project?.status == ProjectStatus.DONE) vm.onAnalysisDone(projectId)
     }
 
     Scaffold(topBar = { AppBar(summary?.project?.name ?: "Checking photos", onBack = vm::back) }) { padding ->
@@ -55,6 +55,12 @@ fun ProgressScreen(vm: AlbumViewModel, projectId: Long) {
             val s = summary
             if (s == null) {
                 CircularProgressIndicator()
+                return@Column
+            }
+            if (s.project.status == ProjectStatus.PEOPLE) {
+                Text("Finding the people in your photos", style = MaterialTheme.typography.headlineSmall)
+                LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
+                Text("All ${s.total} photos are checked. Now grouping faces so you can tag your family. This takes a minute.")
                 return@Column
             }
             Text("Checking your photos", style = MaterialTheme.typography.headlineSmall)
@@ -117,7 +123,16 @@ fun ResultsScreen(vm: AlbumViewModel, projectId: Long) {
                     CountRow("Blurry", a.count(Issue.BLURRY))
                     CountRow("Too dark or too bright", a.darkOrBrightCount)
                     CountRow("Eyes closed", a.count(Issue.EYES_CLOSED))
-                    CountRow("Extra shots of the same moment", a.count(Issue.DUPLICATE))
+                    CountRow("Repeats of the same shot or group", a.countAny(Issue.DUPLICATE, Issue.GROUP_REPEAT))
+                    CountRow("Face cut off or blocked", a.countAny(Issue.FACE_CUT_OFF, Issue.FACE_BLOCKED))
+                    CountRow("Guests' backs in front", a.count(Issue.BACK_OF_GUEST))
+                    HorizontalDivider()
+                    Text("Small flaws (used only if needed)", style = MaterialTheme.typography.labelLarge)
+                    CountRow("Half-blink or mid-talk", a.countAny(Issue.HALF_BLINK, Issue.MID_TALK))
+                    CountRow("Someone not looking", a.count(Issue.NOT_LOOKING))
+                    CountRow("Face in shadow", a.count(Issue.FACE_DARK))
+                    CountRow("Phone or stranger in the shot", a.countAny(Issue.PHONE_IN_SHOT, Issue.STRANGER))
+                    CountRow("Slightly crooked", a.count(Issue.TILTED))
                     val unreadable = a.count(Issue.UNREADABLE)
                     if (unreadable > 0) CountRow("Could not open", unreadable)
                 }
@@ -133,6 +148,11 @@ fun ResultsScreen(vm: AlbumViewModel, projectId: Long) {
                         }
                     }
                 }
+            }
+
+            FamilyCoverage(state)
+            OutlinedButton(onClick = { vm.openTagFamily(projectId) }, modifier = Modifier.fillMaxWidth()) {
+                Text("Tag your family")
             }
 
             Spacer(Modifier.height(8.dp))
@@ -178,5 +198,32 @@ fun formatDuration(millis: Long): String {
         h > 0 -> "$h hr $m min"
         m > 0 -> "$m min $s sec"
         else -> "$s sec"
+    }
+}
+
+/** "Aai: 12 photos" for every Must / Important person, with a warning for anyone short. */
+@Composable
+private fun FamilyCoverage(state: ResultsState) {
+    if (state.coverage.isEmpty()) return
+    val inAlbum = state.shortlistCount > 0
+    Text(if (inAlbum) "Family in your shortlist" else "Family photos found", style = MaterialTheme.typography.titleMedium)
+    Card(Modifier.fillMaxWidth()) {
+        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+            for (c in state.coverage) {
+                val count = if (inAlbum) c.picked else c.goodAvailable
+                Row {
+                    Text(c.name + if (c.elder) " (elder)" else "", Modifier.weight(1f), fontWeight = FontWeight.SemiBold)
+                    Text("$count photo${if (count == 1) "" else "s"}")
+                }
+                val warning = if (inAlbum) c.warning else c.warning?.takeIf { c.goodAvailable < c.target }
+                if (warning != null) {
+                    Text(
+                        "⚠ $warning (wanted at least ${c.target})",
+                        color = MaterialTheme.colorScheme.error,
+                        style = MaterialTheme.typography.bodySmall,
+                    )
+                }
+            }
+        }
     }
 }

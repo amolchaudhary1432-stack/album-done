@@ -17,7 +17,14 @@ android {
         minSdk = 26
         targetSdk = 34
         versionCode = buildNumber
-        versionName = "0.1.$buildNumber"
+        versionName = "0.2.$buildNumber"
+        // Phones from the last ~10 years. Leaving out x86 keeps the app much smaller.
+        ndk { abiFilters += listOf("arm64-v8a", "armeabi-v7a") }
+    }
+
+    // Model files must stay uncompressed so they can be read straight from the app file.
+    androidResources {
+        noCompress += listOf("task", "tflite", "onnx")
     }
 
     signingConfigs {
@@ -78,8 +85,10 @@ dependencies {
     implementation("androidx.exifinterface:exifinterface:1.3.7")
     implementation("androidx.documentfile:documentfile:1.0.1")
 
-    // On-device face detection, bundled model: works offline, nothing uploaded.
-    implementation("com.google.mlkit:face-detection:16.1.7")
+    // On-device face landmarks + expressions and object detection (Apache 2.0). Models are bundled.
+    implementation("com.google.mediapipe:tasks-vision:0.10.14")
+    // Runs the SFace face-matching model on the phone (MIT licence).
+    implementation("com.microsoft.onnxruntime:onnxruntime-android:1.19.2")
 
     implementation("io.coil-kt:coil-compose:2.7.0")
 

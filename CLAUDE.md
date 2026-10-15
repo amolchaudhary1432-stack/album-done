@@ -23,49 +23,112 @@ that must stay true.
 
 ## Version 1 scope (build this, nothing more)
 
-1. **Choose folder.** Storage Access Framework folder picker (`OpenDocumentTree`), persistable
-   read permission. No gallery-wide permission (Google Play only allows that for gallery apps).
-2. **Scan.** `scan/FolderScanner.kt` lists photos recursively. Sub-folder names are the events
-   (Haldi, Wedding, Reception).
-3. **Analyse in background.** `work/AnalyzeWorker.kt`: WorkManager foreground job with a
-   progress notification, keeps running with the screen off, saves each photo's result to Room
-   immediately so a stopped run resumes. One lane on low-RAM or under-6-core phones, two otherwise.
-4. **Per photo** (`analysis/PhotoAnalyzer.kt`, `analysis/ImageMetrics.kt`): decode at about 1280px
-   long side (never full size), EXIF time and rotation, sharpness (Laplacian variance), brightness,
-   dark/blown-out share, 64-bit difference hash, ML Kit on-device face detection with smile and
-   eyes-open probability, 360px thumbnail in app storage.
-5. **Plan the album** (`plan/AlbumPlanner.kt`, pure Kotlin, unit-tested):
-   - Blurry: sharpness below 0.3 x the median of this wedding.
-   - Too dark: brightness < 40 or dark share > 0.65. Too bright: brightness > 220 or blown share > 0.5.
-   - Eyes closed: any clearly visible face (>= 6% of photo width) with average eye-open < 0.3.
-   - Bursts: same event, consecutive by capture time, <= 3 s apart (or adjacent by file name when
-     time is unknown) and hash distance <= 12. Keep the best-scoring photo; the rest are duplicates.
-   - Events: sub-folder name; if everything is in one folder, split where capture times jump by
-     more than 90 minutes.
-   - Score: sharpness relative to median (capped), smile, faces present, good exposure.
-   - Shortlist of N: exclude photos with any issue, give each event a share in proportion to its
-     usable photos (largest remainder, at least 1 each), and within an event spread picks across
-     5-minute time slots (round robin, best first) so one moment does not dominate. Return in
-     capture order. If not enough clean photos, fill with the best of the rest.
-   - Photos the user removed are never picked again; "Replace removed" refills with the next best.
-6. **Screens** (`ui/`): Home (list of weddings, "Start new album"), folder pick then scan count,
-   progress (count, speed, time left, "you can lock your phone"), results (usable, blurry, dark or
-   bright, eyes closed, extra burst shots, per-event counts, time taken), album size input, shortlist
-   grid by event (tap to remove, "Replace removed"), "Send list to photographer" via the Android
-   share sheet (plain text: event headings and file names).
-7. Ask for notification permission on Android 13+ before starting analysis.
+The goal is human-level album selection, not just discarding bad photos. The selection logic is
+the core of the product: most of the effort and testing goes there (`plan/AlbumPlanner.kt`,
+pure Kotlin, unit-tested).
+
+### Technology (all on the phone, no internet permission, Apache 2.0 or similar licences only)
+
+- Face detection + expression: MediaPipe Face Landmarker (several faces, blendshapes on). Blendshapes
+  give eye blink (eyeBlinkLeft/Right), gaze (eyeLookIn/Out/Up/Down), smile (mouthSmileLeft/Right),
+  mouth open (jawOpen); head angle comes from the face transform. (Replaces ML Kit.)
+- Identity: OpenCV Zoo SFace face fingerprints (run with ONNX Runtime), grouped into people.
+- MediaPipe object detector (EfficientDet-Lite0) for people boxes and phones.
+- Model files are bundled in the APK under `app/src/main/assets/models/`; their checksums are pinned
+  in `app/models.sha256` and checked by the workflow. Licences: `THIRD_PARTY_NOTICES.md`.
+
+### Flow (unchanged from before)
+
+Choose folder (`OpenDocumentTree`, persistable read permission, no gallery-wide permission) → scan
+(`scan/FolderScanner.kt`) → analyse in background (`work/AnalyzeWorker.kt`: WorkManager foreground
+job, works with the screen locked, saves each photo's result immediately, one lane on low-RAM or
+under-6-core phones, two otherwise; photos decoded at about 1280px, never full size) → find people
+→ "Tag your family" → results → album size → shortlist (remove, "Replace removed") → "Send list to
+photographer" (share sheet, plain text). Ask for notification permission on Android 13+ first.
+
+### Events
+
+- The photographer's sub-folders are the events (Haldi, Mehendi, Wedding, Reception), named as
+  given, in the photographer's order (numbered folders by number, otherwise by when each started).
+  No automatic event splitting. Everything in one folder = one event.
+
+### Per-face checks
+
+- Eyes open, for every visible person. Looking at camera (head angle plus gaze).
+- Expression: smiling or natural; flag mid-talk, mid-chew and half-blinks (jawOpen, partial blink).
+- Face sharpness measured on the face crop, not the whole photo (backgrounds are often blurred on purpose).
+- Face exposure (backlit or shadowed faces). Face blocked or partly hidden (another person, hand,
+  phone). Face cut off by the photo edge.
+
+### Per-photo checks
+
+- Blur, too dark or too bright, tilt. Bursts and near-identical repeats: keep the best.
+- Portrait or landscape (for page layout).
+- Strangers walking through, backs of guests, phones held up in the foreground.
+
+### Group photos
+
+- Score a group by its worst face: everyone's eyes open, everyone facing the camera, nobody hidden
+  or cut off. Collapse near-identical stage photos of the same family group to the single best one.
+
+### Couple
+
+- Detect the couple automatically (the two most frequent people, often together). Both present and
+  both looking good; bride's face visible. Bonus when they look at each other (best candids).
+- Include solo bride and solo groom portraits. Reserve the best couple portrait as the cover.
+
+### People coverage
+
+- After analysis, a "Tag your family" screen with the top 30-40 people: Must / Important / Skip,
+  bride's side or groom's side, elder, merge and split wrong groups, "find more of this person".
+- Must: at least 5 good photos with the couple. Important: at least 1-2. Sides balanced. Nobody
+  over-represented. Elders and grandparents prioritised.
+- If someone has only poor photos, use their best one and warn the bride.
+
+### Story within each event (the main brain)
+
+- Find key moments as dense bursts of shooting within the event (varmala, pheras, sindoor, vidaai)
+  and give each its best photos. Aim for arrival or decor, getting ready, rituals, emotional
+  moments, close. Keep picks in time order.
+
+### Variety and pacing
+
+- Per event, mix couple close-up, couple full-length, family group, candid, and about 10% detail
+  shots without faces (mehendi hands, jewellery, decor, food). No repeated pose back to back.
+  Balance portrait and landscape.
+
+### Context exceptions (what makes it human, not mechanical)
+
+- No smile needed during rituals; serious faces are right during pheras.
+- Looking away is fine in candids where people are interacting or laughing together.
+- Tears (vidaai) are never a flaw.
+- Judge dark or coloured stage lighting (sangeet, reception) against its own event, not daylight.
+
+### Selection order
+
+- People first, then moments, then variety, then quality.
+
+### Screens (`ui/`)
+
+- Home, new album (scan count), progress, "Tag your family", results (counts per problem, per
+  event, coverage per tagged person e.g. "Aai: 12 photos" with warnings below their minimum),
+  album size, shortlist grid by event (tap a photo to see why it was picked, take out, "Replace
+  removed", cover marked), "Send list to photographer".
+
+### Tests
+
+- Unit tests for every rule above (`app/src/test/`).
 
 ## Not in version 1
 
-- Grouping by person and family coverage. Needs a face-matching model whose licence allows
-  commercial use. Many free models are research-only. Present options to Amol before choosing.
 - Family voting, delivery tracker, payments, iOS.
 
 ## Status
 
-Done: build setup, manifest, Room data layer, folder scanner, photo analyzer, background worker,
-`plan/AlbumPlanner.kt` + tests, `ImageMetrics` tests, `ui/` (MainActivity, view model, screens, theme).
-The build fails if the APK ever asks for the internet permission.
+Done: everything in the scope above, with unit tests for the planner, face rules, people grouping,
+image measurements and scene rules. Not yet tried on a real phone with a real wedding folder:
+thresholds (blink, smile, same-person similarity) may need tuning after Amol's first test.
+The build fails if the APK ever asks for the internet permission or a model file's checksum changes.
 
 ## Build notes
 

@@ -19,10 +19,14 @@ import androidx.work.WorkerParameters
 import androidx.work.workDataOf
 import com.albumdone.app.AlbumDoneApp
 import com.albumdone.app.R
+import com.albumdone.app.analysis.FaceEmbedder
 import com.albumdone.app.analysis.PhotoAnalyzer
 import com.albumdone.app.data.AppDatabase
+import com.albumdone.app.data.FaceEntity
 import com.albumdone.app.data.PhotoEntity
 import com.albumdone.app.data.ProjectStatus
+import com.albumdone.app.people.PeopleRepository
+import com.albumdone.app.plan.Box
 import com.albumdone.app.ui.MainActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
@@ -40,6 +44,7 @@ import java.util.concurrent.atomic.AtomicInteger
  * - Runs as a foreground job with a progress notification, so it continues with the screen off.
  * - Saves each photo's result as soon as it is done, so a stopped run resumes where it left off.
  * - Uses one or two lanes depending on the phone, so cheap phones are not overloaded.
+ * - When every photo is done, groups the faces into people and finds the couple.
  */
 class AnalyzeWorker(
     context: Context,
@@ -74,8 +79,8 @@ class AnalyzeWorker(
                     PhotoAnalyzer(applicationContext).use { analyzer ->
                         for (photo in queue) {
                             if (isStopped) break
-                            val updated = analyzeOne(analyzer, photo, thumbDir)
-                            dao.updatePhoto(updated)
+                            val (updated, faces) = analyzeOne(analyzer, photo, thumbDir)
+                            dao.savePhotoResult(updated, faces)
                             val done = doneCount.incrementAndGet()
                             progressLock.withLock {
                                 val now = System.currentTimeMillis()
@@ -94,37 +99,68 @@ class AnalyzeWorker(
         dao.setActiveMillis(projectId, baseActive + (System.currentTimeMillis() - runStart))
         if (isStopped) return Result.retry()
 
+        // Everyone in the photos: group faces into people, then find the couple.
+        dao.setStatus(projectId, ProjectStatus.PEOPLE)
+        trySetForeground(projectId, project.name, total, total, "Finding the people in your photos…")
+        PeopleRepository(dao).build(projectId)
+        dao.setActiveMillis(projectId, baseActive + (System.currentTimeMillis() - runStart))
+        if (isStopped) return Result.retry()
+
         dao.setStatus(projectId, ProjectStatus.DONE)
         notifyFinished(projectId, project.name, total)
         return Result.success()
     }
 
-    private fun analyzeOne(analyzer: PhotoAnalyzer, photo: PhotoEntity, thumbDir: File): PhotoEntity {
+    private fun analyzeOne(analyzer: PhotoAnalyzer, photo: PhotoEntity, thumbDir: File): Pair<PhotoEntity, List<FaceEntity>> {
         val thumbFile = File(thumbDir, "${photo.id}.jpg")
         return try {
             val a = analyzer.analyze(Uri.parse(photo.docUri), thumbFile)
-            photo.copy(
+            val updated = photo.copy(
                 processed = true,
                 failed = false,
                 takenAt = a.takenAt,
                 width = a.width,
                 height = a.height,
                 sharpness = a.quality.sharpness,
+                peakSharpness = a.peakSharpness,
                 brightness = a.quality.brightness,
                 darkFraction = a.quality.darkFraction,
                 brightFraction = a.quality.brightFraction,
                 hash = a.hash,
-                faceCount = a.faceCount,
-                smile = a.smile,
-                eyesClosed = a.eyesClosed,
+                tilt = a.tilt,
+                faceCount = a.faces.size,
+                phones = Box.encodeList(a.phones),
+                foregroundBacks = a.foregroundBacks,
                 thumbPath = thumbFile.absolutePath,
             )
+            val faces = a.faces.map { f ->
+                val r = f.reading
+                FaceEntity(
+                    projectId = photo.projectId,
+                    photoId = photo.id,
+                    left = r.box.left, top = r.box.top, right = r.box.right, bottom = r.box.bottom,
+                    eyes = r.eyes.name,
+                    expression = r.expression.name,
+                    smile = r.smile,
+                    looking = r.lookingAtCamera,
+                    directionX = r.directionX,
+                    yaw = r.yaw,
+                    sharpness = f.sharpness,
+                    brightness = f.brightness,
+                    backlit = f.backlit,
+                    occlusion = f.occlusion,
+                    cutOff = r.cutOff,
+                    quality = f.quality,
+                    embedding = f.embedding?.let { FaceEmbedder.toBytes(it) },
+                )
+            }
+            updated to faces
         } catch (e: OutOfMemoryError) {
             // Skip this one photo instead of crashing the whole run.
             System.gc()
-            photo.copy(processed = true, failed = true)
+            photo.copy(processed = true, failed = true) to emptyList()
         } catch (e: Exception) {
-            photo.copy(processed = true, failed = true)
+            photo.copy(processed = true, failed = true) to emptyList()
         }
     }
 
@@ -134,20 +170,20 @@ class AnalyzeWorker(
         return if (am.isLowRamDevice || cores < 6) 1 else 2
     }
 
-    private suspend fun trySetForeground(projectId: Long, name: String, done: Int, total: Int) {
+    private suspend fun trySetForeground(projectId: Long, name: String, done: Int, total: Int, text: String? = null) {
         try {
-            setForeground(foregroundInfo(projectId, name, done, total))
+            setForeground(foregroundInfo(projectId, name, done, total, text))
         } catch (_: Exception) {
             // Android may refuse a foreground job if the app was not open when it restarted.
             // The work still continues; it just may pause while the screen is off.
         }
     }
 
-    private fun foregroundInfo(projectId: Long, name: String, done: Int, total: Int): ForegroundInfo {
+    private fun foregroundInfo(projectId: Long, name: String, done: Int, total: Int, text: String?): ForegroundInfo {
         val notification = NotificationCompat.Builder(applicationContext, AlbumDoneApp.CHANNEL_ANALYSIS)
             .setSmallIcon(R.drawable.ic_launcher)
             .setContentTitle("Checking photos: $name")
-            .setContentText("$done of $total done. You can lock your phone.")
+            .setContentText(text ?: "$done of $total done. You can lock your phone.")
             .setProgress(total, done, total == 0)
             .setOngoing(true)
             .setOnlyAlertOnce(true)
@@ -164,7 +200,7 @@ class AnalyzeWorker(
         val notification: Notification = NotificationCompat.Builder(applicationContext, AlbumDoneApp.CHANNEL_DONE)
             .setSmallIcon(R.drawable.ic_launcher)
             .setContentTitle("Your photos are ready")
-            .setContentText("$total photos checked for $name. Tap to make your shortlist.")
+            .setContentText("$total photos checked for $name. Tap to tag your family and make your shortlist.")
             .setAutoCancel(true)
             .setContentIntent(openAppIntent(projectId))
             .build()

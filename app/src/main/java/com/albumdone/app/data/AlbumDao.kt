@@ -102,7 +102,122 @@ interface AlbumDao {
 
     @Transaction
     suspend fun deleteProjectWithPhotos(id: Long) {
+        deleteFaces(id)
+        deletePeople(id)
         deletePhotos(id)
         deleteProject(id)
+    }
+
+    // ---- Analysis results ----
+
+    @Insert
+    suspend fun insertFaces(faces: List<FaceEntity>)
+
+    @Query("DELETE FROM faces WHERE photoId = :photoId")
+    suspend fun deleteFacesOfPhoto(photoId: Long)
+
+    /** Saves one analysed photo and its faces together, so a stopped run never leaves half a photo. */
+    @Transaction
+    suspend fun savePhotoResult(photo: PhotoEntity, faces: List<FaceEntity>) {
+        deleteFacesOfPhoto(photo.id)
+        if (faces.isNotEmpty()) insertFaces(faces)
+        updatePhoto(photo)
+    }
+
+    @Query("DELETE FROM faces WHERE projectId = :id")
+    suspend fun deleteFaces(id: Long)
+
+    @Query(
+        """
+        SELECT id, photoId, `left`, top, `right`, bottom, eyes, expression, smile, looking, directionX,
+               sharpness, brightness, backlit, occlusion, cutOff, quality, personId
+        FROM faces WHERE projectId = :projectId
+        """
+    )
+    suspend fun faceRows(projectId: Long): List<FaceRow>
+
+    @Query("SELECT id, photoId, quality, embedding, personId FROM faces WHERE projectId = :projectId AND embedding IS NOT NULL")
+    suspend fun faceEmbeddings(projectId: Long): List<FaceEmbeddingRow>
+
+    @Query("SELECT id, photoId, quality, embedding, personId FROM faces WHERE personId = :personId AND embedding IS NOT NULL")
+    suspend fun faceEmbeddingsOf(personId: Long): List<FaceEmbeddingRow>
+
+    @Query("UPDATE faces SET personId = :personId WHERE id IN (:faceIds)")
+    suspend fun setPerson(faceIds: List<Long>, personId: Long?)
+
+    @Query("UPDATE faces SET personId = NULL WHERE projectId = :projectId")
+    suspend fun clearPeopleOfFaces(projectId: Long)
+
+    @Query("UPDATE faces SET personId = :into WHERE personId = :from")
+    suspend fun moveFaces(from: Long, into: Long)
+
+    // ---- People ----
+
+    @Insert
+    suspend fun insertPerson(person: PersonEntity): Long
+
+    @Update
+    suspend fun updatePerson(person: PersonEntity)
+
+    @Query("SELECT * FROM people WHERE id = :id")
+    suspend fun person(id: Long): PersonEntity?
+
+    @Query("SELECT * FROM people WHERE projectId = :projectId")
+    suspend fun people(projectId: Long): List<PersonEntity>
+
+    @Query(
+        """
+        SELECT pe.*, ph.thumbPath AS thumbPath, f.`left` AS faceLeft, f.top AS faceTop,
+               f.`right` AS faceRight, f.bottom AS faceBottom
+        FROM people pe
+        LEFT JOIN faces f ON f.id = pe.bestFaceId
+        LEFT JOIN photos ph ON ph.id = f.photoId
+        WHERE pe.projectId = :projectId AND pe.photoCount > 0
+        ORDER BY pe.photoCount DESC
+        """
+    )
+    fun peopleWithFaces(projectId: Long): Flow<List<PersonWithFace>>
+
+    @Query("DELETE FROM people WHERE projectId = :id")
+    suspend fun deletePeople(id: Long)
+
+    @Query("DELETE FROM people WHERE id = :id")
+    suspend fun deletePerson(id: Long)
+
+    @Query(
+        """
+        SELECT personId, COUNT(DISTINCT photoId) AS photos FROM faces
+        WHERE projectId = :projectId AND personId IS NOT NULL AND (`right` - `left`) >= 0.03
+        GROUP BY personId
+        """
+    )
+    suspend fun personPhotoCounts(projectId: Long): List<PersonCount>
+
+    @Query(
+        """
+        SELECT id FROM faces WHERE personId = :personId
+        ORDER BY ((`right` - `left`) * quality) DESC LIMIT 1
+        """
+    )
+    suspend fun bestFaceOf(personId: Long): Long?
+
+    @Query("UPDATE people SET photoCount = :count, bestFaceId = :bestFace WHERE id = :id")
+    suspend fun setPersonStats(id: Long, count: Int, bestFace: Long?)
+
+    @Query("UPDATE projects SET brideId = :bride, groomId = :groom WHERE id = :id")
+    suspend fun setCouple(id: Long, bride: Long?, groom: Long?)
+
+    @Query("UPDATE projects SET familyTagged = 1 WHERE id = :id")
+    suspend fun setFamilyTagged(id: Long)
+
+    @Query("UPDATE projects SET coverPhotoId = :photoId WHERE id = :id")
+    suspend fun setCover(id: Long, photoId: Long?)
+
+    @Query("UPDATE photos SET pickReason = :reason WHERE id = :id")
+    suspend fun setPickReason(id: Long, reason: String?)
+
+    @Transaction
+    suspend fun setPickReasons(reasons: Map<Long, String>) {
+        reasons.forEach { (id, r) -> setPickReason(id, r) }
     }
 }

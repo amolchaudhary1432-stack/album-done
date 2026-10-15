@@ -27,6 +27,9 @@ jobs:
         with:
           gradle-version: "8.9"
 
+      - name: Check the bundled model files
+        run: cd app/src/main/assets && sha256sum -c ../../../models.sha256
+
       - name: Run tests and build the app
         run: gradle --no-daemon testReleaseUnitTest assembleRelease
 

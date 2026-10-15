@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [ProjectEntity::class, PhotoEntity::class], version = 1, exportSchema = false)
+@Database(entities = [ProjectEntity::class, PhotoEntity::class, FaceEntity::class, PersonEntity::class], version = 2, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun dao(): AlbumDao
 
@@ -18,7 +18,10 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "album_done.db",
-                ).build().also { instance = it }
+                )
+                    // Test builds only: a new database layout starts fresh instead of migrating.
+                    .fallbackToDestructiveMigration()
+                    .build().also { instance = it }
             }
     }
 }

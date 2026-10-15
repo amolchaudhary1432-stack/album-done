@@ -46,6 +46,7 @@ private fun AppContent(vm: AlbumViewModel) {
         Screen.Home -> HomeScreen(vm)
         is Screen.NewAlbum -> NewAlbumScreen(vm, screen)
         is Screen.Progress -> ProgressScreen(vm, screen.projectId)
+        is Screen.TagFamily -> TagFamilyScreen(vm, screen.projectId)
         is Screen.Results -> ResultsScreen(vm, screen.projectId)
         is Screen.Shortlist -> ShortlistScreen(vm, screen.projectId)
     }
