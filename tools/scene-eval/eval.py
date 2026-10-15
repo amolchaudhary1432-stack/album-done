@@ -22,6 +22,17 @@ from PIL import Image  # noqa: E402
 from transformers import AutoModel, AutoProcessor  # noqa: E402
 
 
+def as_tensor(out, kind):
+    """Newer transformers return an output object from get_*_features instead of a tensor."""
+    if torch.is_tensor(out):
+        return out
+    for name in (f"{kind}_embeds", "pooler_output"):
+        v = getattr(out, name, None)
+        if v is not None:
+            return v
+    raise TypeError(f"no {kind} features in {type(out)}")
+
+
 def load(url):
     for attempt in range(4):
         try:
@@ -30,7 +41,7 @@ def load(url):
                 return Image.open(io.BytesIO(r.read())).convert("RGB")
         except Exception as e:
             print("retry", attempt, url, e, file=sys.stderr)
-            time.sleep(3 * (attempt + 1))
+            time.sleep(10 * (attempt + 1))
     return None
 
 
@@ -66,6 +77,7 @@ def main(request_path, out_dir):
     images = {}
     for p in photos:
         img = load(p["thumb"])
+        time.sleep(0.5)
         if img is not None:
             images[p["title"] + "|" + p["moment"]] = img
     print(len(images), "photos downloaded")
@@ -80,7 +92,7 @@ def main(request_path, out_dir):
             continue
         with torch.no_grad():
             ti = proc(text=texts, padding="max_length", max_length=64, return_tensors="pt")
-            tf = model.get_text_features(**ti)
+            tf = as_tensor(model.get_text_features(**ti), "text")
             tf = tf / tf.norm(dim=-1, keepdim=True)
         rows, times = [], []
         for p in photos:
@@ -90,7 +102,7 @@ def main(request_path, out_dir):
             s = time.time()
             with torch.no_grad():
                 ii = proc(images=[img], return_tensors="pt")
-                f = model.get_image_features(**ii)
+                f = as_tensor(model.get_image_features(**ii), "image")
                 f = f / f.norm(dim=-1, keepdim=True)
                 sims = (f @ tf.T)[0]
             times.append(time.time() - s)
