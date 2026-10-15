@@ -44,7 +44,7 @@ jobs:
 
       - uses: gradle/actions/setup-gradle@v4
         with:
-          gradle-version: "8.9"
+          gradle-version: "8.14.3"
 
       - name: Allow the emulator to use hardware speed-up
         run: |
@@ -55,10 +55,11 @@ jobs:
       - name: Build the app and its phone tests
         run: gradle --no-daemon assembleDebug assembleDebugAndroidTest
 
-      - name: Run the tests on an Android 14 emulator
+      - name: Run the tests on an Android 16 emulator (Pixel 7 size)
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 34
+          api-level: 36
+          profile: pixel_7
           arch: x86_64
           target: google_apis
           ram-size: 4096M
@@ -150,7 +151,7 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         if: steps.photos.outputs.found == 'true'
         with:
-          gradle-version: "8.9"
+          gradle-version: "8.14.3"
 
       - name: Allow the emulator to use hardware speed-up
         if: steps.photos.outputs.found == 'true'
@@ -163,11 +164,12 @@ jobs:
         if: steps.photos.outputs.found == 'true'
         run: gradle --no-daemon assembleDebug assembleDebugAndroidTest
 
-      - name: Check the real wedding on an Android 14 emulator
+      - name: Check the real wedding on an Android 16 emulator (Pixel 7 size)
         if: steps.photos.outputs.found == 'true'
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 34
+          api-level: 36
+          profile: pixel_7
           arch: x86_64
           target: google_apis
           ram-size: 4096M

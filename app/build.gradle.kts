@@ -10,12 +10,12 @@ val buildNumber = (System.getenv("GITHUB_RUN_NUMBER") ?: "1").toInt()
 
 android {
     namespace = "com.albumdone.app"
-    compileSdk = 34
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.albumdone.app"
         minSdk = 26
-        targetSdk = 34
+        targetSdk = 36
         versionCode = buildNumber
         versionName = "0.2.$buildNumber"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
