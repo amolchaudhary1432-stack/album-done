@@ -31,6 +31,7 @@ import com.albumdone.app.plan.Display
 import com.albumdone.app.plan.Issue
 import com.albumdone.app.plan.PlanPhoto
 import com.albumdone.app.plan.Priority
+import com.albumdone.app.plan.StageGroups
 import com.albumdone.app.scan.FolderScanner
 import com.albumdone.app.scan.FoundPhoto
 import com.albumdone.app.work.AnalyzeWorker
@@ -61,6 +62,8 @@ sealed interface Screen {
     data class People(val projectId: Long) : Screen
     /** "Who's who": one face at a time, one tap each. */
     data class QuickTag(val projectId: Long) : Screen
+    /** Family groups photographed with the couple (the stage), one best photo each. */
+    data class Stage(val projectId: Long) : Screen
 }
 
 /** What the folder scan found, before analysis starts. */
@@ -109,6 +112,15 @@ data class AlbumPhoto(
 
 data class EventSection(val name: String, val title: String, val photos: List<AlbumPhoto>)
 
+/** One family group photographed with the couple, shown by its best photo (or the one in the album). */
+data class StageItem(
+    val photo: AlbumPhoto,
+    val inAlbum: Boolean,
+    val guests: List<PersonChip>,
+    /** Every frame of this group. */
+    val frames: List<Long>,
+)
+
 data class LeftOut(val repeats: Int, val blurry: Int, val eyes: Int, val light: Int, val faces: Int, val distractions: Int)
 
 data class AlbumState(
@@ -125,6 +137,8 @@ data class AlbumState(
     /** Family and frequent people the couple has not named yet, family first ("Who's who"). */
     val toName: List<PersonChip>,
     val warnings: List<String>,
+    /** Family groups photographed with the couple, as they happened. */
+    val stage: List<StageItem>,
     val events: List<EventSection>,
     val leftOut: LeftOut,
 )
@@ -218,6 +232,7 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
             is Screen.Viewer -> Screen.Album(s.projectId)
             is Screen.Send -> Screen.Album(s.projectId)
             is Screen.People -> Screen.Album(s.projectId)
+            is Screen.Stage -> Screen.Album(s.projectId)
             is Screen.QuickTag -> { finishQuickTag(s.projectId); return }
             else -> Screen.Home
         }
@@ -257,6 +272,8 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
     fun openSend(projectId: Long) { screen = Screen.Send(projectId) }
 
     fun openPeople(projectId: Long) { screen = Screen.People(projectId) }
+
+    fun openStage(projectId: Long) { screen = Screen.Stage(projectId) }
 
     fun openQuickTag(projectId: Long) {
         quickTagged = 0
@@ -452,6 +469,11 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
             "$who: ${c.inAlbum} of ${c.target} photos. ${c.warning}."
         }
 
+        val stage = StageGroups.find(analysis).mapNotNull { g ->
+            val shown = g.photoIds.firstOrNull { it in selectedIds } ?: g.photoId
+            val ap = albumPhoto(shown) ?: return@mapNotNull null
+            StageItem(ap, shown in selectedIds, g.guests.filter { personById.containsKey(it) }.map { chip(it) }, g.photoIds)
+        }
         val events = analysis.events.mapNotNull { e ->
             val items = analysis.photos.filter { it.event == e && it.id in selectedIds }.mapNotNull { albumPhoto(it.id) }
             if (items.isEmpty()) return@mapNotNull null
@@ -482,6 +504,7 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
             others = others,
             toName = toName,
             warnings = warnings,
+            stage = stage,
             events = events,
             leftOut = leftOut,
         )
@@ -551,22 +574,31 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     /** Takes a photo out and fills its place with the next best one straight away. */
+    /**
+     * Fills the places left by photos the couple took out with the next best ones, keeping every
+     * other photo where it is. Returns the photos added.
+     */
+    private suspend fun refill(projectId: Long, before: Set<Long>, takenOut: Set<Long>): List<Long> {
+        val project = dao.project(projectId) ?: return emptyList()
+        val analysis = analysisFor(projectId)
+        return withContext(Dispatchers.Default) {
+            val photos = dao.photos(projectId)
+            val keep = photos.filter { it.selected }.map { it.id }.toSet()
+            val list = AlbumPlanner.shortlist(analysis, project.albumSize, photos.filter { it.removed }.map { it.id }.toSet(), keep)
+            dao.replaceSelection(projectId, list.ids)
+            val new = list.ids.filter { it !in before }
+            dao.setPickReasons(new.associateWith { list.reasons[it].orEmpty().joinToString("\n") })
+            if (project.coverPhotoId?.let { it in takenOut } == true) dao.setCover(projectId, list.coverId)
+            new
+        }
+    }
+
     fun remove(projectId: Long, photoId: Long) {
         viewModelScope.launch {
             val before = dao.photos(projectId).filter { it.selected }.map { it.id }.toSet()
             dao.removeFromShortlist(photoId)
             val project = dao.project(projectId) ?: return@launch
-            val analysis = analysisFor(projectId)
-            val added = withContext(Dispatchers.Default) {
-                val photos = dao.photos(projectId)
-                val keep = photos.filter { it.selected }.map { it.id }.toSet()
-                val list = AlbumPlanner.shortlist(analysis, project.albumSize, photos.filter { it.removed }.map { it.id }.toSet(), keep)
-                dao.replaceSelection(projectId, list.ids)
-                val new = list.ids.filter { it !in before }
-                dao.setPickReasons(new.associateWith { list.reasons[it].orEmpty().joinToString("\n") })
-                if (project.coverPhotoId == photoId) dao.setCover(projectId, list.coverId)
-                new
-            }
+            val added = refill(projectId, before, setOf(photoId))
             screen = Screen.Album(projectId)
             say(if (added.isEmpty()) "Removed" else "Removed. The next best photo took its place") {
                 viewModelScope.launch {
@@ -574,6 +606,69 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
                     dao.restoreToShortlist(photoId)
                     if (project.coverPhotoId == photoId) dao.setCover(projectId, photoId)
                 }
+            }
+        }
+    }
+
+    // ---- Family groups (the stage) ----
+
+    /** Puts a family group's photo in the album (the album grows by one), or takes the group out. */
+    fun setGroupInAlbum(projectId: Long, item: StageItem, inAlbum: Boolean) {
+        viewModelScope.launch {
+            if (inAlbum) {
+                dao.selectAsChoice(item.photo.photo.id, "Your choice: a family group with the two of you")
+                growToFit(projectId)
+                say("Added to your album")
+            } else {
+                val before = dao.photos(projectId).filter { it.selected }.map { it.id }.toSet()
+                item.frames.filter { it in before }.forEach { dao.removeFromShortlist(it) }
+                val added = refill(projectId, before, item.frames.toSet())
+                say(if (added.isEmpty()) "Taken out" else "Taken out. The next best photo took its place")
+            }
+        }
+    }
+
+    /** Many families want every group that came on stage in the album: one photo each. */
+    fun addAllGroups(projectId: Long, items: List<StageItem>) {
+        val missing = items.filter { !it.inAlbum }
+        if (missing.isEmpty()) return
+        viewModelScope.launch {
+            missing.forEach { dao.selectAsChoice(it.photo.photo.id, "Your choice: every family group in the album") }
+            growToFit(projectId)
+            say("Added ${missing.size} family photo${if (missing.size == 1) "" else "s"}")
+        }
+    }
+
+    /** The album size follows the couple's own additions. */
+    private suspend fun growToFit(projectId: Long) {
+        val project = dao.project(projectId) ?: return
+        val n = dao.photos(projectId).count { it.selected }
+        if (n > project.albumSize) dao.setAlbumSize(projectId, n)
+    }
+
+    /**
+     * Names everyone in a family group at once ("Mama's family", the bride's side): one tap for the
+     * whole group instead of one per face. Names already given are kept.
+     */
+    fun tagGroup(projectId: Long, people: List<Long>, side: String, name: String, notFamily: Boolean) {
+        val label = name.trim().ifEmpty {
+            when (side) {
+                PersonSide.BRIDE -> "Bride's family"
+                PersonSide.GROOM -> "Groom's family"
+                else -> "Friend"
+            }
+        }
+        editPeople(projectId, if (notFamily) "Album updated" else "Album updated for $label") {
+            for (id in people) {
+                val p = dao.person(id) ?: continue
+                dao.updatePerson(
+                    if (notFamily) p.copy(priority = PersonPriority.SKIP)
+                    else p.copy(
+                        name = p.name.ifBlank { label },
+                        side = side,
+                        priority = if (p.priority == PersonPriority.MUST) PersonPriority.MUST else PersonPriority.IMPORTANT,
+                    )
+                )
             }
         }
     }

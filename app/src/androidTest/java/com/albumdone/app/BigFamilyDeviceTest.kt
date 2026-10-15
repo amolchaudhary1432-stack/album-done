@@ -117,6 +117,24 @@ class BigFamilyDeviceTest {
         screenshot("big-10-album-after")
         val named = runBlocking { dao.people(seeded.projectId).count { it.name.isNotBlank() } }
         assertEquals("bride, groom and the three people named", 5, named)
+
+        // Family groups: one photo per group, name a whole family at once, add every family.
+        compose.onNodeWithTag("album-grid").performScrollToNode(hasTestTag("stage-card"))
+        tap("stage-card")
+        compose.waitUntil(30_000) { hasTag("stage-tile") }
+        screenshot("big-11-family-groups")
+        tap("name-group")
+        compose.waitUntil(10_000) { hasTag("save-group") }
+        screenshot("big-12-name-group")
+        tap("group-side-GROOM")
+        tap("save-group")
+        compose.waitUntil(2 * 60_000) { has("Album updated") }
+        screenshot("big-13-group-named")
+        tap("add-all-groups")
+        compose.waitUntil(60_000) { has("family photo") }
+        screenshot("big-14-every-family-added")
+        DeviceTestSupport.pressBack()
+        compose.waitUntil(30_000) { has("Send list to photographer") }
     }
 
     private class Seeded(val projectId: Long, val relatives: List<Long>, val guests: List<Long>)

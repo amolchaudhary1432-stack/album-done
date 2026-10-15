@@ -177,6 +177,11 @@ fun AlbumScreen(vm: AlbumViewModel, projectId: Long) {
             item(key = "family", span = full) {
                 FamilySection(s, onPerson = { personSheet = it }, onSeeAll = { vm.openPeople(projectId) }, onQuickTag = { vm.openQuickTag(projectId) })
             }
+            if (s.stage.isNotEmpty()) {
+                item(key = "stage", span = full) {
+                    StageCard(s, onOpen = { vm.openStage(projectId) }, modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 12.dp))
+                }
+            }
             val titled = s.events.size > 1
             for (e in s.events) {
                 item(key = "event-${e.name}", span = full) {

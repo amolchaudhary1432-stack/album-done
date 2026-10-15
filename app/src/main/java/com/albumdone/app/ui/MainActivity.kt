@@ -51,5 +51,6 @@ private fun AppContent(vm: AlbumViewModel) {
         is Screen.Send -> SendScreen(vm, screen.projectId)
         is Screen.People -> PeopleScreen(vm, screen.projectId)
         is Screen.QuickTag -> QuickTagScreen(vm, screen.projectId)
+        is Screen.Stage -> StageScreen(vm, screen.projectId)
     }
 }
