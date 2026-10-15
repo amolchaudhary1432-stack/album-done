@@ -1,0 +1,1342 @@
+206 photos in 3 folders, checked in 1662 s (8.1 s each on the emulator), 0 unreadable, album size 28
+Couple: bride=1 groom=4
+Tags: 1:NORMAL/UNKNOWN, 2:MUST/BRIDE, 3:MUST/BRIDE, 4:NORMAL/UNKNOWN, 5:IMPORTANT/BRIDE, 6:NORMAL/BRIDE, 7:IMPORTANT/BRIDE, 8:NORMAL/BRIDE, 9:NORMAL/BRIDE, 10:NORMAL/BRIDE, 11:NORMAL/BRIDE, 12:NORMAL/BRIDE, 13:IMPORTANT/BRIDE, 14:NORMAL/UNKNOWN, 15:NORMAL/UNKNOWN, 16:NORMAL/UNKNOWN, 17:NORMAL/UNKNOWN, 18:NORMAL/UNKNOWN, 19:NORMAL/UNKNOWN, 20:NORMAL/UNKNOWN, 21:NORMAL/UNKNOWN, 22:NORMAL/UNKNOWN, 23:NORMAL/UNKNOWN, 24:NORMAL/UNKNOWN, 25:NORMAL/UNKNOWN, 26:NORMAL/UNKNOWN, 27:NORMAL/UNKNOWN
+People photo counts: 1=134, 2=23, 3=14, 4=13, 5=8, 6=8, 7=7, 8=6, 9=5, 10=5, 11=5, 12=4, 13=4, 14=3, 15=3, 16=3, 17=3, 18=3, 19=2, 20=2, 21=1, 22=1, 23=1, 24=1, 25=1
+Events: 01 Adhibaas 26/43 RITUAL, 02 Haldi 34/51 PREP, 03 Wedding 58/112 RITUAL
+Key moments: 01 Adhibaas#0(10), 01 Adhibaas#7(10), 02 Haldi#11(10), 02 Haldi#12(12), 02 Haldi#15(16), 03 Wedding#17(45), 03 Wedding#20(22), 03 Wedding#27(10)
+
+ALBUM: 28 photos, cover=95
+  01 Adhibaas/IMG_0005.jpg: Big moment: 10 photos taken in 1 min | Best of 2 similar shots | Candid moment
+  01 Adhibaas/IMG_0013.jpg: Portrait of the bride
+  01 Adhibaas/IMG_0019.jpg: Adds variety to Adhibaas | Portrait
+  01 Adhibaas/IMG_0022.jpg: Detail shot for variety (no faces)
+  01 Adhibaas/IMG_0028.jpg: Big moment: 10 photos taken in 1 min | Portrait of the bride
+  01 Adhibaas/IMG_0037.jpg: Part of the Adhibaas story | Candid moment
+  02 Haldi/IMG_0055.jpg: Big moment: 10 photos taken in 1 min | Best of 2 similar shots | Portrait of the bride
+  02 Haldi/IMG_0064.jpg: Big moment: 12 photos taken in 1 min | Portrait of the bride
+  02 Haldi/IMG_0070.jpg: Adds variety to Haldi | Candid moment
+  02 Haldi/IMG_0083.jpg: Portrait of the bride | Best of 2 similar shots
+  02 Haldi/IMG_0089.jpg: Family with the bride | Candid moment | Small flaw: face partly hidden
+  02 Haldi/IMG_0091.jpg: Family with the bride | Candid moment | Small flaw: someone not looking at the camera
+  02 Haldi/IMG_0092.jpg: Family with the bride | Candid moment | Small flaw: face in shadow or backlit
+  02 Haldi/IMG_0093.jpg: Family with the bride | Natural moment: people interacting | Candid moment
+  03 Wedding/IMG_0095.jpg: Cover: the bride's best portrait | Best of 2 similar shots | Portrait of the bride
+  03 Wedding/IMG_0110.jpg: Adds variety to Wedding | Best of 2 similar shots | Portrait of the bride
+  03 Wedding/IMG_0133.jpg: Adds variety to Wedding | Portrait of the bride
+  03 Wedding/IMG_0135.jpg: Detail shot for variety (no faces)
+  03 Wedding/IMG_0136.jpg: Big moment: 45 photos taken in 3 min | Portrait of the bride
+  03 Wedding/IMG_0147.jpg: Part of the Wedding story | Best of 2 similar shots | Candid moment
+  03 Wedding/IMG_0158.jpg: Big moment: 22 photos taken in 2 min | Best of 3 similar shots | Natural moment: people interacting | Candid moment
+  03 Wedding/IMG_0171.jpg: Part of the Wedding story | Portrait of the bride
+  03 Wedding/IMG_0177.jpg: Part of the Wedding story | Best of 2 similar shots | Candid moment | Small flaw: face partly hidden
+  03 Wedding/IMG_0179.jpg: Part of the Wedding story | Best of 2 similar shots | Candid moment
+  03 Wedding/IMG_0184.jpg: Part of the Wedding story | Portrait of the bride
+  03 Wedding/IMG_0192.jpg: Big moment: 10 photos taken in 1 min | Candid moment
+  03 Wedding/IMG_0201.jpg: Adds variety to Wedding | Best of 2 similar shots | Portrait of the bride
+  03 Wedding/IMG_0206.jpg: End of Wedding | Best of 2 similar shots | Portrait of the bride
+Coverage: 2:4/3, 3:5/3, 5:1/1, 7:1/1, 13:2/1
+
+01 Adhibaas/IMG_0001.jpg [01 Adhibaas] 1920x1440 shot=CANDID usable=true quality=0.718 moment=0 repeat=-1 order=0
+  issues=[] people=[] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685361562000
+  sharp=6560 peak=12404 bright=98 dark=0.03 blown=0.02
+  face person=null box=0.16,0.11,0.23,0.23 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=580 bright=83 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.57,0.44,0.60,0.49 eyes=OPEN expr=NATURAL smile=0.00 looking=true dir=0.37 sharp=578 bright=74 backlit=false occl=0.12 cut=0.00
+
+01 Adhibaas/IMG_0002.jpg [01 Adhibaas] 1920x1440 shot=DETAIL usable=false quality=0.000 moment=0 repeat=-1 order=1
+  issues=[BLURRY, TOO_DARK] people=[] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685361566000
+  sharp=7 peak=12 bright=2 dark=1.00 blown=0.00
+
+01 Adhibaas/IMG_0003.jpg [01 Adhibaas] 1920x1440 shot=CANDID usable=false quality=0.201 moment=0 repeat=-1 order=2
+  issues=[HALF_BLINK, BACK_OF_GUEST] people=[10] ritual=true emotional=false tilt=0.0 backs=1 phones=0 taken=1685361603000
+  sharp=11868 peak=23965 bright=159 dark=0.00 blown=0.03
+  face person=10 box=0.36,0.57,0.44,0.68 eyes=HALF expr=NATURAL smile=0.00 looking=false dir=0.84 sharp=2713 bright=175 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.18,0.46,0.23,0.53 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=1880 bright=133 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.66,0.54,0.69,0.58 eyes=OPEN expr=NATURAL smile=0.00 looking=true dir=0.23 sharp=5413 bright=130 backlit=false occl=0.00 cut=0.00
+
+01 Adhibaas/IMG_0004.jpg [01 Adhibaas] 1920x1440 shot=CANDID usable=false quality=0.203 moment=0 repeat=0 order=3
+  issues=[HALF_BLINK, DUPLICATE] people=[10] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685361604000
+  sharp=11185 peak=24042 bright=153 dark=0.00 blown=0.01
+  face person=10 box=0.36,0.57,0.44,0.68 eyes=HALF expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=2078 bright=169 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.18,0.45,0.23,0.52 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=1118 bright=122 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.67,0.53,0.70,0.58 eyes=OPEN expr=NATURAL smile=0.00 looking=true dir=0.21 sharp=3072 bright=124 backlit=false occl=0.00 cut=0.00
+
+01 Adhibaas/IMG_0005.jpg [01 Adhibaas] 1920x1440 PICKED shot=CANDID usable=true quality=0.896 moment=0 repeat=0 order=4
+  issues=[] people=[10] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685361605000
+  sharp=11796 peak=23708 bright=157 dark=0.00 blown=0.02
+  face person=10 box=0.36,0.56,0.44,0.68 eyes=LOOKING_DOWN expr=NATURAL smile=0.00 looking=false dir=0.90 sharp=2210 bright=172 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.17,0.45,0.22,0.52 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=1202 bright=128 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.67,0.53,0.70,0.58 eyes=OPEN expr=NATURAL smile=0.00 looking=true dir=0.22 sharp=3321 bright=128 backlit=false occl=0.00 cut=0.00
+
+01 Adhibaas/IMG_0006.jpg [01 Adhibaas] 1920x1440 shot=CANDID usable=false quality=0.404 moment=0 repeat=1 order=5
+  issues=[GROUP_REPEAT] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685361615000
+  sharp=7273 peak=17304 bright=122 dark=0.00 blown=0.01
+  face person=null box=0.27,0.53,0.42,0.87 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=2120 bright=168 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.86,0.63,0.96,0.77 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=724 bright=100 backlit=false occl=0.00 cut=0.00
+  face person=1 box=0.24,0.43,0.30,0.52 eyes=OPEN expr=NATURAL smile=0.15 looking=false dir=0.93 sharp=1077 bright=109 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.70,0.56,0.73,0.60 eyes=OPEN expr=NATURAL smile=0.00 looking=true dir=0.35 sharp=2024 bright=86 backlit=false occl=0.00 cut=0.00
+
+01 Adhibaas/IMG_0007.jpg [01 Adhibaas] 1920x1440 shot=CANDID usable=true quality=0.730 moment=0 repeat=-1 order=6
+  issues=[] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685361616000
+  sharp=6585 peak=15457 bright=115 dark=0.00 blown=0.00
+  face person=null box=0.25,0.54,0.41,0.87 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=1929 bright=159 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.87,0.64,0.97,0.78 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=572 bright=95 backlit=false occl=0.00 cut=0.00
+  face person=1 box=0.23,0.43,0.29,0.52 eyes=OPEN expr=NATURAL smile=0.19 looking=false dir=0.93 sharp=639 bright=103 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.70,0.56,0.73,0.61 eyes=OPEN expr=NATURAL smile=0.00 looking=true dir=0.52 sharp=1173 bright=81 backlit=false occl=0.00 cut=0.00
+
+01 Adhibaas/IMG_0008.jpg [01 Adhibaas] 1920x1440 shot=CANDID usable=true quality=0.830 moment=0 repeat=1 order=7
+  issues=[] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685361617000
+  sharp=7600 peak=17308 bright=122 dark=0.01 blown=0.01
+  face person=null box=0.26,0.54,0.41,0.82 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=1870 bright=170 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.87,0.63,0.97,0.77 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=617 bright=100 backlit=false occl=0.37 cut=0.00
+  face person=1 box=0.23,0.42,0.29,0.51 eyes=OPEN expr=NATURAL smile=0.10 looking=false dir=0.94 sharp=761 bright=110 backlit=false occl=0.03 cut=0.00
+  face person=null box=0.70,0.55,0.73,0.59 eyes=OPEN expr=NATURAL smile=0.00 looking=true dir=0.47 sharp=1258 bright=87 backlit=false occl=0.00 cut=0.00
+
+01 Adhibaas/IMG_0009.jpg [01 Adhibaas] 1920x1440 shot=CANDID usable=true quality=0.529 moment=0 repeat=-1 order=8
+  issues=[HALF_BLINK] people=[10, 1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685361618000
+  sharp=9355 peak=19232 bright=124 dark=0.00 blown=0.01
+  face person=10 box=0.38,0.53,0.47,0.65 eyes=HALF expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=2607 bright=133 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.91,0.63,0.97,0.75 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=1234 bright=67 backlit=false occl=0.00 cut=0.00
+  face person=1 box=0.25,0.41,0.31,0.49 eyes=OPEN expr=NATURAL smile=0.31 looking=false dir=1.00 sharp=2249 bright=109 backlit=false occl=0.22 cut=0.00
+  face person=null box=0.71,0.54,0.74,0.59 eyes=OPEN expr=NATURAL smile=0.00 looking=true dir=0.45 sharp=2674 bright=86 backlit=false occl=0.00 cut=0.00
+
+01 Adhibaas/IMG_0010.jpg [01 Adhibaas] 1111x1440 shot=CANDID usable=false quality=0.419 moment=0 repeat=-1 order=9
+  issues=[BACK_OF_GUEST] people=[15] ritual=true emotional=false tilt=0.0 backs=1 phones=0 taken=1685361621000
+  sharp=7314 peak=16686 bright=132 dark=0.00 blown=0.02
+  face person=null box=-0.00,0.53,0.09,0.63 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-0.20 sharp=2178 bright=126 backlit=false occl=0.00 cut=0.00
+  face person=15 box=0.49,0.54,0.55,0.59 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=0.50 sharp=2877 bright=86 backlit=false occl=0.00 cut=0.00
+
+01 Adhibaas/IMG_0011.jpg [01 Adhibaas] 1920x1440 shot=CANDID usable=true quality=0.850 moment=1 repeat=-1 order=10
+  issues=[] people=[] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685361767000
+  sharp=16846 peak=30582 bright=122 dark=0.02 blown=0.01
+  face person=null box=0.53,0.37,0.81,0.85 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=11762 bright=168 backlit=false occl=0.00 cut=0.00
+
+01 Adhibaas/IMG_0012.jpg [01 Adhibaas] 1920x1440 shot=CANDID usable=false quality=0.119 moment=1 repeat=-1 order=11
+  issues=[BLURRY, FACE_BLOCKED] people=[21, 13] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685361770000
+  sharp=300 peak=465 bright=123 dark=0.01 blown=0.00
+  face person=21 box=0.47,0.35,0.76,0.84 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-0.49 sharp=98 bright=163 backlit=false occl=0.00 cut=0.00
+  face person=13 box=0.50,0.52,0.59,0.66 eyes=OPEN expr=SMILE smile=0.72 looking=false dir=0.38 sharp=4 bright=174 backlit=false occl=1.00 cut=0.00
+
+01 Adhibaas/IMG_0013.jpg [01 Adhibaas] 1920x1440 PICKED shot=BRIDE_SOLO usable=true quality=0.919 moment=1 repeat=-1 order=12
+  issues=[] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685361801000
+  sharp=13613 peak=27621 bright=134 dark=0.01 blown=0.01
+  face person=1 box=0.08,0.36,0.42,0.90 eyes=OPEN expr=NATURAL smile=0.02 looking=false dir=1.00 sharp=7121 bright=166 backlit=false occl=0.23 cut=0.00
+
+01 Adhibaas/IMG_0014.jpg [01 Adhibaas] 1920x1440 shot=GROOM_SOLO usable=false quality=0.131 moment=2 repeat=-1 order=13
+  issues=[BLURRY, FACE_DARK, FACE_PARTLY_HIDDEN, BACK_OF_GUEST] people=[4] ritual=true emotional=false tilt=0.0 backs=1 phones=0 taken=1685362528000
+  sharp=7912 peak=27849 bright=86 dark=0.06 blown=0.00
+  face person=4 box=0.90,0.17,0.99,0.29 eyes=LOOKING_DOWN expr=NATURAL smile=0.00 looking=false dir=-0.67 sharp=116 bright=40 backlit=false occl=0.80 cut=0.00
+  face person=null box=0.62,0.08,0.68,0.16 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=0.92 sharp=39 bright=30 backlit=false occl=0.74 cut=0.00
+  face person=null box=0.28,0.19,0.32,0.25 eyes=OPEN expr=NATURAL smile=0.00 looking=true dir=0.38 sharp=127 bright=82 backlit=false occl=0.00 cut=0.00
+
+01 Adhibaas/IMG_0015.jpg [01 Adhibaas] 1920x1440 shot=CANDID usable=false quality=0.378 moment=2 repeat=-1 order=14
+  issues=[BACK_OF_GUEST] people=[] ritual=true emotional=false tilt=0.0 backs=1 phones=0 taken=1685362545000
+  sharp=11733 peak=38445 bright=98 dark=0.02 blown=0.02
+  face person=null box=0.73,0.43,0.80,0.57 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=670 bright=75 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.81,0.17,0.86,0.24 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-0.72 sharp=271 bright=74 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.51,0.46,0.54,0.51 eyes=OPEN expr=NATURAL smile=0.00 looking=true dir=0.37 sharp=581 bright=75 backlit=false occl=0.00 cut=0.00
+
+01 Adhibaas/IMG_0016.jpg [01 Adhibaas] 1920x1440 shot=CANDID usable=false quality=0.488 moment=3 repeat=-1 order=15
+  issues=[BACK_OF_GUEST] people=[] ritual=true emotional=false tilt=0.0 backs=1 phones=0 taken=1685362627000
+  sharp=8442 peak=33193 bright=127 dark=0.01 blown=0.01
+  face person=null box=0.90,0.22,0.94,0.27 eyes=OPEN expr=MID_TALK smile=0.00 looking=false dir=0.37 sharp=49 bright=44 backlit=false occl=1.00 cut=0.00
+  face person=null box=0.58,0.32,0.61,0.37 eyes=OPEN expr=NATURAL smile=0.00 looking=true dir=0.35 sharp=1126 bright=130 backlit=false occl=0.00 cut=0.00
+
+01 Adhibaas/IMG_0017.jpg [01 Adhibaas] 1920x1440 shot=BRIDE_SOLO usable=true quality=0.845 moment=3 repeat=2 order=16
+  issues=[] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685362654000
+  sharp=3790 peak=9717 bright=68 dark=0.12 blown=0.00
+  face person=1 box=0.37,0.32,0.74,0.93 eyes=OPEN expr=NATURAL smile=0.02 looking=false dir=1.00 sharp=5533 bright=134 backlit=false occl=0.11 cut=0.00
+
+01 Adhibaas/IMG_0018.jpg [01 Adhibaas] 1920x1440 shot=BRIDE_SOLO usable=false quality=0.360 moment=3 repeat=2 order=17
+  issues=[DUPLICATE] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685362657000
+  sharp=556 peak=1424 bright=68 dark=0.11 blown=0.00
+  face person=1 box=0.37,0.31,0.74,0.93 eyes=OPEN expr=NATURAL smile=0.02 looking=false dir=1.00 sharp=573 bright=133 backlit=false occl=0.10 cut=0.00
+
+01 Adhibaas/IMG_0019.jpg [01 Adhibaas] 1920x2560 PICKED shot=GUEST usable=true quality=0.951 moment=4 repeat=-1 order=18
+  issues=[] people=[15] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685362780000
+  sharp=4057 peak=8729 bright=153 dark=0.00 blown=0.00
+  face person=15 box=0.58,0.36,0.66,0.44 eyes=OPEN expr=NATURAL smile=0.00 looking=true dir=0.41 sharp=936 bright=155 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.82,0.38,0.85,0.40 eyes=OPEN expr=NATURAL smile=0.00 looking=true dir=0.14 sharp=1018 bright=166 backlit=false occl=0.00 cut=0.00
+
+01 Adhibaas/IMG_0020.jpg [01 Adhibaas] 1920x2560 shot=GUEST usable=true quality=0.745 moment=4 repeat=-1 order=19
+  issues=[] people=[15] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685362787000
+  sharp=2664 peak=6097 bright=118 dark=0.03 blown=0.00
+  face person=15 box=0.56,0.41,0.64,0.48 eyes=OPEN expr=NATURAL smile=0.00 looking=true dir=0.38 sharp=317 bright=107 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.80,0.42,0.83,0.44 eyes=OPEN expr=NATURAL smile=0.00 looking=true dir=0.38 sharp=309 bright=134 backlit=false occl=0.00 cut=0.00
+
+01 Adhibaas/IMG_0021.jpg [01 Adhibaas] 1920x1440 shot=CANDID usable=false quality=0.140 moment=4 repeat=-1 order=20
+  issues=[FACE_BLOCKED] people=[] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685362807000
+  sharp=17296 peak=52209 bright=83 dark=0.06 blown=0.00
+  face person=null box=0.35,0.36,0.66,0.86 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=0.79 sharp=3198 bright=111 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.33,0.57,0.48,0.77 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-0.17 sharp=318 bright=106 backlit=false occl=0.00 cut=0.00
+
+01 Adhibaas/IMG_0022.jpg [01 Adhibaas] 1920x1440 PICKED shot=DETAIL usable=true quality=0.876 moment=5 repeat=-1 order=21
+  issues=[] people=[] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685363066000
+  sharp=6190 peak=10744 bright=91 dark=0.01 blown=0.00
+
+01 Adhibaas/IMG_0023.jpg [01 Adhibaas] 1920x1440 shot=CANDID usable=true quality=0.849 moment=6 repeat=3 order=22
+  issues=[] people=[2, 1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685363182000
+  sharp=11992 peak=28008 bright=138 dark=0.00 blown=0.01
+  face person=null box=0.47,0.62,0.60,0.81 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=3340 bright=147 backlit=false occl=0.00 cut=0.00
+  face person=2 box=0.34,0.30,0.40,0.39 eyes=OPEN expr=NATURAL smile=0.00 looking=true dir=0.80 sharp=9385 bright=118 backlit=false occl=0.32 cut=0.00
+  face person=1 box=0.50,0.37,0.57,0.46 eyes=OPEN expr=NATURAL smile=0.07 looking=false dir=-0.15 sharp=4093 bright=140 backlit=false occl=0.32 cut=0.00
+
+01 Adhibaas/IMG_0024.jpg [01 Adhibaas] 1920x1440 shot=CANDID usable=true quality=0.717 moment=7 repeat=4 order=23
+  issues=[FACE_PARTLY_HIDDEN] people=[12, 1, 2] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685363539000
+  sharp=8247 peak=16270 bright=145 dark=0.01 blown=0.02
+  face person=12 box=0.30,0.34,0.43,0.53 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=2066 bright=156 backlit=false occl=0.00 cut=0.00
+  face person=1 box=0.67,0.38,0.77,0.50 eyes=OPEN expr=NATURAL smile=0.13 looking=false dir=0.23 sharp=897 bright=153 backlit=false occl=0.19 cut=0.00
+  face person=2 box=0.44,0.31,0.51,0.40 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=0.87 sharp=2534 bright=135 backlit=false occl=1.00 cut=0.00
+
+01 Adhibaas/IMG_0025.jpg [01 Adhibaas] 1920x1440 shot=CANDID usable=false quality=0.182 moment=7 repeat=4 order=24
+  issues=[HALF_BLINK, FACE_PARTLY_HIDDEN, GROUP_REPEAT] people=[12, 1, 2] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685363543000
+  sharp=6806 peak=15470 bright=99 dark=0.04 blown=0.00
+  face person=12 box=0.31,0.44,0.43,0.60 eyes=HALF expr=NATURAL smile=0.00 looking=false dir=0.90 sharp=481 bright=98 backlit=false occl=0.75 cut=0.00
+  face person=1 box=0.68,0.35,0.78,0.48 eyes=OPEN expr=NATURAL smile=0.06 looking=false dir=0.63 sharp=751 bright=107 backlit=false occl=0.32 cut=0.00
+  face person=2 box=0.44,0.30,0.52,0.40 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=0.85 sharp=1808 bright=85 backlit=false occl=1.00 cut=0.00
+
+01 Adhibaas/IMG_0026.jpg [01 Adhibaas] 1920x1440 shot=CANDID usable=false quality=0.176 moment=7 repeat=4 order=25
+  issues=[HALF_BLINK, FACE_PARTLY_HIDDEN, GROUP_REPEAT] people=[12, 1, 2] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685363544000
+  sharp=6580 peak=15744 bright=97 dark=0.05 blown=0.00
+  face person=12 box=0.29,0.43,0.42,0.59 eyes=HALF expr=NATURAL smile=0.00 looking=false dir=0.90 sharp=485 bright=96 backlit=false occl=0.77 cut=0.00
+  face person=1 box=0.68,0.34,0.77,0.47 eyes=OPEN expr=NATURAL smile=0.03 looking=false dir=0.65 sharp=646 bright=105 backlit=false occl=0.33 cut=0.00
+  face person=2 box=0.43,0.29,0.51,0.39 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=0.84 sharp=1392 bright=84 backlit=false occl=1.00 cut=0.00
+
+01 Adhibaas/IMG_0027.jpg [01 Adhibaas] 1920x1440 shot=CANDID usable=false quality=0.331 moment=7 repeat=4 order=26
+  issues=[FACE_PARTLY_HIDDEN, GROUP_REPEAT] people=[12, 1, 2] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685363545000
+  sharp=6070 peak=14013 bright=96 dark=0.04 blown=0.00
+  face person=12 box=0.31,0.45,0.42,0.60 eyes=LOOKING_DOWN expr=NATURAL smile=0.01 looking=false dir=1.00 sharp=398 bright=93 backlit=false occl=0.52 cut=0.00
+  face person=1 box=0.69,0.35,0.79,0.48 eyes=OPEN expr=NATURAL smile=0.03 looking=false dir=0.65 sharp=577 bright=103 backlit=false occl=0.31 cut=0.00
+  face person=2 box=0.44,0.30,0.52,0.40 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=0.86 sharp=1336 bright=82 backlit=false occl=1.00 cut=0.00
+
+01 Adhibaas/IMG_0028.jpg [01 Adhibaas] 1920x2560 PICKED shot=BRIDE_SOLO usable=true quality=0.897 moment=7 repeat=-1 order=27
+  issues=[] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685363557000
+  sharp=4856 peak=16498 bright=149 dark=0.00 blown=0.01
+  face person=1 box=0.27,0.61,0.53,0.82 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=0.70 sharp=1819 bright=157 backlit=false occl=0.28 cut=0.00
+
+01 Adhibaas/IMG_0029.jpg [01 Adhibaas] 1920x2560 shot=BRIDE_SOLO usable=true quality=0.884 moment=7 repeat=-1 order=28
+  issues=[] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685363563000
+  sharp=6529 peak=20606 bright=158 dark=0.00 blown=0.01
+  face person=1 box=0.18,0.50,0.45,0.72 eyes=OPEN expr=SMILE smile=0.76 looking=false dir=0.66 sharp=2261 bright=168 backlit=false occl=0.33 cut=0.00
+
+01 Adhibaas/IMG_0030.jpg [01 Adhibaas] 1920x1440 shot=CANDID usable=true quality=0.733 moment=7 repeat=-1 order=29
+  issues=[FACE_PARTLY_HIDDEN] people=[2, 1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685363582000
+  sharp=8091 peak=22252 bright=116 dark=0.03 blown=0.00
+  face person=2 box=0.16,0.46,0.34,0.71 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=6799 bright=130 backlit=false occl=0.69 cut=0.00
+  face person=1 box=0.67,0.54,0.87,0.79 eyes=LOOKING_DOWN expr=NATURAL smile=0.13 looking=false dir=0.79 sharp=4387 bright=134 backlit=false occl=0.26 cut=0.00
+
+01 Adhibaas/IMG_0031.jpg [01 Adhibaas] 1920x1440 shot=CANDID usable=false quality=0.232 moment=7 repeat=-1 order=30
+  issues=[BLURRY] people=[2, 1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685363585000
+  sharp=116 peak=255 bright=116 dark=0.02 blown=0.00
+  face person=2 box=0.15,0.45,0.34,0.73 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=10 bright=127 backlit=false occl=0.00 cut=0.00
+  face person=1 box=0.67,0.54,0.87,0.79 eyes=LOOKING_DOWN expr=NATURAL smile=0.07 looking=false dir=0.88 sharp=9 bright=134 backlit=false occl=0.25 cut=0.00
+
+01 Adhibaas/IMG_0032.jpg [01 Adhibaas] 1920x1440 shot=CANDID usable=false quality=0.132 moment=7 repeat=3 order=31
+  issues=[EYES_CLOSED, GROUP_REPEAT] people=[2, 1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685363589000
+  sharp=6380 peak=17075 bright=158 dark=0.00 blown=0.01
+  face person=null box=0.33,0.60,0.55,0.89 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=2998 bright=203 backlit=false occl=0.00 cut=0.00
+  face person=2 box=0.22,0.19,0.36,0.36 eyes=CLOSED expr=NATURAL smile=0.00 looking=false dir=0.89 sharp=6637 bright=151 backlit=false occl=0.57 cut=0.00
+  face person=1 box=0.56,0.25,0.71,0.44 eyes=LOOKING_DOWN expr=SMILE smile=0.84 looking=false dir=0.44 sharp=4317 bright=161 backlit=false occl=0.56 cut=0.00
+
+01 Adhibaas/IMG_0033.jpg [01 Adhibaas] 1219x1440 shot=CANDID usable=true quality=0.244 moment=7 repeat=-1 order=32
+  issues=[STRANGER, HALF_BLINK] people=[2] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685363592000
+  sharp=4441 peak=18497 bright=152 dark=0.00 blown=0.01
+  face person=2 box=0.36,0.20,0.57,0.35 eyes=HALF expr=NATURAL smile=0.00 looking=false dir=0.93 sharp=4972 bright=154 backlit=false occl=0.55 cut=0.00
+  face person=null box=0.89,0.26,1.08,0.43 eyes=OPEN expr=SMILE smile=0.77 looking=false dir=0.69 sharp=3037 bright=170 backlit=false occl=0.00 cut=0.41
+
+01 Adhibaas/IMG_0034.jpg [01 Adhibaas] 1920x1440 shot=CANDID usable=true quality=0.811 moment=8 repeat=5 order=33
+  issues=[] people=[10, 1, 2] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685363870000
+  sharp=5535 peak=17311 bright=150 dark=0.00 blown=0.02
+  face person=10 box=0.30,0.44,0.48,0.71 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=3031 bright=190 backlit=false occl=0.00 cut=0.00
+  face person=1 box=0.72,0.38,0.83,0.53 eyes=OPEN expr=SMILE smile=0.40 looking=true dir=0.43 sharp=1370 bright=159 backlit=false occl=0.18 cut=0.00
+  face person=2 box=0.42,0.33,0.50,0.44 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=756 bright=149 backlit=false occl=0.00 cut=0.00
+
+01 Adhibaas/IMG_0035.jpg [01 Adhibaas] 1920x1440 shot=CANDID usable=false quality=0.392 moment=8 repeat=5 order=34
+  issues=[DUPLICATE] people=[1, 2] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685363870000
+  sharp=5509 peak=17274 bright=150 dark=0.00 blown=0.01
+  face person=1 box=0.71,0.38,0.83,0.53 eyes=OPEN expr=SMILE smile=0.38 looking=false dir=0.41 sharp=1292 bright=159 backlit=false occl=0.00 cut=0.00
+  face person=2 box=0.42,0.33,0.50,0.44 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=0.68 sharp=711 bright=149 backlit=false occl=0.00 cut=0.00
+
+01 Adhibaas/IMG_0036.jpg [01 Adhibaas] 1920x1440 shot=CANDID usable=true quality=0.719 moment=8 repeat=-1 order=35
+  issues=[FACE_PARTLY_HIDDEN] people=[1, 2] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685363879000
+  sharp=8662 peak=32501 bright=143 dark=0.00 blown=0.00
+  face person=1 box=0.66,0.33,0.81,0.50 eyes=OPEN expr=NATURAL smile=0.08 looking=false dir=0.85 sharp=2749 bright=162 backlit=false occl=0.42 cut=0.00
+  face person=2 box=0.24,0.28,0.35,0.40 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=5237 bright=143 backlit=false occl=0.77 cut=0.00
+
+01 Adhibaas/IMG_0037.jpg [01 Adhibaas] 1920x1440 PICKED shot=CANDID usable=true quality=0.833 moment=8 repeat=-1 order=36
+  issues=[] people=[1, 2] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685363880000
+  sharp=8225 peak=28842 bright=142 dark=0.01 blown=0.00
+  face person=1 box=0.66,0.32,0.80,0.50 eyes=OPEN expr=NATURAL smile=0.12 looking=false dir=0.84 sharp=2689 bright=160 backlit=false occl=0.47 cut=0.00
+  face person=2 box=0.22,0.24,0.34,0.41 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=0.67 sharp=5693 bright=139 backlit=false occl=0.00 cut=0.00
+
+01 Adhibaas/IMG_0038.jpg [01 Adhibaas] 1920x1440 shot=CANDID usable=true quality=0.716 moment=8 repeat=-1 order=37
+  issues=[FACE_PARTLY_HIDDEN] people=[1, 2] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685363881000
+  sharp=8108 peak=28539 bright=146 dark=0.00 blown=0.00
+  face person=1 box=0.67,0.32,0.82,0.50 eyes=OPEN expr=NATURAL smile=0.09 looking=false dir=0.83 sharp=2721 bright=165 backlit=false occl=0.52 cut=0.00
+  face person=2 box=0.23,0.25,0.36,0.41 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=6020 bright=140 backlit=false occl=0.76 cut=0.00
+
+01 Adhibaas/IMG_0039.jpg [01 Adhibaas] 1920x1440 shot=DETAIL usable=true quality=0.714 moment=9 repeat=-1 order=38
+  issues=[] people=[] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685364098000
+  sharp=1810 peak=5118 bright=136 dark=0.02 blown=0.01
+
+01 Adhibaas/IMG_0040.jpg [01 Adhibaas] 1920x1440 shot=CANDID usable=true quality=0.312 moment=9 repeat=-1 order=39
+  issues=[HALF_BLINK, FACE_PARTLY_HIDDEN] people=[2] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685364106000
+  sharp=18220 peak=45618 bright=108 dark=0.02 blown=0.00
+  face person=2 box=0.10,0.29,0.18,0.40 eyes=HALF expr=NATURAL smile=0.00 looking=false dir=0.67 sharp=1790 bright=73 backlit=false occl=1.00 cut=0.00
+
+01 Adhibaas/IMG_0041.jpg [01 Adhibaas] 1920x1440 shot=CANDID usable=true quality=0.313 moment=9 repeat=-1 order=40
+  issues=[HALF_BLINK, FACE_PARTLY_HIDDEN] people=[2] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685364107000
+  sharp=18260 peak=45634 bright=110 dark=0.02 blown=0.00
+  face person=2 box=0.08,0.28,0.17,0.39 eyes=HALF expr=NATURAL smile=0.00 looking=false dir=0.70 sharp=1595 bright=73 backlit=false occl=1.00 cut=0.00
+
+01 Adhibaas/IMG_0042.jpg [01 Adhibaas] 1920x1440 shot=CANDID usable=true quality=0.333 moment=9 repeat=-1 order=41
+  issues=[HALF_BLINK, FACE_PARTLY_HIDDEN] people=[2, 24] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685364108000
+  sharp=18906 peak=48541 bright=113 dark=0.02 blown=0.00
+  face person=2 box=0.09,0.28,0.18,0.40 eyes=HALF expr=NATURAL smile=0.00 looking=false dir=0.74 sharp=1670 bright=75 backlit=false occl=1.00 cut=0.00
+  face person=24 box=0.42,0.47,0.48,0.55 eyes=HALF expr=NATURAL smile=0.00 looking=false dir=0.47 sharp=1406 bright=107 backlit=false occl=0.00 cut=0.00
+
+01 Adhibaas/IMG_0043.jpg [01 Adhibaas] 1920x1440 shot=CANDID usable=true quality=0.488 moment=9 repeat=-1 order=42
+  issues=[FACES_TURNED_AWAY] people=[] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685364118000
+  sharp=4764 peak=16253 bright=116 dark=0.00 blown=0.00
+
+02 Haldi/IMG_0044.jpg [02 Haldi] 1920x2560 shot=CANDID usable=true quality=0.619 moment=10 repeat=-1 order=43
+  issues=[FACE_PARTLY_HIDDEN] people=[1, 2] ritual=false emotional=false tilt=0.0 backs=0 phones=0 taken=1685366125000
+  sharp=2764 peak=5536 bright=160 dark=0.00 blown=0.00
+  face person=1 box=0.29,0.44,0.49,0.61 eyes=OPEN expr=SMILE smile=0.64 looking=true dir=0.28 sharp=935 bright=151 backlit=false occl=0.06 cut=0.00
+  face person=2 box=0.43,0.10,0.59,0.23 eyes=OPEN expr=NATURAL smile=0.04 looking=true dir=-0.07 sharp=2450 bright=142 backlit=false occl=1.00 cut=0.00
+
+02 Haldi/IMG_0045.jpg [02 Haldi] 1162x2560 shot=GUEST usable=true quality=0.342 moment=10 repeat=-1 order=44
+  issues=[STRANGER, FACE_PARTLY_HIDDEN] people=[2] ritual=false emotional=false tilt=0.0 backs=0 phones=0 taken=1685366128000
+  sharp=1659 peak=3174 bright=159 dark=0.00 blown=0.00
+  face person=2 box=0.05,0.10,0.33,0.23 eyes=OPEN expr=NATURAL smile=0.03 looking=true dir=-0.07 sharp=2097 bright=142 backlit=false occl=1.00 cut=0.00
+  face person=null box=-0.00,0.43,0.17,0.59 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=0.22 sharp=824 bright=146 backlit=false occl=0.00 cut=0.47
+
+02 Haldi/IMG_0046.jpg [02 Haldi] 1920x2560 shot=CANDID usable=true quality=0.616 moment=10 repeat=-1 order=45
+  issues=[FACE_PARTLY_HIDDEN] people=[1, 2] ritual=false emotional=false tilt=0.0 backs=0 phones=0 taken=1685366130000
+  sharp=2266 peak=5114 bright=157 dark=0.00 blown=0.00
+  face person=1 box=0.31,0.48,0.51,0.66 eyes=OPEN expr=SMILE smile=0.60 looking=true dir=0.31 sharp=880 bright=144 backlit=false occl=0.10 cut=0.00
+  face person=2 box=0.42,0.15,0.58,0.27 eyes=OPEN expr=NATURAL smile=0.06 looking=true dir=-0.00 sharp=1506 bright=138 backlit=false occl=1.00 cut=0.00
+  face person=null box=0.21,0.46,0.23,0.47 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=0.02 sharp=437 bright=119 backlit=false occl=0.00 cut=0.00
+
+02 Haldi/IMG_0047.jpg [02 Haldi] 1920x2560 shot=BRIDE_SOLO usable=false quality=0.023 moment=11 repeat=6 order=46
+  issues=[EYES_CLOSED, FACE_PARTLY_HIDDEN, DUPLICATE] people=[1, 6] ritual=false emotional=false tilt=0.0 backs=0 phones=0 taken=1685366752000
+  sharp=3478 peak=8890 bright=158 dark=0.00 blown=0.16
+  face person=1 box=0.36,0.12,0.47,0.21 eyes=CLOSED expr=SMILE smile=0.37 looking=false dir=0.48 sharp=664 bright=121 backlit=false occl=1.00 cut=0.00
+  face person=6 box=0.93,0.19,0.99,0.24 eyes=LOOKING_DOWN expr=NATURAL smile=0.00 looking=false dir=-0.43 sharp=807 bright=115 backlit=false occl=0.11 cut=0.00
+
+02 Haldi/IMG_0048.jpg [02 Haldi] 1920x2527 shot=BRIDE_SOLO usable=true quality=0.524 moment=11 repeat=-1 order=47
+  issues=[FACE_PARTLY_HIDDEN] people=[1, 6] ritual=false emotional=false tilt=0.0 backs=0 phones=0 taken=1685366755000
+  sharp=4020 peak=9969 bright=113 dark=0.03 blown=0.00
+  face person=1 box=0.37,0.11,0.48,0.21 eyes=OPEN expr=NATURAL smile=0.08 looking=true dir=0.43 sharp=952 bright=74 backlit=false occl=1.00 cut=0.00
+  face person=6 box=0.83,0.22,0.88,0.26 eyes=LOOKING_DOWN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=284 bright=72 backlit=false occl=0.00 cut=0.00
+
+02 Haldi/IMG_0049.jpg [02 Haldi] 1920x2560 shot=BRIDE_SOLO usable=false quality=0.134 moment=11 repeat=6 order=48
+  issues=[BLURRY, FACE_PARTLY_HIDDEN] people=[1, 6] ritual=false emotional=false tilt=0.0 backs=0 phones=0 taken=1685366755000
+  sharp=396 peak=840 bright=158 dark=0.00 blown=0.16
+  face person=1 box=0.37,0.12,0.48,0.21 eyes=LOOKING_DOWN expr=SMILE smile=0.48 looking=false dir=0.38 sharp=10 bright=118 backlit=false occl=1.00 cut=0.00
+  face person=6 box=0.93,0.19,0.99,0.24 eyes=LOOKING_DOWN expr=NATURAL smile=0.00 looking=false dir=-0.36 sharp=11 bright=116 backlit=false occl=0.10 cut=0.00
+
+02 Haldi/IMG_0050.jpg [02 Haldi] 1920x2527 shot=BRIDE_SOLO usable=true quality=0.517 moment=11 repeat=-1 order=49
+  issues=[FACE_PARTLY_HIDDEN] people=[1, 6] ritual=false emotional=false tilt=0.0 backs=0 phones=0 taken=1685366756000
+  sharp=3748 peak=8432 bright=105 dark=0.05 blown=0.00
+  face person=1 box=0.38,0.10,0.49,0.20 eyes=OPEN expr=NATURAL smile=0.08 looking=true dir=0.42 sharp=890 bright=69 backlit=false occl=1.00 cut=0.00
+  face person=6 box=0.85,0.21,0.90,0.25 eyes=LOOKING_DOWN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=175 bright=67 backlit=false occl=0.00 cut=0.00
+
+02 Haldi/IMG_0051.jpg [02 Haldi] 1920x2527 shot=BRIDE_SOLO usable=true quality=0.518 moment=11 repeat=-1 order=50
+  issues=[FACE_PARTLY_HIDDEN] people=[1, 6] ritual=false emotional=false tilt=0.0 backs=0 phones=0 taken=1685366757000
+  sharp=3618 peak=8874 bright=106 dark=0.04 blown=0.00
+  face person=1 box=0.37,0.11,0.48,0.21 eyes=OPEN expr=NATURAL smile=0.06 looking=true dir=0.41 sharp=918 bright=69 backlit=false occl=1.00 cut=0.00
+  face person=6 box=0.84,0.22,0.90,0.26 eyes=LOOKING_DOWN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=182 bright=68 backlit=false occl=0.00 cut=0.00
+
+02 Haldi/IMG_0052.jpg [02 Haldi] 1920x2728 shot=CANDID usable=true quality=0.676 moment=11 repeat=-1 order=51
+  issues=[] people=[7, 3, 6, 5] ritual=false emotional=false tilt=0.0 backs=0 phones=0 taken=1685366775000
+  sharp=2592 peak=6178 bright=121 dark=0.01 blown=0.01
+  face person=null box=0.52,0.21,0.59,0.29 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=907 bright=124 backlit=false occl=0.00 cut=0.00
+  face person=7 box=0.72,0.29,0.78,0.33 eyes=LOOKING_DOWN expr=NATURAL smile=0.00 looking=false dir=-0.05 sharp=881 bright=88 backlit=false occl=0.42 cut=0.00
+  face person=3 box=0.29,0.30,0.33,0.34 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=708 bright=107 backlit=false occl=0.46 cut=0.00
+  face person=6 box=0.07,0.31,0.12,0.34 eyes=OPEN expr=NATURAL smile=0.00 looking=true dir=0.84 sharp=471 bright=85 backlit=false occl=0.22 cut=0.00
+  face person=5 box=0.57,0.30,0.62,0.34 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=738 bright=97 backlit=false occl=0.29 cut=0.00
+
+02 Haldi/IMG_0053.jpg [02 Haldi] 1920x2589 shot=GROUP usable=true quality=0.360 moment=11 repeat=7 order=52
+  issues=[NOT_LOOKING, FACE_PARTLY_HIDDEN] people=[1, 5, 3] ritual=false emotional=false tilt=0.0 backs=0 phones=0 taken=1685366783000
+  sharp=2093 peak=5757 bright=113 dark=0.01 blown=0.00
+  face person=1 box=0.28,0.27,0.39,0.36 eyes=OPEN expr=NATURAL smile=0.04 looking=false dir=1.00 sharp=1168 bright=121 backlit=false occl=0.69 cut=0.00
+  face person=5 box=0.83,0.30,0.91,0.37 eyes=OPEN expr=NATURAL smile=0.00 looking=true dir=0.56 sharp=541 bright=86 backlit=false occl=0.10 cut=0.00
+  face person=3 box=0.51,0.31,0.58,0.36 eyes=OPEN expr=NATURAL smile=0.00 looking=true dir=0.63 sharp=593 bright=85 backlit=false occl=0.00 cut=0.00
+
+02 Haldi/IMG_0054.jpg [02 Haldi] 1920x2589 shot=GUEST usable=false quality=0.144 moment=11 repeat=7 order=53
+  issues=[STRANGER, BLURRY, DUPLICATE] people=[5] ritual=false emotional=false tilt=0.0 backs=0 phones=0 taken=1685366786000
+  sharp=322 peak=1067 bright=112 dark=0.01 blown=0.00
+  face person=null box=0.28,0.27,0.38,0.35 eyes=OPEN expr=SMILE smile=0.40 looking=false dir=1.00 sharp=108 bright=122 backlit=false occl=0.07 cut=0.00
+  face person=5 box=0.83,0.30,0.92,0.37 eyes=OPEN expr=NATURAL smile=0.02 looking=true dir=0.27 sharp=29 bright=83 backlit=false occl=0.13 cut=0.00
+  face person=23 box=0.52,0.31,0.59,0.36 eyes=HALF expr=NATURAL smile=0.05 looking=false dir=-0.30 sharp=39 bright=79 backlit=false occl=0.00 cut=0.00
+
+02 Haldi/IMG_0055.jpg [02 Haldi] 1920x2560 PICKED shot=BRIDE_SOLO usable=true quality=0.931 moment=11 repeat=8 order=54
+  issues=[] people=[1, 3] ritual=false emotional=false tilt=0.0 backs=0 phones=0 taken=1685366790000
+  sharp=1555 peak=4544 bright=123 dark=0.00 blown=0.00
+  face person=1 box=0.47,0.32,0.57,0.41 eyes=OPEN expr=SMILE smile=0.45 looking=false dir=1.00 sharp=1461 bright=121 backlit=false occl=0.36 cut=0.00
+  face person=3 box=0.68,0.48,0.74,0.52 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=-0.34 sharp=679 bright=89 backlit=false occl=0.00 cut=0.00
+
+02 Haldi/IMG_0056.jpg [02 Haldi] 1920x2560 shot=BRIDE_SOLO usable=false quality=0.130 moment=11 repeat=8 order=55
+  issues=[BLURRY, TOO_DARK, FACE_DARK, DUPLICATE] people=[1, 3] ritual=false emotional=false tilt=0.0 backs=0 phones=0 taken=1685366793000
+  sharp=114 peak=328 bright=32 dark=0.08 blown=0.00
+  face person=1 box=0.47,0.32,0.57,0.41 eyes=OPEN expr=SMILE smile=0.41 looking=false dir=1.00 sharp=92 bright=32 backlit=false occl=0.26 cut=0.00
+  face person=3 box=0.68,0.48,0.74,0.52 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=-0.30 sharp=49 bright=23 backlit=false occl=0.00 cut=0.00
+
+02 Haldi/IMG_0057.jpg [02 Haldi] 1920x1280 shot=CANDID usable=false quality=0.253 moment=12 repeat=9 order=56
+  issues=[DUPLICATE] people=[] ritual=false emotional=false tilt=0.0 backs=0 phones=0 taken=1685366891000
+  sharp=1272 peak=4729 bright=127 dark=0.03 blown=0.03
+  face person=null box=0.51,0.39,0.65,0.71 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=325 bright=105 backlit=false occl=0.00 cut=0.00
+
+02 Haldi/IMG_0058.jpg [02 Haldi] 1920x1280 shot=CANDID usable=true quality=0.509 moment=12 repeat=9 order=57
+  issues=[] people=[] ritual=false emotional=false tilt=0.0 backs=0 phones=0 taken=1685366892000
+  sharp=1493 peak=5147 bright=129 dark=0.03 blown=0.03
+  face person=null box=0.51,0.39,0.65,0.73 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=341 bright=107 backlit=false occl=0.00 cut=0.00
+
+02 Haldi/IMG_0059.jpg [02 Haldi] 1920x1280 shot=CANDID usable=false quality=0.252 moment=12 repeat=9 order=58
+  issues=[DUPLICATE] people=[] ritual=false emotional=false tilt=0.0 backs=0 phones=0 taken=1685366893000
+  sharp=1320 peak=5076 bright=123 dark=0.04 blown=0.02
+  face person=null box=0.51,0.38,0.65,0.71 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=325 bright=103 backlit=false occl=0.00 cut=0.00
+
+02 Haldi/IMG_0060.jpg [02 Haldi] 1920x1280 shot=CANDID usable=false quality=0.283 moment=12 repeat=10 order=59
+  issues=[FACE_PARTLY_HIDDEN, DUPLICATE] people=[] ritual=false emotional=false tilt=0.0 backs=0 phones=0 taken=1685366895000
+  sharp=1207 peak=4492 bright=163 dark=0.00 blown=0.09
+  face person=null box=0.48,0.41,0.70,0.79 eyes=OPEN expr=SMILE smile=0.69 looking=false dir=1.00 sharp=679 bright=138 backlit=false occl=1.00 cut=0.00
+
+02 Haldi/IMG_0061.jpg [02 Haldi] 1920x1280 shot=CANDID usable=true quality=0.865 moment=12 repeat=10 order=60
+  issues=[] people=[] ritual=false emotional=false tilt=0.0 backs=0 phones=0 taken=1685366896000
+  sharp=1473 peak=4650 bright=135 dark=0.03 blown=0.01
+  face person=null box=0.48,0.35,0.70,0.74 eyes=OPEN expr=SMILE smile=0.86 looking=false dir=1.00 sharp=881 bright=112 backlit=false occl=0.48 cut=0.00
+
+02 Haldi/IMG_0062.jpg [02 Haldi] 1920x1280 shot=BRIDE_SOLO usable=true quality=0.481 moment=12 repeat=-1 order=61
+  issues=[FACE_PARTLY_HIDDEN] people=[1] ritual=false emotional=false tilt=0.0 backs=0 phones=0 taken=1685366896000
+  sharp=1276 peak=4521 bright=164 dark=0.00 blown=0.06
+  face person=1 box=0.51,0.32,0.75,0.76 eyes=OPEN expr=SMILE smile=0.95 looking=false dir=1.00 sharp=558 bright=132 backlit=false occl=0.96 cut=0.00
+
+02 Haldi/IMG_0063.jpg [02 Haldi] 1920x1280 shot=CANDID usable=false quality=0.207 moment=12 repeat=10 order=62
+  issues=[BLURRY, FACE_PARTLY_HIDDEN, DUPLICATE] people=[] ritual=false emotional=false tilt=0.0 backs=0 phones=0 taken=1685366898000
+  sharp=181 peak=509 bright=163 dark=0.00 blown=0.09
+  face person=null box=0.47,0.42,0.70,0.79 eyes=OPEN expr=SMILE smile=0.55 looking=false dir=1.00 sharp=68 bright=140 backlit=false occl=0.89 cut=0.00
+
+02 Haldi/IMG_0064.jpg [02 Haldi] 1920x1280 PICKED shot=BRIDE_SOLO usable=true quality=0.923 moment=12 repeat=-1 order=63
+  issues=[] people=[1] ritual=false emotional=false tilt=0.0 backs=0 phones=0 taken=1685366899000
+  sharp=1617 peak=6713 bright=126 dark=0.05 blown=0.00
+  face person=1 box=0.48,0.28,0.72,0.76 eyes=OPEN expr=SMILE smile=0.78 looking=false dir=1.00 sharp=1061 bright=116 backlit=false occl=0.58 cut=0.00
+
+02 Haldi/IMG_0065.jpg [02 Haldi] 1920x2880 shot=BRIDE_SOLO usable=false quality=0.200 moment=12 repeat=11 order=64
+  issues=[FACE_PARTLY_HIDDEN, DUPLICATE] people=[1] ritual=false emotional=false tilt=0.0 backs=0 phones=0 taken=1685366901000
+  sharp=514 peak=2468 bright=168 dark=0.00 blown=0.25
+  face person=1 box=0.32,0.45,0.72,0.75 eyes=OPEN expr=SMILE smile=0.74 looking=false dir=0.79 sharp=225 bright=128 backlit=false occl=0.80 cut=0.00
+
+02 Haldi/IMG_0066.jpg [02 Haldi] 1920x2880 shot=BRIDE_SOLO usable=true quality=0.553 moment=12 repeat=11 order=65
+  issues=[] people=[1] ritual=false emotional=false tilt=0.0 backs=0 phones=0 taken=1685366901000
+  sharp=514 peak=2471 bright=168 dark=0.00 blown=0.24
+  face person=1 box=0.32,0.45,0.72,0.75 eyes=OPEN expr=SMILE smile=0.75 looking=false dir=0.80 sharp=213 bright=128 backlit=false occl=0.00 cut=0.00
+
+02 Haldi/IMG_0067.jpg [02 Haldi] 1920x2880 shot=BRIDE_SOLO usable=false quality=0.154 moment=12 repeat=12 order=66
+  issues=[BLURRY, FACE_PARTLY_HIDDEN] people=[1] ritual=false emotional=false tilt=0.0 backs=0 phones=0 taken=1685366902000
+  sharp=303 peak=1153 bright=145 dark=0.01 blown=0.02
+  face person=1 box=0.31,0.37,0.71,0.69 eyes=OPEN expr=NATURAL smile=0.30 looking=false dir=1.00 sharp=129 bright=124 backlit=false occl=1.00 cut=0.00
+
+02 Haldi/IMG_0068.jpg [02 Haldi] 1920x2880 shot=BRIDE_SOLO usable=false quality=0.142 moment=12 repeat=12 order=67
+  issues=[BLURRY, FACE_PARTLY_HIDDEN, DUPLICATE] people=[1] ritual=false emotional=false tilt=0.0 backs=0 phones=0 taken=1685366905000
+  sharp=38 peak=100 bright=145 dark=0.00 blown=0.02
+  face person=1 box=0.31,0.37,0.71,0.69 eyes=OPEN expr=NATURAL smile=0.24 looking=false dir=1.00 sharp=30 bright=123 backlit=false occl=1.00 cut=0.00
+
+02 Haldi/IMG_0069.jpg [02 Haldi] 1920x1440 shot=BRIDE_SOLO usable=true quality=0.696 moment=13 repeat=-1 order=68
+  issues=[] people=[1] ritual=false emotional=false tilt=0.0 backs=0 phones=0 taken=1685366978000
+  sharp=2634 peak=5637 bright=102 dark=0.02 blown=0.00
+  face person=1 box=0.25,0.43,0.30,0.49 eyes=OPEN expr=SMILE smile=0.61 looking=false dir=-1.00 sharp=1225 bright=92 backlit=false occl=0.07 cut=0.00
+  face person=null box=0.55,0.47,0.58,0.51 eyes=OPEN expr=SMILE smile=0.40 looking=true dir=0.01 sharp=687 bright=60 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.47,0.46,0.50,0.50 eyes=OPEN expr=MID_TALK smile=0.00 looking=false dir=1.00 sharp=1078 bright=79 backlit=false occl=0.24 cut=0.00
+  face person=null box=0.67,0.45,0.70,0.49 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=302 bright=57 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.38,0.45,0.41,0.49 eyes=CLOSED expr=NATURAL smile=0.00 looking=false dir=-0.05 sharp=578 bright=69 backlit=false occl=0.00 cut=0.00
+
+02 Haldi/IMG_0070.jpg [02 Haldi] 1920x1440 PICKED shot=CANDID usable=true quality=0.931 moment=13 repeat=-1 order=69
+  issues=[] people=[] ritual=false emotional=false tilt=0.0 backs=0 phones=0 taken=1685366982000
+  sharp=3613 peak=8445 bright=122 dark=0.00 blown=0.00
+  face person=null box=0.53,0.46,0.57,0.51 eyes=LOOKING_DOWN expr=NATURAL smile=0.02 looking=false dir=1.00 sharp=1021 bright=95 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.46,0.47,0.49,0.52 eyes=OPEN expr=NATURAL smile=0.00 looking=true dir=-0.35 sharp=1072 bright=99 backlit=false occl=0.09 cut=0.00
+  face person=null box=0.42,0.47,0.45,0.51 eyes=OPEN expr=NATURAL smile=0.01 looking=false dir=-0.42 sharp=2116 bright=90 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.31,0.45,0.34,0.50 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=733 bright=112 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.67,0.45,0.70,0.49 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=589 bright=75 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.37,0.47,0.40,0.51 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=0.50 sharp=830 bright=88 backlit=false occl=0.00 cut=0.00
+
+02 Haldi/IMG_0071.jpg [02 Haldi] 1920x1440 shot=BRIDE_SOLO usable=true quality=0.708 moment=14 repeat=-1 order=70
+  issues=[] people=[1] ritual=false emotional=false tilt=0.0 backs=0 phones=0 taken=1685367097000
+  sharp=2170 peak=5419 bright=107 dark=0.01 blown=0.00
+  face person=null box=0.58,0.64,0.64,0.71 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=1564 bright=86 backlit=false occl=0.00 cut=0.00
+  face person=1 box=0.02,0.57,0.07,0.63 eyes=OPEN expr=SMILE smile=0.58 looking=false dir=-0.86 sharp=355 bright=75 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.17,0.64,0.22,0.72 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=896 bright=85 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.50,0.51,0.54,0.56 eyes=OPEN expr=SMILE smile=0.86 looking=false dir=1.00 sharp=1295 bright=88 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.27,0.53,0.29,0.56 eyes=CLOSED expr=NATURAL smile=0.00 looking=false dir=-0.62 sharp=924 bright=67 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.41,0.51,0.43,0.55 eyes=OPEN expr=SMILE smile=0.38 looking=false dir=-0.75 sharp=724 bright=74 backlit=false occl=0.00 cut=0.00
+
+02 Haldi/IMG_0072.jpg [02 Haldi] 1920x1440 shot=CANDID usable=true quality=0.661 moment=14 repeat=-1 order=71
+  issues=[] people=[20] ritual=false emotional=false tilt=0.0 backs=0 phones=0 taken=1685367102000
+  sharp=2087 peak=4983 bright=106 dark=0.00 blown=0.00
+  face person=null box=0.43,0.52,0.50,0.63 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=903 bright=115 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.05,0.48,0.11,0.58 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=923 bright=92 backlit=false occl=0.00 cut=0.00
+  face person=20 box=0.57,0.40,0.62,0.47 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=2471 bright=102 backlit=false occl=0.31 cut=0.00
+  face person=null box=0.14,0.43,0.18,0.48 eyes=OPEN expr=NATURAL smile=0.00 looking=true dir=-0.92 sharp=440 bright=87 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.43,0.42,0.46,0.46 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=0.57 sharp=2331 bright=56 backlit=false occl=1.00 cut=0.00
+  face person=null box=0.24,0.43,0.27,0.46 eyes=OPEN expr=NATURAL smile=0.00 looking=true dir=-0.35 sharp=544 bright=68 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.35,0.43,0.37,0.46 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=700 bright=74 backlit=false occl=0.15 cut=0.00
+  face person=null box=0.53,0.46,0.55,0.49 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=648 bright=79 backlit=false occl=0.00 cut=0.00
+
+02 Haldi/IMG_0073.jpg [02 Haldi] 1920x1440 shot=CANDID usable=false quality=0.395 moment=14 repeat=-1 order=72
+  issues=[BACK_OF_GUEST] people=[20, 5] ritual=false emotional=false tilt=0.0 backs=1 phones=0 taken=1685367106000
+  sharp=2812 peak=7267 bright=102 dark=0.01 blown=0.00
+  face person=20 box=0.75,0.33,0.80,0.41 eyes=OPEN expr=NATURAL smile=0.01 looking=false dir=-1.00 sharp=1344 bright=103 backlit=false occl=1.00 cut=0.00
+  face person=5 box=0.08,0.39,0.14,0.46 eyes=OPEN expr=NATURAL smile=0.05 looking=false dir=1.00 sharp=384 bright=98 backlit=false occl=0.29 cut=0.00
+  face person=null box=0.54,0.38,0.58,0.43 eyes=OPEN expr=SMILE smile=0.68 looking=false dir=1.00 sharp=886 bright=88 backlit=false occl=0.12 cut=0.00
+  face person=null box=0.23,0.39,0.26,0.43 eyes=OPEN expr=SMILE smile=0.47 looking=false dir=0.64 sharp=660 bright=73 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.29,0.38,0.32,0.42 eyes=OPEN expr=NATURAL smile=0.00 looking=true dir=0.46 sharp=2547 bright=78 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.36,0.39,0.38,0.43 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=-0.90 sharp=535 bright=73 backlit=false occl=0.54 cut=0.00
+  face person=null box=0.45,0.42,0.47,0.45 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-0.66 sharp=2314 bright=72 backlit=false occl=0.00 cut=0.00
+
+02 Haldi/IMG_0074.jpg [02 Haldi] 1920x1440 shot=CANDID usable=true quality=0.379 moment=14 repeat=-1 order=73
+  issues=[STRANGER] people=[5, 6] ritual=false emotional=false tilt=0.0 backs=0 phones=0 taken=1685367111000
+  sharp=2754 peak=8005 bright=102 dark=0.01 blown=0.00
+  face person=5 box=0.34,0.44,0.40,0.54 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=549 bright=114 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.06,0.43,0.12,0.52 eyes=OPEN expr=NATURAL smile=0.01 looking=false dir=1.00 sharp=118 bright=101 backlit=false occl=0.06 cut=0.00
+  face person=6 box=0.12,0.42,0.16,0.48 eyes=OPEN expr=SMILE smile=0.48 looking=false dir=1.00 sharp=446 bright=80 backlit=false occl=0.35 cut=0.00
+  face person=null box=0.23,0.43,0.27,0.47 eyes=CLOSED expr=NATURAL smile=0.00 looking=false dir=0.70 sharp=2091 bright=84 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.59,0.40,0.62,0.44 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=1074 bright=94 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.44,0.40,0.47,0.44 eyes=OPEN expr=NATURAL smile=0.00 looking=true dir=-0.16 sharp=1491 bright=80 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.86,0.43,0.89,0.47 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=881 bright=64 backlit=false occl=0.00 cut=0.00
+
+02 Haldi/IMG_0075.jpg [02 Haldi] 1920x1440 shot=CANDID usable=true quality=0.821 moment=15 repeat=-1 order=74
+  issues=[] people=[] ritual=false emotional=false tilt=0.0 backs=0 phones=0 taken=1685367261000
+  sharp=3935 peak=11583 bright=93 dark=0.09 blown=0.02
+  face person=null box=0.10,0.40,0.14,0.46 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=0.95 sharp=313 bright=37 backlit=false occl=0.04 cut=0.00
+  face person=null box=0.32,0.45,0.36,0.50 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=1709 bright=30 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.59,0.35,0.61,0.39 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=2075 bright=43 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.29,0.36,0.32,0.40 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=1524 bright=56 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.18,0.32,0.20,0.36 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=3287 bright=60 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.05,0.32,0.07,0.36 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=2071 bright=67 backlit=false occl=0.00 cut=0.00
+
+02 Haldi/IMG_0076.jpg [02 Haldi] 1920x1440 shot=BRIDE_SOLO usable=false quality=0.374 moment=15 repeat=-1 order=75
+  issues=[BACK_OF_GUEST] people=[1] ritual=false emotional=false tilt=0.0 backs=1 phones=0 taken=1685367301000
+  sharp=1843 peak=6147 bright=137 dark=0.00 blown=0.00
+  face person=1 box=0.42,0.50,0.53,0.65 eyes=OPEN expr=NATURAL smile=0.09 looking=true dir=-0.23 sharp=1022 bright=92 backlit=false occl=0.11 cut=0.00
+
+02 Haldi/IMG_0077.jpg [02 Haldi] 1920x1440 shot=CANDID usable=true quality=0.503 moment=15 repeat=13 order=76
+  issues=[FACE_PARTLY_HIDDEN] people=[1] ritual=false emotional=false tilt=0.0 backs=0 phones=0 taken=1685367320000
+  sharp=1395 peak=5509 bright=112 dark=0.03 blown=0.00
+  face person=1 box=0.42,0.61,0.54,0.76 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=1149 bright=62 backlit=false occl=1.00 cut=0.00
+  face person=null box=0.88,0.64,0.98,0.85 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=718 bright=75 backlit=false occl=0.00 cut=0.00
+
+02 Haldi/IMG_0078.jpg [02 Haldi] 1920x1440 shot=BRIDE_SOLO usable=false quality=0.102 moment=15 repeat=13 order=77
+  issues=[STRANGER, BLURRY, BACK_OF_GUEST, DUPLICATE] people=[1] ritual=false emotional=false tilt=0.0 backs=1 phones=0 taken=1685367323000
+  sharp=68 peak=161 bright=112 dark=0.02 blown=0.00
+  face person=1 box=0.43,0.60,0.54,0.76 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-0.82 sharp=3 bright=60 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.88,0.68,0.98,0.85 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=3 bright=75 backlit=false occl=0.00 cut=0.00
+
+02 Haldi/IMG_0079.jpg [02 Haldi] 1920x1440 shot=BRIDE_SOLO usable=true quality=0.699 moment=15 repeat=-1 order=78
+  issues=[] people=[1] ritual=false emotional=false tilt=0.0 backs=0 phones=0 taken=1685367331000
+  sharp=1196 peak=4622 bright=133 dark=0.00 blown=0.00
+  face person=1 box=0.29,0.35,0.51,0.68 eyes=OPEN expr=NATURAL smile=0.01 looking=false dir=-1.00 sharp=1041 bright=117 backlit=false occl=0.34 cut=0.00
+
+02 Haldi/IMG_0080.jpg [02 Haldi] 1920x1440 shot=BRIDE_SOLO usable=true quality=0.672 moment=15 repeat=-1 order=79
+  issues=[] people=[1] ritual=false emotional=false tilt=0.0 backs=0 phones=0 taken=1685367332000
+  sharp=1135 peak=4492 bright=133 dark=0.00 blown=0.00
+  face person=1 box=0.27,0.35,0.50,0.69 eyes=OPEN expr=NATURAL smile=0.01 looking=false dir=-1.00 sharp=954 bright=118 backlit=false occl=0.28 cut=0.00
+
+02 Haldi/IMG_0081.jpg [02 Haldi] 1920x1440 shot=BRIDE_SOLO usable=true quality=0.661 moment=15 repeat=-1 order=80
+  issues=[] people=[1] ritual=false emotional=false tilt=0.0 backs=0 phones=0 taken=1685367333000
+  sharp=1143 peak=4327 bright=126 dark=0.00 blown=0.00
+  face person=1 box=0.29,0.34,0.51,0.68 eyes=OPEN expr=NATURAL smile=0.01 looking=false dir=-1.00 sharp=907 bright=111 backlit=false occl=0.34 cut=0.00
+
+02 Haldi/IMG_0082.jpg [02 Haldi] 1920x1440 shot=BRIDE_SOLO usable=false quality=0.484 moment=15 repeat=14 order=81
+  issues=[DUPLICATE] people=[1] ritual=false emotional=false tilt=0.0 backs=0 phones=0 taken=1685367340000
+  sharp=1214 peak=4665 bright=148 dark=0.00 blown=0.00
+  face person=1 box=0.30,0.57,0.55,0.92 eyes=OPEN expr=SMILE smile=0.74 looking=true dir=0.78 sharp=1568 bright=113 backlit=false occl=0.27 cut=0.00
+
+02 Haldi/IMG_0083.jpg [02 Haldi] 1920x1440 PICKED shot=BRIDE_SOLO usable=true quality=0.969 moment=15 repeat=14 order=82
+  issues=[] people=[1] ritual=false emotional=false tilt=0.0 backs=0 phones=0 taken=1685367341000
+  sharp=1152 peak=4422 bright=147 dark=0.00 blown=0.00
+  face person=1 box=0.31,0.57,0.55,0.93 eyes=OPEN expr=SMILE smile=0.75 looking=true dir=0.79 sharp=1301 bright=113 backlit=false occl=0.25 cut=0.00
+
+02 Haldi/IMG_0084.jpg [02 Haldi] 1920x1440 shot=BRIDE_SOLO usable=true quality=0.969 moment=15 repeat=-1 order=83
+  issues=[] people=[1] ritual=false emotional=false tilt=0.0 backs=0 phones=0 taken=1685367342000
+  sharp=1148 peak=4276 bright=147 dark=0.00 blown=0.00
+  face person=1 box=0.29,0.57,0.54,0.92 eyes=OPEN expr=SMILE smile=0.75 looking=true dir=0.77 sharp=1328 bright=113 backlit=false occl=0.27 cut=0.00
+
+02 Haldi/IMG_0085.jpg [02 Haldi] 1920x1440 shot=CANDID usable=true quality=0.464 moment=15 repeat=-1 order=84
+  issues=[NOT_LOOKING] people=[1, 7] ritual=false emotional=false tilt=0.0 backs=0 phones=0 taken=1685367370000
+  sharp=2110 peak=6914 bright=131 dark=0.00 blown=0.00
+  face person=1 box=0.26,0.53,0.42,0.77 eyes=OPEN expr=NATURAL smile=0.13 looking=false dir=-1.00 sharp=2678 bright=118 backlit=false occl=0.18 cut=0.00
+  face person=7 box=0.53,0.36,0.66,0.57 eyes=OPEN expr=NATURAL smile=0.00 looking=true dir=0.83 sharp=1086 bright=116 backlit=false occl=0.00 cut=0.00
+
+02 Haldi/IMG_0086.jpg [02 Haldi] 1920x1440 shot=CANDID usable=true quality=0.461 moment=15 repeat=-1 order=85
+  issues=[NOT_LOOKING] people=[1, 7] ritual=false emotional=false tilt=0.0 backs=0 phones=0 taken=1685367373000
+  sharp=1799 peak=5280 bright=131 dark=0.00 blown=0.00
+  face person=1 box=0.24,0.58,0.43,0.87 eyes=OPEN expr=NATURAL smile=0.17 looking=false dir=-1.00 sharp=2349 bright=118 backlit=false occl=0.16 cut=0.00
+  face person=7 box=0.52,0.31,0.68,0.55 eyes=OPEN expr=NATURAL smile=0.00 looking=true dir=0.80 sharp=1004 bright=116 backlit=false occl=0.00 cut=0.00
+
+02 Haldi/IMG_0087.jpg [02 Haldi] 1920x1440 shot=CANDID usable=false quality=0.084 moment=15 repeat=-1 order=86
+  issues=[STRANGER, FACE_PARTLY_HIDDEN, FACE_BLOCKED] people=[1, 7, 11, 5] ritual=false emotional=false tilt=0.0 backs=0 phones=0 taken=1685367380000
+  sharp=1960 peak=5396 bright=122 dark=0.02 blown=0.00
+  face person=19 box=0.75,0.65,0.83,0.77 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=250 bright=84 backlit=false occl=0.10 cut=0.00
+  face person=1 box=0.44,0.56,0.53,0.68 eyes=OPEN expr=SMILE smile=0.92 looking=true dir=-0.77 sharp=484 bright=79 backlit=false occl=0.00 cut=0.00
+  face person=7 box=0.39,0.49,0.46,0.59 eyes=OPEN expr=NATURAL smile=0.01 looking=false dir=0.83 sharp=198 bright=80 backlit=false occl=1.00 cut=0.00
+  face person=11 box=0.13,0.45,0.20,0.55 eyes=OPEN expr=SMILE smile=0.80 looking=true dir=0.96 sharp=312 bright=78 backlit=false occl=0.00 cut=0.00
+  face person=5 box=0.75,0.65,0.83,0.76 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=269 bright=84 backlit=false occl=0.01 cut=0.00
+
+02 Haldi/IMG_0088.jpg [02 Haldi] 995x1440 shot=CANDID usable=false quality=0.120 moment=15 repeat=-1 order=87
+  issues=[FACE_BLOCKED] people=[19, 22] ritual=false emotional=false tilt=0.0 backs=0 phones=0 taken=1685367383000
+  sharp=657 peak=2480 bright=120 dark=0.03 blown=0.00
+  face person=null box=0.58,0.68,0.73,0.83 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=425 bright=90 backlit=false occl=0.00 cut=0.00
+  face person=19 box=0.53,0.65,0.66,0.76 eyes=OPEN expr=NATURAL smile=0.01 looking=false dir=-1.00 sharp=248 bright=84 backlit=false occl=0.10 cut=0.00
+  face person=22 box=-0.00,0.56,0.09,0.66 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-0.65 sharp=298 bright=71 backlit=false occl=0.00 cut=0.01
+
+02 Haldi/IMG_0089.jpg [02 Haldi] 1920x1440 PICKED shot=CANDID usable=true quality=0.508 moment=15 repeat=-1 order=88
+  issues=[FACE_PARTLY_HIDDEN] people=[6, 5, 1, 3, 11, 7] ritual=false emotional=false tilt=0.0 backs=0 phones=0 taken=1685367387000
+  sharp=3721 peak=7839 bright=126 dark=0.00 blown=0.00
+  face person=6 box=0.81,0.65,0.88,0.74 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=-0.67 sharp=473 bright=95 backlit=false occl=1.00 cut=0.00
+  face person=null box=0.78,0.75,0.84,0.85 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=968 bright=128 backlit=false occl=0.00 cut=0.00
+  face person=5 box=0.65,0.53,0.70,0.60 eyes=OPEN expr=NATURAL smile=0.27 looking=false dir=-0.79 sharp=1007 bright=107 backlit=false occl=0.33 cut=0.00
+  face person=1 box=0.48,0.47,0.53,0.54 eyes=OPEN expr=SMILE smile=0.89 looking=true dir=-0.57 sharp=2921 bright=99 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.08,0.49,0.13,0.56 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=1001 bright=102 backlit=false occl=0.00 cut=0.00
+  face person=3 box=0.25,0.43,0.30,0.51 eyes=OPEN expr=SMILE smile=0.41 looking=false dir=1.00 sharp=621 bright=107 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.68,0.56,0.73,0.63 eyes=OPEN expr=NATURAL smile=0.33 looking=false dir=-1.00 sharp=1979 bright=114 backlit=false occl=0.00 cut=0.00
+  face person=11 box=0.30,0.39,0.35,0.46 eyes=OPEN expr=SMILE smile=0.70 looking=false dir=1.00 sharp=1844 bright=91 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.76,0.55,0.80,0.62 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=1105 bright=60 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.88,0.63,0.92,0.70 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=430 bright=83 backlit=false occl=0.00 cut=0.00
+  face person=7 box=0.37,0.38,0.41,0.44 eyes=OPEN expr=NATURAL smile=0.01 looking=true dir=0.40 sharp=807 bright=98 backlit=false occl=0.00 cut=0.00
+
+02 Haldi/IMG_0090.jpg [02 Haldi] 1920x1440 shot=CANDID usable=true quality=0.911 moment=15 repeat=-1 order=89
+  issues=[] people=[] ritual=false emotional=false tilt=0.0 backs=0 phones=0 taken=1685367413000
+  sharp=3989 peak=7880 bright=131 dark=0.00 blown=0.00
+  face person=null box=0.73,0.39,0.78,0.49 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=1063 bright=141 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.70,0.35,0.74,0.42 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=3756 bright=117 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.36,0.30,0.40,0.35 eyes=OPEN expr=NATURAL smile=0.31 looking=false dir=1.00 sharp=1776 bright=87 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.21,0.34,0.24,0.39 eyes=CLOSED expr=NATURAL smile=0.00 looking=false dir=0.86 sharp=1575 bright=100 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.60,0.34,0.63,0.40 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=2594 bright=103 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.30,0.30,0.33,0.35 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=1750 bright=93 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.48,0.29,0.51,0.34 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=3216 bright=116 backlit=false occl=0.00 cut=0.00
+
+02 Haldi/IMG_0091.jpg [02 Haldi] 1920x2332 PICKED shot=CANDID usable=true quality=0.488 moment=16 repeat=-1 order=90
+  issues=[NOT_LOOKING] people=[1, 3, 11, 2, 13] ritual=false emotional=false tilt=0.0 backs=0 phones=0 taken=1685367507000
+  sharp=4759 peak=12929 bright=119 dark=0.00 blown=0.00
+  face person=null box=0.81,0.22,0.88,0.29 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=611 bright=149 backlit=false occl=0.00 cut=0.00
+  face person=1 box=0.39,0.41,0.45,0.47 eyes=OPEN expr=SMILE smile=0.82 looking=true dir=-0.26 sharp=1977 bright=97 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.77,0.23,0.82,0.28 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=443 bright=103 backlit=false occl=0.00 cut=0.00
+  face person=3 box=0.18,0.23,0.23,0.27 eyes=HALF expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=1015 bright=96 backlit=false occl=0.00 cut=0.00
+  face person=11 box=0.32,0.22,0.37,0.26 eyes=OPEN expr=MID_TALK smile=0.00 looking=true dir=0.11 sharp=2142 bright=90 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.54,0.22,0.58,0.27 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=1169 bright=106 backlit=false occl=0.00 cut=0.00
+  face person=2 box=0.45,0.22,0.51,0.27 eyes=CLOSED expr=NATURAL smile=0.01 looking=false dir=0.09 sharp=2343 bright=89 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.15,0.24,0.19,0.29 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=694 bright=91 backlit=false occl=0.00 cut=0.00
+  face person=13 box=0.24,0.26,0.28,0.30 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=760 bright=95 backlit=false occl=0.00 cut=0.00
+
+02 Haldi/IMG_0092.jpg [02 Haldi] 1920x2331 PICKED shot=CANDID usable=true quality=0.480 moment=16 repeat=-1 order=91
+  issues=[FACE_DARK] people=[1, 11, 3, 2, 13] ritual=false emotional=false tilt=0.0 backs=0 phones=0 taken=1685367513000
+  sharp=7060 peak=16056 bright=132 dark=0.00 blown=0.00
+  face person=null box=0.90,0.22,0.99,0.30 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=1271 bright=165 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.65,0.23,0.72,0.30 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-0.00 sharp=701 bright=42 backlit=false occl=0.00 cut=0.00
+  face person=1 box=0.44,0.41,0.50,0.47 eyes=OPEN expr=SMILE smile=0.82 looking=true dir=-0.39 sharp=1620 bright=118 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.84,0.21,0.90,0.27 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=557 bright=134 backlit=false occl=0.00 cut=0.00
+  face person=11 box=0.39,0.20,0.44,0.24 eyes=OPEN expr=SMILE smile=0.44 looking=true dir=-0.09 sharp=2292 bright=103 backlit=false occl=0.00 cut=0.00
+  face person=3 box=0.23,0.21,0.28,0.26 eyes=LOOKING_DOWN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=991 bright=126 backlit=false occl=0.08 cut=0.00
+  face person=2 box=0.52,0.20,0.58,0.25 eyes=OPEN expr=NATURAL smile=0.00 looking=true dir=-0.28 sharp=4248 bright=104 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.16,0.21,0.21,0.27 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=798 bright=113 backlit=false occl=0.00 cut=0.00
+  face person=13 box=0.29,0.24,0.34,0.28 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=0.85 sharp=1724 bright=107 backlit=false occl=0.00 cut=0.00
+
+02 Haldi/IMG_0093.jpg [02 Haldi] 1920x2331 PICKED shot=CANDID usable=true quality=0.532 moment=16 repeat=-1 order=92
+  issues=[] people=[1, 3, 11, 2] ritual=false emotional=false tilt=0.0 backs=0 phones=0 taken=1685367516000
+  sharp=7672 peak=14065 bright=127 dark=0.00 blown=0.00
+  face person=1 box=0.44,0.39,0.52,0.46 eyes=OPEN expr=SMILE smile=0.86 looking=true dir=-0.43 sharp=1449 bright=118 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.75,0.22,0.82,0.29 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-0.29 sharp=581 bright=51 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.13,0.12,0.20,0.19 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=426 bright=109 backlit=false occl=0.00 cut=0.00
+  face person=3 box=0.22,0.14,0.28,0.20 eyes=LOOKING_DOWN expr=NATURAL smile=0.01 looking=false dir=1.00 sharp=253 bright=124 backlit=false occl=0.07 cut=0.00
+  face person=11 box=0.42,0.14,0.49,0.20 eyes=OPEN expr=SMILE smile=0.50 looking=true dir=-0.16 sharp=500 bright=101 backlit=false occl=0.07 cut=0.00
+  face person=2 box=0.59,0.16,0.66,0.22 eyes=OPEN expr=NATURAL smile=0.00 looking=true dir=-0.37 sharp=1008 bright=104 backlit=false occl=0.10 cut=0.00
+  face person=null box=0.30,0.18,0.35,0.22 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=824 bright=104 backlit=false occl=0.00 cut=0.00
+
+02 Haldi/IMG_0094.jpg [02 Haldi] 1920x1440 shot=BRIDE_SOLO usable=true quality=0.931 moment=16 repeat=-1 order=93
+  issues=[] people=[1] ritual=false emotional=false tilt=0.0 backs=0 phones=0 taken=1685367520000
+  sharp=5123 peak=9110 bright=143 dark=0.00 blown=0.00
+  face person=null box=0.76,0.31,0.81,0.41 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=671 bright=156 backlit=false occl=0.00 cut=0.00
+  face person=1 box=0.48,0.53,0.52,0.59 eyes=OPEN expr=SMILE smile=0.90 looking=true dir=-0.52 sharp=3993 bright=101 backlit=false occl=0.39 cut=0.00
+  face person=null box=0.31,0.34,0.35,0.40 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=1094 bright=109 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.35,0.33,0.38,0.38 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=590 bright=107 backlit=false occl=0.05 cut=0.00
+  face person=null box=0.46,0.31,0.49,0.36 eyes=OPEN expr=SMILE smile=0.60 looking=true dir=-0.07 sharp=3115 bright=91 backlit=false occl=0.07 cut=0.00
+  face person=null box=0.54,0.31,0.58,0.36 eyes=OPEN expr=NATURAL smile=0.01 looking=true dir=-0.43 sharp=5550 bright=98 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.39,0.35,0.42,0.40 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=0.99 sharp=1093 bright=102 backlit=false occl=0.00 cut=0.00
+
+03 Wedding/IMG_0095.jpg [03 Wedding] 1920x2560 PICKED shot=BRIDE_SOLO usable=true quality=0.989 moment=17 repeat=15 order=94
+  issues=[] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685389071000
+  sharp=4723 peak=12998 bright=113 dark=0.02 blown=0.00
+  face person=1 box=0.23,0.14,0.35,0.24 eyes=OPEN expr=NATURAL smile=0.25 looking=true dir=-0.60 sharp=2028 bright=119 backlit=false occl=0.10 cut=0.00
+
+03 Wedding/IMG_0096.jpg [03 Wedding] 1920x2560 shot=BRIDE_SOLO usable=false quality=0.412 moment=17 repeat=15 order=95
+  issues=[TOO_BRIGHT, DUPLICATE] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685389074000
+  sharp=8828 peak=28407 bright=207 dark=0.00 blown=0.49
+  face person=1 box=0.23,0.14,0.35,0.24 eyes=OPEN expr=NATURAL smile=0.00 looking=true dir=-0.62 sharp=1697 bright=233 backlit=false occl=0.00 cut=0.00
+
+03 Wedding/IMG_0097.jpg [03 Wedding] 1920x2560 shot=BRIDE_SOLO usable=true quality=0.890 moment=17 repeat=-1 order=96
+  issues=[] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685389079000
+  sharp=8327 peak=16105 bright=140 dark=0.01 blown=0.01
+  face person=1 box=0.32,0.20,0.50,0.35 eyes=OPEN expr=SMILE smile=0.66 looking=false dir=-0.97 sharp=1435 bright=158 backlit=false occl=0.00 cut=0.00
+
+03 Wedding/IMG_0098.jpg [03 Wedding] 1920x2560 shot=BRIDE_SOLO usable=true quality=0.886 moment=17 repeat=-1 order=97
+  issues=[] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685389080000
+  sharp=9054 peak=17488 bright=142 dark=0.01 blown=0.02
+  face person=1 box=0.31,0.19,0.49,0.34 eyes=OPEN expr=SMILE smile=0.61 looking=false dir=-0.95 sharp=1476 bright=162 backlit=false occl=0.00 cut=0.00
+
+03 Wedding/IMG_0099.jpg [03 Wedding] 1920x2560 shot=BRIDE_SOLO usable=true quality=0.892 moment=17 repeat=-1 order=98
+  issues=[] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685389081000
+  sharp=8522 peak=16587 bright=138 dark=0.01 blown=0.01
+  face person=1 box=0.31,0.19,0.50,0.35 eyes=OPEN expr=SMILE smile=0.68 looking=false dir=-0.92 sharp=1499 bright=158 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.51,0.00,0.55,0.03 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=663 bright=216 backlit=false occl=0.00 cut=0.00
+
+03 Wedding/IMG_0100.jpg [03 Wedding] 1920x2560 shot=BRIDE_SOLO usable=true quality=0.841 moment=17 repeat=-1 order=99
+  issues=[] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685389082000
+  sharp=6638 peak=12308 bright=141 dark=0.00 blown=0.01
+  face person=1 box=0.42,0.21,0.60,0.36 eyes=OPEN expr=SMILE smile=0.63 looking=false dir=-1.00 sharp=953 bright=160 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.58,0.87,0.60,0.88 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=0.04 sharp=2992 bright=88 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.56,0.84,0.58,0.85 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=0.10 sharp=5509 bright=91 backlit=false occl=0.00 cut=0.00
+
+03 Wedding/IMG_0101.jpg [03 Wedding] 1920x2560 shot=BRIDE_SOLO usable=true quality=0.883 moment=17 repeat=16 order=100
+  issues=[] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685389083000
+  sharp=6509 peak=12225 bright=137 dark=0.01 blown=0.00
+  face person=1 box=0.41,0.20,0.60,0.35 eyes=OPEN expr=SMILE smile=0.64 looking=false dir=-1.00 sharp=1039 bright=156 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.58,0.87,0.60,0.88 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=0.10 sharp=3081 bright=83 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.58,0.92,0.59,0.93 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-0.08 sharp=3358 bright=97 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.56,0.89,0.57,0.90 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=0.04 sharp=3269 bright=81 backlit=false occl=0.00 cut=0.00
+
+03 Wedding/IMG_0102.jpg [03 Wedding] 1920x2560 shot=BRIDE_SOLO usable=false quality=0.432 moment=17 repeat=16 order=101
+  issues=[DUPLICATE] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685389084000
+  sharp=6585 peak=12586 bright=139 dark=0.00 blown=0.01
+  face person=1 box=0.42,0.20,0.60,0.35 eyes=OPEN expr=SMILE smile=0.61 looking=false dir=-1.00 sharp=1000 bright=158 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.58,0.92,0.59,0.93 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=0.26 sharp=3627 bright=102 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.58,0.87,0.59,0.88 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=0.14 sharp=2926 bright=85 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.56,0.89,0.57,0.91 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-0.20 sharp=3554 bright=90 backlit=false occl=0.00 cut=0.00
+
+03 Wedding/IMG_0103.jpg [03 Wedding] 1920x2560 shot=BRIDE_SOLO usable=true quality=0.907 moment=17 repeat=17 order=102
+  issues=[] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685389095000
+  sharp=8241 peak=15277 bright=129 dark=0.00 blown=0.00
+  face person=1 box=0.37,0.21,0.55,0.36 eyes=OPEN expr=SMILE smile=0.78 looking=false dir=-1.00 sharp=1640 bright=139 backlit=false occl=0.00 cut=0.00
+
+03 Wedding/IMG_0104.jpg [03 Wedding] 1920x2560 shot=BRIDE_SOLO usable=false quality=0.134 moment=17 repeat=17 order=103
+  issues=[BLURRY, TOO_DARK, FACE_DARK, DUPLICATE] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685389098000
+  sharp=564 peak=1051 bright=33 dark=0.13 blown=0.00
+  face person=1 box=0.37,0.21,0.54,0.36 eyes=OPEN expr=SMILE smile=0.76 looking=false dir=-1.00 sharp=114 bright=35 backlit=false occl=0.04 cut=0.00
+
+03 Wedding/IMG_0105.jpg [03 Wedding] 1920x2560 shot=BRIDE_SOLO usable=true quality=0.651 moment=17 repeat=-1 order=104
+  issues=[FACE_PARTLY_HIDDEN] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685389104000
+  sharp=2451 peak=4725 bright=101 dark=0.01 blown=0.01
+  face person=1 box=0.21,0.47,0.53,0.76 eyes=OPEN expr=NATURAL smile=0.35 looking=false dir=-1.00 sharp=1825 bright=161 backlit=false occl=1.00 cut=0.00
+
+03 Wedding/IMG_0106.jpg [03 Wedding] 1920x2560 shot=CANDID usable=false quality=0.111 moment=17 repeat=-1 order=105
+  issues=[BLURRY, FACES_TURNED_AWAY] people=[] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685389108000
+  sharp=38 peak=71 bright=124 dark=0.00 blown=0.00
+
+03 Wedding/IMG_0107.jpg [03 Wedding] 1920x2560 shot=BRIDE_SOLO usable=true quality=0.933 moment=17 repeat=-1 order=106
+  issues=[] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685389110000
+  sharp=3189 peak=6180 bright=108 dark=0.01 blown=0.01
+  face person=1 box=0.30,0.41,0.63,0.69 eyes=LOOKING_DOWN expr=NATURAL smile=0.06 looking=false dir=-1.00 sharp=1923 bright=171 backlit=false occl=0.00 cut=0.00
+
+03 Wedding/IMG_0108.jpg [03 Wedding] 1920x2560 shot=BRIDE_SOLO usable=true quality=0.930 moment=17 repeat=-1 order=107
+  issues=[] people=[1] ritual=true emotional=true tilt=0.0 backs=0 phones=0 taken=1685389111000
+  sharp=3011 peak=5757 bright=105 dark=0.01 blown=0.00
+  face person=1 box=0.30,0.41,0.64,0.70 eyes=LOOKING_DOWN expr=EMOTIONAL smile=0.06 looking=false dir=-1.00 sharp=1854 bright=166 backlit=false occl=0.00 cut=0.00
+
+03 Wedding/IMG_0109.jpg [03 Wedding] 1920x2560 shot=BRIDE_SOLO usable=true quality=0.926 moment=17 repeat=-1 order=108
+  issues=[] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685389112000
+  sharp=3411 peak=6510 bright=111 dark=0.01 blown=0.03
+  face person=1 box=0.29,0.41,0.62,0.70 eyes=LOOKING_DOWN expr=NATURAL smile=0.07 looking=false dir=-1.00 sharp=2032 bright=177 backlit=false occl=0.00 cut=0.00
+
+03 Wedding/IMG_0110.jpg [03 Wedding] 1920x2560 PICKED shot=BRIDE_SOLO usable=true quality=0.975 moment=17 repeat=18 order=109
+  issues=[] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685389116000
+  sharp=4419 peak=14510 bright=123 dark=0.00 blown=0.01
+  face person=1 box=0.20,0.43,0.56,0.74 eyes=OPEN expr=SMILE smile=0.61 looking=true dir=-1.00 sharp=1873 bright=169 backlit=false occl=0.08 cut=0.00
+
+03 Wedding/IMG_0111.jpg [03 Wedding] 1920x2560 shot=BRIDE_SOLO usable=false quality=0.226 moment=17 repeat=18 order=110
+  issues=[TOO_BRIGHT, FACE_DARK, DUPLICATE] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685389119000
+  sharp=3873 peak=7508 bright=193 dark=0.00 blown=0.43
+  face person=1 box=0.20,0.44,0.56,0.74 eyes=OPEN expr=NATURAL smile=0.23 looking=true dir=-1.00 sharp=1413 bright=246 backlit=false occl=0.00 cut=0.00
+
+03 Wedding/IMG_0112.jpg [03 Wedding] 1920x2560 shot=BRIDE_SOLO usable=true quality=0.898 moment=17 repeat=19 order=111
+  issues=[] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685389124000
+  sharp=5158 peak=16350 bright=134 dark=0.01 blown=0.01
+  face person=1 box=0.35,0.17,0.44,0.26 eyes=OPEN expr=SMILE smile=0.47 looking=false dir=-0.80 sharp=1341 bright=150 backlit=false occl=0.06 cut=0.00
+
+03 Wedding/IMG_0113.jpg [03 Wedding] 1920x2560 shot=BRIDE_SOLO usable=false quality=0.261 moment=17 repeat=19 order=112
+  issues=[BLURRY, DUPLICATE] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685389127000
+  sharp=259 peak=581 bright=134 dark=0.00 blown=0.01
+  face person=1 box=0.35,0.17,0.45,0.26 eyes=OPEN expr=NATURAL smile=0.11 looking=true dir=-0.68 sharp=9 bright=150 backlit=false occl=0.19 cut=0.00
+
+03 Wedding/IMG_0114.jpg [03 Wedding] 1920x2894 shot=BRIDE_SOLO usable=false quality=0.322 moment=17 repeat=20 order=113
+  issues=[FACE_PARTLY_HIDDEN, DUPLICATE] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685389139000
+  sharp=5954 peak=9928 bright=124 dark=0.01 blown=0.01
+  face person=1 box=0.34,0.27,0.58,0.44 eyes=OPEN expr=SMILE smile=0.82 looking=false dir=-0.84 sharp=1970 bright=130 backlit=false occl=0.67 cut=0.00
+
+03 Wedding/IMG_0115.jpg [03 Wedding] 1920x2894 shot=BRIDE_SOLO usable=true quality=0.649 moment=17 repeat=20 order=114
+  issues=[FACE_PARTLY_HIDDEN] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685389140000
+  sharp=5759 peak=9306 bright=119 dark=0.01 blown=0.00
+  face person=1 box=0.33,0.27,0.58,0.44 eyes=OPEN expr=SMILE smile=0.85 looking=false dir=-0.87 sharp=1458 bright=126 backlit=false occl=0.74 cut=0.00
+
+03 Wedding/IMG_0116.jpg [03 Wedding] 1920x2894 shot=BRIDE_SOLO usable=true quality=0.649 moment=17 repeat=-1 order=115
+  issues=[FACE_PARTLY_HIDDEN] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685389141000
+  sharp=5639 peak=9641 bright=119 dark=0.01 blown=0.00
+  face person=1 box=0.34,0.26,0.58,0.44 eyes=OPEN expr=SMILE smile=0.82 looking=false dir=-0.86 sharp=1766 bright=126 backlit=false occl=0.72 cut=0.00
+  face person=null box=0.63,0.00,0.69,0.04 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=0.89 sharp=1532 bright=194 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.09,0.97,0.11,0.98 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-0.25 sharp=2130 bright=108 backlit=false occl=0.00 cut=0.00
+
+03 Wedding/IMG_0117.jpg [03 Wedding] 1920x2560 shot=BRIDE_SOLO usable=true quality=0.906 moment=17 repeat=-1 order=116
+  issues=[] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685389142000
+  sharp=5844 peak=12648 bright=130 dark=0.00 blown=0.01
+  face person=1 box=0.31,0.31,0.49,0.45 eyes=OPEN expr=SMILE smile=0.80 looking=false dir=-0.88 sharp=1780 bright=132 backlit=false occl=0.39 cut=0.00
+  face person=null box=0.57,0.07,0.61,0.10 eyes=OPEN expr=MID_TALK smile=0.00 looking=false dir=0.48 sharp=988 bright=202 backlit=false occl=0.02 cut=0.00
+
+03 Wedding/IMG_0118.jpg [03 Wedding] 1920x2560 shot=BRIDE_SOLO usable=true quality=0.928 moment=17 repeat=21 order=117
+  issues=[] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685389149000
+  sharp=5790 peak=10306 bright=103 dark=0.01 blown=0.01
+  face person=1 box=0.28,0.35,0.55,0.58 eyes=OPEN expr=SMILE smile=0.75 looking=false dir=-0.34 sharp=2431 bright=165 backlit=false occl=0.25 cut=0.00
+
+03 Wedding/IMG_0119.jpg [03 Wedding] 1920x2560 shot=BRIDE_SOLO usable=false quality=0.335 moment=17 repeat=21 order=118
+  issues=[DUPLICATE] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685389152000
+  sharp=858 peak=1410 bright=103 dark=0.01 blown=0.00
+  face person=1 box=0.28,0.36,0.55,0.58 eyes=OPEN expr=SMILE smile=0.75 looking=false dir=-0.33 sharp=342 bright=164 backlit=false occl=0.11 cut=0.00
+
+03 Wedding/IMG_0120.jpg [03 Wedding] 1920x2560 shot=DETAIL usable=false quality=0.230 moment=17 repeat=-1 order=119
+  issues=[BLURRY] people=[] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685389153000
+  sharp=53 peak=108 bright=120 dark=0.00 blown=0.00
+
+03 Wedding/IMG_0121.jpg [03 Wedding] 1920x2560 shot=BRIDE_SOLO usable=true quality=0.788 moment=17 repeat=-1 order=120
+  issues=[] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685389167000
+  sharp=3921 peak=7398 bright=89 dark=0.01 blown=0.00
+  face person=1 box=0.47,0.26,0.66,0.42 eyes=OPEN expr=NATURAL smile=0.30 looking=false dir=1.00 sharp=780 bright=135 backlit=false occl=0.25 cut=0.00
+
+03 Wedding/IMG_0122.jpg [03 Wedding] 1920x2560 shot=BRIDE_SOLO usable=true quality=0.784 moment=17 repeat=-1 order=121
+  issues=[] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685389168000
+  sharp=3783 peak=6841 bright=86 dark=0.02 blown=0.00
+  face person=1 box=0.47,0.25,0.68,0.42 eyes=OPEN expr=NATURAL smile=0.34 looking=false dir=1.00 sharp=781 bright=132 backlit=false occl=0.26 cut=0.00
+  face person=null box=0.51,0.04,0.56,0.08 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=329 bright=94 backlit=false occl=0.00 cut=0.00
+
+03 Wedding/IMG_0123.jpg [03 Wedding] 1920x2560 shot=BRIDE_SOLO usable=true quality=0.790 moment=17 repeat=-1 order=122
+  issues=[] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685389169000
+  sharp=3605 peak=6635 bright=85 dark=0.02 blown=0.00
+  face person=1 box=0.47,0.24,0.67,0.41 eyes=OPEN expr=NATURAL smile=0.34 looking=false dir=1.00 sharp=799 bright=129 backlit=false occl=0.34 cut=0.00
+
+03 Wedding/IMG_0124.jpg [03 Wedding] 1920x2560 shot=BRIDE_SOLO usable=true quality=0.910 moment=17 repeat=22 order=123
+  issues=[] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685389173000
+  sharp=6562 peak=9474 bright=90 dark=0.01 blown=0.00
+  face person=1 box=0.52,0.25,0.72,0.44 eyes=OPEN expr=SMILE smile=0.62 looking=false dir=1.00 sharp=1624 bright=141 backlit=false occl=0.54 cut=0.00
+
+03 Wedding/IMG_0125.jpg [03 Wedding] 1920x2560 shot=BRIDE_SOLO usable=true quality=0.916 moment=17 repeat=-1 order=124
+  issues=[] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685389176000
+  sharp=6949 peak=10307 bright=94 dark=0.00 blown=0.00
+  face person=1 box=0.46,0.29,0.66,0.46 eyes=OPEN expr=NATURAL smile=0.03 looking=false dir=0.84 sharp=1070 bright=155 backlit=false occl=0.00 cut=0.00
+
+03 Wedding/IMG_0126.jpg [03 Wedding] 1920x2560 shot=BRIDE_SOLO usable=false quality=0.122 moment=17 repeat=22 order=125
+  issues=[BLURRY, TOO_DARK, FACE_DARK, DUPLICATE] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685389176000
+  sharp=229 peak=325 bright=16 dark=0.59 blown=0.00
+  face person=1 box=0.52,0.26,0.72,0.44 eyes=OPEN expr=SMILE smile=0.59 looking=false dir=1.00 sharp=54 bright=25 backlit=false occl=0.50 cut=0.00
+
+03 Wedding/IMG_0127.jpg [03 Wedding] 1920x2560 shot=BRIDE_SOLO usable=true quality=0.923 moment=17 repeat=23 order=126
+  issues=[] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685389181000
+  sharp=8900 peak=13307 bright=117 dark=0.00 blown=0.01
+  face person=1 box=0.53,0.25,0.73,0.42 eyes=OPEN expr=SMILE smile=0.80 looking=false dir=1.00 sharp=1651 bright=181 backlit=false occl=0.55 cut=0.00
+
+03 Wedding/IMG_0128.jpg [03 Wedding] 1920x2560 shot=CANDID usable=false quality=0.238 moment=17 repeat=23 order=127
+  issues=[TOO_BRIGHT, FACE_DARK, DUPLICATE] people=[5] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685389184000
+  sharp=12233 peak=24495 bright=202 dark=0.00 blown=0.36
+  face person=5 box=0.53,0.25,0.73,0.42 eyes=OPEN expr=SMILE smile=0.79 looking=false dir=1.00 sharp=1623 bright=248 backlit=false occl=0.00 cut=0.00
+
+03 Wedding/IMG_0129.jpg [03 Wedding] 1920x2560 shot=DETAIL usable=false quality=0.163 moment=17 repeat=-1 order=128
+  issues=[BLURRY] people=[] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685389185000
+  sharp=52 peak=113 bright=154 dark=0.00 blown=0.00
+
+03 Wedding/IMG_0130.jpg [03 Wedding] 1920x2560 shot=CANDID usable=true quality=0.827 moment=17 repeat=24 order=129
+  issues=[] people=[] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685389194000
+  sharp=5320 peak=10120 bright=90 dark=0.03 blown=0.00
+  face person=null box=0.38,0.26,0.63,0.51 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=2521 bright=142 backlit=false occl=0.00 cut=0.00
+
+03 Wedding/IMG_0131.jpg [03 Wedding] 1920x2560 shot=CANDID usable=false quality=0.311 moment=17 repeat=24 order=130
+  issues=[DUPLICATE] people=[] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685389197000
+  sharp=1144 peak=1839 bright=90 dark=0.02 blown=0.00
+  face person=null box=0.38,0.26,0.62,0.51 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=406 bright=139 backlit=false occl=0.00 cut=0.00
+
+03 Wedding/IMG_0132.jpg [03 Wedding] 1920x2560 shot=BRIDE_SOLO usable=true quality=0.899 moment=17 repeat=-1 order=131
+  issues=[] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685389198000
+  sharp=4040 peak=10596 bright=85 dark=0.03 blown=0.00
+  face person=1 box=0.41,0.33,0.82,0.68 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=3263 bright=158 backlit=false occl=0.34 cut=0.00
+
+03 Wedding/IMG_0133.jpg [03 Wedding] 1920x2560 PICKED shot=BRIDE_SOLO usable=true quality=0.951 moment=17 repeat=-1 order=132
+  issues=[] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685389205000
+  sharp=1665 peak=3727 bright=85 dark=0.07 blown=0.00
+  face person=1 box=0.15,0.36,0.61,0.76 eyes=OPEN expr=NATURAL smile=0.02 looking=true dir=-1.00 sharp=1770 bright=119 backlit=false occl=0.30 cut=0.00
+
+03 Wedding/IMG_0134.jpg [03 Wedding] 1920x2560 shot=CANDID usable=true quality=0.864 moment=17 repeat=-1 order=133
+  issues=[] people=[] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685389223000
+  sharp=3057 peak=7409 bright=117 dark=0.00 blown=0.00
+  face person=null box=0.32,0.16,0.37,0.20 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-0.51 sharp=384 bright=195 backlit=false occl=0.00 cut=0.00
+
+03 Wedding/IMG_0135.jpg [03 Wedding] 1920x2560 PICKED shot=DETAIL usable=true quality=0.648 moment=17 repeat=-1 order=134
+  issues=[] people=[] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685389227000
+  sharp=2092 peak=3717 bright=122 dark=0.00 blown=0.00
+
+03 Wedding/IMG_0136.jpg [03 Wedding] 1920x1440 PICKED shot=BRIDE_SOLO usable=true quality=0.986 moment=17 repeat=-1 order=135
+  issues=[] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685389243000
+  sharp=12234 peak=31428 bright=109 dark=0.02 blown=0.00
+  face person=1 box=0.35,0.30,0.40,0.37 eyes=OPEN expr=SMILE smile=0.76 looking=false dir=-0.43 sharp=5300 bright=118 backlit=false occl=0.14 cut=0.00
+
+03 Wedding/IMG_0137.jpg [03 Wedding] 1920x2379 shot=BRIDE_SOLO usable=true quality=0.872 moment=17 repeat=-1 order=136
+  issues=[] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685389256000
+  sharp=5352 peak=10319 bright=112 dark=0.01 blown=0.00
+  face person=1 box=0.45,0.23,0.53,0.31 eyes=OPEN expr=SMILE smile=0.76 looking=false dir=-0.01 sharp=717 bright=123 backlit=false occl=0.10 cut=0.00
+
+03 Wedding/IMG_0138.jpg [03 Wedding] 1920x2535 shot=BRIDE_SOLO usable=true quality=0.924 moment=17 repeat=25 order=137
+  issues=[] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685389259000
+  sharp=7362 peak=14086 bright=117 dark=0.01 blown=0.00
+  face person=1 box=0.43,0.26,0.51,0.33 eyes=OPEN expr=SMILE smile=0.85 looking=false dir=-0.06 sharp=1137 bright=126 backlit=false occl=0.10 cut=0.00
+
+03 Wedding/IMG_0139.jpg [03 Wedding] 1920x2535 shot=BRIDE_SOLO usable=false quality=0.267 moment=17 repeat=25 order=138
+  issues=[BLURRY, DUPLICATE] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685389262000
+  sharp=525 peak=822 bright=117 dark=0.01 blown=0.00
+  face person=1 box=0.43,0.26,0.52,0.33 eyes=OPEN expr=SMILE smile=0.69 looking=true dir=-0.01 sharp=5 bright=127 backlit=false occl=0.16 cut=0.00
+
+03 Wedding/IMG_0140.jpg [03 Wedding] 1920x1280 shot=CANDID usable=true quality=0.362 moment=18 repeat=26 order=139
+  issues=[STRANGER] people=[3, 18, 17, 16, 27] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685399604000
+  sharp=3292 peak=8791 bright=103 dark=0.00 blown=0.00
+  face person=null box=0.32,0.38,0.46,0.61 eyes=OPEN expr=NATURAL smile=0.09 looking=false dir=-1.00 sharp=1415 bright=108 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.90,0.08,1.06,0.32 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=-0.73 sharp=225 bright=108 backlit=false occl=0.00 cut=0.39
+  face person=3 box=0.86,0.32,0.95,0.47 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=84 bright=111 backlit=false occl=0.00 cut=0.00
+  face person=18 box=0.57,0.23,0.66,0.38 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=76 bright=127 backlit=false occl=0.00 cut=0.00
+  face person=17 box=0.25,0.25,0.33,0.37 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=0.61 sharp=154 bright=77 backlit=false occl=0.00 cut=0.00
+  face person=16 box=0.12,0.02,0.20,0.15 eyes=OPEN expr=SMILE smile=0.75 looking=false dir=0.09 sharp=43 bright=135 backlit=false occl=0.09 cut=0.00
+  face person=27 box=0.05,0.00,0.10,0.06 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-0.20 sharp=60 bright=125 backlit=false occl=0.00 cut=0.00
+
+03 Wedding/IMG_0141.jpg [03 Wedding] 1920x1280 shot=CANDID usable=false quality=0.177 moment=18 repeat=26 order=140
+  issues=[STRANGER, GROUP_REPEAT] people=[3, 18, 17, 16] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685399605000
+  sharp=3127 peak=8089 bright=99 dark=0.01 blown=0.00
+  face person=null box=0.32,0.36,0.46,0.61 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=1468 bright=103 backlit=false occl=0.00 cut=0.00
+  face person=3 box=0.87,0.32,0.96,0.47 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=75 bright=106 backlit=false occl=0.00 cut=0.00
+  face person=18 box=0.58,0.23,0.67,0.38 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=63 bright=121 backlit=false occl=0.00 cut=0.00
+  face person=17 box=0.24,0.24,0.33,0.37 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=0.44 sharp=158 bright=74 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.91,0.07,1.07,0.32 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=-0.67 sharp=231 bright=105 backlit=false occl=0.00 cut=0.45
+  face person=16 box=0.12,0.01,0.20,0.14 eyes=OPEN expr=SMILE smile=0.75 looking=false dir=0.04 sharp=34 bright=129 backlit=false occl=0.15 cut=0.00
+
+03 Wedding/IMG_0142.jpg [03 Wedding] 1920x1280 shot=CANDID usable=false quality=0.174 moment=18 repeat=26 order=141
+  issues=[STRANGER, GROUP_REPEAT] people=[3, 18, 16, 17] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685399606000
+  sharp=3315 peak=9183 bright=101 dark=0.01 blown=0.00
+  face person=null box=0.31,0.34,0.44,0.59 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=1513 bright=107 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.90,0.06,1.07,0.31 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=-0.71 sharp=232 bright=107 backlit=false occl=0.00 cut=0.41
+  face person=3 box=0.86,0.31,0.95,0.46 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=79 bright=110 backlit=false occl=0.00 cut=0.00
+  face person=18 box=0.57,0.22,0.66,0.37 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=73 bright=125 backlit=false occl=0.00 cut=0.00
+  face person=16 box=0.11,0.00,0.19,0.13 eyes=OPEN expr=SMILE smile=0.73 looking=false dir=0.01 sharp=39 bright=134 backlit=false occl=0.05 cut=0.00
+  face person=17 box=0.24,0.24,0.31,0.36 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=0.25 sharp=112 bright=75 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.31,0.01,0.38,0.14 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=27 bright=171 backlit=false occl=0.00 cut=0.00
+
+03 Wedding/IMG_0143.jpg [03 Wedding] 1920x2880 shot=CANDID usable=true quality=0.524 moment=19 repeat=27 order=142
+  issues=[FACE_PARTLY_HIDDEN] people=[] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685400517000
+  sharp=547 peak=2758 bright=123 dark=0.00 blown=0.00
+  face person=null box=0.29,0.48,0.63,0.77 eyes=OPEN expr=NATURAL smile=0.02 looking=false dir=1.00 sharp=596 bright=110 backlit=false occl=0.98 cut=0.00
+  face person=null box=0.63,0.79,0.78,0.93 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=10 bright=92 backlit=false occl=0.00 cut=0.00
+
+03 Wedding/IMG_0144.jpg [03 Wedding] 1920x2880 shot=CANDID usable=false quality=0.229 moment=19 repeat=27 order=143
+  issues=[BLURRY, FACE_PARTLY_HIDDEN, DUPLICATE] people=[] ritual=true emotional=true tilt=0.0 backs=0 phones=0 taken=1685400520000
+  sharp=117 peak=411 bright=122 dark=0.00 blown=0.00
+  face person=null box=0.31,0.48,0.63,0.76 eyes=OPEN expr=EMOTIONAL smile=0.00 looking=false dir=1.00 sharp=93 bright=110 backlit=false occl=1.00 cut=0.00
+  face person=null box=0.63,0.79,0.78,0.93 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=4 bright=92 backlit=false occl=0.00 cut=0.00
+
+03 Wedding/IMG_0145.jpg [03 Wedding] 1920x2880 shot=CANDID usable=false quality=0.131 moment=19 repeat=28 order=144
+  issues=[FACE_BLOCKED, DUPLICATE] people=[14] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685400540000
+  sharp=669 peak=1795 bright=104 dark=0.00 blown=0.01
+  face person=null box=0.13,0.19,0.44,0.44 eyes=OPEN expr=SMILE smile=0.48 looking=false dir=1.00 sharp=418 bright=115 backlit=false occl=0.53 cut=0.00
+  face person=14 box=0.37,0.36,0.53,0.47 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=0.10 sharp=54 bright=103 backlit=false occl=0.00 cut=0.00
+
+03 Wedding/IMG_0146.jpg [03 Wedding] 1920x2880 shot=CANDID usable=false quality=0.325 moment=19 repeat=28 order=145
+  issues=[TOO_BRIGHT] people=[] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685400543000
+  sharp=994 peak=1980 bright=202 dark=0.00 blown=0.42
+  face person=null box=0.12,0.19,0.44,0.43 eyes=OPEN expr=NATURAL smile=0.07 looking=false dir=1.00 sharp=461 bright=224 backlit=false occl=0.00 cut=0.00
+
+03 Wedding/IMG_0147.jpg [03 Wedding] 1920x2880 PICKED shot=CANDID usable=true quality=0.604 moment=19 repeat=29 order=146
+  issues=[] people=[14] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685400561000
+  sharp=586 peak=2777 bright=129 dark=0.00 blown=0.00
+  face person=null box=0.35,0.48,0.68,0.74 eyes=OPEN expr=NATURAL smile=0.05 looking=false dir=1.00 sharp=645 bright=118 backlit=false occl=0.25 cut=0.00
+  face person=14 box=0.61,0.84,0.80,0.97 eyes=OPEN expr=NATURAL smile=0.11 looking=false dir=0.97 sharp=10 bright=77 backlit=false occl=0.21 cut=0.00
+
+03 Wedding/IMG_0148.jpg [03 Wedding] 1920x2880 shot=CANDID usable=false quality=0.281 moment=19 repeat=29 order=147
+  issues=[BLURRY, DUPLICATE] people=[14] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685400564000
+  sharp=155 peak=530 bright=129 dark=0.00 blown=0.00
+  face person=null box=0.37,0.47,0.68,0.73 eyes=OPEN expr=NATURAL smile=0.02 looking=false dir=1.00 sharp=121 bright=118 backlit=false occl=0.57 cut=0.00
+  face person=14 box=0.61,0.84,0.80,0.97 eyes=OPEN expr=NATURAL smile=0.08 looking=false dir=0.71 sharp=3 bright=75 backlit=false occl=0.25 cut=0.00
+
+03 Wedding/IMG_0149.jpg [03 Wedding] 1920x2880 shot=COUPLE_CLOSE usable=false quality=0.102 moment=20 repeat=30 order=148
+  issues=[FACE_PARTLY_HIDDEN, FACE_CUT_OFF, DUPLICATE] people=[1, 4] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685400663000
+  sharp=782 peak=2683 bright=94 dark=0.08 blown=0.00
+  face person=1 box=0.23,0.22,0.48,0.41 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=0.69 sharp=329 bright=112 backlit=false occl=0.89 cut=0.00
+  face person=4 box=0.85,0.27,1.03,0.43 eyes=OPEN expr=NATURAL smile=0.06 looking=false dir=1.00 sharp=56 bright=104 backlit=false occl=0.00 cut=0.17
+
+03 Wedding/IMG_0150.jpg [03 Wedding] 1920x2880 shot=BRIDE_SOLO usable=false quality=0.112 moment=20 repeat=30 order=149
+  issues=[STRANGER, BLURRY, FACE_PARTLY_HIDDEN] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685400666000
+  sharp=216 peak=605 bright=93 dark=0.07 blown=0.00
+  face person=1 box=0.22,0.22,0.48,0.41 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=0.70 sharp=66 bright=112 backlit=false occl=0.93 cut=0.00
+  face person=null box=0.85,0.27,1.00,0.42 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=13 bright=103 backlit=false occl=0.00 cut=0.00
+
+03 Wedding/IMG_0151.jpg [03 Wedding] 1920x2880 shot=COUPLE_CLOSE usable=false quality=0.169 moment=20 repeat=31 order=150
+  issues=[STRANGER, DUPLICATE] people=[1, 4] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685400686000
+  sharp=1200 peak=2830 bright=98 dark=0.01 blown=0.00
+  face person=1 box=0.37,0.54,0.61,0.69 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=0.13 sharp=580 bright=109 backlit=false occl=0.27 cut=0.00
+  face person=4 box=0.44,0.18,0.59,0.27 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=0.70 sharp=153 bright=129 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.10,0.03,0.17,0.08 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-0.87 sharp=15 bright=87 backlit=false occl=0.00 cut=0.00
+
+03 Wedding/IMG_0152.jpg [03 Wedding] 1920x2880 shot=BRIDE_SOLO usable=true quality=0.424 moment=20 repeat=31 order=151
+  issues=[STRANGER] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685400686000
+  sharp=1199 peak=2838 bright=98 dark=0.01 blown=0.00
+  face person=1 box=0.37,0.54,0.61,0.69 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=0.06 sharp=545 bright=108 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.44,0.18,0.59,0.29 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=0.03 sharp=195 bright=144 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.10,0.03,0.17,0.08 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=13 bright=87 backlit=false occl=0.00 cut=0.00
+
+03 Wedding/IMG_0153.jpg [03 Wedding] 1920x2880 shot=BRIDE_SOLO usable=false quality=0.279 moment=20 repeat=-1 order=152
+  issues=[BLURRY] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685400692000
+  sharp=494 peak=1317 bright=108 dark=0.02 blown=0.01
+  face person=1 box=0.32,0.48,0.58,0.67 eyes=OPEN expr=SMILE smile=0.48 looking=false dir=0.80 sharp=110 bright=100 backlit=false occl=0.01 cut=0.00
+  face person=null box=0.05,0.52,0.11,0.57 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=0.92 sharp=55 bright=95 backlit=false occl=0.00 cut=0.00
+
+03 Wedding/IMG_0154.jpg [03 Wedding] 1920x2880 shot=BRIDE_SOLO usable=false quality=0.263 moment=20 repeat=-1 order=153
+  issues=[TOO_BRIGHT] people=[1, 13] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685400695000
+  sharp=951 peak=2464 bright=204 dark=0.00 blown=0.46
+  face person=1 box=0.31,0.48,0.58,0.68 eyes=OPEN expr=SMILE smile=0.40 looking=false dir=0.81 sharp=259 bright=212 backlit=false occl=0.28 cut=0.00
+  face person=13 box=0.05,0.52,0.11,0.56 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=60 bright=218 backlit=false occl=0.00 cut=0.00
+
+03 Wedding/IMG_0155.jpg [03 Wedding] 1920x2880 shot=BRIDE_SOLO usable=false quality=0.265 moment=20 repeat=-1 order=154
+  issues=[BLURRY] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685400704000
+  sharp=409 peak=1175 bright=113 dark=0.01 blown=0.01
+  face person=1 box=0.37,0.53,0.60,0.71 eyes=OPEN expr=NATURAL smile=0.17 looking=false dir=1.00 sharp=74 bright=97 backlit=false occl=0.12 cut=0.00
+
+03 Wedding/IMG_0156.jpg [03 Wedding] 1920x2880 shot=BRIDE_SOLO usable=false quality=0.261 moment=20 repeat=-1 order=155
+  issues=[BLURRY] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685400708000
+  sharp=316 peak=900 bright=116 dark=0.01 blown=0.01
+  face person=1 box=0.34,0.56,0.57,0.74 eyes=OPEN expr=NATURAL smile=0.31 looking=false dir=1.00 sharp=56 bright=96 backlit=false occl=0.12 cut=0.00
+
+03 Wedding/IMG_0157.jpg [03 Wedding] 1920x2880 shot=BRIDE_SOLO usable=false quality=0.263 moment=20 repeat=-1 order=156
+  issues=[BLURRY] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685400711000
+  sharp=256 peak=753 bright=120 dark=0.01 blown=0.01
+  face person=1 box=0.28,0.56,0.58,0.76 eyes=OPEN expr=NATURAL smile=0.25 looking=false dir=1.00 sharp=59 bright=96 backlit=false occl=0.27 cut=0.00
+
+03 Wedding/IMG_0158.jpg [03 Wedding] 1920x1280 PICKED shot=CANDID usable=true quality=0.536 moment=20 repeat=32 order=157
+  issues=[] people=[] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685400713000
+  sharp=1044 peak=2462 bright=107 dark=0.00 blown=0.01
+  face person=null box=0.04,0.42,0.19,0.66 eyes=OPEN expr=NATURAL smile=0.25 looking=false dir=1.00 sharp=117 bright=94 backlit=false occl=0.45 cut=0.00
+  face person=null box=0.86,0.26,1.00,0.60 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-0.45 sharp=208 bright=122 backlit=false occl=0.00 cut=0.02
+  face person=null box=0.55,0.44,0.62,0.57 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=8 bright=78 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.59,0.06,0.63,0.14 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=6 bright=124 backlit=false occl=0.00 cut=0.00
+
+03 Wedding/IMG_0159.jpg [03 Wedding] 1920x1280 shot=BRIDE_SOLO usable=false quality=0.164 moment=20 repeat=32 order=158
+  issues=[STRANGER, BLURRY, GROUP_REPEAT] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685400714000
+  sharp=1060 peak=2796 bright=102 dark=0.01 blown=0.01
+  face person=1 box=0.03,0.41,0.18,0.67 eyes=OPEN expr=NATURAL smile=0.23 looking=false dir=1.00 sharp=118 bright=91 backlit=false occl=0.49 cut=0.00
+  face person=null box=0.87,0.26,1.00,0.62 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-0.45 sharp=237 bright=119 backlit=false occl=0.00 cut=0.40
+  face person=null box=0.55,0.44,0.63,0.57 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=8 bright=76 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.60,0.06,0.63,0.14 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=6 bright=120 backlit=false occl=0.00 cut=0.00
+
+03 Wedding/IMG_0160.jpg [03 Wedding] 1920x1280 shot=CANDID usable=false quality=0.264 moment=20 repeat=32 order=159
+  issues=[BLURRY, GROUP_REPEAT] people=[] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685400715000
+  sharp=1122 peak=2799 bright=104 dark=0.01 blown=0.01
+  face person=null box=0.03,0.42,0.18,0.67 eyes=OPEN expr=NATURAL smile=0.23 looking=false dir=1.00 sharp=126 bright=93 backlit=false occl=0.32 cut=0.00
+  face person=null box=0.55,0.42,0.63,0.57 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=9 bright=76 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.59,0.05,0.63,0.12 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=6 bright=124 backlit=false occl=0.00 cut=0.00
+
+03 Wedding/IMG_0161.jpg [03 Wedding] 1920x2880 shot=GROOM_SOLO usable=false quality=0.171 moment=20 repeat=-1 order=160
+  issues=[STRANGER, BLURRY] people=[4] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685400744000
+  sharp=662 peak=2135 bright=104 dark=0.02 blown=0.00
+  face person=null box=0.40,0.56,0.58,0.70 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=42 bright=95 backlit=false occl=0.00 cut=0.00
+  face person=4 box=0.60,0.30,0.78,0.44 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=13 bright=110 backlit=false occl=0.47 cut=0.00
+
+03 Wedding/IMG_0162.jpg [03 Wedding] 1920x2880 shot=GROOM_SOLO usable=false quality=0.170 moment=20 repeat=33 order=161
+  issues=[STRANGER, BLURRY, DUPLICATE] people=[4] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685400745000
+  sharp=715 peak=2167 bright=103 dark=0.02 blown=0.00
+  face person=null box=0.37,0.56,0.58,0.70 eyes=OPEN expr=NATURAL smile=0.01 looking=false dir=1.00 sharp=65 bright=98 backlit=false occl=0.15 cut=0.00
+  face person=4 box=0.59,0.28,0.78,0.43 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=15 bright=109 backlit=false occl=0.54 cut=0.00
+
+03 Wedding/IMG_0163.jpg [03 Wedding] 1920x2880 shot=GROOM_SOLO usable=false quality=0.171 moment=20 repeat=33 order=162
+  issues=[STRANGER, BLURRY] people=[4] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685400746000
+  sharp=738 peak=2302 bright=105 dark=0.02 blown=0.00
+  face person=null box=0.38,0.55,0.57,0.70 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=41 bright=95 backlit=false occl=0.00 cut=0.00
+  face person=4 box=0.60,0.29,0.78,0.43 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=15 bright=111 backlit=false occl=0.49 cut=0.00
+
+03 Wedding/IMG_0164.jpg [03 Wedding] 1920x2880 shot=COUPLE_CLOSE usable=false quality=0.261 moment=20 repeat=-1 order=163
+  issues=[BLURRY] people=[1, 4] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685400757000
+  sharp=993 peak=4125 bright=124 dark=0.00 blown=0.00
+  face person=1 box=0.36,0.57,0.58,0.73 eyes=OPEN expr=NATURAL smile=0.17 looking=false dir=1.00 sharp=202 bright=107 backlit=false occl=0.17 cut=0.00
+  face person=4 box=0.61,0.47,0.82,0.63 eyes=LOOKING_DOWN expr=NATURAL smile=0.18 looking=false dir=1.00 sharp=16 bright=108 backlit=false occl=0.00 cut=0.00
+
+03 Wedding/IMG_0165.jpg [03 Wedding] 1920x2880 shot=GROOM_SOLO usable=false quality=0.127 moment=20 repeat=-1 order=164
+  issues=[STRANGER, BLURRY, FACE_PARTLY_HIDDEN] people=[4] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685400767000
+  sharp=1070 peak=3122 bright=118 dark=0.01 blown=0.01
+  face person=null box=0.35,0.54,0.56,0.70 eyes=OPEN expr=NATURAL smile=0.01 looking=false dir=1.00 sharp=234 bright=101 backlit=false occl=0.11 cut=0.00
+  face person=4 box=0.68,0.47,0.87,0.63 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=19 bright=93 backlit=false occl=0.86 cut=0.00
+
+03 Wedding/IMG_0166.jpg [03 Wedding] 1046x2880 shot=GROOM_SOLO usable=false quality=0.167 moment=20 repeat=-1 order=165
+  issues=[STRANGER, BLURRY] people=[4] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685400770000
+  sharp=152 peak=589 bright=129 dark=0.00 blown=0.02
+  face person=4 box=0.40,0.47,0.75,0.63 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=19 bright=93 backlit=false occl=0.41 cut=0.00
+  face person=null box=0.01,0.52,0.22,0.70 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=446 bright=103 backlit=false occl=0.00 cut=0.51
+
+03 Wedding/IMG_0167.jpg [03 Wedding] 1920x2880 shot=CANDID usable=true quality=0.330 moment=20 repeat=34 order=166
+  issues=[HALF_BLINK, FACE_PARTLY_HIDDEN] people=[4] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685400774000
+  sharp=1214 peak=3270 bright=119 dark=0.00 blown=0.01
+  face person=null box=0.36,0.53,0.58,0.70 eyes=HALF expr=NATURAL smile=0.02 looking=false dir=1.00 sharp=364 bright=102 backlit=false occl=0.21 cut=0.00
+  face person=4 box=0.69,0.45,0.88,0.60 eyes=OPEN expr=NATURAL smile=0.02 looking=false dir=1.00 sharp=38 bright=109 backlit=false occl=0.65 cut=0.00
+
+03 Wedding/IMG_0168.jpg [03 Wedding] 1920x2880 shot=COUPLE_CLOSE usable=false quality=0.250 moment=20 repeat=34 order=167
+  issues=[TOO_BRIGHT, DUPLICATE] people=[1, 4] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685400777000
+  sharp=1813 peak=4416 bright=205 dark=0.00 blown=0.43
+  face person=1 box=0.36,0.53,0.58,0.70 eyes=OPEN expr=NATURAL smile=0.02 looking=false dir=1.00 sharp=688 bright=204 backlit=false occl=0.44 cut=0.00
+  face person=4 box=0.69,0.45,0.88,0.60 eyes=OPEN expr=NATURAL smile=0.04 looking=false dir=1.00 sharp=67 bright=224 backlit=false occl=0.00 cut=0.00
+
+03 Wedding/IMG_0169.jpg [03 Wedding] 1920x1280 shot=CANDID usable=true quality=0.363 moment=20 repeat=35 order=168
+  issues=[STRANGER] people=[4] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685400791000
+  sharp=2174 peak=4900 bright=89 dark=0.03 blown=0.01
+  face person=null box=0.30,0.36,0.45,0.60 eyes=OPEN expr=NATURAL smile=0.14 looking=false dir=1.00 sharp=591 bright=91 backlit=false occl=0.48 cut=0.00
+  face person=4 box=0.51,0.26,0.64,0.49 eyes=OPEN expr=NATURAL smile=0.11 looking=false dir=1.00 sharp=35 bright=89 backlit=false occl=0.53 cut=0.00
+  face person=null box=0.80,0.32,0.88,0.47 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=10 bright=82 backlit=false occl=0.00 cut=0.00
+
+03 Wedding/IMG_0170.jpg [03 Wedding] 1920x1280 shot=GROOM_SOLO usable=false quality=0.124 moment=20 repeat=35 order=169
+  issues=[STRANGER, BLURRY, FACE_PARTLY_HIDDEN, DUPLICATE] people=[4] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685400794000
+  sharp=400 peak=892 bright=89 dark=0.03 blown=0.01
+  face person=null box=0.31,0.34,0.46,0.59 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=23 bright=89 backlit=false occl=0.00 cut=0.00
+  face person=4 box=0.50,0.27,0.65,0.50 eyes=OPEN expr=NATURAL smile=0.31 looking=false dir=1.00 sharp=7 bright=89 backlit=false occl=0.97 cut=0.00
+  face person=null box=0.80,0.32,0.88,0.47 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=3 bright=81 backlit=false occl=0.00 cut=0.00
+
+03 Wedding/IMG_0171.jpg [03 Wedding] 1920x2880 PICKED shot=BRIDE_SOLO usable=true quality=0.934 moment=21 repeat=-1 order=170
+  issues=[] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685400869000
+  sharp=1794 peak=5104 bright=110 dark=0.01 blown=0.00
+  face person=1 box=0.38,0.52,0.63,0.70 eyes=OPEN expr=SMILE smile=0.62 looking=false dir=-0.33 sharp=1286 bright=105 backlit=false occl=0.54 cut=0.00
+
+03 Wedding/IMG_0172.jpg [03 Wedding] 974x2880 shot=BRIDE_SOLO usable=false quality=0.103 moment=21 repeat=-1 order=171
+  issues=[FACE_CUT_OFF] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685400872000
+  sharp=432 peak=1490 bright=100 dark=0.01 blown=0.00
+  face person=1 box=0.74,0.51,1.05,0.69 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=0.33 sharp=1013 bright=110 backlit=false occl=0.00 cut=0.16
+
+03 Wedding/IMG_0173.jpg [03 Wedding] 1920x2880 shot=CANDID usable=true quality=0.353 moment=21 repeat=36 order=172
+  issues=[PHONE_IN_SHOT] people=[1, 9] ritual=true emotional=false tilt=0.0 backs=0 phones=1 taken=1685400883000
+  sharp=592 peak=1792 bright=104 dark=0.01 blown=0.00
+  face person=1 box=0.38,0.55,0.63,0.73 eyes=OPEN expr=SMILE smile=0.52 looking=false dir=-0.62 sharp=417 bright=96 backlit=false occl=0.55 cut=0.00
+  face person=9 box=0.19,0.47,0.35,0.58 eyes=OPEN expr=NATURAL smile=0.03 looking=true dir=-0.19 sharp=10 bright=118 backlit=false occl=0.01 cut=0.00
+
+03 Wedding/IMG_0174.jpg [03 Wedding] 1920x2880 shot=CANDID usable=false quality=0.145 moment=21 repeat=36 order=173
+  issues=[BLURRY, PHONE_IN_SHOT, DUPLICATE] people=[1, 9] ritual=true emotional=false tilt=0.0 backs=0 phones=1 taken=1685400886000
+  sharp=325 peak=1008 bright=104 dark=0.01 blown=0.00
+  face person=1 box=0.38,0.55,0.63,0.73 eyes=OPEN expr=SMILE smile=0.38 looking=false dir=-0.60 sharp=147 bright=95 backlit=false occl=0.52 cut=0.00
+  face person=9 box=0.20,0.46,0.34,0.57 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-0.17 sharp=4 bright=121 backlit=false occl=0.00 cut=0.00
+
+03 Wedding/IMG_0175.jpg [03 Wedding] 1920x2880 shot=BRIDE_SOLO usable=true quality=0.768 moment=21 repeat=-1 order=174
+  issues=[] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685400921000
+  sharp=968 peak=2875 bright=96 dark=0.02 blown=0.00
+  face person=1 box=0.38,0.55,0.64,0.71 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=-0.66 sharp=553 bright=74 backlit=false occl=0.16 cut=0.00
+
+03 Wedding/IMG_0176.jpg [03 Wedding] 1920x2880 shot=CANDID usable=true quality=0.587 moment=21 repeat=-1 order=175
+  issues=[] people=[1, 9] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685400949000
+  sharp=1498 peak=6085 bright=123 dark=0.00 blown=0.04
+  face person=1 box=0.38,0.61,0.60,0.77 eyes=OPEN expr=NATURAL smile=0.06 looking=false dir=-0.55 sharp=635 bright=96 backlit=false occl=0.16 cut=0.00
+  face person=9 box=0.23,0.25,0.40,0.38 eyes=OPEN expr=NATURAL smile=0.00 looking=true dir=0.82 sharp=11 bright=118 backlit=false occl=0.10 cut=0.00
+
+03 Wedding/IMG_0177.jpg [03 Wedding] 1920x2880 PICKED shot=CANDID usable=true quality=0.500 moment=22 repeat=37 order=176
+  issues=[FACE_PARTLY_HIDDEN] people=[1, 9] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685401018000
+  sharp=1226 peak=4794 bright=112 dark=0.04 blown=0.00
+  face person=1 box=0.38,0.59,0.62,0.75 eyes=LOOKING_DOWN expr=SMILE smile=0.90 looking=false dir=-0.80 sharp=798 bright=75 backlit=false occl=0.11 cut=0.00
+  face person=9 box=0.25,0.47,0.40,0.58 eyes=OPEN expr=NATURAL smile=0.00 looking=true dir=0.24 sharp=22 bright=50 backlit=false occl=1.00 cut=0.00
+
+03 Wedding/IMG_0178.jpg [03 Wedding] 1920x2880 shot=CANDID usable=false quality=0.102 moment=22 repeat=37 order=177
+  issues=[BLURRY, TOO_DARK, FACE_DARK, FACE_PARTLY_HIDDEN, DUPLICATE] people=[1, 9] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685401021000
+  sharp=88 peak=338 bright=29 dark=0.30 blown=0.00
+  face person=1 box=0.38,0.59,0.62,0.76 eyes=LOOKING_DOWN expr=SMILE smile=0.88 looking=false dir=-0.74 sharp=59 bright=19 backlit=false occl=0.23 cut=0.00
+  face person=9 box=0.25,0.47,0.40,0.59 eyes=OPEN expr=NATURAL smile=0.00 looking=true dir=0.26 sharp=3 bright=12 backlit=false occl=1.00 cut=0.00
+
+03 Wedding/IMG_0179.jpg [03 Wedding] 1920x2880 PICKED shot=CANDID usable=true quality=0.562 moment=23 repeat=38 order=178
+  issues=[] people=[] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685401131000
+  sharp=771 peak=3841 bright=88 dark=0.03 blown=0.00
+  face person=null box=0.33,0.50,0.61,0.73 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=232 bright=105 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.61,0.47,0.88,0.67 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=19 bright=107 backlit=false occl=0.00 cut=0.00
+
+03 Wedding/IMG_0180.jpg [03 Wedding] 1920x2880 shot=CANDID usable=false quality=0.254 moment=23 repeat=38 order=179
+  issues=[BLURRY, DUPLICATE] people=[] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685401134000
+  sharp=125 peak=461 bright=88 dark=0.03 blown=0.00
+  face person=null box=0.33,0.52,0.61,0.74 eyes=OPEN expr=NATURAL smile=0.17 looking=false dir=1.00 sharp=38 bright=110 backlit=false occl=0.35 cut=0.00
+  face person=null box=0.63,0.46,0.88,0.67 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=7 bright=110 backlit=false occl=0.00 cut=0.00
+
+03 Wedding/IMG_0181.jpg [03 Wedding] 1920x2880 shot=BRIDE_SOLO usable=false quality=0.186 moment=24 repeat=39 order=180
+  issues=[STRANGER, FACE_PARTLY_HIDDEN, DUPLICATE] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685402499000
+  sharp=1747 peak=4396 bright=105 dark=0.03 blown=0.00
+  face person=1 box=0.30,0.26,0.53,0.42 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=-0.86 sharp=954 bright=114 backlit=false occl=0.67 cut=0.00
+  face person=null box=0.85,0.28,1.06,0.43 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=178 bright=86 backlit=false occl=0.00 cut=0.28
+
+03 Wedding/IMG_0182.jpg [03 Wedding] 1920x2880 shot=BRIDE_SOLO usable=true quality=0.392 moment=24 repeat=39 order=181
+  issues=[STRANGER, FACE_PARTLY_HIDDEN] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685402500000
+  sharp=1915 peak=4760 bright=107 dark=0.03 blown=0.00
+  face person=1 box=0.30,0.26,0.54,0.42 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=-0.86 sharp=1060 bright=115 backlit=false occl=0.74 cut=0.00
+  face person=null box=0.86,0.26,1.00,0.40 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=154 bright=96 backlit=false occl=0.00 cut=0.00
+
+03 Wedding/IMG_0183.jpg [03 Wedding] 1920x2880 shot=BRIDE_SOLO usable=false quality=0.109 moment=24 repeat=39 order=182
+  issues=[STRANGER, FACE_PARTLY_HIDDEN, PHONE_IN_SHOT, DUPLICATE] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=1 taken=1685402501000
+  sharp=1738 peak=4413 bright=101 dark=0.04 blown=0.00
+  face person=1 box=0.30,0.25,0.53,0.42 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=-0.92 sharp=915 bright=109 backlit=false occl=0.77 cut=0.00
+  face person=null box=0.86,0.25,1.00,0.39 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=1.00 sharp=119 bright=91 backlit=false occl=0.00 cut=0.00
+
+03 Wedding/IMG_0184.jpg [03 Wedding] 1920x2880 PICKED shot=BRIDE_SOLO usable=true quality=0.787 moment=25 repeat=-1 order=183
+  issues=[] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685402554000
+  sharp=1048 peak=3321 bright=116 dark=0.00 blown=0.00
+  face person=1 box=0.52,0.14,0.74,0.29 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=737 bright=127 backlit=false occl=0.21 cut=0.00
+
+03 Wedding/IMG_0185.jpg [03 Wedding] 1920x2880 shot=BRIDE_SOLO usable=true quality=0.679 moment=25 repeat=-1 order=184
+  issues=[] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685402589000
+  sharp=1096 peak=3126 bright=109 dark=0.01 blown=0.00
+  face person=1 box=0.55,0.32,0.76,0.47 eyes=OPEN expr=NATURAL smile=0.24 looking=false dir=-1.00 sharp=451 bright=110 backlit=false occl=0.52 cut=0.00
+  face person=null box=0.92,0.98,0.95,1.00 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=0.08 sharp=1150 bright=53 backlit=false occl=0.00 cut=0.00
+
+03 Wedding/IMG_0186.jpg [03 Wedding] 1920x2880 shot=BRIDE_SOLO usable=true quality=0.680 moment=25 repeat=40 order=185
+  issues=[] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685402590000
+  sharp=1230 peak=3274 bright=113 dark=0.01 blown=0.00
+  face person=1 box=0.54,0.32,0.76,0.46 eyes=LOOKING_DOWN expr=NATURAL smile=0.02 looking=false dir=-1.00 sharp=466 bright=114 backlit=false occl=0.52 cut=0.00
+
+03 Wedding/IMG_0187.jpg [03 Wedding] 1920x2880 shot=BRIDE_SOLO usable=false quality=0.331 moment=25 repeat=40 order=186
+  issues=[DUPLICATE] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685402591000
+  sharp=1095 peak=3076 bright=105 dark=0.02 blown=0.00
+  face person=1 box=0.55,0.32,0.76,0.47 eyes=LOOKING_DOWN expr=NATURAL smile=0.03 looking=false dir=-1.00 sharp=419 bright=105 backlit=false occl=0.50 cut=0.00
+
+03 Wedding/IMG_0188.jpg [03 Wedding] 1920x2880 shot=BRIDE_SOLO usable=false quality=0.208 moment=26 repeat=41 order=187
+  issues=[STRANGER, BACK_OF_GUEST] people=[1, 3] ritual=true emotional=false tilt=0.0 backs=1 phones=0 taken=1685402643000
+  sharp=2558 peak=5665 bright=117 dark=0.00 blown=0.00
+  face person=null box=0.84,0.11,0.96,0.21 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=60 bright=148 backlit=false occl=1.00 cut=0.00
+  face person=1 box=0.38,0.27,0.47,0.33 eyes=OPEN expr=NATURAL smile=0.01 looking=false dir=-1.00 sharp=412 bright=125 backlit=false occl=0.53 cut=0.00
+  face person=null box=0.71,0.16,0.82,0.23 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=53 bright=88 backlit=false occl=0.91 cut=0.00
+  face person=3 box=0.17,0.47,0.22,0.51 eyes=OPEN expr=NATURAL smile=0.09 looking=false dir=-0.38 sharp=483 bright=100 backlit=false occl=0.10 cut=0.00
+
+03 Wedding/IMG_0189.jpg [03 Wedding] 1920x2880 shot=BRIDE_SOLO usable=false quality=0.076 moment=26 repeat=41 order=188
+  issues=[STRANGER, BLURRY, TOO_DARK, FACE_DARK, DUPLICATE] people=[1, 3] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685402646000
+  sharp=169 peak=371 bright=29 dark=0.16 blown=0.00
+  face person=null box=0.84,0.11,0.96,0.21 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=5 bright=37 backlit=false occl=1.00 cut=0.00
+  face person=null box=0.71,0.16,0.82,0.23 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=5 bright=22 backlit=false occl=0.94 cut=0.00
+  face person=1 box=0.38,0.27,0.47,0.33 eyes=OPEN expr=NATURAL smile=0.05 looking=false dir=-1.00 sharp=30 bright=31 backlit=false occl=0.47 cut=0.00
+  face person=3 box=0.17,0.47,0.21,0.51 eyes=OPEN expr=NATURAL smile=0.02 looking=false dir=-0.35 sharp=36 bright=25 backlit=false occl=0.08 cut=0.00
+
+03 Wedding/IMG_0190.jpg [03 Wedding] 1920x2880 shot=CANDID usable=true quality=0.369 moment=26 repeat=42 order=189
+  issues=[STRANGER] people=[7] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685402689000
+  sharp=948 peak=2792 bright=117 dark=0.00 blown=0.01
+  face person=null box=0.65,0.30,0.76,0.37 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=28 bright=110 backlit=false occl=0.99 cut=0.00
+  face person=null box=0.87,0.66,0.94,0.73 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=20 bright=135 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.46,0.38,0.53,0.43 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=52 bright=133 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.59,0.39,0.65,0.43 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-0.80 sharp=78 bright=143 backlit=false occl=0.00 cut=0.00
+  face person=7 box=0.08,0.63,0.13,0.66 eyes=OPEN expr=NATURAL smile=0.03 looking=true dir=0.18 sharp=71 bright=106 backlit=false occl=0.00 cut=0.00
+
+03 Wedding/IMG_0191.jpg [03 Wedding] 1920x2880 shot=CANDID usable=false quality=0.048 moment=26 repeat=42 order=190
+  issues=[STRANGER, BLURRY, TOO_DARK, DUPLICATE] people=[7] ritual=true emotional=false tilt=0.6450857 backs=0 phones=0 taken=1685402692000
+  sharp=60 peak=174 bright=28 dark=0.19 blown=0.00
+  face person=null box=0.65,0.30,0.77,0.37 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=4 bright=27 backlit=false occl=1.00 cut=0.00
+  face person=null box=0.46,0.38,0.54,0.44 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=6 bright=35 backlit=false occl=0.31 cut=0.00
+  face person=7 box=0.08,0.63,0.13,0.66 eyes=OPEN expr=NATURAL smile=0.01 looking=true dir=0.21 sharp=7 bright=26 backlit=false occl=0.00 cut=0.00
+
+03 Wedding/IMG_0192.jpg [03 Wedding] 1920x1280 PICKED shot=CANDID usable=true quality=0.949 moment=27 repeat=-1 order=191
+  issues=[] people=[] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685402778000
+  sharp=7396 peak=16967 bright=100 dark=0.03 blown=0.01
+  face person=null box=0.71,0.42,0.76,0.51 eyes=OPEN expr=EMOTIONAL smile=0.01 looking=false dir=-1.00 sharp=354 bright=123 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.52,0.45,0.57,0.54 eyes=OPEN expr=NATURAL smile=0.04 looking=false dir=-1.00 sharp=79 bright=112 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.77,0.00,0.82,0.10 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=33 bright=112 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.59,0.11,0.63,0.18 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=30 bright=71 backlit=false occl=0.66 cut=0.00
+  face person=null box=0.09,0.34,0.13,0.40 eyes=OPEN expr=NATURAL smile=0.01 looking=false dir=0.50 sharp=35 bright=85 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.51,0.36,0.54,0.41 eyes=OPEN expr=NATURAL smile=0.00 looking=true dir=-0.39 sharp=40 bright=62 backlit=false occl=0.47 cut=0.00
+  face person=null box=0.14,0.20,0.17,0.23 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=0.09 sharp=333 bright=59 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.00,0.33,0.02,0.38 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=0.80 sharp=64 bright=55 backlit=false occl=0.00 cut=0.00
+
+03 Wedding/IMG_0193.jpg [03 Wedding] 1920x1280 shot=CANDID usable=true quality=0.268 moment=27 repeat=-1 order=192
+  issues=[STRANGER, FACE_PARTLY_HIDDEN] people=[1, 25, 3] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685402808000
+  sharp=2811 peak=6180 bright=104 dark=0.03 blown=0.00
+  face person=26 box=0.35,0.49,0.47,0.68 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-0.86 sharp=57 bright=143 backlit=false occl=0.00 cut=0.00
+  face person=1 box=0.58,0.51,0.71,0.72 eyes=OPEN expr=NATURAL smile=0.01 looking=false dir=-1.00 sharp=158 bright=120 backlit=false occl=1.00 cut=0.00
+  face person=25 box=0.07,0.34,0.14,0.44 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=-0.17 sharp=313 bright=78 backlit=false occl=0.21 cut=0.00
+  face person=3 box=0.15,0.38,0.20,0.46 eyes=OPEN expr=NATURAL smile=0.01 looking=true dir=0.45 sharp=257 bright=84 backlit=false occl=0.74 cut=0.00
+
+03 Wedding/IMG_0194.jpg [03 Wedding] 1920x1280 shot=CANDID usable=true quality=0.513 moment=27 repeat=43 order=193
+  issues=[STRANGER] people=[8, 1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685402823000
+  sharp=7533 peak=17619 bright=98 dark=0.03 blown=0.00
+  face person=8 box=0.04,0.43,0.19,0.67 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=696 bright=137 backlit=false occl=0.00 cut=0.00
+  face person=1 box=0.35,0.54,0.47,0.73 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=2738 bright=131 backlit=false occl=0.39 cut=0.00
+  face person=null box=0.31,-0.01,0.39,0.14 eyes=OPEN expr=NATURAL smile=0.01 looking=false dir=-1.00 sharp=79 bright=84 backlit=false occl=0.36 cut=0.04
+  face person=null box=0.83,0.87,0.85,0.89 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-0.15 sharp=667 bright=61 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.79,0.75,0.80,0.77 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-0.76 sharp=902 bright=69 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.81,0.84,0.82,0.86 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-0.06 sharp=1010 bright=61 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.82,0.78,0.83,0.80 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-0.18 sharp=2456 bright=76 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.79,0.81,0.80,0.83 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-0.23 sharp=4497 bright=79 backlit=false occl=0.00 cut=0.00
+
+03 Wedding/IMG_0195.jpg [03 Wedding] 1920x1280 shot=CANDID usable=false quality=0.240 moment=27 repeat=43 order=194
+  issues=[STRANGER, GROUP_REPEAT] people=[8, 1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685402825000
+  sharp=4937 peak=10408 bright=108 dark=0.01 blown=0.00
+  face person=8 box=0.04,0.41,0.18,0.64 eyes=OPEN expr=NATURAL smile=0.01 looking=false dir=-1.00 sharp=439 bright=136 backlit=false occl=0.00 cut=0.00
+  face person=1 box=0.34,0.54,0.45,0.72 eyes=OPEN expr=NATURAL smile=0.01 looking=true dir=-1.00 sharp=1802 bright=140 backlit=false occl=0.41 cut=0.00
+  face person=null box=0.08,-0.05,0.17,0.10 eyes=OPEN expr=NATURAL smile=0.07 looking=false dir=-0.80 sharp=91 bright=69 backlit=false occl=0.44 cut=0.33
+
+03 Wedding/IMG_0196.jpg [03 Wedding] 1920x1280 shot=CANDID usable=false quality=0.223 moment=27 repeat=43 order=195
+  issues=[STRANGER, GROUP_REPEAT] people=[8, 1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685402825000
+  sharp=4917 peak=10379 bright=108 dark=0.01 blown=0.00
+  face person=8 box=0.04,0.42,0.18,0.64 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=423 bright=137 backlit=false occl=0.00 cut=0.00
+  face person=1 box=0.34,0.52,0.44,0.74 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=2184 bright=128 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.08,-0.04,0.17,0.10 eyes=OPEN expr=NATURAL smile=0.03 looking=false dir=-0.71 sharp=81 bright=69 backlit=false occl=0.00 cut=0.31
+
+03 Wedding/IMG_0197.jpg [03 Wedding] 1920x1280 shot=CANDID usable=false quality=0.143 moment=27 repeat=44 order=196
+  issues=[FACE_CUT_OFF, BACK_OF_GUEST] people=[8] ritual=true emotional=false tilt=0.0 backs=1 phones=0 taken=1685402826000
+  sharp=6137 peak=16177 bright=100 dark=0.02 blown=0.00
+  face person=8 box=0.02,0.41,0.17,0.66 eyes=OPEN expr=NATURAL smile=0.02 looking=false dir=-1.00 sharp=437 bright=127 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.03,-0.05,0.13,0.09 eyes=OPEN expr=NATURAL smile=0.07 looking=true dir=-0.16 sharp=75 bright=61 backlit=false occl=0.43 cut=0.35
+
+03 Wedding/IMG_0198.jpg [03 Wedding] 1920x1280 shot=CANDID usable=true quality=0.579 moment=27 repeat=-1 order=197
+  issues=[MID_TALK] people=[8, 1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685402826000
+  sharp=8147 peak=17731 bright=96 dark=0.03 blown=0.00
+  face person=8 box=-0.01,0.32,0.15,0.61 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=780 bright=137 backlit=false occl=0.00 cut=0.07
+  face person=1 box=0.32,0.52,0.46,0.77 eyes=OPEN expr=MID_TALK smile=0.00 looking=false dir=-1.00 sharp=3343 bright=136 backlit=false occl=0.32 cut=0.00
+
+03 Wedding/IMG_0199.jpg [03 Wedding] 1920x1280 shot=CANDID usable=false quality=0.142 moment=27 repeat=44 order=198
+  issues=[FACE_CUT_OFF, BACK_OF_GUEST, DUPLICATE] people=[8] ritual=true emotional=false tilt=0.0 backs=1 phones=0 taken=1685402826000
+  sharp=6106 peak=16038 bright=100 dark=0.02 blown=0.00
+  face person=8 box=0.02,0.42,0.17,0.65 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=428 bright=128 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.03,-0.04,0.13,0.09 eyes=OPEN expr=NATURAL smile=0.08 looking=true dir=-0.13 sharp=69 bright=61 backlit=false occl=0.00 cut=0.33
+
+03 Wedding/IMG_0200.jpg [03 Wedding] 1920x1280 shot=BRIDE_SOLO usable=false quality=0.492 moment=27 repeat=45 order=199
+  issues=[DUPLICATE] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685402869000
+  sharp=7214 peak=17230 bright=101 dark=0.02 blown=0.00
+  face person=1 box=0.32,0.35,0.48,0.62 eyes=OPEN expr=NATURAL smile=0.02 looking=true dir=-1.00 sharp=2665 bright=114 backlit=false occl=0.36 cut=0.00
+  face person=null box=0.51,0.05,0.53,0.07 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-0.69 sharp=1163 bright=78 backlit=false occl=0.00 cut=0.00
+
+03 Wedding/IMG_0201.jpg [03 Wedding] 1920x1280 PICKED shot=BRIDE_SOLO usable=true quality=0.985 moment=27 repeat=45 order=200
+  issues=[] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685402869000
+  sharp=7186 peak=17157 bright=101 dark=0.02 blown=0.00
+  face person=1 box=0.32,0.35,0.48,0.62 eyes=OPEN expr=NATURAL smile=0.03 looking=true dir=-1.00 sharp=2630 bright=113 backlit=false occl=0.00 cut=0.00
+
+03 Wedding/IMG_0202.jpg [03 Wedding] 1920x1280 shot=CANDID usable=true quality=0.730 moment=28 repeat=-1 order=201
+  issues=[] people=[] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685402997000
+  sharp=5021 peak=10786 bright=143 dark=0.00 blown=0.05
+  face person=null box=0.55,0.44,0.66,0.62 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=1117 bright=159 backlit=false occl=0.10 cut=0.00
+  face person=null box=0.42,0.30,0.52,0.49 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=587 bright=176 backlit=false occl=0.00 cut=0.00
+
+03 Wedding/IMG_0203.jpg [03 Wedding] 1920x1280 shot=CANDID usable=true quality=0.536 moment=28 repeat=-1 order=202
+  issues=[MID_TALK] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685403000000
+  sharp=6351 peak=12937 bright=154 dark=0.00 blown=0.10
+  face person=1 box=0.56,0.41,0.66,0.59 eyes=OPEN expr=MID_TALK smile=0.09 looking=false dir=-1.00 sharp=1561 bright=173 backlit=false occl=0.18 cut=0.00
+  face person=null box=0.42,0.28,0.50,0.44 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=646 bright=202 backlit=false occl=0.00 cut=0.00
+
+03 Wedding/IMG_0204.jpg [03 Wedding] 1920x1280 shot=CANDID usable=true quality=0.685 moment=28 repeat=-1 order=203
+  issues=[] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685403000000
+  sharp=4532 peak=14373 bright=138 dark=0.00 blown=0.03
+  face person=null box=0.39,0.27,0.53,0.49 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=0.33 sharp=543 bright=181 backlit=false occl=0.00 cut=0.00
+  face person=1 box=0.55,0.38,0.68,0.62 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=1567 bright=157 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.84,0.30,0.85,0.32 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-0.31 sharp=86 bright=159 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.87,0.31,0.88,0.32 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-0.37 sharp=65 bright=125 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.81,0.18,0.82,0.20 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-0.18 sharp=42 bright=169 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.85,0.16,0.86,0.18 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-0.13 sharp=46 bright=131 backlit=false occl=0.00 cut=0.00
+  face person=null box=0.89,0.19,0.90,0.21 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-0.46 sharp=50 bright=165 backlit=false occl=0.00 cut=0.00
+
+03 Wedding/IMG_0205.jpg [03 Wedding] 1920x1280 shot=CANDID usable=false quality=0.391 moment=28 repeat=46 order=204
+  issues=[DUPLICATE] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685403001000
+  sharp=6767 peak=13308 bright=157 dark=0.00 blown=0.12
+  face person=null box=0.43,0.29,0.53,0.46 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-0.30 sharp=930 bright=201 backlit=false occl=0.00 cut=0.00
+  face person=1 box=0.55,0.40,0.66,0.58 eyes=OPEN expr=NATURAL smile=0.10 looking=false dir=-1.00 sharp=1427 bright=176 backlit=false occl=0.26 cut=0.00
+  face person=null box=0.86,0.28,0.86,0.30 eyes=UNKNOWN expr=NATURAL smile=0.00 looking=false dir=-0.39 sharp=156 bright=125 backlit=false occl=0.00 cut=0.00
+
+03 Wedding/IMG_0206.jpg [03 Wedding] 1920x1280 PICKED shot=BRIDE_SOLO usable=true quality=0.852 moment=28 repeat=46 order=205
+  issues=[] people=[1] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685403002000
+  sharp=6685 peak=13424 bright=158 dark=0.00 blown=0.12
+  face person=1 box=0.56,0.41,0.67,0.59 eyes=OPEN expr=NATURAL smile=0.11 looking=false dir=-1.00 sharp=1492 bright=178 backlit=false occl=0.08 cut=0.00

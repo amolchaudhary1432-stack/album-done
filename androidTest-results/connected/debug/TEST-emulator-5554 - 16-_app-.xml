@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuite name="com.albumdone.app.RealWeddingDeviceTest" tests="1" failures="1" errors="0" skipped="0" time="1758.56" timestamp="2026-10-15T17:02:24" hostname="localhost">
+  <properties>
+    <property name="device" value="emulator-5554 - 16" />
+    <property name="flavor" value="" />
+    <property name="project" value=":app" />
+  </properties>
+  <testcase name="realWedding" classname="com.albumdone.app.RealWeddingDeviceTest" time="1756.156">
+    <failure>androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 30000 ms
+at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:441)
+at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:306)
+at com.albumdone.app.RealWeddingDeviceTest.realWedding(RealWeddingDeviceTest.kt:130)
+</failure>
+  </testcase>
+</testsuite>

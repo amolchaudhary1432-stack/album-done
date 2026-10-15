@@ -1,0 +1,82 @@
+# proto-message: google.testing.platform.proto.api.core.TestSuiteResult
+# 2026-10-15T17:02:24.412437679Z:
+test_suite_meta_data {
+  scheduled_test_case_count: 1
+  device {
+    id: "emulator-5554"
+    friendly_name: "primary"
+  }
+}
+test_status: FAILED
+test_result {
+  test_case {
+    test_class: "RealWeddingDeviceTest"
+    test_package: "com.albumdone.app"
+    test_method: "realWedding"
+    start_time {
+      seconds: 1792081985
+      nanos: 202000000
+    }
+    end_time {
+      seconds: 1792083741
+      nanos: 620000000
+    }
+    device {
+      id: "emulator-5554"
+      friendly_name: "primary"
+    }
+  }
+  test_status: FAILED
+  error {
+    error_message: "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 30000 ms\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:441)\nat androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:306)\nat com.albumdone.app.RealWeddingDeviceTest.realWedding(RealWeddingDeviceTest.kt:130)\n"
+    error_type: "androidx.compose.ui.test.ComposeTimeoutException"
+    stack_trace: "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 30000 ms\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:441)\nat androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:306)\nat com.albumdone.app.RealWeddingDeviceTest.realWedding(RealWeddingDeviceTest.kt:130)\n"
+  }
+  output_artifact {
+    label {
+      label: "logcat"
+      namespace: "android"
+    }
+    source_path {
+      path: "/home/runner/work/album-done/album-done/app/build/outputs/androidTest-results/connected/debug/emulator-5554 - 16/logcat-com.albumdone.app.RealWeddingDeviceTest-realWedding.txt"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info"
+      namespace: "android"
+    }
+    source_path {
+      path: "/home/runner/work/album-done/album-done/app/build/outputs/androidTest-results/connected/debug/emulator-5554 - 16/device-info.pb"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info.meminfo"
+      namespace: "android"
+    }
+    source_path {
+      path: "/home/runner/work/album-done/album-done/app/build/outputs/androidTest-results/connected/debug/emulator-5554 - 16/meminfo"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info.cpuinfo"
+      namespace: "android"
+    }
+    source_path {
+      path: "/home/runner/work/album-done/album-done/app/build/outputs/androidTest-results/connected/debug/emulator-5554 - 16/cpuinfo"
+    }
+  }
+}
+output_artifact {
+  label {
+    label: "test-results.log"
+    namespace: "com.google.testing.platform.runtime.android.driver.AndroidInstrumentationDriver"
+  }
+  source_path {
+    path: "/home/runner/work/album-done/album-done/app/build/outputs/androidTest-results/connected/debug/emulator-5554 - 16/testlog/test-results.log"
+  }
+  type: TEST_DATA
+  mime_type: "text/plain"
+}
