@@ -21,7 +21,9 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.windowInsetsTopHeight
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -29,6 +31,7 @@ import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyGridItemSpanScope
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
@@ -65,6 +68,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -75,6 +79,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
@@ -110,7 +115,13 @@ fun AlbumScreen(vm: AlbumViewModel, projectId: Long) {
     var settingsSheet by remember { mutableStateOf(false) }
     var chooseGroom by remember { mutableStateOf(false) }
     val s = state
-    if (s?.cover != null) LightStatusBarIcons()
+    val grid = rememberLazyGridState()
+    val density = LocalDensity.current
+    // While the cover is behind the status bar its icons are white; once scrolled past, a plain strip.
+    val coverBehindBar by remember {
+        derivedStateOf { grid.firstVisibleItemIndex == 0 && grid.firstVisibleItemScrollOffset < with(density) { 200.dp.toPx() } }
+    }
+    if (s?.cover != null && coverBehindBar) LightStatusBarIcons()
 
     Scaffold(
         // The cover photo runs up behind the status bar; the rest keeps clear of the phone's bars itself.
@@ -142,6 +153,7 @@ fun AlbumScreen(vm: AlbumViewModel, projectId: Long) {
         val full: LazyGridItemSpanScope.() -> GridItemSpan = { GridItemSpan(maxLineSpan) }
         LazyVerticalGrid(
             columns = GridCells.Fixed(3),
+            state = grid,
             modifier = Modifier.fillMaxSize().padding(padding).testTag("album-grid"),
             contentPadding = PaddingValues(bottom = 120.dp),
             horizontalArrangement = Arrangement.spacedBy(2.dp),
@@ -177,6 +189,10 @@ fun AlbumScreen(vm: AlbumViewModel, projectId: Long) {
                     }
                 }
             }
+        }
+
+        if (!coverBehindBar || s.cover == null) {
+            Box(Modifier.fillMaxWidth().windowInsetsTopHeight(WindowInsets.statusBars).background(MaterialTheme.colorScheme.background))
         }
 
         personSheet?.let { id -> PersonSheet(vm, projectId, id, s, onClose = { personSheet = null }) }

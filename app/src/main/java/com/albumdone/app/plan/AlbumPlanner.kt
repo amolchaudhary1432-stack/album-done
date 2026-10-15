@@ -1025,8 +1025,8 @@ object AlbumPlanner {
         fun momentReason(m: Moment, moments: List<Moment>): String {
             val minutes = ((m.end - m.start) / 60_000L).toInt()
             return when {
-                m.key && m.start > 0 -> "Key moment: ${m.photoIds.size} photos taken in ${max(1, minutes)} min"
-                m.key -> "Key moment: ${m.photoIds.size} photos taken together"
+                m.key && m.start > 0 -> "Big moment: ${m.photoIds.size} photos taken in ${max(1, minutes)} min"
+                m.key -> "Big moment: ${m.photoIds.size} photos taken together"
                 m.id == moments.first().id -> "Start of ${Display.eventName(m.event)}"
                 m.id == moments.last().id -> "End of ${Display.eventName(m.event)}"
                 else -> "Part of the ${Display.eventName(m.event)} story"
@@ -1115,7 +1115,6 @@ object AlbumPlanner {
             if (p.similarShots > 1) list += "Best of ${p.similarShots} similar shots"
             if (p.allEyesOpenAndLooking) list += "Everyone's eyes open and looking at the camera"
             if (p.coupleLookingAtEachOther && list.none { it.contains("looking at each other") }) list += "The couple looking at each other"
-            if (p.ritual && p.photo.faces.isNotEmpty()) list += "Serious faces are right during rituals"
             if (p.emotional) list += "Real emotion: tears are never a flaw"
             if (p.interaction && !p.allEyesOpenAndLooking) list += "Natural moment: people interacting"
             val kind = when (p.shot) {

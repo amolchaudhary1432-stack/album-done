@@ -608,7 +608,7 @@ class AlbumPlannerTest {
         assertEquals(10, s.ids.size)
         for (m in listOf(arrival, varmala, m3, m4, close)) assertTrue(s.ids.any { id -> m.any { it.id == id } })
         assertTrue(s.ids.count { id -> varmala.any { it.id == id } } >= 3)
-        assertTrue(s.reasons.values.flatten().any { it.startsWith("Key moment") })
+        assertTrue(s.reasons.values.flatten().any { it.startsWith("Big moment") })
         // Picks stay in time order.
         assertEquals(s.ids.sortedBy { a.byId.getValue(it).photo.takenAt }, s.ids)
     }

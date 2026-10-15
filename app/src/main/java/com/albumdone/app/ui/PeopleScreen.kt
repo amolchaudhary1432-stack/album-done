@@ -120,7 +120,7 @@ fun PeopleScreen(vm: AlbumViewModel, projectId: Long) {
             item(key = "filters", span = fullSpan) {
                 LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp), contentPadding = PaddingValues(horizontal = 4.dp)) {
                     items(filters, key = { it.first }) { (value, label) ->
-                        FilterChip(selected = filter == value, onClick = { filter = value }, label = { Text(label) })
+                        FilterChip(selected = filter == value, onClick = { filter = value }, label = { Text(label) }, modifier = Modifier.testTag("filter-$value"))
                     }
                 }
             }

@@ -6,9 +6,13 @@ that must stay true.
 
 ## Who it is for
 
-- **Buyer:** the couple, usually the bride. She has the photographer's folder of 1,000 to 10,000
-  photos (pendrive copied to phone, or a Drive folder saved offline) and family pressure to finish
-  the album selection.
+- **Buyer:** the couple, usually the bride. She has the photographer's photos (pendrive copied to
+  phone, or a Drive folder saved offline) and family pressure to finish the album selection.
+- **One folder, up to 1,000 photos** per album (`plan/AlbumSize.kt`). Bigger folders are refused
+  with a friendly message (pick one function's folder, or the photographer's selection).
+- **The job is picking good photos like a person would.** No ritual sorting or ritual labels in
+  the app (owner's decision); the photographer's sub-folders are only used as given.
+- Indian weddings are huge: the app must handle 40+ relatives smoothly, not 6.
 - **Promise:** "Your wedding album shortlist in a few taps, without uploading a single photo."
 
 ## How the owner works
@@ -84,17 +88,21 @@ Design mock-up: https://claude.ai/artifact/KzbjcqjdAW5KkNJ47pFf6f
 
 ### People coverage
 
-- After analysis, a "Tag your family" screen with the top 30-40 people: Must / Important / Skip,
-  bride's side or groom's side, elder, merge and split wrong groups, "find more of this person".
+- Close family is guessed with no tagging (`people/FamilyGuess.kt`): up to 40 relatives from a
+  big folder; people photographed at several times of the day with the couple; someone seen only
+  once (one trip to the stage) is never guessed as family.
+- "Who's who" (`ui/PeopleScreen.kt`): one face at a time, one tap each (Mother, Aunt, Cousin...),
+  side chips, Skip, Not family; the album is remade once at the end. "Family & friends" lists
+  everyone with filters (bride's side, groom's side, not named); tap a face to fix it: merge,
+  split, "find more of this person", this is the bride/groom.
 - Must: at least 5 good photos with the couple. Important: at least 1-2. Sides balanced. Nobody
   over-represented. Elders and grandparents prioritised.
 - If someone has only poor photos, use their best one and warn the bride.
 
 ### Story within each event (the main brain)
 
-- Find key moments as dense bursts of shooting within the event (varmala, pheras, sindoor, vidaai)
-  and give each its best photos. Aim for arrival or decor, getting ready, rituals, emotional
-  moments, close. Keep picks in time order.
+- Find big moments as dense bursts of shooting within the event and give each its best photos,
+  spread across the day. Keep picks in time order. (Internal only: never shown as ritual names.)
 
 ### Variety and pacing
 
@@ -115,14 +123,13 @@ Design mock-up: https://claude.ai/artifact/KzbjcqjdAW5KkNJ47pFf6f
 
 ### Screens (`ui/`)
 
-- Home (albums, start new), new album (photo count, events found, name, album size), progress
-  (count, time left, "you can lock your phone").
-- Album (`AlbumScreen.kt`): cover, photo count, couple card (found automatically, swap), family
-  strip (faces the app guessed as close family with photo counts and a warning when someone is
-  short; tap a face for "Who is this?" with relation chips that set priority, elder and side;
-  "Add someone" lists other frequent people), event sections with key-moment chips and photos.
-  Album size and "what we left out" in one sheet. Fix actions: not family, this is the
-  bride/groom, two different people (split), same person (merge), find more photos.
+- Home (album cards with cover photo, start new), new album (photo count, folders found, name,
+  album size suggested at about 15% of the photos), progress (ring, time left, photos just
+  checked, "you can lock your phone").
+- Album (`AlbumScreen.kt`): cover edge to edge with the name on it, couple card (found
+  automatically; asks "Is this the groom?" when unsure), family strip (top 10 faces, "See all N"),
+  "Who's who?" card while faces are unnamed, photos edge to edge in a 3-column grid, floating
+  "Send list to photographer". Album size and "what we left out" in one sheet.
 - Photo view (`ViewerScreen.kt`): why it is in the album, look-alike photos to swap in with one
   tap, Remove (the next best photo fills the place at once, with Undo). Swaps are the couple's
   own choices (`PhotoEntity.userChoice`) and are kept when the album is re-made.
@@ -134,7 +141,7 @@ Design mock-up: https://claude.ai/artifact/KzbjcqjdAW5KkNJ47pFf6f
 - Unit tests for every rule above (`app/src/test/`).
 - Phone test (`.github/workflows/phone-test.yml`): runs on every push to a `claude/**` branch and
   before every main build. Builds the debug app (arm64 only; the emulator runs it through ARM
-  translation, MediaPipe has no x86 build), starts an Android 14 emulator, runs
+  translation, MediaPipe has no x86 build), starts an Android 16 emulator the size of a Pixel 7, runs
   `app/src/androidTest/` (real models on real photos, the real background worker, and a walk
   through every screen with screenshots), and force-pushes screenshots, the per-photo decision
   report (`analysis-report.txt`) and logs to the `phone-test-results` branch. Read them with
@@ -152,7 +159,7 @@ Design mock-up: https://claude.ai/artifact/KzbjcqjdAW5KkNJ47pFf6f
 ## Status
 
 Done: everything in the scope above, with unit tests for the planner, face rules, people grouping,
-image measurements and scene rules, and the phone test on an Android 14 emulator. Not yet tried
+image measurements and scene rules, and the phone test on an Android 16 emulator. Not yet tried
 with a real couple's wedding folder: thresholds (blink, smile, same-person similarity) may need
 tuning. The build fails if the APK ever asks for the internet permission or a model file's
 checksum changes, and main only publishes after the phone test passes.
@@ -161,7 +168,7 @@ How the picking works and planned upgrades: `docs/HOW_IT_PICKS.md`.
 
 ## Build notes
 
-- AGP 8.5.2, Kotlin 2.0.20 (compose compiler plugin), KSP 2.0.20-1.0.25, Room 2.6.1, Gradle 8.9
-  installed by the workflow (no wrapper in the repo).
+- AGP 8.11.1, compile and target SDK 36, Kotlin 2.0.20 (compose compiler plugin), KSP
+  2.0.20-1.0.25, Room 2.6.1, Gradle 8.14.3 installed by the workflow (no wrapper in the repo).
 - `app/testkey.jks` is a test-only signing key so test builds install over each other. The Play
   Store release will use a separate private upload key.

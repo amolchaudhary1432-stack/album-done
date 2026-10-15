@@ -46,7 +46,7 @@ object FamilyGuess {
     const val MIN_PHOTOS = 3
     /** Indian weddings are big: up to 40 close relatives can be guessed from a large folder. */
     const val MAX_CLOSE = 40
-    const val PHOTOS_PER_CLOSE = 25
+    const val PHOTOS_PER_CLOSE = 15
     const val CLOSE_SHARE_OF_TOP = 0.45
     /** Photos of someone this far apart are separate visits (not one trip to the stage). */
     const val VISIT_GAP_MILLIS = 10 * 60_000L
