@@ -42,11 +42,13 @@ android {
             isMinifyEnabled = false
             signingConfig = signingConfigs.getByName("test")
             // Real phones only. Leaving out x86 keeps the app much smaller.
-            // (Debug builds keep x86 so the tests can run on the emulator.)
             ndk { abiFilters += listOf("arm64-v8a", "armeabi-v7a") }
         }
         debug {
             signingConfig = signingConfigs.getByName("test")
+            // MediaPipe ships no x86 build, so the emulator test runs the phone (ARM) build
+            // through Android's built-in ARM translation.
+            ndk { abiFilters += listOf("arm64-v8a") }
         }
     }
 

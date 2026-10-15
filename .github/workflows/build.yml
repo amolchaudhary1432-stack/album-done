@@ -41,6 +41,12 @@ jobs:
             echo "The app must not ask for internet access."; exit 1
           fi
 
+      - name: Check the face and matching engines are inside the app
+        run: |
+          for lib in libmediapipe_tasks_vision_jni.so libonnxruntime.so; do
+            unzip -l app/build/outputs/apk/release/app-release.apk | grep -q "lib/arm64-v8a/$lib" || { echo "Missing $lib"; exit 1; }
+          done
+
       - name: Publish the app file for the phone
         env:
           GH_TOKEN: ${{ github.token }}
