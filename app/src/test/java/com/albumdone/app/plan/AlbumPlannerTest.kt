@@ -232,6 +232,22 @@ class AlbumPlannerTest {
     }
 
     @Test
+    fun aDimNightRitualIsJudgedAgainstItselfNotTheDaylightPortraits() {
+        // Daylight portraits (sharp) and, three hours later, the night ritual (soft, dim, long lens).
+        val day = List(12) { photo("Wedding", start + it * 20_000L, listOf(face(10L + it, sharp = 300.0))) }
+        val dayBlurred = photo("Wedding", start + 260_000L, listOf(face(40L, sharp = 50.0)))
+        val night = List(8) { photo("Wedding", start + 190 * minute + it * 60_000L, listOf(face(50L + it, sharp = 60.0))) }
+        val nightCouple = couplePhoto("Wedding", start + 196 * minute,
+            brideFace = face(BRIDE, x = 0.3f, sharp = 45.0), groomFace = face(GROOM, x = 0.5f, sharp = 20.0))
+        val nightShaky = photo("Wedding", start + 197 * minute, listOf(face(60L, sharp = 8.0)))
+        val a = AlbumPlanner.analyze(day + dayBlurred + night + nightCouple + nightShaky, couple)
+        assertFalse(Issue.BLURRY in a.issues(nightCouple))
+        assertTrue(night.none { Issue.BLURRY in a.issues(it) })
+        assertTrue(Issue.BLURRY in a.issues(nightShaky))
+        assertTrue(Issue.BLURRY in a.issues(dayBlurred))
+    }
+
+    @Test
     fun flashBlownPhotosAreCaughtButBrightDaylightIsNot() {
         // Measured on the replica dump: a flash-blown frame (40% burnt white) next to normal photos.
         val normal = List(8) { photo("Haldi", brightness = 110.0 + it * 7, blown = 0.02 * it) }

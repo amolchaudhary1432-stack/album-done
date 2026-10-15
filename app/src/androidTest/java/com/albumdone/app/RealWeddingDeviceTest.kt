@@ -93,6 +93,9 @@ class RealWeddingDeviceTest {
             header = "${files.size} photos in ${folders.size} folders, checked in $seconds s " +
                 "(${"%.1f".format(seconds.toDouble() / files.size)} s each on the emulator), $failed unreadable, album size $albumSize",
         )
+        // Everything the planner saw, so the album can be re-planned and scored on a computer.
+        java.io.File(DeviceTestSupport.app.filesDir, "screens").apply { mkdirs() }
+            .resolve("plan-input.txt").writeText(com.albumdone.app.plan.PlanDump.write(planPhotos, tags))
         Log.i("AlbumDoneTest", "Real wedding: ${files.size} photos in $seconds s")
 
         // Open it in the app, as the couple would after the notification.

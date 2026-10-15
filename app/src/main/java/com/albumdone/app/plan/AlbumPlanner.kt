@@ -145,6 +145,13 @@ object AlbumPlanner {
 
     // ---- Photo checks ----
     const val BLUR_FACTOR = 0.3
+    /** Photos this close in time are the same scene for judging sharpness. */
+    const val SCENE_MILLIS = 20 * 60_000L
+    const val SCENE_NEIGHBOURS = 12
+    const val SCENE_MIN_FACES = 6
+    const val SCENE_MIN_PHOTOS = 5
+    /** A scene is never let off more than this: below it the whole scene is simply blurry. */
+    const val SCENE_FLOOR = 0.15
     const val DARK_BRIGHTNESS = 40.0
     const val DARK_SHARE = 0.65
     // From the replica dump: real photos reach brightness 168 and 25% burnt white at most;
@@ -246,6 +253,7 @@ object AlbumPlanner {
                 })
             },
         )
+        sceneSharpness(readable, eventOf, norms)
 
         // First pass: judge each photo on its own.
         val judged = HashMap<Long, Judgement>()
@@ -321,7 +329,50 @@ object AlbumPlanner {
         val eventDark: Map<String, Double>,
         val eventBlown: Map<String, Double>,
         val eventFaceBrightness: Map<String, Double>,
-    )
+    ) {
+        /** Per photo: how sharp its scene is compared with the whole wedding (0.15..1), faces and whole photo. */
+        val sceneFace = HashMap<Long, Double>()
+        val scenePeak = HashMap<Long, Double>()
+    }
+
+    /**
+     * Sharpness is judged against photos taken around the same time in the same function: a
+     * night ritual in dim light, shot with a long lens, measures far softer than daylight
+     * portraits from the same folder, yet looks fine in an album. On a real wedding, 12 of 20
+     * night-ritual photos were wrongly "blurry" against the daytime portraits, among them the
+     * couple's only close photo. A shaky frame still stands out against its own scene, and a
+     * scene is never judged more strictly than the whole wedding.
+     */
+    private fun sceneSharpness(readable: List<PlanPhoto>, eventOf: Map<Long, String>, norms: Norms) {
+        val faceRatios = readable.associate { p ->
+            p.id to p.faces.filter { it.box.width >= CLEAR_FACE }.map { f ->
+                val norm = norms.faceSharpnessBySize[sizeBucket(f.box.width)] ?: norms.faceSharpness
+                if (norm > 0) f.sharpness / norm else 1.0
+            }
+        }
+        val peakRatio = readable.associate { p -> p.id to if (norms.peakSharpness > 0) p.peakSharpness / norms.peakSharpness else 1.0 }
+        for ((_, inEvent) in readable.groupBy { eventOf[it.id] }) {
+            val timed = inEvent.filter { it.takenAt > 0 }.sortedBy { it.takenAt }
+            val untimed = inEvent.filter { it.takenAt <= 0 }
+            var lo = 0; var hi = 0
+            for (p in timed) {
+                while (timed[lo].takenAt < p.takenAt - SCENE_MILLIS) lo++
+                while (hi < timed.size && timed[hi].takenAt <= p.takenAt + SCENE_MILLIS) hi++
+                val scene = timed.subList(lo, hi)
+                norms.sceneFace[p.id] = sceneFactor(scene.flatMap { faceRatios.getValue(it.id) }, SCENE_MIN_FACES)
+                norms.scenePeak[p.id] = sceneFactor(scene.map { peakRatio.getValue(it.id) }, SCENE_MIN_PHOTOS)
+            }
+            // Without capture times, neighbours in file order stand in for the scene.
+            for ((i, p) in untimed.withIndex()) {
+                val scene = untimed.subList(max(0, i - SCENE_NEIGHBOURS), min(untimed.size, i + SCENE_NEIGHBOURS + 1))
+                norms.sceneFace[p.id] = sceneFactor(scene.flatMap { faceRatios.getValue(it.id) }, SCENE_MIN_FACES)
+                norms.scenePeak[p.id] = sceneFactor(scene.map { peakRatio.getValue(it.id) }, SCENE_MIN_PHOTOS)
+            }
+        }
+    }
+
+    private fun sceneFactor(ratios: List<Double>, minCount: Int): Double =
+        if (ratios.size < minCount) 1.0 else median(ratios).coerceIn(SCENE_FLOOR, 1.0)
 
     private class Judgement(
         val issues: Set<Issue>,
@@ -378,6 +429,8 @@ object AlbumPlanner {
             return Judgement(setOf(Issue.UNREADABLE), 0.0, ShotType.DETAIL, emptySet(), false, false, false, false, false)
         }
         val issues = mutableSetOf<Issue>()
+        val scene = norms.sceneFace[p.id] ?: 1.0
+        val scenePeak = norms.scenePeak[p.id] ?: 1.0
 
         // Strangers walking through: someone barely in the wedding, not posing, blurred or cut off,
         // next to people who are in it a lot. Their face is then left out of the face checks.
@@ -389,7 +442,7 @@ object AlbumPlanner {
             f.box.width >= CLEAR_FACE && !tags.isCouple(f.personId) &&
                 (f.personId == null || (personPhotos[f.personId] ?: 0) <= RARE_PERSON) &&
                 !f.lookingAtCamera && frequentPresent &&
-                (relativeSharpness(f, norms) < 0.5 || f.cutOff >= 0.05f)
+                (relativeSharpness(f, norms, scene) < 0.5 || f.cutOff >= 0.05f)
         }.toSet()
         if (strangers.isNotEmpty()) issues += Issue.STRANGER
 
@@ -400,8 +453,8 @@ object AlbumPlanner {
 
         // Subject sharpness: the faces when there are any, else the sharpest part of the photo.
         if (clear.isNotEmpty()) {
-            if (clear.maxOf { relativeSharpness(it, norms) } < BLUR_FACTOR) issues += Issue.BLURRY
-        } else if (norms.peakSharpness > 0 && p.peakSharpness < BLUR_FACTOR * norms.peakSharpness) {
+            if (clear.maxOf { relativeSharpness(it, norms, scene) } < BLUR_FACTOR) issues += Issue.BLURRY
+        } else if (norms.peakSharpness > 0 && p.peakSharpness < BLUR_FACTOR * norms.peakSharpness * scenePeak) {
             issues += Issue.BLURRY
         }
 
@@ -451,7 +504,7 @@ object AlbumPlanner {
                     else -> { issues += Issue.MID_TALK; 0.4 }
                 }
             }
-            val sharp = min(relativeSharpness(f, norms), 1.5) / 1.5
+            val sharp = min(relativeSharpness(f, norms, scene), 1.5) / 1.5
             var exposure = 1.0
             if (f.backlit || f.brightness < faceDarkLimit || f.brightness > 235.0) { issues += Issue.FACE_DARK; exposure = 0.6 }
             var visibility = 1.0
@@ -487,7 +540,7 @@ object AlbumPlanner {
             clear.firstOrNull { it.personId != null && it.personId == tags.brideId }?.let { q *= 0.75 + 0.25 * faceScores.getValue(it) }
             q * (0.8 + 0.2 * light * clipping)
         } else {
-            val sharp = if (norms.peakSharpness > 0) min(p.peakSharpness / norms.peakSharpness, 1.5) / 1.5 else 0.7
+            val sharp = if (norms.peakSharpness > 0) min(p.peakSharpness / (norms.peakSharpness * scenePeak), 1.5) / 1.5 else 0.7
             0.5 * sharp + 0.5 * light * clipping
         }
         if (Issue.TILTED in issues) quality *= 0.85
@@ -507,9 +560,9 @@ object AlbumPlanner {
     }
 
     /** This face's sharpness compared with faces of a similar size in this wedding (1 = typical). */
-    private fun relativeSharpness(f: PlanFace, norms: Norms): Double {
+    private fun relativeSharpness(f: PlanFace, norms: Norms, scene: Double = 1.0): Double {
         val norm = norms.faceSharpnessBySize[sizeBucket(f.box.width)] ?: norms.faceSharpness
-        return if (norm > 0) f.sharpness / norm else 1.0
+        return if (norm > 0) f.sharpness / norm / scene else 1.0
     }
 
     /** Two of these faces turned toward each other (people talking, laughing, the couple's candid). */
