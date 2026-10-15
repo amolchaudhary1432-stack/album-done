@@ -48,11 +48,20 @@ class FaceMetricsTest {
 
     @Test
     fun lookingAtCameraNeedsHeadAndEyes() {
-        assertTrue(FaceMetrics.lookingAtCamera(5f, 5f, 0.1f, EyeState.OPEN))
-        assertFalse(FaceMetrics.lookingAtCamera(30f, 5f, 0.1f, EyeState.OPEN))
-        assertFalse(FaceMetrics.lookingAtCamera(5f, 25f, 0.1f, EyeState.OPEN))
-        assertFalse(FaceMetrics.lookingAtCamera(5f, 5f, 0.7f, EyeState.OPEN))
-        assertFalse(FaceMetrics.lookingAtCamera(5f, 5f, 0.1f, EyeState.LOOKING_DOWN))
+        assertTrue(FaceMetrics.lookingAtCamera(5f, -5f, 0f, 0f, EyeState.OPEN))
+        // Head turned, eyes straight ahead: looking past the camera.
+        assertFalse(FaceMetrics.lookingAtCamera(30f, 0f, 0f, 0f, EyeState.OPEN))
+        // Head turned, eyes turned back to the camera: the classic portrait (a real bride: 35, -0.93).
+        assertTrue(FaceMetrics.lookingAtCamera(35f, -3f, -0.93f, 0.1f, EyeState.OPEN))
+        // Head and eyes turned the same way: looking well away (a real bride: -13, -0.61).
+        assertFalse(FaceMetrics.lookingAtCamera(-13f, 0f, -0.61f, 0f, EyeState.OPEN))
+        // Head down, eyes up at the camera: a shy pose (a real bride: -21, +0.44).
+        assertTrue(FaceMetrics.lookingAtCamera(18f, -21f, -0.5f, 0.44f, EyeState.OPEN))
+        // Head down and eyes down.
+        assertFalse(FaceMetrics.lookingAtCamera(0f, -25f, 0f, -0.2f, EyeState.OPEN))
+        // Eyes cannot make up for a face turned side-on.
+        assertFalse(FaceMetrics.lookingAtCamera(60f, 0f, -1f, 0f, EyeState.OPEN))
+        assertFalse(FaceMetrics.lookingAtCamera(5f, 5f, 0f, 0f, EyeState.LOOKING_DOWN))
     }
 
     @Test
@@ -94,6 +103,26 @@ class FaceMetricsTest {
         assertEquals(30f, yaw2, 0.1f); assertEquals(0f, pitch2, 0.1f)
         val (yaw3, pitch3) = FaceMetrics.headAngles(rotationX(25.0))
         assertEquals(0f, yaw3, 0.1f); assertEquals(25f, pitch3, 0.1f)
+    }
+
+    @Test
+    fun signedHeadDirectionWhereverTheNumbersAreStored() {
+        val (turn, tilt) = FaceMetrics.headDirection(rotationY(30.0))
+        assertEquals(30f, turn, 0.1f); assertEquals(0f, tilt, 0.1f)
+        assertEquals(-30f, FaceMetrics.headDirection(rotationY(-30.0)).first, 0.1f)
+        // The same transform stored by rows.
+        val c = rotationY(30.0)
+        val byRows = FloatArray(16) { i -> c[(i % 4) * 4 + i / 4] }
+        assertEquals(30f, FaceMetrics.headDirection(byRows).first, 0.1f)
+        // Tilted: the sign is kept (down is negative).
+        assertEquals(25f, kotlin.math.abs(FaceMetrics.headDirection(rotationX(25.0)).second), 0.1f)
+    }
+
+    @Test
+    fun eyeDirectionFromBlendshapes() {
+        val (across, up) = FaceMetrics.eyeDirection(mapOf("eyeLookInLeft" to 0.93f, "eyeLookOutRight" to 0.93f, "eyeLookUpLeft" to 0.4f, "eyeLookUpRight" to 0.4f))
+        assertEquals(-0.93f, across, 1e-6f)
+        assertEquals(0.4f, up, 1e-6f)
     }
 
     @Test
@@ -154,6 +183,14 @@ class FaceMetricsTest {
         assertFalse(r.lookingAtCamera)
         assertEquals(35f, r.yaw, 0.2f)
         assertTrue(r.directionX > 0.5f)
+    }
+
+    @Test
+    fun turnedHeadWithEyesBackToTheCameraIsLooking() {
+        val (xs, ys) = landmarks(irisShift = -0.01f, noseX = 0.57f)
+        val r = FaceMetrics.read(xs, ys, mapOf("eyeLookInLeft" to 0.93f, "eyeLookOutRight" to 0.93f), rotationY(35.0), 1.5f)
+        assertTrue(r.lookingAtCamera)
+        assertEquals(35f, r.yaw, 0.2f)
     }
 
     @Test

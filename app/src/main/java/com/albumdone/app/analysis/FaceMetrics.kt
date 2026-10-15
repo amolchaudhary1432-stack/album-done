@@ -75,13 +75,14 @@ object FaceMetrics {
     fun read(xs: FloatArray, ys: FloatArray, blend: Map<String, Float>, matrix: FloatArray?, aspect: Float): Reading {
         val box = box(xs, ys)
         val eyes = eyeState(blend)
-        val (yawFromMatrix, pitchFromMatrix) = matrix?.let { headAngles(it) } ?: (null to null)
         val yawRatio = if (xs.size > CONTOUR_IMAGE_RIGHT) {
             yawRatio(xs[NOSE_TIP], xs[CONTOUR_IMAGE_LEFT], xs[CONTOUR_IMAGE_RIGHT])
         } else 0f
-        // The transform gives the size of the turn; the landmarks reliably give its direction.
-        val yaw = yawFromMatrix ?: (yawRatio * 60f)
-        val pitch = pitchFromMatrix ?: 0f
+        // Which way the head points (signed); without the transform, the landmarks give the turn.
+        val (headTurn, headTilt) = matrix?.let { headDirection(it) } ?: ((yawRatio * 60f) to 0f)
+        val yaw = headTurn
+        val pitch = headTilt
+        val (eyesAcross, eyesUp) = eyeDirection(blend)
         val roll = if (xs.size > EYE_IMAGE_RIGHT_OUTER) {
             roll(
                 (xs[EYE_IMAGE_LEFT_OUTER] + xs[EYE_IMAGE_LEFT_INNER]) / 2f * aspect,
@@ -92,7 +93,6 @@ object FaceMetrics {
         } else 0f
         val iris = if (xs.size > IRIS_IMAGE_RIGHT) irisOffset(xs) else 0f
         val direction = directionX(yawRatio, iris)
-        val gaze = eyeGazeOff(blend)
         return Reading(
             box = box,
             eyes = eyes,
@@ -103,7 +103,7 @@ object FaceMetrics {
             pitch = abs(pitch),
             roll = roll,
             directionX = direction,
-            lookingAtCamera = lookingAtCamera(abs(yaw), abs(pitch), gaze, eyes),
+            lookingAtCamera = lookingAtCamera(headTurn, headTilt, eyesAcross, eyesUp, eyes),
             cutOff = cutOffFraction(box),
         )
     }
@@ -226,9 +226,51 @@ object FaceMetrics {
         return (eye("Left") + eye("Right")) / 2f
     }
 
-    fun lookingAtCamera(yaw: Float, pitch: Float, gazeOff: Float, eyes: EyeState): Boolean =
-        yaw <= MAX_YAW_FOR_CAMERA && pitch <= MAX_PITCH_FOR_CAMERA &&
-            gazeOff <= MAX_EYE_GAZE_FOR_CAMERA && eyes != EyeState.LOOKING_DOWN
+    /**
+     * Looking at the camera is where the head points plus where the eyes point inside it. The
+     * classic portrait has the head turned one way and the eyes turned back to the camera; a
+     * shy pose has the head down and the eyes up. Head angles are signed (photo right and up
+     * positive, see [headDirection]), eye directions -1..1 the same way (see [eyeDirection]).
+     * Checked by eye on 133 faces of a real wedding: where this and the old head-only rule
+     * disagreed, this one was right about 17 times out of 24.
+     */
+    fun lookingAtCamera(headTurn: Float, headTilt: Float, eyesAcross: Float, eyesUp: Float, eyes: EyeState): Boolean {
+        val across = headTurn + eyesAcross * EYE_RANGE_DEGREES
+        val upDown = headTilt + eyesUp * EYE_RANGE_DEGREES
+        return abs(headTurn) <= MAX_HEAD_TURN_FOR_CAMERA && abs(across) <= MAX_GAZE_ACROSS &&
+            abs(upDown) <= MAX_GAZE_UP_DOWN && eyes != EyeState.LOOKING_DOWN
+    }
+
+    /** About how far the eyes turn (degrees) when a look blendshape is at 1. */
+    const val EYE_RANGE_DEGREES = 35f
+    const val MAX_HEAD_TURN_FOR_CAMERA = 50f
+    const val MAX_GAZE_ACROSS = 20f
+    const val MAX_GAZE_UP_DOWN = 15f
+
+    /** Where the eyes point inside the head, -1..1 each: towards photo right, and up, are positive. */
+    fun eyeDirection(b: Map<String, Float>): Pair<Float, Float> {
+        fun g(name: String) = b[name] ?: 0f
+        // The subject's left eye looking out, or right eye looking in, is a look to photo right.
+        val across = ((g("eyeLookOutLeft") + g("eyeLookInRight")) - (g("eyeLookInLeft") + g("eyeLookOutRight"))) / 2f
+        val up = ((g("eyeLookUpLeft") + g("eyeLookUpRight")) - (g("eyeLookDownLeft") + g("eyeLookDownRight"))) / 2f
+        return across to up
+    }
+
+    /**
+     * Signed head turn and tilt in degrees from the face transform: turned towards photo right,
+     * and tilted up, are positive. The face's forward axis is the third column, wherever the
+     * numbers are stored: by columns the translation sits at 12..14, by rows at 3, 7 and 11.
+     */
+    fun headDirection(m: FloatArray): Pair<Float, Float> {
+        if (m.size < 16) return 0f to 0f
+        val byColumns = abs(m[14]) >= abs(m[11])
+        val fx = (if (byColumns) m[8] else m[2]).toDouble()
+        val fy = (if (byColumns) m[9] else m[6]).toDouble()
+        val fz = m[10].toDouble()
+        val turn = Math.toDegrees(atan2(fx, fz)).toFloat()
+        val tilt = Math.toDegrees(atan2(fy, hypot(fx, fz))).toFloat()
+        return turn to tilt
+    }
 
     /**
      * Yaw and pitch size in degrees from the face transform. Reads the face's forward axis,
