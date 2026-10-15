@@ -2,6 +2,7 @@ package com.albumdone.app.ui
 
 import android.app.Activity
 import android.graphics.BitmapFactory
+import android.util.Log
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -33,6 +34,9 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.produceState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.BiasAlignment
@@ -135,12 +139,20 @@ fun PhotoThumb(photo: PhotoEntity, crop: Pair<Float, Float>, modifier: Modifier 
     )
 }
 
-/** A round picture of a person's face, cut from that photo's thumbnail. */
+/**
+ * A round picture of a person's face: the sharp face picture when there is one, otherwise cut
+ * from that photo's thumbnail.
+ */
 @Composable
 fun FaceAvatar(face: FaceCrop, size: Dp, modifier: Modifier = Modifier, unknown: Boolean = false, ring: Boolean = false) {
-    val path = face.facePath ?: face.thumbPath
-    val image by produceState<ImageBitmap?>(null, path) {
-        value = withContext(Dispatchers.IO) { path?.let { BitmapFactory.decodeFile(it)?.asImageBitmap() } }
+    var pictureFailed by remember(face.facePath) { mutableStateOf(false) }
+    val picture = face.facePath?.takeIf { !pictureFailed }
+    // The thumbnail is only needed when there is no face picture to show.
+    val thumbPath = if (picture == null) face.thumbPath else null
+    val thumb by produceState<ImageBitmap?>(null, thumbPath) {
+        val loaded = withContext(Dispatchers.IO) { thumbPath?.let { BitmapFactory.decodeFile(it)?.asImageBitmap() } }
+        if (loaded == null && thumbPath != null) Log.w("AlbumDone", "face thumbnail could not be read: $thumbPath")
+        value = loaded
     }
     val colors = MaterialTheme.colorScheme
     Box(
@@ -151,13 +163,17 @@ fun FaceAvatar(face: FaceCrop, size: Dp, modifier: Modifier = Modifier, unknown:
             .then(if (ring) Modifier.border(2.dp, colors.secondary, CircleShape) else Modifier),
         contentAlignment = Alignment.Center,
     ) {
-        val img = image
+        val img = thumb
         val box = face.box
-        if (img != null && face.facePath != null) {
-            // Already a square picture of just the face.
-            androidx.compose.foundation.Image(img, contentDescription = null, contentScale = ContentScale.Crop, modifier = Modifier.size(size))
-        } else if (img != null && box != null) {
-            Canvas(Modifier.size(size)) {
+        when {
+            picture != null -> AsyncImage(
+                model = File(picture), contentDescription = null, contentScale = ContentScale.Crop, modifier = Modifier.size(size),
+                onError = {
+                    Log.w("AlbumDone", "face picture could not be read: $picture (${it.result.throwable.message})")
+                    pictureFailed = true
+                },
+            )
+            img != null && box != null -> Canvas(Modifier.size(size)) {
                 val cx = (box.left + box.right) / 2f * img.width
                 val cy = (box.top + box.bottom) / 2f * img.height
                 val half = max((box.right - box.left) * img.width, (box.bottom - box.top) * img.height) * 0.75f
@@ -167,8 +183,8 @@ fun FaceAvatar(face: FaceCrop, size: Dp, modifier: Modifier = Modifier, unknown:
                 drawImage(image = img, srcOffset = IntOffset(x0, y0), srcSize = IntSize(side, side),
                     dstSize = IntSize(this.size.width.toInt(), this.size.height.toInt()))
             }
-        } else if (unknown || img == null) {
-            Text("?", style = MaterialTheme.typography.headlineSmall, color = colors.onSurfaceVariant)
+            unknown || thumbPath == null || img == null ->
+                Text("?", style = MaterialTheme.typography.headlineSmall, color = colors.onSurfaceVariant)
         }
     }
 }

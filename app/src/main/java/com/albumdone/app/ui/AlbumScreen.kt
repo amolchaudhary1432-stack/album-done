@@ -47,7 +47,8 @@ import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExtendedFloatingActionButton
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.HorizontalDivider
@@ -129,15 +130,19 @@ fun AlbumScreen(vm: AlbumViewModel, projectId: Long) {
         snackbarHost = { SnackbarHost(host, Modifier.navigationBarsPadding()) },
         floatingActionButton = {
             if (s != null) {
-                ExtendedFloatingActionButton(
+                // A plain button (not the floating action button): its label must stay readable to
+                // screen readers and the phone test.
+                Button(
                     onClick = { vm.openSend(projectId) },
-                    icon = { Icon(Icons.Default.Share, contentDescription = null) },
-                    text = { Text("Send list to photographer", style = MaterialTheme.typography.titleMedium) },
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    contentColor = MaterialTheme.colorScheme.onPrimary,
                     shape = RoundedCornerShape(28.dp),
+                    elevation = ButtonDefaults.buttonElevation(defaultElevation = 6.dp, pressedElevation = 8.dp),
+                    contentPadding = PaddingValues(horizontal = 24.dp, vertical = 16.dp),
                     modifier = Modifier.navigationBarsPadding(),
-                )
+                ) {
+                    Icon(Icons.Default.Share, contentDescription = null, modifier = Modifier.size(20.dp))
+                    Spacer(Modifier.width(10.dp))
+                    Text("Send list to photographer", style = MaterialTheme.typography.titleMedium)
+                }
             }
         },
         floatingActionButtonPosition = FabPosition.Center,
@@ -251,7 +256,7 @@ private fun Hero(s: AlbumState, onBack: () -> Unit, onMenu: () -> Unit, onOpenCo
 
 @Composable
 private fun FamilySection(s: AlbumState, onPerson: (Long) -> Unit, onSeeAll: () -> Unit, onQuickTag: () -> Unit) {
-    val everyone = s.family.size + s.others.size
+    val everyone = listOfNotNull(s.bride, s.groom).size + s.family.size + s.others.size
     Column(Modifier.fillMaxWidth().padding(top = 24.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
         Row(Modifier.fillMaxWidth().padding(start = 16.dp, end = 4.dp), verticalAlignment = Alignment.CenterVertically) {
             Column(Modifier.weight(1f)) {
