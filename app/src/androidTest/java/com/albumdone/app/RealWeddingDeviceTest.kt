@@ -8,6 +8,7 @@ import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performScrollToIndex
 import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.swipeDown
 import androidx.compose.ui.test.swipeUp
@@ -129,6 +130,9 @@ class RealWeddingDeviceTest {
             compose.waitForIdle()
         }
         if (compose.onAllNodesWithTag("quick-tag").fetchSemanticsNodes().isNotEmpty()) {
+            // Family section at the top, so the card is clear of the floating Send button.
+            compose.onNodeWithTag("album-grid").performScrollToIndex(2)
+            compose.waitForIdle()
             compose.onNodeWithTag("quick-tag").performClick()
             compose.waitUntil(30_000) { compose.onAllNodesWithTag("quick-Aunt").fetchSemanticsNodes().isNotEmpty() }
             screenshot("real-24-whos-who")

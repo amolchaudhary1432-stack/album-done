@@ -22,7 +22,9 @@ permissions:
 
 jobs:
   phone-test:
-    # A newer push to the same branch replaces a run still in progress.
+    # Run by hand, this workflow only checks a test wedding (the job below); the walk-through
+    # runs on every push, and a newer push replaces a run still in progress.
+    if: github.event_name != 'workflow_dispatch'
     concurrency:
       group: phone-test-${{ github.ref }}
       cancel-in-progress: ${{ github.event_name == 'push' }}
