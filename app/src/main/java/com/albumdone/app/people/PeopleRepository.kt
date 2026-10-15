@@ -4,9 +4,13 @@ import com.albumdone.app.analysis.FaceEmbedder
 import com.albumdone.app.data.AlbumDao
 import com.albumdone.app.data.FaceEmbeddingRow
 import com.albumdone.app.data.PersonEntity
+import com.albumdone.app.data.PersonPriority
+import com.albumdone.app.data.PersonSide
 import com.albumdone.app.data.PhotoEntity
 import com.albumdone.app.data.ProjectEntity
+import com.albumdone.app.plan.AlbumPlanner
 import com.albumdone.app.plan.Box
+import com.albumdone.app.plan.EventKind
 import com.albumdone.app.plan.EyeState
 import com.albumdone.app.plan.Expression
 import com.albumdone.app.plan.PeopleTags
@@ -121,10 +125,28 @@ class PeopleRepository(private val dao: AlbumDao) {
                 cutOff = f.cutOff,
             )
         }) }
-        val tags = dao.people(project.id).associate { p ->
+        val people = dao.people(project.id)
+        val userTags = people.associate { p ->
             p.id to PersonTag(p.id, p.name, enumOr(p.priority, Priority.NORMAL), enumOr(p.side, Side.UNKNOWN), p.elder)
         }
-        return photos to PeopleTags(project.brideId, project.groomId, tags)
+        // The couple's own tags win; the app's guess of the close family fills in everyone else,
+        // so the album covers the family even if nobody tags anyone.
+        val eventOf = AlbumPlanner.assignEvents(photos)
+        val forGuess = photos.map { p ->
+            val event = eventOf[p.id] ?: ""
+            FamilyGuess.PhotoPeople(
+                photoId = p.id,
+                event = event,
+                familyEvent = AlbumPlanner.eventKind(event) != EventKind.PARTY,
+                people = p.faces.filter { it.box.width >= AlbumPlanner.VISIBLE_FACE }.mapNotNull { it.personId }.toSet(),
+            )
+        }
+        val guesses = FamilyGuess.guess(forGuess, project.brideId, project.groomId)
+        val userTagged = people.filter {
+            it.priority != PersonPriority.NORMAL || it.side != PersonSide.UNKNOWN || it.elder
+        }.map { it.id }.toSet()
+        val tags = FamilyGuess.mergeWithUserTags(guesses, PeopleTags(project.brideId, project.groomId, userTags), userTagged)
+        return photos to tags
     }
 
     private fun PhotoEntity.toPlan(faces: List<PlanFace>) = PlanPhoto(
