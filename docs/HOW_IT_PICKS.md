@@ -121,3 +121,36 @@ don't love. Every new feature has to pass that test.
    Photos never leave the phone.
 3. Tune until the match is high and nothing embarrassing is picked. Only then make claims in the
    store listing.
+
+## 7. Test log: real weddings
+
+Real, freely licensed wedding photo sets from Wikimedia Commons are run through the real app on
+an Android emulator in the cloud build (`tools/test-photos`, test data only). Claude looks at every
+photo and judges the album like the couple would.
+
+### A Bengali wedding in Kolkata (114 photos, 29 May 2023, by Goutam1962, CC BY-SA 4.0)
+
+Adhibaas at home, haldi in a tent, bride portraits, the night rituals (fire, sindoor daan). Shot
+from the bride's side: the groom appears in about 7 photos, the bride in about 90. Album of 28.
+
+First run (face mesh model only):
+- Good: the bride was recognised across haldi and full bridal makeup (one person, 64 photos); the
+  haldi ceremony, several fine bride portraits, the sindoor moment and story order were kept.
+- Wrong, and a person would notice at once: 59 photos with people had "no face" (side-on,
+  downcast and small faces); the bride's aunt was taken for the groom, so the cover was "bride and
+  aunt"; the one clear photo of the bride and groom and the couple at the fire were left out; two
+  photos of people's backs were picked as "detail shots".
+- Fixed: YuNet face finder (361 faces found instead of 67), couple found at the wedding rather
+  than at the bride's own functions, cover in wedding clothes, backs are not details, reasons in
+  plain words.
+
+### Scene model check (SigLIP 2, zero-shot, 217 labelled photos)
+
+| Recognised well | Not yet reliable |
+|---|---|
+| food 91%, mehendi 68-80%, baraat 70-95%, garland exchange 56-75%, bride portrait (large model) 92% | sindoor 17-37%, fire ritual / pheras 17-33%, kanyadaan 33-42%, haldi 38-41% |
+
+The rituals are mostly lumped together as "a priest doing a ritual". To guarantee "the pheras
+photo is in", the model needs training on labelled examples (a small classifier on its image
+features) before it goes into the app. The base model takes about 0.2-0.4 s per photo on a
+computer, so it is affordable on a phone.

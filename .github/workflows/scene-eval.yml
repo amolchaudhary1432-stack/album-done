@@ -21,10 +21,16 @@ jobs:
       - name: Install the model tools
         run: |
           pip install --quiet --index-url https://download.pytorch.org/whl/cpu torch
-          pip install --quiet "transformers>=4.49" pillow sentencepiece protobuf
+          pip install --quiet "transformers>=4.49" pillow sentencepiece protobuf scikit-learn
 
       - name: Run the check
-        run: python3 tools/scene-eval/eval.py tools/scene-eval/request.json out
+        run: |
+          mode=$(python3 -c "import json; print(json.load(open('tools/scene-eval/request.json')).get('mode', 'zero-shot'))")
+          if [ "$mode" = probe ]; then
+            python3 tools/scene-eval/probe.py tools/scene-eval/request.json out
+          else
+            python3 tools/scene-eval/eval.py tools/scene-eval/request.json out
+          fi
 
       - name: Put the results on the scene-eval-results branch
         if: always()

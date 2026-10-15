@@ -1,101 +1,64 @@
 {
+ "mode": "probe",
  "models": [
   "google/siglip2-base-patch16-224",
-  "google/siglip2-base-patch32-256",
-  "google/siglip2-so400m-patch14-224"
+  "google/siglip2-base-patch32-256"
  ],
- "per_category": 25,
- "labels": {
-  "haldi": [
-   "a photo of women applying yellow turmeric paste to a bride at a haldi ceremony",
-   "a photo of a bride's face smeared with yellow turmeric"
-  ],
-  "mehendi": [
-   "a photo of henna being applied to a bride's hands",
-   "a close-up photo of hands decorated with mehndi designs"
-  ],
-  "sindoor": [
-   "a photo of a groom putting red sindoor in the parting of the bride's hair",
-   "a photo of the sindoor daan ritual at a bengali wedding"
-  ],
-  "fire_ritual": [
-   "a photo of a bride and groom at the sacred fire during a hindu wedding",
-   "a photo of a couple walking around the holy fire, the pheras"
-  ],
-  "garland": [
-   "a photo of a bride and groom exchanging flower garlands",
-   "a photo of the varmala garland ceremony"
-  ],
-  "kanyadaan": [
-   "a photo of the kanyadaan ritual, the father giving the bride's hand to the groom"
-  ],
-  "baraat": [
-   "a photo of a wedding procession with the groom on a horse",
-   "a photo of a baraat with relatives dancing in the street"
-  ],
-  "bride_portrait": [
-   "a portrait photo of an indian bride in a red sari and gold jewellery",
-   "a close-up portrait of a bride with bridal makeup"
-  ],
-  "couple": [
-   "a photo of an indian bride and groom sitting together",
-   "a portrait of a newly married couple"
-  ],
-  "priest_ritual": [
-   "a photo of a priest performing a puja ritual with the bride",
-   "a photo of a hindu priest doing wedding rituals"
-  ],
-  "decor": [
-   "a photo of wedding decorations with flowers",
-   "a photo of a decorated wedding stage or mandap"
-  ],
-  "food": [
-   "a photo of indian wedding food",
-   "a photo of a wedding feast served on plates"
-  ],
-  "details": [
-   "a close-up photo of jewellery or ritual objects",
-   "a close-up photo of hands holding ritual items"
-  ],
-  "guests": [
-   "a photo of wedding guests",
-   "a photo of a crowd of relatives at a wedding"
-  ]
- },
+ "per_class": 70,
+ "C": 2.0,
  "categories": {
   "haldi": [
    "Category:Gaye holud in Bengali Hindu weddings",
-   "Category:Gaye holud"
+   "Category:Gaye holud",
+   "Category:Haldi ceremony",
+   "Category:Haldi (ceremony)"
   ],
   "mehendi": [
-   "Category:Henna ceremony"
+   "Category:Henna ceremony",
+   "Category:Mehndi",
+   "Category:Mehndi designs"
   ],
   "sindoor": [
    "Category:Sindur Daan in Bengali Hindu weddings",
-   "Category:Sindoor daan"
+   "Category:Sindoor daan",
+   "Category:Sindoor"
   ],
   "fire_ritual": [
-   "Category:Saptapadi"
+   "Category:Saptapadi",
+   "Category:Homa (ritual)",
+   "Category:Yajna",
+   "Category:Havan",
+   "Category:Agni in Hindu weddings"
   ],
   "garland": [
    "Category:Varmala",
+   "Category:Jaimala",
    "Category:Mala Badal in Bengali Hindu weddings"
   ],
   "kanyadaan": [
-   "Category:Kanyadan"
+   "Category:Kanyadan",
+   "Category:Kanyadaan",
+   "Category:Sampradan"
   ],
   "baraat": [
    "Category:Baraat"
   ],
   "bride_portrait": [
-   "Category:Brides in saris"
+   "Category:Brides in saris",
+   "Category:Indian brides",
+   "Category:Bengali brides"
   ],
   "decor": [
    "Category:Wedding flower decorations in India",
-   "Category:Wedding decorations in India"
+   "Category:Wedding decorations in India",
+   "Category:Mandaps"
   ],
   "food": [
    "Category:Wedding food of India"
+  ],
+  "general": [
+   "Category:Weddings in India",
+   "Category:Hindu weddings in India"
   ]
  },
  "photos": [
