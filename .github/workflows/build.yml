@@ -30,6 +30,14 @@ jobs:
       - name: Run tests and build the app
         run: gradle --no-daemon testReleaseUnitTest assembleRelease
 
+      - name: Check the app has no internet permission
+        run: |
+          AAPT2=$(ls -d "$ANDROID_HOME"/build-tools/*/ | sort -V | tail -1)aapt2
+          "$AAPT2" dump permissions app/build/outputs/apk/release/app-release.apk | tee permissions.txt
+          if grep -q "android.permission.INTERNET" permissions.txt; then
+            echo "The app must not ask for internet access."; exit 1
+          fi
+
       - name: Publish the app file for the phone
         env:
           GH_TOKEN: ${{ github.token }}

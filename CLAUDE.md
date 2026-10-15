@@ -63,9 +63,9 @@ that must stay true.
 
 ## Status
 
-Done: build setup, manifest, Room data layer, folder scanner, photo analyzer, background worker.
-To do: `plan/AlbumPlanner.kt` + tests, `ui/` (MainActivity, view model, screens, theme),
-unit tests for `ImageMetrics`, first green cloud build.
+Done: build setup, manifest, Room data layer, folder scanner, photo analyzer, background worker,
+`plan/AlbumPlanner.kt` + tests, `ImageMetrics` tests, `ui/` (MainActivity, view model, screens, theme).
+The build fails if the APK ever asks for the internet permission.
 
 ## Build notes
 
