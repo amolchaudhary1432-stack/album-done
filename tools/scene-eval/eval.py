@@ -52,20 +52,39 @@ def main(request_path, out_dir):
                     break
                 photos.append({"moment": moment, "title": f["title"], "thumb": f["thumb"], "page": f["page"]})
                 seen += 1
+    # Photos labelled by hand (e.g. from the test wedding), by Commons title.
+    titled = req.get("photos", [])
+    if titled:
+        info = commons.infos([t["title"] for t in titled], width=448)
+        for t in titled:
+            i = info.get(t["title"])
+            if i:
+                photos.append({"moment": t["moment"], "title": t["title"], "thumb": i["thumb"], "page": i["page"]})
     print(len(photos), "photos")
 
     results = {}
+    images = {}
+    for p in photos:
+        img = load(p["thumb"])
+        if img is not None:
+            images[p["title"] + "|" + p["moment"]] = img
+    print(len(images), "photos downloaded")
+
     for model_id in req["models"]:
         t0 = time.time()
-        model = AutoModel.from_pretrained(model_id).eval()
-        proc = AutoProcessor.from_pretrained(model_id)
+        try:
+            model = AutoModel.from_pretrained(model_id).eval()
+            proc = AutoProcessor.from_pretrained(model_id)
+        except Exception as e:
+            print("could not load", model_id, e)
+            continue
         with torch.no_grad():
             ti = proc(text=texts, padding="max_length", max_length=64, return_tensors="pt")
             tf = model.get_text_features(**ti)
             tf = tf / tf.norm(dim=-1, keepdim=True)
         rows, times = [], []
         for p in photos:
-            img = load(p["thumb"])
+            img = images.get(p["title"] + "|" + p["moment"])
             if img is None:
                 continue
             s = time.time()

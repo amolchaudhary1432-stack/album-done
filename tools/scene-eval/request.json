@@ -1,0 +1,275 @@
+{
+ "models": [
+  "google/siglip2-base-patch16-224",
+  "google/siglip2-base-patch32-256",
+  "google/siglip2-so400m-patch14-224"
+ ],
+ "per_category": 25,
+ "labels": {
+  "haldi": [
+   "a photo of women applying yellow turmeric paste to a bride at a haldi ceremony",
+   "a photo of a bride's face smeared with yellow turmeric"
+  ],
+  "mehendi": [
+   "a photo of henna being applied to a bride's hands",
+   "a close-up photo of hands decorated with mehndi designs"
+  ],
+  "sindoor": [
+   "a photo of a groom putting red sindoor in the parting of the bride's hair",
+   "a photo of the sindoor daan ritual at a bengali wedding"
+  ],
+  "fire_ritual": [
+   "a photo of a bride and groom at the sacred fire during a hindu wedding",
+   "a photo of a couple walking around the holy fire, the pheras"
+  ],
+  "garland": [
+   "a photo of a bride and groom exchanging flower garlands",
+   "a photo of the varmala garland ceremony"
+  ],
+  "kanyadaan": [
+   "a photo of the kanyadaan ritual, the father giving the bride's hand to the groom"
+  ],
+  "baraat": [
+   "a photo of a wedding procession with the groom on a horse",
+   "a photo of a baraat with relatives dancing in the street"
+  ],
+  "bride_portrait": [
+   "a portrait photo of an indian bride in a red sari and gold jewellery",
+   "a close-up portrait of a bride with bridal makeup"
+  ],
+  "couple": [
+   "a photo of an indian bride and groom sitting together",
+   "a portrait of a newly married couple"
+  ],
+  "priest_ritual": [
+   "a photo of a priest performing a puja ritual with the bride",
+   "a photo of a hindu priest doing wedding rituals"
+  ],
+  "decor": [
+   "a photo of wedding decorations with flowers",
+   "a photo of a decorated wedding stage or mandap"
+  ],
+  "food": [
+   "a photo of indian wedding food",
+   "a photo of a wedding feast served on plates"
+  ],
+  "details": [
+   "a close-up photo of jewellery or ritual objects",
+   "a close-up photo of hands holding ritual items"
+  ],
+  "guests": [
+   "a photo of wedding guests",
+   "a photo of a crowd of relatives at a wedding"
+  ]
+ },
+ "categories": {
+  "haldi": [
+   "Category:Gaye holud in Bengali Hindu weddings",
+   "Category:Gaye holud"
+  ],
+  "mehendi": [
+   "Category:Henna ceremony"
+  ],
+  "sindoor": [
+   "Category:Sindur Daan in Bengali Hindu weddings",
+   "Category:Sindoor daan"
+  ],
+  "fire_ritual": [
+   "Category:Saptapadi"
+  ],
+  "garland": [
+   "Category:Varmala",
+   "Category:Mala Badal in Bengali Hindu weddings"
+  ],
+  "kanyadaan": [
+   "Category:Kanyadan"
+  ],
+  "baraat": [
+   "Category:Baraat"
+  ],
+  "bride_portrait": [
+   "Category:Brides in saris"
+  ],
+  "decor": [
+   "Category:Wedding flower decorations in India",
+   "Category:Wedding decorations in India"
+  ],
+  "food": [
+   "Category:Wedding food of India"
+  ]
+ },
+ "photos": [
+  {
+   "title": "File:Haldi Ceremony in a Bengali Wedding 19.jpg",
+   "moment": "haldi"
+  },
+  {
+   "title": "File:Haldi Ceremony in a Bengali Wedding 20.jpg",
+   "moment": "haldi"
+  },
+  {
+   "title": "File:Haldi Ceremony in a Bengali Wedding 21.jpg",
+   "moment": "haldi"
+  },
+  {
+   "title": "File:Haldi Ceremony in a Bengali Wedding 22.jpg",
+   "moment": "haldi"
+  },
+  {
+   "title": "File:Haldi Ceremony in a Bengali Wedding 23.jpg",
+   "moment": "haldi"
+  },
+  {
+   "title": "File:Haldi Ceremony in a Bengali Wedding 24.jpg",
+   "moment": "haldi"
+  },
+  {
+   "title": "File:Haldi Ceremony in a Bengali Wedding 25.jpg",
+   "moment": "haldi"
+  },
+  {
+   "title": "File:Bengali Wedding Rituals in Kolkata 155.jpg",
+   "moment": "sindoor"
+  },
+  {
+   "title": "File:Bengali Wedding Rituals in Kolkata 156.jpg",
+   "moment": "sindoor"
+  },
+  {
+   "title": "File:Bengali Wedding Rituals in Kolkata 157.jpg",
+   "moment": "sindoor"
+  },
+  {
+   "title": "File:Bengali Wedding Rituals in Kolkata 158.jpg",
+   "moment": "sindoor"
+  },
+  {
+   "title": "File:Bengali Wedding Rituals in Kolkata 159.jpg",
+   "moment": "sindoor"
+  },
+  {
+   "title": "File:Bengali Wedding Rituals in Kolkata 152.jpg",
+   "moment": "fire_ritual"
+  },
+  {
+   "title": "File:Bengali Wedding Rituals in Kolkata 153.jpg",
+   "moment": "fire_ritual"
+  },
+  {
+   "title": "File:Bengali Wedding Rituals in Kolkata 154.jpg",
+   "moment": "fire_ritual"
+  },
+  {
+   "title": "File:Portrait of a Bengali Bride 01.jpg",
+   "moment": "bride_portrait"
+  },
+  {
+   "title": "File:Portrait of a Bengali Bride 02.jpg",
+   "moment": "bride_portrait"
+  },
+  {
+   "title": "File:Portrait of a Bengali Bride 03.jpg",
+   "moment": "bride_portrait"
+  },
+  {
+   "title": "File:Portrait of a Bengali Bride 04.jpg",
+   "moment": "bride_portrait"
+  },
+  {
+   "title": "File:Portrait of a Bengali Bride 05.jpg",
+   "moment": "bride_portrait"
+  },
+  {
+   "title": "File:Portrait of a Bengali Bride 06.jpg",
+   "moment": "bride_portrait"
+  },
+  {
+   "title": "File:Portrait of a Bengali Bride 07.jpg",
+   "moment": "bride_portrait"
+  },
+  {
+   "title": "File:Portrait of a Bengali Bride 11.jpg",
+   "moment": "bride_portrait"
+  },
+  {
+   "title": "File:Portrait of a Bengali Bride 12.jpg",
+   "moment": "bride_portrait"
+  },
+  {
+   "title": "File:Portrait of a Bengali Bride 13.jpg",
+   "moment": "bride_portrait"
+  },
+  {
+   "title": "File:Portrait of a Bengali Bride 14.jpg",
+   "moment": "bride_portrait"
+  },
+  {
+   "title": "File:Portrait of a Bengali Bride 15.jpg",
+   "moment": "bride_portrait"
+  },
+  {
+   "title": "File:Portrait of a Bengali Bride 18.jpg",
+   "moment": "bride_portrait"
+  },
+  {
+   "title": "File:Adhibaas in a Bengali Marriage 01.jpg",
+   "moment": "priest_ritual"
+  },
+  {
+   "title": "File:Adhibaas in a Bengali Marriage 02.jpg",
+   "moment": "priest_ritual"
+  },
+  {
+   "title": "File:Adhibaas in a Bengali Marriage 03.jpg",
+   "moment": "priest_ritual"
+  },
+  {
+   "title": "File:Adhibaas in a Bengali Marriage 04.jpg",
+   "moment": "priest_ritual"
+  },
+  {
+   "title": "File:Adhibaas in a Bengali Marriage 11.jpg",
+   "moment": "priest_ritual"
+  },
+  {
+   "title": "File:Adhibaas in a Bengali Marriage 12.jpg",
+   "moment": "priest_ritual"
+  },
+  {
+   "title": "File:Adhibaas in a Bengali Marriage 13.jpg",
+   "moment": "priest_ritual"
+  },
+  {
+   "title": "File:Adhibaas in a Bengali Marriage 27.jpg",
+   "moment": "priest_ritual"
+  },
+  {
+   "title": "File:Adhibaas in a Bengali Marriage 28.jpg",
+   "moment": "priest_ritual"
+  },
+  {
+   "title": "File:Adhibaas in a Bengali Marriage 25.jpg",
+   "moment": "details"
+  },
+  {
+   "title": "File:Adhibaas in a Bengali Marriage 35.jpg",
+   "moment": "details"
+  },
+  {
+   "title": "File:Adhibaas in a Bengali Marriage 37.jpg",
+   "moment": "details"
+  },
+  {
+   "title": "File:Bengali Wedding Rituals in Kolkata 148.jpg",
+   "moment": "couple"
+  },
+  {
+   "title": "File:Bengali Wedding Rituals in Kolkata 160.jpg",
+   "moment": "couple"
+  },
+  {
+   "title": "File:Bengali Wedding Rituals in Kolkata 161.jpg",
+   "moment": "couple"
+  }
+ ]
+}
