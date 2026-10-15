@@ -163,6 +163,27 @@ class AlbumPlannerTest {
     }
 
     @Test
+    fun groupPhotosAreNotJudgedAgainstCloseUps() {
+        // Found on the phone test: small faces measure less sharp than big ones even in focus,
+        // which marked group photos down against close-up portraits.
+        val portraits = List(10) { photo(faces = listOf(face(x = 0.35f, w = 0.3f, sharp = 1300.0))) }
+        val groups = List(6) { photo(faces = List(4) { k -> face(x = 0.05f + k * 0.22f, w = 0.07f, sharp = 300.0) }) }
+        val blurredGroup = photo(faces = List(4) { k -> face(x = 0.05f + k * 0.22f, w = 0.07f, sharp = 60.0) })
+        val a = AlbumPlanner.analyze(portraits + groups + blurredGroup)
+        for (g in groups) assertFalse(Issue.BLURRY in a.issues(g))
+        assertTrue(a.q(groups[0]) >= 0.9 * a.q(portraits[0]))
+        assertTrue(Issue.BLURRY in a.issues(blurredGroup))
+    }
+
+    @Test
+    fun darkerSkinIsNotAShadow() {
+        val faces = List(6) { photo(faces = listOf(face(bright = 140.0))) }
+        val darkerSkin = photo(faces = listOf(face(x = 0.1f, bright = 140.0), face(x = 0.5f, bright = 60.0)))
+        val a = AlbumPlanner.analyze(faces + darkerSkin)
+        assertFalse(Issue.FACE_DARK in a.issues(darkerSkin))
+    }
+
+    @Test
     fun faceExposureBacklitOrShadowed() {
         val backlit = photo(faces = listOf(face(backlit = true)))
         val shadow = photo(faces = listOf(face(x = 0.1f), face(x = 0.5f, bright = 20.0)))

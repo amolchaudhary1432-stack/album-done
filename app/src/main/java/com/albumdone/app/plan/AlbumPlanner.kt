@@ -217,12 +217,13 @@ object AlbumPlanner {
         }
 
         val clearFaces = readable.flatMap { p -> p.faces.filter { it.box.width >= CLEAR_FACE } }
+        // Small faces (group photos) measure less sharp than big ones (close-ups) even when both
+        // are in focus, so each face is compared with faces of a similar size.
+        val bySize = clearFaces.groupBy { sizeBucket(it.box.width) }
         val norms = Norms(
-            subjectSharpness = median(readable.mapNotNull { p ->
-                p.faces.filter { it.box.width >= CLEAR_FACE }.maxOfOrNull { it.sharpness }
-            }),
             peakSharpness = median(readable.map { it.peakSharpness }),
             faceSharpness = median(clearFaces.map { it.sharpness }),
+            faceSharpnessBySize = bySize.filterValues { it.size >= 5 }.mapValues { (_, f) -> median(f.map { it.sharpness }) },
             eventBrightness = events.associateWith { e -> median(readable.filter { eventOf[it.id] == e }.map { it.brightness }) },
             eventDark = events.associateWith { e -> median(readable.filter { eventOf[it.id] == e }.map { it.darkFraction }) },
             eventBlown = events.associateWith { e -> median(readable.filter { eventOf[it.id] == e }.map { it.brightFraction }) },
@@ -286,10 +287,18 @@ object AlbumPlanner {
         return AlbumAnalysis(assessed, events, moments, kinds, tags, personPhotos)
     }
 
+    /** Face size groups (share of photo width) for comparing sharpness fairly. */
+    fun sizeBucket(width: Float): Int = when {
+        width < 0.09f -> 0
+        width < 0.15f -> 1
+        width < 0.25f -> 2
+        else -> 3
+    }
+
     private class Norms(
-        val subjectSharpness: Double,
         val peakSharpness: Double,
         val faceSharpness: Double,
+        val faceSharpnessBySize: Map<Int, Double>,
         val eventBrightness: Map<String, Double>,
         val eventDark: Map<String, Double>,
         val eventBlown: Map<String, Double>,
@@ -346,7 +355,7 @@ object AlbumPlanner {
             f.box.width >= CLEAR_FACE && !tags.isCouple(f.personId) &&
                 (f.personId == null || (personPhotos[f.personId] ?: 0) <= RARE_PERSON) &&
                 !f.lookingAtCamera && frequentPresent &&
-                ((norms.faceSharpness > 0 && f.sharpness < 0.5 * norms.faceSharpness) || f.cutOff >= 0.05f)
+                (relativeSharpness(f, norms) < 0.5 || f.cutOff >= 0.05f)
         }.toSet()
         if (strangers.isNotEmpty()) issues += Issue.STRANGER
 
@@ -357,8 +366,7 @@ object AlbumPlanner {
 
         // Subject sharpness: the faces when there are any, else the sharpest part of the photo.
         if (clear.isNotEmpty()) {
-            val subject = clear.maxOf { it.sharpness }
-            if (norms.subjectSharpness > 0 && subject < BLUR_FACTOR * norms.subjectSharpness) issues += Issue.BLURRY
+            if (clear.maxOf { relativeSharpness(it, norms) } < BLUR_FACTOR) issues += Issue.BLURRY
         } else if (norms.peakSharpness > 0 && p.peakSharpness < BLUR_FACTOR * norms.peakSharpness) {
             issues += Issue.BLURRY
         }
@@ -377,7 +385,8 @@ object AlbumPlanner {
         val interaction = clear.size >= 2 && (facingEachOther(clear) || clear.any { it.expression == Expression.LAUGH })
         val ritual = kind == EventKind.RITUAL && !(clear.size >= 3 && lookingShare >= 0.6)
         val vidaai = kind == EventKind.VIDAAI
-        val faceDarkLimit = min(55.0, 0.5 * (norms.eventFaceBrightness[event]?.takeIf { it > 0 } ?: 130.0))
+        // Kept low on purpose: darker skin is not a shadow.
+        val faceDarkLimit = min(45.0, 0.4 * (norms.eventFaceBrightness[event]?.takeIf { it > 0 } ?: 130.0))
 
         val faceScores = HashMap<PlanFace, Double>()
         for (f in clear) {
@@ -406,7 +415,7 @@ object AlbumPlanner {
                     else -> { issues += Issue.MID_TALK; 0.4 }
                 }
             }
-            val sharp = if (norms.faceSharpness > 0) min(f.sharpness / norms.faceSharpness, 1.5) / 1.5 else 0.7
+            val sharp = min(relativeSharpness(f, norms), 1.5) / 1.5
             var exposure = 1.0
             if (f.backlit || f.brightness < faceDarkLimit || f.brightness > 235.0) { issues += Issue.FACE_DARK; exposure = 0.6 }
             var visibility = 1.0
@@ -455,6 +464,12 @@ object AlbumPlanner {
         val emotional = clear.any { it.expression == Expression.EMOTIONAL }
         val allGood = clear.size >= 2 && clear.all { it.eyes == EyeState.OPEN && it.lookingAtCamera }
         return Judgement(issues, quality, shot, people, coupleLooking, ritual, interaction, emotional, allGood)
+    }
+
+    /** This face's sharpness compared with faces of a similar size in this wedding (1 = typical). */
+    private fun relativeSharpness(f: PlanFace, norms: Norms): Double {
+        val norm = norms.faceSharpnessBySize[sizeBucket(f.box.width)] ?: norms.faceSharpness
+        return if (norm > 0) f.sharpness / norm else 1.0
     }
 
     /** Two of these faces turned toward each other (people talking, laughing, the couple's candid). */

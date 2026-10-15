@@ -128,5 +128,7 @@ class ImageMetricsTest {
         assertTrue(ImageMetrics.isBacklit(60.0, 200.0))
         assertFalse(ImageMetrics.isBacklit(150.0, 200.0))
         assertFalse(ImageMetrics.isBacklit(40.0, 60.0)) // dark everywhere: that is lighting, not backlight
+        // Found on the phone test: a correctly lit face (darker skin) in front of a bright window.
+        assertFalse(ImageMetrics.isBacklit(94.0, 190.0))
     }
 }

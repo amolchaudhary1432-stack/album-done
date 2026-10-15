@@ -183,7 +183,11 @@ object ImageMetrics {
         return if (n == 0) 0.0 else sum / n
     }
 
-    /** Face clearly darker than the light behind or around it. */
+    /**
+     * Real backlight: a very bright background (window, sky, stage lights) and a face that is
+     * itself dark. A face that is only darker than a bright background is not backlit: darker
+     * skin in front of a window is correctly exposed.
+     */
     fun isBacklit(faceBrightness: Double, surroundBrightness: Double): Boolean =
-        surroundBrightness > 110.0 && faceBrightness < 0.6 * surroundBrightness
+        surroundBrightness >= 170.0 && faceBrightness < 0.45 * surroundBrightness && faceBrightness < 75.0
 }
