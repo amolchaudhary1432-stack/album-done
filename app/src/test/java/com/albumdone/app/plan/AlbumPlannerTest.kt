@@ -669,6 +669,26 @@ class AlbumPlannerTest {
     }
 
     @Test
+    fun swapOffersTheLookAlikesWithAReason() {
+        val h = 0x5555_0000_FFFF_0000L
+        val best = photo(t = start, hash = h, faces = listOf(face(80L)))
+        val blink = photo(t = start + 1_000, hash = h xor 0b1, faces = listOf(face(80L, eyes = EyeState.CLOSED)))
+        val softer = photo(t = start + 2_000, hash = h xor 0b11, faces = listOf(face(80L, sharp = 80.0)))
+        val sameMoment = photo(t = start + 20_000, faces = listOf(face(80L, expr = Expression.NATURAL)))
+        val otherMoment = photo(t = start + 60 * minute, faces = listOf(face(80L)))
+        val a = AlbumPlanner.analyze(listOf(best, blink, softer, sameMoment, otherMoment))
+        assertEquals(a.byId.getValue(best.id).repeatGroup, a.byId.getValue(blink.id).repeatGroup)
+        val alts = AlbumPlanner.alternatives(a, best.id, exclude = setOf(best.id))
+        val ids = alts.map { it.photoId }
+        // Same burst first (the softer shot before the blink: better quality), then the same moment.
+        assertEquals(listOf(softer.id, blink.id, sameMoment.id), ids)
+        assertEquals("Eyes closed", alts[1].note)
+        assertFalse(otherMoment.id in ids)
+        // Photos already in the album are not offered.
+        assertFalse(AlbumPlanner.alternatives(a, best.id, exclude = setOf(best.id, softer.id)).any { it.photoId == softer.id })
+    }
+
+    @Test
     fun allocateIsProportionalWithLargestRemainder() {
         assertEquals(mapOf("A" to 5, "B" to 3, "C" to 2), AlbumPlanner.allocate(linkedMapOf("A" to 50, "B" to 30, "C" to 20), 10))
         val q = AlbumPlanner.allocate(linkedMapOf("A" to 1000, "B" to 2, "C" to 1), 10)

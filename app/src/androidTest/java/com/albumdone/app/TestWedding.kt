@@ -27,10 +27,10 @@ object TestWedding {
         Triple("biden.jpg", "02 Wedding", "IMG_0104.jpg"),
     )
 
-    /** Creates the album, runs the analysis worker to the end and returns the album id. */
-    fun createAndAnalyse(name: String): Long = runBlocking {
+    /** Creates the album as the app does after a folder is chosen; nothing is checked yet. */
+    fun create(name: String, albumSize: Int = 4): Long = runBlocking {
         val dao = AppDatabase.get(DeviceTestSupport.app).dao()
-        val id = dao.insertProject(ProjectEntity(name = name, treeUri = "file:///test", createdAt = System.currentTimeMillis()))
+        val id = dao.insertProject(ProjectEntity(name = name, treeUri = "file:///test", createdAt = System.currentTimeMillis(), albumSize = albumSize))
         dao.insertPhotos(PHOTOS.map { (asset, folder, fileName) ->
             PhotoEntity(
                 projectId = id,
@@ -41,6 +41,12 @@ object TestWedding {
                 lastModified = 0,
             )
         })
+        id
+    }
+
+    /** Creates the album, runs the analysis worker to the end and returns the album id. */
+    fun createAndAnalyse(name: String): Long = runBlocking {
+        val id = create(name)
         val worker = TestListenableWorkerBuilder<AnalyzeWorker>(DeviceTestSupport.app)
             .setInputData(workDataOf(AnalyzeWorker.KEY_PROJECT_ID to id))
             .build()

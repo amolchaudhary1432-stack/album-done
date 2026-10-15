@@ -138,7 +138,7 @@ object FamilyGuess {
 
     private val PARENTS = setOf("aai", "baba", "mummy", "mom", "mother", "papa", "dad", "father", "maa", "pappa", "amma", "appa")
     private val GRANDPARENTS = setOf("aaji", "ajoba", "aji", "dadi", "nani", "nana", "grandmother", "grandfather", "grandma", "grandpa")
-    private val SIBLINGS = setOf("tai", "dada", "bhau", "didi", "bhaiya", "bhai", "behen", "sister", "brother", "best friend")
+    private val SIBLINGS = setOf("tai", "dada", "bhau", "didi", "bhaiya", "bhai", "behen", "bahin", "sister", "brother", "best friend")
 
     /** "Aaji" means: at least 5 photos, and elders come first. */
     fun fromRelation(relation: String): Pair<Priority, Boolean> {
@@ -148,6 +148,7 @@ object FamilyGuess {
             r in PARENTS || r in SIBLINGS -> Priority.MUST to false
             r.isEmpty() -> Priority.NORMAL to false
             r == "not family" || r == "skip" -> Priority.SKIP to false
+            r.startsWith("bride's ") || r.startsWith("groom's ") -> fromRelation(r.substringAfter("'s "))
             else -> Priority.IMPORTANT to false
         }
     }

@@ -9,5 +9,10 @@ Everything runs on the phone. Nothing is downloaded at run time.
 | OpenCV Zoo SFace (`face_recognition_sface_2021dec.onnx`) | Face fingerprints to recognise people | Apache 2.0 | github.com/opencv/opencv_zoo/tree/main/models/face_recognition_sface |
 | MediaPipe Tasks Vision (`com.google.mediapipe:tasks-vision`) | Runs the two MediaPipe models | Apache 2.0 | google.github.io/mediapipe |
 | ONNX Runtime (`com.microsoft.onnxruntime:onnxruntime-android`) | Runs SFace | MIT | onnxruntime.ai |
+| Mukta font (Girish Dalvi, Ek Type), regular, medium, semibold | Body text, supports Devanagari | SIL Open Font License 1.1 | fonts.google.com/specimen/Mukta |
+| Marcellus font (Brian J. Bonislawsky, Astigmatic) | Headings | SIL Open Font License 1.1 | fonts.google.com/specimen/Marcellus |
+
+The two fonts carry their copyright and licence inside the font files. The OFL allows bundling them in
+an app that is sold, as long as the fonts themselves are not sold on their own.
 
 Checksums of the bundled model files are pinned in `app/models.sha256`.

@@ -27,7 +27,7 @@ class MainActivity : ComponentActivity() {
         handleIntent(intent)
     }
 
-    /** Opening the app from a notification goes straight to that wedding. */
+    /** Opening the app from a notification goes straight to that album. */
     private fun handleIntent(intent: Intent?) {
         val id = intent?.getLongExtra(EXTRA_PROJECT_ID, -1L) ?: -1L
         if (id > 0) viewModel.openProject(id)
@@ -46,8 +46,8 @@ private fun AppContent(vm: AlbumViewModel) {
         Screen.Home -> HomeScreen(vm)
         is Screen.NewAlbum -> NewAlbumScreen(vm, screen)
         is Screen.Progress -> ProgressScreen(vm, screen.projectId)
-        is Screen.TagFamily -> TagFamilyScreen(vm, screen.projectId)
-        is Screen.Results -> ResultsScreen(vm, screen.projectId)
-        is Screen.Shortlist -> ShortlistScreen(vm, screen.projectId)
+        is Screen.Album -> AlbumScreen(vm, screen.projectId)
+        is Screen.Viewer -> ViewerScreen(vm, screen.projectId, screen.photoId)
+        is Screen.Send -> SendScreen(vm, screen.projectId)
     }
 }

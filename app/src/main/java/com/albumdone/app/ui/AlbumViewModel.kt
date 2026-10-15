@@ -12,17 +12,22 @@ import androidx.lifecycle.viewModelScope
 import androidx.work.WorkManager
 import com.albumdone.app.data.AppDatabase
 import com.albumdone.app.data.PersonEntity
+import com.albumdone.app.data.PersonPriority
+import com.albumdone.app.data.PersonSide
 import com.albumdone.app.data.PersonWithFace
 import com.albumdone.app.data.PhotoEntity
 import com.albumdone.app.data.ProjectEntity
 import com.albumdone.app.data.ProjectStatus
 import com.albumdone.app.data.ProjectSummary
+import com.albumdone.app.people.FamilyGuess
 import com.albumdone.app.people.PeopleRepository
 import com.albumdone.app.plan.AlbumAnalysis
 import com.albumdone.app.plan.AlbumPlanner
-import com.albumdone.app.plan.Coverage
+import com.albumdone.app.plan.Box
 import com.albumdone.app.plan.Display
+import com.albumdone.app.plan.Issue
 import com.albumdone.app.plan.PlanPhoto
+import com.albumdone.app.plan.Priority
 import com.albumdone.app.scan.FolderScanner
 import com.albumdone.app.scan.FoundPhoto
 import com.albumdone.app.work.AnalyzeWorker
@@ -32,21 +37,23 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import java.io.File
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 sealed interface Screen {
     data object Home : Screen
     data class NewAlbum(val treeUri: Uri, val name: String) : Screen
     data class Progress(val projectId: Long) : Screen
-    data class TagFamily(val projectId: Long) : Screen
-    data class Results(val projectId: Long) : Screen
-    data class Shortlist(val projectId: Long) : Screen
+    data class Album(val projectId: Long) : Screen
+    data class Viewer(val projectId: Long, val photoId: Long) : Screen
+    data class Send(val projectId: Long) : Screen
 }
 
 /** What the folder scan found, before analysis starts. */
@@ -54,51 +61,64 @@ data class ScanState(
     val scanning: Boolean = true,
     val found: Int = 0,
     val photos: List<FoundPhoto> = emptyList(),
-    val events: Int = 0,
+    /** Event name (as the photographer named the folder) to number of photos, in order. */
+    val events: List<Pair<String, Int>> = emptyList(),
     val error: String? = null,
 )
 
-data class ResultsState(
-    val project: ProjectEntity,
-    val analysis: AlbumAnalysis,
-    val shortlistCount: Int,
-    /** Coverage of each Must / Important person: in the shortlist if there is one, else none yet. */
-    val coverage: List<Coverage>,
+/** A face to show as a small round picture: the photo's thumbnail and where the face is in it. */
+data class FaceCrop(val thumbPath: String?, val box: Box?)
+
+/** Someone in the family strip. */
+data class PersonChip(
+    val personId: Long,
+    val label: String,
+    /** The couple has said who this is. */
+    val known: Boolean,
+    val face: FaceCrop,
+    val inAlbum: Int,
+    val target: Int,
+    val warning: String?,
 )
 
-data class ShortlistPhoto(
+data class AlbumPhoto(
     val photo: PhotoEntity,
     val event: String,
     val reasons: List<String>,
     val cover: Boolean,
     /** Where to centre the square thumbnail so the faces show (-1..1 each way). */
-    val crop: Pair<Float, Float> = 0f to 0f,
+    val crop: Pair<Float, Float>,
 )
 
-data class ShortlistState(
-    val project: ProjectEntity?,
-    /** Selected photos, in story order, grouped by event (in event order). */
-    val byEvent: List<Pair<String, List<ShortlistPhoto>>>,
-    val selectedCount: Int,
-    /** There are photos left that could replace removed ones. */
-    val canReplace: Boolean,
+data class EventSection(val name: String, val title: String, val photos: List<AlbumPhoto>, val keyMoments: List<String>)
+
+data class LeftOut(val repeats: Int, val blurry: Int, val eyes: Int, val light: Int, val faces: Int, val distractions: Int)
+
+data class AlbumState(
+    val project: ProjectEntity,
+    val total: Int,
+    val cover: AlbumPhoto?,
+    val bride: PersonChip?,
+    val groom: PersonChip?,
+    val family: List<PersonChip>,
+    /** Frequent people not in the family strip, to add someone the app missed. */
+    val others: List<PersonChip>,
+    val warnings: List<String>,
+    val events: List<EventSection>,
+    val leftOut: LeftOut,
 )
 
-/** One row of the "Tag your family" screen. */
-data class PersonRow(
+data class PersonDetail(
     val person: PersonEntity,
-    val thumbPath: String?,
-    val faceLeft: Float, val faceTop: Float, val faceRight: Float, val faceBottom: Float,
+    val face: FaceCrop,
+    val samples: List<String>,
     val role: String?,
+    val guessedSide: String,
 )
 
-data class FamilyState(
-    val project: ProjectEntity?,
-    val bride: PersonRow?,
-    val groom: PersonRow?,
-    /** The most photographed people after the couple. */
-    val others: List<PersonRow>,
-)
+data class Alternative(val photo: PhotoEntity, val note: String, val crop: Pair<Float, Float>)
+
+data class ViewerState(val photo: AlbumPhoto, val alternatives: List<Alternative>, val inAlbum: Boolean)
 
 class AlbumViewModel(app: Application) : AndroidViewModel(app) {
 
@@ -111,21 +131,26 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
     var scan by mutableStateOf(ScanState())
         private set
 
-    var results by mutableStateOf<ResultsState?>(null)
-        private set
+    /** Album size chosen on the new-album screen. */
+    var newAlbumSize by mutableStateOf(300)
 
     var busy by mutableStateOf(false)
         private set
 
-    /** A short message to show once (e.g. "Found 4 more photos of Aai"). */
+    /** A short message to show once, with an optional undo. [messageId] changes for each new one. */
     var message by mutableStateOf<String?>(null)
+        private set
+    var undo by mutableStateOf<(() -> Unit)?>(null)
+        private set
+    var messageId by mutableStateOf(0)
+        private set
 
     val projects: StateFlow<List<ProjectSummary>> = dao.projectSummaries()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
 
     fun projectSummary(id: Long) = dao.projectSummary(id)
 
-    // The planner's view of a wedding. Worked out once and reused until the family tags change.
+    // The planner's view of a wedding. Worked out once and reused until the family changes.
     private val analysisLock = Mutex()
     @Volatile private var cachedAnalysis: Pair<Long, AlbumAnalysis>? = null
 
@@ -140,51 +165,52 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
 
     private fun forgetAnalysis() { cachedAnalysis = null }
 
+    private fun say(text: String, undoAction: (() -> Unit)? = null) {
+        message = text
+        undo = undoAction
+        messageId++
+    }
+
     // ---- Navigation ----
 
     fun back() {
-        when (val s = screen) {
-            is Screen.Shortlist -> showResults(s.projectId)
-            is Screen.TagFamily -> showResults(s.projectId)
-            else -> screen = Screen.Home
+        screen = when (val s = screen) {
+            is Screen.Viewer -> Screen.Album(s.projectId)
+            is Screen.Send -> Screen.Album(s.projectId)
+            else -> Screen.Home
         }
     }
 
     fun openProject(id: Long) {
         viewModelScope.launch {
             val project = dao.project(id) ?: return@launch
-            when {
-                project.status != ProjectStatus.DONE -> {
-                    // Starts the work again if Android stopped it; does nothing if it is running.
-                    AnalyzeWorker.start(getApplication(), id)
-                    screen = Screen.Progress(id)
-                }
-                !project.familyTagged -> screen = Screen.TagFamily(id)
-                else -> showResults(id)
+            if (project.status != ProjectStatus.DONE) {
+                // Starts the work again if Android stopped it; does nothing if it is running.
+                AnalyzeWorker.start(getApplication(), id)
+                screen = Screen.Progress(id)
+            } else {
+                openAlbum(id)
             }
         }
     }
 
-    /** Analysis finished: next comes tagging the family (once), then the results. */
-    fun onAnalysisDone(projectId: Long) {
-        forgetAnalysis()
-        openProject(projectId)
-    }
-
-    fun showResults(projectId: Long) {
-        screen = Screen.Results(projectId)
-        if (results?.project?.id != projectId) results = null
+    /** Analysis finished: the album is made straight away, so the couple sees results first. */
+    fun openAlbum(projectId: Long) {
         viewModelScope.launch {
-            val project = dao.project(projectId) ?: return@launch
-            val analysis = analysisFor(projectId)
-            val selected = withContext(Dispatchers.IO) { dao.photos(projectId).filter { it.selected }.map { it.id } }
-            results = ResultsState(project, analysis, selected.size, AlbumPlanner.coverage(analysis, selected))
+            forgetAnalysis()
+            val photos = dao.photos(projectId)
+            if (photos.none { it.selected || it.removed }) {
+                busy = true
+                replan(projectId)
+                busy = false
+            }
+            screen = Screen.Album(projectId)
         }
     }
 
-    fun openTagFamily(projectId: Long) {
-        screen = Screen.TagFamily(projectId)
-    }
+    fun openPhoto(projectId: Long, photoId: Long) { screen = Screen.Viewer(projectId, photoId) }
+
+    fun openSend(projectId: Long) { screen = Screen.Send(projectId) }
 
     // ---- New album ----
 
@@ -202,10 +228,11 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
             scan = withContext(Dispatchers.IO) {
                 try {
                     val photos = FolderScanner.scan(app, uri) { count -> scan = scan.copy(found = count) }
-                    val events = AlbumPlanner.assignEvents(
-                        photos.mapIndexed { i, p -> PlanPhoto(id = i.toLong(), name = p.name, folder = p.folder) }
-                    ).values.distinct().size
-                    ScanState(scanning = false, found = photos.size, photos = photos, events = events)
+                    val plan = photos.mapIndexed { i, p -> PlanPhoto(id = i.toLong(), name = p.name, folder = p.folder) }
+                    val eventOf = AlbumPlanner.assignEvents(plan)
+                    val order = AlbumPlanner.orderEvents(plan, eventOf)
+                    val counts = eventOf.values.groupingBy { it }.eachCount()
+                    ScanState(scanning = false, found = photos.size, photos = photos, events = order.map { it to (counts[it] ?: 0) })
                 } catch (e: Exception) {
                     ScanState(scanning = false, error = "Could not read this folder. Please pick it again.")
                 }
@@ -221,7 +248,12 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
         viewModelScope.launch {
             val projectId = withContext(Dispatchers.IO) {
                 val id = dao.insertProject(
-                    ProjectEntity(name = name.trim().ifEmpty { s.name }, treeUri = s.treeUri.toString(), createdAt = System.currentTimeMillis())
+                    ProjectEntity(
+                        name = name.trim().ifEmpty { s.name },
+                        treeUri = s.treeUri.toString(),
+                        createdAt = System.currentTimeMillis(),
+                        albumSize = newAlbumSize,
+                    )
                 )
                 photos.chunked(1000).forEach { chunk ->
                     dao.insertPhotos(chunk.map {
@@ -259,169 +291,307 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
-    // ---- Tag your family ----
+    // ---- The album ----
 
-    fun family(projectId: Long): Flow<FamilyState> =
-        combine(dao.peopleWithFaces(projectId), dao.projectSummary(projectId)) { list, summary ->
-            val project = summary?.project
-            fun row(p: PersonWithFace) = PersonRow(
-                p.person, p.thumbPath, p.faceLeft ?: 0f, p.faceTop ?: 0f, p.faceRight ?: 1f, p.faceBottom ?: 1f,
-                when (p.person.id) { project?.brideId -> "Bride"; project?.groomId -> "Groom"; else -> null },
-            )
-            val rows = list.map { row(it) }
-            FamilyState(
-                project = project,
-                bride = rows.firstOrNull { it.person.id == project?.brideId },
-                groom = rows.firstOrNull { it.person.id == project?.groomId },
-                others = rows.filter { it.role == null }.take(TOP_PEOPLE),
-            )
-        }.flowOn(Dispatchers.Default)
-
-    private fun editPeople(projectId: Long, block: suspend () -> Unit) {
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) { block() }
-            forgetAnalysis()
-            if (cachedAnalysis == null && screen is Screen.Results) showResults(projectId)
+    /** Makes (or remakes) the album, always keeping photos the couple chose themselves. */
+    private suspend fun replan(projectId: Long) {
+        val project = dao.project(projectId) ?: return
+        val analysis = analysisFor(projectId)
+        withContext(Dispatchers.Default) {
+            val photos = dao.photos(projectId)
+            val keep = photos.filter { it.selected && it.userChoice }.map { it.id }.toSet()
+            val removed = photos.filter { it.removed }.map { it.id }.toSet()
+            val list = AlbumPlanner.shortlist(analysis, project.albumSize, removed, keep)
+            dao.replaceSelection(projectId, list.ids)
+            dao.setPickReasons(list.ids.filter { it !in keep }.associateWith { list.reasons[it].orEmpty().joinToString("\n") })
+            dao.setCover(projectId, list.coverId)
         }
     }
 
-    fun updatePerson(person: PersonEntity) = editPeople(person.projectId) { dao.updatePerson(person) }
+    fun album(projectId: Long): Flow<AlbumState?> =
+        combine(dao.photosFlow(projectId), dao.peopleWithFaces(projectId), dao.projectSummary(projectId)) { photos, persons, summary ->
+            val project = summary?.project ?: return@combine null
+            if (photos.none { it.selected }) return@combine null
+            val analysis = analysisFor(projectId)
+            buildAlbum(project, photos, persons, analysis)
+        }.flowOn(Dispatchers.Default)
 
-    fun setBride(projectId: Long, personId: Long) = editPeople(projectId) {
+    private fun buildAlbum(project: ProjectEntity, photos: List<PhotoEntity>, persons: List<PersonWithFace>, analysis: AlbumAnalysis): AlbumState {
+        val byId = photos.associateBy { it.id }
+        val selected = photos.filter { it.selected }
+        val selectedIds = selected.map { it.id }.toSet()
+        fun albumPhoto(id: Long): AlbumPhoto? {
+            val p = byId[id] ?: return null
+            val a = analysis.byId[id] ?: return null
+            return AlbumPhoto(
+                photo = p,
+                event = a.event,
+                reasons = p.pickReason?.split('\n')?.filter(String::isNotBlank).orEmpty(),
+                cover = id == project.coverPhotoId,
+                crop = Display.cropBias(p.width, p.height, a.photo.faces.map { it.box }),
+            )
+        }
+        val faceOf = persons.associate { it.person.id to FaceCrop(it.thumbPath, faceBox(it)) }
+        val personById = persons.associateBy { it.person.id }
+        val coverage = AlbumPlanner.coverage(analysis, selectedIds).associateBy { it.personId }
+        val tags = analysis.tags
+
+        fun chip(id: Long, label: String? = null): PersonChip {
+            val entity = personById[id]?.person
+            val c = coverage[id]
+            val known = entity?.name?.isNotBlank() == true
+            return PersonChip(
+                personId = id,
+                label = label ?: entity?.name?.takeIf { it.isNotBlank() } ?: "Who is this?",
+                known = known || label != null,
+                face = faceOf[id] ?: FaceCrop(null, null),
+                inAlbum = analysis.photos.count { it.id in selectedIds && id in it.people },
+                target = c?.target ?: 0,
+                warning = c?.warning,
+            )
+        }
+
+        val familyIds = tags.tags.values
+            .filter { !tags.isCouple(it.id) && (it.priority == Priority.MUST || it.priority == Priority.IMPORTANT) }
+            .filter { personById.containsKey(it.id) }
+            .sortedWith(compareBy<com.albumdone.app.plan.PersonTag> { it.priority }.thenByDescending { it.elder }.thenBy { it.side }
+                .thenByDescending { personById[it.id]?.person?.photoCount ?: 0 })
+            .map { it.id }
+        val family = familyIds.map { chip(it) }
+        val others = persons.asSequence()
+            .map { it.person }
+            .filter { it.id !in familyIds && !tags.isCouple(it.id) && it.priority != PersonPriority.SKIP && it.photoCount >= 3 }
+            .sortedByDescending { it.photoCount }
+            .take(30)
+            .map { chip(it.id) }
+            .toList()
+        val warnings = family.filter { it.warning != null && it.inAlbum < it.target }.take(2).map { c ->
+            val who = if (c.known) c.label else "Someone close to you"
+            "$who: ${c.inAlbum} of ${c.target} photos. ${c.warning}."
+        }
+
+        val time = SimpleDateFormat("h:mm a", Locale.ENGLISH)
+        val events = analysis.events.mapNotNull { e ->
+            val items = analysis.photos.filter { it.event == e && it.id in selectedIds }.mapNotNull { albumPhoto(it.id) }
+            if (items.isEmpty()) return@mapNotNull null
+            val keys = analysis.moments.filter { it.event == e && it.key && it.start > 0 }
+                .sortedBy { it.start }.map { "Key moment · " + time.format(Date(it.start)).lowercase() }.distinct().take(4)
+            EventSection(e, Display.eventName(e), items, keys)
+        }
+        val leftOut = LeftOut(
+            repeats = analysis.countAny(Issue.DUPLICATE, Issue.GROUP_REPEAT),
+            blurry = analysis.count(Issue.BLURRY),
+            eyes = analysis.countAny(Issue.EYES_CLOSED, Issue.HALF_BLINK),
+            light = analysis.darkOrBrightCount,
+            faces = analysis.countAny(Issue.FACE_CUT_OFF, Issue.FACE_BLOCKED),
+            distractions = analysis.countAny(Issue.BACK_OF_GUEST, Issue.PHONE_IN_SHOT, Issue.STRANGER),
+        )
+        return AlbumState(
+            project = project,
+            total = selected.size,
+            cover = project.coverPhotoId?.let { albumPhoto(it) },
+            bride = tags.brideId?.let { chip(it, personById[it]?.person?.name?.takeIf { n -> n.isNotBlank() } ?: "Bride") },
+            groom = tags.groomId?.let { chip(it, personById[it]?.person?.name?.takeIf { n -> n.isNotBlank() } ?: "Groom") },
+            family = family,
+            others = others,
+            warnings = warnings,
+            events = events,
+            leftOut = leftOut,
+        )
+    }
+
+    private fun faceBox(p: PersonWithFace): Box? {
+        val l = p.faceLeft ?: return null
+        return Box(l, p.faceTop ?: 0f, p.faceRight ?: 1f, p.faceBottom ?: 1f)
+    }
+
+    fun setAlbumSize(projectId: Long, size: Int) {
+        if (busy || size <= 0) return
+        busy = true
+        viewModelScope.launch {
+            dao.setAlbumSize(projectId, size)
+            replan(projectId)
+            busy = false
+            say("Album updated to $size photos")
+        }
+    }
+
+    // ---- One photo ----
+
+    fun viewer(projectId: Long, photoId: Long): Flow<ViewerState?> =
+        combine(dao.photosFlow(projectId), dao.projectSummary(projectId)) { photos, summary ->
+            val project = summary?.project ?: return@combine null
+            val analysis = analysisFor(projectId)
+            val byId = photos.associateBy { it.id }
+            val p = byId[photoId] ?: return@combine null
+            val a = analysis.byId[photoId] ?: return@combine null
+            val exclude = photos.filter { it.selected || it.removed }.map { it.id }.toSet()
+            val alts = AlbumPlanner.alternatives(analysis, photoId, exclude).mapNotNull { alt ->
+                val ap = byId[alt.photoId] ?: return@mapNotNull null
+                val aa = analysis.byId[alt.photoId] ?: return@mapNotNull null
+                Alternative(ap, alt.note, Display.cropBias(ap.width, ap.height, aa.photo.faces.map { it.box }))
+            }
+            ViewerState(
+                photo = AlbumPhoto(
+                    photo = p,
+                    event = a.event,
+                    reasons = p.pickReason?.split('\n')?.filter(String::isNotBlank).orEmpty(),
+                    cover = photoId == project.coverPhotoId,
+                    crop = Display.cropBias(p.width, p.height, a.photo.faces.map { it.box }),
+                ),
+                alternatives = alts,
+                inAlbum = p.selected,
+            )
+        }.flowOn(Dispatchers.Default)
+
+    /** The couple prefers [newId] to [oldId]: swap them, and remember it was their choice. */
+    fun swap(projectId: Long, oldId: Long, newId: Long) {
+        viewModelScope.launch {
+            val project = dao.project(projectId) ?: return@launch
+            dao.deselect(oldId)
+            dao.selectAsChoice(newId, "Your choice: swapped in for a similar photo")
+            if (project.coverPhotoId == oldId) dao.setCover(projectId, newId)
+            screen = Screen.Viewer(projectId, newId)
+            say("Swapped") { viewModelScope.launch { dao.deselect(newId); dao.restoreToShortlist(oldId); if (project.coverPhotoId == oldId) dao.setCover(projectId, oldId) } }
+        }
+    }
+
+    /** Takes a photo out and fills its place with the next best one straight away. */
+    fun remove(projectId: Long, photoId: Long) {
+        viewModelScope.launch {
+            val before = dao.photos(projectId).filter { it.selected }.map { it.id }.toSet()
+            dao.removeFromShortlist(photoId)
+            val project = dao.project(projectId) ?: return@launch
+            val analysis = analysisFor(projectId)
+            val added = withContext(Dispatchers.Default) {
+                val photos = dao.photos(projectId)
+                val keep = photos.filter { it.selected }.map { it.id }.toSet()
+                val list = AlbumPlanner.shortlist(analysis, project.albumSize, photos.filter { it.removed }.map { it.id }.toSet(), keep)
+                dao.replaceSelection(projectId, list.ids)
+                val new = list.ids.filter { it !in before }
+                dao.setPickReasons(new.associateWith { list.reasons[it].orEmpty().joinToString("\n") })
+                if (project.coverPhotoId == photoId) dao.setCover(projectId, list.coverId)
+                new
+            }
+            screen = Screen.Album(projectId)
+            say(if (added.isEmpty()) "Removed" else "Removed. The next best photo took its place") {
+                viewModelScope.launch {
+                    dao.deselectAll(added)
+                    dao.restoreToShortlist(photoId)
+                    if (project.coverPhotoId == photoId) dao.setCover(projectId, photoId)
+                }
+            }
+        }
+    }
+
+    // ---- People ----
+
+    fun personDetail(projectId: Long, personId: Long): Flow<PersonDetail?> =
+        combine(dao.peopleWithFaces(projectId), dao.projectSummary(projectId)) { persons, summary ->
+            val p = persons.firstOrNull { it.person.id == personId } ?: return@combine null
+            val project = summary?.project
+            val faces = dao.faceRows(projectId).filter { it.personId == personId }
+                .sortedByDescending { (it.right - it.left) * it.quality }
+            val thumbs = dao.photos(projectId).associate { it.id to it.thumbPath }
+            val samples = faces.map { it.photoId }.distinct().mapNotNull { thumbs[it] }.take(4)
+            val analysis = analysisFor(projectId)
+            val guessed = when (analysis.tags.tag(personId).side) {
+                com.albumdone.app.plan.Side.BRIDE -> PersonSide.BRIDE
+                com.albumdone.app.plan.Side.GROOM -> PersonSide.GROOM
+                else -> PersonSide.UNKNOWN
+            }
+            PersonDetail(
+                person = p.person,
+                face = FaceCrop(p.thumbPath, faceBox(p)),
+                samples = samples,
+                role = when (personId) { project?.brideId -> "Bride"; project?.groomId -> "Groom"; else -> null },
+                guessedSide = guessed,
+            )
+        }.flowOn(Dispatchers.Default)
+
+    private fun editPeople(projectId: Long, done: String? = null, block: suspend () -> Unit) {
+        viewModelScope.launch {
+            busy = true
+            withContext(Dispatchers.IO) { block() }
+            forgetAnalysis()
+            replan(projectId)
+            busy = false
+            if (done != null) say(done)
+        }
+    }
+
+    /** "Who is this?" answered: the relation decides how many photos, elder, and side. */
+    fun setRelation(projectId: Long, person: PersonEntity, side: String, relation: String, name: String) {
+        val (priority, elder) = if (relation.isEmpty()) Priority.IMPORTANT to person.elder else FamilyGuess.fromRelation(relation)
+        val label = name.trim().ifEmpty {
+            when {
+                relation.isEmpty() -> person.name
+                side == PersonSide.BRIDE -> "Bride's ${relation.lowercase()}"
+                side == PersonSide.GROOM -> "Groom's ${relation.lowercase()}"
+                else -> relation
+            }
+        }
+        editPeople(projectId, "Album updated for $label") {
+            dao.updatePerson(person.copy(name = label, priority = priority.name, elder = elder, side = side))
+        }
+    }
+
+    fun notFamily(projectId: Long, person: PersonEntity) =
+        editPeople(projectId, "Album updated") { dao.updatePerson(person.copy(priority = PersonPriority.SKIP)) }
+
+    fun setBride(projectId: Long, personId: Long) = editPeople(projectId, "Bride updated") {
         val p = dao.project(projectId) ?: return@editPeople
         dao.setCouple(projectId, personId, if (p.groomId == personId) p.brideId else p.groomId)
     }
 
-    fun setGroom(projectId: Long, personId: Long) = editPeople(projectId) {
+    fun setGroom(projectId: Long, personId: Long) = editPeople(projectId, "Groom updated") {
         val p = dao.project(projectId) ?: return@editPeople
         dao.setCouple(projectId, if (p.brideId == personId) p.groomId else p.brideId, personId)
     }
 
-    fun swapCouple(projectId: Long) = editPeople(projectId) {
+    fun swapCouple(projectId: Long) = editPeople(projectId, "Swapped bride and groom") {
         val p = dao.project(projectId) ?: return@editPeople
         dao.setCouple(projectId, p.groomId, p.brideId)
     }
 
-    fun merge(projectId: Long, keep: Long, gone: Long) = editPeople(projectId) { people.merge(projectId, keep, gone) }
+    fun merge(projectId: Long, keep: Long, gone: Long) = editPeople(projectId, "Joined: same person") { people.merge(projectId, keep, gone) }
 
-    fun split(projectId: Long, personId: Long) = editPeople(projectId) {
-        val parts = people.split(projectId, personId)
-        message = if (parts > 1) "Separated into $parts people" else "These faces look like one person"
-    }
-
-    fun findMore(projectId: Long, personId: Long) = editPeople(projectId) {
-        val n = people.findMore(projectId, personId)
-        message = if (n > 0) "Found $n more photo${if (n == 1) "" else "s"}" else "No more photos found"
-    }
-
-    fun finishTagging(projectId: Long) {
+    fun split(projectId: Long, personId: Long) {
         viewModelScope.launch {
-            dao.setFamilyTagged(projectId)
+            busy = true
+            val parts = withContext(Dispatchers.IO) { people.split(projectId, personId) }
             forgetAnalysis()
-            showResults(projectId)
-        }
-    }
-
-    // ---- Shortlist ----
-
-    fun makeShortlist(projectId: Long, size: Int) {
-        if (busy) return
-        busy = true
-        viewModelScope.launch {
-            val analysis = analysisFor(projectId)
-            withContext(Dispatchers.Default) {
-                val photos = dao.photos(projectId)
-                val removed = photos.filter { it.removed }.map { it.id }.toSet()
-                val list = AlbumPlanner.shortlist(analysis, size, removed)
-                dao.setAlbumSize(projectId, size)
-                dao.replaceSelection(projectId, list.ids)
-                dao.setPickReasons(list.ids.associateWith { list.reasons[it].orEmpty().joinToString("\n") })
-                dao.setCover(projectId, list.coverId)
-            }
+            replan(projectId)
             busy = false
-            screen = Screen.Shortlist(projectId)
+            say(if (parts > 1) "Separated into $parts people" else "These photos look like one person")
         }
     }
 
-    fun openShortlist(projectId: Long) {
-        screen = Screen.Shortlist(projectId)
-    }
-
-    fun shortlist(projectId: Long): Flow<ShortlistState> =
-        dao.photosFlow(projectId).map { photos ->
-            val project = dao.project(projectId)
-            val analysis = analysisFor(projectId)
-            val selected = photos.filter { it.selected }.associateBy { it.id }
-            val ordered = analysis.photos.filter { it.id in selected }
-            val byEvent = analysis.events.mapNotNull { event ->
-                val items = ordered.filter { it.event == event }.map {
-                    val p = selected.getValue(it.id)
-                    ShortlistPhoto(
-                        photo = p,
-                        event = event,
-                        reasons = p.pickReason?.split('\n')?.filter(String::isNotBlank).orEmpty(),
-                        cover = p.id == project?.coverPhotoId,
-                        crop = Display.cropBias(p.width, p.height, it.photo.faces.map { f -> f.box }),
-                    )
-                }
-                if (items.isEmpty()) null else event to items
-            }
-            ShortlistState(
-                project = project,
-                byEvent = byEvent,
-                selectedCount = selected.size,
-                canReplace = photos.any { !it.selected && !it.removed && !it.failed },
-            )
-        }.flowOn(Dispatchers.Default)
-
-    fun removeFromShortlist(photoId: Long) {
-        viewModelScope.launch { dao.removeFromShortlist(photoId) }
-    }
-
-    fun undoRemove(photoId: Long) {
-        viewModelScope.launch { dao.restoreToShortlist(photoId) }
-    }
-
-    fun replaceRemoved(projectId: Long) {
-        if (busy) return
-        busy = true
+    fun findMore(projectId: Long, personId: Long) {
         viewModelScope.launch {
-            val analysis = analysisFor(projectId)
-            withContext(Dispatchers.Default) {
-                val project = dao.project(projectId) ?: return@withContext
-                val photos = dao.photos(projectId)
-                val keep = photos.filter { it.selected }.map { it.id }.toSet()
-                val list = AlbumPlanner.shortlist(
-                    analysis, project.albumSize,
-                    removed = photos.filter { it.removed }.map { it.id }.toSet(),
-                    keep = keep,
-                )
-                dao.replaceSelection(projectId, list.ids)
-                // Kept photos keep their original reasons; new ones get theirs.
-                dao.setPickReasons(list.ids.filter { it !in keep }.associateWith { list.reasons[it].orEmpty().joinToString("\n") })
-                if (project.coverPhotoId !in keep) dao.setCover(projectId, list.coverId)
-            }
+            busy = true
+            val n = withContext(Dispatchers.IO) { people.findMore(projectId, personId) }
+            forgetAnalysis()
+            replan(projectId)
             busy = false
+            say(if (n > 0) "Found $n more photo${if (n == 1) "" else "s"}" else "No more photos found")
         }
     }
+
+    // ---- Sending ----
 
     /** Plain text for the photographer: event headings, then file names. */
-    fun shareText(state: ShortlistState): String = buildString {
-        append("Album selection: ").append(state.project?.name ?: "").append('\n')
-        append(state.selectedCount).append(" photos\n")
-        for ((event, items) in state.byEvent) {
-            append('\n').append(Display.eventName(event)).append(" (").append(items.size).append(")\n")
-            for (item in items) {
+    fun shareText(state: AlbumState): String = buildString {
+        append("Album selection: ").append(state.project.name).append('\n')
+        append(state.total).append(" photos\n")
+        for (e in state.events) {
+            append('\n').append(e.title).append(" (").append(e.photos.size).append(")\n")
+            for (item in e.photos) {
                 val p = item.photo
                 if (p.folder.isEmpty()) append(p.name) else append(p.folder).append('/').append(p.name)
                 if (item.cover) append("  (cover)")
                 append('\n')
             }
         }
-    }
-
-    companion object {
-        /** People shown on the tagging screen besides the couple. */
-        const val TOP_PEOPLE = 40
     }
 }

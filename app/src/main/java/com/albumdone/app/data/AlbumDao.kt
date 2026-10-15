@@ -93,6 +93,15 @@ interface AlbumDao {
     @Query("UPDATE photos SET removed = 0, selected = 1 WHERE id = :id")
     suspend fun restoreToShortlist(id: Long)
 
+    @Query("UPDATE photos SET selected = 0, userChoice = 0 WHERE id = :id")
+    suspend fun deselect(id: Long)
+
+    @Query("UPDATE photos SET selected = 0, userChoice = 0 WHERE id IN (:ids)")
+    suspend fun deselectAll(ids: List<Long>)
+
+    @Query("UPDATE photos SET selected = 1, removed = 0, userChoice = 1, pickReason = :reason WHERE id = :id")
+    suspend fun selectAsChoice(id: Long, reason: String)
+
     /** Saves a new shortlist. Ids are written in chunks to stay under SQLite's variable limit. */
     @Transaction
     suspend fun replaceSelection(projectId: Long, ids: List<Long>) {

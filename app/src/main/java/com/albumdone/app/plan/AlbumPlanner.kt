@@ -69,6 +69,8 @@ class AssessedPhoto(
     val allEyesOpenAndLooking: Boolean,
     /** For the best shot of a burst or repeated group: how many similar shots it beat. */
     val similarShots: Int,
+    /** Photos in the same burst, repeat or stage group share this number; -1 when alone. */
+    val repeatGroup: Int,
     /** Position in capture order across the whole wedding. */
     val order: Int,
 ) {
@@ -246,6 +248,8 @@ object AlbumPlanner {
         val momentOf = HashMap<Long, Int>()
         val repeatIssue = HashMap<Long, Issue>()
         val similar = HashMap<Long, Int>()
+        val groupOf = HashMap<Long, Int>()
+        var nextGroup = 0
         for (event in events) {
             val inEvent = ordered.filter { eventOf[it.id] == event && !it.failed }
             for (m in findMoments(event, inEvent, moments.size)) {
@@ -259,6 +263,8 @@ object AlbumPlanner {
                         .thenBy { it.name }
                 )
                 similar[keeper.id] = group.members.size
+                val g = nextGroup++
+                group.members.forEach { groupOf[it.id] = g }
                 val issue = if (group.isGroupPhoto) Issue.GROUP_REPEAT else Issue.DUPLICATE
                 group.members.filter { it.id != keeper.id }.forEach { repeatIssue[it.id] = issue }
             }
@@ -281,6 +287,7 @@ object AlbumPlanner {
                 emotional = j.emotional,
                 allEyesOpenAndLooking = j.allEyesOpenAndLooking,
                 similarShots = similar[p.id] ?: 1,
+                repeatGroup = groupOf[p.id] ?: -1,
                 order = i,
             )
         }
@@ -633,6 +640,43 @@ object AlbumPlanner {
         removed: Set<Long> = emptySet(),
         keep: Set<Long> = emptySet(),
     ): Shortlist = Selector(analysis, size, removed, keep).run()
+
+    /** A photo that could take another's place, and in plain words why it wasn't picked. */
+    data class Alternative(val photoId: Long, val note: String)
+
+    /**
+     * Look-alikes of [photoId] to swap with: first the same burst or repeated shot, then the same
+     * moment with the same people, then the same moment and kind of shot. Best first.
+     * [exclude] are photos already in the album or removed by the couple.
+     */
+    fun alternatives(analysis: AlbumAnalysis, photoId: Long, exclude: Set<Long>, limit: Int = 6): List<Alternative> {
+        val p = analysis.byId[photoId] ?: return emptyList()
+        fun closeness(c: AssessedPhoto): Int = when {
+            p.repeatGroup >= 0 && c.repeatGroup == p.repeatGroup -> 0
+            c.momentId == p.momentId && c.people == p.people && c.people.isNotEmpty() -> 1
+            c.momentId == p.momentId && c.shot == p.shot -> 2
+            else -> 9
+        }
+        return analysis.photos.asSequence()
+            .filter { it.id != photoId && it.id !in exclude && Issue.UNREADABLE !in it.issues }
+            .map { it to closeness(it) }
+            .filter { it.second < 9 }
+            .sortedWith(compareBy<Pair<AssessedPhoto, Int>> { it.second }.thenByDescending { it.first.quality })
+            .take(limit)
+            .map { (c, _) -> Alternative(c.id, whyNot(c, p)) }
+            .toList()
+    }
+
+    /** Why [c] lost to [picked], in a few words. */
+    fun whyNot(c: AssessedPhoto, picked: AssessedPhoto): String {
+        val problem = (c.issues.filter { it.hard && it != Issue.DUPLICATE && it != Issue.GROUP_REPEAT } +
+            c.issues.filter { !it.hard }).firstOrNull()
+        return when {
+            problem != null -> problem.label
+            c.quality >= picked.quality - 0.02 -> "Just as good"
+            else -> "Fine, slightly less good"
+        }
+    }
 
     fun target(tag: PersonTag): Int = when (tag.priority) {
         Priority.MUST -> MUST_TARGET

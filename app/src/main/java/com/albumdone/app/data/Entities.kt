@@ -64,6 +64,8 @@ data class PhotoEntity(
     val thumbPath: String? = null,
     val selected: Boolean = false,
     val removed: Boolean = false,
+    /** The couple chose this photo themselves (swapped in); re-planning always keeps it. */
+    val userChoice: Boolean = false,
     /** Why the planner picked this photo, one reason per line. */
     val pickReason: String? = null,
 )
