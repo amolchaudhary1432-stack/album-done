@@ -18,8 +18,7 @@ android {
         targetSdk = 34
         versionCode = buildNumber
         versionName = "0.2.$buildNumber"
-        // Phones from the last ~10 years. Leaving out x86 keeps the app much smaller.
-        ndk { abiFilters += listOf("arm64-v8a", "armeabi-v7a") }
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     // Model files must stay uncompressed so they can be read straight from the app file.
@@ -42,6 +41,9 @@ android {
         release {
             isMinifyEnabled = false
             signingConfig = signingConfigs.getByName("test")
+            // Real phones only. Leaving out x86 keeps the app much smaller.
+            // (Debug builds keep x86 so the tests can run on the emulator.)
+            ndk { abiFilters += listOf("arm64-v8a", "armeabi-v7a") }
         }
         debug {
             signingConfig = signingConfigs.getByName("test")
@@ -93,4 +95,13 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.7.0")
 
     testImplementation("junit:junit:4.13.2")
+
+    // Tests that run the real app on an Android emulator (see .github/workflows/build.yml).
+    androidTestImplementation("androidx.test.ext:junit:1.2.1")
+    androidTestImplementation("androidx.test:runner:1.6.2")
+    androidTestImplementation("androidx.test:rules:1.6.1")
+    androidTestImplementation(platform("androidx.compose:compose-bom:2024.09.02"))
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+    androidTestImplementation("androidx.work:work-testing:2.9.1")
+    debugImplementation("androidx.compose.ui:ui-test-manifest")
 }

@@ -18,11 +18,13 @@ class FaceMetricsTest {
     fun eyesOpenClosedHalfAndLookingDown() {
         assertEquals(EyeState.OPEN, FaceMetrics.eyeState(mapOf("eyeBlinkLeft" to 0.05f, "eyeBlinkRight" to 0.1f)))
         assertEquals(EyeState.CLOSED, FaceMetrics.eyeState(mapOf("eyeBlinkLeft" to 0.8f, "eyeBlinkRight" to 0.7f)))
-        assertEquals(EyeState.HALF, FaceMetrics.eyeState(mapOf("eyeBlinkLeft" to 0.45f, "eyeBlinkRight" to 0.4f)))
+        assertEquals(EyeState.HALF, FaceMetrics.eyeState(mapOf("eyeBlinkLeft" to 0.5f, "eyeBlinkRight" to 0.48f)))
+        // A real smiling portrait (measured): slightly narrowed eyes are still open.
+        assertEquals(EyeState.OPEN, FaceMetrics.eyeState(mapOf("eyeBlinkLeft" to 0.33f, "eyeBlinkRight" to 0.33f, "eyeLookDownLeft" to 0.54f)))
         // Looking down at the ritual fire lowers the eyelids: not a blink.
         assertEquals(
             EyeState.LOOKING_DOWN,
-            FaceMetrics.eyeState(mapOf("eyeBlinkLeft" to 0.45f, "eyeBlinkRight" to 0.45f, "eyeLookDownLeft" to 0.6f, "eyeLookDownRight" to 0.6f)),
+            FaceMetrics.eyeState(mapOf("eyeBlinkLeft" to 0.5f, "eyeBlinkRight" to 0.5f, "eyeLookDownLeft" to 0.6f, "eyeLookDownRight" to 0.6f)),
         )
         // A wink (one eye) is not "eyes closed".
         assertEquals(EyeState.HALF, FaceMetrics.eyeState(mapOf("eyeBlinkLeft" to 0.9f, "eyeBlinkRight" to 0.1f)))

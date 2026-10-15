@@ -39,7 +39,9 @@ object FaceMetrics {
 
     // Thresholds, tuned on MediaPipe's blendshape scale (0..1).
     const val CLOSED_EYE = 0.55f
-    const val HALF_BLINK = 0.38f
+    // Open eyes read about 0.2-0.33 on real photos (checked on test portraits), so a half-blink
+    // starts clearly above that.
+    const val HALF_BLINK = 0.45f
     const val LOOK_DOWN = 0.45f
     const val SMILE = 0.35f
     const val LAUGH_JAW = 0.30f

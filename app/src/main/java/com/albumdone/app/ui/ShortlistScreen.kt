@@ -46,6 +46,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -133,7 +134,7 @@ fun ShortlistScreen(vm: AlbumViewModel, projectId: Long) {
                     }
                 }
                 items(photos, key = { it.photo.id }) { item ->
-                    Box(Modifier.aspectRatio(1f).clickable { open = item }) {
+                    Box(Modifier.aspectRatio(1f).testTag("shortlist-photo").clickable { open = item }) {
                         AsyncImage(
                             model = item.photo.thumbPath?.let { File(it) } ?: item.photo.docUri,
                             contentDescription = item.photo.name,
