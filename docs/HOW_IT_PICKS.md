@@ -168,3 +168,30 @@ work: a few hundred labelled photos per ritual from many different weddings (for
 photographers, with the couples' permission), then the same test again. Until then the app finds
 key moments by how densely the photographer shot (a burst of photos in a few minutes), which
 works for any ritual without knowing its name.
+
+Owner's decision (15 Oct 2026): no ritual sorting in the app. The job is picking good photos like
+a person would; the scene model work above is parked.
+
+### Replica photographer's dump (206 photos, answer key)
+
+The Bengali wedding above plus realistic bad versions of its photos (`tools/test-photos/quirky.py`,
+TRUTH.json says what is wrong with each). Album of 28, checked on the emulator:
+
+| Bad photos planted | Caught | Got into the album |
+|---|---|---|
+| Too dark (6) | 6 | 0 |
+| Out of focus (8) | 8 | 0 |
+| Shaky (10) | 7 (the other 3 were set aside as repeats) | 0 |
+| Accidental shots: floor, lens covered (4) | 4 | 0 |
+| Burst frames (40), black-and-white copies (6) | never two versions of one shot in the album | - |
+| Flash blown out (6) | 2 | 3, fixed: limits now 185 brightness / 35% burnt white (real photos reached 168 / 25%) |
+| Face cut by the edge (6) | 1 | 0 |
+| Crooked by 5-9 degrees (6) | 0 | 1 |
+
+Crooked photos: the old measure (strongest edge direction) never fires on wedding photos, because
+saris, people and decor have edges in every direction; a long-straight-line version was tried on
+114 real photos turned 5-9 degrees and caught none. Parked: it is the mildest flaw, and the
+current measure never marks a good photo down.
+
+Black-and-white photos are not marked down: some couples ask for them. When the same shot exists
+in colour and black-and-white, only the better-looking one goes in.
