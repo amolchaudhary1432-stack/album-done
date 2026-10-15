@@ -41,7 +41,9 @@ class AnalyzerDeviceTest {
         }
 
         @JvmStatic @AfterClass
-        fun close() = analyzer.close()
+        fun close() {
+            if (::analyzer.isInitialized) analyzer.close()
+        }
     }
 
     private fun only(name: String) = results.getValue(name).faces.single()

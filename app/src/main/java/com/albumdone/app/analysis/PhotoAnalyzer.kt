@@ -84,9 +84,10 @@ class PhotoAnalyzer(private val context: Context) : AutoCloseable {
     fun analyze(uri: Uri, thumbFile: File): PhotoAnalysis {
         val resolver = context.contentResolver
 
+        // Reading only the size returns no bitmap by design, so check the file opened instead.
         val bounds = BitmapFactory.Options().apply { inJustDecodeBounds = true }
-        resolver.openInputStream(uri)?.use { BitmapFactory.decodeStream(it, null, bounds) }
-            ?: error("Could not open photo")
+        val sizeStream = resolver.openInputStream(uri) ?: error("Could not open photo")
+        sizeStream.use { BitmapFactory.decodeStream(it, null, bounds) }
         val fullW = bounds.outWidth
         val fullH = bounds.outHeight
         if (fullW <= 0 || fullH <= 0) error("Not a readable photo")

@@ -23,7 +23,7 @@ object DeviceTestSupport {
 
     /** Saves a screenshot where the build workflow collects it. */
     fun saveScreenshot(name: String, bitmap: Bitmap) {
-        val dir = File(app.getExternalFilesDir(null), "screens")
+        val dir = File(app.filesDir, "screens")
         dir.mkdirs()
         FileOutputStream(File(dir, "$name.png")).use { bitmap.compress(Bitmap.CompressFormat.PNG, 100, it) }
     }

@@ -51,9 +51,11 @@ jobs:
           disable-animations: true
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           script: |
-            gradle --no-daemon connectedDebugAndroidTest -Pandroid.injected.androidTest.leaveApksInstalledAfterRun=true || (adb logcat -d > logcat.txt; adb pull /sdcard/Android/data/com.albumdone.app/files/screens screens; exit 1)
-            adb pull /sdcard/Android/data/com.albumdone.app/files/screens screens || true
+            gradle --no-daemon connectedDebugAndroidTest -Pandroid.injected.androidTest.leaveApksInstalledAfterRun=true || touch tests-failed
+            mkdir -p screens && (adb exec-out run-as com.albumdone.app tar -c files/screens > screens/screens.tar || true)
+            adb logcat -d > logcat.txt || true
             adb logcat -d -s AlbumDoneTest > test-log.txt || true
+            test ! -f tests-failed
 
       - name: Keep the screenshots and reports
         if: always()
