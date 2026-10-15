@@ -59,7 +59,8 @@ class RealWeddingDeviceTest {
         val dao = AppDatabase.get(DeviceTestSupport.app).dao()
 
         val files = folders.sorted().flatMap { f -> DeviceTestSupport.testAssets("wedding/$f").sorted().map { f to it } }
-        val albumSize = (files.size / 4).coerceIn(12, 60)
+        val asked = InstrumentationRegistry.getArguments().getString("albumSize")?.toIntOrNull() ?: 0
+        val albumSize = if (asked > 0) asked else (files.size / 4).coerceIn(12, 60)
         val id = runBlocking {
             val id = dao.insertProject(ProjectEntity(name = name, treeUri = "file:///real", createdAt = System.currentTimeMillis(), albumSize = albumSize))
             dao.insertPhotos(files.map { (folder, file) ->

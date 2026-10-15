@@ -258,7 +258,7 @@ private fun CoupleCard(s: AlbumState, onTap: (Long) -> Unit, onSwap: () -> Unit,
                         val named = s.bride.label != "Bride" || s.groom.label != "Groom"
                         Text(if (named) "${s.bride.label} & ${s.groom.label}" else "Bride & groom", style = MaterialTheme.typography.titleSmall,
                             maxLines = 1, overflow = TextOverflow.Ellipsis)
-                        Text("Found automatically", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 2)
+                        Text("Tap a face to see their photos", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 2)
                     }
                 }
                 if (!unsure) TextButton(onClick = onSwap) { Text("Swap") }

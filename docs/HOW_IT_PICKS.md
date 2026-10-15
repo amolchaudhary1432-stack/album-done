@@ -150,7 +150,21 @@ First run (face mesh model only):
 |---|---|
 | food 91%, mehendi 68-80%, baraat 70-95%, garland exchange 56-75%, bride portrait (large model) 92% | sindoor 17-37%, fire ritual / pheras 17-33%, kanyadaan 33-42%, haldi 38-41% |
 
-The rituals are mostly lumped together as "a priest doing a ritual". To guarantee "the pheras
-photo is in", the model needs training on labelled examples (a small classifier on its image
-features) before it goes into the app. The base model takes about 0.2-0.4 s per photo on a
-computer, so it is affordable on a phone.
+The rituals are mostly lumped together as "a priest doing a ritual".
+
+### Scene model check, trained (a small classifier on the model's image features)
+
+| Test | SigLIP 2 base (~93 MB in the app) | TinyCLIP 39M (~39 MB) | TinyCLIP 8M (~8 MB) |
+|---|---|---|---|
+| Photos mixed (same wedding can be in learning and testing) | 81% | - | - |
+| Whole weddings kept apart (honest) | 59% | 49% | 47% |
+| Fire ritual / pheras, found / right when it says so | 67% / 52% | 63% / 55% | 59% / 47% |
+| Sindoor | 24% / 46% | 21% / 53% | 28% / 51% |
+| Haldi | 68% / 81% | 19% / 43% | 21% / 73% |
+
+Not good enough to ship: about 90 MB more app for a guess that is wrong half the time on a new
+wedding. Wikimedia Commons has only a handful of different weddings per ritual. What would make it
+work: a few hundred labelled photos per ritual from many different weddings (for example from
+photographers, with the couples' permission), then the same test again. Until then the app finds
+key moments by how densely the photographer shot (a burst of photos in a few minutes), which
+works for any ritual without knowing its name.

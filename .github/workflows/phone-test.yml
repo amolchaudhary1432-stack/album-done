@@ -7,6 +7,13 @@ on:
     branches: ['claude/**']
     paths-ignore: ['tools/**', '.github/workflows/test-photos.yml', '.github/workflows/scene-eval.yml', 'docs/**', '*.md', '.gitignore']
   workflow_dispatch:
+    inputs:
+      photos:
+        description: "Which test wedding: wedding (real, as uploaded) or quirky (replica raw dump)"
+        default: wedding
+      album_size:
+        description: "Album size for the test wedding (empty: a quarter of the photos)"
+        default: ""
   workflow_call:
 
 # Needed to send screenshots and logs to the phone-test-results branch.
@@ -118,9 +125,11 @@ jobs:
       - name: Get the test wedding photos
         id: photos
         run: |
-          if git fetch -q --depth 1 origin test-photos && git cat-file -e FETCH_HEAD:wedding/CREDITS.json; then
-            mkdir -p app/src/androidTest/assets
-            git archive FETCH_HEAD wedding | tar -x -C app/src/androidTest/assets
+          set_name="${{ inputs.photos || 'wedding' }}"
+          if git fetch -q --depth 1 origin test-photos && git cat-file -e "FETCH_HEAD:$set_name/CREDITS.json"; then
+            mkdir -p app/src/androidTest/assets tmp-photos
+            git archive FETCH_HEAD "$set_name" | tar -x -C tmp-photos
+            mv "tmp-photos/$set_name" app/src/androidTest/assets/wedding
             echo "$(find app/src/androidTest/assets/wedding -name '*.jpg' | wc -l) photos"
             echo "found=true" >> "$GITHUB_OUTPUT"
           else
@@ -171,7 +180,7 @@ jobs:
             adb shell cmd uimode night yes || true
             adb shell cmd uimode night no || true
             adb shell am force-stop com.google.android.apps.nexuslauncher || true
-            gradle --no-daemon connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.albumdone.app.RealWeddingDeviceTest -Pandroid.injected.androidTest.leaveApksInstalledAfterRun=true || touch tests-failed
+            gradle --no-daemon connectedDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.albumdone.app.RealWeddingDeviceTest -Pandroid.testInstrumentationRunnerArguments.albumSize=${{ inputs.album_size || '0' }} -Pandroid.injected.androidTest.leaveApksInstalledAfterRun=true || touch tests-failed
             mkdir -p screens && (adb exec-out run-as com.albumdone.app tar -c files/screens > screens/screens.tar || true)
             adb logcat -d > logcat.txt || true
             adb logcat -d -b crash > crash.txt || true
@@ -186,11 +195,13 @@ jobs:
           [ -f crash.txt ] && cp crash.txt out/ || true
           [ -f logcat.txt ] && tail -n 20000 logcat.txt > out/logcat.txt || true
           [ -d app/build/outputs/androidTest-results ] && cp -r app/build/outputs/androidTest-results out/ || true
-          echo "Run ${{ github.run_number }} for commit ${{ github.sha }}" > out/RUN.txt
+          echo "Run ${{ github.run_number }} for commit ${{ github.sha }}, photos: ${{ inputs.photos || 'wedding' }}" > out/RUN.txt
+          branch=real-wedding-results
+          if [ "${{ inputs.photos || 'wedding' }}" = quirky ]; then branch=quirky-results; fi
           cd out
-          git init -q -b real-wedding-results
+          git init -q -b "$branch"
           git config user.name "phone-test"
           git config user.email "phone-test@users.noreply.github.com"
           git add -A
           git commit -q -m "Real wedding run ${{ github.run_number }}"
-          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" real-wedding-results
+          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" "$branch"

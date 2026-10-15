@@ -29,6 +29,13 @@ jobs:
           mkdir -p out
           if [ "$mode" = discover ]; then
             python3 tools/test-photos/commons.py discover out/discover
+          elif [ "$mode" = quirky ]; then
+            # Keep the real wedding, add the replica raw dump made from it.
+            pip install --quiet piexif onnxruntime pillow numpy
+            git fetch -q --depth 1 origin test-photos
+            git archive FETCH_HEAD wedding | tar -x -C out
+            python3 tools/test-photos/quirky.py out/wedding out/quirky app/src/main/assets/models/face_detection_yunet_2026may.onnx
+            du -sh out/quirky
           else
             pip install --quiet piexif
             python3 tools/test-photos/commons.py fetch tools/test-photos/request.json out/wedding

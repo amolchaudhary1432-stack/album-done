@@ -823,4 +823,23 @@ class AlbumPlannerTest {
         val told = tags(PersonTag(aunt, "Mavshi", Priority.MUST, Side.BRIDE))
         assertEquals(AlbumPlanner.MUST_TARGET, AlbumPlanner.shortlist(AlbumPlanner.analyze(withAunt + others, told), 12).coverage.single { it.personId == aunt }.target)
     }
+
+    @Test
+    fun onePortraitSessionDoesNotTakeOverTheEvent() {
+        // 20 lovely posed portraits in 4 minutes, then three rituals with 6 photos each.
+        val session = List(20) { photo("Wedding", t = start + it * 12_000L, faces = listOf(face(BRIDE, x = 0.4f, w = 0.25f, expr = Expression.SMILE))) }
+        // Ritual photos look weaker on paper: smaller faces, looking down at the fire.
+        val rituals = (0 until 3).flatMap { r ->
+            List(6) { photo("Wedding", t = start + (90 + r * 60) * minute + it * 20_000L,
+                faces = listOf(face(BRIDE, x = 0.4f, w = 0.1f, expr = Expression.NATURAL, eyes = EyeState.LOOKING_DOWN, looking = false))) }
+        }
+        val a = AlbumPlanner.analyze(session + rituals, couple)
+        val s = AlbumPlanner.shortlist(a, 10)
+        val fromSession = s.ids.count { it in session.map { p -> p.id } }
+        assertTrue("portrait session took $fromSession of 10", fromSession <= 4)
+        for (r in 0 until 3) {
+            val ids = rituals.subList(r * 6, r * 6 + 6).map { it.id }
+            assertTrue("ritual $r missing", s.ids.any { it in ids })
+        }
+    }
 }

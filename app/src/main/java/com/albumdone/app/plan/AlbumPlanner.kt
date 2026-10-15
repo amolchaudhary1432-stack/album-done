@@ -7,6 +7,7 @@ import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.pow
 import kotlin.math.roundToInt
+import kotlin.math.sqrt
 
 enum class Issue(val hard: Boolean, val label: String) {
     UNREADABLE(true, "Could not be opened"),
@@ -191,6 +192,8 @@ object AlbumPlanner {
     const val PEOPLE_NOT_DETAIL = 0.15f
     /** Pull of a moment that has not yet had its share of the event's places. */
     const val MOMENT_BONUS = 0.3
+    /** Less value for each photo already picked from the same moment, so picks spread over the day. */
+    const val MOMENT_CROWDING = 0.06
     val TYPE_SHARE = mapOf(
         ShotType.DETAIL to 0.10, ShotType.COUPLE_CLOSE to 0.15, ShotType.COUPLE_FULL to 0.12,
         ShotType.BRIDE_SOLO to 0.06, ShotType.GROOM_SOLO to 0.05, ShotType.GROUP to 0.20,
@@ -1003,7 +1006,9 @@ object AlbumPlanner {
                 left--
             }
             if (left > 0) {
-                val weights = moments.associate { m -> m.id.toString() to m.photoIds.size.toDouble().pow(0.75) }
+                // Bigger moments get more, but gently: 23 photos of one portrait session should not
+                // take half the event's places from the rituals around it.
+                val weights = moments.associate { m -> m.id.toString() to sqrt(m.photoIds.size.toDouble()) }
                 val ideal = weights.mapValues { (k, w) -> left * w / weights.values.sum() }
                 val extra = ideal.mapValues { floor(it.value).toInt() }.toMutableMap()
                 var rest = left - extra.values.sum()
@@ -1055,6 +1060,8 @@ object AlbumPlanner {
 
             // No repeated pose back to back.
             if (repeatsNeighbour(c)) v -= 0.3
+            // Spread the album across the day: each photo already picked from this moment counts against it.
+            v -= MOMENT_CROWDING * (momentPicks[c.momentId]?.size ?: 0)
 
             // Portrait / landscape balance.
             val n = eventCount[c.event] ?: 0
