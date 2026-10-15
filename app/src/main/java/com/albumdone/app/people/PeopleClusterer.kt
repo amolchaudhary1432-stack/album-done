@@ -122,21 +122,36 @@ object PeopleClusterer {
     }
 
     /**
-     * The couple: of the most photographed people, the pair that is photographed together most.
-     * [photosOf] maps person to the photos they appear in. Returns (bride, groom) or null.
-     * [brideHints] are photos from bride-focused events (Mehendi, bridal getting ready); whoever
-     * of the pair appears more there is taken as the bride. Amol's tagging screen can swap them.
+     * The couple: the two people seen together most where a couple is together, at the wedding
+     * rituals and the reception. Photos count by where they were taken ([weightOf]): at the
+     * bride's own functions (haldi, adhibaas, mehendi) her mother or aunt is beside her all day
+     * while the groom is not even there, so those count least. A photo of just the two of them
+     * ([twoShots]) counts extra.
+     *
+     * @param photosOf person -> photos they are clearly visible in
+     * @param brideHints photos from the bride's own functions, to tell the bride from the groom
+     * @return (bride, groom), or null when no two people appear together twice
      */
-    fun detectCouple(photosOf: Map<Long, Set<Long>>, brideHints: Set<Long> = emptySet()): Pair<Long, Long>? {
-        val top = photosOf.entries.sortedByDescending { it.value.size }.take(6)
+    fun detectCouple(
+        photosOf: Map<Long, Set<Long>>,
+        brideHints: Set<Long> = emptySet(),
+        weightOf: (Long) -> Double = { 1.0 },
+        twoShots: Set<Long> = emptySet(),
+    ): Pair<Long, Long>? {
+        fun weighted(photos: Set<Long>) = photos.sumOf { weightOf(it) }
+        val top = photosOf.entries.sortedByDescending { weighted(it.value) }.take(8)
         if (top.size < 2) return null
+        val weddingPhotos = photosOf.values.flatten().any { weightOf(it) >= WEDDING_WEIGHT }
         var best: Pair<Long, Long>? = null
         var bestScore = -1.0
         for (i in top.indices) for (j in i + 1 until top.size) {
             val a = top[i]; val b = top[j]
-            val together = a.value.count { it in b.value }
-            if (together < 2) continue
-            val score = 2.0 * together + min(a.value.size, b.value.size)
+            val shared = a.value.filter { it in b.value }
+            if (shared.size < 2) continue
+            val together = shared.sumOf { weightOf(it) * (if (it in twoShots) 1.5 else 1.0) }
+            var score = 2.0 * together + min(weighted(a.value), weighted(b.value))
+            // Never at the wedding or reception together: not the couple (a mother and daughter at haldi).
+            if (weddingPhotos && shared.none { weightOf(it) >= WEDDING_WEIGHT }) score *= 0.3
             if (score > bestScore) { bestScore = score; best = a.key to b.key }
         }
         val (a, b) = best ?: return null
@@ -149,6 +164,10 @@ object PeopleClusterer {
             else -> b to a
         }
     }
+
+    /** How much a photo together counts towards being the couple, by the kind of function. */
+    const val WEDDING_WEIGHT = 2.0
+    const val OWN_FUNCTION_WEIGHT = 0.4
 
     fun cosine(a: FloatArray, b: FloatArray): Float {
         var d = 0.0; var na = 0.0; var nb = 0.0

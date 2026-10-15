@@ -108,6 +108,38 @@ object FaceMetrics {
         )
     }
 
+    /**
+     * What can be told about a face the mesh model could not read (side-on, covered or very
+     * small): where it is and which way it turns, from YuNet's five points (see [YuNet.Found]).
+     * Eyes and expression stay unknown, so the face is neither praised nor blamed for them.
+     */
+    fun readFromPoints(found: Box, points: FloatArray, aspect: Float): Reading {
+        // YuNet's box reaches higher up the forehead than the mesh outline; match the mesh.
+        val cy = (found.top + found.bottom) / 2f
+        val h = found.height * YUNET_HEIGHT_TO_MESH
+        val box = Box(found.left, cy - h / 2f, found.right, cy + h / 2f)
+        val lx = points[0]; val rx = points[2]; val noseX = points[4]
+        // The nose sits midway between the eyes when facing the camera and moves aside when turned.
+        val gap = max(1e-4f, abs(rx - lx))
+        val turn = (((noseX - (lx + rx) / 2f) / gap) * 2f).coerceIn(-1f, 1f)
+        return Reading(
+            box = box,
+            eyes = EyeState.UNKNOWN,
+            expression = Expression.NATURAL,
+            smile = 0f,
+            jawOpen = 0f,
+            yaw = abs(turn) * 60f,
+            pitch = 0f,
+            roll = roll(lx * aspect, points[1], rx * aspect, points[3]),
+            directionX = directionX(turn, 0f),
+            lookingAtCamera = false,
+            cutOff = cutOffFraction(box),
+        )
+    }
+
+    /** Mesh box height / YuNet box height, measured on 150 faces of a real wedding (median). */
+    const val YUNET_HEIGHT_TO_MESH = 0.87f
+
     fun box(xs: FloatArray, ys: FloatArray): Box {
         var l = Float.MAX_VALUE; var t = Float.MAX_VALUE; var r = -Float.MAX_VALUE; var b = -Float.MAX_VALUE
         // Iris points (468+) lie inside the eyes; the mesh outline is enough.

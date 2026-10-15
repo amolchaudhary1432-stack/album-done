@@ -38,7 +38,6 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
@@ -327,11 +326,11 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
             Log.d(TAG, "album update: $selected selected of ${photos.size}, ${persons.size} people")
             if (selected == 0) return@combine null
             val analysis = analysisFor(projectId)
-            buildAlbum(project, photos, persons, analysis)
+            withContext(Dispatchers.Default) { buildAlbum(project, photos, persons, analysis) }
         }.catch { e ->
             Log.e(TAG, "album could not be shown", e)
             throw e
-        }.flowOn(Dispatchers.Default)
+        }
 
     private fun buildAlbum(project: ProjectEntity, photos: List<PhotoEntity>, persons: List<PersonWithFace>, analysis: AlbumAnalysis): AlbumState {
         val byId = photos.associateBy { it.id }
@@ -444,27 +443,31 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
         combine(dao.photosFlow(projectId), dao.projectSummary(projectId)) { photos, summary ->
             val project = summary?.project ?: return@combine null
             val analysis = analysisFor(projectId)
-            val byId = photos.associateBy { it.id }
-            val p = byId[photoId] ?: return@combine null
-            val a = analysis.byId[photoId] ?: return@combine null
-            val exclude = photos.filter { it.selected || it.removed }.map { it.id }.toSet()
-            val alts = AlbumPlanner.alternatives(analysis, photoId, exclude).mapNotNull { alt ->
-                val ap = byId[alt.photoId] ?: return@mapNotNull null
-                val aa = analysis.byId[alt.photoId] ?: return@mapNotNull null
-                Alternative(ap, alt.note, Display.cropBias(ap.width, ap.height, aa.photo.faces.map { it.box }))
-            }
-            ViewerState(
-                photo = AlbumPhoto(
-                    photo = p,
-                    event = a.event,
-                    reasons = p.pickReason?.split('\n')?.filter(String::isNotBlank).orEmpty(),
-                    cover = photoId == project.coverPhotoId,
-                    crop = Display.cropBias(p.width, p.height, a.photo.faces.map { it.box }),
-                ),
-                alternatives = alts,
-                inAlbum = p.selected,
-            )
-        }.flowOn(Dispatchers.Default)
+            withContext(Dispatchers.Default) { viewerState(project, photos, photoId, analysis) }
+        }
+
+    private fun viewerState(project: ProjectEntity, photos: List<PhotoEntity>, photoId: Long, analysis: AlbumAnalysis): ViewerState? {
+        val byId = photos.associateBy { it.id }
+        val p = byId[photoId] ?: return null
+        val a = analysis.byId[photoId] ?: return null
+        val exclude = photos.filter { it.selected || it.removed }.map { it.id }.toSet()
+        val alts = AlbumPlanner.alternatives(analysis, photoId, exclude).mapNotNull { alt ->
+            val ap = byId[alt.photoId] ?: return@mapNotNull null
+            val aa = analysis.byId[alt.photoId] ?: return@mapNotNull null
+            Alternative(ap, alt.note, Display.cropBias(ap.width, ap.height, aa.photo.faces.map { it.box }))
+        }
+        return ViewerState(
+            photo = AlbumPhoto(
+                photo = p,
+                event = a.event,
+                reasons = p.pickReason?.split('\n')?.filter(String::isNotBlank).orEmpty(),
+                cover = photoId == project.coverPhotoId,
+                crop = Display.cropBias(p.width, p.height, a.photo.faces.map { it.box }),
+            ),
+            alternatives = alts,
+            inAlbum = p.selected,
+        )
+    }
 
     /** The couple prefers [newId] to [oldId]: swap them, and remember it was their choice. */
     fun swap(projectId: Long, oldId: Long, newId: Long) {
@@ -526,7 +529,7 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
         }.catch { e ->
             Log.e(TAG, "person $personId could not be loaded", e)
             throw e
-        }.flowOn(Dispatchers.Default)
+        }
 
     private fun editPeople(projectId: Long, done: String? = null, block: suspend () -> Unit) {
         viewModelScope.launch {

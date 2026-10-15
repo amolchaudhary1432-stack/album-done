@@ -61,6 +61,8 @@ data class PhotoEntity(
     /** Phones seen, as "l,t,r,b;l,t,r,b". */
     val phones: String = "",
     val foregroundBacks: Int = 0,
+    /** Share of the photo covered by people, 0..1 (tells a detail shot from people facing away). */
+    val peopleArea: Float = 0f,
     val thumbPath: String? = null,
     val selected: Boolean = false,
     val removed: Boolean = false,

@@ -131,6 +131,7 @@ class AnalyzeWorker(
                 faceCount = a.faces.size,
                 phones = Box.encodeList(a.phones),
                 foregroundBacks = a.foregroundBacks,
+                peopleArea = a.peopleArea,
                 thumbPath = thumbFile.absolutePath,
             )
             val faces = a.faces.map { f ->

@@ -108,6 +108,23 @@ class PeopleClustererTest {
     }
 
     @Test
+    fun groomIsWhoIsBesideTheBrideAtTheWeddingNotAtHerHaldi() {
+        // A real Bengali wedding, photographed from the bride's side: her aunt is beside her all
+        // through adhibaas and haldi (photos 1-40); the groom appears only at the rituals (41-64).
+        val ownFunction = (1L..40L).toSet()
+        val photosOf = mapOf(
+            1L to (1L..64L).toSet(),                 // bride
+            2L to (1L..12L).toSet(),                 // aunt, at the bride's own functions
+            3L to setOf(50L, 51L, 52L, 55L, 58L, 60L, 61L), // groom
+            4L to (41L..44L).toSet() + 90L,          // priest
+        )
+        val weight = { id: Long -> if (id in ownFunction) PeopleClusterer.OWN_FUNCTION_WEIGHT else PeopleClusterer.WEDDING_WEIGHT }
+        assertEquals(1L to 3L, PeopleClusterer.detectCouple(photosOf, emptySet(), weight, twoShots = setOf(50L, 51L, 60L)))
+        // Counting photos alone, the aunt looks like the partner.
+        assertEquals(setOf(1L, 2L), PeopleClusterer.detectCouple(photosOf)!!.toList().toSet())
+    }
+
+    @Test
     fun noCoupleWithoutTwoPeopleTogether() {
         assertNull(PeopleClusterer.detectCouple(mapOf(1L to setOf(1L, 2L))))
         assertNull(PeopleClusterer.detectCouple(mapOf(1L to setOf(1L, 2L), 2L to setOf(3L, 4L))))

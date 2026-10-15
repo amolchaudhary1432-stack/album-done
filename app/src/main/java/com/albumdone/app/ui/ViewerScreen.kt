@@ -39,6 +39,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontFamily
@@ -77,7 +78,9 @@ fun ViewerScreen(vm: AlbumViewModel, projectId: Long, photoId: Long) {
             return@Scaffold
         }
         Column(Modifier.fillMaxSize().padding(padding).verticalScroll(rememberScrollState())) {
-            PhotoThumb(s.photo.photo, 0f to 0f, Modifier.fillMaxWidth().heightIn(max = 420.dp).aspectRatio(
+            // At most a little over half the screen, so the reasons below are visible without scrolling.
+            val maxPhoto = (LocalConfiguration.current.screenHeightDp * 0.55f).dp
+            PhotoThumb(s.photo.photo, 0f to 0f, Modifier.fillMaxWidth().heightIn(max = maxPhoto).aspectRatio(
                 if (s.photo.photo.width > 0 && s.photo.photo.height > 0) s.photo.photo.width.toFloat() / s.photo.photo.height else 1.5f,
                 matchHeightConstraintsFirst = true,
             ).align(Alignment.CenterHorizontally), contentScale = ContentScale.Fit)

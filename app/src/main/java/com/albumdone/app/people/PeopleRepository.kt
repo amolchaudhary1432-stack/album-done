@@ -40,10 +40,23 @@ class PeopleRepository(private val dao: AlbumDao) {
 
     suspend fun detectCouple(projectId: Long) {
         val rows = dao.faceRows(projectId)
-        val photosOf = rows.filter { it.personId != null && it.right - it.left >= 0.03f }
+        val clear = rows.filter { it.right - it.left >= 0.03f }
+        val photosOf = clear.filter { it.personId != null }
             .groupBy { it.personId!! }.mapValues { e -> e.value.map { it.photoId }.toSet() }
-        val hints = dao.photos(projectId).filter { isBrideEvent(it.folder) }.map { it.id }.toSet()
-        val couple = PeopleClusterer.detectCouple(photosOf, hints)
+        val photos = dao.photos(projectId)
+        val hints = photos.filter { isBrideEvent(it.folder) }.map { it.id }.toSet()
+        // Where each photo was taken decides how much "together" counts (see detectCouple).
+        val eventOf = AlbumPlanner.assignEvents(photos.map { PlanPhoto(id = it.id, name = it.name, folder = it.folder) })
+        val weight = photos.associate { p ->
+            val event = eventOf[p.id] ?: ""
+            p.id to when {
+                AlbumPlanner.ownFunction(event) -> PeopleClusterer.OWN_FUNCTION_WEIGHT
+                AlbumPlanner.eventKind(event) == EventKind.RITUAL || AlbumPlanner.eventKind(event) == EventKind.PARTY -> PeopleClusterer.WEDDING_WEIGHT
+                else -> 1.0
+            }
+        }
+        val twoShots = clear.groupBy { it.photoId }.filter { it.value.size == 2 }.keys
+        val couple = PeopleClusterer.detectCouple(photosOf, hints, { weight[it] ?: 1.0 }, twoShots)
         dao.setCouple(projectId, couple?.first, couple?.second)
     }
 
@@ -166,6 +179,7 @@ class PeopleRepository(private val dao: AlbumDao) {
         faces = faces,
         phones = Box.decodeList(phones),
         foregroundBacks = foregroundBacks,
+        peopleArea = peopleArea,
         failed = failed || !processed,
     )
 

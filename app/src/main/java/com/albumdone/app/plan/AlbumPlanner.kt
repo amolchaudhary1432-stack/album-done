@@ -27,6 +27,7 @@ enum class Issue(val hard: Boolean, val label: String) {
     PHONE_IN_SHOT(false, "Phone in the shot"),
     STRANGER(false, "Stranger in the shot"),
     TILTED(false, "Slightly crooked"),
+    FACES_TURNED_AWAY(false, "People with their backs or faces turned away"),
 }
 
 enum class ShotType(val label: String) {
@@ -183,6 +184,8 @@ object AlbumPlanner {
 
     // ---- Variety ----
     const val DETAIL_SHARE = 0.10
+    /** A photo this much covered by people, with no face visible, shows people facing away. */
+    const val PEOPLE_NOT_DETAIL = 0.15f
     /** Pull of a moment that has not yet had its share of the event's places. */
     const val MOMENT_BONUS = 0.3
     val TYPE_SHARE = mapOf(
@@ -325,16 +328,32 @@ object AlbumPlanner {
     )
 
     /** Event type from the photographer's folder name; decides which context rules apply. */
+    /**
+     * The bride's or groom's own function at home (haldi, mehendi, adhibaas...): their families are
+     * there, the other half of the couple usually is not.
+     */
+    fun ownFunction(name: String): Boolean {
+        val n = name.lowercase()
+        return listOf("haldi", "halad", "holud", "mehendi", "mehndi", "mehandi", "adhibas", "adhibaas", "adhivas",
+            "aiburobhat", "pellikuthuru", "pellikoduku", "nalangu", "maiyan", "pithi", "chooda", "chuda", "tilak",
+            "getting ready", "makeup").any { n.contains(it) }
+    }
+
     fun eventKind(name: String): EventKind {
         val n = name.lowercase()
         fun has(vararg words: String) = words.any { n.contains(it) }
+        // Names photographers use across India (Hindi, Marathi, Bengali, Gujarati, Punjabi, Telugu, Tamil).
         return when {
-            has("vidaai", "vidai", "bidaai", "bidai", "bidaayi", "doli") -> EventKind.VIDAAI
-            has("sangeet", "reception", "cocktail", "party", "dj ", "dance") -> EventKind.PARTY
-            has("haldi", "mehendi", "mehndi", "mehandi", "tilak", "chooda", "chuda", "getting ready", "makeup") -> EventKind.PREP
-            has("wedding", "shaadi", "shadi", "vivah", "phera", "mandap", "ceremony", "puja", "pooja",
-                "muhurt", "nikah", "kanyadaan", "saptapadi", "varmala", "jaimala", "sindoor",
-                "mangalsutra", "lagan", "anand karaj", "havan", "baraat") -> EventKind.RITUAL
+            has("vidaai", "vidai", "bidaai", "bidai", "bidaayi", "doli", "kanakanjali", "pathavani") -> EventKind.VIDAAI
+            has("sangeet", "reception", "cocktail", "party", "dj ", "dance", "garba", "dandiya", "bou bhaat",
+                "boubhat", "bauvat", "engagement", "ring ceremony", "sagai", "roka", "sakharpuda") -> EventKind.PARTY
+            has("haldi", "halad", "holud", "mehendi", "mehndi", "mehandi", "tilak", "chooda", "chuda", "getting ready",
+                "makeup", "aiburobhat", "pellikuthuru", "pellikoduku", "nalangu", "maiyan", "pithi") -> EventKind.PREP
+            has("wedding", "shaadi", "shadi", "vivah", "phera", "phere", "mandap", "ceremony", "puja", "pooja",
+                "muhurt", "nikah", "kanyadaan", "kanyadan", "saptapadi", "varmala", "jaimala", "sindoor", "sindur",
+                "mangalsutra", "lagan", "lagna", "anand karaj", "lavaan", "havan", "baraat", "biye", "bibaho",
+                "kalyanam", "kalyana", "talambralu", "mangalya", "saat paak", "shubho drishti", "mala badal",
+                "sampradan", "hast melap", "mangalashtak", "adhibas", "adhibaas", "adhivas") -> EventKind.RITUAL
             else -> EventKind.OTHER
         }
     }
@@ -406,6 +425,7 @@ object AlbumPlanner {
                 }
                 EyeState.HALF -> if (lenient) eyes = 0.9 else { issues += Issue.HALF_BLINK; eyes = 0.45 }
                 EyeState.LOOKING_DOWN -> eyes = if (ritual || lenient) 1.0 else 0.8
+                EyeState.UNKNOWN -> eyes = 0.9
                 EyeState.OPEN -> {}
             }
             var attention = 1.0
@@ -441,6 +461,9 @@ object AlbumPlanner {
         }
         if (loosePhones.isNotEmpty()) issues += Issue.PHONE_IN_SHOT
         if (p.foregroundBacks > 0) issues += Issue.BACK_OF_GUEST
+        // People fill the photo but no face can be seen: backs, not a detail shot.
+        val turnedAway = visible.isEmpty() && p.peopleArea >= PEOPLE_NOT_DETAIL
+        if (turnedAway) issues += Issue.FACES_TURNED_AWAY
         if (abs(p.tilt) in MIN_TILT..MAX_TILT) issues += Issue.TILTED
 
         // Quality: a group is as good as its worst face.
@@ -461,13 +484,14 @@ object AlbumPlanner {
         if (Issue.TILTED in issues) quality *= 0.85
         if (Issue.PHONE_IN_SHOT in issues) quality *= 0.6
         if (Issue.STRANGER in issues) quality *= 0.6
+        if (turnedAway) quality *= 0.5
 
         val bride = visible.firstOrNull { it.personId != null && it.personId == tags.brideId }
         val groom = visible.firstOrNull { it.personId != null && it.personId == tags.groomId }
         val coupleLooking = bride != null && groom != null && bride.box.width >= CLEAR_FACE &&
             groom.box.width >= CLEAR_FACE && facingEachOther(listOf(bride, groom))
 
-        val shot = shotType(visible, clear, bride, groom, lookingShare)
+        val shot = if (turnedAway) ShotType.CANDID else shotType(visible, clear, bride, groom, lookingShare)
         val emotional = clear.any { it.expression == Expression.EMOTIONAL }
         val allGood = clear.size >= 2 && clear.all { it.eyes == EyeState.OPEN && it.lookingAtCamera }
         return Judgement(issues, quality, shot, people, coupleLooking, ritual, interaction, emotional, allGood)
@@ -780,16 +804,29 @@ object AlbumPlanner {
 
         // ---- 1. People: the couple ----
 
+        /**
+         * The cover: the best portrait of the couple, in wedding or reception clothes when there is
+         * one; otherwise the bride's best portrait from the wedding.
+         */
         fun pickCover() {
-            if (room() <= 0 || tags.brideId == null || tags.groomId == null) return
-            val existing = picked.mapNotNull { a.byId[it] }.filter { isCoverCandidate(it) }
-            val best = (clean.filter { isCoverCandidate(it) } + existing)
-                .filter { it.id !in removed }
-                .maxByOrNull { it.quality * (if (it.shot == ShotType.COUPLE_CLOSE) 1.1 else 1.0) }
-                ?: return
+            if (room() <= 0 || (tags.brideId == null && tags.groomId == null)) return
+            fun dressed(p: AssessedPhoto) = when (a.eventKinds[p.event]) {
+                EventKind.RITUAL, EventKind.PARTY -> 1.0
+                EventKind.PREP -> 0.75
+                else -> 0.9
+            }
+            fun pool(ok: (AssessedPhoto) -> Boolean) =
+                (clean + picked.mapNotNull { a.byId[it] }).filter { ok(it) && it.id !in removed }.distinctBy { it.id }
+            val couple = pool { isCoverCandidate(it) }
+                .maxByOrNull { it.quality * dressed(it) * (if (it.shot == ShotType.COUPLE_CLOSE) 1.1 else 1.0) }
+            val (best, reason) = when {
+                couple != null -> couple to "Cover: the best portrait of the couple"
+                else -> (pool { it.usable && it.shot == ShotType.BRIDE_SOLO }
+                    .maxByOrNull { it.quality * dressed(it) } ?: return) to "Cover: the bride's best portrait"
+            }
             coverId = best.id
-            if (best.id in picked) reasons.getOrPut(best.id) { mutableListOf() }.add(0, "Cover: the best portrait of the couple")
-            else add(best, "Cover: the best portrait of the couple")
+            if (best.id in picked) reasons.getOrPut(best.id) { mutableListOf() }.add(0, reason)
+            else add(best, reason)
         }
 
         fun isCoverCandidate(p: AssessedPhoto): Boolean =
@@ -875,15 +912,26 @@ object AlbumPlanner {
             return g + 0.5 * c.quality + (if (both) 0.2 else 0.0) + sideBonus(c)
         }
 
+        /** In plain words: "Aai and Baba with the couple", "Family elder with the bride". */
         fun peopleReason(c: AssessedPhoto, needy: Set<Long>): String {
-            val names = c.people.filter { it in needy }.map { id ->
+            val who = c.people.filter { it in needy }.map { id ->
                 val t = tags.tag(id)
-                val label = tags.label(id)
-                val p = if (t.priority == Priority.MUST) "Must" else "Important"
-                "$label ($p${if (t.elder) ", elder" else ""})"
+                t.name.takeIf { it.isNotBlank() } ?: if (t.elder) "Family elder" else "Family"
+            }.distinct()
+            val names = when (who.size) {
+                0 -> "Family"
+                1 -> who[0]
+                else -> who.dropLast(1).joinToString(", ") + " and " + who.last()
             }
-            val with = if (withCouple(c, tags)) " with the couple" else ""
-            return names.joinToString(", ") + with
+            val bride = tags.brideId != null && tags.brideId in c.people
+            val groom = tags.groomId != null && tags.groomId in c.people
+            val with = when {
+                bride && groom -> " with the couple"
+                bride -> " with the bride"
+                groom -> " with the groom"
+                else -> ""
+            }
+            return names + with
         }
 
         // ---- 2. Moments: the story of each event ----

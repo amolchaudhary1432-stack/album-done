@@ -31,7 +31,8 @@ data class Box(val left: Float, val top: Float, val right: Float, val bottom: Fl
     }
 }
 
-enum class EyeState { OPEN, LOOKING_DOWN, HALF, CLOSED }
+/** UNKNOWN: the face was found but its eyes could not be read (side-on, covered or very small). */
+enum class EyeState { OPEN, LOOKING_DOWN, HALF, CLOSED, UNKNOWN }
 
 enum class Expression { SMILE, LAUGH, NATURAL, MID_TALK, EMOTIONAL }
 
@@ -84,6 +85,8 @@ data class PlanPhoto(
     val phones: List<Box> = emptyList(),
     /** People in the foreground with their back to the camera. */
     val foregroundBacks: Int = 0,
+    /** Share of the photo covered by people, 0..1. People but no visible face: not a detail shot. */
+    val peopleArea: Float = 0f,
     /** The photo could not be read. */
     val failed: Boolean = false,
 ) {

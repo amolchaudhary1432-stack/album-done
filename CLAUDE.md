@@ -29,7 +29,11 @@ pure Kotlin, unit-tested).
 
 ### Technology (all on the phone, no internet permission, Apache 2.0 or similar licences only)
 
-- Face detection + expression: MediaPipe Face Landmarker (several faces, blendshapes on). Blendshapes
+- Face finding: OpenCV Zoo YuNet (MIT, run with ONNX Runtime) on the whole photo at 960px: it finds
+  small, side-on and downcast faces. On a real wedding the face mesh model alone found 67 faces in
+  114 photos, YuNet 361. Each face is then read from a close crop by the mesh model below; faces it
+  cannot read are kept with eyes "unknown" (counted and recognised, neither praised nor blamed).
+- Face reading + expression: MediaPipe Face Landmarker (several faces, blendshapes on). Blendshapes
   give eye blink (eyeBlinkLeft/Right), gaze (eyeLookIn/Out/Up/Down), smile (mouthSmileLeft/Right),
   mouth open (jawOpen); head angle comes from the face transform. (Replaces ML Kit.)
 - Identity: OpenCV Zoo SFace face fingerprints (run with ONNX Runtime), grouped into people.

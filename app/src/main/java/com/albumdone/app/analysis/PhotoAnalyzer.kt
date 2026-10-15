@@ -44,6 +44,8 @@ data class PhotoAnalysis(
     val faces: List<FaceAnalysis>,
     val phones: List<Box>,
     val foregroundBacks: Int,
+    /** Share of the photo covered by people (from the object detector), 0..1. */
+    val peopleArea: Float,
 )
 
 /**
@@ -80,6 +82,7 @@ class PhotoAnalyzer(private val context: Context) : AutoCloseable {
     )
 
     private val embedder = FaceEmbedder.get(context)
+    private val finder = FaceFinder.get(context)
 
     fun analyze(uri: Uri, thumbFile: File): PhotoAnalysis {
         val resolver = context.contentResolver
@@ -133,8 +136,7 @@ class PhotoAnalyzer(private val context: Context) : AutoCloseable {
             val phones = found.filter { d -> d.categories().any { it.categoryName() == "cell phone" } }
                 .map { toBox(it.boundingBox(), bitmap) }
 
-            val raw = findFaces(bitmap, people)
-            val faces = raw.map { measureFace(bitmap, gray, qw, qh, it) }
+            val faces = findFaces(bitmap).map { measureFace(bitmap, gray, qw, qh, it) }
             val backs = SceneRules.foregroundBacks(surePeople, faces.map { it.reading.box })
 
             writeThumbnail(bitmap, thumbFile)
@@ -151,6 +153,7 @@ class PhotoAnalyzer(private val context: Context) : AutoCloseable {
                 faces = faces,
                 phones = phones,
                 foregroundBacks = backs,
+                peopleArea = people.sumOf { it.area.toDouble() }.toFloat().coerceIn(0f, 1f),
             )
         } finally {
             bitmap.recycle()
@@ -160,35 +163,43 @@ class PhotoAnalyzer(private val context: Context) : AutoCloseable {
     /** Landmarks of one face in whole-photo coordinates (0..1). */
     private class RawFace(val xs: FloatArray, val ys: FloatArray, val blend: Map<String, Float>, val matrix: FloatArray?)
 
+    /** A face YuNet found, with the face mesh when it could be read. */
+    private class Face(val found: YuNet.Found, val mesh: RawFace?)
+
     /**
-     * Faces in the whole photo, then a closer look at people the first look missed (small faces
-     * at the back of a group photo).
+     * YuNet finds every face (small, side-on, downcast); then each face is read from a close crop
+     * by the face mesh model, which works best when the face fills its picture. Faces it cannot
+     * read are kept: they still count as people and are still recognised.
      */
-    private fun findFaces(bitmap: Bitmap, people: List<Box>): List<RawFace> {
-        val faces = ArrayList(detect(bitmap, Box(0f, 0f, 1f, 1f)))
-        val boxes = faces.map { FaceMetrics.box(it.xs, it.ys) }.toMutableList()
-        val missing = SceneRules.peopleWithoutFaces(people, boxes)
-        for (area in SceneRules.headCrops(missing)) {
-            val x = (area.left * bitmap.width).toInt().coerceIn(0, bitmap.width - 1)
-            val y = (area.top * bitmap.height).toInt().coerceIn(0, bitmap.height - 1)
-            val w = (area.width * bitmap.width).toInt().coerceIn(1, bitmap.width - x)
-            val h = (area.height * bitmap.height).toInt().coerceIn(1, bitmap.height - y)
-            if (w < 16 || h < 16) continue
-            val crop = Bitmap.createBitmap(bitmap, x, y, w, h)
-            // Enlarge small areas so faces reach a size the detector handles well.
-            val scale = max(1f, CROP_SIDE / max(w, h).toFloat())
-            val big = if (scale > 1f) Bitmap.createScaledBitmap(crop, (w * scale).roundToInt(), (h * scale).roundToInt(), true) else crop
-            val area01 = Box(x.toFloat() / bitmap.width, y.toFloat() / bitmap.height, (x + w).toFloat() / bitmap.width, (y + h).toFloat() / bitmap.height)
-            for (f in detect(big, area01)) {
-                val b = FaceMetrics.box(f.xs, f.ys)
-                if (SceneRules.isDuplicate(b, boxes)) continue
-                faces += f
-                boxes += b
-            }
-            if (big !== crop) big.recycle()
+    private fun findFaces(bitmap: Bitmap): List<Face> {
+        val found = finder.find(bitmap).sortedByDescending { it.box.width }.take(MAX_FACES)
+        return found.map { f -> Face(f, if (f.box.width >= MIN_MESH_FACE) readCrop(bitmap, f) else null) }
+    }
+
+    /** The face mesh for [face], read from a square crop around it. */
+    private fun readCrop(bitmap: Bitmap, face: YuNet.Found): RawFace? {
+        val side = CROP_AROUND_FACE * max(face.box.width * bitmap.width, face.box.height * bitmap.height)
+        val cx = (face.box.left + face.box.right) / 2f * bitmap.width
+        val cy = (face.box.top + face.box.bottom) / 2f * bitmap.height
+        val x0 = (cx - side / 2f).toInt().coerceIn(0, bitmap.width - 1)
+        val y0 = (cy - side / 2f).toInt().coerceIn(0, bitmap.height - 1)
+        val x1 = (cx + side / 2f).toInt().coerceIn(x0 + 1, bitmap.width)
+        val y1 = (cy + side / 2f).toInt().coerceIn(y0 + 1, bitmap.height)
+        if (x1 - x0 < 16 || y1 - y0 < 16) return null
+        val crop = Bitmap.createBitmap(bitmap, x0, y0, x1 - x0, y1 - y0)
+        val scale = CROP_SIDE / max(crop.width, crop.height).toFloat()
+        val sized = Bitmap.createScaledBitmap(crop, max(1, (crop.width * scale).roundToInt()), max(1, (crop.height * scale).roundToInt()), true)
+        val area = Box(x0.toFloat() / bitmap.width, y0.toFloat() / bitmap.height, x1.toFloat() / bitmap.width, y1.toFloat() / bitmap.height)
+        val meshes = try { detect(sized, area) } finally {
+            if (sized !== crop) sized.recycle()
             if (crop !== bitmap) crop.recycle()
         }
-        return faces
+        // The crop may show a neighbour too; take the mesh centred inside this face.
+        return meshes.firstOrNull { m ->
+            val mx = m.xs.take(468).average().toFloat()
+            val my = m.ys.take(468).average().toFloat()
+            mx in face.box.left..face.box.right && my in face.box.top..face.box.bottom
+        }
     }
 
     /** Runs the face landmarker on [image], which shows [area] of the photo. */
@@ -206,9 +217,11 @@ class PhotoAnalyzer(private val context: Context) : AutoCloseable {
         }
     }
 
-    private fun measureFace(bitmap: Bitmap, gray: FloatArray, qw: Int, qh: Int, f: RawFace): FaceAnalysis {
+    private fun measureFace(bitmap: Bitmap, gray: FloatArray, qw: Int, qh: Int, face: Face): FaceAnalysis {
         val aspect = bitmap.width.toFloat() / bitmap.height
-        val r = FaceMetrics.read(f.xs, f.ys, f.blend, f.matrix, aspect)
+        val f = face.mesh
+        val r = if (f != null) FaceMetrics.read(f.xs, f.ys, f.blend, f.matrix, aspect)
+        else FaceMetrics.readFromPoints(face.found.box, face.found.points, aspect)
         val box = r.box
         val px = (box.left * bitmap.width).toInt().coerceIn(0, bitmap.width - 1)
         val py = (box.top * bitmap.height).toInt().coerceIn(0, bitmap.height - 1)
@@ -229,17 +242,21 @@ class PhotoAnalyzer(private val context: Context) : AutoCloseable {
         val surround = ImageMetrics.regionMean(gray, qw, qh, around, exclude = box)
         val backlit = ImageMetrics.isBacklit(brightness, surround)
 
-        // Skin patches: cheeks, forehead, chin, nose bridge.
-        val radius = max(2, (pw * 0.04f).roundToInt())
-        val patches = FaceMetrics.SKIN_PATCHES.filter { it < f.xs.size }.map { i ->
-            patchMean(bitmap, (f.xs[i] * bitmap.width).roundToInt(), (f.ys[i] * bitmap.height).roundToInt(), radius)
-        }
-        val occlusion = FaceMetrics.occlusion(patches.filterNotNull())
+        // Skin patches: cheeks, forehead, chin, nose bridge (needs the face mesh).
+        val occlusion = if (f != null) {
+            val radius = max(2, (pw * 0.04f).roundToInt())
+            val patches = FaceMetrics.SKIN_PATCHES.filter { it < f.xs.size }.map { i ->
+                patchMean(bitmap, (f.xs[i] * bitmap.width).roundToInt(), (f.ys[i] * bitmap.height).roundToInt(), radius)
+            }
+            FaceMetrics.occlusion(patches.filterNotNull())
+        } else 0f
 
         // Fingerprint for recognising the person; only for faces big enough to be reliable.
         val embedding = if (box.width >= 0.03f && r.cutOff < 0.2f) {
             try {
-                embedder.embed(bitmap, FaceMetrics.alignmentPoints(f.xs, f.ys, bitmap.width, bitmap.height))
+                val points = if (f != null) FaceMetrics.alignmentPoints(f.xs, f.ys, bitmap.width, bitmap.height)
+                else FloatArray(10) { k -> face.found.points[k] * (if (k % 2 == 0) bitmap.width else bitmap.height) }
+                embedder.embed(bitmap, points)
             } catch (_: Exception) {
                 null
             }
@@ -247,7 +264,11 @@ class PhotoAnalyzer(private val context: Context) : AutoCloseable {
 
         val sizeScore = (box.width / 0.12f).coerceIn(0f, 1f)
         val angleScore = if (r.yaw < 30f) 1f else if (r.yaw < 50f) 0.5f else 0.2f
-        val eyesScore = if (r.eyes == EyeState.CLOSED) 0.7f else 1f
+        val eyesScore = when (r.eyes) {
+            EyeState.CLOSED -> 0.7f
+            EyeState.UNKNOWN -> 0.85f
+            else -> 1f
+        }
         val quality = sizeScore * angleScore * eyesScore * (1f - 0.5f * occlusion)
 
         return FaceAnalysis(r, sharpness, brightness, backlit, occlusion, quality, embedding)
@@ -313,7 +334,11 @@ class PhotoAnalyzer(private val context: Context) : AutoCloseable {
         const val THUMB_LONG_SIDE = 480f
         const val MAX_FACES = 20
         const val FACE_SIDE = 128
-        const val CROP_SIDE = 640f
+        /** Each face is read from a square this many times its size, scaled to [CROP_SIDE] pixels. */
+        const val CROP_AROUND_FACE = 2.2f
+        const val CROP_SIDE = 256f
+        /** Smaller faces are counted and recognised, but too small to read their eyes. */
+        const val MIN_MESH_FACE = 0.015f
 
         /** Largest power-of-two shrink that still keeps the long side at or above [target]. */
         fun sampleSizeFor(longSide: Int, target: Int): Int {

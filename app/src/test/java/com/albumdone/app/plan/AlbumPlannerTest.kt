@@ -406,6 +406,39 @@ class AlbumPlannerTest {
     // =====================================================================================
 
     @Test
+    fun coverIsInWeddingClothesWhenPossible() {
+        // A slightly better couple close-up at haldi loses to the one at the wedding.
+        val haldi = couplePhoto("01 Haldi", t = start, w = 0.16f)
+        val wedding = couplePhoto("02 Wedding", t = start + 300 * minute, w = 0.14f)
+        val guests = List(10) { photo("02 Wedding", t = start + (320 + it * 20) * minute, faces = listOf(face(100L + it))) }
+        val a = AlbumPlanner.analyze(listOf(haldi, wedding) + guests, couple)
+        assertEquals(wedding.id, AlbumPlanner.shortlist(a, 6).coverId)
+    }
+
+    @Test
+    fun withoutACouplePortraitTheBridesBestPortraitIsTheCover() {
+        // Photographed from the bride's side: the groom is never clearly with her looking at the camera.
+        val solo = photo("02 Wedding", t = start, faces = listOf(face(BRIDE, x = 0.4f, w = 0.2f, expr = Expression.SMILE)))
+        val haldiSolo = photo("01 Haldi", t = start - 300 * minute, faces = listOf(face(BRIDE, x = 0.4f, w = 0.2f, expr = Expression.SMILE)))
+        val guests = List(8) { photo("02 Wedding", t = start + (20 + it * 20) * minute, faces = listOf(face(100L + it))) }
+        val a = AlbumPlanner.analyze(listOf(haldiSolo, solo) + guests, couple)
+        val s = AlbumPlanner.shortlist(a, 5)
+        assertEquals(solo.id, s.coverId)
+        assertEquals("Cover: the bride's best portrait", s.reasons.getValue(solo.id).first())
+    }
+
+    @Test
+    fun peopleReasonsAreInPlainWords() {
+        val elder = 20L
+        val photos = List(6) { photo(t = start + it * 20 * minute, faces = listOf(face(BRIDE, x = 0.3f), face(elder, x = 0.5f))) } +
+            List(10) { couplePhoto(t = start + (200 + it * 20) * minute) }
+        val a = AlbumPlanner.analyze(photos, tags(PersonTag(elder, "", Priority.MUST, Side.BRIDE, elder = true)))
+        val all = AlbumPlanner.shortlist(a, 8).reasons.values.flatten()
+        assertTrue(all.toString(), all.any { it == "Family elder with the bride" })
+        assertTrue(all.none { it.contains("Must") || it.contains("Person ") })
+    }
+
+    @Test
     fun coverIsTheBestCouplePortrait() {
         val close = couplePhoto(t = start, w = 0.15f)
         val full = couplePhoto(t = start + 20 * minute, w = 0.07f)
@@ -473,7 +506,7 @@ class AlbumPlannerTest {
         val cov = s.coverage.single { it.personId == aai }
         assertEquals(5, cov.target)
         assertNull(cov.warning)
-        assertTrue(s.reasons.values.flatten().any { it.contains("Aai (Must)") })
+        assertTrue(s.reasons.values.flatten().any { it.contains("Aai with the bride") })
     }
 
     @Test
@@ -736,5 +769,44 @@ class AlbumPlannerTest {
         assertEquals(s.ids.sortedBy { a.byId.getValue(it).order }, s.ids)
         for (e in events) assertTrue(s.ids.any { a.byId.getValue(it).event == e })
         assertTrue(s.ids.all { s.reasons.getValue(it).isNotEmpty() })
+    }
+
+    @Test
+    fun regionalEventNamesAreUnderstood() {
+        assertEquals(EventKind.RITUAL, AlbumPlanner.eventKind("03 Biye"))
+        assertEquals(EventKind.RITUAL, AlbumPlanner.eventKind("Lagna"))
+        assertEquals(EventKind.RITUAL, AlbumPlanner.eventKind("Kalyanam"))
+        assertEquals(EventKind.RITUAL, AlbumPlanner.eventKind("01 Adhibaas"))
+        assertEquals(EventKind.PREP, AlbumPlanner.eventKind("Gaye Holud"))
+        assertEquals(EventKind.PREP, AlbumPlanner.eventKind("Halad"))
+        assertEquals(EventKind.PARTY, AlbumPlanner.eventKind("Bou Bhaat"))
+        assertEquals(EventKind.PARTY, AlbumPlanner.eventKind("Sakharpuda"))
+        assertEquals(EventKind.VIDAAI, AlbumPlanner.eventKind("Pathavani"))
+        assertTrue(AlbumPlanner.ownFunction("01 Adhibaas"))
+        assertTrue(AlbumPlanner.ownFunction("Haldi"))
+        assertFalse(AlbumPlanner.ownFunction("Wedding"))
+        assertFalse(AlbumPlanner.ownFunction("Reception"))
+    }
+
+    @Test
+    fun unreadableFaceIsNeitherPraisedNorBlamed() {
+        // A side-on face during a ritual: no eye problem is reported for it.
+        val side = PlanFace(personId = 1, box = Box(0.4f, 0.2f, 0.55f, 0.45f), eyes = EyeState.UNKNOWN, lookingAtCamera = false)
+        val a = AlbumPlanner.analyze(listOf(PlanPhoto(1, "a.jpg", "Wedding", faces = listOf(side))), PeopleTags(brideId = 1))
+        val p = a.byId.getValue(1)
+        assertTrue(p.usable)
+        assertFalse(Issue.EYES_CLOSED in p.issues)
+        assertFalse(Issue.HALF_BLINK in p.issues)
+    }
+
+    @Test
+    fun backsOfPeopleAreNotDetailShots() {
+        val backs = PlanPhoto(1, "backs.jpg", "Wedding", peopleArea = 0.5f)
+        val jewellery = PlanPhoto(2, "jewellery.jpg", "Wedding")
+        val a = AlbumPlanner.analyze(listOf(backs, jewellery), couple)
+        assertEquals(ShotType.CANDID, a.byId.getValue(1).shot)
+        assertTrue(Issue.FACES_TURNED_AWAY in a.byId.getValue(1).issues)
+        assertEquals(ShotType.DETAIL, a.byId.getValue(2).shot)
+        assertTrue(a.byId.getValue(2).quality > a.byId.getValue(1).quality)
     }
 }
