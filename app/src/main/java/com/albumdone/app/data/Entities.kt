@@ -178,4 +178,6 @@ data class ProjectSummary(
     @Embedded val project: ProjectEntity,
     val total: Int,
     val done: Int,
+    /** The cover's thumbnail, or the first checked photo's while the album is not ready. */
+    val coverThumb: String? = null,
 )

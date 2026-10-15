@@ -1,6 +1,18 @@
 package com.albumdone.app.ui
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material3.Icon
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
+import coil.compose.AsyncImage
+import java.io.File
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -35,6 +47,8 @@ import com.albumdone.app.data.ProjectStatus
 fun ProgressScreen(vm: AlbumViewModel, projectId: Long) {
     val flow = remember(projectId) { vm.projectSummary(projectId) }
     val summary by flow.collectAsStateWithLifecycle(initialValue = null)
+    val recentFlow = remember(projectId) { vm.recentThumbs(projectId) }
+    val recent by recentFlow.collectAsStateWithLifecycle(initialValue = emptyList())
 
     LaunchedEffect(summary?.project?.status) {
         if (summary?.project?.status == ProjectStatus.DONE) vm.openAlbum(projectId)
@@ -43,36 +57,52 @@ fun ProgressScreen(vm: AlbumViewModel, projectId: Long) {
     Scaffold(topBar = { AppBar(summary?.project?.name ?: "", onBack = vm::back) }) { padding ->
         val s = summary
         Column(
-            Modifier.fillMaxSize().padding(padding).padding(horizontal = 24.dp),
+            Modifier.fillMaxSize().padding(padding).verticalScroll(rememberScrollState()).padding(horizontal = 24.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(14.dp),
         ) {
             if (s == null) return@Column
-            Spacer(Modifier.height(16.dp))
+            Spacer(Modifier.height(12.dp))
             if (s.project.status == ProjectStatus.PEOPLE || (s.project.status == ProjectStatus.DONE)) {
                 Text("Finding the people in your photos", style = MaterialTheme.typography.headlineSmall, textAlign = TextAlign.Center)
-                LinearProgressIndicator(Modifier.fillMaxWidth())
+                LinearProgressIndicator(Modifier.fillMaxWidth().height(6.dp).clip(RoundedCornerShape(3.dp)))
                 Text("All ${"%,d".format(s.total)} photos are checked. Your album is almost ready.",
                     textAlign = TextAlign.Center, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                return@Column
-            }
-            val fraction = if (s.total == 0) 0f else s.done.toFloat() / s.total
-            Ring(fraction)
-            Text("${"%,d".format(s.done)} of ${"%,d".format(s.total)} photos checked", style = MaterialTheme.typography.titleMedium)
-            val seconds = s.project.activeMillis / 1000.0
-            if (seconds >= 20 && s.done >= 5) {
-                val left = ((s.total - s.done) / (s.done / seconds)).toLong()
-                Text("About ${formatDuration(left * 1000)} left", style = MaterialTheme.typography.bodyLarge)
             } else {
-                Text("Working out how long this will take…", color = MaterialTheme.colorScheme.onSurfaceVariant)
+                val fraction = if (s.total == 0) 0f else s.done.toFloat() / s.total
+                Ring(fraction)
+                Text("${"%,d".format(s.done)} of ${"%,d".format(s.total)} photos checked", style = MaterialTheme.typography.titleMedium)
+                val seconds = s.project.activeMillis / 1000.0
+                if (seconds >= 20 && s.done >= 5) {
+                    val left = ((s.total - s.done) / (s.done / seconds)).toLong()
+                    Text("About ${formatDuration(left * 1000)} left", style = MaterialTheme.typography.bodyLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                } else {
+                    Text("Working out how long this will take…", color = MaterialTheme.colorScheme.onSurfaceVariant)
+                }
+            }
+            if (recent.isNotEmpty()) {
+                Spacer(Modifier.height(4.dp))
+                SectionLabel("Just checked", Modifier.fillMaxWidth())
+                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                    for (path in recent.take(5)) {
+                        AsyncImage(model = File(path), contentDescription = null, contentScale = ContentScale.Crop,
+                            modifier = Modifier.weight(1f).aspectRatio(1f).clip(RoundedCornerShape(12.dp)))
+                    }
+                    repeat(5 - recent.take(5).size) { Spacer(Modifier.weight(1f)) }
+                }
             }
             Spacer(Modifier.height(4.dp))
-            Surface(color = MaterialTheme.colorScheme.surfaceVariant, shape = RoundedCornerShape(14.dp)) {
+            Row(
+                Modifier.fillMaxWidth().clip(RoundedCornerShape(16.dp)).background(MaterialTheme.colorScheme.surfaceContainer).padding(16.dp),
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+            ) {
+                Icon(Icons.Default.Lock, contentDescription = null, tint = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.size(20.dp))
                 Text(
                     "You can lock your phone or use other apps. We keep going and send a notification when your album is ready. Nothing is uploaded.",
-                    modifier = Modifier.padding(16.dp), color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.bodyMedium,
                 )
             }
+            Spacer(Modifier.height(16.dp))
         }
     }
 }
@@ -81,15 +111,15 @@ fun ProgressScreen(vm: AlbumViewModel, projectId: Long) {
 private fun Ring(fraction: Float) {
     val track = MaterialTheme.colorScheme.surfaceVariant
     val bar = MaterialTheme.colorScheme.primary
-    Box(Modifier.size(210.dp), contentAlignment = Alignment.Center) {
+    Box(Modifier.size(200.dp), contentAlignment = Alignment.Center) {
         Canvas(Modifier.fillMaxSize()) {
-            val w = 14.dp.toPx()
+            val w = 12.dp.toPx()
             val d = size.minDimension - w
             val topLeft = Offset(w / 2, w / 2)
             drawArc(track, 0f, 360f, false, topLeft, Size(d, d), style = Stroke(w))
             drawArc(bar, -90f, 360f * fraction, false, topLeft, Size(d, d), style = Stroke(w, cap = StrokeCap.Round))
         }
-        Text("${(fraction * 100).toInt()}%", style = MaterialTheme.typography.headlineLarge, color = bar)
+        Text("${(fraction * 100).toInt()}%", style = MaterialTheme.typography.displayMedium, color = bar)
     }
 }
 

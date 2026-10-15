@@ -69,6 +69,46 @@ class FamilyGuessTest {
         assertEquals(Priority.NORMAL, g.getValue(120L).priority)
     }
 
+    /** One folder from a big wedding: 40 relatives there all day, and hundreds of guests who go on stage. */
+    @Test
+    fun bigWeddingInOneFolderFindsFortyRelativesNotStageGuests() {
+        val start = 1_700_000_000_000L
+        val minute = 60_000L
+        var id = 1L
+        fun at(minutes: Long, n: Int, people: Set<Long>) = List(n) { k -> PhotoPeople(id++, "Wedding", true, people, start + minutes * minute + k * 5_000L) }
+        val relatives = (300L until 340L).toList()
+        val photos = ArrayList<PhotoPeople>()
+        for ((i, r) in relatives.withIndex()) {
+            // Four different times of the day with the couple, e.g. arrival, a ritual, the family group, dinner.
+            for (visit in 0 until 4) photos += at(visit * 90L + i, 3, setOf(BRIDE, GROOM, r))
+        }
+        // 200 guests go on stage once and get three frames in that minute; 50 go up twice.
+        for (g in 1000L until 1200L) photos += at(360L + (g - 1000L), 3, setOf(BRIDE, GROOM, g))
+        for (g in 2000L until 2050L) { photos += at(100L + (g - 2000L), 2, setOf(BRIDE, GROOM, g)); photos += at(400L + (g - 2000L), 2, setOf(BRIDE, GROOM, g)) }
+        photos += List(200) { k -> PhotoPeople(id++, "Wedding", true, setOf(BRIDE, GROOM), start + k * 2 * minute) }
+
+        val g = FamilyGuess.guess(photos, BRIDE, GROOM)
+        for (r in relatives) assertTrue("relative $r", g.getValue(r).closeFamily)
+        for (guest in (1000L until 1200L) + (2000L until 2050L)) assertFalse("guest $guest", g.getValue(guest).closeFamily)
+        assertEquals(40, g.values.count { it.closeFamily })
+    }
+
+    @Test
+    fun aRelativeAtOneLongRitualCountsButAQuickStageVisitDoesNot() {
+        val start = 1_700_000_000_000L
+        val minute = 60_000L
+        var id = 1L
+        val mother = 10L; val guest = 50L
+        // The mother beside the couple all through an hour-long ritual, a photo every 5 minutes.
+        val photos = List(13) { k -> PhotoPeople(id++, "Wedding", true, setOf(BRIDE, GROOM, mother), start + k * 5 * minute) } +
+            // A guest on stage: six frames in one minute.
+            List(6) { k -> PhotoPeople(id++, "Wedding", true, setOf(BRIDE, GROOM, guest), start + 200 * minute + k * 8_000L) }
+        val g = FamilyGuess.guess(photos, BRIDE, GROOM)
+        assertTrue(g.getValue(mother).closeFamily)
+        assertFalse(g.getValue(guest).closeFamily)
+        assertEquals(0.0, g.getValue(guest).closeness, 1e-9)
+    }
+
     @Test
     fun peopleSeenOnceOrTwiceAreNeverGuessed() {
         val g = FamilyGuess.guess(photos("Reception", 2, setOf(BRIDE, GROOM, 50L)), BRIDE, GROOM)

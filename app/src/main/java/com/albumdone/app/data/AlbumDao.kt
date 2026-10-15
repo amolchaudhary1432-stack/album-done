@@ -23,7 +23,11 @@ interface AlbumDao {
         """
         SELECT p.*,
           (SELECT COUNT(*) FROM photos WHERE projectId = p.id) AS total,
-          (SELECT COUNT(*) FROM photos WHERE projectId = p.id AND processed = 1) AS done
+          (SELECT COUNT(*) FROM photos WHERE projectId = p.id AND processed = 1) AS done,
+          COALESCE(
+            (SELECT thumbPath FROM photos WHERE id = p.coverPhotoId),
+            (SELECT thumbPath FROM photos WHERE projectId = p.id AND thumbPath IS NOT NULL ORDER BY id LIMIT 1)
+          ) AS coverThumb
         FROM projects p ORDER BY createdAt DESC
         """
     )
@@ -33,11 +37,22 @@ interface AlbumDao {
         """
         SELECT p.*,
           (SELECT COUNT(*) FROM photos WHERE projectId = p.id) AS total,
-          (SELECT COUNT(*) FROM photos WHERE projectId = p.id AND processed = 1) AS done
+          (SELECT COUNT(*) FROM photos WHERE projectId = p.id AND processed = 1) AS done,
+          (SELECT thumbPath FROM photos WHERE id = p.coverPhotoId) AS coverThumb
         FROM projects p WHERE p.id = :id
         """
     )
     fun projectSummary(id: Long): Flow<ProjectSummary?>
+
+    /** The photos checked most recently, newest first, for the progress screen. */
+    @Query(
+        """
+        SELECT thumbPath FROM photos
+        WHERE projectId = :projectId AND processed = 1 AND thumbPath IS NOT NULL
+        ORDER BY id DESC LIMIT :limit
+        """
+    )
+    fun recentThumbs(projectId: Long, limit: Int): Flow<List<String>>
 
     @Query("UPDATE projects SET status = :status WHERE id = :id")
     suspend fun setStatus(id: Long, status: String)

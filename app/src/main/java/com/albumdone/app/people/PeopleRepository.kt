@@ -155,6 +155,7 @@ class PeopleRepository(private val dao: AlbumDao) {
                 event = event,
                 familyEvent = AlbumPlanner.eventKind(event) != EventKind.PARTY,
                 people = p.faces.filter { it.box.width >= AlbumPlanner.VISIBLE_FACE }.mapNotNull { it.personId }.toSet(),
+                takenAt = p.takenAt,
             )
         }
         val guesses = FamilyGuess.guess(forGuess, project.brideId, project.groomId)

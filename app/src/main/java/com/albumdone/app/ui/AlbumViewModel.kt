@@ -25,6 +25,7 @@ import com.albumdone.app.people.FamilyGuess
 import com.albumdone.app.people.PeopleRepository
 import com.albumdone.app.plan.AlbumAnalysis
 import com.albumdone.app.plan.AlbumPlanner
+import com.albumdone.app.plan.AlbumSize
 import com.albumdone.app.plan.Box
 import com.albumdone.app.plan.Display
 import com.albumdone.app.plan.Issue
@@ -37,17 +38,16 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import java.io.File
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 sealed interface Screen {
     data object Home : Screen
@@ -56,6 +56,10 @@ sealed interface Screen {
     data class Album(val projectId: Long) : Screen
     data class Viewer(val projectId: Long, val photoId: Long) : Screen
     data class Send(val projectId: Long) : Screen
+    /** Everyone in the photos, to say who is who. */
+    data class People(val projectId: Long) : Screen
+    /** "Who's who": one face at a time, one tap each. */
+    data class QuickTag(val projectId: Long) : Screen
 }
 
 /** What the folder scan found, before analysis starts. */
@@ -66,7 +70,10 @@ data class ScanState(
     /** Event name (as the photographer named the folder) to number of photos, in order. */
     val events: List<Pair<String, Int>> = emptyList(),
     val error: String? = null,
-)
+) {
+    /** More photos than one album works from (see [AlbumSize.MAX_PHOTOS]). */
+    val tooMany: Boolean get() = found > AlbumSize.MAX_PHOTOS
+}
 
 /**
  * A face to show as a small round picture: a sharp picture of the face cut from the original
@@ -99,19 +106,23 @@ data class AlbumPhoto(
     val crop: Pair<Float, Float>,
 )
 
-data class EventSection(val name: String, val title: String, val photos: List<AlbumPhoto>, val keyMoments: List<String>)
+data class EventSection(val name: String, val title: String, val photos: List<AlbumPhoto>)
 
 data class LeftOut(val repeats: Int, val blurry: Int, val eyes: Int, val light: Int, val faces: Int, val distractions: Int)
 
 data class AlbumState(
     val project: ProjectEntity,
     val total: Int,
+    /** All photos in the folder. */
+    val folderPhotos: Int,
     val cover: AlbumPhoto?,
     val bride: PersonChip?,
     val groom: PersonChip?,
     val family: List<PersonChip>,
     /** Frequent people not in the family strip, to add someone the app missed. */
     val others: List<PersonChip>,
+    /** Family and frequent people the couple has not named yet, family first ("Who's who"). */
+    val toName: List<PersonChip>,
     val warnings: List<String>,
     val events: List<EventSection>,
     val leftOut: LeftOut,
@@ -131,6 +142,12 @@ data class ViewerState(val photo: AlbumPhoto, val alternatives: List<Alternative
 
 private const val TAG = "AlbumDone"
 
+/** People listed on the people screen besides the family; a big wedding has many. */
+private const val MAX_PEOPLE_SHOWN = 80
+
+/** At most this many faces in one round of "Who's who". */
+private const val QUICK_TAG_MAX = 40
+
 class AlbumViewModel(app: Application) : AndroidViewModel(app) {
 
     private val dao = AppDatabase.get(app).dao()
@@ -143,7 +160,7 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
         private set
 
     /** Album size chosen on the new-album screen. */
-    var newAlbumSize by mutableStateOf(300)
+    var newAlbumSize by mutableStateOf(150)
 
     var busy by mutableStateOf(false)
         private set
@@ -160,6 +177,8 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
 
     fun projectSummary(id: Long) = dao.projectSummary(id)
+
+    fun recentThumbs(projectId: Long) = dao.recentThumbs(projectId, 5)
 
     // The planner's view of a wedding. Worked out once and reused until the family changes.
     private val analysisLock = Mutex()
@@ -190,6 +209,8 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
         screen = when (val s = screen) {
             is Screen.Viewer -> Screen.Album(s.projectId)
             is Screen.Send -> Screen.Album(s.projectId)
+            is Screen.People -> Screen.Album(s.projectId)
+            is Screen.QuickTag -> { finishQuickTag(s.projectId); return }
             else -> Screen.Home
         }
     }
@@ -227,6 +248,13 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
 
     fun openSend(projectId: Long) { screen = Screen.Send(projectId) }
 
+    fun openPeople(projectId: Long) { screen = Screen.People(projectId) }
+
+    fun openQuickTag(projectId: Long) {
+        quickTagged = 0
+        screen = Screen.QuickTag(projectId)
+    }
+
     // ---- New album ----
 
     fun onFolderPicked(uri: Uri) {
@@ -247,6 +275,7 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
                     val eventOf = AlbumPlanner.assignEvents(plan)
                     val order = AlbumPlanner.orderEvents(plan, eventOf)
                     val counts = eventOf.values.groupingBy { it }.eachCount()
+                    newAlbumSize = AlbumSize.suggested(photos.size)
                     ScanState(scanning = false, found = photos.size, photos = photos, events = order.map { it to (counts[it] ?: 0) })
                 } catch (e: Exception) {
                     ScanState(scanning = false, error = "Could not read this folder. Please pick it again.")
@@ -258,7 +287,7 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
     fun startAnalysis(name: String) {
         val s = screen as? Screen.NewAlbum ?: return
         val photos = scan.photos
-        if (photos.isEmpty() || busy) return
+        if (photos.isEmpty() || scan.tooMany || busy) return
         busy = true
         viewModelScope.launch {
             val projectId = withContext(Dispatchers.IO) {
@@ -359,13 +388,19 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
         val coverage = AlbumPlanner.coverage(analysis, selectedIds).associateBy { it.personId }
         val tags = analysis.tags
 
-        fun chip(id: Long, label: String? = null): PersonChip {
+        fun chip(id: Long, label: String? = null, family: Boolean = false): PersonChip {
             val entity = personById[id]?.person
             val c = coverage[id]
             val known = entity?.name?.isNotBlank() == true
+            // Not named yet: say what the app thinks, humbly, instead of a row of question marks.
+            val guess = when (tags.tag(id).side) {
+                com.albumdone.app.plan.Side.BRIDE -> "Bride's side"
+                com.albumdone.app.plan.Side.GROOM -> "Groom's side"
+                else -> if (family) "Family" else "Not named"
+            }
             return PersonChip(
                 personId = id,
-                label = label ?: entity?.name?.takeIf { it.isNotBlank() } ?: "Who is this?",
+                label = label ?: entity?.name?.takeIf { it.isNotBlank() } ?: guess,
                 known = known || label != null,
                 face = faceOf[id] ?: FaceCrop(null, null),
                 inAlbum = analysis.photos.count { it.id in selectedIds && id in it.people },
@@ -386,26 +421,24 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
             .sortedWith(compareBy<com.albumdone.app.plan.PersonTag> { it.priority }.thenByDescending { it.elder }.thenBy { it.side }
                 .thenByDescending { personById[it.id]?.person?.photoCount ?: 0 })
             .map { it.id }
-        val family = familyIds.map { chip(it) }
+        val family = familyIds.map { chip(it, family = true) }
         val others = persons.asSequence()
             .map { it.person }
             .filter { it.id !in familyIds && !tags.isCouple(it.id) && it.priority != PersonPriority.SKIP && it.photoCount >= 3 }
             .sortedByDescending { it.photoCount }
-            .take(30)
+            .take(MAX_PEOPLE_SHOWN)
             .map { chip(it.id) }
             .toList()
+        val toName = (family + others).filter { !it.known }.take(QUICK_TAG_MAX)
         val warnings = family.filter { it.warning != null && it.inAlbum < it.target }.take(2).map { c ->
             val who = if (c.known) c.label else "Someone close to you"
             "$who: ${c.inAlbum} of ${c.target} photos. ${c.warning}."
         }
 
-        val time = SimpleDateFormat("h:mm a", Locale.ENGLISH)
         val events = analysis.events.mapNotNull { e ->
             val items = analysis.photos.filter { it.event == e && it.id in selectedIds }.mapNotNull { albumPhoto(it.id) }
             if (items.isEmpty()) return@mapNotNull null
-            val keys = analysis.moments.filter { it.event == e && it.key && it.start > 0 }
-                .sortedBy { it.start }.map { "Key moment · " + time.format(Date(it.start)).lowercase() }.distinct().take(4)
-            EventSection(e, Display.eventName(e), items, keys)
+            EventSection(e, Display.eventName(e), items)
         }
         val leftOut = LeftOut(
             repeats = analysis.countAny(Issue.DUPLICATE, Issue.GROUP_REPEAT),
@@ -418,6 +451,7 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
         return AlbumState(
             project = project,
             total = selected.size,
+            folderPhotos = photos.size,
             cover = project.coverPhotoId?.let { id ->
                 // Centre the cover on the couple, not on whoever else is in it.
                 albumPhoto(id)?.let { ap ->
@@ -429,6 +463,7 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
             groom = tags.groomId?.let { chip(it, personById[it]?.person?.name?.takeIf { n -> n.isNotBlank() } ?: "Groom") },
             family = family,
             others = others,
+            toName = toName,
             warnings = warnings,
             events = events,
             leftOut = leftOut,
@@ -562,17 +597,51 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
     /** "Who is this?" answered: the relation decides how many photos, elder, and side. */
     fun setRelation(projectId: Long, person: PersonEntity, side: String, relation: String, name: String) {
         val (priority, elder) = if (relation.isEmpty()) Priority.IMPORTANT to person.elder else FamilyGuess.fromRelation(relation)
-        val label = name.trim().ifEmpty {
-            when {
-                relation.isEmpty() -> person.name
-                side == PersonSide.BRIDE -> "Bride's ${relation.lowercase()}"
-                side == PersonSide.GROOM -> "Groom's ${relation.lowercase()}"
-                else -> relation
-            }
-        }
+        val label = name.trim().ifEmpty { if (relation.isEmpty()) person.name else relationLabel(side, relation) }
         editPeople(projectId, "Album updated for $label") {
             dao.updatePerson(person.copy(name = label, priority = priority.name, elder = elder, side = side))
         }
+    }
+
+    private fun relationLabel(side: String, relation: String) = when (side) {
+        PersonSide.BRIDE -> "Bride's ${relation.lowercase()}"
+        PersonSide.GROOM -> "Groom's ${relation.lowercase()}"
+        else -> relation
+    }
+
+    // ---- "Who's who": one face at a time. Answers are saved at once; the album is remade once at the end. ----
+
+    private var quickTagged = 0
+    private val quickTagSaves = mutableListOf<Job>()
+
+    /** A few photos of this person, to help recognise a face. */
+    suspend fun samples(personId: Long): List<String> = dao.sampleThumbs(personId).distinct().take(3)
+
+    fun quickTag(personId: Long, side: String, relation: String) {
+        quickTagged++
+        quickTagSaves += viewModelScope.launch(Dispatchers.IO) {
+            val person = dao.person(personId) ?: return@launch
+            val (priority, elder) = FamilyGuess.fromRelation(relation)
+            dao.updatePerson(person.copy(name = relationLabel(side, relation), priority = priority.name, elder = elder, side = side))
+        }
+    }
+
+    fun quickNotFamily(personId: Long) {
+        quickTagged++
+        quickTagSaves += viewModelScope.launch(Dispatchers.IO) {
+            val person = dao.person(personId) ?: return@launch
+            dao.updatePerson(person.copy(priority = PersonPriority.SKIP))
+        }
+    }
+
+    fun finishQuickTag(projectId: Long) {
+        screen = Screen.Album(projectId)
+        val n = quickTagged
+        quickTagged = 0
+        if (n == 0) return
+        val saves = quickTagSaves.toList()
+        quickTagSaves.clear()
+        editPeople(projectId, "Album updated for $n ${if (n == 1) "person" else "people"}") { saves.joinAll() }
     }
 
     fun notFamily(projectId: Long, person: PersonEntity) =

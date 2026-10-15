@@ -115,6 +115,26 @@ class RealWeddingDeviceTest {
             DeviceTestSupport.pressBack()
             compose.waitForIdle()
         }
+        // Everyone the app found, and the one-tap "Who's who".
+        if (compose.onAllNodesWithTag("see-all-people").fetchSemanticsNodes().isNotEmpty()) {
+            compose.onNodeWithTag("see-all-people").performClick()
+            compose.waitUntil(30_000) { has("Family & friends") }
+            screenshot("real-22-people")
+            compose.onNodeWithTag("people-grid").performTouchInput { swipeUp() }
+            screenshot("real-23-people-more")
+            DeviceTestSupport.pressBack()
+            compose.waitForIdle()
+        }
+        if (compose.onAllNodesWithTag("quick-tag").fetchSemanticsNodes().isNotEmpty()) {
+            compose.onNodeWithTag("quick-tag").performClick()
+            compose.waitUntil(30_000) { compose.onAllNodesWithTag("quick-Aunt").fetchSemanticsNodes().isNotEmpty() }
+            screenshot("real-24-whos-who")
+            compose.onNodeWithTag("quick-skip").performClick()
+            compose.waitForIdle()
+            screenshot("real-25-whos-who-next")
+            DeviceTestSupport.pressBack()
+            compose.waitUntil(60_000) { has("Send list to photographer") }
+        }
         if (compose.onAllNodesWithTag("cover").fetchSemanticsNodes().isNotEmpty()) {
             compose.onNodeWithTag("cover").performClick()
             compose.waitUntil(30_000) { has("WHY IT") }

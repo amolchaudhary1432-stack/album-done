@@ -119,11 +119,36 @@ class AppScreensDeviceTest {
             back()
         }
 
-        step("05-add-someone") {
-            compose.onNodeWithTag("more-people").performClick()
-            waitFor("Other people in your photos")
-            screenshot("05-add-someone")
+        step("05-people") {
+            compose.onNodeWithTag("album-grid").performScrollToNode(hasTestTag("see-all-people"))
+            compose.onNodeWithTag("see-all-people").performClick()
+            waitFor("Family & friends")
+            screenshot("05-people")
+            val tiles = compose.onAllNodesWithTag("person-tile").fetchSemanticsNodes().size
+            if (tiles > 2) {
+                // Someone besides the bride and groom.
+                compose.onAllNodesWithTag("person-tile")[2].performClick()
+                waitFor("In ")
+                screenshot("05b-person")
+                back()
+            }
             back()
+            waitFor("Send list to photographer")
+        }
+
+        // "Who's who": one face at a time, one tap each.
+        if (hasTag("quick-tag")) {
+            step("05c-whos-who") {
+                compose.onNodeWithTag("quick-tag").performClick()
+                compose.waitUntil(30_000) { hasTag("quick-Aunt") }
+                screenshot("05c-whos-who")
+                compose.onNodeWithTag("quick-Aunt").performClick()
+                compose.waitForIdle()
+                screenshot("05d-whos-who-next")
+                back()
+                waitFor("Send list to photographer", timeout = 60_000)
+                screenshot("05e-after-whos-who")
+            }
         }
 
         step("06-album-photos", goBackOnFailure = false) {

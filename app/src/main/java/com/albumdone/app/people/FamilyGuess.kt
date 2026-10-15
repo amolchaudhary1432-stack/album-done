@@ -14,6 +14,8 @@ import kotlin.math.min
  *
  * What a photographer's photos reveal:
  * - Family come to many functions (Haldi, Mehendi, Wedding, Reception); most guests only come to one.
+ * - Within one function, family are photographed at many different times of the day. A guest goes
+ *   up on the stage once, and is photographed two or three times in that one minute.
  * - Family are photographed with the couple again and again.
  * - Family are part of the rituals and the getting-ready, not just the reception stage.
  * - Bride's family appear with the bride without the groom (her Haldi, her Mehendi) more than with
@@ -28,6 +30,8 @@ object FamilyGuess {
         /** A ritual or family function (Haldi, Mehendi, Wedding...), not just the reception stage. */
         val familyEvent: Boolean,
         val people: Set<Long>,
+        /** Capture time in milliseconds, or 0 when unknown. */
+        val takenAt: Long = 0,
     )
 
     data class Guess(
@@ -40,8 +44,12 @@ object FamilyGuess {
     )
 
     const val MIN_PHOTOS = 3
-    const val MAX_CLOSE = 14
+    /** Indian weddings are big: up to 40 close relatives can be guessed from a large folder. */
+    const val MAX_CLOSE = 40
+    const val PHOTOS_PER_CLOSE = 25
     const val CLOSE_SHARE_OF_TOP = 0.45
+    /** Photos of someone this far apart are separate visits (not one trip to the stage). */
+    const val VISIT_GAP_MILLIS = 10 * 60_000L
 
     fun guess(photos: List<PhotoPeople>, brideId: Long?, groomId: Long?): Map<Long, Guess> {
         val couple = setOfNotNull(brideId, groomId)
@@ -51,6 +59,20 @@ object FamilyGuess {
         class Stats {
             var photos = 0; var withCouple = 0; var withBrideOnly = 0; var withGroomOnly = 0; var familyEvent = 0
             val events = HashSet<String>()
+            val times = ArrayList<Long>()
+
+            /**
+             * Separate times of the day this person was photographed (a new one starts 10 minutes
+             * after the last began, so an hour-long ritual counts several), or null when unknown.
+             */
+            fun visits(): Int? {
+                if (times.isEmpty() || times.size < this.photos / 2) return null
+                times.sort()
+                var n = 1
+                var start = times[0]
+                for (t in times) if (t - start > VISIT_GAP_MILLIS) { n++; start = t }
+                return n
+            }
         }
         val stats = HashMap<Long, Stats>()
         for (p in photos) {
@@ -65,12 +87,21 @@ object FamilyGuess {
                 if (bride && !groom) s.withBrideOnly++
                 if (groom && !bride) s.withGroomOnly++
                 if (p.familyEvent) s.familyEvent++
+                if (p.takenAt > 0) s.times += p.takenAt
             }
         }
 
         val raw = stats.mapValues { (_, s) ->
-            if (s.photos < MIN_PHOTOS) 0.0 else {
-                val spread = s.events.size.toDouble() / eventCount                 // came to many functions
+            val visits = s.visits()
+            // Seen only once (one trip to the stage): a guest, however many frames were taken.
+            if (s.photos < MIN_PHOTOS || visits == 1) 0.0 else {
+                val eventSpread = s.events.size.toDouble() / eventCount
+                val visitSpread = visits?.let { min(1.0, (it - 1) / 3.0) }
+                val spread = when {                                                // came to many functions,
+                    visitSpread == null -> eventSpread                             // or was there all day
+                    eventCount == 1 -> visitSpread
+                    else -> (eventSpread + visitSpread) / 2
+                }
                 val withCouple = ln(1.0 + s.withCouple) / ln(1.0 + 40.0)           // with the couple, often
                 val ritual = s.familyEvent.toDouble() / s.photos                   // part of family moments
                 val coupleShare = s.withCouple.toDouble() / s.photos              // not just in the crowd
@@ -80,8 +111,10 @@ object FamilyGuess {
         val top = raw.values.maxOrNull() ?: 0.0
         val ranked = raw.entries.filter { it.value > 0 }.sortedByDescending { it.value }
         // A small set of photos cannot show many close relatives with any confidence.
-        val maxClose = min(MAX_CLOSE, max(6, photos.size / 40))
-        val close = ranked.filter { it.value >= CLOSE_SHARE_OF_TOP * top }.take(maxClose).map { it.key }.toSet()
+        val maxClose = min(MAX_CLOSE, max(6, photos.size / PHOTOS_PER_CLOSE))
+        // Close family were there at several times of the day; twice could still be a guest.
+        val close = ranked.filter { it.value >= CLOSE_SHARE_OF_TOP * top && (stats.getValue(it.key).visits() ?: 3) >= 3 }
+            .take(maxClose).map { it.key }.toSet()
 
         fun sideOf(s: Stats): Side {
             val diff = s.withBrideOnly - s.withGroomOnly
