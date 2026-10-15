@@ -3,7 +3,7 @@
 Runs on the GitHub build machine (this needs the internet; the app itself never does).
 The photos are test data only. They are never put inside the app.
 
-  python3 commons.py discover OUT_DIR      list likely single-wedding photo sets
+  python3 commons.py discover OUT_DIR [REQUEST]   list likely single-event photo sets (REQUEST may give "searches")
   python3 commons.py fetch REQUEST OUT_DIR download the set named in REQUEST (json)
   python3 commons.py fetch-sets REQUEST OUT_ROOT  download several sets, one folder each
 """
@@ -118,10 +118,11 @@ def day(f):
 FREE = re.compile(r"^(cc0|cc by(-sa)?( \d\.\d)?|cc-by(-sa)?-\d\.\d|public domain|pd.*|attribution|cc by-sa \d\.\d [a-z]+|cc by \d\.\d [a-z]+)$", re.I)
 
 
-def discover(out_dir):
+def discover(out_dir, searches=None, expand=None):
+    """[searches] replace the wedding searches; [expand]: regex of categories to look one level into."""
     os.makedirs(out_dir, exist_ok=True)
     cats = []
-    for term in SEARCHES:
+    for term in searches or SEARCHES:
         for c in search_categories(term):
             if c not in cats:
                 cats.append(c)
@@ -130,7 +131,7 @@ def discover(out_dir):
     # One level down from the wedding categories that look like collections.
     extra = []
     for c in cats:
-        if re.search(r"wedding|marriage|haldi|mehndi|mehendi|sangeet|baraat|vidaai|pheras|saptapadi", c, re.I):
+        if re.search(expand or r"wedding|marriage|haldi|mehndi|mehendi|sangeet|baraat|vidaai|pheras|saptapadi", c, re.I):
             for s in subcats(c):
                 if s not in cats and s not in extra:
                     extra.append(s)
@@ -270,7 +271,8 @@ def fetch_sets(request_path, out_root):
 
 if __name__ == "__main__":
     if sys.argv[1] == "discover":
-        discover(sys.argv[2])
+        req = json.load(open(sys.argv[3])) if len(sys.argv) > 3 else {}
+        discover(sys.argv[2], req.get("searches"), req.get("expand"))
     elif sys.argv[1] == "fetch":
         fetch(sys.argv[2], sys.argv[3])
     elif sys.argv[1] == "fetch-sets":

@@ -1,6 +1,6 @@
 name: Test photos
 
-# Finds or downloads freely licensed wedding photos for the phone test (test data only, never
+# Finds or downloads freely licensed photos (weddings, birthdays, family functions) for the phone test (test data only, never
 # inside the app), and puts them on the test-photos branch. Runs when tools/test-photos changes.
 on:
   push:
@@ -28,7 +28,10 @@ jobs:
           mode=$(python3 -c "import json; print(json.load(open('tools/test-photos/request.json'))['mode'])")
           mkdir -p out
           if [ "$mode" = discover ]; then
-            python3 tools/test-photos/commons.py discover out/discover
+            # Keep the photo sets already there; add the list of what else exists.
+            git fetch -q --depth 1 origin test-photos && git archive FETCH_HEAD | tar -x -C out || true
+            rm -rf out/discover out/RUN.txt
+            python3 tools/test-photos/commons.py discover out/discover tools/test-photos/request.json
           elif [ "$mode" = quirky ]; then
             # Keep the real wedding, add the replica raw dump made from it.
             pip install --quiet piexif onnxruntime pillow numpy
