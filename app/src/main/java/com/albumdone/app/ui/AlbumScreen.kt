@@ -95,6 +95,7 @@ fun AlbumScreen(vm: AlbumViewModel, projectId: Long) {
     var personSheet by remember { mutableStateOf<Long?>(null) }
     var moreSheet by remember { mutableStateOf(false) }
     var settingsSheet by remember { mutableStateOf(false) }
+    var chooseGroom by remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
@@ -139,8 +140,12 @@ fun AlbumScreen(vm: AlbumViewModel, projectId: Long) {
 
             s.cover?.let { cover ->
                 item(key = "cover", span = full) {
+                    // The photo's own shape (within limits), so the cover is not cut badly.
+                    val shape = if (cover.photo.width > 0 && cover.photo.height > 0) {
+                        (cover.photo.width.toFloat() / cover.photo.height).coerceIn(0.8f, 1.6f)
+                    } else 4f / 3f
                     Box(
-                        Modifier.fillMaxWidth().aspectRatio(4f / 3f).clip(RoundedCornerShape(18.dp))
+                        Modifier.fillMaxWidth().aspectRatio(shape).clip(RoundedCornerShape(18.dp))
                             .clickable { vm.openPhoto(projectId, cover.photo.id) }.testTag("cover"),
                     ) {
                         PhotoThumb(cover.photo, cover.crop, Modifier.fillMaxSize())
@@ -157,7 +162,10 @@ fun AlbumScreen(vm: AlbumViewModel, projectId: Long) {
                         color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
             }
-            item(key = "couple", span = full) { CoupleCard(s, onTap = { personSheet = it }, onSwap = { vm.swapCouple(projectId) }) }
+            item(key = "couple", span = full) {
+                CoupleCard(s, onTap = { personSheet = it }, onSwap = { vm.swapCouple(projectId) },
+                    onConfirm = { vm.confirmCouple(projectId) }, onChoose = { chooseGroom = true })
+            }
             item(key = "family", span = full) {
                 Column(Modifier.padding(top = 14.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     Text("YOUR FAMILY IN THE ALBUM", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
@@ -217,31 +225,76 @@ fun AlbumScreen(vm: AlbumViewModel, projectId: Long) {
         personSheet?.let { id -> PersonSheet(vm, projectId, id, s, onClose = { personSheet = null }) }
         if (moreSheet) MorePeopleSheet(s, onPick = { moreSheet = false; personSheet = it }, onClose = { moreSheet = false })
         if (settingsSheet) SettingsSheet(vm, projectId, s, onClose = { settingsSheet = false })
+        if (chooseGroom) ChooseGroomSheet(s, onPick = { chooseGroom = false; vm.setGroom(projectId, it) }, onClose = { chooseGroom = false })
     }
 }
 
 @Composable
-private fun CoupleCard(s: AlbumState, onTap: (Long) -> Unit, onSwap: () -> Unit) {
-    Surface(color = MaterialTheme.colorScheme.surfaceVariant, shape = RoundedCornerShape(16.dp), modifier = Modifier.fillMaxWidth()) {
-        Row(Modifier.padding(start = 14.dp, top = 12.dp, bottom = 12.dp, end = 4.dp), verticalAlignment = Alignment.CenterVertically) {
-            if (s.bride == null || s.groom == null) {
-                Text("We could not tell who the bride and groom are. Tap + below and choose them.", modifier = Modifier.weight(1f).padding(end = 10.dp))
-                return@Row
+private fun CoupleCard(s: AlbumState, onTap: (Long) -> Unit, onSwap: () -> Unit, onConfirm: () -> Unit, onChoose: () -> Unit) {
+    val unsure = s.bride != null && s.groom != null && !s.project.coupleSure
+    Surface(
+        color = if (unsure) MaterialTheme.colorScheme.secondaryContainer else MaterialTheme.colorScheme.surfaceVariant,
+        shape = RoundedCornerShape(16.dp), modifier = Modifier.fillMaxWidth().testTag("couple-card"),
+    ) {
+        Column(Modifier.padding(start = 14.dp, top = 12.dp, bottom = if (unsure) 6.dp else 12.dp, end = 4.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                if (s.bride == null || s.groom == null) {
+                    Text("We could not tell who the bride and groom are. Tap + below and choose them.", modifier = Modifier.weight(1f).padding(end = 10.dp))
+                    return@Row
+                }
+                // Two overlapping faces; each opens that person.
+                Box(Modifier.width(78.dp)) {
+                    Box(Modifier.clip(CircleShape).clickable { onTap(s.bride.personId) }.testTag("couple-bride")) { FaceAvatar(s.bride.face, 44.dp) }
+                    Box(Modifier.padding(start = 34.dp).clip(CircleShape).border(2.dp, MaterialTheme.colorScheme.surfaceVariant, CircleShape)
+                        .clickable { onTap(s.groom.personId) }.testTag("couple-groom")) { FaceAvatar(s.groom.face, 44.dp) }
+                }
+                Spacer(Modifier.width(10.dp))
+                Column(Modifier.weight(1f)) {
+                    if (unsure) {
+                        Text("Is this the groom?", style = MaterialTheme.typography.titleSmall)
+                        Text("We are not sure from the photos", style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 2)
+                    } else {
+                        val named = s.bride.label != "Bride" || s.groom.label != "Groom"
+                        Text(if (named) "${s.bride.label} & ${s.groom.label}" else "Bride & groom", style = MaterialTheme.typography.titleSmall,
+                            maxLines = 1, overflow = TextOverflow.Ellipsis)
+                        Text("Found automatically", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 2)
+                    }
+                }
+                if (!unsure) TextButton(onClick = onSwap) { Text("Swap") }
             }
-            // Two overlapping faces; each opens that person.
-            Box(Modifier.width(78.dp)) {
-                Box(Modifier.clip(CircleShape).clickable { onTap(s.bride.personId) }.testTag("couple-bride")) { FaceAvatar(s.bride.face, 44.dp) }
-                Box(Modifier.padding(start = 34.dp).clip(CircleShape).border(2.dp, MaterialTheme.colorScheme.surfaceVariant, CircleShape)
-                    .clickable { onTap(s.groom.personId) }.testTag("couple-groom")) { FaceAvatar(s.groom.face, 44.dp) }
+            if (unsure) {
+                Row(Modifier.fillMaxWidth().padding(end = 6.dp), horizontalArrangement = Arrangement.End) {
+                    TextButton(onClick = onChoose, modifier = Modifier.testTag("choose-groom")) { Text("No, choose") }
+                    TextButton(onClick = onConfirm, modifier = Modifier.testTag("confirm-groom")) { Text("Yes") }
+                }
             }
-            Spacer(Modifier.width(10.dp))
-            Column(Modifier.weight(1f)) {
-                val named = s.bride.label != "Bride" || s.groom.label != "Groom"
-                Text(if (named) "${s.bride.label} & ${s.groom.label}" else "Bride & groom", style = MaterialTheme.typography.titleSmall,
-                    maxLines = 1, overflow = TextOverflow.Ellipsis)
-                Text("Found automatically", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 2)
+        }
+    }
+}
+
+/** "Who is the groom?": the most photographed people, tap one. */
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
+@Composable
+private fun ChooseGroomSheet(s: AlbumState, onPick: (Long) -> Unit, onClose: () -> Unit) {
+    val people = (s.family + s.others + listOfNotNull(s.groom))
+        .filter { it.personId != s.bride?.personId }
+        .distinctBy { it.personId }
+        .sortedByDescending { it.photoCount }
+        .take(24)
+    ModalBottomSheet(onDismissRequest = onClose, sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)) {
+        Column(Modifier.padding(horizontal = 20.dp).padding(bottom = 28.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            Text("Who is the groom?", style = MaterialTheme.typography.headlineSmall)
+            Text("Tap his face. The album is remade around the two of you.", color = MaterialTheme.colorScheme.onSurfaceVariant)
+            FlowRow(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalArrangement = Arrangement.spacedBy(12.dp),
+                modifier = Modifier.verticalScroll(rememberScrollState())) {
+                for (c in people) {
+                    Column(Modifier.width(72.dp).clickable { onPick(c.personId) }, horizontalAlignment = Alignment.CenterHorizontally) {
+                        FaceAvatar(c.face, 62.dp)
+                        Text("${c.photoCount} photos", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    }
+                }
             }
-            TextButton(onClick = onSwap) { Text("Swap") }
         }
     }
 }
@@ -286,7 +339,10 @@ private fun PersonSheet(vm: AlbumViewModel, projectId: Long, personId: Long, alb
             Column(Modifier.fillMaxWidth().padding(horizontal = 20.dp).padding(bottom = 28.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(14.dp)) {
                     chip?.let { FaceAvatar(it.face, 72.dp) }
-                    Text(chip?.label ?: "", style = MaterialTheme.typography.headlineSmall)
+                    Column {
+                        Text(chip?.label ?: "", style = MaterialTheme.typography.headlineSmall)
+                        chip?.let { Text("In ${it.photoCount} photo${if (it.photoCount == 1) "" else "s"}", color = MaterialTheme.colorScheme.onSurfaceVariant) }
+                    }
                 }
                 Box(Modifier.fillMaxWidth().height(120.dp), contentAlignment = Alignment.Center) { CircularProgressIndicator() }
             }

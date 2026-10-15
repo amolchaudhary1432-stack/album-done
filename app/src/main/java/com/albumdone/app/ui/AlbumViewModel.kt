@@ -20,6 +20,7 @@ import com.albumdone.app.data.PhotoEntity
 import com.albumdone.app.data.ProjectEntity
 import com.albumdone.app.data.ProjectStatus
 import com.albumdone.app.data.ProjectSummary
+import com.albumdone.app.people.FaceCrops
 import com.albumdone.app.people.FamilyGuess
 import com.albumdone.app.people.PeopleRepository
 import com.albumdone.app.plan.AlbumAnalysis
@@ -67,8 +68,11 @@ data class ScanState(
     val error: String? = null,
 )
 
-/** A face to show as a small round picture: the photo's thumbnail and where the face is in it. */
-data class FaceCrop(val thumbPath: String?, val box: Box?)
+/**
+ * A face to show as a small round picture: a sharp picture of the face cut from the original
+ * photo when there is one ([facePath]), otherwise the photo's thumbnail and where the face is in it.
+ */
+data class FaceCrop(val thumbPath: String?, val box: Box?, val facePath: String? = null)
 
 /** Someone in the family strip. */
 data class PersonChip(
@@ -80,6 +84,8 @@ data class PersonChip(
     val inAlbum: Int,
     val target: Int,
     val warning: String?,
+    /** Photos this person is in, in the whole wedding. */
+    val photoCount: Int = 0,
     /** Whose side the app thinks they are on (PersonSide). */
     val side: String = PersonSide.UNKNOWN,
 )
@@ -289,6 +295,7 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
                 val project = dao.project(id)
                 dao.deleteProjectWithPhotos(id)
                 File(app.filesDir, "thumbs/$id").deleteRecursively()
+                FaceCrops.deleteAll(app, id)
                 project?.let {
                     try {
                         app.contentResolver.releasePersistableUriPermission(Uri.parse(it.treeUri), Intent.FLAG_GRANT_READ_URI_PERMISSION)
@@ -347,7 +354,7 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
                 crop = Display.cropBias(p.width, p.height, a.photo.faces.map { it.box }),
             )
         }
-        val faceOf = persons.associate { it.person.id to FaceCrop(it.thumbPath, faceBox(it)) }
+        val faceOf = persons.associate { it.person.id to faceCrop(project.id, it) }
         val personById = persons.associateBy { it.person.id }
         val coverage = AlbumPlanner.coverage(analysis, selectedIds).associateBy { it.personId }
         val tags = analysis.tags
@@ -364,6 +371,7 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
                 inAlbum = analysis.photos.count { it.id in selectedIds && id in it.people },
                 target = c?.target ?: 0,
                 warning = c?.warning,
+                photoCount = entity?.photoCount ?: 0,
                 side = when (tags.tag(id).side) {
                     com.albumdone.app.plan.Side.BRIDE -> PersonSide.BRIDE
                     com.albumdone.app.plan.Side.GROOM -> PersonSide.GROOM
@@ -410,7 +418,13 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
         return AlbumState(
             project = project,
             total = selected.size,
-            cover = project.coverPhotoId?.let { albumPhoto(it) },
+            cover = project.coverPhotoId?.let { id ->
+                // Centre the cover on the couple, not on whoever else is in it.
+                albumPhoto(id)?.let { ap ->
+                    val couple = analysis.byId[id]?.photo?.faces.orEmpty().filter { tags.isCouple(it.personId) }
+                    if (couple.isEmpty()) ap else ap.copy(crop = Display.cropBias(ap.photo.width, ap.photo.height, couple.map { it.box }))
+                }
+            },
             bride = tags.brideId?.let { chip(it, personById[it]?.person?.name?.takeIf { n -> n.isNotBlank() } ?: "Bride") },
             groom = tags.groomId?.let { chip(it, personById[it]?.person?.name?.takeIf { n -> n.isNotBlank() } ?: "Groom") },
             family = family,
@@ -420,6 +434,9 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
             leftOut = leftOut,
         )
     }
+
+    private fun faceCrop(projectId: Long, p: PersonWithFace): FaceCrop =
+        FaceCrop(p.thumbPath, faceBox(p), FaceCrops.file(getApplication(), projectId, p.person.id).takeIf { it.exists() }?.path)
 
     private fun faceBox(p: PersonWithFace): Box? {
         val l = p.faceLeft ?: return null
@@ -521,7 +538,7 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
             val samples = dao.sampleThumbs(personId).distinct().take(4)
             PersonDetail(
                 person = p.person,
-                face = FaceCrop(p.thumbPath, faceBox(p)),
+                face = faceCrop(projectId, p),
                 samples = samples,
                 role = when (personId) { project?.brideId -> "Bride"; project?.groomId -> "Groom"; else -> null },
                 guessedSide = guessedSide,
@@ -564,16 +581,24 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
     fun setBride(projectId: Long, personId: Long) = editPeople(projectId, "Bride updated") {
         val p = dao.project(projectId) ?: return@editPeople
         dao.setCouple(projectId, personId, if (p.groomId == personId) p.brideId else p.groomId)
+        dao.setCoupleSure(projectId, true)
     }
 
     fun setGroom(projectId: Long, personId: Long) = editPeople(projectId, "Groom updated") {
         val p = dao.project(projectId) ?: return@editPeople
         dao.setCouple(projectId, if (p.brideId == personId) p.groomId else p.brideId, personId)
+        dao.setCoupleSure(projectId, true)
     }
 
     fun swapCouple(projectId: Long) = editPeople(projectId, "Swapped bride and groom") {
         val p = dao.project(projectId) ?: return@editPeople
         dao.setCouple(projectId, p.groomId, p.brideId)
+        dao.setCoupleSure(projectId, true)
+    }
+
+    /** "Yes, that is the groom." */
+    fun confirmCouple(projectId: Long) {
+        viewModelScope.launch { dao.setCoupleSure(projectId, true) }
     }
 
     fun merge(projectId: Long, keep: Long, gone: Long) = editPeople(projectId, "Joined: same person") { people.merge(projectId, keep, gone) }

@@ -178,6 +178,9 @@ object AlbumPlanner {
 
     // ---- People ----
     const val MUST_TARGET = 5
+    /** Targets for family the app only guessed: it may be wrong about who they are. */
+    const val GUESSED_MUST_TARGET = 3
+    const val GUESSED_IMPORTANT_TARGET = 1
     const val IMPORTANT_TARGET = 2
     const val RARE_PERSON = 2
     const val FREQUENT_PERSON = 5
@@ -703,8 +706,8 @@ object AlbumPlanner {
     }
 
     fun target(tag: PersonTag): Int = when (tag.priority) {
-        Priority.MUST -> MUST_TARGET
-        Priority.IMPORTANT -> IMPORTANT_TARGET
+        Priority.MUST -> if (tag.guessed) GUESSED_MUST_TARGET else MUST_TARGET
+        Priority.IMPORTANT -> if (tag.guessed) GUESSED_IMPORTANT_TARGET else IMPORTANT_TARGET
         else -> 0
     }
 
@@ -730,7 +733,7 @@ object AlbumPlanner {
                 val good = analysis.photos.count { it.usable && t.id in it.people && withCouple(it, tags) }
                 val anyPhoto = analysis.photos.any { t.id in it.people && Issue.UNREADABLE !in it.issues }
                 val warning = when {
-                    count >= target -> null
+                    count >= target || t.guessed -> null
                     !anyPhoto -> "Not found in any photo"
                     t.id in usedPoorPhoto -> "Only poor photos found. We used the best one"
                     good < target -> "Only $good good photo${if (good == 1) "" else "s"} with the couple"
@@ -864,8 +867,8 @@ object AlbumPlanner {
         // ---- 1. People: the family ----
 
         fun weight(t: PersonTag): Double = when (t.priority) {
-            Priority.MUST -> if (t.elder) 3.0 else 2.5
-            Priority.IMPORTANT -> if (t.elder) 1.6 else 1.2
+            Priority.MUST -> (if (t.elder) 3.0 else 2.5) * (if (t.guessed) 0.6 else 1.0)
+            Priority.IMPORTANT -> (if (t.elder) 1.6 else 1.2) * (if (t.guessed) 0.6 else 1.0)
             else -> 0.0
         }
 

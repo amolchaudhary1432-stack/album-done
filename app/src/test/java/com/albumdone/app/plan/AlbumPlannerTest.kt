@@ -809,4 +809,18 @@ class AlbumPlannerTest {
         assertEquals(ShotType.DETAIL, a.byId.getValue(2).shot)
         assertTrue(a.byId.getValue(2).quality > a.byId.getValue(1).quality)
     }
+
+    @Test
+    fun guessedFamilyGetsSofterTargetsAndNoWarnings() {
+        val aunt = 30L
+        val withAunt = List(8) { photo(t = start + it * 20 * minute, faces = listOf(face(BRIDE, x = 0.3f), face(aunt, x = 0.5f))) }
+        val others = List(30) { couplePhoto(t = start + (200 + it * 20) * minute) }
+        val guessed = tags(PersonTag(aunt, "", Priority.MUST, Side.BRIDE, guessed = true))
+        val s = AlbumPlanner.shortlist(AlbumPlanner.analyze(withAunt + others, guessed), 12)
+        val cov = s.coverage.single { it.personId == aunt }
+        assertEquals(AlbumPlanner.GUESSED_MUST_TARGET, cov.target)
+        assertNull(cov.warning)
+        val told = tags(PersonTag(aunt, "Mavshi", Priority.MUST, Side.BRIDE))
+        assertEquals(AlbumPlanner.MUST_TARGET, AlbumPlanner.shortlist(AlbumPlanner.analyze(withAunt + others, told), 12).coverage.single { it.personId == aunt }.target)
+    }
 }

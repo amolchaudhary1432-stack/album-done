@@ -79,7 +79,9 @@ object FamilyGuess {
         }
         val top = raw.values.maxOrNull() ?: 0.0
         val ranked = raw.entries.filter { it.value > 0 }.sortedByDescending { it.value }
-        val close = ranked.filter { it.value >= CLOSE_SHARE_OF_TOP * top }.take(MAX_CLOSE).map { it.key }.toSet()
+        // A small set of photos cannot show many close relatives with any confidence.
+        val maxClose = min(MAX_CLOSE, max(6, photos.size / 40))
+        val close = ranked.filter { it.value >= CLOSE_SHARE_OF_TOP * top }.take(maxClose).map { it.key }.toSet()
 
         fun sideOf(s: Stats): Side {
             val diff = s.withBrideOnly - s.withGroomOnly
@@ -122,13 +124,14 @@ object FamilyGuess {
     fun mergeWithUserTags(guesses: Map<Long, Guess>, user: PeopleTags, userTagged: Set<Long>): PeopleTags {
         val merged = HashMap<Long, PersonTag>()
         for ((id, g) in guesses) {
-            merged[id] = PersonTag(id, priority = g.priority, side = g.side)
+            merged[id] = PersonTag(id, priority = g.priority, side = g.side, guessed = true)
         }
         for ((id, t) in user.tags) {
             val g = guesses[id]
             merged[id] = if (id in userTagged || g == null) t else t.copy(
                 priority = if (t.priority == Priority.NORMAL) g.priority else t.priority,
                 side = if (t.side == Side.UNKNOWN) g.side else t.side,
+                guessed = t.priority == Priority.NORMAL,
             )
         }
         return user.copy(tags = merged)

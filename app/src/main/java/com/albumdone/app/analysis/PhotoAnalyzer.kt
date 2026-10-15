@@ -252,7 +252,8 @@ class PhotoAnalyzer(private val context: Context) : AutoCloseable {
         } else 0f
 
         // Fingerprint for recognising the person; only for faces big enough to be reliable.
-        val embedding = if (box.width >= 0.03f && r.cutOff < 0.2f) {
+        // Small or strongly side-on faces give unreliable fingerprints that mix people up.
+        val embedding = if (box.width >= MIN_RECOGNISE_FACE && r.cutOff < 0.2f && r.yaw <= 50f) {
             try {
                 val points = if (f != null) FaceMetrics.alignmentPoints(f.xs, f.ys, bitmap.width, bitmap.height)
                 else FloatArray(10) { k -> face.found.points[k] * (if (k % 2 == 0) bitmap.width else bitmap.height) }
@@ -337,7 +338,9 @@ class PhotoAnalyzer(private val context: Context) : AutoCloseable {
         /** Each face is read from a square this many times its size, scaled to [CROP_SIDE] pixels. */
         const val CROP_AROUND_FACE = 2.2f
         const val CROP_SIDE = 256f
-        /** Smaller faces are counted and recognised, but too small to read their eyes. */
+        /** Faces at least this wide (share of the photo) get a fingerprint to recognise the person. */
+        const val MIN_RECOGNISE_FACE = 0.04f
+        /** Smaller faces are counted, but too small to read their eyes. */
         const val MIN_MESH_FACE = 0.015f
 
         /** Largest power-of-two shrink that still keeps the long side at or above [target]. */

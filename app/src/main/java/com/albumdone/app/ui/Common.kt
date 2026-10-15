@@ -66,7 +66,7 @@ fun PhotoThumb(photo: PhotoEntity, crop: Pair<Float, Float>, modifier: Modifier 
 /** A round picture of a person's face, cut from that photo's thumbnail. */
 @Composable
 fun FaceAvatar(face: FaceCrop, size: Dp, modifier: Modifier = Modifier, unknown: Boolean = false, ring: Boolean = false) {
-    val path = face.thumbPath
+    val path = face.facePath ?: face.thumbPath
     val image by produceState<ImageBitmap?>(null, path) {
         value = withContext(Dispatchers.IO) { path?.let { BitmapFactory.decodeFile(it)?.asImageBitmap() } }
     }
@@ -81,7 +81,10 @@ fun FaceAvatar(face: FaceCrop, size: Dp, modifier: Modifier = Modifier, unknown:
     ) {
         val img = image
         val box = face.box
-        if (img != null && box != null) {
+        if (img != null && face.facePath != null) {
+            // Already a square picture of just the face.
+            androidx.compose.foundation.Image(img, contentDescription = null, contentScale = ContentScale.Crop, modifier = Modifier.size(size))
+        } else if (img != null && box != null) {
             Canvas(Modifier.size(size)) {
                 val cx = (box.left + box.right) / 2f * img.width
                 val cy = (box.top + box.bottom) / 2f * img.height

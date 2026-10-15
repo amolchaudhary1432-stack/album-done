@@ -103,6 +103,8 @@ data class PersonTag(
     val priority: Priority = Priority.NORMAL,
     val side: Side = Side.UNKNOWN,
     val elder: Boolean = false,
+    /** The app's own guess (the couple has not said who this is): softer targets, no warnings. */
+    val guessed: Boolean = false,
 )
 
 /** What the couple told us about their family, plus who the couple are. */

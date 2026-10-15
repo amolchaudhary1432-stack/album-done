@@ -99,6 +99,19 @@ class AppScreensDeviceTest {
         }
         assertTrue("The album did not open:\n" + failures.joinToString("\n"), opened)
 
+        // When the app is not sure who the groom is, it asks once.
+        if (hasTag("confirm-groom")) {
+            step("03b-choose-groom") {
+                compose.onNodeWithTag("choose-groom").performClick()
+                waitFor("Who is the groom?")
+                screenshot("03b-choose-groom")
+                back()
+                compose.onNodeWithTag("confirm-groom").performClick()
+                compose.waitUntil(10_000) { !hasTag("confirm-groom") }
+                screenshot("03c-groom-confirmed")
+            }
+        }
+
         step("04-bride") {
             compose.onNodeWithTag("couple-bride").performClick()
             waitFor("In ")

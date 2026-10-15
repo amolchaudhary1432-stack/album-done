@@ -25,6 +25,7 @@ import com.albumdone.app.data.AppDatabase
 import com.albumdone.app.data.FaceEntity
 import com.albumdone.app.data.PhotoEntity
 import com.albumdone.app.data.ProjectStatus
+import com.albumdone.app.people.FaceCrops
 import com.albumdone.app.people.PeopleRepository
 import com.albumdone.app.plan.Box
 import com.albumdone.app.ui.MainActivity
@@ -103,6 +104,7 @@ class AnalyzeWorker(
         dao.setStatus(projectId, ProjectStatus.PEOPLE)
         trySetForeground(projectId, project.name, total, total, "Finding the people in your photos…")
         PeopleRepository(dao).build(projectId)
+        FaceCrops.saveAll(applicationContext, dao, projectId)
         dao.setActiveMillis(projectId, baseActive + (System.currentTimeMillis() - runStart))
         if (isStopped) return Result.retry()
 

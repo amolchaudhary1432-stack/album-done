@@ -28,6 +28,8 @@ data class ProjectEntity(
     val coverPhotoId: Long? = null,
     /** The couple has been through the "Tag your family" screen. */
     val familyTagged: Boolean = false,
+    /** The bride and groom are clear from the photos, or the couple confirmed them. Otherwise ask. */
+    val coupleSure: Boolean = false,
 )
 
 /** One photo inside the chosen folder, plus everything we measured about it. */

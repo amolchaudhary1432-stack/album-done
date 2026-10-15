@@ -226,6 +226,9 @@ interface AlbumDao {
     @Query("UPDATE projects SET brideId = :bride, groomId = :groom WHERE id = :id")
     suspend fun setCouple(id: Long, bride: Long?, groom: Long?)
 
+    @Query("UPDATE projects SET coupleSure = :sure WHERE id = :id")
+    suspend fun setCoupleSure(id: Long, sure: Boolean)
+
     @Query("UPDATE projects SET familyTagged = 1 WHERE id = :id")
     suspend fun setFamilyTagged(id: Long)
 

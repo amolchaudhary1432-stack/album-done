@@ -55,9 +55,12 @@ class PeopleRepository(private val dao: AlbumDao) {
                 else -> 1.0
             }
         }
-        val twoShots = clear.groupBy { it.photoId }.filter { it.value.size == 2 }.keys
+        val byPhoto = clear.groupBy { it.photoId }
+        val twoShots = byPhoto.filter { it.value.size == 2 }.keys
+        val portraits = byPhoto.filter { (_, f) -> f.size == 2 && f.all { it.right - it.left >= 0.08f } }.keys
         val couple = PeopleClusterer.detectCouple(photosOf, hints, { weight[it] ?: 1.0 }, twoShots)
         dao.setCouple(projectId, couple?.first, couple?.second)
+        dao.setCoupleSure(projectId, couple != null && PeopleClusterer.coupleSure(photosOf, couple, { weight[it] ?: 1.0 }, portraits))
     }
 
     /** Photo counts and best face of every person; people left with no photos are removed. */

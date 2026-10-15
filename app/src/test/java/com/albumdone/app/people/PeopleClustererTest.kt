@@ -1,6 +1,7 @@
 package com.albumdone.app.people
 
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -122,6 +123,34 @@ class PeopleClustererTest {
         assertEquals(1L to 3L, PeopleClusterer.detectCouple(photosOf, emptySet(), weight, twoShots = setOf(50L, 51L, 60L)))
         // Counting photos alone, the aunt looks like the partner.
         assertEquals(setOf(1L, 2L), PeopleClusterer.detectCouple(photosOf)!!.toList().toSet())
+    }
+
+    @Test
+    fun twoFacesInOnePhotoAreAlwaysTwoPeople() {
+        // Women in matching saris at haldi, faces small: fingerprints come out alike. Whatever the
+        // similarity, faces from the same photo must never become one person.
+        val base = randomUnit()
+        val faces = (0 until 12).map { faceOf(base, noise = 0.25f, quality = 0.6f, photo = 1000L + it / 2) } // two faces per photo
+        val people = PeopleClusterer.cluster(faces)
+        val photoOf = faces.associate { it.faceId to it.photoId }
+        for (p in people) {
+            val photos = p.map { photoOf.getValue(it) }
+            assertEquals("one person twice in a photo: $p", photos.size, photos.toSet().size)
+        }
+        assertTrue(people.size >= 2)
+    }
+
+    @Test
+    fun theAppAsksWhenTheGroomIsNotClear() {
+        val weight = { _: Long -> 1.0 }
+        val photosOf = mapOf(1L to (1L..60L).toSet(), 2L to (20L..50L).toSet(), 3L to (1L..12L).toSet())
+        // Many close-ups of just the two of them, and nobody else as close: sure.
+        assertTrue(PeopleClusterer.coupleSure(photosOf, 1L to 2L, weight, portraits = (20L..30L).toSet()))
+        // No close-ups of the two of them: ask.
+        assertFalse(PeopleClusterer.coupleSure(photosOf, 1L to 2L, weight, portraits = emptySet()))
+        // Someone else is beside the bride almost as often: ask.
+        val rival = photosOf + (3L to (1L..28L).toSet())
+        assertFalse(PeopleClusterer.coupleSure(rival, 1L to 2L, weight, portraits = (20L..30L).toSet()))
     }
 
     @Test
