@@ -232,6 +232,21 @@ class AlbumPlannerTest {
     }
 
     @Test
+    fun flashBlownPhotosAreCaughtButBrightDaylightIsNot() {
+        // Measured on the replica dump: a flash-blown frame (40% burnt white) next to normal photos.
+        val normal = List(8) { photo("Haldi", brightness = 110.0 + it * 7, blown = 0.02 * it) }
+        val blown = photo("Haldi", brightness = 202.0, blown = 0.42)
+        val brightButFine = photo("Haldi", brightness = 168.0, blown = 0.25)
+        val a = AlbumPlanner.analyze(normal + blown + brightButFine)
+        assertTrue(Issue.TOO_BRIGHT in a.issues(blown))
+        assertFalse(Issue.TOO_BRIGHT in a.issues(brightButFine))
+        // A whole function shot in strong sun is judged against itself.
+        val sunny = List(8) { photo("Haldi outdoor", brightness = 175.0 + it * 2, blown = 0.1) }
+        val a2 = AlbumPlanner.analyze(sunny)
+        assertTrue(sunny.none { Issue.TOO_BRIGHT in a2.issues(it) })
+    }
+
+    @Test
     fun stageLightingIsJudgedAgainstItsOwnEvent() {
         val reception = List(5) { photo("Reception", brightness = 45.0, dark = 0.45) }
         val dimReception = photo("Reception", brightness = 35.0, dark = 0.6)

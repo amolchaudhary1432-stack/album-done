@@ -147,8 +147,10 @@ object AlbumPlanner {
     const val BLUR_FACTOR = 0.3
     const val DARK_BRIGHTNESS = 40.0
     const val DARK_SHARE = 0.65
-    const val BRIGHT_BRIGHTNESS = 220.0
-    const val BLOWN_SHARE = 0.5
+    // From the replica dump: real photos reach brightness 168 and 25% burnt white at most;
+    // flash-blown ones 193-207 and 42-49%.
+    const val BRIGHT_BRIGHTNESS = 185.0
+    const val BLOWN_SHARE = 0.35
     const val MIN_TILT = 2.5f
     const val MAX_TILT = 12f
 
@@ -409,7 +411,8 @@ object AlbumPlanner {
         val darkShareLimit = max(DARK_SHARE, (norms.eventDark[event] ?: 0.0) + 0.25)
         val blownLimit = max(BLOWN_SHARE, (norms.eventBlown[event] ?: 0.0) + 0.25)
         if (p.brightness < darkLimit || p.darkFraction > darkShareLimit) issues += Issue.TOO_DARK
-        if (p.brightness > BRIGHT_BRIGHTNESS || p.brightFraction > blownLimit) issues += Issue.TOO_BRIGHT
+        val brightLimit = max(BRIGHT_BRIGHTNESS, evBright + 60.0)
+        if (p.brightness > brightLimit || p.brightFraction > blownLimit) issues += Issue.TOO_BRIGHT
 
         // Context.
         val lookingShare = if (clear.isEmpty()) 0.0 else clear.count { it.lookingAtCamera }.toDouble() / clear.size
