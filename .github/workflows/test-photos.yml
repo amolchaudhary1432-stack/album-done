@@ -36,6 +36,13 @@ jobs:
             git archive FETCH_HEAD wedding | tar -x -C out
             python3 tools/test-photos/quirky.py out/wedding out/quirky app/src/main/assets/models/face_detection_yunet_2026may.onnx
             du -sh out/quirky
+          elif [ "$mode" = fetch ] && python3 -c "import json,sys; sys.exit(0 if 'sets' in json.load(open('tools/test-photos/request.json')) else 1)"; then
+            # More weddings next to the ones already there.
+            pip install --quiet piexif
+            git fetch -q --depth 1 origin test-photos && git archive FETCH_HEAD | tar -x -C out
+            rm -f out/RUN.txt
+            python3 tools/test-photos/commons.py fetch-sets tools/test-photos/request.json out
+            du -sh out/*
           else
             pip install --quiet piexif
             python3 tools/test-photos/commons.py fetch tools/test-photos/request.json out/wedding

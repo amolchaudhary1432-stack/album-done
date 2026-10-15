@@ -4,7 +4,8 @@ Runs on the GitHub build machine (this needs the internet; the app itself never 
 The photos are test data only. They are never put inside the app.
 
   python3 commons.py discover OUT_DIR      list likely single-wedding photo sets
-  python3 commons.py fetch REQUEST OUT_DIR download the sets named in REQUEST (json)
+  python3 commons.py fetch REQUEST OUT_DIR download the set named in REQUEST (json)
+  python3 commons.py fetch-sets REQUEST OUT_ROOT  download several sets, one folder each
 """
 import collections
 import json
@@ -256,10 +257,23 @@ def fetch(request_path, out_dir):
     print(len(credits), "photos downloaded")
 
 
+def fetch_sets(request_path, out_root):
+    """REQUEST: {"sets": [{"name": "rajasthan", "title": ..., "photos": [...]}, ...]}: each set goes
+    to OUT_ROOT/<name>, next to the sets already there."""
+    req = json.load(open(request_path))
+    for s in req["sets"]:
+        one = os.path.join(out_root, "request-" + s["name"] + ".json")
+        json.dump({"name": s.get("title", s["name"]), "photos": s["photos"]}, open(one, "w"))
+        fetch(one, os.path.join(out_root, s["name"]))
+        os.remove(one)
+
+
 if __name__ == "__main__":
     if sys.argv[1] == "discover":
         discover(sys.argv[2])
     elif sys.argv[1] == "fetch":
         fetch(sys.argv[2], sys.argv[3])
+    elif sys.argv[1] == "fetch-sets":
+        fetch_sets(sys.argv[2], sys.argv[3])
     else:
-        sys.exit("discover OUT_DIR | fetch REQUEST OUT_DIR")
+        sys.exit("discover OUT_DIR | fetch REQUEST OUT_DIR | fetch-sets REQUEST OUT_ROOT")
