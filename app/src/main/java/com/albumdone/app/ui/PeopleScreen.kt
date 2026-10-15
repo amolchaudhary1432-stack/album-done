@@ -76,7 +76,7 @@ private val fullSpan: LazyGridItemSpanScope.() -> GridItemSpan = { GridItemSpan(
 @Composable
 fun PeopleScreen(vm: AlbumViewModel, projectId: Long) {
     val flow = remember(projectId) { vm.album(projectId) }
-    val state by flow.collectAsStateWithLifecycle(initialValue = null)
+    val state by flow.collectAsStateWithLifecycle()
     val host = remember { SnackbarHostState() }
     MessageHost(vm, host)
     var filter by rememberSaveable { mutableStateOf("all") }
@@ -171,7 +171,7 @@ private val QUICK_RELATIONS = listOf(
 @Composable
 fun QuickTagScreen(vm: AlbumViewModel, projectId: Long) {
     val flow = remember(projectId) { vm.album(projectId) }
-    val state by flow.collectAsStateWithLifecycle(initialValue = null)
+    val state by flow.collectAsStateWithLifecycle()
     // The faces are fixed when the screen opens, so naming someone does not reshuffle the rest.
     var queue by remember { mutableStateOf<List<PersonChip>?>(null) }
     LaunchedEffect(state) { if (queue == null) state?.let { queue = it.toName } }

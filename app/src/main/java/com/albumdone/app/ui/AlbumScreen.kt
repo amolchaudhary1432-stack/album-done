@@ -109,7 +109,7 @@ private const val STRIP_SIZE = 10
 @Composable
 fun AlbumScreen(vm: AlbumViewModel, projectId: Long) {
     val flow = remember(projectId) { vm.album(projectId) }
-    val state by flow.collectAsStateWithLifecycle(initialValue = null)
+    val state by flow.collectAsStateWithLifecycle()
     val host = remember { SnackbarHostState() }
     MessageHost(vm, host)
     var personSheet by remember { mutableStateOf<Long?>(null) }
@@ -273,11 +273,11 @@ private fun FamilySection(s: AlbumState, onPerson: (Long) -> Unit, onSeeAll: () 
         }
         val strip = s.family.take(STRIP_SIZE)
         if (strip.isNotEmpty()) {
-            LazyRow(contentPadding = PaddingValues(horizontal = 16.dp), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+            LazyRow(contentPadding = PaddingValues(horizontal = 12.dp), horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                 items(strip, key = { it.personId }) { c -> PersonChipView(c) { onPerson(c.personId) } }
                 if (s.family.size > STRIP_SIZE) {
                     item {
-                        Column(Modifier.width(72.dp).clickable(onClick = onSeeAll), horizontalAlignment = Alignment.CenterHorizontally) {
+                        Column(Modifier.width(84.dp).clickable(onClick = onSeeAll), horizontalAlignment = Alignment.CenterHorizontally) {
                             Box(Modifier.size(64.dp).clip(CircleShape).background(MaterialTheme.colorScheme.surfaceContainerHigh), contentAlignment = Alignment.Center) {
                                 Text("+${s.family.size - STRIP_SIZE}", style = MaterialTheme.typography.titleMedium)
                             }
@@ -394,13 +394,15 @@ private fun ChooseGroomSheet(s: AlbumState, onPick: (Long) -> Unit, onClose: () 
 @Composable
 fun PersonChipView(c: PersonChip, onClick: () -> Unit) {
     val low = c.warning != null && c.inAlbum < c.target
-    Column(Modifier.width(72.dp).clickable(onClick = onClick).testTag("person-chip"), horizontalAlignment = Alignment.CenterHorizontally) {
+    Column(Modifier.width(84.dp).clickable(onClick = onClick).testTag("person-chip"), horizontalAlignment = Alignment.CenterHorizontally) {
         Box {
             FaceAvatar(c.face, 64.dp, unknown = false)
             if (low) DotBadge("!", MaterialTheme.colorScheme.error, Modifier.align(Alignment.BottomEnd))
         }
         Spacer(Modifier.height(4.dp))
-        Text(c.label, style = MaterialTheme.typography.labelLarge, maxLines = 1, overflow = TextOverflow.Ellipsis,
+        // Names in full; the app's own guesses ("Groom's side") a little smaller so they fit.
+        Text(c.label, style = if (c.known) MaterialTheme.typography.labelLarge else MaterialTheme.typography.labelMedium,
+            maxLines = 1, overflow = TextOverflow.Ellipsis,
             color = if (c.known) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurfaceVariant)
         Text("${c.inAlbum} photo${if (c.inAlbum == 1) "" else "s"}", style = MaterialTheme.typography.labelMedium,
             color = if (low) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant)

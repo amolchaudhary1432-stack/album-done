@@ -341,6 +341,7 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
                 }
             }
             if (cachedAnalysis?.first == id) forgetAnalysis()
+            albums.remove(id)
         }
     }
 
@@ -363,7 +364,15 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
-    fun album(projectId: Long): Flow<AlbumState?> =
+    // One live album per project, shared by every screen (album, people, who's who, send), so
+    // moving between them shows the album at once instead of working it out again.
+    private val albums = HashMap<Long, StateFlow<AlbumState?>>()
+
+    fun album(projectId: Long): StateFlow<AlbumState?> = albums.getOrPut(projectId) {
+        albumFlow(projectId).stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
+    }
+
+    private fun albumFlow(projectId: Long): Flow<AlbumState?> =
         combine(dao.photosFlow(projectId), dao.peopleWithFaces(projectId), dao.projectSummary(projectId)) { photos, persons, summary ->
             val project = summary?.project ?: return@combine null
             val selected = photos.count { it.selected }

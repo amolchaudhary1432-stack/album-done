@@ -120,7 +120,8 @@ fun ViewerScreen(vm: AlbumViewModel, projectId: Long, photoId: Long) {
             Surface(
                 color = MaterialTheme.colorScheme.background,
                 shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp),
-                modifier = Modifier.fillMaxWidth().padding(top = 12.dp),
+                // Reaches down to the buttons, so no dark strip shows under short reasons.
+                modifier = Modifier.fillMaxWidth().padding(top = 12.dp).heightIn(min = (LocalConfiguration.current.screenHeightDp * 0.5f).dp),
             ) {
                 Column(Modifier.padding(start = 20.dp, end = 20.dp, top = 22.dp, bottom = 20.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                     if (s.photo.cover) {
@@ -165,7 +166,7 @@ fun ViewerScreen(vm: AlbumViewModel, projectId: Long, photoId: Long) {
 @Composable
 fun SendScreen(vm: AlbumViewModel, projectId: Long) {
     val flow = remember(projectId) { vm.album(projectId) }
-    val state by flow.collectAsStateWithLifecycle(initialValue = null)
+    val state by flow.collectAsStateWithLifecycle()
     val context = LocalContext.current
     Scaffold(
         topBar = { AppBar("Send to photographer", onBack = vm::back) },

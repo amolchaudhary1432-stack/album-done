@@ -91,10 +91,11 @@ class BigFamilyDeviceTest {
         tap("see-all-people")
         compose.waitUntil(30_000) { has("Family & friends") }
         screenshot("big-04-people")
-        compose.onNodeWithTag("people-grid").performTouchInput { swipeUp() }
-        screenshot("big-05-people-more")
         tap("filter-BRIDE")
-        screenshot("big-06-people-bride-side")
+        screenshot("big-05-people-bride-side")
+        tap("filter-all")
+        compose.onNodeWithTag("people-grid").performTouchInput { swipeUp() }
+        screenshot("big-06-people-more")
         DeviceTestSupport.pressBack()
         compose.waitUntil(30_000) { has("Send list to photographer") }
 
