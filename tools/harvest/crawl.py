@@ -11,7 +11,8 @@ Each line: {"id", "user", "day", "occasion", "categories", "files": [{title, thu
 import collections, json, os, re, sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "test-photos"))
-from commons import FREE, day, file_counts, files_in, search_categories, subcats  # noqa: E402
+from commons import FREE, UA, api, day, file_counts, files_in, infos, search_categories, subcats  # noqa: E402
+import time, urllib.parse, urllib.request  # noqa: E402
 
 STATES = ["Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", "Goa", "Gujarat", "Haryana",
           "Himachal Pradesh", "Jharkhand", "Karnataka", "Kerala", "Madhya Pradesh", "Maharashtra", "Manipur",
@@ -40,11 +41,53 @@ OFF_TOPIC = re.compile(r"temple|church|mosque|building|architecture|map|logo|pos
                        r"manuscript|film|movie|actor|actress|politic|minister|book|newspaper|museum|statue", re.I)
 
 OCCASION = [
-    ("KIDS_BIRTHDAY", re.compile(r"birthday", re.I)),
+    ("KIDS_BIRTHDAY", re.compile(r"birthday|janmadin|vadhdivas|cake cutting", re.I)),
     ("KIDS_BIRTHDAY", re.compile(r"annaprash|naming|namkaran|mundan|baby|godh", re.I)),  # a child's function
     ("ENGAGEMENT", re.compile(r"engagement", re.I)),
     ("WEDDING", re.compile(r"wedding|marriage|bride|groom|haldi|mehndi|mehendi|holud|sangeet|baraat|vidaai|reception", re.I)),
 ]
+
+
+# Birthday photos are rarely filed in tidy categories: search single files on Commons, and
+# freely licensed Flickr photos through Openverse (openverse.org, a search of CC-licensed media).
+BIRTHDAY_SEARCHES = ["birthday India", "birthday party India", "first birthday India", "1st birthday", "kids birthday party India",
+                     "cake cutting birthday India", "birthday celebration Kerala", "birthday celebration Maharashtra",
+                     "birthday Delhi", "birthday Bangalore", "birthday Mumbai", "birthday Chennai", "birthday Kolkata",
+                     "annaprashan", "naming ceremony India", "mundan ceremony", "bal birthday", "janmadin", "vadhdivas"]
+OPENVERSE = "https://api.openverse.org/v1/images/"
+
+
+def commons_file_search(term, limit=500):
+    titles, offset = [], 0
+    while len(titles) < limit:
+        data = api({"action": "query", "list": "search", "srsearch": term, "srnamespace": 6, "srlimit": 50, "sroffset": offset})
+        hits = data.get("query", {}).get("search", [])
+        titles += [h["title"] for h in hits if re.search(r"\.(jpe?g|png)$", h["title"], re.I)]
+        if "continue" not in data or not hits:
+            break
+        offset = data["continue"].get("sroffset", offset + 50)
+    return list(infos(titles, width=1280).values()) if titles else []
+
+
+def openverse(term, pages=10):
+    out = []
+    for page in range(1, pages + 1):
+        q = urllib.parse.urlencode({"q": term, "license": "by,by-sa,cc0,pdm", "page_size": 20, "page": page})
+        try:
+            with urllib.request.urlopen(urllib.request.Request(f"{OPENVERSE}?{q}", headers={"User-Agent": UA}), timeout=60) as r:
+                data = json.load(r)
+        except Exception as e:  # rate limit or end of results
+            print("openverse", term, page, e, file=sys.stderr)
+            break
+        for it in data.get("results", []):
+            out.append({"title": it.get("title") or it.get("id"), "thumb": it.get("url", ""), "taken": "",
+                        "licence": f"CC {it.get('license', '').upper()} {it.get('license_version', '')}".strip(),
+                        "artist": (it.get("creator") or "")[:120], "page": it.get("foreign_landing_url", ""),
+                        "user": it.get("creator") or "unknown", "source": it.get("source", "")})
+        if page >= data.get("page_count", 0):
+            break
+        time.sleep(1.5)
+    return out
 
 
 def occasion_of(categories):
@@ -86,13 +129,30 @@ def main():
             key = (f["user"], day(f))
             groups[key].append(f)
             where[key].add(c)
+    # Birthdays: single files on Commons (grouped by photographer and day) and Flickr photos
+    # through Openverse (grouped by photographer: usually one party).
+    for term in BIRTHDAY_SEARCHES:
+        for f in commons_file_search(term):
+            if f["title"] in seen or not FREE.match(f["licence"].strip()):
+                continue
+            seen.add(f["title"])
+            key = (f["user"], day({"taken": f["taken"], "uploaded": ""}))
+            groups[key].append(f); where[key].add("Search: " + term)
+        for f in openverse(term):
+            if f["title"] in seen or not f["thumb"]:
+                continue
+            seen.add(f["title"])
+            key = (f["user"], "openverse")
+            groups[key].append(f); where[key].add("Search: " + term)
+
     os.makedirs(os.path.dirname(os.path.abspath(out)), exist_ok=True)
     n_sets = n_files = 0
     with open(out, "w") as fh:
         for (user, d), fs in sorted(groups.items(), key=lambda kv: -len(kv[1])):
-            if len(fs) < 10 or d == "unknown":
-                continue
             catlist = sorted(where[(user, d)])
+            searched = all(c.startswith("Search: ") for c in catlist)
+            if len(fs) < (6 if searched else 10) or d == "unknown":
+                continue
             fh.write(json.dumps({
                 "id": re.sub(r"[^A-Za-z0-9_-]+", "_", f"{user}_{d}")[:80], "user": user, "day": d,
                 "occasion": occasion_of(catlist), "categories": catlist,
