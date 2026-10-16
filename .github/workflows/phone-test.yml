@@ -5,7 +5,7 @@ name: Phone test
 on:
   push:
     branches: ['claude/**']
-    paths-ignore: ['tools/**', '.github/workflows/test-photos.yml', '.github/workflows/scene-eval.yml', 'docs/**', '*.md', '.gitignore']
+    paths-ignore: ['tools/**', '.github/workflows/test-photos.yml', '.github/workflows/harvest.yml', '.github/workflows/scene-eval.yml', 'docs/**', '*.md', '.gitignore']
   workflow_dispatch:
     inputs:
       photos:

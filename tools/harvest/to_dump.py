@@ -1,6 +1,6 @@
 """Turns measure.py's lines into the planner's text format (PlanDump), people not yet grouped.
 
-    python3 to_dump.py measured.jsonl raw-dump.txt
+    python3 to_dump.py measured.jsonl raw-dump.txt [OCCASION]
 
 Faces keep no person; their fingerprints follow as EMB lines (photo id, face number in the photo,
 face quality, base64 numbers), which the planner's reader skips. jvm/ groups them into people with
@@ -15,7 +15,7 @@ def f(v):
 
 def main():
     out = open(sys.argv[2], "w")
-    out.write("TAGS\t\t\tWEDDING\t\n")
+    out.write("TAGS\t\t\t" + (sys.argv[3] if len(sys.argv) > 3 else "WEDDING") + "\t\n")
     for pid, line in enumerate(open(sys.argv[1]), start=1):
         r = json.loads(line)
         if r.get("failed"):

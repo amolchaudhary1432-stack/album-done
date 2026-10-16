@@ -14,12 +14,24 @@ import java.util.Base64
  * raw-dump.txt (from to_dump.py) -> plan-input.txt: faces grouped into people, the couple or main
  * people found and the family guessed, exactly as the app does after checking a folder.
  *
- *     gradle run --args="raw-dump.txt plan-input.txt WEDDING"
+ *     gradle run --args="raw-dump.txt plan-input.txt [OCCASION]"
+ *     gradle run --args="FOLDER"     every *.raw.txt in FOLDER -> *.plan.txt
  */
 fun main(args: Array<String>) {
-    val text = File(args[0]).readText()
-    val occasion = Occasion.of(args.getOrNull(2))
-    val (photos, _) = PlanDump.read(text)
+    val first = File(args[0])
+    if (first.isDirectory) {
+        for (raw in first.listFiles { f -> f.name.endsWith(".raw.txt") }.orEmpty().sortedBy { it.name }) {
+            plan(raw, File(raw.path.removeSuffix(".raw.txt") + ".plan.txt"), null)
+        }
+    } else {
+        plan(first, File(args[1]), args.getOrNull(2))
+    }
+}
+
+fun plan(rawFile: File, outFile: File, occasionName: String?) {
+    val text = rawFile.readText()
+    val (photos, rawTags) = PlanDump.read(text)
+    val occasion = if (occasionName != null) Occasion.of(occasionName) else rawTags.occasion
 
     // Face fingerprints: photo id, face number in that photo, quality, 128 numbers.
     val faceIds = HashMap<Long, Pair<Long, Int>>()
@@ -40,7 +52,7 @@ fun main(args: Array<String>) {
 
     val main = PeoplePlan.findMain(occasion, grouped)
     val tags = PeoplePlan.tags(occasion, grouped, main.first, main.second)
-    File(args[1]).writeText(PlanDump.write(grouped, tags))
-    println("${photos.size} photos, ${vectors.size} fingerprints, ${personOf.values.toSet().size} people; " +
-        "main ${main.first} & ${main.second} (${if (main.sure) "sure" else "unsure"})")
+    outFile.writeText(PlanDump.write(grouped, tags))
+    println("${rawFile.name}: ${photos.size} photos, ${vectors.size} fingerprints, ${personOf.values.toSet().size} people; " +
+        "${occasion.name}, main ${main.first} & ${main.second} (${if (main.sure) "sure" else "unsure"})")
 }

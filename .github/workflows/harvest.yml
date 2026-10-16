@@ -1,0 +1,158 @@
+name: Harvest photos
+
+# Teaching data for the brain: finds freely licensed photo sets of Indian events (weddings,
+# birthdays, functions, from every state) on Wikimedia Commons, measures them on build machines
+# with the app's own models and rules (tools/harvest), and keeps only the numbers and the credits
+# on the harvest-data branch. The photos are deleted right after measuring and never reach the app.
+# Started by hand; each run adds sets not measured before.
+on:
+  workflow_dispatch:
+    inputs:
+      machines:
+        description: "Build machines working at once"
+        default: "4"
+      photos_per_machine:
+        description: "Most photos each machine measures this run"
+        default: "2000"
+      recrawl:
+        description: "Look for photo sets again (yes / no)"
+        default: "no"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: harvest
+  cancel-in-progress: false
+
+jobs:
+  find:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    outputs:
+      machines: ${{ steps.matrix.outputs.machines }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Find photo sets (or reuse the list found before)
+        run: |
+          touch done.txt
+          if git fetch -q --depth 1 origin harvest-data; then
+            git show FETCH_HEAD:done.txt > done.txt 2>/dev/null || true
+            if [ "${{ inputs.recrawl }}" != yes ]; then git show FETCH_HEAD:sets.jsonl > sets.jsonl 2>/dev/null || true; fi
+          fi
+          if [ ! -s sets.jsonl ]; then python3 tools/harvest/crawl.py sets.jsonl 1500; fi
+          echo "$(wc -l < sets.jsonl) sets known, $(wc -l < done.txt) measured before"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sets
+          path: |
+            sets.jsonl
+            done.txt
+
+      - id: matrix
+        run: echo "machines=$(python3 -c "import json; print(json.dumps(list(range(int('${{ inputs.machines }}')))))")" >> "$GITHUB_OUTPUT"
+
+  measure:
+    needs: find
+    runs-on: ubuntu-latest
+    timeout-minutes: 340
+    strategy:
+      fail-fast: false
+      matrix:
+        machine: ${{ fromJson(needs.find.outputs.machines) }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      # The same versions the computer copy was checked with against the phone (check_parity.py).
+      - run: pip install --quiet mediapipe==1.1.1 onnxruntime==1.29.0 numpy==2.5.3 pillow==12.3.0
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: sets
+
+      - name: Download, measure and delete
+        run: |
+          python3 tools/harvest/harvest.py sets.jsonl app/src/main/assets/models out ${{ matrix.machine }} \
+            ${{ inputs.machines }} ${{ inputs.photos_per_machine }} done.txt 2>harvest-errors.log || true
+          tail -n 20 harvest-errors.log | grep -v "^W0000\|^I0000" || true
+          echo "$(ls out/*.jsonl 2>/dev/null | wc -l) sets measured"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: measured-${{ matrix.machine }}
+          path: out/
+          if-no-files-found: ignore
+
+  keep:
+    needs: [find, measure]
+    if: always() && needs.find.result == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.14.3"
+
+      - uses: actions/download-artifact@v4
+        with:
+          path: new
+          pattern: measured-*
+          merge-multiple: true
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: sets
+
+      - name: Group faces into people with the app's own rules
+        run: |
+          mkdir -p new
+          if ls new/*.raw.txt >/dev/null 2>&1; then gradle --no-daemon -q -p tools/harvest/jvm run --args="$PWD/new"; fi
+
+      - name: Add to the harvest-data branch
+        run: |
+          mkdir -p data
+          if git fetch -q --depth 1 origin harvest-data; then git archive FETCH_HEAD | tar -x -C data; fi
+          mkdir -p data/sets
+          for f in new/*.jsonl; do
+            [ -e "$f" ] || continue
+            id=$(basename "$f" .jsonl)
+            gzip -c "$f" > "data/sets/$id.jsonl.gz"
+            cp "new/$id.plan.txt" "new/$id.credits.json" data/sets/ 2>/dev/null || true
+            echo "$id" >> done.txt
+          done
+          sort -u done.txt > data/done.txt
+          cp sets.jsonl data/sets.jsonl
+          python3 - <<'EOF'
+          import glob, json, collections
+          sets = [json.load(open(f)) for f in sorted(glob.glob("data/sets/*.credits.json"))]
+          by = collections.Counter(s["occasion"] for s in sets)
+          photos = sum(len(s["files"]) for s in sets)
+          with open("data/README.md", "w") as fh:
+              fh.write("# Harvested measurements\n\nNumbers measured from freely licensed photos on Wikimedia Commons by the app's\n"
+                       "own models and rules (tools/harvest). No photos are kept. Each set's photographers,\n"
+                       "licences and source pages are in sets/<id>.credits.json.\n\n")
+              fh.write(f"{len(sets)} sets, {photos} photos\n\n")
+              for o, n in by.most_common():
+                  fh.write(f"- {o}: {n} sets\n")
+          print(f"{len(sets)} sets, {photos} photos", dict(by))
+          EOF
+          cd data
+          git init -q -b harvest-data
+          git config user.name "harvest"
+          git config user.email "harvest@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Harvest run ${{ github.run_number }}"
+          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" harvest-data
