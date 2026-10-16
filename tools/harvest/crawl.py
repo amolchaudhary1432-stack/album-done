@@ -43,17 +43,23 @@ OFF_TOPIC = re.compile(r"temple|church|mosque|building|architecture|map|logo|pos
 OCCASION = [
     ("KIDS_BIRTHDAY", re.compile(r"birthday|janmadin|vadhdivas|cake cutting", re.I)),
     ("KIDS_BIRTHDAY", re.compile(r"annaprash|naming|namkaran|mundan|baby|godh", re.I)),  # a child's function
-    ("ENGAGEMENT", re.compile(r"engagement", re.I)),
+    ("TRIP", re.compile(r"trip|vacation|honeymoon|travel|tour", re.I)),
+    ("ENGAGEMENT", re.compile(r"engagement|pre.?wedding", re.I)),
     ("WEDDING", re.compile(r"wedding|marriage|bride|groom|haldi|mehndi|mehendi|holud|sangeet|baraat|vidaai|reception", re.I)),
 ]
 
 
-# Birthday photos are rarely filed in tidy categories: search single files on Commons, and
+# Birthday and trip photos are rarely filed in tidy categories: search single files on Commons, and
 # freely licensed Flickr photos through Openverse (openverse.org, a search of CC-licensed media).
 BIRTHDAY_SEARCHES = ["birthday India", "birthday party India", "first birthday India", "1st birthday", "kids birthday party India",
                      "cake cutting birthday India", "birthday celebration Kerala", "birthday celebration Maharashtra",
                      "birthday Delhi", "birthday Bangalore", "birthday Mumbai", "birthday Chennai", "birthday Kolkata",
-                     "annaprashan", "naming ceremony India", "mundan ceremony", "bal birthday", "janmadin", "vadhdivas"]
+                     "annaprashan", "naming ceremony India", "mundan ceremony", "bal birthday", "janmadin", "vadhdivas",
+                     # Trips and other occasions families keep albums of.
+                     "family trip India", "family vacation India", "honeymoon India", "Goa trip", "Manali trip", "Kerala trip",
+                     "Ladakh road trip", "friends trip India", "pre-wedding shoot India", "pre wedding photoshoot",
+                     "wedding anniversary India", "housewarming India", "griha pravesh", "baby shower India",
+                     "Diwali family", "Ganpati at home", "Durga Puja family"]
 OPENVERSE = "https://api.openverse.org/v1/images/"
 
 
