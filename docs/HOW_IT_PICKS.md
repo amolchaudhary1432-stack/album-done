@@ -238,7 +238,8 @@ is who the album is about and the words used:
 | Occasion | Built around | Sides | Notes |
 |---|---|---|---|
 | Wedding, Engagement | the couple (two most photographed, often together) | bride's and groom's family | family albums for each side |
-| Birthday, Baby | the most photographed person (the birthday star, the baby) | none: Family / Friends | the two closest people are guessed as parents |
+| Birthday (a child's) | the most photographed person (the birthday star) | none: Family / Friends | the two closest people are guessed as mummy and papa; a family photo of the three in every big event |
+| Birthday (a grown-up's) | the birthday star, plus a partner when nearly as frequent | none | |
 | Trip, Other | the most photographed person, plus a second when nearly as frequent and often together | none | a trip keeps about a quarter of places without people |
 
 The occasion is guessed from the folder names (Haldi, Reception → Wedding; Bday → Birthday; Goa

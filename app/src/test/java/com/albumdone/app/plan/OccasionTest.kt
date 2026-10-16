@@ -16,7 +16,7 @@ class OccasionTest {
         assertEquals(Occasion.KIDS_BIRTHDAY, Occasion.guess(listOf("Riya birthday party")))
         assertEquals(Occasion.BIRTHDAY, Occasion.guess(listOf("Baba 60th Birthday")))
         assertEquals(Occasion.BIRTHDAY, Occasion.guess(listOf("Aaji Amrut Mahotsav")))
-        assertEquals(Occasion.BABY, Occasion.guess(listOf("Naming ceremony")))
+        assertEquals(Occasion.KIDS_BIRTHDAY, Occasion.of("BABY"))
         assertEquals(Occasion.TRIP, Occasion.guess(listOf("Goa trip 2025")))
         assertEquals(Occasion.OTHER, Occasion.guess(listOf("Camera", "100CANON")))
     }
@@ -24,13 +24,13 @@ class OccasionTest {
     @Test
     fun onlyWeddingsAndEngagementsHaveACoupleAndTwoSides() {
         assertTrue(Occasion.WEDDING.couple && Occasion.ENGAGEMENT.couple)
-        assertFalse(Occasion.BIRTHDAY.couple || Occasion.KIDS_BIRTHDAY.couple || Occasion.BABY.couple || Occasion.TRIP.couple || Occasion.OTHER.couple)
-        assertTrue(Occasion.KIDS_BIRTHDAY.child && Occasion.BABY.child)
+        assertFalse(Occasion.BIRTHDAY.couple || Occasion.KIDS_BIRTHDAY.couple || Occasion.TRIP.couple || Occasion.OTHER.couple)
+        assertTrue(Occasion.KIDS_BIRTHDAY.child)
         assertFalse(Occasion.BIRTHDAY.child || Occasion.WEDDING.child)
         assertEquals("Birthday", Occasion.KIDS_BIRTHDAY.label)
         assertEquals("A child's", Occasion.KIDS_BIRTHDAY.sub)
         assertEquals("the birthday star", Occasion.BIRTHDAY.role(first = true))
-        assertEquals("Baby", Occasion.BABY.title(first = true))
+        assertEquals("Birthday star", Occasion.KIDS_BIRTHDAY.title(first = true))
         assertEquals("Groom", Occasion.WEDDING.title(first = false))
         assertEquals(Occasion.WEDDING, Occasion.of(null))
         assertEquals(Occasion.TRIP, Occasion.of("TRIP"))

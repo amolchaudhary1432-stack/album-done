@@ -16,7 +16,7 @@ that must stay true.
 - Indian weddings are huge: the app must handle 40+ relatives smoothly, not 6.
 - **Not a wedding-only app** (owner's decision): "Album Done picks the album-worthy photos from any
   raw folder, on your phone." Weddings are the first and biggest use. New album asks "What are these
-  photos of?" (`plan/Occasion`: Wedding, Engagement, Birthday, Baby, Trip, Other), guessed from the
+  photos of?" (`plan/Occasion`: Wedding, Engagement, Birthday (a child's or a grown-up's), Trip, Other), guessed from the
   folder names. Only Wedding and Engagement have a couple and the bride's/groom's sides; other
   occasions have one main person (or two on a trip), found as the most photographed, and the
   words follow ("the birthday star", "Portrait of Riya"). Photo judging is the same for all.

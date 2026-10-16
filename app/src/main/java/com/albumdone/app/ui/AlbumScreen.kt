@@ -215,8 +215,21 @@ fun AlbumScreen(vm: AlbumViewModel, projectId: Long) {
     }
 }
 
-private fun summaryLine(s: AlbumState): String =
-    "${s.total} photos" + (if (s.events.size > 1) " · ${s.events.size} events" else "") + " · ready to send"
+/** "40 photos · Change size": the album size, one tap away on the cover. */
+@Composable
+private fun SizeLine(s: AlbumState, onMenu: () -> Unit, color: Color, pill: Color) {
+    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.padding(top = 6.dp)) {
+        Row(
+            Modifier.clip(RoundedCornerShape(50)).background(pill).clickable(onClick = onMenu).testTag("album-size")
+                .padding(horizontal = 12.dp, vertical = 6.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Text("${s.total} photos", color = color, style = MaterialTheme.typography.labelLarge)
+            Text("  ·  Change size", color = color.copy(alpha = 0.8f), style = MaterialTheme.typography.labelLarge)
+        }
+        if (s.events.size > 1) Text("${s.events.size} events", color = color.copy(alpha = 0.85f), style = MaterialTheme.typography.bodyMedium)
+    }
+}
 
 /** The cover, edge to edge, with the album's name on it. */
 @Composable
@@ -231,7 +244,7 @@ private fun Hero(s: AlbumState, onBack: () -> Unit, onMenu: () -> Unit, onOpenCo
             }
             Column(Modifier.padding(horizontal = 20.dp)) {
                 Text(s.project.name, style = MaterialTheme.typography.headlineLarge)
-                Text(summaryLine(s), color = MaterialTheme.colorScheme.onSurfaceVariant)
+                SizeLine(s, onMenu, MaterialTheme.colorScheme.onSurface, MaterialTheme.colorScheme.surfaceContainerHigh)
             }
         }
         return
@@ -258,7 +271,7 @@ private fun Hero(s: AlbumState, onBack: () -> Unit, onMenu: () -> Unit, onOpenCo
             }
             Spacer(Modifier.height(8.dp))
             Text(s.project.name, style = MaterialTheme.typography.headlineLarge, color = Color.White, maxLines = 2, overflow = TextOverflow.Ellipsis)
-            Text(summaryLine(s), color = Color.White.copy(alpha = 0.85f), style = MaterialTheme.typography.bodyMedium)
+            SizeLine(s, onMenu, Color.White, Color(0x40FFFFFF))
         }
     }
 }

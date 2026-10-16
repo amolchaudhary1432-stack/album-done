@@ -114,13 +114,13 @@ data class PersonTag(
 enum class Occasion(val label: String, val sub: String? = null) {
     WEDDING("Wedding"), ENGAGEMENT("Engagement"),
     KIDS_BIRTHDAY("Birthday", "A child's"), BIRTHDAY("Birthday", "A grown-up's"),
-    BABY("Baby"), TRIP("Trip"), OTHER("Other");
+    TRIP("Trip"), OTHER("Other");
 
     /** Built around a couple, each with their own family (the bride's side and the groom's side). */
     val couple: Boolean get() = this == WEDDING || this == ENGAGEMENT
 
     /** About a child: the album needs the child with mummy and papa, not just the child. */
-    val child: Boolean get() = this == KIDS_BIRTHDAY || this == BABY
+    val child: Boolean get() = this == KIDS_BIRTHDAY
 
     /** A second main person makes sense (a couple on a trip, a grown-up and their partner). */
     val pairs: Boolean get() = this == BIRTHDAY || this == TRIP || this == OTHER
@@ -132,7 +132,6 @@ enum class Occasion(val label: String, val sub: String? = null) {
     fun role(first: Boolean): String = when {
         couple -> if (first) "the bride" else "the groom"
         first && (this == KIDS_BIRTHDAY || this == BIRTHDAY) -> "the birthday star"
-        first && this == BABY -> "the baby"
         else -> "the main person"
     }
 
@@ -140,14 +139,14 @@ enum class Occasion(val label: String, val sub: String? = null) {
     fun title(first: Boolean): String = role(first).removePrefix("the ").capitalized()
 
     companion object {
-        fun of(name: String?): Occasion = values().firstOrNull { it.name == name } ?: WEDDING
+        // "BABY" was an occasion before baby functions became a child's birthday.
+        fun of(name: String?): Occasion = if (name == "BABY") KIDS_BIRTHDAY else values().firstOrNull { it.name == name } ?: WEDDING
 
         private val GUESS = listOf(
             WEDDING to listOf("wedding", "shaadi", "shadi", "vivah", "lagna", "lagn", "haldi", "mehendi", "mehndi", "sangeet",
                 "reception", "baraat", "pheras", "mandap", "marriage", "kalyanam"),
             ENGAGEMENT to listOf("engagement", "sagai", "sakharpuda", "roka", "ring ceremony", "mangni", "nischitartham"),
             BIRTHDAY to listOf("birthday", "bday", "b'day", "janmadin", "vadhdivas", "shashtipoorti", "amrut mahotsav"),
-            BABY to listOf("baby", "naming", "namkaran", "barsa", "annaprashan", "mundan", "godh bharai", "baby shower", "dohale"),
             TRIP to listOf("trip", "tour", "travel", "holiday", "vacation", "honeymoon", "trek"),
         )
 

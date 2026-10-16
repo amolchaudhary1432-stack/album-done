@@ -154,6 +154,8 @@ object AlbumPlanner {
     const val SCENE_MIN_PHOTOS = 5
     /** A scene is never let off more than this: below it the whole scene is simply blurry. */
     const val SCENE_FLOOR = 0.15
+    /** Other photos of the same minutes needed to judge a photo's light by its scene. */
+    const val SCENE_MIN_LIGHT = 3
     const val DARK_BRIGHTNESS = 40.0
     const val DARK_SHARE = 0.65
     // From the replica dump: real photos reach brightness 168 and 25% burnt white at most;
@@ -334,6 +336,9 @@ object AlbumPlanner {
         /** Per photo: how sharp its scene is compared with the whole wedding (0.15..1), faces and whole photo. */
         val sceneFace = HashMap<Long, Double>()
         val scenePeak = HashMap<Long, Double>()
+        /** Per photo: the light of its scene (median brightness and share of near-black), when it has one. */
+        val sceneBrightness = HashMap<Long, Double>()
+        val sceneDark = HashMap<Long, Double>()
     }
 
     /**
@@ -362,6 +367,13 @@ object AlbumPlanner {
                 val scene = timed.subList(lo, hi)
                 norms.sceneFace[p.id] = sceneFactor(scene.flatMap { faceRatios.getValue(it.id) }, SCENE_MIN_FACES)
                 norms.scenePeak[p.id] = sceneFactor(scene.map { peakRatio.getValue(it.id) }, SCENE_MIN_PHOTOS)
+                // A night scene (sky lanterns, a lit palace, a dance floor) is judged by its own light:
+                // the other photos of those minutes, so one black frame cannot excuse itself.
+                val others = scene.filter { it.id != p.id }
+                if (others.size >= SCENE_MIN_LIGHT) {
+                    norms.sceneBrightness[p.id] = median(others.map { it.brightness })
+                    norms.sceneDark[p.id] = median(others.map { it.darkFraction })
+                }
             }
             // Without capture times, neighbours in file order stand in for the scene.
             for ((i, p) in untimed.withIndex()) {
@@ -459,10 +471,12 @@ object AlbumPlanner {
             issues += Issue.BLURRY
         }
 
-        // Light, judged against this event's own lighting (stage lights, night functions).
+        // Light, judged against this event's own lighting (stage lights, night functions), and
+        // against its own scene when that is darker (the night part of a day-long folder).
         val evBright = norms.eventBrightness[event] ?: 128.0
-        val darkLimit = min(DARK_BRIGHTNESS, 0.45 * evBright)
-        val darkShareLimit = max(DARK_SHARE, (norms.eventDark[event] ?: 0.0) + 0.25)
+        val lightRef = min(evBright, norms.sceneBrightness[p.id] ?: evBright)
+        val darkLimit = min(DARK_BRIGHTNESS, 0.45 * lightRef)
+        val darkShareLimit = max(DARK_SHARE, max(norms.eventDark[event] ?: 0.0, norms.sceneDark[p.id] ?: 0.0) + 0.25)
         val blownLimit = max(BLOWN_SHARE, (norms.eventBlown[event] ?: 0.0) + 0.25)
         if (p.brightness < darkLimit || p.darkFraction > darkShareLimit) issues += Issue.TOO_DARK
         val brightLimit = max(BRIGHT_BRIGHTNESS, evBright + 60.0)
@@ -534,7 +548,7 @@ object AlbumPlanner {
         if (abs(p.tilt) in MIN_TILT..MAX_TILT) issues += Issue.TILTED
 
         // Quality: a group is as good as its worst face.
-        val targetLight = evBright.coerceIn(70.0, 150.0)
+        val targetLight = lightRef.coerceIn(70.0, 150.0)
         val light = 1.0 - min(1.0, abs(p.brightness - targetLight) / 128.0)
         val clipping = (1.0 - p.darkFraction - p.brightFraction).coerceIn(0.0, 1.0)
         var quality = if (faceScores.isNotEmpty()) {
@@ -1063,7 +1077,7 @@ object AlbumPlanner {
                     val m = a.momentById[c.momentId]
                     val planned = (got[c.momentId] ?: 0) < (plan[c.momentId] ?: 0)
                     got[c.momentId] = (got[c.momentId] ?: 0) + 1
-                    add(c, if (m != null && planned) momentReason(m, moments) else "Adds variety to ${Display.eventName(event)}")
+                    add(c, if (m != null && planned) momentReason(m, moments) else if (single(event)) "Adds variety" else "Adds variety to ${Display.eventName(event)}")
                 }
             }
         }
@@ -1120,14 +1134,17 @@ object AlbumPlanner {
             return plan
         }
 
+        /** The whole folder is one event (no sub-folders): no event name in the reasons. */
+        fun single(event: String) = a.events.size == 1
+
         fun momentReason(m: Moment, moments: List<Moment>): String {
             val minutes = ((m.end - m.start) / 60_000L).toInt()
             return when {
                 m.key && m.start > 0 -> "Big moment: ${m.photoIds.size} photos taken in ${max(1, minutes)} min"
                 m.key -> "Big moment: ${m.photoIds.size} photos taken together"
-                m.id == moments.first().id -> "Start of ${Display.eventName(m.event)}"
-                m.id == moments.last().id -> "End of ${Display.eventName(m.event)}"
-                else -> "Part of the ${Display.eventName(m.event)} story"
+                m.id == moments.first().id -> if (single(m.event)) "The start" else "Start of ${Display.eventName(m.event)}"
+                m.id == moments.last().id -> if (single(m.event)) "The end" else "End of ${Display.eventName(m.event)}"
+                else -> if (single(m.event)) "Part of the story" else "Part of the ${Display.eventName(m.event)} story"
             }
         }
 
