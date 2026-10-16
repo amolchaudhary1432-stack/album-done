@@ -114,16 +114,21 @@ data class PersonTag(
 enum class Occasion(val label: String, val sub: String? = null) {
     WEDDING("Wedding"), ENGAGEMENT("Engagement"),
     KIDS_BIRTHDAY("Birthday", "A child's"), BIRTHDAY("Birthday", "A grown-up's"),
+    CHILD_FUNCTION("Family function", "Naming / annaprashan"), BABY_SHOWER("Family function", "Baby shower"),
+    ANNIVERSARY("Family function", "Anniversary"), HOUSEWARMING("Family function", "Housewarming"),
     TRIP("Trip"), OTHER("Other");
 
     /** Built around a couple, each with their own family (the bride's side and the groom's side). */
     val couple: Boolean get() = this == WEDDING || this == ENGAGEMENT
 
     /** About a child: the album needs the child with mummy and papa, not just the child. */
-    val child: Boolean get() = this == KIDS_BIRTHDAY
+    val child: Boolean get() = this == KIDS_BIRTHDAY || this == CHILD_FUNCTION
+
+    /** Always about two people found the way a couple is (an anniversary), without the two families' sides. */
+    val twoMain: Boolean get() = couple || this == ANNIVERSARY
 
     /** A second main person makes sense (a couple on a trip, a grown-up and their partner). */
-    val pairs: Boolean get() = this == BIRTHDAY || this == TRIP || this == OTHER
+    val pairs: Boolean get() = this == BIRTHDAY || this == TRIP || this == OTHER || this == BABY_SHOWER || this == HOUSEWARMING
 
     /** Share of each event for photos without faces: a trip is as much about the places as the people. */
     val detailShare: Double get() = if (this == TRIP) 0.25 else 0.10
@@ -132,6 +137,9 @@ enum class Occasion(val label: String, val sub: String? = null) {
     fun role(first: Boolean): String = when {
         couple -> if (first) "the bride" else "the groom"
         first && (this == KIDS_BIRTHDAY || this == BIRTHDAY) -> "the birthday star"
+        first && this == CHILD_FUNCTION -> "the little one"
+        this == BABY_SHOWER -> if (first) "the mother-to-be" else "the father-to-be"
+        this == HOUSEWARMING -> "the host"
         else -> "the main person"
     }
 
@@ -139,14 +147,20 @@ enum class Occasion(val label: String, val sub: String? = null) {
     fun title(first: Boolean): String = role(first).removePrefix("the ").capitalized()
 
     companion object {
-        // "BABY" was an occasion before baby functions became a child's birthday.
-        fun of(name: String?): Occasion = if (name == "BABY") KIDS_BIRTHDAY else values().firstOrNull { it.name == name } ?: WEDDING
+        // "BABY" was an occasion before baby functions became family functions.
+        fun of(name: String?): Occasion = if (name == "BABY") CHILD_FUNCTION else values().firstOrNull { it.name == name } ?: WEDDING
 
         private val GUESS = listOf(
+            // Before weddings: "25th wedding anniversary" is an anniversary.
+            ANNIVERSARY to listOf("anniversary", "silver jubilee", "golden jubilee", "vardhapan din"),
             WEDDING to listOf("wedding", "shaadi", "shadi", "vivah", "lagna", "lagn", "haldi", "mehendi", "mehndi", "sangeet",
                 "reception", "baraat", "pheras", "mandap", "marriage", "kalyanam"),
             ENGAGEMENT to listOf("engagement", "sagai", "sakharpuda", "roka", "ring ceremony", "mangni", "nischitartham"),
             BIRTHDAY to listOf("birthday", "bday", "b'day", "janmadin", "vadhdivas", "shashtipoorti", "amrut mahotsav"),
+            CHILD_FUNCTION to listOf("naming", "namkaran", "naamkaran", "barsa", "bārsā", "annaprashan", "annaprasana", "mundan",
+                "chudakarma", "cradle ceremony", "palna", "naming ceremony"),
+            BABY_SHOWER to listOf("baby shower", "godh bharai", "godbharai", "dohale", "seemantham", "valaikappu", "shrimant", "sadhe"),
+            HOUSEWARMING to listOf("housewarming", "house warming", "griha pravesh", "grihapravesh", "gruhapravesham", "vastu shanti", "vastushanti"),
             TRIP to listOf("trip", "tour", "travel", "holiday", "vacation", "honeymoon", "trek"),
         )
 
@@ -206,10 +220,14 @@ data class PeopleTags(
 
     /** Both main people in a sentence: "the couple", "Riya and Arjun", "the two of them". */
     fun pair(): String {
-        if (occasion.couple) return "the couple"
+        if (occasion.couple || occasion == Occasion.ANNIVERSARY) return "the couple"
         val a = brideId?.let { tags[it]?.name }?.takeIf { it.isNotBlank() }
         val b = groomId?.let { tags[it]?.name }?.takeIf { it.isNotBlank() }
-        return if (a != null && b != null) "$a and $b" else "the two of them"
+        return if (a != null && b != null) "$a and $b" else when (occasion) {
+            Occasion.BABY_SHOWER -> "the parents-to-be"
+            Occasion.HOUSEWARMING -> "the hosts"
+            else -> "the two of them"
+        }
     }
 }
 

@@ -42,7 +42,10 @@ OFF_TOPIC = re.compile(r"temple|church|mosque|building|architecture|map|logo|pos
 
 OCCASION = [
     ("KIDS_BIRTHDAY", re.compile(r"birthday|janmadin|vadhdivas|cake cutting", re.I)),
-    ("KIDS_BIRTHDAY", re.compile(r"annaprash|naming|namkaran|mundan|baby|godh", re.I)),  # a child's function
+    ("BABY_SHOWER", re.compile(r"baby shower|godh|seemantham|valaikappu", re.I)),
+    ("CHILD_FUNCTION", re.compile(r"annaprash|naming|namkaran|mundan|baby", re.I)),
+    ("ANNIVERSARY", re.compile(r"anniversar", re.I)),
+    ("HOUSEWARMING", re.compile(r"housewarming|griha|pravesh", re.I)),
     ("TRIP", re.compile(r"trip|vacation|honeymoon|travel|tour", re.I)),
     ("ENGAGEMENT", re.compile(r"engagement|pre.?wedding", re.I)),
     ("WEDDING", re.compile(r"wedding|marriage|bride|groom|haldi|mehndi|mehendi|holud|sangeet|baraat|vidaai|reception", re.I)),

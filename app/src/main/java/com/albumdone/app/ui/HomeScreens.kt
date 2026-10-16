@@ -328,8 +328,9 @@ fun NewAlbumScreen(vm: AlbumViewModel, screen: Screen.NewAlbum) {
                         }
                         val subs = Occasion.values().filter { it.label == vm.newOccasion.label && it.sub != null }
                         if (subs.isNotEmpty()) {
-                            Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
-                                Text("Whose?", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                            FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.Center) {
+                                Text(if (vm.newOccasion.label == "Birthday") "Whose?" else "Which?", style = MaterialTheme.typography.labelLarge,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.align(Alignment.CenterVertically))
                                 for (o in subs) {
                                     FilterChip(selected = vm.newOccasion == o, onClick = { vm.newOccasion = o }, label = { Text(o.sub!!) },
                                         modifier = Modifier.testTag("occasion-sub-${o.name}"))
@@ -340,6 +341,7 @@ fun NewAlbumScreen(vm: AlbumViewModel, screen: Screen.NewAlbum) {
                             when {
                                 vm.newOccasion.couple -> "We find the couple and both families by ourselves."
                                 vm.newOccasion.child -> "We find the child, mummy and papa by ourselves."
+                                vm.newOccasion == Occasion.ANNIVERSARY -> "We find the couple and their family by ourselves."
                                 else -> "We find who the photos are about by ourselves."
                             },
                             style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,

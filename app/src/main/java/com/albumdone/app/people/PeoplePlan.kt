@@ -22,7 +22,7 @@ object PeoplePlan {
         val photosOf = clear.filter { it.second.personId != null }
             .groupBy { it.second.personId!! }.mapValues { e -> e.value.map { it.first }.toSet() }
         val byPhoto = clear.groupBy { it.first }
-        if (!occasion.couple) {
+        if (!occasion.twoMain) {
             // A birthday, a baby, a trip: the album is about the most photographed person (or two).
             val main = PeopleClusterer.mainPeople(photosOf, occasion.pairs) ?: return Main(null, null, false)
             return Main(main.first, main.second, PeopleClusterer.mainSure(photosOf, main))

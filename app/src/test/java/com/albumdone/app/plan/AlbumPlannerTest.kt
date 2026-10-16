@@ -943,6 +943,8 @@ class AlbumPlannerTest {
         assertEquals("Riya", tags.who(BRIDE))
         assertEquals("Main person", PeopleTags(BRIDE, GROOM, occasion = Occasion.TRIP).label(GROOM))
         assertEquals("the couple", couple.pair())
+        assertEquals("the couple", PeopleTags(BRIDE, GROOM, occasion = Occasion.ANNIVERSARY).pair())
+        assertEquals("the parents-to-be", PeopleTags(BRIDE, GROOM, occasion = Occasion.BABY_SHOWER).pair())
         assertEquals("Bride", couple.label(BRIDE))
     }
 

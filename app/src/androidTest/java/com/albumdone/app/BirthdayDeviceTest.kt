@@ -93,6 +93,10 @@ class BirthdayDeviceTest {
             compose.waitUntil(10_000) { hasTag("occasion-sub-KIDS_BIRTHDAY") }
             assertEquals(Occasion.KIDS_BIRTHDAY, vm.newOccasion)
             screenshot("bday-01-new-album")
+            // Family functions: naming / annaprashan, baby shower, anniversary, housewarming.
+            tap("occasion-CHILD_FUNCTION")
+            compose.waitUntil(10_000) { hasTag("occasion-sub-ANNIVERSARY") }
+            screenshot("bday-01b-family-function")
             compose.runOnUiThread { vm.back() }
         }
 
