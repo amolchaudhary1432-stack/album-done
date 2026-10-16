@@ -4,8 +4,12 @@ name: Harvest photos
 # birthdays, functions, from every state) on Wikimedia Commons, measures them on build machines
 # with the app's own models and rules (tools/harvest), and keeps only the numbers and the credits
 # on the harvest-data branch. The photos are deleted right after measuring and never reach the app.
-# Started by hand; each run adds sets not measured before.
+# Started by hand, or by changing tools/harvest/run.json (machines, photos per machine, recrawl);
+# each run adds sets not measured before.
 on:
+  push:
+    branches: ['claude/**']
+    paths: ['tools/harvest/run.json']
   workflow_dispatch:
     inputs:
       machines:
@@ -31,15 +35,30 @@ jobs:
     timeout-minutes: 90
     outputs:
       machines: ${{ steps.matrix.outputs.machines }}
+      count: ${{ steps.settings.outputs.count }}
+      photos: ${{ steps.settings.outputs.photos }}
     steps:
       - uses: actions/checkout@v4
+
+      - id: settings
+        name: Settings (by hand, or tools/harvest/run.json)
+        run: |
+          python3 - <<'EOF' >> "$GITHUB_OUTPUT"
+          import json, os
+          run = json.load(open("tools/harvest/run.json")) if os.path.exists("tools/harvest/run.json") else {}
+          given = {"machines": "${{ inputs.machines }}", "photos_per_machine": "${{ inputs.photos_per_machine }}", "recrawl": "${{ inputs.recrawl }}"}
+          pick = lambda k, d: given[k] or str(run.get(k, d))
+          print(f"count={pick('machines', 2)}")
+          print(f"photos={pick('photos_per_machine', 1000)}")
+          print(f"recrawl={pick('recrawl', 'no')}")
+          EOF
 
       - name: Find photo sets (or reuse the list found before)
         run: |
           touch done.txt
           if git fetch -q --depth 1 origin harvest-data; then
             git show FETCH_HEAD:done.txt > done.txt 2>/dev/null || true
-            if [ "${{ inputs.recrawl }}" != yes ]; then git show FETCH_HEAD:sets.jsonl > sets.jsonl 2>/dev/null || true; fi
+            if [ "${{ steps.settings.outputs.recrawl }}" != yes ]; then git show FETCH_HEAD:sets.jsonl > sets.jsonl 2>/dev/null || true; fi
           fi
           if [ ! -s sets.jsonl ]; then python3 tools/harvest/crawl.py sets.jsonl 1500; fi
           echo "$(wc -l < sets.jsonl) sets known, $(wc -l < done.txt) measured before"
@@ -52,7 +71,7 @@ jobs:
             done.txt
 
       - id: matrix
-        run: echo "machines=$(python3 -c "import json; print(json.dumps(list(range(int('${{ inputs.machines }}')))))")" >> "$GITHUB_OUTPUT"
+        run: echo "machines=$(python3 -c "import json; print(json.dumps(list(range(int('${{ steps.settings.outputs.count }}')))))")" >> "$GITHUB_OUTPUT"
 
   measure:
     needs: find
@@ -79,7 +98,7 @@ jobs:
       - name: Download, measure and delete
         run: |
           python3 tools/harvest/harvest.py sets.jsonl app/src/main/assets/models out ${{ matrix.machine }} \
-            ${{ inputs.machines }} ${{ inputs.photos_per_machine }} done.txt 2>harvest-errors.log || true
+            ${{ needs.find.outputs.count }} ${{ needs.find.outputs.photos }} done.txt 2>harvest-errors.log || true
           tail -n 20 harvest-errors.log | grep -v "^W0000\|^I0000" || true
           echo "$(ls out/*.jsonl 2>/dev/null | wc -l) sets measured"
 
