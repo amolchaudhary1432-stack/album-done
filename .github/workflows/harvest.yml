@@ -145,6 +145,10 @@ jobs:
           mkdir -p data
           if git fetch -q --depth 1 origin harvest-data; then git archive FETCH_HEAD | tar -x -C data; fi
           mkdir -p data/sets
+          # Contact sheets (a share of the sets) go to their own branch, to keep the numbers small.
+          mkdir -p sheets
+          if git fetch -q --depth 1 origin harvest-sheets; then git archive FETCH_HEAD | tar -x -C sheets; fi
+          cp new/*.sheet-*.jpg sheets/ 2>/dev/null || true
           for f in new/*.jsonl; do
             [ -e "$f" ] || continue
             id=$(basename "$f" .jsonl)
@@ -175,3 +179,12 @@ jobs:
           git add -A
           git commit -q -m "Harvest run ${{ github.run_number }}"
           git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" harvest-data
+          cd ../sheets
+          if ls *.jpg >/dev/null 2>&1; then
+            git init -q -b harvest-sheets
+            git config user.name "harvest"
+            git config user.email "harvest@users.noreply.github.com"
+            git add -A
+            git commit -q -m "Contact sheets, harvest run ${{ github.run_number }}"
+            git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" harvest-sheets
+          fi
