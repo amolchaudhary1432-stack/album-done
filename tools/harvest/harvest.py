@@ -6,7 +6,7 @@ For each set in this shard (set number % SHARDS == SHARD), until MAX_PHOTOS phot
 photos (1280 px), measure them with measure.py, write OUT_DIR/<id>.jsonl (measurements),
 OUT_DIR/<id>.raw.txt (planner format, people not grouped yet) and OUT_DIR/<id>.credits.json, then
 delete the photos. Only numbers and credits are kept, never the photos; for every SHEETS_EVERY-th
-set (default 4) small numbered contact sheets are kept too (OUT_DIR/<id>.sheet-NN.jpg), so a person
+set (default every set) small numbered contact sheets are kept too (OUT_DIR/<id>.sheet-NN.jpg), so a person
 can mark which photos they would put in the album (the answer key the brain learns from).
 """
 import datetime, json, os, re, shutil, sys, tempfile, time, urllib.request
@@ -66,7 +66,7 @@ def main():
     sets_path, models, out, shard, shards, max_photos = sys.argv[1:7]
     shard, shards, max_photos = int(shard), int(shards), int(max_photos)
     done = set(open(sys.argv[7]).read().split()) if len(sys.argv) > 7 and os.path.exists(sys.argv[7]) else set()
-    sheets_every = int(sys.argv[8]) if len(sys.argv) > 8 else 4
+    sheets_every = int(sys.argv[8]) if len(sys.argv) > 8 else 1
     os.makedirs(out, exist_ok=True)
     analyzer = Analyzer(models)
     measured = 0
