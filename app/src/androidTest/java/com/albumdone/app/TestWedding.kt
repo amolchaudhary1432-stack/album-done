@@ -11,20 +11,20 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertTrue
 
 /**
- * A small "wedding" made of public-domain photos in two event folders, analysed by the real
+ * A small wedding made of freely licensed Bengali wedding photos in two event folders, analysed by the real
  * background worker exactly as on a phone.
  */
 object TestWedding {
 
-    /** (file in test assets, event folder, name in the wedding folder) */
+    /** (file in test assets, event folder, name in the wedding folder): a Bengali bride in 7, a man in 2. */
     val PHOTOS = listOf(
-        Triple("obama.jpg", "01 Haldi", "IMG_0001.jpg"),
-        Triple("biden.jpg", "01 Haldi", "IMG_0002.jpg"),
+        Triple("bride_haldi.jpg", "01 Haldi", "IMG_0001.jpg"),
+        Triple("bride_adhibaas.jpg", "01 Haldi", "IMG_0002.jpg"),
         Triple("two_people.jpg", "01 Haldi", "IMG_0003.jpg"),
-        Triple("obama2.jpg", "02 Wedding", "IMG_0101.jpg"),
-        Triple("obama_small.jpg", "02 Wedding", "IMG_0102.jpg"),
+        Triple("bride.jpg", "02 Wedding", "IMG_0101.jpg"),
+        Triple("bride_small.jpg", "02 Wedding", "IMG_0102.jpg"),
         Triple("two_people.jpg", "02 Wedding", "IMG_0103.jpg"),
-        Triple("biden.jpg", "02 Wedding", "IMG_0104.jpg"),
+        Triple("bride_again.jpg", "02 Wedding", "IMG_0104.jpg"),
     )
 
     /** Creates the album as the app does after a folder is chosen; nothing is checked yet. */

@@ -30,7 +30,7 @@ class AnalyzerDeviceTest {
         @JvmStatic @BeforeClass
         fun analyzeAll() {
             analyzer = PhotoAnalyzer(DeviceTestSupport.app)
-            for (name in listOf("obama.jpg", "obama2.jpg", "obama_small.jpg", "biden.jpg", "two_people.jpg")) {
+            for (name in listOf("bride.jpg", "bride_again.jpg", "bride_small.jpg", "bride_haldi.jpg", "bride_adhibaas.jpg", "two_people.jpg")) {
                 val thumb = File(DeviceTestSupport.app.cacheDir, "test-thumbs/$name")
                 val started = System.currentTimeMillis()
                 results[name] = analyzer.analyze(DeviceTestSupport.photo(name), thumb)
@@ -50,14 +50,15 @@ class AnalyzerDeviceTest {
 
     @Test
     fun findsEveryFace() {
-        assertEquals(1, results.getValue("obama.jpg").faces.size)
-        assertEquals(1, results.getValue("biden.jpg").faces.size)
+        assertEquals(1, results.getValue("bride.jpg").faces.size)
+        assertEquals(1, results.getValue("bride_haldi.jpg").faces.size)
         assertEquals(2, results.getValue("two_people.jpg").faces.size)
     }
 
     @Test
     fun readsExpressionsLikeAPerson() {
-        val portrait = only("obama.jpg").reading
+        // The bride at her haldi, smiling into the camera.
+        val portrait = only("bride_haldi.jpg").reading
         assertEquals(EyeState.OPEN, portrait.eyes)
         assertEquals(Expression.SMILE, portrait.expression)
         assertTrue(portrait.lookingAtCamera)
@@ -68,17 +69,15 @@ class AnalyzerDeviceTest {
 
     @Test
     fun recognisesTheSamePersonAndTellsPeopleApart() {
-        val obama = only("obama.jpg").embedding!!
-        val obamaAgain = only("obama2.jpg").embedding!!
-        val obamaSmall = only("obama_small.jpg").embedding!!
-        val biden = only("biden.jpg").embedding!!
-        assertTrue(PeopleClusterer.cosine(obama, obamaAgain) > PeopleClusterer.JOIN)
-        assertTrue(PeopleClusterer.cosine(obama, obamaSmall) > PeopleClusterer.JOIN)
-        assertTrue(PeopleClusterer.cosine(obama, biden) < 0.3f)
-        // In the photo of both, the face on the left is Obama, the one on the right is Biden.
+        // The same Bengali bride in bridal make-up, from another side, small, and at her haldi.
+        val bride = only("bride.jpg").embedding!!
+        assertTrue(PeopleClusterer.cosine(bride, only("bride_again.jpg").embedding!!) > PeopleClusterer.JOIN)
+        assertTrue(PeopleClusterer.cosine(bride, only("bride_small.jpg").embedding!!) > PeopleClusterer.JOIN)
+        assertTrue(PeopleClusterer.cosine(bride, only("bride_haldi.jpg").embedding!!) > PeopleClusterer.FIND_MORE)
+        // In the photo of two, the bride is on the left; the man beside her is someone else.
         val (left, right) = results.getValue("two_people.jpg").faces.sortedBy { it.reading.box.left }
-        assertTrue(PeopleClusterer.cosine(obama, left.embedding!!) > PeopleClusterer.JOIN)
-        assertTrue(PeopleClusterer.cosine(biden, right.embedding!!) > PeopleClusterer.JOIN)
+        assertTrue(PeopleClusterer.cosine(bride, left.embedding!!) > PeopleClusterer.JOIN)
+        assertTrue(PeopleClusterer.cosine(bride, right.embedding!!) < 0.3f)
     }
 
     @Test
@@ -90,16 +89,23 @@ class AnalyzerDeviceTest {
             assertNotNull(r.faces.firstOrNull()?.embedding)
         }
         // Portrait photos are taller than wide.
-        assertTrue(results.getValue("obama.jpg").let { it.height > it.width })
-        assertTrue(results.getValue("two_people.jpg").let { it.width > it.height })
+        assertTrue(results.getValue("bride.jpg").let { it.height > it.width })
+        assertTrue(results.getValue("bride_haldi.jpg").let { it.width > it.height })
     }
 
     @Test
     fun peopleAreGroupedCorrectly() {
-        val faces = results.values.flatMap { r -> r.faces }.mapIndexed { i, f ->
-            com.albumdone.app.people.FaceVector(i.toLong(), i.toLong(), f.embedding!!, maxOf(f.quality, 0.5f))
+        // One id per face, one photo id per photo (two faces in one photo are two people).
+        val names = results.keys.sorted()
+        val manFace = results.getValue("two_people.jpg").faces.maxBy { it.reading.box.left }
+        var man = -1L
+        val faces = names.flatMap { name -> results.getValue(name).faces.map { f -> name to f } }.mapIndexed { i, (name, f) ->
+            if (f === manFace) man = i.toLong()
+            com.albumdone.app.people.FaceVector(i.toLong(), names.indexOf(name).toLong(), f.embedding!!, maxOf(f.quality, 0.5f))
         }
         val groups = PeopleClusterer.cluster(faces)
-        assertEquals(listOf(4, 2), groups.map { it.size })
+        // The bride's six faces are one person, and the man is not in it.
+        assertEquals(6, groups.first().size)
+        assertTrue(man !in groups.first())
     }
 }

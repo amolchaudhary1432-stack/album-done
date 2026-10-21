@@ -35,7 +35,7 @@ class PipelineDeviceTest {
 
         // The two main people, photographed together twice: the couple.
         val people = dao.people(id).sortedByDescending { it.photoCount }
-        assertEquals(listOf(5, 4), people.take(2).map { it.photoCount })
+        assertEquals(listOf(7, 2), people.take(2).map { it.photoCount })
         assertNotNull(project.brideId)
         assertNotNull(project.groomId)
         assertNotEquals(project.brideId, project.groomId)
