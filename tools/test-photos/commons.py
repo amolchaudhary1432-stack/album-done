@@ -13,6 +13,7 @@ import os
 import re
 import sys
 import time
+import urllib.error
 import urllib.parse
 import urllib.request
 
@@ -29,7 +30,10 @@ SEARCHES = [
 ]
 
 
-def api(params, tries=4):
+_pause = [0.15]  # seconds between requests; grows when Commons says "too many requests"
+
+
+def api(params, tries=5):
     params = dict(params, format="json", formatversion="2", maxlag="5")
     url = API + "?" + urllib.parse.urlencode(params)
     for i in range(tries):
@@ -40,8 +44,18 @@ def api(params, tries=4):
             if "error" in data and data["error"].get("code") == "maxlag":
                 time.sleep(5)
                 continue
-            time.sleep(0.15)
+            time.sleep(_pause[0])
+            _pause[0] = max(0.15, _pause[0] * 0.95)
             return data
+        except urllib.error.HTTPError as e:
+            if e.code == 429:  # too many requests: wait as asked, and go slower from now on
+                _pause[0] = min(5.0, _pause[0] * 2)
+                wait = int(e.headers.get("Retry-After") or 0) or 20 * (i + 1)
+                print("slow down", i, f"wait {wait}s, then {_pause[0]:.2f}s between requests", file=sys.stderr)
+                time.sleep(min(wait, 120))
+            else:
+                print("retry", i, e, file=sys.stderr)
+                time.sleep(3 * (i + 1))
         except Exception as e:  # network hiccup: wait and try again
             print("retry", i, e, file=sys.stderr)
             time.sleep(3 * (i + 1))
