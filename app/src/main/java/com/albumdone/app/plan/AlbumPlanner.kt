@@ -526,7 +526,8 @@ object AlbumPlanner {
             }
             var attention = 1.0
             if (!f.lookingAtCamera) {
-                if (posed && !interaction && !ritual && !vidaai) { issues += Issue.NOT_LOOKING; attention = 0.6 }
+                // A small cost only: people keep a good group photo with one person glancing away.
+                if (posed && !interaction && !ritual && !vidaai) { issues += Issue.NOT_LOOKING; attention = 0.85 }
                 else attention = 0.95
             }
             val expr = when (f.expression) {
