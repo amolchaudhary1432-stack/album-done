@@ -64,6 +64,25 @@ BIRTHDAY_SEARCHES = ["birthday India", "birthday party India", "first birthday I
                      "Ladakh road trip", "friends trip India", "pre-wedding shoot India", "pre wedding photoshoot",
                      "wedding anniversary India", "housewarming India", "griha pravesh", "baby shower India",
                      "Diwali family", "Ganpati at home", "Durga Puja family"]
+# Many more free-licence searches (Flickr through Openverse, and single Commons files): weddings
+# and family functions across communities, cities and rituals.
+CITIES = ["Delhi", "Mumbai", "Pune", "Kolkata", "Chennai", "Bangalore", "Hyderabad", "Ahmedabad", "Jaipur", "Lucknow",
+          "Patna", "Bhopal", "Indore", "Nagpur", "Surat", "Kochi", "Coimbatore", "Madurai", "Mysore", "Chandigarh",
+          "Amritsar", "Varanasi", "Guwahati", "Bhubaneswar", "Udaipur", "Goa", "Dehradun", "Ranchi", "Raipur", "Vizag"]
+COMMUNITIES = ["Punjabi", "Gujarati", "Marathi", "Bengali", "Tamil", "Telugu", "Malayali", "Kannada", "Rajasthani",
+               "Marwari", "Bihari", "Odia", "Assamese", "Kashmiri", "Sindhi", "Parsi", "Muslim", "Sikh", "Christian",
+               "Konkani", "Garhwali", "Kumaoni", "Nepali", "Jain", "Maithili", "Bhojpuri", "Haryanvi", "Dogra"]
+RITUALS = ["haldi ceremony", "mehndi ceremony", "sangeet night", "baraat", "varmala", "pheras", "sindoor",
+           "kanyadaan", "vidaai", "wedding reception India", "nikah", "anand karaj", "roka ceremony",
+           "tilak ceremony", "sagai ceremony", "engagement ceremony India", "pre wedding shoot India",
+           "Indian bride portrait", "Indian groom portrait", "Indian wedding couple", "Indian wedding family"]
+MORE_SEARCHES = ([f"wedding {c}" for c in CITIES] + [f"{c} wedding" for c in COMMUNITIES] + RITUALS +
+                 [f"birthday party {c}" for c in CITIES[:15]] +
+                 ["first birthday party India", "kids birthday India", "60th birthday India", "50th wedding anniversary India",
+                  "25th anniversary India", "seemantham", "valaikappu", "dohale jevan", "barsa ceremony", "namakarana",
+                  "cradle ceremony India", "upanayanam", "thread ceremony India", "half saree ceremony", "ritu kala samskara",
+                  "housewarming puja", "satyanarayan puja home", "family get together India", "family reunion India",
+                  "Indian family holiday", "honeymoon Kerala", "Rajasthan trip family", "Himachal trip"])
 OPENVERSE = "https://api.openverse.org/v1/images/"
 
 
@@ -156,7 +175,7 @@ def main():
             where[key].add(c)
     # Birthdays: single files on Commons (grouped by photographer and day) and Flickr photos
     # through Openverse (grouped by photographer: usually one party).
-    for term in BIRTHDAY_SEARCHES:
+    for term in BIRTHDAY_SEARCHES + MORE_SEARCHES:
         if late():
             break
         for f in commons_file_search(term):
