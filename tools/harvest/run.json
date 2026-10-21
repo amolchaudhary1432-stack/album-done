@@ -1,5 +1,6 @@
 {
  "machines": 3,
  "photos_per_machine": 1500,
- "recrawl": "yes"
+ "recrawl": "yes",
+ "note": "run 8: wedding searches first, carry on between runs"
 }

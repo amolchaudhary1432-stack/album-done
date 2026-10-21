@@ -7,7 +7,8 @@ folder a family would give the app. Only free licences (CC0, CC BY, CC BY-SA, pu
     python3 crawl.py OUT/sets.jsonl [MAX_CATEGORIES] [MINUTES]
 
 Stops looking after MINUTES (default 70) and writes what it found, added to the sets already in
-OUT (each run grows the list). Each line: {"id", "user", "day", "occasion", "categories", "files": [{title, thumb, taken, licence, artist, page}]}
+OUT (each run grows the list). Searches already finished are listed in searched.txt next to OUT
+and skipped, so each run carries on where the last one stopped. Weddings are searched first. Each line: {"id", "user", "day", "occasion", "categories", "files": [{title, thumb, taken, licence, artist, page}]}
 """
 import collections, json, os, re, sys
 
@@ -136,8 +137,10 @@ def main():
         for line in open(out):
             if line.strip():
                 s = json.loads(line); old[s["id"]] = s
+    done_path = os.path.join(os.path.dirname(os.path.abspath(out)), "searched.txt")
+    done = set(open(done_path).read().splitlines()) if os.path.exists(done_path) else set()
     cats = []
-    for term in SEARCHES:
+    for term in ([] if "CATEGORIES" in done else SEARCHES):
         if late():
             break
         for c in search_categories(term):
@@ -163,10 +166,12 @@ def main():
     print(len(cats), "categories with photos", file=sys.stderr)
 
     seen, groups, where = set(), collections.defaultdict(list), collections.defaultdict(set)
-    for c in cats:
+    for n, c in enumerate(cats):
         if late():
             print("out of time after reading", c, file=sys.stderr)
             break
+        if n == len(cats) - 1:
+            done.add("CATEGORIES")
         for f in files_in(c, max_files=1500, width=1280):
             if f["title"] in seen or not FREE.match(f["licence"].strip()):
                 continue
@@ -176,9 +181,13 @@ def main():
             where[key].add(c)
     # Birthdays: single files on Commons (grouped by photographer and day) and Flickr photos
     # through Openverse (grouped by photographer: usually one party).
-    for term in BIRTHDAY_SEARCHES + MORE_SEARCHES:
+    weddings = [t for t in MORE_SEARCHES if re.search(r"wedding|bride|groom|haldi|mehndi|sangeet|baraat|varmala|pheras|"
+                                                     r"sindoor|kanyadaan|vidaai|nikah|anand karaj|roka|tilak|sagai", t, re.I)]
+    for term in weddings + [t for t in BIRTHDAY_SEARCHES + MORE_SEARCHES if t not in weddings]:
         if late():
             break
+        if term in done:
+            continue
         for f in commons_file_search(term):
             if f["title"] in seen or not FREE.match(f["licence"].strip()):
                 continue
@@ -191,6 +200,8 @@ def main():
             seen.add(f["title"])
             key = (f["user"], "openverse")
             groups[key].append(f); where[key].add("Search: " + term)
+        if not late():
+            done.add(term)
 
     os.makedirs(os.path.dirname(os.path.abspath(out)), exist_ok=True)
     found = dict(old)
@@ -204,6 +215,8 @@ def main():
             "id": sid, "user": user, "day": d, "occasion": occasion_of(catlist), "categories": catlist,
             "files": [{k: f.get(k, "") for k in ("title", "thumb", "taken", "licence", "artist", "page")} for f in fs],
         }
+    with open(done_path, "w") as fh:
+        fh.write("".join(t + "\n" for t in sorted(done)))
     with open(out, "w") as fh:
         for s in sorted(found.values(), key=lambda s: -len(s["files"])):
             fh.write(json.dumps(s) + "\n")
