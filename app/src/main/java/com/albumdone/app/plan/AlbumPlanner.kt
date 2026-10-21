@@ -809,14 +809,14 @@ object AlbumPlanner {
         }
     }
 
-    fun target(tag: PersonTag): Int = when (tag.priority) {
+    fun target(tag: PersonTag): Int = tag.wanted ?: when (tag.priority) {
         Priority.MUST -> if (tag.guessed) GUESSED_MUST_TARGET else MUST_TARGET
         Priority.IMPORTANT -> if (tag.guessed) GUESSED_IMPORTANT_TARGET else IMPORTANT_TARGET
         else -> 0
     }
 
     /** Most photos one non-couple person should be in, so nobody dominates the album. */
-    fun cap(tag: PersonTag, size: Int): Int = when (tag.priority) {
+    fun cap(tag: PersonTag, size: Int): Int = tag.wanted ?: when (tag.priority) {
         Priority.MUST -> max(2 * MUST_TARGET, ceil(0.06 * size).toInt())
         Priority.IMPORTANT -> max(4, ceil(0.04 * size).toInt())
         Priority.NORMAL -> max(3, ceil(0.03 * size).toInt())
@@ -1001,7 +1001,7 @@ object AlbumPlanner {
 
         // ---- 1. People: the family ----
 
-        fun weight(t: PersonTag): Double = when (t.priority) {
+        fun weight(t: PersonTag): Double = if ((t.wanted ?: 0) > 0) 3.0 else when (t.priority) {
             Priority.MUST -> (if (t.elder) 3.0 else 2.5) * (if (t.guessed) 0.6 else 1.0)
             Priority.IMPORTANT -> (if (t.elder) 1.6 else 1.2) * (if (t.guessed) 0.6 else 1.0)
             else -> 0.0

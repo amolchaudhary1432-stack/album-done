@@ -567,6 +567,11 @@ private fun PersonSheetContent(
             }
         }
         if (d.role == null) {
+            val inAlbum = (album.family + album.others).firstOrNull { it.personId == person.id }?.inAlbum ?: 0
+            PhotoCountStepper(
+                name = person.name.ifBlank { "them" }, inAlbum = inAlbum, wanted = person.wantedPhotos, most = person.photoCount,
+                onChange = { vm.setWanted(projectId, person.id, it) },
+            )
             FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 for ((value, label) in sides) {
                     Pill(selected = chosenSide == value, onClick = { setSide(value); setRelation("") }, label = { Text(label) })
@@ -611,6 +616,34 @@ private fun PersonSheetContent(
             SheetAction("These photos show two different people") { vm.split(projectId, person.id); onClose() }
             SheetAction("Same person as someone else…") { startMerge() }
             SheetAction("Find more photos of them") { vm.findMore(projectId, person.id); onClose() }
+        }
+    }
+}
+
+/**
+ * "Photos of Nani in the album: 4  [-] [+]". Each tap remakes the album with that many of her
+ * best photos (the album keeps its size); "Let the app decide" goes back to automatic.
+ */
+@Composable
+private fun PhotoCountStepper(name: String, inAlbum: Int, wanted: Int?, most: Int, onChange: (Int?) -> Unit) {
+    var shown by remember(inAlbum, wanted) { mutableStateOf(wanted ?: inAlbum) }
+    fun set(n: Int) { shown = n.coerceIn(0, most); onChange(shown) }
+    SoftCard(Modifier.fillMaxWidth().testTag("photo-count")) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Column(Modifier.weight(1f)) {
+                Text("Photos of $name in the album", style = MaterialTheme.typography.titleSmall)
+                Text(if (wanted == null) "Chosen by the app. Change it and their best photos fill in."
+                    else "Your choice: their best $wanted", style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant)
+            }
+            RoundIconButton(LineIcons.Minus, "Fewer photos of $name", { set(shown - 1) }, Modifier.testTag("photo-count-less"))
+            Text("$shown", style = MaterialTheme.typography.headlineSmall, textAlign = TextAlign.Center,
+                modifier = Modifier.width(48.dp).testTag("photo-count-value"))
+            RoundIconButton(LineIcons.Plus, "More photos of $name", { set(shown + 1) }, Modifier.testTag("photo-count-more"))
+        }
+        if (wanted != null) {
+            Text("Let the app decide", color = MaterialTheme.colorScheme.primary, style = MaterialTheme.typography.labelLarge,
+                modifier = Modifier.padding(top = 10.dp).clickable { onChange(null) })
         }
     }
 }

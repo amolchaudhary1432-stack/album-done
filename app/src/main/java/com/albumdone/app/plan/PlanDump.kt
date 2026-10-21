@@ -11,7 +11,7 @@ object PlanDump {
     fun write(photos: List<PlanPhoto>, tags: PeopleTags): String = buildString {
         appendLine(listOf("TAGS", tags.brideId ?: "", tags.groomId ?: "", tags.occasion, tags.parents.joinToString(",")).joinToString("\t"))
         for (t in tags.tags.values) {
-            appendLine(listOf("TAG", t.id, clean(t.name), t.priority, t.side, t.elder, t.guessed).joinToString("\t"))
+            appendLine(listOf("TAG", t.id, clean(t.name), t.priority, t.side, t.elder, t.guessed, t.wanted ?: "").joinToString("\t"))
         }
         for (p in photos) {
             appendLine(listOf(
@@ -43,6 +43,7 @@ object PlanDump {
                     parents = c.getOrNull(4).orEmpty().split(',').mapNotNull { it.toLongOrNull() } }
                 "TAG" -> tags[c[1].toLong()] = PersonTag(
                     c[1].toLong(), c[2], Priority.valueOf(c[3]), Side.valueOf(c[4]), c[5].toBoolean(), c[6].toBoolean(),
+                    c.getOrNull(7)?.toIntOrNull(),
                 )
                 "PHOTO" -> photos += PlanPhoto(
                     id = c[1].toLong(), name = c[2], folder = c[3], takenAt = c[4].toLong(), width = c[5].toInt(),

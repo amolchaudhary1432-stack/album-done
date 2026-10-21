@@ -743,6 +743,15 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
+    /** "Photos of Nani in the album: 4": her best photos fill that many places (null: back to automatic). */
+    fun setWanted(projectId: Long, personId: Long, wanted: Int?) {
+        val n = wanted?.coerceAtLeast(0)
+        editPeople(projectId) {
+            val person = dao.person(personId) ?: return@editPeople
+            dao.updatePerson(person.copy(wantedPhotos = n))
+        }
+    }
+
     private fun relationLabel(side: String, relation: String) = when (side) {
         PersonSide.BRIDE -> "Bride's ${relation.lowercase()}"
         PersonSide.GROOM -> "Groom's ${relation.lowercase()}"

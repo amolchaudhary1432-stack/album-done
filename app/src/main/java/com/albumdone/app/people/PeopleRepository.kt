@@ -108,7 +108,7 @@ class PeopleRepository(private val dao: AlbumDao) {
         val photos = planPhotos(project.id)
         val people = dao.people(project.id)
         val userTags = people.associate { p ->
-            p.id to PersonTag(p.id, p.name, enumOr(p.priority, Priority.NORMAL), enumOr(p.side, Side.UNKNOWN), p.elder)
+            p.id to PersonTag(p.id, p.name, enumOr(p.priority, Priority.NORMAL), enumOr(p.side, Side.UNKNOWN), p.elder, wanted = p.wantedPhotos)
         }
         val userTagged = people.filter {
             it.priority != PersonPriority.NORMAL || it.side != PersonSide.UNKNOWN || it.elder

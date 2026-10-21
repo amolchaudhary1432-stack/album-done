@@ -247,6 +247,24 @@ class AlbumPlannerTest {
     }
 
     @Test
+    fun theCoupleChoosesHowManyPhotosOfSomeone() {
+        // Mama is in 10 of 40 photos. Asked for 7, his best 7 fill in; asked for 1, he is in about one.
+        val mama = 60L
+        var t = start
+        val photos = List(40) { i ->
+            t += 3 * minute
+            if (i % 4 == 0) couplePhoto("Wedding", t, extra = listOf(face(mama, x = 0.7f, sharp = 100.0 + i))) else couplePhoto("Wedding", t)
+        }
+        fun withMama(wanted: Int?): Int {
+            val tags = couple.copy(tags = mapOf(mama to PersonTag(mama, "Mama", wanted = wanted)))
+            val a = AlbumPlanner.analyze(photos, tags)
+            return AlbumPlanner.shortlist(a, 12).ids.count { mama in a.byId.getValue(it).people }
+        }
+        assertEquals(7, withMama(7))
+        assertTrue(withMama(1) <= 2)
+    }
+
+    @Test
     fun aForeheadCutByTheTopEdgeIsTightFraming() {
         // From a first-birthday folder: the child sharp and whole, the adult holding her with the
         // top of the head out of the photo. A face cut in half at the side is still a flaw.

@@ -164,6 +164,8 @@ data class PersonEntity(
     val photoCount: Int = 0,
     /** The clearest face of this person, shown on the tagging screen. */
     val bestFaceId: Long? = null,
+    /** How many photos of this person the couple asked for (null: the app decides). */
+    val wantedPhotos: Int? = null,
 )
 
 data class PersonCount(val personId: Long, val photos: Int)

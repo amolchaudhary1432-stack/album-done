@@ -162,6 +162,7 @@ object LineIcons {
     val Tick = lineIcon("tick", "M5 12l5 5 9-10")
     val Send = lineIcon("send", "M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M16 6l-4-4-4 4M12 2v14")
     val Plus = lineIcon("plus", "M12 5v14M5 12h14")
+    val Minus = lineIcon("minus", "M5 12h14")
     val Next = lineIcon("next", "M9 5l7 7-7 7")
 }
 

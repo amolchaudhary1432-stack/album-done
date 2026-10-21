@@ -105,6 +105,8 @@ data class PersonTag(
     val elder: Boolean = false,
     /** The app's own guess (the couple has not said who this is): softer targets, no warnings. */
     val guessed: Boolean = false,
+    /** The couple asked for this many photos of this person (null: the app decides). */
+    val wanted: Int? = null,
 )
 
 /**
