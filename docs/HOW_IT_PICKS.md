@@ -347,6 +347,10 @@ twice; two different people agree less, so a person-versus-person score here is 
 "95% of human level" therefore means the app's score at about 95% of that, not 95% outright.
 The copy is now left out of the learning and the honest test (practice 83% without it).
 
+Spread over more moments: on the Garhwali wedding the person's 21 picks covered 16 moments (two at
+most from any one); the app's covered 14, with four from one. Each photo already picked from a
+moment now costs 0.3 (was 0.06): practice 83% -> 87%, held-back weddings 79% -> 80%.
+
 What the misses are now: mostly which small moments to show (a person picks the friends in
 saris, the decorated mandap, the family group; the app another candid). The measurements do not
 say what is happening in a photo; a scene model (section 3) is the next big step.

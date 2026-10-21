@@ -207,7 +207,7 @@ object AlbumPlanner {
     /** Pull of a moment that has not yet had its share of the event's places. */
     const val MOMENT_BONUS = 0.3
     /** Less value for each photo already picked from the same moment, so picks spread over the day. */
-    const val MOMENT_CROWDING = 0.06
+    const val MOMENT_CROWDING = 0.3
     /** In a burst, how much "the people show well" counts next to quality when keeping one frame. */
     const val BURST_PRESENCE = 0.3
     /** How much a pick far (in time) from the moment's other picks is preferred. */
