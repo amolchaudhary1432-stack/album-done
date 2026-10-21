@@ -11,6 +11,7 @@ Writes OUT_DIR/concepts.json: {"prompts": [...], "models": {model: {set: {file: 
 where file is the planner's key (folder/name, or name for the harvested sets).
 """
 import io
+import re
 import json
 import os
 import sys
@@ -30,6 +31,12 @@ from eval import as_tensor  # noqa: E402
 BENCH = {"bench-wedding": "wedding", "bench_rajasthan": "rajasthan", "bench_garhwali": "garhwali"}
 
 
+def small_url(url):
+    """The same photo at about 500px: Commons thumbnails and Flickr sizes are in the address."""
+    url = re.sub(r"/(\d+)px-", "/500px-", url)
+    return re.sub(r"_[bhkoc](\.jpg)$", r"_z\1", url)
+
+
 def fetch(url):
     for attempt in range(4):
         try:
@@ -40,7 +47,7 @@ def fetch(url):
             if "404" in str(e):
                 return None
             print("retry", attempt, url, e, file=sys.stderr)
-            time.sleep(10 * (attempt + 1))
+            time.sleep(3 * (attempt + 1))
     return None
 
 
@@ -55,7 +62,7 @@ def photos(labels_dir, sets_dir, test_dir):
         if not os.path.exists(cred):
             continue
         for f in json.load(open(cred))["files"]:
-            url = f.get("thumb") or ""
+            url = small_url(f.get("thumb") or "")
             if url:
                 out.append((sid, f["file"], lambda u=url: fetch(u)))
     for sid, folder in BENCH.items():
@@ -75,7 +82,13 @@ def main(request_path, labels_dir, sets_dir, test_dir, out_dir):
     todo = photos(labels_dir, sets_dir, test_dir)
     print(len(todo), "photos", file=sys.stderr)
     images = []
+    # Local photos first, then downloads until the time is up (what is loaded is still scored).
+    todo.sort(key=lambda t: t[0] not in BENCH)
+    stop = time.time() + 60 * req.get("download_minutes", 35)
     for sid, key, load in todo:
+        if time.time() > stop:
+            print("out of download time", file=sys.stderr)
+            break
         img = load()
         if img is not None:
             img.thumbnail((448, 448))
