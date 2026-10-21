@@ -32,7 +32,7 @@ concurrency:
 jobs:
   find:
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    timeout-minutes: 100
     outputs:
       machines: ${{ steps.matrix.outputs.machines }}
       count: ${{ steps.settings.outputs.count }}
@@ -58,9 +58,10 @@ jobs:
           touch done.txt
           if git fetch -q --depth 1 origin harvest-data; then
             git show FETCH_HEAD:done.txt > done.txt 2>/dev/null || true
-            if [ "${{ steps.settings.outputs.recrawl }}" != yes ]; then git show FETCH_HEAD:sets.jsonl > sets.jsonl 2>/dev/null || true; fi
+            git show FETCH_HEAD:sets.jsonl > sets.jsonl 2>/dev/null || true
           fi
-          if [ ! -s sets.jsonl ]; then python3 tools/harvest/crawl.py sets.jsonl 1500; fi
+          # Look again for at most 70 minutes, adding to the sets found before.
+          if [ "${{ steps.settings.outputs.recrawl }}" = yes ] || [ ! -s sets.jsonl ]; then python3 tools/harvest/crawl.py sets.jsonl 1500 70; fi
           echo "$(wc -l < sets.jsonl) sets known, $(wc -l < done.txt) measured before"
 
       - uses: actions/upload-artifact@v4

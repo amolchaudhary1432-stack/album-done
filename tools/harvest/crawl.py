@@ -4,9 +4,10 @@ Runs on the GitHub build machine (it needs the internet; the app itself never do
 what one photographer uploaded from one day: one wedding, one birthday, one function, like a
 folder a family would give the app. Only free licences (CC0, CC BY, CC BY-SA, public domain).
 
-    python3 crawl.py OUT/sets.jsonl [MAX_CATEGORIES]
+    python3 crawl.py OUT/sets.jsonl [MAX_CATEGORIES] [MINUTES]
 
-Each line: {"id", "user", "day", "occasion", "categories", "files": [{title, thumb, taken, licence, artist, page}]}
+Stops looking after MINUTES (default 70) and writes what it found, added to the sets already in
+OUT (each run grows the list). Each line: {"id", "user", "day", "occasion", "categories", "files": [{title, thumb, taken, licence, artist, page}]}
 """
 import collections, json, os, re, sys
 
@@ -107,8 +108,18 @@ def occasion_of(categories):
 def main():
     out = sys.argv[1]
     max_cats = int(sys.argv[2]) if len(sys.argv) > 2 else 1500
+    deadline = time.time() + 60 * float(sys.argv[3] if len(sys.argv) > 3 else 70)
+    late = lambda: time.time() > deadline
+    # Sets found by earlier runs are kept; this run adds to them.
+    old = {}
+    if os.path.exists(out):
+        for line in open(out):
+            if line.strip():
+                s = json.loads(line); old[s["id"]] = s
     cats = []
     for term in SEARCHES:
+        if late():
+            break
         for c in search_categories(term):
             if c not in cats and ON_TOPIC.search(c) and not OFF_TOPIC.search(c):
                 cats.append(c)
@@ -117,6 +128,8 @@ def main():
     for _ in range(2):
         nxt = []
         for c in frontier:
+            if late():
+                break
             for s in subcats(c):
                 if s not in cats and ON_TOPIC.search(s) and not OFF_TOPIC.search(s):
                     cats.append(s); nxt.append(s)
@@ -131,6 +144,9 @@ def main():
 
     seen, groups, where = set(), collections.defaultdict(list), collections.defaultdict(set)
     for c in cats:
+        if late():
+            print("out of time after reading", c, file=sys.stderr)
+            break
         for f in files_in(c, max_files=1500, width=1280):
             if f["title"] in seen or not FREE.match(f["licence"].strip()):
                 continue
@@ -141,6 +157,8 @@ def main():
     # Birthdays: single files on Commons (grouped by photographer and day) and Flickr photos
     # through Openverse (grouped by photographer: usually one party).
     for term in BIRTHDAY_SEARCHES:
+        if late():
+            break
         for f in commons_file_search(term):
             if f["title"] in seen or not FREE.match(f["licence"].strip()):
                 continue
@@ -155,20 +173,21 @@ def main():
             groups[key].append(f); where[key].add("Search: " + term)
 
     os.makedirs(os.path.dirname(os.path.abspath(out)), exist_ok=True)
-    n_sets = n_files = 0
+    found = dict(old)
+    for (user, d), fs in sorted(groups.items(), key=lambda kv: -len(kv[1])):
+        catlist = sorted(where[(user, d)])
+        searched = all(c.startswith("Search: ") for c in catlist)
+        if len(fs) < (6 if searched else 10) or d == "unknown":
+            continue
+        sid = re.sub(r"[^A-Za-z0-9_-]+", "_", f"{user}_{d}")[:80]
+        found[sid] = {
+            "id": sid, "user": user, "day": d, "occasion": occasion_of(catlist), "categories": catlist,
+            "files": [{k: f.get(k, "") for k in ("title", "thumb", "taken", "licence", "artist", "page")} for f in fs],
+        }
     with open(out, "w") as fh:
-        for (user, d), fs in sorted(groups.items(), key=lambda kv: -len(kv[1])):
-            catlist = sorted(where[(user, d)])
-            searched = all(c.startswith("Search: ") for c in catlist)
-            if len(fs) < (6 if searched else 10) or d == "unknown":
-                continue
-            fh.write(json.dumps({
-                "id": re.sub(r"[^A-Za-z0-9_-]+", "_", f"{user}_{d}")[:80], "user": user, "day": d,
-                "occasion": occasion_of(catlist), "categories": catlist,
-                "files": [{k: f.get(k, "") for k in ("title", "thumb", "taken", "licence", "artist", "page")} for f in fs],
-            }) + "\n")
-            n_sets += 1; n_files += len(fs)
-    print(f"{n_sets} sets, {n_files} photos", file=sys.stderr)
+        for s in sorted(found.values(), key=lambda s: -len(s["files"])):
+            fh.write(json.dumps(s) + "\n")
+    print(f"{len(found)} sets ({len(found) - len(old)} new), {sum(len(s['files']) for s in found.values())} photos", file=sys.stderr)
 
 
 if __name__ == "__main__":
