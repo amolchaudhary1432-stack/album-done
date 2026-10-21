@@ -40,7 +40,8 @@ class HarvestScoreTest {
             val moment = human.count { h -> app.any { sameMoment(a.byId.getValue(h.id), it) } }
             val split = split(id)
             total.getOrPut(split) { IntArray(3) }.let { it[0] += human.size; it[1] += exact; it[2] += moment }
-            println("SET $split $id: ${human.size} picks of ${photos.size}; same photo $exact, same moment $moment")
+            // Held-back sets only count in the total: their per-set results stay unseen.
+            if (split == "tune") println("SET $split $id: ${human.size} picks of ${photos.size}; same photo $exact, same moment $moment")
         }
         for ((split, t) in total.toSortedMap()) {
             println("TOTAL $split: ${t[0]} picks; same photo ${pct(t[1], t[0])}, same moment ${pct(t[2], t[0])}")
