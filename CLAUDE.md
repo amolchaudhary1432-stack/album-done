@@ -179,6 +179,19 @@ checksum changes, and main only publishes after the phone test passes.
 Legal and Play Store notes: `docs/LEGAL_CHECK.md` (target API 36 is needed for new Play uploads).
 How the picking works and planned upgrades: `docs/HOW_IT_PICKS.md`.
 
+## GitHub minutes (owner's decision, 21 Oct 2026)
+
+- The repo is private. GitHub Free gives 2,000 Actions minutes a month for private repos, reset
+  on the 1st (October's were used up on 21 Oct, mostly by the photo search). Spending limit is
+  $0, so nothing is ever charged; jobs simply stop starting when the minutes are gone.
+- When minutes run out, Amol makes the repo public for a while (unlimited free minutes) and
+  makes it private again when Claude says the runs are done. Claude cannot change visibility.
+  Ask him at the start of each public window and tell him the moment it can go private.
+- Budget per month: a phone test is about 15 billed minutes; a photo search (harvest) up to
+  ~500. Run the photo search on this cloud machine instead when its network allows the photo
+  sites, and keep phone tests to batches of app changes, so a month stays within 2,000.
+- LICENSE says all rights reserved, for the public windows.
+
 ## Build notes
 
 - AGP 8.11.1, compile and target SDK 36, Kotlin 2.0.20 (compose compiler plugin), KSP
