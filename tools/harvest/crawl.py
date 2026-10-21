@@ -139,55 +139,46 @@ def main():
                 s = json.loads(line); old[s["id"]] = s
     done_path = os.path.join(os.path.dirname(os.path.abspath(out)), "searched.txt")
     done = set(open(done_path).read().splitlines()) if os.path.exists(done_path) else set()
-    cats = []
-    for term in ([] if "CATEGORIES" in done else SEARCHES):
-        if late():
-            break
-        for c in search_categories(term):
-            if c not in cats and ON_TOPIC.search(c) and not OFF_TOPIC.search(c):
-                cats.append(c)
-    # Two levels down, keeping to events and people, not buildings or artworks.
-    frontier = list(cats)
-    for _ in range(2):
-        nxt = []
-        for c in frontier:
+    # The categories to read are found once and kept (categories.txt); each one read is marked
+    # "cat:<name>" in searched.txt, so a run never reads the same category twice.
+    cats_path = os.path.join(os.path.dirname(os.path.abspath(out)), "categories.txt")
+    if os.path.exists(cats_path):
+        cats = [c for c in open(cats_path).read().splitlines() if c]
+    else:
+        cats = []
+        for term in SEARCHES:
             if late():
                 break
-            for s in subcats(c):
-                if s not in cats and ON_TOPIC.search(s) and not OFF_TOPIC.search(s):
-                    cats.append(s); nxt.append(s)
+            for c in search_categories(term):
+                if c not in cats and ON_TOPIC.search(c) and not OFF_TOPIC.search(c):
+                    cats.append(c)
+        # Two levels down, keeping to events and people, not buildings or artworks.
+        frontier = list(cats)
+        for _ in range(2):
+            nxt = []
+            for c in frontier:
+                if late():
+                    break
+                for s in subcats(c):
+                    if s not in cats and ON_TOPIC.search(s) and not OFF_TOPIC.search(s):
+                        cats.append(s); nxt.append(s)
+                if len(cats) >= max_cats:
+                    break
+            frontier = nxt
             if len(cats) >= max_cats:
                 break
-        frontier = nxt
-        if len(cats) >= max_cats:
-            break
-    counts = file_counts(cats)
-    cats = [c for c in cats if counts.get(c, 0) >= 5]
-    print(len(cats), "categories with photos", file=sys.stderr)
+        counts = file_counts(cats)
+        cats = [c for c in cats if counts.get(c, 0) >= 5]
+        if not late():
+            with open(cats_path, "w") as fh:
+                fh.write("".join(c + "\n" for c in cats))
+    print(len(cats), "categories with photos,", sum("cat:" + c in done for c in cats), "read before", file=sys.stderr)
 
     seen, groups, where = set(), collections.defaultdict(list), collections.defaultdict(set)
-    for n, c in enumerate(cats):
-        if late():
-            print("out of time after reading", c, file=sys.stderr)
-            break
-        if n == len(cats) - 1:
-            done.add("CATEGORIES")
-        for f in files_in(c, max_files=1500, width=1280):
-            if f["title"] in seen or not FREE.match(f["licence"].strip()):
-                continue
-            seen.add(f["title"])
-            key = (f["user"], day(f))
-            groups[key].append(f)
-            where[key].add(c)
-    # Birthdays: single files on Commons (grouped by photographer and day) and Flickr photos
-    # through Openverse (grouped by photographer: usually one party).
-    weddings = [t for t in MORE_SEARCHES if re.search(r"wedding|bride|groom|haldi|mehndi|sangeet|baraat|varmala|pheras|"
-                                                     r"sindoor|kanyadaan|vidaai|nikah|anand karaj|roka|tilak|sagai", t, re.I)]
-    for term in weddings + [t for t in BIRTHDAY_SEARCHES + MORE_SEARCHES if t not in weddings]:
-        if late():
-            break
-        if term in done:
-            continue
+
+    def search(term):
+        """Single Commons files (grouped by photographer and day) and Flickr photos through
+        Openverse (grouped by photographer: usually one event)."""
         for f in commons_file_search(term):
             if f["title"] in seen or not FREE.match(f["licence"].strip()):
                 continue
@@ -203,6 +194,35 @@ def main():
         if not late():
             done.add(term)
 
+    # Weddings first, then the categories not read yet, then everything else.
+    weddings = [t for t in MORE_SEARCHES if re.search(r"wedding|bride|groom|haldi|mehndi|sangeet|baraat|varmala|pheras|"
+                                                     r"sindoor|kanyadaan|vidaai|nikah|anand karaj|roka|tilak|sagai", t, re.I)]
+    for term in weddings:
+        if late():
+            break
+        if term not in done:
+            search(term)
+    for c in cats:
+        if late():
+            print("out of time before reading", c, file=sys.stderr)
+            break
+        if "cat:" + c in done:
+            continue
+        for f in files_in(c, max_files=1500, width=1280):
+            if f["title"] in seen or not FREE.match(f["licence"].strip()):
+                continue
+            seen.add(f["title"])
+            key = (f["user"], day(f))
+            groups[key].append(f)
+            where[key].add(c)
+        if not late():
+            done.add("cat:" + c)
+    for term in BIRTHDAY_SEARCHES + MORE_SEARCHES:
+        if late():
+            break
+        if term not in done:
+            search(term)
+
     os.makedirs(os.path.dirname(os.path.abspath(out)), exist_ok=True)
     found = dict(old)
     for (user, d), fs in sorted(groups.items(), key=lambda kv: -len(kv[1])):
@@ -211,6 +231,10 @@ def main():
         if len(fs) < (6 if searched else 10) or d == "unknown":
             continue
         sid = re.sub(r"[^A-Za-z0-9_-]+", "_", f"{user}_{d}")[:80]
+        if sid in old:  # found before: add the new photos and categories to it
+            titles = {f["title"] for f in old[sid]["files"]}
+            fs = old[sid]["files"] + [f for f in fs if f["title"] not in titles]
+            catlist = sorted(set(catlist) | set(old[sid]["categories"]))
         found[sid] = {
             "id": sid, "user": user, "day": d, "occasion": occasion_of(catlist), "categories": catlist,
             "files": [{k: f.get(k, "") for k in ("title", "thumb", "taken", "licence", "artist", "page")} for f in fs],

@@ -62,13 +62,15 @@ jobs:
             git show FETCH_HEAD:seen.txt > seen.txt 2>/dev/null || true
             git show FETCH_HEAD:sets.jsonl > sets.jsonl 2>/dev/null || true
             git show FETCH_HEAD:searched.txt > searched.txt 2>/dev/null || true
+            git show FETCH_HEAD:categories.txt > categories.txt 2>/dev/null || true
+            [ -s categories.txt ] || rm -f categories.txt
           fi
           # Look again for at most 70 minutes, adding to the sets found before.
           if [ "${{ steps.settings.outputs.recrawl }}" = yes ] || [ ! -s sets.jsonl ]; then
             python3 tools/harvest/crawl.py sets.jsonl 1500 70
             # Keep the list at once, so a later step that fails or is stopped does not lose it.
             mkdir -p keep && (git archive FETCH_HEAD 2>/dev/null | tar -x -C keep || true)
-            cp sets.jsonl keep/sets.jsonl; cp searched.txt keep/searched.txt 2>/dev/null || true
+            cp sets.jsonl keep/sets.jsonl; cp searched.txt categories.txt keep/ 2>/dev/null || true
             cd keep && git init -q -b harvest-data && git config user.name harvest && git config user.email harvest@users.noreply.github.com
             git add -A && git commit -q -m "Sets found, harvest run ${{ github.run_number }}"
             git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" harvest-data && cd ..
@@ -81,6 +83,7 @@ jobs:
           path: |
             sets.jsonl
             searched.txt
+            categories.txt
             done.txt
             seen.txt
 
@@ -194,7 +197,7 @@ jobs:
           open("data/seen.txt", "w").write("".join(sorted(x + "\n" for x in seen)))
           print(len(seen), "photos seen in all")
           EOF
-          cp sets.jsonl data/sets.jsonl; cp searched.txt data/searched.txt 2>/dev/null || true
+          cp sets.jsonl data/sets.jsonl; cp searched.txt categories.txt data/ 2>/dev/null || true
           python3 - <<'EOF'
           import glob, json, collections
           sets = [json.load(open(f)) for f in sorted(glob.glob("data/sets/*.credits.json"))]
