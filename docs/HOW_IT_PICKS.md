@@ -352,6 +352,15 @@ Spread over more moments: on the Garhwali wedding the person's 21 picks covered 
 most from any one); the app's covered 14, with four from one. Each photo already picked from a
 moment now costs 0.3 (was 0.06): practice 83% -> 87%, held-back weddings 79% -> 80%.
 
+Does knowing what a photo shows help? Every photo of the labelled albums was scored against 28
+plain descriptions ("food on plates", "a decorated stage", "a crowd seen from far away",
+"scenery", "a selfie"...) with SigLIP 2 and TinyCLIP (`tools/scene-eval/concepts.py`, on the build
+machine), and the scores added to the learned appeal. First run (downloads were slow, so only the
+two bench weddings and four harvested albums, 361 photos with all scores): learned top picks 27
+without the scores, 26 with them. The descriptions alone reach 25: they see much the same as the
+face and quality measurements, so they add little on top. To be rerun on every album; until it
+shows a clear gain, no image-text model in the app.
+
 What the misses are now: mostly which small moments to show (a person picks the friends in
 saris, the decorated mandap, the family group; the app another candid). The measurements do not
 say what is happening in a photo; a scene model (section 3) is the next big step.
