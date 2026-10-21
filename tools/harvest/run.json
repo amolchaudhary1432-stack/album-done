@@ -1,5 +1,5 @@
 {
- "machines": 2,
- "photos_per_machine": 1000,
- "recrawl": "yes"
+ "machines": 3,
+ "photos_per_machine": 1200,
+ "recrawl": "no"
 }
