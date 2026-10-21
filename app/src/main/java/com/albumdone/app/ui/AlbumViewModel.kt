@@ -173,7 +173,9 @@ enum class LeftOutReason(val label: String) {
 
 data class LeftOutPhoto(val photo: PhotoEntity, val event: String, val reason: LeftOutReason, val crop: Pair<Float, Float>)
 
-data class ViewerState(val photo: AlbumPhoto, val alternatives: List<Alternative>, val inAlbum: Boolean, val position: Int = 0, val ofTotal: Int = 0)
+data class ViewerState(val photo: AlbumPhoto, val alternatives: List<Alternative>, val inAlbum: Boolean, val position: Int = 0, val ofTotal: Int = 0,
+    /** For a photo not in the album: why, in plain words. */
+    val leftOutWhy: String? = null)
 
 private const val TAG = "AlbumDone"
 
@@ -603,6 +605,7 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
             inAlbum = p.selected,
             position = inEvent.indexOf(photoId) + 1,
             ofTotal = inEvent.size,
+            leftOutWhy = if (p.selected) null else leftOutReason(a).label,
         )
     }
 
@@ -665,6 +668,18 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
+    private fun leftOutReason(a: com.albumdone.app.plan.AssessedPhoto): LeftOutReason {
+        val hard = a.issues.firstOrNull { it.hard && it != Issue.DUPLICATE && it != Issue.GROUP_REPEAT }
+        return when {
+            Issue.DUPLICATE in a.issues || Issue.GROUP_REPEAT in a.issues -> LeftOutReason.REPEAT
+            hard == Issue.BLURRY -> LeftOutReason.BLURRY
+            hard == Issue.EYES_CLOSED || hard == Issue.HALF_BLINK -> LeftOutReason.EYES
+            hard == Issue.TOO_DARK || hard == Issue.TOO_BRIGHT -> LeftOutReason.LIGHT
+            hard != null -> LeftOutReason.OTHER
+            else -> LeftOutReason.GOOD
+        }
+    }
+
     /** The photos left out, in the photographer's order, each with the main reason. */
     fun leftOut(projectId: Long): Flow<List<LeftOutPhoto>> =
         combine(dao.photosFlow(projectId), dao.projectSummary(projectId)) { photos, _ ->
@@ -673,16 +688,7 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
                 val byId = photos.associateBy { it.id }
                 analysis.photos.filter { a -> byId[a.id]?.let { !it.selected && !it.failed } == true }.map { a ->
                     val p = byId.getValue(a.id)
-                    val hard = a.issues.firstOrNull { it.hard && it != Issue.DUPLICATE && it != Issue.GROUP_REPEAT }
-                    val reason = when {
-                        Issue.DUPLICATE in a.issues || Issue.GROUP_REPEAT in a.issues -> LeftOutReason.REPEAT
-                        hard == Issue.BLURRY -> LeftOutReason.BLURRY
-                        hard == Issue.EYES_CLOSED || hard == Issue.HALF_BLINK -> LeftOutReason.EYES
-                        hard == Issue.TOO_DARK || hard == Issue.TOO_BRIGHT -> LeftOutReason.LIGHT
-                        hard != null -> LeftOutReason.OTHER
-                        else -> LeftOutReason.GOOD
-                    }
-                    LeftOutPhoto(p, a.event, reason, Display.cropBias(p.width, p.height, a.photo.faces.map { it.box }))
+                    LeftOutPhoto(p, a.event, leftOutReason(a), Display.cropBias(p.width, p.height, a.photo.faces.map { it.box }))
                 }
             }
         }.onMain()

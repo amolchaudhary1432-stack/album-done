@@ -145,8 +145,9 @@ fun ViewerScreen(vm: AlbumViewModel, projectId: Long, photoId: Long) {
                             }
                         }
                     }
-                    SectionLabel("Why it's in your album")
-                    val reasons = s.photo.reasons.ifEmpty { listOf("One of the best photos of ${Display.eventName(s.photo.event)}") }
+                    SectionLabel(if (s.inAlbum) "Why it's in your album" else "Why we left it out")
+                    val reasons = if (!s.inAlbum) listOfNotNull(s.leftOutWhy)
+                        else s.photo.reasons.ifEmpty { listOf("One of the best photos of ${Display.eventName(s.photo.event)}") }
                     FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                         for (r in reasons) {
                             Row(Modifier.clip(RoundedCornerShape(17.dp)).background(MaterialTheme.colorScheme.surfaceContainer)
