@@ -249,3 +249,37 @@ Test sets for unseen folders: a Rajasthani wedding seen by a guest (158 photos: 
 night, desert, palace, the wedding), a Garhwali wedding (134 photos, mostly the groom's haldi);
 Claude's blind picks are the answer key. Marathi weddings, birthdays and family functions are
 being searched for on Wikimedia Commons.
+
+## 9. Outside review: Astra's suggestions (October 2026)
+
+Astra (another assistant, read-only access) sent a large package: a learned "visual brain"
+(TinyCLIP image model plus two small trained layers, in a separate research build), a rewrite
+of parts of the planner, a capture-date fix and a list of mistakes found on 214 Indian photos.
+Every planner change was scored on our three Indian weddings with picks (Bengali 28,
+Rajasthani 24, Garhwali 21): photos matched exactly, and same moment.
+
+| Change | Bengali | Rajasthani | Garhwali | Decision |
+|---|---|---|---|---|
+| Whole package, ordinary app | 10 / 24 | 5 / 11 | 1 / 12 | Not taken as a whole: no clear gain |
+| Clear faces = the photo's subjects | 11 / 24 | 6 / 12 | 1 / 12 | Kept (was 9 / 23) |
+| Unknown eyes neutral | 11 / 24 | 5 / 10 | 1 / 12 | Dropped |
+| Key moments count distinct shots | same | same | same | Kept (sound, no harm) |
+| Forehead cut by the top edge is framing | same | same | same | Kept (birthday child held by an adult) |
+| Body cut by the top edge is not a back | n/a | n/a | n/a | Kept, unit-tested |
+| Capture date only from "date taken" | n/a | n/a | n/a | Kept: edited exports share one save date |
+
+Not taken, and why:
+- The learned visual brain. Its own numbers show the bounded app integration at 64.6% against
+  63.6% for the rules, inside the noise. It was trained on foreign photo-story sets (VIST,
+  Flickr albums) whose rights for a paid app are unclear, and it has no data for a child's
+  birthday. The idea stays on the list (section 3F) once we have Indian labels.
+- The global re-selection and refinement passes: more code, no measured gain here.
+- A database migration for old cached dates: the app is not live yet, new scans get the fix.
+
+Taken as working rules: keep test weddings separate from anything used to tune (once looked at
+for a fix, a wedding is no longer a fair test); count unique events, not photos; an AI's picks
+are one opinion, not the truth.
+
+Still open from Astra's list: two near-identical standing poses both picked (needs a "same pose"
+check beyond the burst hash), printed photos and cake toppers seen as faces, and a laughing
+bride marked as a stranger when someone walks across the front.
