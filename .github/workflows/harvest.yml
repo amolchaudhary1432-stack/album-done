@@ -112,6 +112,7 @@ jobs:
           if [ "$n" = 0 ] && [ -s harvest-errors.log ]; then tail -n 40 harvest-errors.log; exit 1; fi
 
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: measured-${{ matrix.machine }}
           path: out/

@@ -14,15 +14,16 @@ picture). A photo seen before is not downloaded again, and a copy that comes bac
 name (the same picture, fingerprint at most 3 bits apart) is dropped after measuring. Each set's
 new entries are written to OUT_DIR/<id>.seen.txt.
 """
-import datetime, json, os, re, shutil, sys, tempfile, time, urllib.request
+import datetime, json, os, re, shutil, sys, tempfile, time, urllib.error, urllib.request
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from measure import Analyzer  # noqa: E402
 
+MAX_MINUTES = float(os.environ.get("HARVEST_MINUTES", "150"))  # then stop and keep what is measured
 FIRST = ["WEDDING", "KIDS_BIRTHDAY", "CHILD_FUNCTION", "ENGAGEMENT", "BABY_SHOWER", "ANNIVERSARY", "BIRTHDAY",
          "HOUSEWARMING", "TRIP"]
 STREET = re.compile(r"holi\b|immersion|procession|visarjan|rally|parade|festival in|carnival|club|pandal|street", re.I)
-UA = "AlbumDoneHarvest/0.1 (measures freely licensed event photos to tune an offline album app; github.com)"
+UA = "AlbumDoneHarvest/0.2 (measures freely licensed event photos to tune an offline album app; https://github.com/amolchaudhary1432-stack/album-done)"
 TIME = re.compile(r"(\d{4})[-:](\d{2})[-:](\d{2})[ T](\d{2}):(\d{2})(?::(\d{2}))?")
 
 
@@ -37,13 +38,29 @@ def taken_millis(s):
         return 0
 
 
+_pause = [0.1]  # seconds between downloads; grows when a site says "too many requests"
+
+
 def download(url, dest):
     for attempt in range(4):
         try:
             with urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": UA}), timeout=90) as r:
                 open(dest, "wb").write(r.read())
+            time.sleep(_pause[0])
+            _pause[0] = max(0.1, _pause[0] * 0.97)
             return True
-        except Exception as e:  # rate limit or network hiccup: wait and try again
+        except urllib.error.HTTPError as e:
+            if e.code == 404:
+                return False
+            if e.code == 429:  # too many requests: wait as asked, and go slower from now on
+                _pause[0] = min(10.0, _pause[0] * 2 + 0.5)
+                wait = int(e.headers.get("Retry-After") or 0) or 15 * (attempt + 1)
+                print("slow down", url[-50:], f"wait {wait}s, then {_pause[0]:.1f}s between photos", file=sys.stderr)
+                time.sleep(min(wait, 120))
+            else:
+                print("retry", attempt, url[-60:], e, file=sys.stderr)
+                time.sleep(5 * (attempt + 1))
+        except Exception as e:  # network hiccup: wait and try again
             print("retry", attempt, url[-60:], e, file=sys.stderr)
             time.sleep(5 * (attempt + 1))
     return False
@@ -123,7 +140,7 @@ def main():
             continue
         if s["id"] in done or os.path.exists(os.path.join(out, s["id"] + ".jsonl")):
             continue
-        if measured >= max_photos:
+        if measured >= max_photos or time.time() - started > MAX_MINUTES * 60:
             break
         # A camera numbers photos in the order they were taken; so do we.
         files = sorted(s["files"], key=lambda f: (taken_millis(f["taken"]) or 1 << 62, f["title"]))
