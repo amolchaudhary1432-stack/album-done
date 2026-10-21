@@ -191,9 +191,11 @@ How the picking works and planned upgrades: `docs/HOW_IT_PICKS.md`.
   ~500. Run the photo search on this cloud machine instead when its network allows the photo
   sites, and keep phone tests to batches of app changes, so a month stays within 2,000.
 - LICENSE says all rights reserved, for the public windows.
-- The photo search can run on the cloud machine instead (`tools/harvest/local_run.sh`; the
-  environment allows the photo sites). Amol allowed pushing its results to the harvest-data and
-  harvest-sheets branches from here (21 Oct 2026).
+- The photo search can run on the cloud machine (`tools/harvest/local_run.sh`), and Amol allowed
+  pushing its results to the harvest-data and harvest-sheets branches from here (21 Oct 2026).
+  But tried on 21 Oct, Wikimedia limited the cloud machine to about one request every 5 s and
+  thumb.wikimedia.org was not reachable: after 40 minutes it had not finished finding categories.
+  So for now the photo search runs on GitHub, once a month, sized to fit the free minutes.
 
 ## Build notes
 
