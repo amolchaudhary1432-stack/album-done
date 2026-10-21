@@ -1,0 +1,9 @@
+Copyright (c) 2026 Amol Chaudhary. All rights reserved.
+
+This repository is visible for transparency and testing only. No licence is granted: the code,
+the picking rules, the learned weights and the documents may not be copied, modified, published,
+distributed or used in any other app or service without written permission from the owner.
+
+Third-party models, fonts and libraries bundled with the app keep their own licences, listed in
+THIRD_PARTY_NOTICES.md. Test photos on the test-photos branch are freely licensed by their
+photographers; their credits are kept next to them.
