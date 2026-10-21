@@ -212,6 +212,10 @@ object AlbumPlanner {
     const val BURST_PRESENCE = 0.3
     /** How much a pick far (in time) from the moment's other picks is preferred. */
     const val MOMENT_SPREAD = 0.6
+    /** Faces too small to judge (a crowd seen from far): people, but not who; below clear faces. */
+    const val SMALL_FACES_QUALITY = 0.7
+    /** Share of a photo's value that comes from [Appeal] (the rest is its measured quality). */
+    const val APPEAL_MIX = 0.25
     val TYPE_SHARE = mapOf(
         ShotType.DETAIL to 0.10, ShotType.COUPLE_CLOSE to 0.15, ShotType.COUPLE_FULL to 0.12,
         ShotType.BRIDE_SOLO to 0.06, ShotType.GROOM_SOLO to 0.05, ShotType.GROUP to 0.20,
@@ -585,7 +589,7 @@ object AlbumPlanner {
             q * (0.8 + 0.2 * light * clipping)
         } else {
             val sharp = if (norms.peakSharpness > 0) min(p.peakSharpness / (norms.peakSharpness * scenePeak), 1.5) / 1.5 else 0.7
-            0.5 * sharp + 0.5 * light * clipping
+            (if (visible.isEmpty()) 1.0 else SMALL_FACES_QUALITY) * (0.5 * sharp + 0.5 * light * clipping)
         }
         if (Issue.TILTED in issues) quality *= 0.85
         if (Issue.PHONE_IN_SHOT in issues) quality *= 0.6
@@ -882,6 +886,8 @@ object AlbumPlanner {
 
         val clean: List<AssessedPhoto> = a.photos.filter { it.usable && it.id !in removed }
         val quotas: Map<String, Int>
+        /** How likely a person is to pick each photo, learned from albums picked by eye. */
+        val appeal: Map<Long, Double> = Appeal.score(a)
 
         init {
             keep.filter { it !in removed }.mapNotNull { a.byId[it] }
@@ -1190,7 +1196,7 @@ object AlbumPlanner {
 
         /** Value of adding [c] now: quality, plus people, variety and balance. */
         fun value(c: AssessedPhoto): Double {
-            var v = c.quality
+            var v = (1 - APPEAL_MIX) * c.quality + APPEAL_MIX * (appeal[c.id] ?: c.quality)
             for (p in c.people) {
                 if (tags.isCouple(p)) continue
                 val t = tags.tag(p)

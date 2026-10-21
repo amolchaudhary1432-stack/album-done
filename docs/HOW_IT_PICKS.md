@@ -315,3 +315,31 @@ Our own numbers (three test weddings, the picks against the folder and the app):
   Three weddings are too few for finer tuning; the harvested sets come next.
 - Note: these picks are Claude's blind picks, a stand-in for a couple. A real couple's folder
   is the test that counts.
+
+## 11. Scored on 30 albums picked by eye; a learned "appeal" (October 2026)
+
+The harvest gave 106 freely licensed sets. Albums were picked by eye from the contact sheets for
+the 29 that are real family events (weddings first), before running the app on them
+(`tools/harvest/labels/`). About a third are held back by a fixed hash of the set's name: their
+per-set results are never shown, only the total (`HarvestScoreTest`).
+
+| | practice (17 sets + 3 bench weddings) | held back (6 weddings) |
+| --- | --- | --- |
+| Before | 196 of 259 same moment (76%) | 66 of 87 (75%) |
+| After | 204 of 259 (79%, each set scored with weights learned without it) | 70 of 87 (80%) |
+
+What changed:
+- Photos whose only faces are too small to judge (a crowd seen from far) score 0.7 of the
+  plain photo score: the app was picking crowd shots over clear people.
+- `Appeal`: a small learned score (logistic regression over 45 measurements: faces, smiles,
+  looking, every flag, shot type, light) of how likely a person is to pick a photo. It is a
+  quarter of a photo's value; the planner's rules (people, moments, variety) stay in charge.
+  `tools/harvest/learn.py` makes `AppealWeights.kt` from the labelled practice sets; held-back
+  sets are never in it. More labelled sets: re-run it.
+- Tried and not kept: lower scores for photos without faces (mixed), sharing a moment's places
+  by its photos of people (worse), fewer forced solo portraits (no change), appeal as half or all
+  of the value (worse: the learned score knows nothing of moments).
+
+What the misses are now: mostly which small moments to show (a person picks the friends in
+saris, the decorated mandap, the family group; the app another candid). The measurements do not
+say what is happening in a photo; a scene model (section 3) is the next big step.
