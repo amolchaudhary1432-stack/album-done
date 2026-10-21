@@ -1,5 +1,7 @@
 package com.albumdone.app
 
+import androidx.compose.ui.semantics.SemanticsActions
+import androidx.compose.ui.test.performSemanticsAction
 import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onAllNodesWithTag
@@ -134,7 +136,7 @@ class BigFamilyDeviceTest {
         compose.waitUntil(30_000) { has("Send list to photographer") }
 
         // One family's own copy of the album.
-        compose.onNodeWithText("Send list to photographer").performClick()
+        compose.onNodeWithText("Send list to photographer").performSemanticsAction(SemanticsActions.OnClick)
         compose.waitUntil(30_000) { has("Share list") }
         tap("album-for-BRIDE")
         compose.waitUntil(60_000) { has("Bride's family album") }

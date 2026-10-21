@@ -30,6 +30,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Check
+import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -67,8 +68,8 @@ private val wholeRow: LazyGridItemSpanScope.() -> GridItemSpan = { GridItemSpan(
 fun StageCard(s: AlbumState, onOpen: () -> Unit, modifier: Modifier = Modifier) {
     val inAlbum = s.stage.count { it.inAlbum }
     Surface(
-        color = MaterialTheme.colorScheme.surfaceContainer, shape = RoundedCornerShape(20.dp),
-        modifier = modifier.fillMaxWidth().clip(RoundedCornerShape(20.dp)).clickable(onClick = onOpen).testTag("stage-card"),
+        color = MaterialTheme.colorScheme.surfaceContainer, shape = RoundedCornerShape(22.dp),
+        modifier = modifier.fillMaxWidth().clip(RoundedCornerShape(22.dp)).clickable(onClick = onOpen).testTag("stage-card"),
     ) {
         Row(Modifier.padding(14.dp), verticalAlignment = Alignment.CenterVertically) {
             Box(Modifier.width(80.dp)) {
@@ -84,7 +85,7 @@ fun StageCard(s: AlbumState, onOpen: () -> Unit, modifier: Modifier = Modifier) 
                 Text("${s.stage.size} groups photographed with ${if (s.occasion.couple) "you" else s.mainWords} · $inAlbum in your album",
                     style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
-            Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = null)
+            Icon(LineIcons.Next, contentDescription = null, modifier = Modifier.size(20.dp))
         }
     }
 }
@@ -123,8 +124,10 @@ fun StageScreen(vm: AlbumViewModel, projectId: Long) {
                     Text("Tap a photo to put it in or take it out. Name a family once and everyone in it is named.",
                         style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     if (inAlbum < items.size) {
-                        OutlinedButton(onClick = { vm.addAllGroups(projectId, items) }, shape = RoundedCornerShape(24.dp),
-                            modifier = Modifier.testTag("add-all-groups")) {
+                        Button(onClick = { vm.addAllGroups(projectId, items) }, shape = RoundedCornerShape(24.dp),
+                            modifier = Modifier.height(48.dp).testTag("add-all-groups")) {
+                            Icon(LineIcons.Plus, contentDescription = null, modifier = Modifier.size(18.dp))
+                            Spacer(Modifier.width(8.dp))
                             Text("Add every family (${items.size - inAlbum} more)")
                         }
                     }
@@ -150,12 +153,12 @@ fun StageScreen(vm: AlbumViewModel, projectId: Long) {
 private fun StageTile(item: StageItem, onToggle: () -> Unit, onName: () -> Unit) {
     val named = item.guests.filter { it.known }.map { it.label }.distinct()
     Column {
-        Box(Modifier.fillMaxWidth().aspectRatio(4f / 3f).clip(RoundedCornerShape(14.dp)).clickable(onClick = onToggle).testTag("stage-tile")) {
+        Box(Modifier.fillMaxWidth().aspectRatio(4f / 3f).clip(RoundedCornerShape(16.dp)).clickable(onClick = onToggle).testTag("stage-tile")) {
             PhotoThumb(item.photo.photo, item.photo.crop, Modifier.fillMaxSize())
             val tick = Modifier.align(Alignment.TopEnd).padding(8.dp).size(26.dp).clip(CircleShape)
             if (item.inAlbum) {
-                Box(tick.background(MaterialTheme.colorScheme.primary), contentAlignment = Alignment.Center) {
-                    Icon(Icons.Default.Check, contentDescription = "In your album", tint = Color.White, modifier = Modifier.size(16.dp))
+                Box(tick.background(Saffron), contentAlignment = Alignment.Center) {
+                    Icon(LineIcons.Tick, contentDescription = "In your album", tint = Color.White, modifier = Modifier.size(16.dp))
                 }
             } else {
                 Box(tick.background(Color(0x55000000)).border(2.dp, Color.White, CircleShape))

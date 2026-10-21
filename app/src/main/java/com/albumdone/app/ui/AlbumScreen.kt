@@ -227,7 +227,7 @@ private fun SendBar(total: Int, onClick: () -> Unit, modifier: Modifier = Modifi
 
 /** "40 photos · Change size": the album size, one tap away on the cover. */
 @Composable
-private fun SizeLine(s: AlbumState, onMenu: () -> Unit, color: Color, pill: Color) {
+private fun SizeLine(s: AlbumState, onMenu: () -> Unit, color: Color, pill: Color, beside: Color) {
     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.padding(top = 6.dp)) {
         Row(
             Modifier.clip(RoundedCornerShape(50)).background(pill).clickable(onClick = onMenu).testTag("album-size")
@@ -236,8 +236,7 @@ private fun SizeLine(s: AlbumState, onMenu: () -> Unit, color: Color, pill: Colo
         ) {
             Text("${s.total} photos · Change size", color = color, style = MaterialTheme.typography.labelLarge)
         }
-        if (s.events.size > 1) Text("${s.events.size} events", color = if (color == Ink) MaterialTheme.colorScheme.onSurfaceVariant else Color.White.copy(alpha = 0.85f),
-            style = MaterialTheme.typography.labelLarge)
+        if (s.events.size > 1) Text("${s.events.size} events", color = beside, style = MaterialTheme.typography.labelLarge)
     }
 }
 
@@ -254,7 +253,7 @@ private fun Hero(s: AlbumState, onBack: () -> Unit, onMenu: () -> Unit, onOpenCo
             }
             Column(Modifier.padding(horizontal = 20.dp)) {
                 Text(s.project.name, style = MaterialTheme.typography.headlineLarge)
-                SizeLine(s, onMenu, MaterialTheme.colorScheme.onSurface, MaterialTheme.colorScheme.surfaceContainer)
+                SizeLine(s, onMenu, MaterialTheme.colorScheme.onSurface, MaterialTheme.colorScheme.surfaceContainer, MaterialTheme.colorScheme.onSurfaceVariant)
             }
         }
         return
@@ -281,7 +280,7 @@ private fun Hero(s: AlbumState, onBack: () -> Unit, onMenu: () -> Unit, onOpenCo
             Spacer(Modifier.height(4.dp))
             Text(s.project.name, style = MaterialTheme.typography.headlineLarge, color = Color.White, maxLines = 2, overflow = TextOverflow.Ellipsis)
             Spacer(Modifier.height(6.dp))
-            SizeLine(s, onMenu, Ink, Color.White)
+            SizeLine(s, onMenu, Ink, Color.White, Color.White.copy(alpha = 0.9f))
         }
     }
 }

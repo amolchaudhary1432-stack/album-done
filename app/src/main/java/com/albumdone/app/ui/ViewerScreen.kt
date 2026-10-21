@@ -3,6 +3,7 @@ package com.albumdone.app.ui
 import android.content.Intent
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -84,7 +85,9 @@ fun ViewerScreen(vm: AlbumViewModel, projectId: Long, photoId: Long) {
             Row(Modifier.fillMaxWidth().background(Backdrop).statusBarsPadding().padding(horizontal = 12.dp, vertical = 6.dp),
                 verticalAlignment = Alignment.CenterVertically) {
                 RoundIconButton(Icons.AutoMirrored.Filled.ArrowBack, "Back", vm::back, overPhoto = true)
-                Text(state?.photo?.event?.let { Display.eventName(it) } ?: "", maxLines = 1, overflow = TextOverflow.Ellipsis,
+                val v = state
+                val where = if (v != null && v.position > 0) " · ${v.position} of ${v.ofTotal}" else ""
+                Text((v?.photo?.event?.let { Display.eventName(it) } ?: "") + where, maxLines = 1, overflow = TextOverflow.Ellipsis,
                     color = Color.White, style = MaterialTheme.typography.titleSmall, textAlign = TextAlign.Center, modifier = Modifier.weight(1f))
                 Spacer(Modifier.width(44.dp))
             }
@@ -155,6 +158,15 @@ fun ViewerScreen(vm: AlbumViewModel, projectId: Long, photoId: Long) {
                         Spacer(Modifier.height(4.dp))
                         SectionLabel("Prefer another one? Tap to swap")
                         LazyRow(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                            // This photo first, ringed, so the swap is a choice between what you see.
+                            item(key = "current") {
+                                Column(Modifier.width(96.dp)) {
+                                    PhotoThumb(s.photo.photo, s.photo.crop, Modifier.fillMaxWidth().aspectRatio(1f)
+                                        .border(3.dp, Saffron, RoundedCornerShape(14.dp)).padding(5.dp).clip(RoundedCornerShape(10.dp)))
+                                    Spacer(Modifier.height(4.dp))
+                                    Text("In the album", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurface, maxLines = 2)
+                                }
+                            }
                             items(s.alternatives, key = { it.photo.id }) { alt ->
                                 Column(Modifier.width(96.dp).clickable { vm.swap(projectId, photoId, alt.photo.id) }.testTag("alternative")) {
                                     PhotoThumb(alt.photo, alt.crop, Modifier.fillMaxWidth().aspectRatio(1f).clip(RoundedCornerShape(14.dp)))

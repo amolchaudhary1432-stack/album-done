@@ -6,8 +6,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.Icon
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
@@ -70,6 +68,7 @@ fun ProgressScreen(vm: AlbumViewModel, projectId: Long) {
                     textAlign = TextAlign.Center, color = MaterialTheme.colorScheme.onSurfaceVariant)
             } else {
                 val fraction = if (s.total == 0) 0f else s.done.toFloat() / s.total
+                Text("Making your album", style = MaterialTheme.typography.headlineMedium, textAlign = TextAlign.Center)
                 Ring(fraction)
                 Text("${"%,d".format(s.done)} of ${"%,d".format(s.total)} photos checked", style = MaterialTheme.typography.titleMedium)
                 val seconds = s.project.activeMillis / 1000.0
@@ -86,17 +85,19 @@ fun ProgressScreen(vm: AlbumViewModel, projectId: Long) {
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                     for (path in recent.take(5)) {
                         AsyncImage(model = File(path), contentDescription = null, contentScale = ContentScale.Crop,
-                            modifier = Modifier.weight(1f).aspectRatio(1f).clip(RoundedCornerShape(12.dp)))
+                            modifier = Modifier.weight(1f).aspectRatio(1f).clip(RoundedCornerShape(14.dp)))
                     }
                     repeat(5 - recent.take(5).size) { Spacer(Modifier.weight(1f)) }
                 }
             }
             Spacer(Modifier.height(4.dp))
             Row(
-                Modifier.fillMaxWidth().clip(RoundedCornerShape(16.dp)).background(MaterialTheme.colorScheme.surfaceContainer).padding(16.dp),
+                Modifier.fillMaxWidth().clip(RoundedCornerShape(22.dp)).background(MaterialTheme.colorScheme.surfaceContainer).padding(16.dp),
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
             ) {
-                Icon(Icons.Default.Lock, contentDescription = null, tint = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.size(20.dp))
+                Box(Modifier.size(40.dp).clip(RoundedCornerShape(12.dp)).background(Saffron), contentAlignment = Alignment.Center) {
+                    Icon(LineIcons.Lock, contentDescription = null, tint = androidx.compose.ui.graphics.Color.White, modifier = Modifier.size(20.dp))
+                }
                 Text(
                     "You can lock your phone or use other apps. We keep going and send a notification when your album is ready. Nothing is uploaded.",
                     color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.bodyMedium,
@@ -110,16 +111,16 @@ fun ProgressScreen(vm: AlbumViewModel, projectId: Long) {
 @Composable
 private fun Ring(fraction: Float) {
     val track = MaterialTheme.colorScheme.surfaceVariant
-    val bar = MaterialTheme.colorScheme.primary
-    Box(Modifier.size(200.dp), contentAlignment = Alignment.Center) {
+    val bar = Saffron
+    Box(Modifier.size(210.dp), contentAlignment = Alignment.Center) {
         Canvas(Modifier.fillMaxSize()) {
-            val w = 12.dp.toPx()
+            val w = 14.dp.toPx()
             val d = size.minDimension - w
             val topLeft = Offset(w / 2, w / 2)
             drawArc(track, 0f, 360f, false, topLeft, Size(d, d), style = Stroke(w))
             drawArc(bar, -90f, 360f * fraction, false, topLeft, Size(d, d), style = Stroke(w, cap = StrokeCap.Round))
         }
-        Text("${(fraction * 100).toInt()}%", style = MaterialTheme.typography.displayMedium, color = bar)
+        Text("${(fraction * 100).toInt()}%", style = MaterialTheme.typography.displayMedium, color = MaterialTheme.colorScheme.onSurface)
     }
 }
 

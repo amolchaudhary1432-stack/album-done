@@ -1,6 +1,8 @@
 package com.albumdone.app
 
 import android.util.Log
+import androidx.compose.ui.semantics.SemanticsActions
+import androidx.compose.ui.test.performSemanticsAction
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.isRoot
@@ -157,7 +159,7 @@ class AppScreensDeviceTest {
         }
 
         step("07-photo") {
-            compose.onAllNodesWithTag("album-photo")[0].performClick()
+            compose.onAllNodesWithTag("album-photo")[0].performSemanticsAction(SemanticsActions.OnClick)
             waitFor("WHY IT")
             screenshot("07-photo")
 
@@ -179,10 +181,12 @@ class AppScreensDeviceTest {
             waitFor("What we left out")
             screenshot("10-album-size")
             back()
+            // The sheet slides away before the album can be tapped again.
+            compose.waitUntil(10_000) { !has("What we left out") }
         }
 
         step("11-send") {
-            compose.onNodeWithText("Send list to photographer").performClick()
+            compose.onNodeWithText("Send list to photographer").performSemanticsAction(SemanticsActions.OnClick)
             waitFor("Share list")
             screenshot("11-send")
         }

@@ -35,7 +35,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
@@ -142,16 +141,17 @@ private fun PersonTile(c: PersonChip, onClick: () -> Unit) {
         Modifier.clip(RoundedCornerShape(16.dp)).clickable(onClick = onClick).padding(vertical = 6.dp).testTag("person-tile"),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Box {
-            FaceAvatar(c.face, 84.dp)
-            if (low) DotBadge("!", MaterialTheme.colorScheme.error, Modifier.align(Alignment.BottomEnd))
+        val ring = if (c.known) Saffron else MaterialTheme.colorScheme.outlineVariant
+        Box(Modifier.clip(CircleShape).background(ring).padding(2.dp).clip(CircleShape)
+            .background(MaterialTheme.colorScheme.background).padding(2.dp)) {
+            FaceAvatar(c.face, 80.dp)
         }
         Spacer(Modifier.height(6.dp))
         Text(c.label, style = MaterialTheme.typography.labelLarge, maxLines = 2, overflow = TextOverflow.Ellipsis, textAlign = TextAlign.Center,
             color = if (c.known) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.padding(horizontal = 4.dp))
         Text(
-            if (c.inAlbum > 0) "${c.inAlbum} in album" else "${c.photoCount} photos",
+            when { low && c.inAlbum <= 1 -> "Only ${c.inAlbum} in album"; c.inAlbum > 0 -> "${c.inAlbum} in album"; else -> "${c.photoCount} photos" },
             style = MaterialTheme.typography.labelMedium,
             color = if (low) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant,
         )
@@ -238,6 +238,7 @@ private fun FaceQuestion(vm: AlbumViewModel, c: PersonChip, i: Int, total: Int, 
             LinearProgressIndicator(
                 progress = { i.toFloat() / total },
                 modifier = Modifier.weight(1f).height(6.dp).clip(RoundedCornerShape(3.dp)),
+                color = Saffron, trackColor = MaterialTheme.colorScheme.surfaceContainerHigh,
             )
             Text("${i + 1} of $total", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
@@ -269,10 +270,10 @@ private fun FaceQuestion(vm: AlbumViewModel, c: PersonChip, i: Int, total: Int, 
         FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             for (r in QUICK_RELATIONS) {
                 Surface(
-                    color = MaterialTheme.colorScheme.surfaceContainerHigh, shape = RoundedCornerShape(24.dp),
+                    color = MaterialTheme.colorScheme.surfaceContainer, shape = RoundedCornerShape(24.dp),
                     modifier = Modifier.clip(RoundedCornerShape(24.dp)).clickable { onAnswer(side, r) }.testTag("quick-$r"),
                 ) {
-                    Text(r, style = MaterialTheme.typography.titleSmall, modifier = Modifier.padding(horizontal = 18.dp, vertical = 12.dp))
+                    Text(r, style = MaterialTheme.typography.titleSmall, modifier = Modifier.padding(horizontal = 20.dp, vertical = 13.dp))
                 }
             }
         }
@@ -287,8 +288,8 @@ private fun QuickTagDone(named: Int, modifier: Modifier, onFinish: () -> Unit) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(14.dp, Alignment.CenterVertically),
     ) {
-        Box(Modifier.size(88.dp).clip(CircleShape).background(MaterialTheme.colorScheme.secondaryContainer), contentAlignment = Alignment.Center) {
-            Icon(Icons.Default.CheckCircle, contentDescription = null, tint = MaterialTheme.colorScheme.secondary, modifier = Modifier.size(48.dp))
+        Box(Modifier.size(88.dp).clip(CircleShape).background(Saffron), contentAlignment = Alignment.Center) {
+            Icon(LineIcons.Tick, contentDescription = null, tint = androidx.compose.ui.graphics.Color.White, modifier = Modifier.size(44.dp))
         }
         Text("All done", style = MaterialTheme.typography.headlineMedium)
         Text(

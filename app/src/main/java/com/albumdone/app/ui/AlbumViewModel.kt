@@ -161,7 +161,8 @@ data class PersonDetail(
 
 data class Alternative(val photo: PhotoEntity, val note: String, val crop: Pair<Float, Float>)
 
-data class ViewerState(val photo: AlbumPhoto, val alternatives: List<Alternative>, val inAlbum: Boolean)
+/** [position] of [ofTotal]: where the photo sits among the album's photos of its event (0 when not in the album). */
+data class ViewerState(val photo: AlbumPhoto, val alternatives: List<Alternative>, val inAlbum: Boolean, val position: Int = 0, val ofTotal: Int = 0)
 
 private const val TAG = "AlbumDone"
 
@@ -569,6 +570,8 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
         val p = byId[photoId] ?: return null
         val a = analysis.byId[photoId] ?: return null
         val exclude = photos.filter { it.selected || it.removed }.map { it.id }.toSet()
+        val inEvent = photos.filter { it.selected && analysis.byId[it.id]?.event == a.event }
+            .sortedBy { analysis.byId.getValue(it.id).order }.map { it.id }
         val alts = AlbumPlanner.alternatives(analysis, photoId, exclude).mapNotNull { alt ->
             val ap = byId[alt.photoId] ?: return@mapNotNull null
             val aa = analysis.byId[alt.photoId] ?: return@mapNotNull null
@@ -584,6 +587,8 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
             ),
             alternatives = alts,
             inAlbum = p.selected,
+            position = inEvent.indexOf(photoId) + 1,
+            ofTotal = inEvent.size,
         )
     }
 

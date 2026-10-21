@@ -2,6 +2,8 @@ package com.albumdone.app
 
 import android.net.Uri
 import android.util.Log
+import androidx.compose.ui.semantics.SemanticsActions
+import androidx.compose.ui.test.performSemanticsAction
 import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onAllNodesWithTag
@@ -164,14 +166,14 @@ class BirthdayDeviceTest {
         backToAlbum()
         step("bday-09-photo") {
             compose.onNodeWithTag("album-grid").performScrollToNode(hasTestTag("album-photo"))
-            compose.onAllNodesWithTag("album-photo")[0].performClick()
+            compose.onAllNodesWithTag("album-photo")[0].performSemanticsAction(SemanticsActions.OnClick)
             compose.waitUntil(30_000) { has("WHY IT") }
             screenshot("bday-09-photo")
             noWeddingWords("the photo view")
         }
         backToAlbum()
         step("bday-10-send") {
-            compose.onNodeWithText("Send list to photographer").performClick()
+            compose.onNodeWithText("Send list to photographer").performSemanticsAction(SemanticsActions.OnClick)
             compose.waitUntil(30_000) { has("Share list") }
             screenshot("bday-10-send")
             assertTrue("whose album shown", !hasTag("album-for-BRIDE"))
