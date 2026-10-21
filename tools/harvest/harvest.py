@@ -23,6 +23,8 @@ MAX_MINUTES = float(os.environ.get("HARVEST_MINUTES", "150"))  # then stop and k
 FIRST = ["WEDDING", "KIDS_BIRTHDAY", "CHILD_FUNCTION", "ENGAGEMENT", "BABY_SHOWER", "ANNIVERSARY", "BIRTHDAY",
          "HOUSEWARMING", "TRIP"]
 STREET = re.compile(r"holi\b|immersion|procession|visarjan|rally|parade|festival in|carnival|club|pandal|street", re.I)
+# Community meetups are not family albums ("Wikipedia's 25th birthday", edit-a-thons, conferences).
+MEETUP = re.compile(r"wikipedia|wikidata|wikimedia|meetup|edit-?a-?thon|conference|workshop|hackathon|seminar|summit", re.I)
 UA = "AlbumDoneHarvest/0.2 (measures freely licensed event photos to tune an offline album app; https://github.com/amolchaudhary1432-stack/album-done)"
 TIME = re.compile(r"(\d{4})[-:](\d{2})[-:](\d{2})[ T](\d{2}):(\d{2})(?::(\d{2}))?")
 
@@ -133,7 +135,8 @@ def main():
     started = time.time()
     # Family events first (what albums are made of); public festivals on the street are not albums.
     sets = [json.loads(line) for line in open(sets_path) if line.strip()]
-    sets = [s for s in sets if not (s["occasion"] == "OTHER" and STREET.search(" ".join(s["categories"])))]
+    sets = [s for s in sets if not (s["occasion"] == "OTHER" and STREET.search(" ".join(s["categories"])))
+            and not MEETUP.search(" ".join(s["categories"]))]
     sets.sort(key=lambda s: (FIRST.index(s["occasion"]) if s["occasion"] in FIRST else len(FIRST), -len(s["files"])))
     for n, s in enumerate(sets):
         if n % shards != shard:

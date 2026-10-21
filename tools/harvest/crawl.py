@@ -39,7 +39,8 @@ ON_TOPIC = re.compile(r"wedding|marriage|bride|groom|haldi|mehndi|mehendi|holud|
                       r"family|famil|diwali|deepavali|holi\b|puja|chaturthi|onam|pongal|festival|celebration|"
                       r"party|parties|ceremon|ritual|griha|pravesh|shashti|sathabhi", re.I)
 OFF_TOPIC = re.compile(r"temple|church|mosque|building|architecture|map|logo|poster|stamp|painting|drawing|"
-                       r"manuscript|film|movie|actor|actress|politic|minister|book|newspaper|museum|statue", re.I)
+                       r"manuscript|film|movie|actor|actress|politic|minister|book|newspaper|museum|statue|"
+                       r"wikipedia|wikidata|wikimedia|meetup|edit-?a-?thon|conference|workshop|hackathon", re.I)
 
 OCCASION = [
     ("KIDS_BIRTHDAY", re.compile(r"birthday|janmadin|vadhdivas|cake cutting", re.I)),
