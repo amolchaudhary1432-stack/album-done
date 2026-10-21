@@ -283,3 +283,35 @@ are one opinion, not the truth.
 Still open from Astra's list: two near-identical standing poses both picked (needs a "same pose"
 check beyond the burst hash), printed photos and cake toppers seen as faces, and a laughing
 bride marked as a stranger when someone walks across the front.
+
+## 10. How people build albums: research and our own numbers (October 2026)
+
+From photographers', album labs' and photo-book guides (search summaries, rules of thumb, not
+surveys) and four research papers on photo-album selection:
+
+- Size: a traditional Indian album is 30-40 sheets with 6-8 photos per sheet (200-250 photos);
+  a photo book 60-150 photos. That is about 5-15% of the delivered photos (600-3,500).
+- Mix: about 60% candid and 40% posed; couple portraits 15-20%; details 10-15% (25% at most).
+  Trips: up to half scenery.
+- Every ritual gets at least 2-3 photos (varmala wide and close, pheras, sindoor, kanyadaan,
+  vidaai with tears). One photo per repeated pose; a big moment two at most.
+- Family groups: the big both-sides group first, then each bride's-side group mirrored by a
+  groom's-side one; a last check that no close relative is missing. Each family's copy is the
+  common set plus its own side (as our Send screen does).
+- Rejected: missed focus, motion blur, closed eyes, one blink in a group. Forgiven: tears,
+  laughter, dance blur. A flawed frame stays if it is the only one of a must-have moment.
+- Research (Ceroni 2015, CUFED 2016): people rank who is in the photo and what it remembers far
+  above technical quality; they drop near-repeats first.
+- Birthday: decor before guests, the cake untouched, the candles, everyone together,
+  grandparents, reactions. Annaprashan: first bite, grandparents' blessing, the object game.
+- Thin evidence: pages per function (one source), naming ceremonies, portrait/landscape ratio.
+
+Our own numbers (three test weddings, the picks against the folder and the app):
+- The picks accepted flagged photos far more than the app did (8 of 28, 8 of 24 and 13 of 21
+  picks had a flag; the app's albums had 1 each). About a third of "not looking" and "face partly
+  hidden" photos were picked, more than the average photo. Acted on: "not looking" now costs
+  little (Garhwali 12 -> 14 moments).
+- Tried and not kept: a softer "partly hidden" cost (mixed), a 45% candid target (worse).
+  Three weddings are too few for finer tuning; the harvested sets come next.
+- Note: these picks are Claude's blind picks, a stand-in for a couple. A real couple's folder
+  is the test that counts.
