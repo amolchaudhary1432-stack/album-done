@@ -1,6 +1,6 @@
 """Downloads, measures and forgets a share of the crawled photo sets (see crawl.py).
 
-    python3 harvest.py sets.jsonl MODELS OUT_DIR SHARD SHARDS MAX_PHOTOS [DONE_IDS_FILE] [SHEETS_EVERY]
+    python3 harvest.py sets.jsonl MODELS OUT_DIR SHARD SHARDS MAX_PHOTOS [DONE_IDS_FILE] [SHEETS_EVERY] [SEEN_FILE]
 
 For each set in this shard (set number % SHARDS == SHARD), until MAX_PHOTOS photos: download the
 photos (1280 px), measure them with measure.py, write OUT_DIR/<id>.jsonl (measurements),
@@ -8,6 +8,11 @@ OUT_DIR/<id>.raw.txt (planner format, people not grouped yet) and OUT_DIR/<id>.c
 delete the photos. Only numbers and credits are kept, never the photos; for every SHEETS_EVERY-th
 set (default every set) small numbered contact sheets are kept too (OUT_DIR/<id>.sheet-NN.jpg), so a person
 can mark which photos they would put in the album (the answer key the brain learns from).
+
+Every photo ever measured is remembered in SEEN_FILE (its web address and a fingerprint of the
+picture). A photo seen before is not downloaded again, and a copy that comes back under another
+name (the same picture, fingerprint at most 3 bits apart) is dropped after measuring. Each set's
+new entries are written to OUT_DIR/<id>.seen.txt.
 """
 import datetime, json, os, re, shutil, sys, tempfile, time, urllib.request
 
@@ -62,11 +67,46 @@ def contact_sheets(thumbs, cols=5, rows=4, cell=310):
         yield sheet
 
 
+def photo_key(f):
+    """Where a photo lives on the web: the same photo found through two searches has one key."""
+    return (f.get("page") or f.get("thumb") or f.get("title") or "").strip()
+
+
+class Seen:
+    """Photos measured before: by web address, and by picture fingerprint (64-bit, near copies too)."""
+
+    def __init__(self, path):
+        self.keys, self.hashes, self.bands = set(), set(), {}
+        if path and os.path.exists(path):
+            for line in open(path):
+                key, _, h = line.rstrip("\n").partition("\t")
+                self.add(key, int(h) if h.lstrip("-").isdigit() else None)
+
+    def add(self, key, h):
+        if key:
+            self.keys.add(key)
+        if h is not None:
+            self.hashes.add(h)
+            for b in range(4):  # 3 bits apart share at least one of four 16-bit bands
+                self.bands.setdefault((b, (h >> (16 * b)) & 0xFFFF), []).append(h)
+
+    def copy_of(self, h):
+        if h in self.hashes:
+            return True
+        for b in range(4):
+            for other in self.bands.get((b, (h >> (16 * b)) & 0xFFFF), ()):
+                if bin((h ^ other) & (2**64 - 1)).count("1") <= 3:
+                    return True
+        return False
+
+
 def main():
     sets_path, models, out, shard, shards, max_photos = sys.argv[1:7]
     shard, shards, max_photos = int(shard), int(shards), int(max_photos)
     done = set(open(sys.argv[7]).read().split()) if len(sys.argv) > 7 and os.path.exists(sys.argv[7]) else set()
     sheets_every = int(sys.argv[8]) if len(sys.argv) > 8 else 1
+    seen = Seen(sys.argv[9] if len(sys.argv) > 9 else None)
+    skipped = copies = 0
     os.makedirs(out, exist_ok=True)
     analyzer = Analyzer(models)
     measured = 0
@@ -82,11 +122,16 @@ def main():
         # A camera numbers photos in the order they were taken; so do we.
         files = sorted(s["files"], key=lambda f: (taken_millis(f["taken"]) or 1 << 62, f["title"]))
         tmp = tempfile.mkdtemp(prefix="harvest-")
-        rows, credits, thumbs = [], [], []
+        rows, credits, thumbs, new_seen = [], [], [], []
         keep_sheets = sheets_every > 0 and n % sheets_every == 0
         try:
-            for i, f in enumerate(files, start=1):
-                name = f"IMG_{i:04d}.jpg"
+            i = 0
+            for f in files:
+                key = photo_key(f)
+                if key in seen.keys:
+                    skipped += 1
+                    continue
+                name = f"IMG_{i + 1:04d}.jpg"
                 path = os.path.join(tmp, name)
                 if not f["thumb"] or not download(f["thumb"], path):
                     continue
@@ -96,6 +141,16 @@ def main():
                     row["failed"] = False
                 except Exception as e:
                     row.update({"failed": True, "error": str(e)[:200]})
+                h = row.get("hash") if not row["failed"] else None
+                if h is not None and seen.copy_of(int(h)):
+                    copies += 1
+                    seen.add(key, None)
+                    new_seen.append(f"{key}\t")
+                    os.remove(path)
+                    continue
+                seen.add(key, int(h) if h is not None else None)
+                new_seen.append(f"{key}\t{'' if h is None else int(h)}")
+                i += 1
                 rows.append(row)
                 credits.append({"file": name, **f})
                 if keep_sheets:
@@ -104,6 +159,9 @@ def main():
                 time.sleep(0.1)
         finally:
             shutil.rmtree(tmp, ignore_errors=True)
+        if new_seen:
+            with open(os.path.join(out, s["id"] + ".seen.txt"), "w") as fh:
+                fh.write("\n".join(new_seen) + "\n")
         if len(rows) < 10:
             continue
         with open(os.path.join(out, s["id"] + ".jsonl"), "w") as fh:
@@ -117,7 +175,8 @@ def main():
             sheet.save(os.path.join(out, f"{s['id']}.sheet-{k:02d}.jpg"), quality=72)
         measured += len(rows)
         rate = measured / max(1.0, time.time() - started)
-        print(f"{s['id']}: {len(rows)} photos ({s['occasion']}); {measured} so far, {rate:.2f} photos/s", flush=True)
+        print(f"{s['id']}: {len(rows)} photos ({s['occasion']}); {measured} so far, {rate:.2f} photos/s; "
+              f"{skipped} seen before, {copies} copies dropped", flush=True)
 
 
 if __name__ == "__main__":

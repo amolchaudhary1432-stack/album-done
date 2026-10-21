@@ -55,14 +55,16 @@ jobs:
 
       - name: Find photo sets (or reuse the list found before)
         run: |
-          touch done.txt
+          touch done.txt seen.txt
           if git fetch -q --depth 1 origin harvest-data; then
             git show FETCH_HEAD:done.txt > done.txt 2>/dev/null || true
+            # Every photo measured before (web address and picture fingerprint): never measured twice.
+            git show FETCH_HEAD:seen.txt > seen.txt 2>/dev/null || true
             git show FETCH_HEAD:sets.jsonl > sets.jsonl 2>/dev/null || true
           fi
           # Look again for at most 70 minutes, adding to the sets found before.
           if [ "${{ steps.settings.outputs.recrawl }}" = yes ] || [ ! -s sets.jsonl ]; then python3 tools/harvest/crawl.py sets.jsonl 1500 70; fi
-          echo "$(wc -l < sets.jsonl) sets known, $(wc -l < done.txt) measured before"
+          echo "$(wc -l < sets.jsonl) sets known, $(wc -l < done.txt) measured before, $(wc -l < seen.txt) photos seen"
 
       - uses: actions/upload-artifact@v4
         with:
@@ -70,6 +72,7 @@ jobs:
           path: |
             sets.jsonl
             done.txt
+            seen.txt
 
       - id: matrix
         run: echo "machines=$(python3 -c "import json; print(json.dumps(list(range(int('${{ steps.settings.outputs.count }}')))))")" >> "$GITHUB_OUTPUT"
@@ -101,7 +104,7 @@ jobs:
       - name: Download, measure and delete
         run: |
           python3 tools/harvest/harvest.py sets.jsonl app/src/main/assets/models out ${{ matrix.machine }} \
-            ${{ needs.find.outputs.count }} ${{ needs.find.outputs.photos }} done.txt 2>harvest-errors.log || true
+            ${{ needs.find.outputs.count }} ${{ needs.find.outputs.photos }} done.txt 1 seen.txt 2>harvest-errors.log || true
           tail -n 20 harvest-errors.log | grep -v "^W0000\|^I0000" || true
           n=$(ls out/*.jsonl 2>/dev/null | wc -l)
           echo "$n sets measured"
@@ -163,6 +166,23 @@ jobs:
             echo "$id" >> done.txt
           done
           sort -u done.txt > data/done.txt
+          # Every photo ever measured, also from sets kept before this list existed.
+          python3 - <<'EOF'
+          import glob, gzip, json
+          seen = set(l.rstrip("\n") for f in ["seen.txt"] + glob.glob("new/*.seen.txt") for l in open(f) if l.strip())
+          for cred in glob.glob("data/sets/*.credits.json"):
+              sid = cred[len("data/sets/"):-len(".credits.json")]
+              try:
+                  rows = {r["name"]: r for r in map(json.loads, gzip.open(f"data/sets/{sid}.jsonl.gz", "rt"))}
+              except OSError:
+                  rows = {}
+              for f in json.load(open(cred))["files"]:
+                  key = (f.get("page") or f.get("thumb") or f.get("title") or "").strip()
+                  h = rows.get(f["file"], {}).get("hash")
+                  seen.add(f"{key}\t{'' if h is None else int(h)}")
+          open("data/seen.txt", "w").write("".join(sorted(x + "\n" for x in seen)))
+          print(len(seen), "photos seen in all")
+          EOF
           cp sets.jsonl data/sets.jsonl
           python3 - <<'EOF'
           import glob, json, collections
