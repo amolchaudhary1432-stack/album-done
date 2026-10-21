@@ -22,7 +22,7 @@ from measure import Analyzer  # noqa: E402
 MAX_MINUTES = float(os.environ.get("HARVEST_MINUTES", "150"))  # then stop and keep what is measured
 FIRST = ["WEDDING", "KIDS_BIRTHDAY", "CHILD_FUNCTION", "ENGAGEMENT", "BABY_SHOWER", "ANNIVERSARY", "BIRTHDAY",
          "HOUSEWARMING", "TRIP"]
-STREET = re.compile(r"holi\b|immersion|procession|visarjan|rally|parade|festival in|carnival|club|pandal|street", re.I)
+STREET = re.compile(r"durga puja|ganesh|bonedi|holi\b|immersion|procession|visarjan|rally|parade|festival in|carnival|club|pandal|street", re.I)
 # Community meetups are not family albums ("Wikipedia's 25th birthday", edit-a-thons, conferences).
 MEETUP = re.compile(r"wikipedia|wikidata|wikimedia|meetup|edit-?a-?thon|conference|workshop|hackathon|seminar|summit", re.I)
 # Nor are concerts, festivals or Holi street games, whatever the set's category says.
