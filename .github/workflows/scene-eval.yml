@@ -14,7 +14,7 @@ permissions:
 jobs:
   eval:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 90
     steps:
       - uses: actions/checkout@v4
 
@@ -26,7 +26,12 @@ jobs:
       - name: Run the check
         run: |
           mode=$(python3 -c "import json; print(json.load(open('tools/scene-eval/request.json')).get('mode', 'zero-shot'))")
-          if [ "$mode" = probe ]; then
+          if [ "$mode" = concepts ]; then
+            # The labelled album sets (harvest-data) and the bench weddings' photos (test-photos).
+            git fetch -q --depth 1 origin harvest-data && mkdir -p hd && git archive FETCH_HEAD sets | tar -x -C hd
+            git fetch -q --depth 1 origin test-photos && mkdir -p tp && git archive FETCH_HEAD | tar -x -C tp
+            python3 tools/scene-eval/concepts.py tools/scene-eval/request.json tools/harvest/labels hd/sets tp out
+          elif [ "$mode" = probe ]; then
             python3 tools/scene-eval/probe.py tools/scene-eval/request.json out
           else
             python3 tools/scene-eval/eval.py tools/scene-eval/request.json out

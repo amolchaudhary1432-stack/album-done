@@ -1,239 +1,37 @@
 {
- "mode": "probe",
+ "mode": "concepts",
  "models": [
-  "google/siglip2-base-patch16-224",
-  "wkcn/TinyCLIP-ViT-39M-16-Text-19M-YFCC15M",
+  "google/siglip2-base-patch32-256",
   "wkcn/TinyCLIP-ViT-8M-16-Text-3M-YFCC15M"
  ],
- "per_class": 70,
- "C": 2.0,
- "categories": {
-  "haldi": [
-   "Category:Gaye holud in Bengali Hindu weddings",
-   "Category:Gaye holud",
-   "Category:Haldi ceremony",
-   "Category:Haldi (ceremony)"
-  ],
-  "mehendi": [
-   "Category:Henna ceremony",
-   "Category:Mehndi",
-   "Category:Mehndi designs"
-  ],
-  "sindoor": [
-   "Category:Sindur Daan in Bengali Hindu weddings",
-   "Category:Sindoor daan",
-   "Category:Sindoor"
-  ],
-  "fire_ritual": [
-   "Category:Saptapadi",
-   "Category:Homa (ritual)",
-   "Category:Yajna",
-   "Category:Havan",
-   "Category:Agni in Hindu weddings"
-  ],
-  "garland": [
-   "Category:Varmala",
-   "Category:Jaimala",
-   "Category:Mala Badal in Bengali Hindu weddings"
-  ],
-  "kanyadaan": [
-   "Category:Kanyadan",
-   "Category:Kanyadaan",
-   "Category:Sampradan"
-  ],
-  "baraat": [
-   "Category:Baraat"
-  ],
-  "bride_portrait": [
-   "Category:Brides in saris",
-   "Category:Indian brides",
-   "Category:Bengali brides"
-  ],
-  "decor": [
-   "Category:Wedding flower decorations in India",
-   "Category:Wedding decorations in India",
-   "Category:Mandaps"
-  ],
-  "food": [
-   "Category:Wedding food of India"
-  ],
-  "general": [
-   "Category:Weddings in India",
-   "Category:Hindu weddings in India"
-  ]
- },
- "photos": [
-  {
-   "title": "File:Haldi Ceremony in a Bengali Wedding 19.jpg",
-   "moment": "haldi"
-  },
-  {
-   "title": "File:Haldi Ceremony in a Bengali Wedding 20.jpg",
-   "moment": "haldi"
-  },
-  {
-   "title": "File:Haldi Ceremony in a Bengali Wedding 21.jpg",
-   "moment": "haldi"
-  },
-  {
-   "title": "File:Haldi Ceremony in a Bengali Wedding 22.jpg",
-   "moment": "haldi"
-  },
-  {
-   "title": "File:Haldi Ceremony in a Bengali Wedding 23.jpg",
-   "moment": "haldi"
-  },
-  {
-   "title": "File:Haldi Ceremony in a Bengali Wedding 24.jpg",
-   "moment": "haldi"
-  },
-  {
-   "title": "File:Haldi Ceremony in a Bengali Wedding 25.jpg",
-   "moment": "haldi"
-  },
-  {
-   "title": "File:Bengali Wedding Rituals in Kolkata 155.jpg",
-   "moment": "sindoor"
-  },
-  {
-   "title": "File:Bengali Wedding Rituals in Kolkata 156.jpg",
-   "moment": "sindoor"
-  },
-  {
-   "title": "File:Bengali Wedding Rituals in Kolkata 157.jpg",
-   "moment": "sindoor"
-  },
-  {
-   "title": "File:Bengali Wedding Rituals in Kolkata 158.jpg",
-   "moment": "sindoor"
-  },
-  {
-   "title": "File:Bengali Wedding Rituals in Kolkata 159.jpg",
-   "moment": "sindoor"
-  },
-  {
-   "title": "File:Bengali Wedding Rituals in Kolkata 152.jpg",
-   "moment": "fire_ritual"
-  },
-  {
-   "title": "File:Bengali Wedding Rituals in Kolkata 153.jpg",
-   "moment": "fire_ritual"
-  },
-  {
-   "title": "File:Bengali Wedding Rituals in Kolkata 154.jpg",
-   "moment": "fire_ritual"
-  },
-  {
-   "title": "File:Portrait of a Bengali Bride 01.jpg",
-   "moment": "bride_portrait"
-  },
-  {
-   "title": "File:Portrait of a Bengali Bride 02.jpg",
-   "moment": "bride_portrait"
-  },
-  {
-   "title": "File:Portrait of a Bengali Bride 03.jpg",
-   "moment": "bride_portrait"
-  },
-  {
-   "title": "File:Portrait of a Bengali Bride 04.jpg",
-   "moment": "bride_portrait"
-  },
-  {
-   "title": "File:Portrait of a Bengali Bride 05.jpg",
-   "moment": "bride_portrait"
-  },
-  {
-   "title": "File:Portrait of a Bengali Bride 06.jpg",
-   "moment": "bride_portrait"
-  },
-  {
-   "title": "File:Portrait of a Bengali Bride 07.jpg",
-   "moment": "bride_portrait"
-  },
-  {
-   "title": "File:Portrait of a Bengali Bride 11.jpg",
-   "moment": "bride_portrait"
-  },
-  {
-   "title": "File:Portrait of a Bengali Bride 12.jpg",
-   "moment": "bride_portrait"
-  },
-  {
-   "title": "File:Portrait of a Bengali Bride 13.jpg",
-   "moment": "bride_portrait"
-  },
-  {
-   "title": "File:Portrait of a Bengali Bride 14.jpg",
-   "moment": "bride_portrait"
-  },
-  {
-   "title": "File:Portrait of a Bengali Bride 15.jpg",
-   "moment": "bride_portrait"
-  },
-  {
-   "title": "File:Portrait of a Bengali Bride 18.jpg",
-   "moment": "bride_portrait"
-  },
-  {
-   "title": "File:Adhibaas in a Bengali Marriage 01.jpg",
-   "moment": "priest_ritual"
-  },
-  {
-   "title": "File:Adhibaas in a Bengali Marriage 02.jpg",
-   "moment": "priest_ritual"
-  },
-  {
-   "title": "File:Adhibaas in a Bengali Marriage 03.jpg",
-   "moment": "priest_ritual"
-  },
-  {
-   "title": "File:Adhibaas in a Bengali Marriage 04.jpg",
-   "moment": "priest_ritual"
-  },
-  {
-   "title": "File:Adhibaas in a Bengali Marriage 11.jpg",
-   "moment": "priest_ritual"
-  },
-  {
-   "title": "File:Adhibaas in a Bengali Marriage 12.jpg",
-   "moment": "priest_ritual"
-  },
-  {
-   "title": "File:Adhibaas in a Bengali Marriage 13.jpg",
-   "moment": "priest_ritual"
-  },
-  {
-   "title": "File:Adhibaas in a Bengali Marriage 27.jpg",
-   "moment": "priest_ritual"
-  },
-  {
-   "title": "File:Adhibaas in a Bengali Marriage 28.jpg",
-   "moment": "priest_ritual"
-  },
-  {
-   "title": "File:Adhibaas in a Bengali Marriage 25.jpg",
-   "moment": "details"
-  },
-  {
-   "title": "File:Adhibaas in a Bengali Marriage 35.jpg",
-   "moment": "details"
-  },
-  {
-   "title": "File:Adhibaas in a Bengali Marriage 37.jpg",
-   "moment": "details"
-  },
-  {
-   "title": "File:Bengali Wedding Rituals in Kolkata 148.jpg",
-   "moment": "couple"
-  },
-  {
-   "title": "File:Bengali Wedding Rituals in Kolkata 160.jpg",
-   "moment": "couple"
-  },
-  {
-   "title": "File:Bengali Wedding Rituals in Kolkata 161.jpg",
-   "moment": "couple"
-  }
+ "prompts": [
+  "a close-up portrait of a smiling person",
+  "a bride and groom posing together",
+  "a large family group posing for a photo",
+  "friends laughing and having fun together",
+  "people dancing",
+  "a decorated wedding stage or mandap",
+  "flower decorations",
+  "henna or jewellery on hands, close-up",
+  "food on plates or a buffet",
+  "a birthday cake with candles",
+  "a crowd of people seen from far away",
+  "people with their backs to the camera",
+  "people sitting on chairs watching an event",
+  "a person speaking at a podium",
+  "an empty room or hallway",
+  "a building or monument",
+  "a landscape or scenery",
+  "a busy street or market",
+  "a car, bus or train",
+  "a sign, poster or text",
+  "a priest performing a ritual with fire",
+  "elders blessing the bride and groom",
+  "an elderly person",
+  "a baby or small child",
+  "a selfie",
+  "a blurry or badly lit photo",
+  "a beautiful, well-composed photograph",
+  "an emotional moment, people crying"
  ]
 }
