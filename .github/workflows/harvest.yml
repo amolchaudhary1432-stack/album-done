@@ -63,7 +63,15 @@ jobs:
             git show FETCH_HEAD:sets.jsonl > sets.jsonl 2>/dev/null || true
           fi
           # Look again for at most 70 minutes, adding to the sets found before.
-          if [ "${{ steps.settings.outputs.recrawl }}" = yes ] || [ ! -s sets.jsonl ]; then python3 tools/harvest/crawl.py sets.jsonl 1500 70; fi
+          if [ "${{ steps.settings.outputs.recrawl }}" = yes ] || [ ! -s sets.jsonl ]; then
+            python3 tools/harvest/crawl.py sets.jsonl 1500 70
+            # Keep the list at once, so a later step that fails or is stopped does not lose it.
+            mkdir -p keep && (git archive FETCH_HEAD 2>/dev/null | tar -x -C keep || true)
+            cp sets.jsonl keep/sets.jsonl
+            cd keep && git init -q -b harvest-data && git config user.name harvest && git config user.email harvest@users.noreply.github.com
+            git add -A && git commit -q -m "Sets found, harvest run ${{ github.run_number }}"
+            git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" harvest-data && cd ..
+          fi
           echo "$(wc -l < sets.jsonl) sets known, $(wc -l < done.txt) measured before, $(wc -l < seen.txt) photos seen"
 
       - uses: actions/upload-artifact@v4
