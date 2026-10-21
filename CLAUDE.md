@@ -16,7 +16,8 @@ that must stay true.
 - Indian weddings are huge: the app must handle 40+ relatives smoothly, not 6.
 - **Not a wedding-only app** (owner's decision): "Album Done picks the album-worthy photos from any
   raw folder, on your phone." Weddings are the first and biggest use. New album asks "What are these
-  photos of?" (`plan/Occasion`: Wedding, Engagement, Birthday (a child's or a grown-up's), Trip, Other), guessed from the
+  photos of?" (`plan/Occasion`: Wedding, Engagement, Birthday (a child's or a grown-up's), Family function
+  (naming / annaprashan, baby shower, anniversary, housewarming), Trip, Other), guessed from the
   folder names. Only Wedding and Engagement have a couple and the bride's/groom's sides; other
   occasions have one main person (or two on a trip), found as the most photographed, and the
   words follow ("the birthday star", "Portrait of Riya"). Photo judging is the same for all.
@@ -144,7 +145,9 @@ Design mock-up: https://claude.ai/artifact/KzbjcqjdAW5KkNJ47pFf6f
   tap, Remove (the next best photo fills the place at once, with Undo). Swaps are the couple's
   own choices (`PhotoEntity.userChoice`) and are kept when the album is re-made.
 - Send: the exact list (event headings, folder/file names) shared as plain text.
-- Fonts: Mukta (body, covers Devanagari) and Marcellus (headings), both OFL, in `res/font/`.
+- Look: photo first, white, near-black buttons, one saffron accent (`ui/Theme.kt`). Font: Plus Jakarta
+  Sans (OFL) in `res/font/`; Devanagari names use the phone's own font.
+  Mock-up: https://claude.ai/artifact/FhsiF3pfnqkssR1UJ5PdQz
 
 ### Tests
 

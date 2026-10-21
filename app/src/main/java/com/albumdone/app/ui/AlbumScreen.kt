@@ -30,7 +30,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyGridItemSpanScope
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
@@ -42,15 +42,12 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.MoreVert
-import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.FabPosition
-import androidx.compose.material3.FilterChip
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -78,10 +75,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -129,24 +128,6 @@ fun AlbumScreen(vm: AlbumViewModel, projectId: Long) {
         // The cover photo runs up behind the status bar; the rest keeps clear of the phone's bars itself.
         contentWindowInsets = WindowInsets(0, 0, 0, 0),
         snackbarHost = { SnackbarHost(host, Modifier.navigationBarsPadding()) },
-        floatingActionButton = {
-            if (s != null) {
-                // A plain button (not the floating action button): its label must stay readable to
-                // screen readers and the phone test.
-                Button(
-                    onClick = { vm.openSend(projectId) },
-                    shape = RoundedCornerShape(28.dp),
-                    elevation = ButtonDefaults.buttonElevation(defaultElevation = 6.dp, pressedElevation = 8.dp),
-                    contentPadding = PaddingValues(horizontal = 24.dp, vertical = 16.dp),
-                    modifier = Modifier.navigationBarsPadding(),
-                ) {
-                    Icon(Icons.Default.Share, contentDescription = null, modifier = Modifier.size(20.dp))
-                    Spacer(Modifier.width(10.dp))
-                    Text("Send list to photographer", style = MaterialTheme.typography.titleMedium)
-                }
-            }
-        },
-        floatingActionButtonPosition = FabPosition.Center,
     ) { padding ->
         if (s == null) {
             Column(Modifier.fillMaxSize().padding(padding), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
@@ -157,13 +138,14 @@ fun AlbumScreen(vm: AlbumViewModel, projectId: Long) {
             return@Scaffold
         }
         val full: LazyGridItemSpanScope.() -> GridItemSpan = { GridItemSpan(maxLineSpan) }
+        Box(Modifier.fillMaxSize()) {
         LazyVerticalGrid(
             columns = GridCells.Fixed(3),
             state = grid,
             modifier = Modifier.fillMaxSize().padding(padding).testTag("album-grid"),
             contentPadding = PaddingValues(bottom = 120.dp),
-            horizontalArrangement = Arrangement.spacedBy(2.dp),
-            verticalArrangement = Arrangement.spacedBy(2.dp),
+            horizontalArrangement = Arrangement.spacedBy(4.dp),
+            verticalArrangement = Arrangement.spacedBy(4.dp),
         ) {
             item(key = "hero", span = full) {
                 Hero(s, onBack = vm::back, onMenu = { settingsSheet = true }, onOpenCover = { s.cover?.let { vm.openPhoto(projectId, it.photo.id) } })
@@ -190,8 +172,10 @@ fun AlbumScreen(vm: AlbumViewModel, projectId: Long) {
                         Text("${e.photos.size} photos", color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.bodyMedium)
                     }
                 }
-                items(e.photos, key = { it.photo.id }) { p ->
-                    Box(Modifier.aspectRatio(1f).clickable { vm.openPhoto(projectId, p.photo.id) }.testTag("album-photo")) {
+                itemsIndexed(e.photos, key = { _, p -> p.photo.id }) { i, p ->
+                    val margin = when (i % 3) { 0 -> PaddingValues(start = 12.dp); 1 -> PaddingValues(horizontal = 6.dp); else -> PaddingValues(end = 12.dp) }
+                    Box(Modifier.padding(margin).aspectRatio(1f).clip(RoundedCornerShape(12.dp))
+                        .clickable { vm.openPhoto(projectId, p.photo.id) }.testTag("album-photo")) {
                         PhotoThumb(p.photo, p.crop, Modifier.fillMaxSize())
                         if (p.cover) {
                             Icon(Icons.Default.Star, contentDescription = "Cover", tint = Color.White,
@@ -200,6 +184,8 @@ fun AlbumScreen(vm: AlbumViewModel, projectId: Long) {
                     }
                 }
             }
+        }
+        SendBar(s.total, onClick = { vm.openSend(projectId) }, modifier = Modifier.align(Alignment.BottomCenter))
         }
 
         if (!coverBehindBar || s.cover == null) {
@@ -215,6 +201,30 @@ fun AlbumScreen(vm: AlbumViewModel, projectId: Long) {
     }
 }
 
+/** Floating at the bottom: how many photos are ready, and Send. */
+@Composable
+private fun SendBar(total: Int, onClick: () -> Unit, modifier: Modifier = Modifier) {
+    Row(
+        modifier.navigationBarsPadding().padding(horizontal = 16.dp, vertical = 14.dp).fillMaxWidth().height(64.dp)
+            .shadow(14.dp, RoundedCornerShape(32.dp)).clip(RoundedCornerShape(32.dp)).background(Ink.copy(alpha = 0.94f))
+            .clickable(onClick = onClick).padding(start = 20.dp, end = 8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Column(Modifier.weight(1f)) {
+            Text("$total photos ready", color = Color.White, style = MaterialTheme.typography.titleSmall)
+            Text("Send list to photographer", color = Color.White.copy(alpha = 0.7f), style = MaterialTheme.typography.bodySmall)
+        }
+        Row(
+            Modifier.height(48.dp).clip(RoundedCornerShape(24.dp)).background(Saffron).padding(horizontal = 18.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Icon(LineIcons.Send, contentDescription = null, tint = Color.White, modifier = Modifier.size(18.dp))
+            Spacer(Modifier.width(8.dp))
+            Text("Send", color = Color.White, style = MaterialTheme.typography.titleSmall)
+        }
+    }
+}
+
 /** "40 photos · Change size": the album size, one tap away on the cover. */
 @Composable
 private fun SizeLine(s: AlbumState, onMenu: () -> Unit, color: Color, pill: Color) {
@@ -224,10 +234,10 @@ private fun SizeLine(s: AlbumState, onMenu: () -> Unit, color: Color, pill: Colo
                 .padding(horizontal = 12.dp, vertical = 6.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Text("${s.total} photos", color = color, style = MaterialTheme.typography.labelLarge)
-            Text("  ·  Change size", color = color.copy(alpha = 0.8f), style = MaterialTheme.typography.labelLarge)
+            Text("${s.total} photos · Change size", color = color, style = MaterialTheme.typography.labelLarge)
         }
-        if (s.events.size > 1) Text("${s.events.size} events", color = color.copy(alpha = 0.85f), style = MaterialTheme.typography.bodyMedium)
+        if (s.events.size > 1) Text("${s.events.size} events", color = if (color == Ink) MaterialTheme.colorScheme.onSurfaceVariant else Color.White.copy(alpha = 0.85f),
+            style = MaterialTheme.typography.labelLarge)
     }
 }
 
@@ -237,14 +247,14 @@ private fun Hero(s: AlbumState, onBack: () -> Unit, onMenu: () -> Unit, onOpenCo
     val cover = s.cover
     if (cover == null) {
         Column(Modifier.fillMaxWidth().statusBarsPadding().padding(top = 4.dp)) {
-            Row(Modifier.fillMaxWidth().padding(horizontal = 4.dp), verticalAlignment = Alignment.CenterVertically) {
-                IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back") }
+            Row(Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 6.dp), verticalAlignment = Alignment.CenterVertically) {
+                RoundIconButton(Icons.AutoMirrored.Filled.ArrowBack, "Back", onBack)
                 Spacer(Modifier.weight(1f))
-                IconButton(onClick = onMenu) { Icon(Icons.Default.MoreVert, contentDescription = "Album size and more") }
+                RoundIconButton(Icons.Default.MoreVert, "Album size and more", onMenu)
             }
             Column(Modifier.padding(horizontal = 20.dp)) {
                 Text(s.project.name, style = MaterialTheme.typography.headlineLarge)
-                SizeLine(s, onMenu, MaterialTheme.colorScheme.onSurface, MaterialTheme.colorScheme.surfaceContainerHigh)
+                SizeLine(s, onMenu, MaterialTheme.colorScheme.onSurface, MaterialTheme.colorScheme.surfaceContainer)
             }
         }
         return
@@ -260,18 +270,18 @@ private fun Hero(s: AlbumState, onBack: () -> Unit, onMenu: () -> Unit, onOpenCo
             Modifier.fillMaxWidth().fillMaxHeight(0.55f).align(Alignment.BottomCenter)
                 .background(Brush.verticalGradient(listOf(Color.Transparent, Color(0xD9120B15)))),
         )
-        Row(Modifier.fillMaxWidth().statusBarsPadding().padding(4.dp), verticalAlignment = Alignment.CenterVertically) {
-            IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back", tint = Color.White) }
+        Row(Modifier.fillMaxWidth().statusBarsPadding().padding(horizontal = 12.dp, vertical = 6.dp), verticalAlignment = Alignment.CenterVertically) {
+            RoundIconButton(Icons.AutoMirrored.Filled.ArrowBack, "Back", onBack, overPhoto = true)
             Spacer(Modifier.weight(1f))
-            IconButton(onClick = onMenu) { Icon(Icons.Default.MoreVert, contentDescription = "Album size and more", tint = Color.White) }
+            RoundIconButton(Icons.Default.MoreVert, "Album size and more", onMenu, overPhoto = true)
         }
-        Column(Modifier.align(Alignment.BottomStart).padding(start = 20.dp, end = 20.dp, bottom = 18.dp)) {
-            Surface(color = Color(0x40FFFFFF), shape = RoundedCornerShape(50)) {
-                Text("COVER", color = Color.White, style = MaterialTheme.typography.labelSmall, modifier = Modifier.padding(horizontal = 10.dp, vertical = 2.dp))
-            }
-            Spacer(Modifier.height(8.dp))
+        Column(Modifier.align(Alignment.BottomStart).padding(start = 20.dp, end = 20.dp, bottom = 20.dp)) {
+            Text("COVER · ${s.occasion.label.uppercase()}", color = Color.White.copy(alpha = 0.85f), style = MaterialTheme.typography.labelMedium,
+                letterSpacing = 1.2.sp)
+            Spacer(Modifier.height(4.dp))
             Text(s.project.name, style = MaterialTheme.typography.headlineLarge, color = Color.White, maxLines = 2, overflow = TextOverflow.Ellipsis)
-            SizeLine(s, onMenu, Color.White, Color(0x40FFFFFF))
+            Spacer(Modifier.height(6.dp))
+            SizeLine(s, onMenu, Ink, Color.White)
         }
     }
 }
@@ -279,8 +289,8 @@ private fun Hero(s: AlbumState, onBack: () -> Unit, onMenu: () -> Unit, onOpenCo
 @Composable
 private fun FamilySection(s: AlbumState, onPerson: (Long) -> Unit, onSeeAll: () -> Unit, onQuickTag: () -> Unit) {
     val everyone = listOfNotNull(s.bride, s.groom).size + s.family.size + s.others.size
-    Column(Modifier.fillMaxWidth().padding(top = 24.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-        Row(Modifier.fillMaxWidth().padding(start = 16.dp, end = 4.dp), verticalAlignment = Alignment.CenterVertically) {
+    Column(Modifier.fillMaxWidth().padding(top = 22.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        Row(Modifier.fillMaxWidth().padding(start = 20.dp, end = 8.dp), verticalAlignment = Alignment.CenterVertically) {
             Column(Modifier.weight(1f)) {
                 Text("Family in your album", style = MaterialTheme.typography.titleMedium)
                 Text(
@@ -289,18 +299,17 @@ private fun FamilySection(s: AlbumState, onPerson: (Long) -> Unit, onSeeAll: () 
                 )
             }
             TextButton(onClick = onSeeAll, modifier = Modifier.testTag("see-all-people")) {
-                Text("See all $everyone")
-                Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = null, modifier = Modifier.size(18.dp))
+                Text("See all $everyone", style = MaterialTheme.typography.titleSmall, color = MaterialTheme.colorScheme.onSurface)
             }
         }
         val strip = s.family.take(STRIP_SIZE)
         if (strip.isNotEmpty()) {
-            LazyRow(contentPadding = PaddingValues(horizontal = 12.dp), horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+            LazyRow(contentPadding = PaddingValues(horizontal = 14.dp), horizontalArrangement = Arrangement.spacedBy(2.dp)) {
                 items(strip, key = { it.personId }) { c -> PersonChipView(c) { onPerson(c.personId) } }
                 if (s.family.size > STRIP_SIZE) {
                     item {
-                        Column(Modifier.width(84.dp).clickable(onClick = onSeeAll), horizontalAlignment = Alignment.CenterHorizontally) {
-                            Box(Modifier.size(64.dp).clip(CircleShape).background(MaterialTheme.colorScheme.surfaceContainerHigh), contentAlignment = Alignment.Center) {
+                        Column(Modifier.width(78.dp).clickable(onClick = onSeeAll), horizontalAlignment = Alignment.CenterHorizontally) {
+                            Box(Modifier.size(64.dp).clip(CircleShape).background(MaterialTheme.colorScheme.surfaceContainer), contentAlignment = Alignment.Center) {
                                 Text("+${s.family.size - STRIP_SIZE}", style = MaterialTheme.typography.titleMedium)
                             }
                             Text("See all", style = MaterialTheme.typography.labelLarge)
@@ -311,10 +320,10 @@ private fun FamilySection(s: AlbumState, onPerson: (Long) -> Unit, onSeeAll: () 
         }
         if (s.toName.isNotEmpty()) QuickTagCard(s.toName, onQuickTag, Modifier.padding(horizontal = 16.dp))
         for (w in s.warnings) {
-            Surface(color = MaterialTheme.colorScheme.errorContainer, shape = RoundedCornerShape(16.dp), modifier = Modifier.padding(horizontal = 16.dp)) {
-                Row(Modifier.padding(12.dp), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+            Surface(color = MaterialTheme.colorScheme.surfaceContainer, shape = RoundedCornerShape(18.dp), modifier = Modifier.padding(horizontal = 16.dp)) {
+                Row(Modifier.padding(14.dp), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                     Icon(Icons.Default.Warning, contentDescription = null, tint = MaterialTheme.colorScheme.error, modifier = Modifier.size(20.dp))
-                    Text(w, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onErrorContainer)
+                    Text(w, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurface)
                 }
             }
         }
@@ -326,8 +335,8 @@ private fun FamilySection(s: AlbumState, onPerson: (Long) -> Unit, onSeeAll: () 
 fun QuickTagCard(toName: List<PersonChip>, onClick: () -> Unit, modifier: Modifier = Modifier) {
     val n = toName.size
     val bg = MaterialTheme.colorScheme.secondaryContainer
-    Surface(color = bg, shape = RoundedCornerShape(20.dp), modifier = modifier.fillMaxWidth().clip(RoundedCornerShape(20.dp)).clickable(onClick = onClick).testTag("quick-tag")) {
-        Row(Modifier.padding(14.dp), verticalAlignment = Alignment.CenterVertically) {
+    Surface(color = bg, shape = RoundedCornerShape(22.dp), modifier = modifier.fillMaxWidth().clip(RoundedCornerShape(22.dp)).clickable(onClick = onClick).testTag("quick-tag")) {
+        Row(Modifier.padding(horizontal = 16.dp, vertical = 14.dp), verticalAlignment = Alignment.CenterVertically) {
             Box(Modifier.width(80.dp)) {
                 toName.take(3).forEachIndexed { i, c ->
                     Box(Modifier.padding(start = (i * 22).dp).border(2.dp, bg, CircleShape)) { FaceAvatar(c.face, 38.dp) }
@@ -335,11 +344,11 @@ fun QuickTagCard(toName: List<PersonChip>, onClick: () -> Unit, modifier: Modifi
             }
             Spacer(Modifier.width(10.dp))
             Column(Modifier.weight(1f)) {
-                Text("Who's who?", style = MaterialTheme.typography.titleSmall, color = MaterialTheme.colorScheme.onSecondaryContainer)
-                Text("Name $n ${if (n == 1) "face" else "faces"}, one tap each. Your album gets the right people.",
-                    style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSecondaryContainer)
+                Text("Who's who? $n ${if (n == 1) "face" else "faces"}", style = MaterialTheme.typography.titleSmall, color = MaterialTheme.colorScheme.onSecondaryContainer)
+                Text("One tap each. Your family gets the right photos.",
+                    style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
-            Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = null, tint = MaterialTheme.colorScheme.onSecondaryContainer)
+            Icon(LineIcons.Next, contentDescription = null, tint = MaterialTheme.colorScheme.onSecondaryContainer, modifier = Modifier.size(20.dp))
         }
     }
 }
@@ -353,7 +362,7 @@ private fun CoupleCard(s: AlbumState, onTap: (Long) -> Unit, onSwap: () -> Unit,
     val faces = main + (if (s.occasion.child && found) s.parents.take(2) else emptyList())
     val unsure = found && !s.project.coupleSure
     val bg = if (unsure) MaterialTheme.colorScheme.secondaryContainer else MaterialTheme.colorScheme.surfaceContainer
-    Surface(color = bg, shape = RoundedCornerShape(20.dp), modifier = Modifier.fillMaxWidth().testTag("couple-card")) {
+    Surface(color = bg, shape = RoundedCornerShape(22.dp), modifier = Modifier.fillMaxWidth().testTag("couple-card")) {
         Column(Modifier.padding(start = 14.dp, top = 12.dp, bottom = if (unsure) 6.dp else 12.dp, end = 6.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 if (!found) {
@@ -447,17 +456,20 @@ private fun ChooseGroomSheet(s: AlbumState, onPick: (Long) -> Unit, onClose: () 
 @Composable
 fun PersonChipView(c: PersonChip, onClick: () -> Unit) {
     val low = c.warning != null && c.inAlbum < c.target
-    Column(Modifier.width(84.dp).clickable(onClick = onClick).testTag("person-chip"), horizontalAlignment = Alignment.CenterHorizontally) {
-        Box {
-            FaceAvatar(c.face, 64.dp, unknown = false)
-            if (low) DotBadge("!", MaterialTheme.colorScheme.error, Modifier.align(Alignment.BottomEnd))
+    Column(Modifier.width(78.dp).clickable(onClick = onClick).testTag("person-chip"), horizontalAlignment = Alignment.CenterHorizontally) {
+        // A ring like a story: the accent for someone named, grey for a guess.
+        val ring = if (c.known) Saffron else MaterialTheme.colorScheme.outlineVariant
+        Box(Modifier.clip(CircleShape).background(ring).padding(2.dp).clip(CircleShape)
+            .background(MaterialTheme.colorScheme.background).padding(2.dp)) {
+            FaceAvatar(c.face, 60.dp, unknown = false)
         }
         Spacer(Modifier.height(4.dp))
         // Two lines, so "Bride's mother" and "Groom's side" show in full.
         Text(c.label, style = MaterialTheme.typography.labelMedium, maxLines = 2, minLines = 2, overflow = TextOverflow.Ellipsis,
             textAlign = TextAlign.Center, lineHeight = 15.sp,
             color = if (c.known) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurfaceVariant)
-        Text("${c.inAlbum} photo${if (c.inAlbum == 1) "" else "s"}", style = MaterialTheme.typography.labelMedium,
+        Text(if (low && c.inAlbum <= 1) "Only ${c.inAlbum}" else "${c.inAlbum} photo${if (c.inAlbum == 1) "" else "s"}",
+            style = if (low) MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.ExtraBold) else MaterialTheme.typography.labelMedium,
             color = if (low) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant)
     }
 }
@@ -557,12 +569,12 @@ private fun PersonSheetContent(
         if (d.role == null) {
             FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 for ((value, label) in sides) {
-                    FilterChip(selected = chosenSide == value, onClick = { setSide(value); setRelation("") }, label = { Text(label) })
+                    Pill(selected = chosenSide == value, onClick = { setSide(value); setRelation("") }, label = { Text(label) })
                 }
             }
             FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 for (r in if (chosenSide == PersonSide.UNKNOWN) FRIENDS else FAMILY) {
-                    FilterChip(selected = relation == r, onClick = { setRelation(r) }, label = { Text(r) }, modifier = Modifier.testTag("relation-$r"))
+                    Pill(selected = relation == r, onClick = { setRelation(r) }, label = { Text(r) }, modifier = Modifier.testTag("relation-$r"))
                 }
             }
             OutlinedTextField(value = name, onValueChange = { setName(it.take(30)) }, singleLine = true,
@@ -620,7 +632,7 @@ private fun SettingsSheet(vm: AlbumViewModel, projectId: Long, s: AlbumState, on
                 color = MaterialTheme.colorScheme.onSurfaceVariant)
             FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 for (n in (AlbumSize.choices(s.folderPhotos) + s.project.albumSize).distinct().sorted()) {
-                    FilterChip(selected = s.project.albumSize == n, onClick = { vm.setAlbumSize(projectId, n); onClose() }, label = { Text("$n") })
+                    Pill(selected = s.project.albumSize == n, onClick = { vm.setAlbumSize(projectId, n); onClose() }, label = { Text("$n") })
                 }
             }
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {

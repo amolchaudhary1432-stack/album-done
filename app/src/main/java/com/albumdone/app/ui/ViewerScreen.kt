@@ -1,6 +1,7 @@
 package com.albumdone.app.ui
 
 import android.content.Intent
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -18,6 +19,7 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -33,10 +35,7 @@ import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.FilterChip
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
@@ -44,8 +43,6 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -62,6 +59,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -71,7 +69,7 @@ import com.albumdone.app.plan.Side
 /** Behind the photo: near black, so the photo's own colours show true. */
 private val Backdrop = Color(0xFF0F0B11)
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun ViewerScreen(vm: AlbumViewModel, projectId: Long, photoId: Long) {
     val flow = remember(projectId, photoId) { vm.viewer(projectId, photoId) }
@@ -83,28 +81,27 @@ fun ViewerScreen(vm: AlbumViewModel, projectId: Long, photoId: Long) {
     Scaffold(
         containerColor = Backdrop,
         topBar = {
-            TopAppBar(
-                title = { Text(state?.photo?.event?.let { Display.eventName(it) } ?: "", maxLines = 1, overflow = TextOverflow.Ellipsis) },
-                navigationIcon = { IconButton(onClick = vm::back) { Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back") } },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Backdrop, titleContentColor = Color.White, navigationIconContentColor = Color.White,
-                ),
-            )
+            Row(Modifier.fillMaxWidth().background(Backdrop).statusBarsPadding().padding(horizontal = 12.dp, vertical = 6.dp),
+                verticalAlignment = Alignment.CenterVertically) {
+                RoundIconButton(Icons.AutoMirrored.Filled.ArrowBack, "Back", vm::back, overPhoto = true)
+                Text(state?.photo?.event?.let { Display.eventName(it) } ?: "", maxLines = 1, overflow = TextOverflow.Ellipsis,
+                    color = Color.White, style = MaterialTheme.typography.titleSmall, textAlign = TextAlign.Center, modifier = Modifier.weight(1f))
+                Spacer(Modifier.width(44.dp))
+            }
         },
         snackbarHost = { SnackbarHost(host) },
         bottomBar = {
             val s = state
             if (s != null && s.inAlbum) {
                 Surface(color = MaterialTheme.colorScheme.background) {
-                    Row(Modifier.navigationBarsPadding().padding(horizontal = 20.dp, vertical = 12.dp), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                    Row(Modifier.navigationBarsPadding().padding(horizontal = 20.dp, vertical = 12.dp), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                         OutlinedButton(
                             onClick = { vm.remove(projectId, photoId) },
-                            modifier = Modifier.weight(1f).height(52.dp), shape = RoundedCornerShape(26.dp),
-                        ) { Text("Remove") }
-                        Button(onClick = vm::back, modifier = Modifier.weight(1f).height(52.dp), shape = RoundedCornerShape(26.dp)) {
-                            Icon(Icons.Default.Check, contentDescription = null, modifier = Modifier.size(18.dp))
-                            Spacer(Modifier.width(8.dp))
-                            Text("Keep")
+                            modifier = Modifier.weight(1f).height(56.dp), shape = RoundedCornerShape(28.dp),
+                            border = BorderStroke(1.5.dp, MaterialTheme.colorScheme.outline),
+                        ) { Text("Remove", style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.onSurface) }
+                        Button(onClick = vm::back, modifier = Modifier.weight(1f).height(56.dp), shape = RoundedCornerShape(28.dp)) {
+                            Text("Keep", style = MaterialTheme.typography.titleMedium)
                         }
                     }
                 }
@@ -127,7 +124,7 @@ fun ViewerScreen(vm: AlbumViewModel, projectId: Long, photoId: Long) {
             }
             Surface(
                 color = MaterialTheme.colorScheme.background,
-                shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp),
+                shape = RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp),
                 // Reaches down to the buttons, so no dark strip shows under short reasons.
                 modifier = Modifier.fillMaxWidth().padding(top = 12.dp).heightIn(min = (LocalConfiguration.current.screenHeightDp * 0.5f).dp),
             ) {
@@ -143,12 +140,14 @@ fun ViewerScreen(vm: AlbumViewModel, projectId: Long, photoId: Long) {
                     }
                     SectionLabel("Why it's in your album")
                     val reasons = s.photo.reasons.ifEmpty { listOf("One of the best photos of ${Display.eventName(s.photo.event)}") }
-                    for (r in reasons) {
-                        Row(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.CenterVertically) {
-                            Box(Modifier.size(24.dp).clip(CircleShape).background(MaterialTheme.colorScheme.secondaryContainer), contentAlignment = Alignment.Center) {
-                                Icon(Icons.Default.Check, contentDescription = null, modifier = Modifier.size(14.dp), tint = MaterialTheme.colorScheme.onSecondaryContainer)
+                    FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                        for (r in reasons) {
+                            Row(Modifier.clip(RoundedCornerShape(17.dp)).background(MaterialTheme.colorScheme.surfaceContainer)
+                                .padding(horizontal = 12.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
+                                Icon(LineIcons.Tick, contentDescription = null, modifier = Modifier.size(14.dp), tint = Saffron)
+                                Spacer(Modifier.width(6.dp))
+                                Text(r, style = MaterialTheme.typography.labelLarge)
                             }
-                            Text(r, style = MaterialTheme.typography.bodyLarge)
                         }
                     }
                     Text(s.photo.photo.name, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
@@ -157,7 +156,7 @@ fun ViewerScreen(vm: AlbumViewModel, projectId: Long, photoId: Long) {
                         SectionLabel("Prefer another one? Tap to swap")
                         LazyRow(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                             items(s.alternatives, key = { it.photo.id }) { alt ->
-                                Column(Modifier.width(108.dp).clickable { vm.swap(projectId, photoId, alt.photo.id) }.testTag("alternative")) {
+                                Column(Modifier.width(96.dp).clickable { vm.swap(projectId, photoId, alt.photo.id) }.testTag("alternative")) {
                                     PhotoThumb(alt.photo, alt.crop, Modifier.fillMaxWidth().aspectRatio(1f).clip(RoundedCornerShape(14.dp)))
                                     Spacer(Modifier.height(4.dp))
                                     Text(alt.note, style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 2)
@@ -222,7 +221,7 @@ fun SendScreen(vm: AlbumViewModel, projectId: Long) {
                     SectionLabel("Whose album")
                     FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         for ((value, label) in listOf(null to "The two of you", Side.BRIDE to "Bride's family", Side.GROOM to "Groom's family")) {
-                            FilterChip(selected = forWhom == value, onClick = { forWhom = value }, label = { Text(label) },
+                            Pill(selected = forWhom == value, onClick = { forWhom = value }, label = { Text(label) },
                                 modifier = Modifier.testTag("album-for-${value ?: "couple"}"))
                         }
                     }

@@ -6,7 +6,11 @@ import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.ui.semantics.Role
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,6 +27,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.material3.Button
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
@@ -39,7 +46,6 @@ import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.FilterChip
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
@@ -78,10 +84,6 @@ import com.albumdone.app.plan.Display
 import com.albumdone.app.plan.Occasion
 import java.io.File
 
-/** Deep plum to a softer plum: the brand, the same in light and dark mode. */
-private val BrandGradient = Brush.linearGradient(listOf(Color(0xFF3B1F45), Color(0xFF6A3B70)))
-private val Gold = Color(0xFFE9B730)
-
 @Composable
 fun HomeScreen(vm: AlbumViewModel) {
     val projects by vm.projects.collectAsStateWithLifecycle()
@@ -90,30 +92,39 @@ fun HomeScreen(vm: AlbumViewModel) {
     }
     var toDelete by remember { mutableStateOf<ProjectSummary?>(null) }
 
-    Scaffold(
-        bottomBar = {
-            BottomBar {
-                BigButton(
-                    if (projects.isEmpty()) "Choose photos folder" else "Start a new album",
-                    onClick = { pickFolder.launch(null) }, icon = Icons.Default.Add,
-                )
-            }
-        },
-    ) { padding ->
+    Box(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)) {
         if (projects.isEmpty()) {
-            Welcome(Modifier.padding(padding))
+            Welcome(Modifier.fillMaxSize())
         } else {
             LazyColumn(
-                Modifier.fillMaxSize().padding(padding),
-                contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 12.dp, bottom = 24.dp),
+                Modifier.fillMaxSize(),
+                contentPadding = PaddingValues(start = 20.dp, end = 20.dp, bottom = 120.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp),
             ) {
-                item { Brand() }
-                item { Text("Your albums", style = MaterialTheme.typography.headlineLarge, modifier = Modifier.padding(top = 4.dp)) }
+                item { Brand(Modifier.statusBarsPadding().padding(top = 14.dp)) }
+                item {
+                    Column(Modifier.padding(top = 6.dp, bottom = 4.dp)) {
+                        Text("Your albums", style = MaterialTheme.typography.displaySmall)
+                        Text("Picked on your phone. Nothing is uploaded.", style = MaterialTheme.typography.bodyLarge,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    }
+                }
                 items(projects, key = { it.project.id }) { summary ->
                     AlbumCard(summary, onOpen = { vm.openProject(summary.project.id) }, onDelete = { toDelete = summary })
                 }
             }
+        }
+        // The one action, floating at the bottom.
+        Button(
+            onClick = { pickFolder.launch(null) },
+            shape = RoundedCornerShape(30.dp),
+            contentPadding = PaddingValues(horizontal = 28.dp),
+            modifier = Modifier.align(Alignment.BottomCenter).navigationBarsPadding().padding(bottom = 20.dp).height(60.dp)
+                .then(if (projects.isEmpty()) Modifier.fillMaxWidth().padding(horizontal = 20.dp) else Modifier),
+        ) {
+            Icon(LineIcons.Plus, contentDescription = null, modifier = Modifier.size(20.dp))
+            Spacer(Modifier.width(10.dp))
+            Text(if (projects.isEmpty()) "Choose photos folder" else "New album", style = MaterialTheme.typography.titleMedium)
         }
     }
 
@@ -131,33 +142,27 @@ fun HomeScreen(vm: AlbumViewModel) {
 @Composable
 private fun Welcome(modifier: Modifier) {
     Column(
-        modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal = 20.dp, vertical = 12.dp),
-        verticalArrangement = Arrangement.spacedBy(22.dp),
+        modifier.verticalScroll(rememberScrollState()).statusBarsPadding().padding(start = 20.dp, end = 20.dp, top = 14.dp, bottom = 120.dp),
+        verticalArrangement = Arrangement.spacedBy(26.dp),
     ) {
         Brand()
-        Column(
-            Modifier.fillMaxWidth().clip(RoundedCornerShape(28.dp)).background(BrandGradient).padding(24.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp),
-        ) {
-            Box(Modifier.size(48.dp).clip(CircleShape).background(Gold), contentAlignment = Alignment.Center) {
-                Icon(Icons.Default.Check, contentDescription = null, tint = Color(0xFF3B1F45), modifier = Modifier.size(28.dp))
-            }
-            Text("Your album, picked the way you would.", style = MaterialTheme.typography.headlineLarge, color = Color.White)
+        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            Text("Your album, picked the way you would.", style = MaterialTheme.typography.displayMedium)
             Text(
-                "Wedding, birthday, trip: choose the folder of photos. We pick the album-worthy ones; you make the final calls.",
-                style = MaterialTheme.typography.bodyLarge, color = Color.White.copy(alpha = 0.85f),
+                "Wedding, birthday, family function or trip: choose the folder of photos. We pick the album-worthy ones; you make the final calls.",
+                style = MaterialTheme.typography.bodyLarge, color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
         }
         Column(verticalArrangement = Arrangement.spacedBy(18.dp)) {
-            Step(Icons.Default.Check, "We check every photo", "Blur, closed eyes, repeats, bad light. Even with the phone locked.")
-            Step(Icons.Default.Face, "Your album, with your people in it", "The best of whoever the photos are about, and the people who matter.")
-            Step(Icons.Default.Share, "Swap, then send", "Change any photo you don't love, then send the list to your photographer or print shop.")
+            Step(LineIcons.Tick, "We check every photo", "Blur, closed eyes, repeats, bad light. Even with the phone locked.")
+            Step(LineIcons.Person, "Your people in it", "The best of whoever the photos are about, and the family who matter.")
+            Step(LineIcons.Send, "Swap, then send", "Change any photo you don't love, then send the list to your photographer or print shop.")
         }
         Row(
-            Modifier.fillMaxWidth().clip(RoundedCornerShape(16.dp)).background(MaterialTheme.colorScheme.surfaceContainer).padding(14.dp),
+            Modifier.fillMaxWidth().clip(RoundedCornerShape(20.dp)).background(MaterialTheme.colorScheme.surfaceContainer).padding(16.dp),
             horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.CenterVertically,
         ) {
-            Icon(Icons.Default.Lock, contentDescription = null, tint = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.size(20.dp))
+            Icon(LineIcons.Lock, contentDescription = null, modifier = Modifier.size(20.dp))
             Text(
                 "Your photos never leave this phone. The app has no internet access. One folder of up to ${"%,d".format(AlbumSize.MAX_PHOTOS)} photos at a time.",
                 style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -167,20 +172,18 @@ private fun Welcome(modifier: Modifier) {
 }
 
 @Composable
-private fun Brand() {
-    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-        Box(Modifier.size(32.dp).clip(RoundedCornerShape(10.dp)).background(BrandGradient), contentAlignment = Alignment.Center) {
-            Icon(Icons.Default.Check, contentDescription = null, tint = Gold, modifier = Modifier.size(20.dp))
-        }
-        Text("Album Done", style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.primary)
+private fun Brand(modifier: Modifier = Modifier) {
+    Row(modifier, verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        Box(Modifier.size(10.dp).clip(CircleShape).background(Saffron))
+        Text("Album Done", style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.ExtraBold))
     }
 }
 
 @Composable
 private fun Step(icon: ImageVector, title: String, text: String) {
     Row(horizontalArrangement = Arrangement.spacedBy(14.dp)) {
-        Box(Modifier.size(40.dp).clip(CircleShape).background(MaterialTheme.colorScheme.secondaryContainer), contentAlignment = Alignment.Center) {
-            Icon(icon, contentDescription = null, tint = MaterialTheme.colorScheme.onSecondaryContainer, modifier = Modifier.size(20.dp))
+        Box(Modifier.size(44.dp).clip(RoundedCornerShape(14.dp)).background(SaffronSoft), contentAlignment = Alignment.Center) {
+            Icon(icon, contentDescription = null, tint = Saffron, modifier = Modifier.size(22.dp))
         }
         Column(Modifier.weight(1f)) {
             Text(title, style = MaterialTheme.typography.titleMedium)
@@ -193,35 +196,40 @@ private fun Step(icon: ImageVector, title: String, text: String) {
 private fun AlbumCard(summary: ProjectSummary, onOpen: () -> Unit, onDelete: () -> Unit) {
     val p = summary.project
     val ready = p.status == ProjectStatus.DONE
+    val occasion = Occasion.of(p.occasion)
+    val fraction = if (summary.total == 0) 0f else summary.done.toFloat() / summary.total
     val status = when (p.status) {
-        ProjectStatus.DONE -> "Album ready · ${p.albumSize} photos"
+        ProjectStatus.DONE -> "${occasion.label} · ${p.albumSize} picked from ${"%,d".format(summary.total)}"
         ProjectStatus.PEOPLE -> "Finding the people in your photos…"
-        else -> "Checking photos: ${"%,d".format(summary.done)} of ${"%,d".format(summary.total)}"
+        else -> "Checking ${"%,d".format(summary.done)} of ${"%,d".format(summary.total)}"
     }
-    Surface(
-        shape = RoundedCornerShape(24.dp), color = MaterialTheme.colorScheme.surfaceContainerLowest, shadowElevation = 2.dp,
-        modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(24.dp)).clickable(onClick = onOpen),
+    Box(
+        Modifier.fillMaxWidth().height(236.dp).clip(RoundedCornerShape(26.dp)).background(Ink).clickable(onClick = onOpen),
     ) {
-        Column {
-            Box(Modifier.fillMaxWidth().aspectRatio(16f / 9f).background(BrandGradient)) {
-                summary.coverThumb?.let {
-                    AsyncImage(model = File(it), contentDescription = null, contentScale = ContentScale.Crop, modifier = Modifier.fillMaxSize())
-                }
-                Box(Modifier.fillMaxSize().background(Brush.verticalGradient(0.35f to Color.Transparent, 1f to Color(0xD9120B15))))
-                Column(Modifier.align(Alignment.BottomStart).padding(16.dp)) {
-                    Text(p.name, style = MaterialTheme.typography.headlineSmall, color = Color.White, maxLines = 1, overflow = TextOverflow.Ellipsis)
-                    Text(status, style = MaterialTheme.typography.bodyMedium, color = Color.White.copy(alpha = 0.85f))
-                }
-                Box(
-                    Modifier.align(Alignment.TopEnd).padding(10.dp).size(36.dp).clip(CircleShape).background(Color(0x66000000)).clickable(onClick = onDelete),
-                    contentAlignment = Alignment.Center,
-                ) {
-                    Icon(Icons.Default.Delete, contentDescription = "Delete album", tint = Color.White, modifier = Modifier.size(18.dp))
-                }
-            }
+        summary.coverThumb?.let {
+            AsyncImage(model = File(it), contentDescription = null, contentScale = ContentScale.Crop, modifier = Modifier.fillMaxSize())
+        }
+        Box(Modifier.fillMaxSize().background(Brush.verticalGradient(0.4f to Color.Transparent, 1f to Color(0xB8000000))))
+        Box(
+            Modifier.align(Alignment.TopStart).padding(14.dp).clip(RoundedCornerShape(50)).background(Color(0xEBFFFFFF))
+                .padding(horizontal = 12.dp, vertical = 6.dp),
+        ) {
+            Text(if (ready) "Ready to send" else "Checking · ${(fraction * 100).toInt()}%", style = MaterialTheme.typography.labelMedium, color = Ink)
+        }
+        Box(
+            Modifier.align(Alignment.TopEnd).padding(10.dp).size(40.dp).clip(CircleShape).background(Color(0x47000000)).clickable(onClick = onDelete),
+            contentAlignment = Alignment.Center,
+        ) {
+            Icon(Icons.Default.Delete, contentDescription = "Delete album", tint = Color.White, modifier = Modifier.size(18.dp))
+        }
+        Column(Modifier.align(Alignment.BottomStart).padding(start = 18.dp, end = 18.dp, bottom = 16.dp)) {
+            Text(p.name, style = MaterialTheme.typography.headlineMedium, color = Color.White, maxLines = 1, overflow = TextOverflow.Ellipsis)
+            Text(status, style = MaterialTheme.typography.bodyMedium, color = Color.White.copy(alpha = 0.88f))
             if (!ready) {
-                val fraction = if (summary.total == 0) 0f else summary.done.toFloat() / summary.total
-                LinearProgressIndicator(progress = { fraction }, modifier = Modifier.fillMaxWidth().height(4.dp))
+                Spacer(Modifier.height(10.dp))
+                Box(Modifier.fillMaxWidth().height(6.dp).clip(RoundedCornerShape(3.dp)).background(Color(0x59FFFFFF))) {
+                    Box(Modifier.fillMaxWidth(fraction.coerceIn(0.02f, 1f)).height(6.dp).clip(RoundedCornerShape(3.dp)).background(Color.White))
+                }
             }
         }
     }
@@ -296,62 +304,69 @@ fun NewAlbumScreen(vm: AlbumViewModel, screen: Screen.NewAlbum) {
                     BigButton("Choose another folder", onClick = { pickFolder.launch(null) })
                 }
                 else -> {
-                    Column(
-                        Modifier.fillMaxWidth().clip(RoundedCornerShape(24.dp)).background(MaterialTheme.colorScheme.surfaceContainer).padding(20.dp),
+                    // The folder, in one line: its name, how many photos, and its sub-folders.
+                    Row(
+                        Modifier.clip(RoundedCornerShape(50)).background(MaterialTheme.colorScheme.surfaceContainer).padding(horizontal = 14.dp, vertical = 9.dp),
+                        verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp),
                     ) {
-                        Text("%,d".format(scan.found), style = MaterialTheme.typography.displayMedium, color = MaterialTheme.colorScheme.primary)
-                        Text(if (scan.events.size > 1) "photos in ${scan.events.size} folders" else "photos found",
+                        Icon(LineIcons.Folder, contentDescription = null, modifier = Modifier.size(16.dp))
+                        Text("%,d photos".format(scan.found) + if (scan.events.size > 1) " · ${scan.events.size} folders" else " found",
+                            style = MaterialTheme.typography.labelLarge)
+                    }
+                    if (scan.events.size > 1) {
+                        Text(scan.events.joinToString("  ·  ") { (event, count) -> "${Display.eventName(event)} ${"%,d".format(count)}" },
+                            style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    }
+                    Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                        Text("What are these photos of?", style = MaterialTheme.typography.headlineLarge)
+                        Text("We guessed from the folder name. Tap to change.", style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant)
-                        if (scan.events.size > 1) {
-                            Spacer(Modifier.height(12.dp))
-                            scan.events.forEachIndexed { i, (event, count) ->
-                                if (i > 0) HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
-                                Row(Modifier.fillMaxWidth().padding(vertical = 10.dp)) {
-                                    Text(Display.eventName(event), Modifier.weight(1f))
-                                    Text("%,d".format(count), color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    }
+                    // One card per kind; a birthday or a family function then asks which.
+                    Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                        for (pair in Occasion.values().distinctBy { it.label }.chunked(2)) {
+                            Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                                for (o in pair) {
+                                    OccasionCard(o, selected = vm.newOccasion.label == o.label, modifier = Modifier.weight(1f).testTag("occasion-${o.name}")) {
+                                        if (vm.newOccasion.label != o.label) vm.newOccasion = o
+                                    }
                                 }
+                                if (pair.size == 1) Spacer(Modifier.weight(1f))
                             }
                         }
                     }
-                    OutlinedTextField(
-                        value = name, onValueChange = { name = it }, label = { Text("Album name") },
-                        singleLine = true, modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(16.dp),
-                    )
-                    Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                        Text("What are these photos of?", style = MaterialTheme.typography.titleMedium)
-                        FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                            // One chip per kind; a birthday then asks whose (a child's needs mummy and papa in it).
-                            for (o in Occasion.values().distinctBy { it.label }) {
-                                FilterChip(selected = vm.newOccasion.label == o.label, onClick = { if (vm.newOccasion.label != o.label) vm.newOccasion = o },
-                                    label = { Text(o.label) }, modifier = Modifier.testTag("occasion-${o.name}"))
-                            }
-                        }
-                        val subs = Occasion.values().filter { it.label == vm.newOccasion.label && it.sub != null }
-                        if (subs.isNotEmpty()) {
-                            FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.Center) {
-                                Text(if (vm.newOccasion.label == "Birthday") "Whose?" else "Which?", style = MaterialTheme.typography.labelLarge,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.align(Alignment.CenterVertically))
+                    val subs = Occasion.values().filter { it.label == vm.newOccasion.label && it.sub != null }
+                    if (subs.isNotEmpty()) {
+                        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                            Text(if (vm.newOccasion.label == "Birthday") "Whose birthday?" else "Which function?", style = MaterialTheme.typography.titleSmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant)
+                            FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                                 for (o in subs) {
-                                    FilterChip(selected = vm.newOccasion == o, onClick = { vm.newOccasion = o }, label = { Text(o.sub!!) },
+                                    Pill(selected = vm.newOccasion == o, onClick = { vm.newOccasion = o },
+                                        label = { Text(if (o == Occasion.KIDS_BIRTHDAY) "A child's (with mummy & papa)" else o.sub!!) },
                                         modifier = Modifier.testTag("occasion-sub-${o.name}"))
                                 }
                             }
                         }
-                        Text(
-                            when {
-                                vm.newOccasion.couple -> "We find the couple and both families by ourselves."
-                                vm.newOccasion.child -> "We find the child, mummy and papa by ourselves."
-                                vm.newOccasion == Occasion.ANNIVERSARY -> "We find the couple and their family by ourselves."
-                                else -> "We find who the photos are about by ourselves."
-                            },
-                            style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        )
                     }
+                    Text(
+                        when {
+                            vm.newOccasion.couple -> "We find the couple and both families by ourselves."
+                            vm.newOccasion.child -> "We find the child, mummy and papa by ourselves."
+                            vm.newOccasion == Occasion.ANNIVERSARY -> "We find the couple and their family by ourselves."
+                            else -> "We find who the photos are about by ourselves."
+                        },
+                        style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                    OutlinedTextField(
+                        value = name, onValueChange = { name = it }, label = { Text("Album name") },
+                        singleLine = true, modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(18.dp),
+                    )
                     Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                        Text("How many photos in your album?", style = MaterialTheme.typography.titleMedium)
-                        FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        Text("How many photos in your album?", style = MaterialTheme.typography.titleLarge)
+                        FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                             for (n in AlbumSize.choices(scan.found)) {
-                                FilterChip(selected = vm.newAlbumSize == n && other.isEmpty(), onClick = { other = ""; vm.newAlbumSize = n }, label = { Text("$n") })
+                                Pill(selected = vm.newAlbumSize == n && other.isEmpty(), onClick = { other = ""; vm.newAlbumSize = n }, label = { Text("$n") })
                             }
                         }
                         OutlinedTextField(
@@ -359,13 +374,44 @@ fun NewAlbumScreen(vm: AlbumViewModel, screen: Screen.NewAlbum) {
                             onValueChange = { v -> other = v.filter(Char::isDigit).take(4); other.toIntOrNull()?.takeIf { it > 0 }?.let { vm.newAlbumSize = it } },
                             label = { Text("Or type a number") }, singleLine = true,
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                            modifier = Modifier.width(200.dp), shape = RoundedCornerShape(16.dp),
+                            modifier = Modifier.width(200.dp), shape = RoundedCornerShape(18.dp),
                         )
-                        Text("About 15 of every 100 photos make a good album. Ask your photographer if unsure; you can change it later.",
+                        Text("About 15 of every 100 photos make a good album. You can change it later.",
                             style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                 }
             }
         }
+    }
+}
+
+/** One kind of occasion on the New album screen: an icon, a name and a hint, black-outlined when picked. */
+@Composable
+private fun OccasionCard(o: Occasion, selected: Boolean, modifier: Modifier = Modifier, onClick: () -> Unit) {
+    val (icon, hint) = when (o.label) {
+        "Wedding" -> LineIcons.Heart to "Couple, both families"
+        "Engagement" -> LineIcons.Ring to "Or a pre-wedding shoot"
+        "Birthday" -> LineIcons.Cake to "A child's or a grown-up's"
+        "Family function" -> LineIcons.Home to "Naming, baby shower…"
+        "Trip" -> LineIcons.Mountain to "People and places"
+        else -> LineIcons.Lines to "Any folder of photos"
+    }
+    val colors = MaterialTheme.colorScheme
+    Column(
+        modifier.heightIn(min = 120.dp).clip(RoundedCornerShape(22.dp))
+            .background(if (selected) colors.surface else colors.surfaceContainer)
+            .border(2.dp, if (selected) colors.primary else Color.Transparent, RoundedCornerShape(22.dp))
+            .selectable(selected = selected, role = Role.RadioButton, onClick = onClick)
+            .padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(6.dp),
+    ) {
+        Box(
+            Modifier.size(40.dp).clip(RoundedCornerShape(12.dp)).background(if (selected) Saffron else colors.surface),
+            contentAlignment = Alignment.Center,
+        ) {
+            Icon(icon, contentDescription = null, tint = if (selected) Color.White else colors.onSurface, modifier = Modifier.size(20.dp))
+        }
+        Text(o.label, style = MaterialTheme.typography.titleMedium)
+        Text(hint, style = MaterialTheme.typography.bodySmall, color = colors.onSurfaceVariant)
     }
 }

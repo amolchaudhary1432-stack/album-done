@@ -37,7 +37,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -121,7 +120,7 @@ fun PeopleScreen(vm: AlbumViewModel, projectId: Long) {
             item(key = "filters", span = fullSpan) {
                 LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp), contentPadding = PaddingValues(horizontal = 4.dp)) {
                     items(filters, key = { it.first }) { (value, label) ->
-                        FilterChip(selected = filter == value, onClick = { filter = value }, label = { Text(label) }, modifier = Modifier.testTag("filter-$value"))
+                        Pill(selected = filter == value, onClick = { filter = value }, label = { Text(label) }, modifier = Modifier.testTag("filter-$value"))
                     }
                 }
             }
@@ -262,7 +261,7 @@ private fun FaceQuestion(vm: AlbumViewModel, c: PersonChip, i: Int, total: Int, 
             SectionLabel("Whose side")
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 for ((value, label) in listOf(PersonSide.BRIDE to "Bride's side", PersonSide.GROOM to "Groom's side")) {
-                    FilterChip(selected = side == value, onClick = { side = if (side == value) PersonSide.UNKNOWN else value }, label = { Text(label) })
+                    Pill(selected = side == value, onClick = { side = if (side == value) PersonSide.UNKNOWN else value }, label = { Text(label) })
                 }
             }
         }

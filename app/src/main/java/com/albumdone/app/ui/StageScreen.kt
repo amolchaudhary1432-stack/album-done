@@ -32,7 +32,6 @@ import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
@@ -218,7 +217,7 @@ private fun NameGroupSheet(
                 style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 for ((value, label) in choices) {
-                    FilterChip(selected = side == value, onClick = { side = value }, label = { Text(label) }, modifier = Modifier.testTag("group-side-$value"))
+                    Pill(selected = side == value, onClick = { side = value }, label = { Text(label) }, modifier = Modifier.testTag("group-side-$value"))
                 }
             }
             OutlinedTextField(value = name, onValueChange = { name = it.take(30) }, singleLine = true, shape = RoundedCornerShape(16.dp),
