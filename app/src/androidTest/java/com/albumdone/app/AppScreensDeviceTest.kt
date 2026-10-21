@@ -185,6 +185,21 @@ class AppScreensDeviceTest {
             compose.waitUntil(10_000) { !has("What we left out") }
         }
 
+        step("10b-left-out") {
+            compose.onNodeWithTag("album-grid").performScrollToNode(hasTestTag("left-out"))
+            compose.onNodeWithTag("left-out").performSemanticsAction(SemanticsActions.OnClick)
+            waitFor("What we left out")
+            screenshot("10b-left-out")
+            compose.onAllNodesWithTag("left-out-photo")[0].performSemanticsAction(SemanticsActions.OnClick)
+            waitFor("Add to album")
+            screenshot("10c-left-out-photo")
+            compose.onNodeWithTag("add-to-album").performSemanticsAction(SemanticsActions.OnClick)
+            waitFor("Added to your album")
+            back()
+            back()
+            waitFor("Send list to photographer")
+        }
+
         step("11-send") {
             compose.onNodeWithText("Send list to photographer").performSemanticsAction(SemanticsActions.OnClick)
             waitFor("Share list")

@@ -52,5 +52,6 @@ private fun AppContent(vm: AlbumViewModel) {
         is Screen.People -> PeopleScreen(vm, screen.projectId)
         is Screen.QuickTag -> QuickTagScreen(vm, screen.projectId)
         is Screen.Stage -> StageScreen(vm, screen.projectId)
+        is Screen.LeftOut -> LeftOutScreen(vm, screen.projectId)
     }
 }

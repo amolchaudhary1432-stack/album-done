@@ -58,7 +58,10 @@ sealed interface Screen {
     data class NewAlbum(val treeUri: Uri, val name: String) : Screen
     data class Progress(val projectId: Long) : Screen
     data class Album(val projectId: Long) : Screen
-    data class Viewer(val projectId: Long, val photoId: Long) : Screen
+    /** One photo; [fromLeftOut] when opened from the photos left out (Back returns there). */
+    data class Viewer(val projectId: Long, val photoId: Long, val fromLeftOut: Boolean = false) : Screen
+    /** Every photo not in the album, with why, to put one back. */
+    data class LeftOut(val projectId: Long) : Screen
     data class Send(val projectId: Long) : Screen
     /** Everyone in the photos, to say who is who. */
     data class People(val projectId: Long) : Screen
@@ -162,6 +165,14 @@ data class PersonDetail(
 data class Alternative(val photo: PhotoEntity, val note: String, val crop: Pair<Float, Float>)
 
 /** [position] of [ofTotal]: where the photo sits among the album's photos of its event (0 when not in the album). */
+/** Why a photo is not in the album, in plain words. */
+enum class LeftOutReason(val label: String) {
+    GOOD("Good, not needed"), REPEAT("A similar one is in"), BLURRY("Blurry"), EYES("Eyes closed"),
+    LIGHT("Too dark or bright"), OTHER("Other flaw"),
+}
+
+data class LeftOutPhoto(val photo: PhotoEntity, val event: String, val reason: LeftOutReason, val crop: Pair<Float, Float>)
+
 data class ViewerState(val photo: AlbumPhoto, val alternatives: List<Alternative>, val inAlbum: Boolean, val position: Int = 0, val ofTotal: Int = 0)
 
 private const val TAG = "AlbumDone"
@@ -240,7 +251,8 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
 
     fun back() {
         screen = when (val s = screen) {
-            is Screen.Viewer -> Screen.Album(s.projectId)
+            is Screen.Viewer -> if (s.fromLeftOut) Screen.LeftOut(s.projectId) else Screen.Album(s.projectId)
+            is Screen.LeftOut -> Screen.Album(s.projectId)
             is Screen.Send -> Screen.Album(s.projectId)
             is Screen.People -> Screen.Album(s.projectId)
             is Screen.Stage -> Screen.Album(s.projectId)
@@ -278,7 +290,9 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
-    fun openPhoto(projectId: Long, photoId: Long) { screen = Screen.Viewer(projectId, photoId) }
+    fun openPhoto(projectId: Long, photoId: Long, fromLeftOut: Boolean = false) { screen = Screen.Viewer(projectId, photoId, fromLeftOut) }
+
+    fun openLeftOut(projectId: Long) { screen = Screen.LeftOut(projectId) }
 
     fun openSend(projectId: Long) { screen = Screen.Send(projectId) }
 
@@ -640,6 +654,38 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
             }
         }
     }
+
+    /** Puts a photo that was left out into the album (the album grows by one); Undo takes it out again. */
+    fun addToAlbum(projectId: Long, photoId: Long) {
+        viewModelScope.launch {
+            val size = dao.project(projectId)?.albumSize ?: return@launch
+            dao.selectAsChoice(photoId, "Your choice: added back")
+            growToFit(projectId)
+            say("Added to your album") { viewModelScope.launch { dao.deselect(photoId); dao.setAlbumSize(projectId, size) } }
+        }
+    }
+
+    /** The photos left out, in the photographer's order, each with the main reason. */
+    fun leftOut(projectId: Long): Flow<List<LeftOutPhoto>> =
+        combine(dao.photosFlow(projectId), dao.projectSummary(projectId)) { photos, _ ->
+            val analysis = analysisFor(projectId)
+            withContext(Dispatchers.Default) {
+                val byId = photos.associateBy { it.id }
+                analysis.photos.filter { a -> byId[a.id]?.let { !it.selected && !it.failed } == true }.map { a ->
+                    val p = byId.getValue(a.id)
+                    val hard = a.issues.firstOrNull { it.hard && it != Issue.DUPLICATE && it != Issue.GROUP_REPEAT }
+                    val reason = when {
+                        Issue.DUPLICATE in a.issues || Issue.GROUP_REPEAT in a.issues -> LeftOutReason.REPEAT
+                        hard == Issue.BLURRY -> LeftOutReason.BLURRY
+                        hard == Issue.EYES_CLOSED || hard == Issue.HALF_BLINK -> LeftOutReason.EYES
+                        hard == Issue.TOO_DARK || hard == Issue.TOO_BRIGHT -> LeftOutReason.LIGHT
+                        hard != null -> LeftOutReason.OTHER
+                        else -> LeftOutReason.GOOD
+                    }
+                    LeftOutPhoto(p, a.event, reason, Display.cropBias(p.width, p.height, a.photo.faces.map { it.box }))
+                }
+            }
+        }.onMain()
 
     // ---- Family groups (the stage) ----
 

@@ -95,6 +95,10 @@ fun ViewerScreen(vm: AlbumViewModel, projectId: Long, photoId: Long) {
         snackbarHost = { SnackbarHost(host) },
         bottomBar = {
             val s = state
+            if (s != null && !s.inAlbum) {
+                BottomBar { BigButton("Add to album", onClick = { vm.addToAlbum(projectId, photoId) }, icon = LineIcons.Plus,
+                    modifier = Modifier.testTag("add-to-album")) }
+            }
             if (s != null && s.inAlbum) {
                 Surface(color = MaterialTheme.colorScheme.background) {
                     Row(Modifier.navigationBarsPadding().padding(horizontal = 20.dp, vertical = 12.dp), horizontalArrangement = Arrangement.spacedBy(10.dp)) {

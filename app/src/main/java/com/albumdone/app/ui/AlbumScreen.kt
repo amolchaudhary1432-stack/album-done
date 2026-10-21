@@ -184,6 +184,20 @@ fun AlbumScreen(vm: AlbumViewModel, projectId: Long) {
                     }
                 }
             }
+            if (s.folderPhotos > s.total) {
+                item(key = "left-out", span = full) {
+                    Row(Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp, top = 20.dp).clip(RoundedCornerShape(22.dp))
+                        .background(MaterialTheme.colorScheme.surfaceContainer).clickable { vm.openLeftOut(projectId) }
+                        .padding(16.dp).testTag("left-out"), verticalAlignment = Alignment.CenterVertically) {
+                        Column(Modifier.weight(1f)) {
+                            Text("${"%,d".format(s.folderPhotos - s.total)} photos we left out", style = MaterialTheme.typography.titleSmall)
+                            Text("Look through them and add any you love", style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        }
+                        Icon(LineIcons.Next, contentDescription = null, modifier = Modifier.size(20.dp))
+                    }
+                }
+            }
         }
         SendBar(s.total, onClick = { vm.openSend(projectId) }, modifier = Modifier.align(Alignment.BottomCenter))
         }
@@ -684,6 +698,8 @@ private fun SettingsSheet(vm: AlbumViewModel, projectId: Long, s: AlbumState, on
             }
             Text("These are only left out of the album. Nothing is deleted.", style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant)
+            BigButton("See the photos we left out", onClick = { onClose(); vm.openLeftOut(projectId) },
+                modifier = Modifier.testTag("see-left-out"))
         }
     }
 }
