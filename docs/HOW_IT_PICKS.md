@@ -340,6 +340,13 @@ What changed:
   by its photos of people (worse), fewer forced solo portraits (no change), appeal as half or all
   of the value (worse: the learned score knows nothing of moments).
 
+How high can the score go? The Rajasthani bench wedding turned out to be the same wedding as the
+harvested set Fabe56_2014-01-03, picked by eye twice, weeks apart (24 and 32 picks). Matched at the
+same album size, the two pickings share 18 photos and 22 of 24 moments (92%). That is one person
+twice; two different people agree less, so a person-versus-person score here is likely 85-92%.
+"95% of human level" therefore means the app's score at about 95% of that, not 95% outright.
+The copy is now left out of the learning and the honest test (practice 83% without it).
+
 What the misses are now: mostly which small moments to show (a person picks the friends in
 saris, the decorated mandap, the family group; the app another candid). The measurements do not
 say what is happening in a photo; a scene model (section 3) is the next big step.
