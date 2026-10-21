@@ -441,7 +441,7 @@ class Analyzer:
         try:
             ex = img.getexif()
             orientation = ex.get(0x0112, 1)
-            raw = ex.get_ifd(0x8769).get(0x9003) or ex.get(0x0132)
+            raw = ex.get_ifd(0x8769).get(0x9003)  # taken, not last saved (0x0132)
             if raw:
                 exif_date = int(datetime.datetime.strptime(raw.strip(), "%Y:%m:%d %H:%M:%S").replace(tzinfo=datetime.timezone.utc).timestamp() * 1000)
         except Exception:
@@ -577,6 +577,7 @@ def foreground_backs(people, faces):
         return p[0] <= cx <= p[2] and p[1] <= cy <= p[3]
     return sum(1 for p in people
                if p[3] >= 0.95 and p[3] - p[1] >= 0.35 and area(p) >= 0.10 and p[0] < 0.7 and p[2] > 0.3
+               and (p[1] > 0.02 or area(p) >= 0.35)
                and not any(centre_in(f, p) for f in faces)
                and any(f[2] - f[0] >= 0.03 and not centre_in(f, p) for f in faces))
 

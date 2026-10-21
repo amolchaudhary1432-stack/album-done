@@ -102,7 +102,8 @@ class PhotoAnalyzer(private val context: Context) : AutoCloseable {
                 val exif = ExifInterface(stream)
                 orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)
                 takenAt = parseExifDate(
-                    exif.getAttribute(ExifInterface.TAG_DATETIME_ORIGINAL) ?: exif.getAttribute(ExifInterface.TAG_DATETIME)
+                    // Only when the photo was taken: the plain date is when it was last saved (all exports share one).
+                    exif.getAttribute(ExifInterface.TAG_DATETIME_ORIGINAL)
                 )
             }
         } catch (_: Exception) {

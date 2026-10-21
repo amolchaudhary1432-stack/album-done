@@ -247,6 +247,20 @@ class AlbumPlannerTest {
     }
 
     @Test
+    fun aForeheadCutByTheTopEdgeIsTightFraming() {
+        // From a first-birthday folder: the child sharp and whole, the adult holding her with the
+        // top of the head out of the photo. A face cut in half at the side is still a flaw.
+        val child = face(5L, x = 0.4f, w = 0.14f, sharp = 900.0)
+        val adultTop = face(6L, x = 0.6f, w = 0.14f, sharp = 500.0, cut = 0.18f).let { it.copy(box = it.box.copy(top = -0.04f, bottom = 0.17f)) }
+        val adultSide = face(6L, x = 0.9f, w = 0.14f, sharp = 500.0, cut = 0.4f)
+        val top = photo("Party", faces = listOf(child, adultTop))
+        val side = photo("Party", faces = listOf(child, adultSide))
+        val a = AlbumPlanner.analyze(listOf(top, side))
+        assertFalse(Issue.FACE_CUT_OFF in a.issues(top))
+        assertTrue(Issue.FACE_CUT_OFF in a.issues(side))
+    }
+
+    @Test
     fun eachFamilyGetsItsOwnAlbumFromTheSameFolder() {
         val brideMother = 20L; val brideAunt = 21L; val groomMother = 30L; val groomAunt = 31L
         var t = start

@@ -171,6 +171,8 @@ object AlbumPlanner {
     /** A face this wide is big enough to recognise the person. */
     const val VISIBLE_FACE = 0.03f
     const val CUT_OFF = 0.12f
+    /** Up to this much of a face may be above the photo's top edge (forehead and hair). */
+    const val FOREHEAD_CROP = 0.3f
     const val BLOCKED_OVERLAP = 0.25f
     const val HIDDEN = 0.6f
     const val CLOSE_UP_FACE = 0.12f
@@ -290,6 +292,14 @@ object AlbumPlanner {
                 val issue = if (group.isGroupPhoto) Issue.GROUP_REPEAT else Issue.DUPLICATE
                 group.members.filter { it.id != keeper.id }.forEach { repeatIssue[it.id] = issue }
             }
+        }
+
+        // A long burst of near-identical frames is one shot, not a key moment: count distinct shots.
+        val distinct = moments.associate { m -> m.id to m.photoIds.map { id -> groupOf[id]?.let { -1L - it } ?: id }.distinct().size }
+        for (event in moments.map { it.event }.distinct()) {
+            val inEvent = moments.withIndex().filter { it.value.event == event }
+            val keySize = max(8.0, 2.0 * median(inEvent.map { distinct.getValue(it.value.id).toDouble() }))
+            for ((i, m) in inEvent) moments[i] = m.copy(key = distinct.getValue(m.id) >= keySize)
         }
 
         val assessed = ordered.mapIndexed { i, p ->
@@ -460,7 +470,15 @@ object AlbumPlanner {
         if (strangers.isNotEmpty()) issues += Issue.STRANGER
 
         val faces = p.faces.filter { it !in strangers }
-        val clear = faces.filter { it.box.width >= CLEAR_FACE }
+        // Clear faces are the photo's subjects: the main people, named close family, or faces near
+        // the size and sharpness of the biggest one (not a small soft face at the back).
+        val largest = faces.maxOfOrNull { it.box.width } ?: 0f
+        val sharpestSeen = faces.maxOfOrNull { it.sharpness } ?: 0.0
+        val clear = faces.filter { f ->
+            f.box.width >= CLEAR_FACE && (tags.isCouple(f.personId) ||
+                f.personId?.let { tags.tag(it).let { t -> !t.guessed && t.priority in setOf(Priority.MUST, Priority.IMPORTANT) } } == true ||
+                (f.box.width >= 0.45f * largest && f.sharpness >= 0.35 * sharpestSeen))
+        }
         val visible = faces.filter { it.box.width >= VISIBLE_FACE }
         val people = visible.mapNotNull { it.personId }.toSet()
 
@@ -527,7 +545,7 @@ object AlbumPlanner {
             // Someone out of focus at the edge of a crowd is background; the photographer focused on
             // the subject. A cut-off face counts when it is the couple's or as sharp as the subject.
             val subject = tags.isCouple(f.personId) || f.sharpness >= SUBJECT_SHARPNESS * sharpestFace
-            if (f.cutOff >= CUT_OFF && subject) { issues += Issue.FACE_CUT_OFF; visibility *= 0.3 }
+            if (f.cutOff >= CUT_OFF && subject && !foreheadCrop(f)) { issues += Issue.FACE_CUT_OFF; visibility *= 0.3 }
             val blockedByFace = p.faces.any { g ->
                 g !== f && g.box.area > f.box.area && f.box.area > 0 && g.box.intersection(f.box) / f.box.area >= BLOCKED_OVERLAP
             }
@@ -579,6 +597,13 @@ object AlbumPlanner {
     }
 
     /** This face's sharpness compared with faces of a similar size in this wedding (1 = typical). */
+    /**
+     * Only the top of the head is outside the photo: tight framing (a close portrait, an adult
+     * holding the birthday child), not a face cut in half at the side.
+     */
+    fun foreheadCrop(f: PlanFace): Boolean =
+        f.cutOff < FOREHEAD_CROP && f.box.top <= 0.02f && f.box.left > 0.02f && f.box.right < 0.98f && f.box.bottom < 0.98f
+
     private fun relativeSharpness(f: PlanFace, norms: Norms, scene: Double = 1.0): Double {
         val norm = norms.faceSharpnessBySize[sizeBucket(f.box.width)] ?: norms.faceSharpness
         return if (norm > 0) f.sharpness / norm / scene else 1.0

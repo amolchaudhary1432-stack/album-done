@@ -36,6 +36,15 @@ class SceneRulesTest {
     }
 
     @Test
+    fun aBodyCutByTheTopEdgeIsFraming() {
+        // Found on a first-birthday folder: the child stands, held by an adult whose head is out of frame.
+        val child = Box(0.45f, 0.35f, 0.6f, 0.55f)
+        assertEquals(0, SceneRules.foregroundBacks(listOf(Box(0.15f, 0.0f, 0.45f, 1f)), listOf(child)))
+        // A guest right in front of the lens, filling most of the frame, still blocks it.
+        assertEquals(1, SceneRules.foregroundBacks(listOf(Box(0.0f, 0.0f, 0.6f, 1f)), listOf(Box(0.7f, 0.3f, 0.8f, 0.45f))))
+    }
+
+    @Test
     fun peopleWithoutFacesAndHeadCrops() {
         val withFace = Box(0.0f, 0.2f, 0.1f, 0.9f)
         val small1 = Box(0.5f, 0.3f, 0.55f, 0.6f)
