@@ -208,6 +208,8 @@ object AlbumPlanner {
     const val MOMENT_BONUS = 0.3
     /** Less value for each photo already picked from the same moment, so picks spread over the day. */
     const val MOMENT_CROWDING = 0.06
+    /** In a burst, how much "the people show well" counts next to quality when keeping one frame. */
+    const val BURST_PRESENCE = 0.3
     /** How much a pick far (in time) from the moment's other picks is preferred. */
     const val MOMENT_SPREAD = 0.6
     val TYPE_SHARE = mapOf(
@@ -285,7 +287,7 @@ object AlbumPlanner {
             for (group in findRepeats(inEvent, judged, tags)) {
                 val keeper = group.members.minWith(
                     compareBy<PlanPhoto> { judged.getValue(it.id).issues.count { i -> i.hard } }
-                        .thenByDescending { judged.getValue(it.id).quality }
+                        .thenByDescending { judged.getValue(it.id).let { j -> j.quality + BURST_PRESENCE * j.presence } }
                         .thenBy { it.name }
                 )
                 similar[keeper.id] = group.members.size
@@ -409,6 +411,8 @@ object AlbumPlanner {
         val interaction: Boolean,
         val emotional: Boolean,
         val allEyesOpenAndLooking: Boolean,
+        /** How well the photo's people show, 0..1: breaks ties between frames of one burst. */
+        val presence: Double,
     )
 
     /** Event type from the photographer's folder name; decides which context rules apply. */
@@ -451,7 +455,7 @@ object AlbumPlanner {
         personPhotos: Map<Long, Int>,
     ): Judgement {
         if (p.failed) {
-            return Judgement(setOf(Issue.UNREADABLE), 0.0, ShotType.DETAIL, emptySet(), false, false, false, false, false)
+            return Judgement(setOf(Issue.UNREADABLE), 0.0, ShotType.DETAIL, emptySet(), false, false, false, false, false, 0.0)
         }
         val issues = mutableSetOf<Issue>()
         val scene = norms.sceneFace[p.id] ?: 1.0
@@ -596,7 +600,13 @@ object AlbumPlanner {
         val shot = if (turnedAway) ShotType.CANDID else shotType(visible, clear, bride, groom, lookingShare)
         val emotional = clear.any { it.expression == Expression.EMOTIONAL }
         val allGood = clear.size >= 2 && clear.all { it.eyes == EyeState.OPEN && it.lookingAtCamera }
-        return Judgement(issues, quality, shot, people, coupleLooking, ritual, interaction, emotional, allGood)
+        // What a person looks for when choosing between frames of one burst: the main people big and
+        // clear, faces to the camera, smiles, the people of the moment in it.
+        val presence = if (clear.isEmpty()) 0.0 else {
+            val mainFace = clear.filter { tags.isCouple(it.personId) }.maxOfOrNull { it.box.width.toDouble() } ?: 0.0
+            0.35 * min(1.0, mainFace / 0.2) + 0.25 * lookingShare + 0.2 * clear.maxOf { it.smile.toDouble() } + 0.2 * min(clear.size, 5) / 5.0
+        }
+        return Judgement(issues, quality, shot, people, coupleLooking, ritual, interaction, emotional, allGood, presence)
     }
 
     /** This face's sharpness compared with faces of a similar size in this wedding (1 = typical). */
