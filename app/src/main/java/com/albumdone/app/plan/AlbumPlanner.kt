@@ -208,6 +208,8 @@ object AlbumPlanner {
     const val MOMENT_BONUS = 0.3
     /** Less value for each photo already picked from the same moment, so picks spread over the day. */
     const val MOMENT_CROWDING = 0.06
+    /** How much a pick far (in time) from the moment's other picks is preferred. */
+    const val MOMENT_SPREAD = 0.6
     val TYPE_SHARE = mapOf(
         ShotType.DETAIL to 0.10, ShotType.COUPLE_CLOSE to 0.15, ShotType.COUPLE_FULL to 0.12,
         ShotType.BRIDE_SOLO to 0.06, ShotType.GROOM_SOLO to 0.05, ShotType.GROUP to 0.20,
@@ -1202,7 +1204,15 @@ object AlbumPlanner {
             // No repeated pose back to back.
             if (repeatsNeighbour(c)) v -= 0.3
             // Spread the album across the day: each photo already picked from this moment counts against it.
-            v -= MOMENT_CROWDING * (momentPicks[c.momentId]?.size ?: 0)
+            val sameMoment = momentPicks[c.momentId].orEmpty()
+            v -= MOMENT_CROWDING * sameMoment.size
+            // Within a long moment, the next pick comes from a part not yet shown (the end of a long
+            // ritual, not five frames from its start).
+            if (sameMoment.isNotEmpty()) {
+                val span = a.momentById[c.momentId]?.photoIds?.size ?: 1
+                val gap = sameMoment.minOf { abs(it.order - c.order) }.toDouble()
+                v += MOMENT_SPREAD * (min(1.0, gap / (span.toDouble() / (sameMoment.size + 1))) - 0.5)
+            }
 
             // Portrait / landscape balance.
             val n = eventCount[c.event] ?: 0
