@@ -4,7 +4,11 @@ name: Search photo sets
 # of the searches (tools/harvest/crawl.py with CRAWL_SHARD), then their finds are joined into
 # sets.jsonl on the harvest-data branch. Searches done are remembered (searched.txt), so each run
 # carries on. Measuring is the "Harvest photos" workflow, run afterwards with recrawl = no.
+# Started by hand, or by changing tools/harvest/search.json (machines, minutes).
 on:
+  push:
+    branches: ['claude/**']
+    paths: ['tools/harvest/search.json']
   workflow_dispatch:
     inputs:
       machines:
@@ -26,9 +30,20 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       shards: ${{ steps.m.outputs.shards }}
+      machines: ${{ steps.m.outputs.machines }}
+      minutes: ${{ steps.m.outputs.minutes }}
     steps:
+      - uses: actions/checkout@v4
       - id: m
-        run: echo "shards=$(python3 -c "import json; print(json.dumps(list(range(int('${{ inputs.machines }}')))))")" >> "$GITHUB_OUTPUT"
+        run: |
+          machines="${{ inputs.machines }}"; minutes="${{ inputs.minutes }}"
+          if [ -z "$machines" ]; then
+            machines=$(python3 -c "import json; print(json.load(open('tools/harvest/search.json'))['machines'])")
+            minutes=$(python3 -c "import json; print(json.load(open('tools/harvest/search.json'))['minutes'])")
+          fi
+          echo "machines=$machines" >> "$GITHUB_OUTPUT"
+          echo "minutes=$minutes" >> "$GITHUB_OUTPUT"
+          echo "shards=$(python3 -c "import json; print(json.dumps(list(range($machines))))")" >> "$GITHUB_OUTPUT"
 
   search:
     needs: plan
@@ -47,8 +62,8 @@ jobs:
           if git fetch -q --depth 1 origin harvest-data; then
             for f in sets.jsonl searched.txt categories.txt; do git show "FETCH_HEAD:$f" > "work/$f" 2>/dev/null || rm -f "work/$f"; done
           fi
-          CRAWL_SHARD=${{ matrix.shard }}/${{ inputs.machines }} CRAWL_KEEP_SMALL=1 \
-            python3 tools/harvest/crawl.py work/sets.jsonl 1500 ${{ inputs.minutes }} || true
+          CRAWL_SHARD=${{ matrix.shard }}/${{ needs.plan.outputs.machines }} CRAWL_KEEP_SMALL=1 \
+            python3 tools/harvest/crawl.py work/sets.jsonl 1500 ${{ needs.plan.outputs.minutes }} || true
 
       - uses: actions/upload-artifact@v4
         if: always()
