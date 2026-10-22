@@ -365,3 +365,22 @@ shows a clear gain, no image-text model in the app.
 What the misses are now: mostly which small moments to show (a person picks the friends in
 saris, the decorated mandap, the family group; the app another candid). The measurements do not
 say what is happening in a photo; a scene model (section 3) is the next big step.
+
+## 12. Judged by eye: is each photo the app picked album-worthy? (22 Oct 2026)
+
+Matching one person's picks is a strict test: two people (or one person twice) differ, and a
+photo the app picks instead can be just as good. So every app pick that matched none of the
+person's moments was looked at and judged: would a couple keep it in the album?
+(`tools/harvest/judged.txt`.)
+
+| | App picks | Same moment as the person | Different, but album-worthy | Not album-worthy | Album-worthy in all |
+| --- | --- | --- | --- | --- | --- |
+| Practice weddings | 365 | 301 | 41 | 23 | 342 (94%) |
+| Held-back weddings (judged only, nothing changed from them) | 159 | 122 | 31 | 6 | 153 (96%) |
+
+The misses that are real: a near-copy of a photo already in (the same paan-leaf moment three
+times, a second shot of the invitation), street photos in a folder that mixes a wedding with a
+city trip (a police jeep, a church), and empty shots (stage lights with nobody, a squirrel, a
+guest on the phone). Borderline calls were counted as album-worthy (well-shot guest portraits at
+a big wedding), and the judge is the same person who made the picks, so these numbers lean
+generous. The real test is a couple's own folder.
