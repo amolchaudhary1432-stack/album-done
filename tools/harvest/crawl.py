@@ -85,6 +85,19 @@ MORE_SEARCHES = ([f"wedding {c}" for c in CITIES] + [f"{c} wedding" for c in COM
                   "cradle ceremony India", "upanayanam", "thread ceremony India", "half saree ceremony", "ritu kala samskara",
                   "housewarming puja", "satyanarayan puja home", "family get together India", "family reunion India",
                   "Indian family holiday", "honeymoon Kerala", "Rajasthan trip family", "Himachal trip"])
+# The wide search (toward 1 lakh photos): every occasion word with every city, state and community.
+EVENT_WORDS = ["wedding", "shaadi", "marriage", "bride", "groom", "haldi", "mehndi", "sangeet", "baraat",
+               "wedding reception", "engagement", "birthday", "first birthday", "naming ceremony",
+               "annaprashan", "baby shower", "housewarming", "family function", "family trip", "anniversary"]
+PLACES = CITIES + ["Ludhiana", "Jalandhar", "Kanpur", "Agra", "Meerut", "Nashik", "Aurangabad", "Kolhapur",
+                   "Vadodara", "Rajkot", "Jodhpur", "Ajmer", "Gwalior", "Jabalpur", "Allahabad", "Gorakhpur",
+                   "Siliguri", "Durgapur", "Cuttack", "Mangalore", "Hubli", "Belgaum", "Trichy", "Salem",
+                   "Tirunelveli", "Thrissur", "Kozhikode", "Thiruvananthapuram", "Vijayawada", "Warangal",
+                   "Guntur", "Nellore", "Jammu", "Srinagar", "Shimla", "Haridwar", "Rishikesh", "Jamshedpur",
+                   "Dhanbad", "Gaya", "Bhagalpur", "Silchar", "Imphal", "Shillong", "Agartala", "Pondicherry"]
+WIDE_SEARCHES = ([f"{w} {p}" for w in EVENT_WORDS[:10] for p in PLACES] +
+                 [f"{c} {w}" for c in COMMUNITIES for w in EVENT_WORDS] +
+                 [f"{w} India" for w in EVENT_WORDS] + [f"Indian {w}" for w in EVENT_WORDS])
 OPENVERSE = "https://api.openverse.org/v1/images/"
 
 
@@ -126,7 +139,14 @@ def occasion_of(categories):
     return next((o for o, rx in OCCASION if rx.search(text)), "OTHER")
 
 
+def shard_of():
+    """CRAWL_SHARD=i/n: this machine does every n-th search and category, starting at i."""
+    i, n = (int(x) for x in os.environ.get("CRAWL_SHARD", "0/1").split("/"))
+    return lambda items: [t for k, t in enumerate(items) if k % n == i]
+
+
 def main():
+    mine = shard_of()
     out = sys.argv[1]
     max_cats = int(sys.argv[2]) if len(sys.argv) > 2 else 1500
     deadline = time.time() + 60 * float(sys.argv[3] if len(sys.argv) > 3 else 70)
@@ -197,12 +217,12 @@ def main():
     # Weddings first, then the categories not read yet, then everything else.
     weddings = [t for t in MORE_SEARCHES if re.search(r"wedding|bride|groom|haldi|mehndi|sangeet|baraat|varmala|pheras|"
                                                      r"sindoor|kanyadaan|vidaai|nikah|anand karaj|roka|tilak|sagai", t, re.I)]
-    for term in weddings:
+    for term in mine(weddings):
         if late():
             break
         if term not in done:
             search(term)
-    for c in cats:
+    for c in mine(cats):
         if late():
             print("out of time before reading", c, file=sys.stderr)
             break
@@ -217,7 +237,8 @@ def main():
             where[key].add(c)
         if not late():
             done.add("cat:" + c)
-    for term in BIRTHDAY_SEARCHES + MORE_SEARCHES:
+    rest = [t for t in dict.fromkeys(BIRTHDAY_SEARCHES + MORE_SEARCHES + WIDE_SEARCHES) if t not in weddings]
+    for term in mine(rest):
         if late():
             break
         if term not in done:
@@ -228,7 +249,8 @@ def main():
     for (user, d), fs in sorted(groups.items(), key=lambda kv: -len(kv[1])):
         catlist = sorted(where[(user, d)])
         searched = all(c.startswith("Search: ") for c in catlist)
-        if len(fs) < (6 if searched else 10) or d == "unknown":
+        small_ok = os.environ.get("CRAWL_KEEP_SMALL") == "1"  # a shard keeps all; merge_sets.py drops small sets
+        if (not small_ok and len(fs) < (6 if searched else 10)) or d == "unknown":
             continue
         sid = re.sub(r"[^A-Za-z0-9_-]+", "_", f"{user}_{d}")[:80]
         if sid in old:  # found before: add the new photos and categories to it

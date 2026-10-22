@@ -1,0 +1,85 @@
+name: Search photo sets
+
+# The wide search for teaching data (toward 1 lakh photos): many build machines each run a share
+# of the searches (tools/harvest/crawl.py with CRAWL_SHARD), then their finds are joined into
+# sets.jsonl on the harvest-data branch. Searches done are remembered (searched.txt), so each run
+# carries on. Measuring is the "Harvest photos" workflow, run afterwards with recrawl = no.
+on:
+  workflow_dispatch:
+    inputs:
+      machines:
+        description: "Search machines working at once"
+        default: "10"
+      minutes:
+        description: "Minutes each machine searches"
+        default: "300"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: harvest
+  cancel-in-progress: false
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      shards: ${{ steps.m.outputs.shards }}
+    steps:
+      - id: m
+        run: echo "shards=$(python3 -c "import json; print(json.dumps(list(range(int('${{ inputs.machines }}')))))")" >> "$GITHUB_OUTPUT"
+
+  search:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 345
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: ${{ fromJson(needs.plan.outputs.shards) }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Search my share
+        run: |
+          mkdir -p work
+          if git fetch -q --depth 1 origin harvest-data; then
+            for f in sets.jsonl searched.txt categories.txt; do git show "FETCH_HEAD:$f" > "work/$f" 2>/dev/null || rm -f "work/$f"; done
+          fi
+          CRAWL_SHARD=${{ matrix.shard }}/${{ inputs.machines }} CRAWL_KEEP_SMALL=1 \
+            python3 tools/harvest/crawl.py work/sets.jsonl 1500 ${{ inputs.minutes }} || true
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: found-${{ matrix.shard }}
+          path: |
+            work/sets.jsonl
+            work/searched.txt
+          if-no-files-found: ignore
+
+  join:
+    needs: search
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          path: parts
+          pattern: found-*
+
+      - name: Join the finds and keep them on harvest-data
+        run: |
+          mkdir -p data
+          if git fetch -q --depth 1 origin harvest-data; then git archive FETCH_HEAD | tar -x -C data; fi
+          python3 tools/harvest/merge_sets.py data parts/*/
+          cd data
+          git init -q -b harvest-data
+          git config user.name harvest
+          git config user.email harvest@users.noreply.github.com
+          git add -A
+          git commit -q -m "Search run ${{ github.run_number }}"
+          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" harvest-data

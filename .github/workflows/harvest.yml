@@ -21,6 +21,9 @@ on:
       recrawl:
         description: "Look for photo sets again (yes / no)"
         default: "no"
+      rawify:
+        description: "yes: measure the sets with album picks again, with bad twins, as <id>_raw"
+        default: "no"
 
 permissions:
   contents: write
@@ -116,6 +119,8 @@ jobs:
 
       - name: Download, measure and delete
         run: |
+          if [ "${{ inputs.rawify }}" = yes ]; then ls tools/harvest/labels/*.txt | xargs -n1 basename | sed 's/\.txt$//' > rawify.txt; export RAWIFY=$PWD/rawify.txt; fi
+          export HARVEST_MINUTES=320
           python3 tools/harvest/harvest.py sets.jsonl app/src/main/assets/models out ${{ matrix.machine }} \
             ${{ needs.find.outputs.count }} ${{ needs.find.outputs.photos }} done.txt 1 seen.txt 2>harvest-errors.log || true
           tail -n 20 harvest-errors.log | grep -v "^W0000\|^I0000" || true
@@ -176,7 +181,7 @@ jobs:
             [ -e "$f" ] || continue
             id=$(basename "$f" .jsonl)
             gzip -c "$f" > "data/sets/$id.jsonl.gz"
-            cp "new/$id.plan.txt" "new/$id.credits.json" data/sets/ 2>/dev/null || true
+            cp "new/$id.plan.txt" "new/$id.credits.json" "new/$id.truth.json" data/sets/ 2>/dev/null || true
             echo "$id" >> done.txt
           done
           sort -u done.txt > data/done.txt

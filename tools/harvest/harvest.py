@@ -14,10 +14,12 @@ picture). A photo seen before is not downloaded again, and a copy that comes bac
 name (the same picture, fingerprint at most 3 bits apart) is dropped after measuring. Each set's
 new entries are written to OUT_DIR/<id>.seen.txt.
 """
-import datetime, json, os, re, shutil, sys, tempfile, time, urllib.error, urllib.request
+import datetime, json, os, random, re, shutil, sys, tempfile, time, urllib.error, urllib.request
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from measure import Analyzer  # noqa: E402
+import flaws  # noqa: E402
+from PIL import Image  # noqa: E402
 
 MAX_MINUTES = float(os.environ.get("HARVEST_MINUTES", "150"))  # then stop and keep what is measured
 FIRST = ["WEDDING", "KIDS_BIRTHDAY", "CHILD_FUNCTION", "ENGAGEMENT", "BABY_SHOWER", "ANNIVERSARY", "BIRTHDAY",
@@ -136,6 +138,9 @@ def main():
     done = set(open(sys.argv[7]).read().split()) if len(sys.argv) > 7 and os.path.exists(sys.argv[7]) else set()
     sheets_every = int(sys.argv[8]) if len(sys.argv) > 8 else 1
     seen = Seen(sys.argv[9] if len(sys.argv) > 9 else None)
+    # RAWIFY=file of set ids: measure those (already measured) sets again with bad twins, as <id>_raw,
+    # so the sets with album picks also exist as raw-folder-like tests.
+    rawify = set(open(os.environ["RAWIFY"]).read().split()) if os.environ.get("RAWIFY") else set()
     skipped = copies = 0
     os.makedirs(out, exist_ok=True)
     analyzer = Analyzer(models)
@@ -148,20 +153,23 @@ def main():
     for n, s in enumerate(sets):
         if n % shards != shard:
             continue
-        if s["id"] in done or os.path.exists(os.path.join(out, s["id"] + ".jsonl")):
+        if rawify and s["id"] not in rawify:
+            continue
+        if (not rawify and s["id"] in done) or os.path.exists(os.path.join(out, s["id"] + ".jsonl")):
             continue
         if measured >= max_photos or time.time() - started > MAX_MINUTES * 60:
             break
         # A camera numbers photos in the order they were taken; so do we.
         files = sorted(s["files"], key=lambda f: (taken_millis(f["taken"]) or 1 << 62, f["title"]))
         tmp = tempfile.mkdtemp(prefix="harvest-")
-        rows, credits, thumbs, new_seen = [], [], [], []
-        keep_sheets = sheets_every > 0 and n % sheets_every == 0
+        rows, credits, thumbs, new_seen, truth = [], [], [], [], {}
+        random.seed(s["id"])  # the same bad twins every time a set is measured
+        keep_sheets = sheets_every > 0 and n % sheets_every == 0 and not rawify
         try:
             i = 0
             for f in files:
                 key = photo_key(f)
-                if key in seen.keys:
+                if not rawify and key in seen.keys:
                     skipped += 1
                     continue
                 name = f"IMG_{i + 1:04d}.jpg"
@@ -175,19 +183,39 @@ def main():
                 except Exception as e:
                     row.update({"failed": True, "error": str(e)[:200]})
                 h = row.get("hash") if not row["failed"] else None
-                if h is not None and seen.copy_of(int(h)):
+                if not rawify and h is not None and seen.copy_of(int(h)):
                     copies += 1
                     seen.add(key, None)
                     new_seen.append(f"{key}\t")
                     os.remove(path)
                     continue
-                seen.add(key, int(h) if h is not None else None)
-                new_seen.append(f"{key}\t{'' if h is None else int(h)}")
+                if not rawify:
+                    seen.add(key, int(h) if h is not None else None)
+                    new_seen.append(f"{key}\t{'' if h is None else int(h)}")
                 i += 1
                 rows.append(row)
                 credits.append({"file": name, **f})
                 if keep_sheets:
                     thumbs.append((name, small(path)))
+                # The tougher test: a bad twin of some photos, right after it in time (flaws.py).
+                if not row["failed"]:
+                    try:
+                        main = max((fc["box"] for fc in row.get("faces", [])), key=lambda b: b[2] - b[0], default=None)
+                        made = flaws.plant(Image.open(path), main)
+                        if made:
+                            kind, bad, sec = made
+                            bad_name = name.replace(".jpg", "b.jpg")
+                            bad_path = os.path.join(tmp, bad_name)
+                            bad.save(bad_path, quality=88)
+                            t0 = row.get("takenAt") or 0
+                            bad_row = {"name": bad_name, "folder": ""}
+                            bad_row.update(analyzer.analyze(bad_path, taken_at=t0 + sec * 1000 if t0 else 0))
+                            bad_row["failed"] = False
+                            rows.append(bad_row)
+                            truth[bad_name] = {"defect": kind, "source": name}
+                            os.remove(bad_path)
+                    except Exception as e:
+                        print("plant", name, e, file=sys.stderr)
                 os.remove(path)
                 time.sleep(0.1)
         finally:
@@ -197,6 +225,10 @@ def main():
                 fh.write("\n".join(new_seen) + "\n")
         if len(rows) < 10:
             continue
+        sid = s["id"] + ("_raw" if rawify else "")
+        json.dump(truth, open(os.path.join(out, sid + ".truth.json"), "w"))
+        if rawify:  # the photos and their credits are the clean set's; only the measurements differ
+            s = dict(s, id=sid)
         with open(os.path.join(out, s["id"] + ".jsonl"), "w") as fh:
             for r in rows:
                 fh.write(json.dumps(r) + "\n")
