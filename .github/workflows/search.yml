@@ -62,7 +62,8 @@ jobs:
           if git fetch -q --depth 1 origin harvest-data; then
             for f in sets.jsonl searched.txt categories.txt; do git show "FETCH_HEAD:$f" > "work/$f" 2>/dev/null || rm -f "work/$f"; done
           fi
-          CRAWL_SHARD=${{ matrix.shard }}/${{ needs.plan.outputs.machines }} CRAWL_KEEP_SMALL=1 \
+          deep=$(python3 -c "import json; print('1' if json.load(open('tools/harvest/search.json')).get('deep') else '')")
+          CRAWL_DEEP=$deep CRAWL_SHARD=${{ matrix.shard }}/${{ needs.plan.outputs.machines }} CRAWL_KEEP_SMALL=1 \
             python3 tools/harvest/crawl.py work/sets.jsonl 1500 ${{ needs.plan.outputs.minutes }} || true
 
       - uses: actions/upload-artifact@v4

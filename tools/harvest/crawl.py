@@ -98,6 +98,19 @@ PLACES = CITIES + ["Ludhiana", "Jalandhar", "Kanpur", "Agra", "Meerut", "Nashik"
 WIDE_SEARCHES = ([f"{w} {p}" for w in EVENT_WORDS[:10] for p in PLACES] +
                  [f"{c} {w}" for c in COMMUNITIES for w in EVENT_WORDS] +
                  [f"{w} India" for w in EVENT_WORDS] + [f"Indian {w}" for w in EVENT_WORDS])
+# The deep search (CRAWL_DEEP=1): weddings and birthdays anywhere (judging photos is the same
+# everywhere), and every Flickr photographer already found asked for all their wedding and birthday
+# photos, which grows their sets into whole events.
+DEEP_WORDS = ["wedding", "wedding ceremony", "wedding reception", "bride and groom", "wedding party",
+              "wedding dance", "wedding family photo", "birthday party", "kids birthday party", "first birthday",
+              "1st birthday party", "birthday cake", "birthday celebration", "children's party", "cake cutting"]
+COUNTRIES = ["", "India", "Pakistan", "Bangladesh", "Nepal", "Sri Lanka", "UK", "USA", "Canada", "Australia",
+             "Singapore", "Malaysia", "Dubai", "Mauritius", "Fiji", "South Africa", "Kenya", "Indonesia",
+             "Philippines", "Thailand", "Vietnam", "China", "Japan", "Korea", "Mexico", "Brazil", "Peru",
+             "Nigeria", "Ghana", "Ethiopia", "Egypt", "Turkey", "Iran", "Italy", "Spain", "France", "Germany",
+             "Poland", "Greece", "Ireland", "Jamaica"]
+DEEP_SEARCHES = [f"{w} {c}".strip() for w in DEEP_WORDS for c in COUNTRIES]
+DEEP_TOPICS = ["wedding", "birthday", "bride", "party"]
 OPENVERSE = "https://api.openverse.org/v1/images/"
 
 
@@ -113,10 +126,13 @@ def commons_file_search(term, limit=500):
     return list(infos(titles, width=1280).values()) if titles else []
 
 
-def openverse(term, pages=10):
+def openverse(term, pages=10, creator=None):
     out = []
     for page in range(1, pages + 1):
-        q = urllib.parse.urlencode({"q": term, "license": "by,by-sa,cc0,pdm", "page_size": 20, "page": page})
+        params = {"q": term, "license": "by,by-sa,cc0,pdm", "page_size": 20, "page": page}
+        if creator:
+            params.update(creator=creator, source="flickr")
+        q = urllib.parse.urlencode(params)
         try:
             with urllib.request.urlopen(urllib.request.Request(f"{OPENVERSE}?{q}", headers={"User-Agent": UA}), timeout=60) as r:
                 data = json.load(r)
@@ -214,9 +230,31 @@ def main():
         if not late():
             done.add(term)
 
+    deep = os.environ.get("CRAWL_DEEP") == "1"
+    if deep:
+        uploaders = sorted({s["user"] for s in old.values() if s.get("day") == "openverse" and s.get("user") not in ("", "unknown")})
+        follow = [f"creator:{u}|{t}" for u in uploaders for t in DEEP_TOPICS]
+        print(len(DEEP_SEARCHES), "deep searches,", len(follow), "photographer searches", file=sys.stderr)
+        for term in mine(follow + DEEP_SEARCHES):
+            if late():
+                break
+            if term in done:
+                continue
+            creator, q = term[len("creator:"):].split("|", 1) if term.startswith("creator:") else (None, term)
+            for f in openverse(q, pages=12, creator=creator):
+                if f["title"] in seen or not f["thumb"]:
+                    continue
+                seen.add(f["title"])
+                key = (f["user"], "openverse")
+                groups[key].append(f); where[key].add("Search: " + q)
+            if not late():
+                done.add(term)
+        cats = []
+
     # Weddings first, then the categories not read yet, then everything else.
-    weddings = [t for t in MORE_SEARCHES if re.search(r"wedding|bride|groom|haldi|mehndi|sangeet|baraat|varmala|pheras|"
-                                                     r"sindoor|kanyadaan|vidaai|nikah|anand karaj|roka|tilak|sagai", t, re.I)]
+    weddings = [] if deep else [t for t in MORE_SEARCHES if re.search(
+        r"wedding|bride|groom|haldi|mehndi|sangeet|baraat|varmala|pheras|"
+        r"sindoor|kanyadaan|vidaai|nikah|anand karaj|roka|tilak|sagai", t, re.I)]
     for term in mine(weddings):
         if late():
             break
@@ -237,7 +275,7 @@ def main():
             where[key].add(c)
         if not late():
             done.add("cat:" + c)
-    rest = [t for t in dict.fromkeys(BIRTHDAY_SEARCHES + MORE_SEARCHES + WIDE_SEARCHES) if t not in weddings]
+    rest = [] if deep else [t for t in dict.fromkeys(BIRTHDAY_SEARCHES + MORE_SEARCHES + WIDE_SEARCHES) if t not in weddings]
     for term in mine(rest):
         if late():
             break
