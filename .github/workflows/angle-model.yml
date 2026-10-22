@@ -1,0 +1,52 @@
+name: Angle model
+
+# Trains the small model that tells how crooked a photo is (tools/angle), on freely licensed
+# photos the harvest found (CC BY / CC0 / public domain only), and scores it on the test albums it
+# never saw. The model, its score and the training photos' credits go to the angle-model branch;
+# nothing reaches the app until it is checked and copied into app/src/main/assets/models by hand.
+on:
+  push:
+    branches: ['claude/**']
+    paths: ['tools/angle/run.json']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  train:
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install the training tools
+        run: |
+          pip install --quiet --index-url https://download.pytorch.org/whl/cpu torch
+          pip install --quiet onnx onnxscript onnxruntime pillow numpy
+
+      - name: Get the photos
+        run: |
+          git fetch -q --depth 1 origin harvest-data && git show FETCH_HEAD:sets.jsonl > sets.jsonl
+          max=$(python3 -c "import json; print(json.load(open('tools/angle/run.json')).get('max_train', 8000))")
+          python3 tools/angle/photos.py sets.jsonl tools/harvest/labels work/train work/test "$max"
+
+      - name: Train and score
+        run: |
+          mkdir -p out
+          epochs=$(python3 -c "import json; print(json.load(open('tools/angle/run.json')).get('epochs', 25))")
+          python3 tools/angle/train.py work/train work/test out/angle.onnx "$epochs" 2>&1 | grep -v Warning | tee out/report.txt
+          cp work/credits.json out/TRAINING_CREDITS.json
+          rm -f out/angle.onnx.pt
+
+      - name: Put the model on the angle-model branch
+        if: always()
+        run: |
+          cd out
+          echo "Run ${{ github.run_number }} for commit ${{ github.sha }}" > RUN.txt
+          git init -q -b angle-model
+          git config user.name "angle-model"
+          git config user.email "angle-model@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Angle model run ${{ github.run_number }}"
+          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" angle-model
