@@ -1,6 +1,6 @@
 """Photos for the angle model, from the photo sets the harvest found (sets.jsonl on harvest-data).
 
-    python3 photos.py SETS_JSONL LABELS_DIR TRAIN_DIR EVAL_DIR [MAX_TRAIN]
+    python3 photos.py SETS_JSONL LABELS_DIR TRAIN_DIR EVAL_DIR [MAX_TRAIN] [MAX_TEST] [MINUTES]
 
 Training photos: only CC BY, CC0 and public-domain photos (no share-alike), from sets that are not
 test albums, so the trained model carries no licence condition and is never scored on what it
@@ -29,10 +29,15 @@ def small(url):
     return re.sub(r"_[bhkoc](\.jpg)$", r"_z\1", url)
 
 
+DEADLINE = [0.0]
+
+
 def get(job):
     url, path = job
     if os.path.exists(path):
         return True
+    if time.time() > DEADLINE[0]:  # out of time: train on what is here
+        return False
     for attempt in range(3):
         try:
             with urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": UA}), timeout=60) as r:
@@ -47,8 +52,8 @@ def get(job):
     return False
 
 
-def main(sets_path, labels_dir, train_dir, eval_dir, max_train=8000):
-    max_train = int(max_train)
+def main(sets_path, labels_dir, train_dir, eval_dir, max_train=8000, max_test=600, minutes=75):
+    max_train, max_test = int(max_train), int(max_test)
     labelled = {f[:-4] for f in os.listdir(labels_dir) if f.endswith(".txt")}
     train, test, credits = [], [], []
     for line in open(sets_path):
@@ -65,9 +70,15 @@ def main(sets_path, labels_dir, train_dir, eval_dir, max_train=8000):
                 credits.append({"file": name, "page": f.get("page"), "artist": f.get("artist"), "licence": f.get("licence")})
     os.makedirs(train_dir, exist_ok=True)
     os.makedirs(eval_dir, exist_ok=True)
-    # Wikimedia asks for gentle use: a few at a time.
+    # Flickr photos first (fast); Wikimedia asks for gentle use and slows bulk downloads, so the
+    # downloading stops after a set time and the model trains on what has arrived.
+    flickr_first = lambda jobs: sorted(jobs, key=lambda j: "staticflickr" not in j[0])
+    test = flickr_first(test)[:max_test]
+    train = flickr_first(train)
     with ThreadPoolExecutor(4) as ex:
+        DEADLINE[0] = time.time() + 60 * float(minutes) / 4
         ok_test = sum(ex.map(get, test))
+        DEADLINE[0] = time.time() + 60 * float(minutes)
         ok_train = sum(ex.map(get, train))
     credits = [c for c in credits if os.path.exists(os.path.join(train_dir, c["file"]))]
     json.dump(credits, open(os.path.join(train_dir, "..", "credits.json"), "w"), indent=0)

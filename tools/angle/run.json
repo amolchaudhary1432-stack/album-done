@@ -1,1 +1,1 @@
-{"max_train": 8000, "epochs": 25}
+{"max_train": 8000, "epochs": 25, "run": 2}
