@@ -34,6 +34,7 @@ that must stay true.
 - After pushing, check the run (GitHub Actions) and fix until green. Do not hand over a build
   that has not passed. Amol wants Claude to test the app itself (the phone test) before he does.
 - Explain things to Amol in plain words, no jargon. Keep replies short.
+- Always give times in India time (IST, UTC+5:30), e.g. "4:30 pm IST", never UTC.
 
 ## Version 1 scope (build this, nothing more)
 
