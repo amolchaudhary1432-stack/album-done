@@ -177,6 +177,8 @@ image measurements and scene rules, and the phone test on an Android 16 emulator
 with a real couple's wedding folder: thresholds (blink, smile, same-person similarity) may need
 tuning. The build fails if the APK ever asks for the internet permission or a model file's
 checksum changes, and main only publishes after the phone test passes.
+A full-size folder works on the test phone: 1,000 real photos (phone test option photos = big)
+checked in 43 min at 2.6 s each through ARM translation, nothing unreadable, no crash (22 Oct 2026).
 Legal and Play Store notes: `docs/LEGAL_CHECK.md` (target API 36 is needed for new Play uploads).
 How the picking works and planned upgrades: `docs/HOW_IT_PICKS.md`.
 
