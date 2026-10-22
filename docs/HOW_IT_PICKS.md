@@ -384,3 +384,27 @@ city trip (a police jeep, a church), and empty shots (stage lights with nobody, 
 guest on the phone). Borderline calls were counted as album-worthy (well-shot guest portraits at
 a big wedding), and the judge is the same person who made the picks, so these numbers lean
 generous. The real test is a couple's own folder.
+
+## 13. Tester's check of the numbers above (22 Oct 2026): they flatter the app
+
+Two dumb pickers scored on the same 44 albums (2,265 photos, 524 picks):
+
+| | App | Random usable photos | Every n-th photo by time |
+| --- | --- | --- | --- |
+| Same moment, held back | 87% | 72% | 87% |
+| Same moment, practice | 90% | 75% | 91% |
+| Exact same photo, held back | 37% | 27% | 27% |
+| Exact same photo, practice | 32% | 25% | 28% |
+
+So "same moment" mostly measures spreading picks over the day: taking every n-th photo does as
+well. And the free sets are easy: their uploaders already deleted the bad shots (median set 25
+photos), unlike a photographer's raw folder of 500-1,000 with blinks, blur and bursts, where
+the app's checks matter most (on the replica raw dump, no dark, blurred, shaky or accidental
+shot got in; random picking would put about one in five). The "album-worthy by eye" check
+(section 12) only looked at the app's picks that differed from the person's, by the same judge.
+
+Honest status: the app clearly beats random on the exact photo (+10 points held back) and keeps
+bad photos out, but it is not proven near 95% of a person. Better tests: exact-photo and
+best-frame agreement, bad photos and near-copies in the album, judged across whole albums, on
+raw-dump-like folders (free sets with planted flaws, larger sets), and in the end a real couple's
+folder with their real picks.
