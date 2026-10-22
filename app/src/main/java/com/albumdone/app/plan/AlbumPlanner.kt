@@ -162,6 +162,10 @@ object AlbumPlanner {
     // flash-blown ones 193-207 and 42-49%.
     const val BRIGHT_BRIGHTNESS = 185.0
     const val BLOWN_SHARE = 0.35
+    /** A face brighter than this is always washed out; one this much brighter than the event's faces too. */
+    const val FACE_WASHED_OUT = 235.0
+    const val FACE_BRIGHTER = 70.0
+    const val FACE_BRIGHT_MIN = 185.0
     const val MIN_TILT = 2.5f
     const val MAX_TILT = 12f
 
@@ -528,6 +532,8 @@ object AlbumPlanner {
         val vidaai = kind == EventKind.VIDAAI
         // Kept low on purpose: darker skin is not a shadow.
         val faceDarkLimit = min(45.0, 0.4 * (norms.eventFaceBrightness[event]?.takeIf { it > 0 } ?: 130.0))
+        // Washed out by flash: far brighter than this event's faces usually are.
+        val faceBrightLimit = min(FACE_WASHED_OUT, max(FACE_BRIGHT_MIN, (norms.eventFaceBrightness[event]?.takeIf { it > 0 } ?: 130.0) + FACE_BRIGHTER))
 
         val faceScores = HashMap<PlanFace, Double>()
         val sharpestFace = clear.maxOfOrNull { it.sharpness } ?: 0.0
@@ -561,7 +567,7 @@ object AlbumPlanner {
             }
             val sharp = min(relativeSharpness(f, norms, scene), 1.5) / 1.5
             var exposure = 1.0
-            if (f.backlit || f.brightness < faceDarkLimit || f.brightness > 235.0) { issues += Issue.FACE_DARK; exposure = 0.6 }
+            if (f.backlit || f.brightness < faceDarkLimit || f.brightness > faceBrightLimit) { issues += Issue.FACE_DARK; exposure = 0.6 }
             var visibility = 1.0
             // Someone out of focus at the edge of a crowd is background; the photographer focused on
             // the subject. A cut-off face counts when it is the couple's or as sharp as the subject.

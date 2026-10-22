@@ -105,7 +105,12 @@ class HarvestScoreTest {
             val r = randoms.map(::score)
             for (j in 0..3) rows[2][j] += (r.sumOf { it[j] }.toDouble() / RANDOM_RUNS).roundToInt()
             for (c in app) planted[c]?.let { (source, defect) ->
-                if (defect !in COPIES || source in app) kinds.getOrPut("$split $defect") { IntArray(1) }[0]++
+                if (defect !in COPIES || source in app) {
+                    kinds.getOrPut("$split $defect") { IntArray(1) }[0]++
+                    if (split == "tune") a.byId.getValue(c).let { p ->
+                        println("RAWBAD $id ${p.photo.name} $defect: ${p.shot}, quality %.2f, issues ${p.issues}".format(p.quality))
+                    }
+                }
             }
             if (split == "tune") println("RAW $id: ${a.photos.size} photos (${planted.size} planted), album $size: " +
                 "mistakes ${app4[1]}, same photo ${app4[2]}, same moment ${app4[3]}")
