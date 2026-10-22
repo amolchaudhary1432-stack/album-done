@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuite name="com.albumdone.app.RealWeddingDeviceTest" tests="1" failures="0" errors="0" skipped="0" time="5259.053" timestamp="2026-10-22T16:25:32" hostname="localhost">
+  <properties>
+    <property name="device" value="emulator-5554 - 16" />
+    <property name="flavor" value="" />
+    <property name="project" value=":app" />
+  </properties>
+  <testcase name="realWedding" classname="com.albumdone.app.RealWeddingDeviceTest" time="5258.47" />
+</testsuite>
