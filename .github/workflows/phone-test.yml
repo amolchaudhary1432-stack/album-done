@@ -74,7 +74,10 @@ jobs:
             adb shell cmd uimode night yes || true
             adb shell cmd uimode night no || true
             adb shell am force-stop com.google.android.apps.nexuslauncher || true
+            nohup sh -c 'i=1; while [ ! -f stop-rec ] && [ $i -le 20 ]; do adb shell screenrecord --time-limit 180 --size 540x1200 --bit-rate 1500000 /sdcard/rec_$(printf %02d $i).mp4; i=$((i+1)); done' > rec.log 2>&1 &
             gradle --no-daemon connectedDebugAndroidTest -Pandroid.injected.androidTest.leaveApksInstalledAfterRun=true || touch tests-failed
+            touch stop-rec; adb shell pkill -INT screenrecord || true; sleep 5
+            mkdir -p video && for f in $(adb shell ls /sdcard/ | tr -d '\r' | grep '^rec_'); do adb pull "/sdcard/$f" video/ || true; done
             mkdir -p screens && (adb exec-out run-as com.albumdone.app tar -c files/screens > screens/screens.tar || true)
             adb logcat -d > logcat.txt || true
             adb logcat -d -s AlbumDoneTest > test-log.txt || true
@@ -90,6 +93,8 @@ jobs:
           mkdir -p out/screens
           if [ -f screens/screens.tar ]; then tar -xf screens/screens.tar -C out/screens; fi
           for f in test-log.txt crash.txt; do [ -f "$f" ] && cp "$f" out/; done
+          # A screen recording of the whole test, in 3-minute parts, for the owner to watch.
+          [ -d video ] && cp -r video out/ || true
           [ -f logcat.txt ] && tail -n 20000 logcat.txt > out/logcat.txt
           [ -d app/build/outputs/androidTest-results ] && cp -r app/build/outputs/androidTest-results out/ || true
           echo "Run ${{ github.run_number }} for commit ${{ github.sha }}" > out/RUN.txt
