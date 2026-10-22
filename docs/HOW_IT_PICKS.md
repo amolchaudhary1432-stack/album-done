@@ -430,8 +430,11 @@ shaky and out of focus. Crooked: the tilt check needs strong straight lines and 
 100 photos turned 5-9 degrees in a busy scene; a block-based line finder tried on 444 real photos
 caught 30% of them but also marked 6% of straight photos, so it was not taken. The faces do not
 settle it either: on 142 photos, "every face's eye line leans the same way" flagged about one
-straight photo for every two crooked ones (people tilt their heads). A small model trained to
-tell the angle of a photo (rotated free photos are easy training data) is the planned fix. Face cut: the
+straight photo for every two crooked ones (people tilt their heads). A small model trained from
+scratch to tell the angle (tools/angle, workflow "Angle model") learned nothing on the ~930
+CC BY / CC0 photos within reach: both "how many degrees" and "crooked or straight" stayed at
+chance, even on its own training photos. It needs many thousands of such photos, or a model that
+already knows photos to start from; parked until then. Face cut: the
 recipe cut on the widest face, often a blurred guest at the side, which leaves a clean crop; it now
 cuts through the main person's face (needs a new rawify run to score). Picking every n-th photo
 covers more of the person's moments on these folders; the app wins on keeping bad photos out and
@@ -443,3 +446,13 @@ folder, three quarters on a trip, at most 40%), photos of strangers only count a
 faces washed out by flash are judged against the event's faces, and moments get places by their
 size. Tried and dropped: pushing out near-copies (same people, same shot, moments apart), because
 people pick them too (held back 38% -> 35%).
+
+## 15. More teaching data and the full-size folder (22 Oct 2026)
+
+- Photo search: 830 sets, 27,627 photos found with 1,448 India-wide searches; a deeper search
+  (every photographer found asked for all their wedding and birthday photos, and 615 wedding and
+  birthday searches in 40 countries) added only 2,160 more: Openverse limits what an anonymous
+  user can fetch. 19,150 photos in 495 sets are measured (bad twins included).
+- A full 1,000-photo folder on the test phone through the real background job: 87 min at 5.2 s
+  a photo through ARM translation, nothing unreadable, no crash, the progress screen's time
+  estimate close to right, the album opening by itself at the end.
