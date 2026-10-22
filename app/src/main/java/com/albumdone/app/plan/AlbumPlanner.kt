@@ -214,6 +214,16 @@ object AlbumPlanner {
     const val MOMENT_SPREAD = 0.6
     /** Faces too small to judge (a crowd seen from far): people, but not who; below clear faces. */
     const val SMALL_FACES_QUALITY = 0.7
+    /** No-face shots in the album, as a share of their share of the folder (people pick half as many). */
+    const val DETAIL_OF_POOL = 0.5
+    /** On a trip the places are half the story. */
+    const val DETAIL_OF_POOL_TRIP = 0.75
+    /** Never more than this share of an event's places for no-face shots. */
+    const val DETAIL_MOST = 0.4
+    /** Less value for a no-face shot once the event has its share of them. */
+    const val DETAIL_OVER = 0.5
+    /** Less value for a photo whose faces are all strangers (nobody who comes back in the folder). */
+    const val STRANGERS_ONLY = 0.2
     /** Share of a photo's value that comes from [Appeal] (the rest is its measured quality). */
     const val APPEAL_MIX = 0.25
     val TYPE_SHARE = mapOf(
@@ -897,6 +907,19 @@ object AlbumPlanner {
             quotas = allocate(usableCounts, size)
         }
 
+        /**
+         * How many no-face shots an event's share of the album holds: about a tenth (a quarter on a
+         * trip), more when the photographer shot mostly places and things, but never most of it.
+         * People picking albums take half as many of them as the folder has.
+         */
+        val detailTarget: Map<String, Int> = a.events.associateWith { e ->
+            val inEvent = clean.filter { it.event == e }
+            val pool = if (inEvent.isEmpty()) 0.0 else inEvent.count { it.shot == ShotType.DETAIL }.toDouble() / inEvent.size
+            val ofPool = if (tags.occasion == Occasion.TRIP) DETAIL_OF_POOL_TRIP else DETAIL_OF_POOL
+            val share = min(pool, min(DETAIL_MOST, max(tags.occasion.detailShare, ofPool * pool)))
+            ((quotas[e] ?: 0) * share).roundToInt()
+        }
+
         fun room() = size - picked.size
 
         fun add(p: AssessedPhoto, reason: String?) {
@@ -1128,8 +1151,7 @@ object AlbumPlanner {
 
     /** About 10% of each event (a quarter on a trip): no faces (mehendi hands, jewellery, decor, food, places). */
         fun pickDetails(event: String, budget: Int): Int {
-            val quota = quotas[event] ?: 0
-            val want = (quota * tags.occasion.detailShare).roundToInt() - (typeCount[event to ShotType.DETAIL] ?: 0)
+            val want = (detailTarget[event] ?: 0) - (typeCount[event to ShotType.DETAIL] ?: 0)
             var n = 0
             val details = clean.filter { it.event == event && it.shot == ShotType.DETAIL }
             while (n < min(want, budget) && room() > 0) {
@@ -1214,8 +1236,11 @@ object AlbumPlanner {
             val share = (typeCount[c.event to c.shot] ?: 0).toDouble() / inEvent
             val wantShare = if (c.shot == ShotType.DETAIL) tags.occasion.detailShare else TYPE_SHARE[c.shot] ?: 0.1
             if (share < wantShare) v += 0.08
-            // Details are about a tenth of each event, not more.
-            if (c.shot == ShotType.DETAIL && share > 1.5 * tags.occasion.detailShare) v -= 0.15
+            // No-face shots: their share of the event ([detailTarget]), not more.
+            if (c.shot == ShotType.DETAIL && (typeCount[c.event to c.shot] ?: 0) >= (detailTarget[c.event] ?: 0)) v -= DETAIL_OVER
+
+            // Only strangers (nobody who comes back in the folder): street scenes, passers-by.
+            if (c.shot != ShotType.DETAIL && c.people.isEmpty() && c.photo.faces.isNotEmpty()) v -= STRANGERS_ONLY
 
             // No repeated pose back to back.
             if (repeatsNeighbour(c)) v -= 0.3
