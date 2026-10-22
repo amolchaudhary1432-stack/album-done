@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
     inputs:
       photos:
-        description: "Which test wedding: wedding (Bengali), quirky (replica raw dump), rajasthan, garhwali"
+        description: "Which test wedding: wedding (Bengali), quirky (replica raw dump), rajasthan, garhwali, big (1,000 real photos)"
         default: wedding
       album_size:
         description: "Album size for the test wedding (empty: a quarter of the photos)"
@@ -126,7 +126,8 @@ jobs:
     # Takes about half an hour, so it runs only when started by hand (Run workflow) on a claude/ branch.
     if: github.event_name == 'workflow_dispatch' && startsWith(github.ref, 'refs/heads/claude/')
     runs-on: ubuntu-latest
-    timeout-minutes: 80
+    # 1,000 photos take about 2 to 3 hours on the emulator (the models run through ARM translation).
+    timeout-minutes: 330
     steps:
       - uses: actions/checkout@v4
 
@@ -134,7 +135,17 @@ jobs:
         id: photos
         run: |
           set_name="${{ inputs.photos || 'wedding' }}"
-          if git fetch -q --depth 1 origin test-photos && git cat-file -e "FETCH_HEAD:$set_name/CREDITS.json"; then
+          if [ "$set_name" = big ]; then
+            # The full-size folder: the test weddings plus freely licensed Flickr sets found by the harvest.
+            git fetch -q --depth 1 origin test-photos && mkdir -p tmp-photos/local && git archive FETCH_HEAD | tar -x -C tmp-photos/local
+            git fetch -q --depth 1 origin harvest-data && git show FETCH_HEAD:sets.jsonl > tmp-photos/sets.jsonl
+            pip install -q pillow
+            mkdir -p app/src/androidTest/assets
+            python3 tools/test-photos/big_folder.py tmp-photos/local tmp-photos/sets.jsonl app/src/androidTest/assets/wedding 1000
+            rm -rf tmp-photos
+            echo "$(find app/src/androidTest/assets/wedding -name '*.jpg' | wc -l) photos"
+            echo "found=true" >> "$GITHUB_OUTPUT"
+          elif git fetch -q --depth 1 origin test-photos && git cat-file -e "FETCH_HEAD:$set_name/CREDITS.json"; then
             mkdir -p app/src/androidTest/assets tmp-photos
             git archive FETCH_HEAD "$set_name" | tar -x -C tmp-photos
             mv "tmp-photos/$set_name" app/src/androidTest/assets/wedding

@@ -7,7 +7,10 @@ import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 
 class MainActivity : ComponentActivity() {
 
@@ -16,9 +19,14 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        if (savedInstanceState == null) handleIntent(intent)
+        val fromNotification = savedInstanceState == null && handleIntent(intent)
         setContent {
-            AlbumDoneTheme { AppContent(viewModel) }
+            AlbumDoneTheme {
+                Box(Modifier.fillMaxSize()) {
+                    AppContent(viewModel)
+                    LaunchIntro(skip = savedInstanceState != null || fromNotification)
+                }
+            }
         }
     }
 
@@ -27,10 +35,11 @@ class MainActivity : ComponentActivity() {
         handleIntent(intent)
     }
 
-    /** Opening the app from a notification goes straight to that album. */
-    private fun handleIntent(intent: Intent?) {
+    /** Opening the app from a notification goes straight to that album. True when it did. */
+    private fun handleIntent(intent: Intent?): Boolean {
         val id = intent?.getLongExtra(EXTRA_PROJECT_ID, -1L) ?: -1L
         if (id > 0) viewModel.openProject(id)
+        return id > 0
     }
 
     companion object {
