@@ -54,6 +54,7 @@ def face_cut(img, box):
     w, h = img.size
     l, _, r, _ = box
     fw = (r - l) * w
+    # The new edge runs through the middle of the face, so half of it is outside the photo.
     if (l + r) / 2 < 0.5:
         x0 = l * w + fw * 0.5
         crop = (x0, 0, min(w, x0 + 0.75 * w), h)

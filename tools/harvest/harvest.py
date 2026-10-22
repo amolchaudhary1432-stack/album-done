@@ -200,7 +200,9 @@ def main():
                 # The tougher test: a bad twin of some photos, right after it in time (flaws.py).
                 if not row["failed"]:
                     try:
-                        main = max((fc["box"] for fc in row.get("faces", [])), key=lambda b: b[2] - b[0], default=None)
+                        # The subject: the clearest good face, not a big blurred head at the side.
+                        good = [fc for fc in row.get("faces", []) if fc.get("quality", 0) >= 0.4]
+                        main = max((fc["box"] for fc in good), key=lambda b: b[2] - b[0], default=None)
                         made = flaws.plant(Image.open(path), main)
                         if made:
                             kind, bad, sec = made

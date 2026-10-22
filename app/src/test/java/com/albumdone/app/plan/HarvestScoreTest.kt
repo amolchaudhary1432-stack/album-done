@@ -71,7 +71,9 @@ class HarvestScoreTest {
             val plan = File(plans, "$id.plan.txt")
             val pickFile = File(raw, "$id.txt")
             if (!plan.exists() || !pickFile.exists()) continue
-            val (photos, tags) = PlanDump.read(plan.readText())
+            val (all, tags) = PlanDump.read(plan.readText())
+            val keep = File(raw, "$id.keep.txt").takeIf { it.exists() }?.readLines()?.map { it.trim() }?.toSet()
+            val photos = if (keep == null) all else all.filter { it.name in keep }
             val byName = photos.associateBy { it.name }
             // planted photo id -> (id of the photo it was made from, what is wrong with it)
             val planted = truthFile.readLines().filter { it.isNotBlank() }.mapNotNull { line ->
@@ -101,7 +103,8 @@ class HarvestScoreTest {
                 return intArrayOf(size, mistakes, exact, moment)
             }
             val app4 = score(app)
-            for ((k, v) in listOf(app4, score(everyNth)).withIndex()) for (j in 0..3) rows[k][j] += v[j]
+            val nth4 = score(everyNth)
+            for ((k, v) in listOf(app4, nth4).withIndex()) for (j in 0..3) rows[k][j] += v[j]
             val r = randoms.map(::score)
             for (j in 0..3) rows[2][j] += (r.sumOf { it[j] }.toDouble() / RANDOM_RUNS).roundToInt()
             for (c in app) planted[c]?.let { (source, defect) ->
@@ -113,7 +116,7 @@ class HarvestScoreTest {
                 }
             }
             if (split == "tune") println("RAW $id: ${a.photos.size} photos (${planted.size} planted), album $size: " +
-                "mistakes ${app4[1]}, same photo ${app4[2]}, same moment ${app4[3]}")
+                "mistakes ${app4[1]}, same photo ${app4[2]}, same moment ${app4[3]} (every n-th: ${nth4[3]})")
         }
         for ((split, rows) in total.toSortedMap()) {
             for ((name, t) in listOf("app", "every n-th", "random").zip(rows)) {

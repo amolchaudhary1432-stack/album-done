@@ -7,7 +7,8 @@ each pick is carried over by its source page, not its file name.
 SETS_DIR has <id>.credits.json, <id>_raw.credits.json and <id>_raw.truth.json. Writes, for each
 labelled set measured raw, OUT_DIR/<id>_raw.txt (the person's picks, one file name a line) and
 OUT_DIR/<id>_raw.truth.txt (one planted photo a line: file, the photo it was made from, what is
-wrong with it), the plain text HarvestScoreTest reads.
+wrong with it) and OUT_DIR/<id>_raw.keep.txt (the photos the person chose from, and their bad
+twins), the plain text HarvestScoreTest reads.
 """
 import json
 import os
@@ -36,9 +37,16 @@ def main(labels_dir, sets_dir, out_dir):
         with open(os.path.join(out_dir, f"{sid}_raw.txt"), "w") as fh:
             fh.write(f"# {sid} picks, carried over to {sid}_raw ({sum(1 for m in moved if m)} of {len(picks)} found)\n")
             fh.writelines(m + "\n" for m in moved if m)
+        # A set can grow after it was labelled (the search found more of the same day): the test
+        # keeps only the photos the person chose from, and the bad twins made from them.
+        kept = {by_key[k] for k in old_key.values() if k in by_key}
+        kept |= {bad for bad, t in truth.items() if t["source"] in kept}
+        with open(os.path.join(out_dir, f"{sid}_raw.keep.txt"), "w") as fh:
+            fh.writelines(f + "\n" for f in sorted(kept))
         with open(os.path.join(out_dir, f"{sid}_raw.truth.txt"), "w") as fh:
             for bad, t in sorted(truth.items()):
-                fh.write(f"{bad}\t{t['source']}\t{t['defect']}\n")
+                if bad in kept:
+                    fh.write(f"{bad}\t{t['source']}\t{t['defect']}\n")
         done += 1
     print(done, "raw sets with picks")
 

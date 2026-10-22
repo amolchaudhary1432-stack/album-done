@@ -918,6 +918,15 @@ object AlbumPlanner {
          * trip), more when the photographer shot mostly places and things, but never most of it.
          * People picking albums take half as many of them as the folder has.
          */
+        /**
+         * About how many places each moment fills when the event's places are shared by moment
+         * size (gently: square root). A long ritual takes more photos than one minute of it.
+         */
+        val momentFair: Map<Int, Double> = a.moments.groupBy { it.event }.flatMap { (e, ms) ->
+            val total = ms.sumOf { sqrt(it.photoIds.size.toDouble()) }
+            ms.map { m -> m.id to (quotas[e] ?: 0) * sqrt(m.photoIds.size.toDouble()) / max(total, 1.0) }
+        }.toMap()
+
         val detailTarget: Map<String, Int> = a.events.associateWith { e ->
             val inEvent = clean.filter { it.event == e }
             val pool = if (inEvent.isEmpty()) 0.0 else inEvent.count { it.shot == ShotType.DETAIL }.toDouble() / inEvent.size
@@ -1252,7 +1261,7 @@ object AlbumPlanner {
             if (repeatsNeighbour(c)) v -= 0.3
             // Spread the album across the day: each photo already picked from this moment counts against it.
             val sameMoment = momentPicks[c.momentId].orEmpty()
-            v -= MOMENT_CROWDING * sameMoment.size
+            v -= MOMENT_CROWDING * sameMoment.size / max(1.0, momentFair[c.momentId] ?: 1.0)
             // Within a long moment, the next pick comes from a part not yet shown (the end of a long
             // ritual, not five frames from its start).
             if (sameMoment.isNotEmpty()) {
