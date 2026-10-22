@@ -408,3 +408,35 @@ bad photos out, but it is not proven near 95% of a person. Better tests: exact-p
 best-frame agreement, bad photos and near-copies in the album, judged across whole albums, on
 raw-dump-like folders (free sets with planted flaws, larger sets), and in the end a real couple's
 folder with their real picks.
+
+## 14. The tougher test: real albums with bad photos planted (22 Oct 2026)
+
+The 44 albums with a person's picks, measured again as raw folders: about 30-40% of the photos
+get a bad twin placed next to them, as on a real card (burst frames, shaky, out of focus, too
+dark, flash blown out, crooked, face cut by the edge, black-and-white copies, accidental shots;
+`tools/harvest/flaws.py`, option rawify of the harvest, `HarvestScoreTest.rawFolders`). A
+mistake is a flawed twin in the album, or a copy next to the photo it copies. "Clean" is the
+share of album places without a mistake.
+
+| | App | Every n-th photo | Random |
+| --- | --- | --- | --- |
+| Clean, practice albums (365 places) | 96% | 85% | 83% |
+| Clean, held-back albums (159 places) | 96% | 84% | 81% |
+| Same photo as the person, held back | 32% | 18% | 19% |
+| Same moment as the person, held back | 74% | 83% | 63% |
+
+What still gets in: crooked twins (7) and faces cut by the edge (6), then one each of burst copy,
+shaky and out of focus. Crooked: the tilt check needs strong straight lines and finds about 1 in
+100 photos turned 5-9 degrees in a busy scene; a block-based line finder tried on 444 real photos
+caught 30% of them but also marked 6% of straight photos, so it was not taken. Face cut: the
+recipe cut on the widest face, often a blurred guest at the side, which leaves a clean crop; it now
+cuts through the main person's face (needs a new rawify run to score). Picking every n-th photo
+covers more of the person's moments on these folders; the app wins on keeping bad photos out and
+on the exact photo.
+
+Changes from this round (all checked on the held-back albums, which stay at 38% same photo on
+the clean sets): no-face shots limited to their share of the event (half their share of the
+folder, three quarters on a trip, at most 40%), photos of strangers only count a little less,
+faces washed out by flash are judged against the event's faces, and moments get places by their
+size. Tried and dropped: pushing out near-copies (same people, same shot, moments apart), because
+people pick them too (held back 38% -> 35%).
