@@ -14,16 +14,15 @@ import androidx.compose.ui.test.swipeDown
 import androidx.compose.ui.test.swipeUp
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import androidx.work.ListenableWorker
-import androidx.work.testing.TestListenableWorkerBuilder
-import androidx.work.workDataOf
+import androidx.lifecycle.ViewModelProvider
 import com.albumdone.app.data.AppDatabase
 import com.albumdone.app.data.PhotoEntity
 import com.albumdone.app.data.ProjectEntity
+import com.albumdone.app.data.ProjectStatus
 import com.albumdone.app.people.PeopleRepository
 import com.albumdone.app.plan.AlbumPlanner
+import com.albumdone.app.ui.AlbumViewModel
 import com.albumdone.app.ui.MainActivity
-import com.albumdone.app.work.AnalyzeWorker
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertTrue
 import org.junit.Assume.assumeTrue
@@ -79,15 +78,22 @@ class RealWeddingDeviceTest {
             id
         }
 
+        // Checked the way a couple's photos are: opening the album starts the real background job
+        // and shows the progress screen. A screenshot every 20 s makes a time-lapse of it.
         val started = System.currentTimeMillis()
-        val result = runBlocking {
-            TestListenableWorkerBuilder<AnalyzeWorker>(DeviceTestSupport.app)
-                .setInputData(workDataOf(AnalyzeWorker.KEY_PROJECT_ID to id))
-                .build()
-                .doWork()
+        compose.waitUntil(30_000) { has(name) }
+        val vm = ViewModelProvider(compose.activity)[AlbumViewModel::class.java]
+        compose.runOnUiThread { vm.openProject(id) }
+        var frame = 0
+        while (runBlocking { dao.project(id)?.status } != ProjectStatus.DONE) {
+            val waited = System.currentTimeMillis() - started
+            assertTrue("checking took over 4 hours", waited < 4 * 3_600_000L)
+            // The background job must get going on its own, as on a couple's phone.
+            if (waited > 5 * 60_000L) assertTrue("the background job never started", runBlocking { dao.countProcessed(id) } > 0)
+            DeviceTestSupport.saveScreenshot("progress-%04d".format(frame++), InstrumentationRegistry.getInstrumentation().uiAutomation.takeScreenshot())
+            Thread.sleep(20_000)
         }
         val seconds = (System.currentTimeMillis() - started) / 1000
-        assertTrue("analysis finished: $result", result is ListenableWorker.Result.Success)
 
         val project = runBlocking { dao.project(id)!! }
         val (planPhotos, tags) = runBlocking { PeopleRepository(dao).planInput(project) }
@@ -104,10 +110,9 @@ class RealWeddingDeviceTest {
             .resolve("plan-input.txt").writeText(com.albumdone.app.plan.PlanDump.write(planPhotos, tags))
         Log.i("AlbumDoneTest", "Real wedding: ${files.size} photos in $seconds s")
 
-        // Open it in the app, as the couple would after the notification.
-        compose.waitUntil(30_000) { has(name) }
-        compose.onNodeWithText(name).performClick()
+        // The finished album opens by itself, as for the couple.
         compose.waitUntil(5 * 60_000) { has("Send list to photographer") }
+        DeviceTestSupport.saveScreenshot("progress-%04d".format(frame), InstrumentationRegistry.getInstrumentation().uiAutomation.takeScreenshot())
         screenshot("real-01-album")
         for (i in 2..14) {
             compose.onNodeWithTag("album-grid").performTouchInput { swipeUp() }

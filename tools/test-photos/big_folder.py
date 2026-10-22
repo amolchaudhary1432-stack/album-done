@@ -67,7 +67,7 @@ def main(test_dir, sets_path, out, target=1000):
         files = [f for f in s["files"] if "staticflickr.com" in (f.get("thumb") or "")]
         if len(files) < 10:
             continue
-        folder = f"{k:02d} {s['user'][:24]}"
+        folder = f"{k:02d} More wedding photos {k - 5}"
         got = 0
         for i, f in enumerate(files):
             if n >= target:

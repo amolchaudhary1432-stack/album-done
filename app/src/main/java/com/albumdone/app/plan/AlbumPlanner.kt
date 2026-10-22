@@ -190,6 +190,11 @@ object AlbumPlanner {
     const val GROUP_SAME_PEOPLE = 0.6
     const val GROUP_HASH = 16
     const val SAME_POSE_HASH = 22
+    /**
+     * How far two faces must turn towards each other to count as looking at each other. Heads only
+     * leaning in a little (a third of the way) are usually still smiling at the camera.
+     */
+    const val FACING = 0.4f
 
     // ---- Moments ----
     const val MIN_MOMENT_GAP = 45_000L
@@ -646,7 +651,7 @@ object AlbumPlanner {
     fun facingEachOther(faces: List<PlanFace>): Boolean {
         for (a in faces) for (b in faces) {
             if (a === b || a.box.centerX >= b.box.centerX) continue
-            if (a.directionX >= 0.25f && b.directionX <= -0.25f && !a.lookingAtCamera && !b.lookingAtCamera) return true
+            if (a.directionX >= FACING && b.directionX <= -FACING && !a.lookingAtCamera && !b.lookingAtCamera) return true
         }
         return false
     }
