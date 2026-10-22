@@ -90,6 +90,8 @@ class RealWeddingDeviceTest {
             assertTrue("checking took over 4 hours", waited < 4 * 3_600_000L)
             // The background job must get going on its own, as on a couple's phone.
             if (waited > 5 * 60_000L) assertTrue("the background job never started", runBlocking { dao.countProcessed(id) } > 0)
+            // The test drives the screen's clock: move it on, so the intro fades and the ring turns.
+            compose.mainClock.advanceTimeBy(20_000)
             DeviceTestSupport.saveScreenshot("progress-%04d".format(frame++), InstrumentationRegistry.getInstrumentation().uiAutomation.takeScreenshot())
             Thread.sleep(20_000)
         }
