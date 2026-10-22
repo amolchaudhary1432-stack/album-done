@@ -328,6 +328,7 @@ per-set results are never shown, only the total (`HarvestScoreTest`).
 | Before | 196 of 259 same moment (76%) | 66 of 87 (75%) |
 | After | 204 of 259 (79%, each set scored with weights learned without it) | 70 of 87 (80%) |
 | Later the same day (more sets, duplicate removed, picks spread over more moments) | 244 of 280 (87%) | 70 of 87 (80%) |
+| 22 Oct, 16 more real weddings picked by eye (photo search run 11) | 368 of 414 (88%) | 139 of 159 (87%) |
 
 What changed:
 - Photos whose only faces are too small to judge (a crowd seen from far) score 0.7 of the
