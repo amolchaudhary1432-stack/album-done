@@ -428,7 +428,10 @@ share of album places without a mistake.
 What still gets in: crooked twins (7) and faces cut by the edge (6), then one each of burst copy,
 shaky and out of focus. Crooked: the tilt check needs strong straight lines and finds about 1 in
 100 photos turned 5-9 degrees in a busy scene; a block-based line finder tried on 444 real photos
-caught 30% of them but also marked 6% of straight photos, so it was not taken. Face cut: the
+caught 30% of them but also marked 6% of straight photos, so it was not taken. The faces do not
+settle it either: on 142 photos, "every face's eye line leans the same way" flagged about one
+straight photo for every two crooked ones (people tilt their heads). A small model trained to
+tell the angle of a photo (rotated free photos are easy training data) is the planned fix. Face cut: the
 recipe cut on the widest face, often a blurred guest at the side, which leaves a clean crop; it now
 cuts through the main person's face (needs a new rawify run to score). Picking every n-th photo
 covers more of the person's moments on these folders; the app wins on keeping bad photos out and
