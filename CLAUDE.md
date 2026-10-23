@@ -187,7 +187,8 @@ checksum changes, and main only publishes after the phone test passes.
 A full-size folder works on the test phone: 1,000 real photos (phone test option photos = big)
 checked in 43 min at 2.6 s each through ARM translation, nothing unreadable, no crash (22 Oct 2026).
 On a real Samsung Galaxy A15 (Firebase Test Lab, 23 Oct 2026): the same 1,000 photos (made 1400 px)
-in 8 min 51 s, 0.5 s each; every phone test passes there, including the start-to-finish journey.
+in 8 min 51 s, 0.5 s each. All phone tests ran there: 10 of 11 passed; the journey went through Samsung's
+folder picker to the share sheet, and only its return home (a share-sheet tip took the Back) failed, fixed since.
 The A15 found a crash the emulator never showed (two lanes starting MediaPipe at once, SIGBUS):
 models now start one lane at a time from memory. Not yet measured: full-size camera photos.
 Legal and Play Store notes: `docs/LEGAL_CHECK.md` (target API 36 is needed for new Play uploads).
