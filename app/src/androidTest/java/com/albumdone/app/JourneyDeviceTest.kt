@@ -101,7 +101,7 @@ class JourneyDeviceTest {
         val photos = if (real.isNotEmpty()) {
             real.filter { DeviceTestSupport.testAssets("wedding/$it").isNotEmpty() }.sorted()
                 .flatMap { f -> DeviceTestSupport.testAssets("wedding/$f").sorted().map { Triple("wedding/$f/$it", f, it) } }
-                .take(MAX_PHOTOS)
+                .take(InstrumentationRegistry.getArguments().getString("journeyPhotos")?.toIntOrNull() ?: MAX_PHOTOS)
         } else {
             TestWedding.PHOTOS.map { (asset, folder, name) -> Triple("faces/$asset", folder, name) }
         }
@@ -267,7 +267,10 @@ class JourneyDeviceTest {
     }
 
     companion object {
-        /** Enough for a real day's feel and the time it takes, small enough for every run. */
+        /**
+         * Enough for a real day's feel, small enough for every run. The real-phone run can ask for
+         * more (instrumentation argument journeyPhotos, e.g. 1000 for the full-size folder).
+         */
         const val MAX_PHOTOS = 120
     }
 }

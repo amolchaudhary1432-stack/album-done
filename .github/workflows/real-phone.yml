@@ -29,7 +29,7 @@ on:
         description: "Most minutes the phone may take (45 at most)"
         default: "40"
       tests:
-        description: "real = the real-photo test only; all = every phone test, start to finish"
+        description: "real = the real-photo test only; journey = start to finish with every photo; all = every phone test"
         default: "real"
 
 permissions:
@@ -65,7 +65,12 @@ jobs:
           echo "minutes=$minutes" >> "$GITHUB_OUTPUT"
           # Which tests: the real-photo test alone, or every phone test (screens, birthday, big
           # family, models, and the start-to-finish journey through Android's folder picker).
-          if [ "$tests" = all ]; then targets="package com.albumdone.app"; else targets="class com.albumdone.app.RealWeddingDeviceTest"; fi
+          # journey = the start-to-finish test alone, with every photo in the set (up to 1,000).
+          case "$tests" in
+            all) targets="package com.albumdone.app" ;;
+            journey) targets="class com.albumdone.app.JourneyDeviceTest" ;;
+            *) targets="class com.albumdone.app.RealWeddingDeviceTest" ;;
+          esac
           echo "targets=$targets" >> "$GITHUB_OUTPUT"
           echo "photos=$photos size=$size device=$device minutes=$minutes tests=$tests"
 
@@ -132,7 +137,7 @@ jobs:
             --test app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk \
             --device "model=${{ steps.d.outputs.model }},version=${{ steps.d.outputs.version }},locale=en_IN,orientation=portrait" \
             --test-targets "${{ steps.s.outputs.targets }}" \
-            --environment-variables "albumSize=${{ steps.s.outputs.size }},screensDir=external" \
+            --environment-variables "albumSize=${{ steps.s.outputs.size }},screensDir=external,journeyPhotos=1000" \
             --directories-to-pull /sdcard/Android/data/com.albumdone.app/files \
             --timeout "${{ steps.s.outputs.minutes }}m" --record-video --performance-metrics \
             --results-dir "$dir" --num-flaky-test-attempts 0 2>&1 | tee run.txt || touch tests-failed
