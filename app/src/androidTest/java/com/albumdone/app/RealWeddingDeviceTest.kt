@@ -105,12 +105,13 @@ class RealWeddingDeviceTest {
         DeviceTestSupport.writeReport(
             analysis, "real-wedding-report.txt", list,
             header = "${files.size} photos in ${folders.size} folders, checked in $seconds s " +
-                "(${"%.1f".format(seconds.toDouble() / files.size)} s each on the emulator), $failed unreadable, album size $albumSize",
+                "(${"%.1f".format(seconds.toDouble() / files.size)} s each on ${android.os.Build.MANUFACTURER} ${android.os.Build.MODEL}, " +
+                "Android ${android.os.Build.VERSION.RELEASE}), $failed unreadable, album size $albumSize",
         )
         // Everything the planner saw, so the album can be re-planned and scored on a computer.
-        java.io.File(DeviceTestSupport.app.filesDir, "screens").apply { mkdirs() }
+        DeviceTestSupport.screensDir.apply { mkdirs() }
             .resolve("plan-input.txt").writeText(com.albumdone.app.plan.PlanDump.write(planPhotos, tags))
-        Log.i("AlbumDoneTest", "Real wedding: ${files.size} photos in $seconds s")
+        Log.i("AlbumDoneTest", "Real wedding: ${files.size} photos in $seconds s on ${android.os.Build.MANUFACTURER} ${android.os.Build.MODEL}")
 
         // The finished album opens by itself, as for the couple.
         compose.waitUntil(5 * 60_000) { has("Send list to photographer") }

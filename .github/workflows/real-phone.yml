@@ -1,0 +1,146 @@
+name: Real phone test
+
+# The real app on a real phone in Firebase Test Lab (Google's phones in a data centre): real
+# wedding photos from the test-photos branch, the real background job, and the album screens
+# (RealWeddingDeviceTest). Shows the true speed on a phone, unlike the emulator, which runs the
+# models through ARM translation. Test Lab records the screen; the video, logs, screenshots and
+# the per-photo report go to the real-phone-results branch.
+# Needs the FIREBASE_KEY secret (a service account key for project album-done-test with the
+# Cloud Testing and Cloud Tool Results APIs on). The free plan allows 5 real-phone runs a day.
+# Started by hand, or by changing tools/realphone/run.json (photos, album_size, device, minutes).
+on:
+  push:
+    branches: ['claude/**']
+    paths: ['tools/realphone/run.json']
+  workflow_dispatch:
+    inputs:
+      photos:
+        description: "Photo set from the test-photos branch (wedding, quirky, ...)"
+        default: "wedding"
+      album_size:
+        description: "Album size (0 = a quarter of the photos)"
+        default: "30"
+      device:
+        description: "Test Lab phone id (empty = a mid-range Samsung)"
+        default: ""
+      minutes:
+        description: "Most minutes the phone may take (45 at most)"
+        default: "40"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: real-phone
+  cancel-in-progress: false
+
+env:
+  PROJECT: album-done-test
+
+jobs:
+  real-phone:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Read the run settings
+        id: s
+        run: |
+          get() { python3 -c "import json,sys; print(json.load(open('tools/realphone/run.json')).get('$1', '$2'))"; }
+          photos="${{ inputs.photos }}"; size="${{ inputs.album_size }}"; device="${{ inputs.device }}"; minutes="${{ inputs.minutes }}"
+          if [ "${{ github.event_name }}" = push ]; then
+            photos=$(get photos wedding); size=$(get album_size 30); device=$(get device ""); minutes=$(get minutes 40)
+          fi
+          [ "$minutes" -gt 45 ] && minutes=45
+          echo "photos=$photos" >> "$GITHUB_OUTPUT"
+          echo "size=$size" >> "$GITHUB_OUTPUT"
+          echo "device=$device" >> "$GITHUB_OUTPUT"
+          echo "minutes=$minutes" >> "$GITHUB_OUTPUT"
+          echo "photos=$photos size=$size device=$device minutes=$minutes"
+
+      - name: Get the test photos
+        run: |
+          set_name="${{ steps.s.outputs.photos }}"
+          git fetch -q --depth 1 origin test-photos
+          git cat-file -e "FETCH_HEAD:$set_name/CREDITS.json"
+          mkdir -p app/src/androidTest/assets tmp-photos
+          git archive FETCH_HEAD "$set_name" | tar -x -C tmp-photos
+          mv "tmp-photos/$set_name" app/src/androidTest/assets/wedding
+          echo "$(find app/src/androidTest/assets/wedding -name '*.jpg' | wc -l) photos"
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.14.3"
+
+      - name: Build the app and its phone tests
+        run: gradle --no-daemon assembleDebug assembleDebugAndroidTest
+
+      - uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.FIREBASE_KEY }}
+
+      - uses: google-github-actions/setup-gcloud@v2
+
+      - name: Pick a real phone
+        id: d
+        run: |
+          gcloud firebase test android models list --filter=form=PHYSICAL --format=json --project "$PROJECT" > models.json
+          device=$(python3 tools/realphone/pick_device.py "${{ steps.s.outputs.device }}" < models.json)
+          echo "Picked $device"
+          echo "model=${device%,*}" >> "$GITHUB_OUTPUT"
+          echo "version=${device#*,}" >> "$GITHUB_OUTPUT"
+
+      - name: Run the test on the real phone
+        run: |
+          set -o pipefail
+          dir="run-${{ github.run_number }}-${{ github.run_attempt }}"
+          echo "$dir" > results-dir.txt
+          gcloud firebase test android run --project "$PROJECT" --type instrumentation \
+            --app app/build/outputs/apk/debug/app-debug.apk \
+            --test app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk \
+            --device "model=${{ steps.d.outputs.model }},version=${{ steps.d.outputs.version }},locale=en_IN,orientation=portrait" \
+            --test-targets "class com.albumdone.app.RealWeddingDeviceTest" \
+            --environment-variables "albumSize=${{ steps.s.outputs.size }},screensDir=external" \
+            --directories-to-pull /sdcard/Android/data/com.albumdone.app/files \
+            --timeout "${{ steps.s.outputs.minutes }}m" --record-video --performance-metrics \
+            --results-dir "$dir" --num-flaky-test-attempts 0 2>&1 | tee run.txt || touch tests-failed
+
+      - name: Fetch the video, logs and screenshots
+        if: always()
+        run: |
+          mkdir -p out
+          cp models.json run.txt out/ 2>/dev/null || true
+          bucket=$(grep -o 'test-lab-[a-z0-9_-]*' run.txt | head -1 || true)
+          dir=$(cat results-dir.txt 2>/dev/null || true)
+          if [ -n "$bucket" ] && [ -n "$dir" ]; then
+            gsutil -m -q cp -r "gs://$bucket/$dir" out/lab || echo "could not copy the results"
+          fi
+          # The phone's own folder (screenshots, report) and Test Lab's files, flattened for reading.
+          find out/lab -name 'video.mp4' -exec cp {} out/video.mp4 \; 2>/dev/null || true
+          find out/lab -name 'logcat' -exec sh -c 'grep -E "AlbumDone|AndroidRuntime|FATAL|TestRunner" "$1" | tail -n 4000 > out/logcat-app.txt' _ {} \; 2>/dev/null || true
+          shots=$(find out/lab -type d -path '*com.albumdone.app/files/screens' | head -1)
+          [ -n "$shots" ] && mv "$shots" out/screens || true
+          find out/lab -name 'video.mp4' -delete 2>/dev/null || true
+          grep -h "Real wedding:" out/logcat-app.txt 2>/dev/null | tail -1 || true
+          head -1 out/screens/real-wedding-report.txt 2>/dev/null || true
+
+      - name: Send them to the real-phone-results branch
+        if: always()
+        run: |
+          echo "Run ${{ github.run_number }} for commit ${{ github.sha }}: photos ${{ steps.s.outputs.photos }} on ${{ steps.d.outputs.model }} (API ${{ steps.d.outputs.version }})" > out/RUN.txt
+          cd out
+          git init -q -b real-phone-results
+          git config user.name "phone-test"
+          git config user.email "phone-test@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Real phone run ${{ github.run_number }}"
+          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" real-phone-results
+
+      - name: Fail if the test failed
+        run: test ! -f tests-failed

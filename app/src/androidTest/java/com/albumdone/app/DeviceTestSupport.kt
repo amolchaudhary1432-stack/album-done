@@ -34,9 +34,18 @@ object DeviceTestSupport {
         Thread.sleep(500)
     }
 
+    /**
+     * Where screenshots and reports go: the app's own files (the emulator workflow reads them with
+     * run-as), or its shared-storage folder on a lab phone (instrumentation argument
+     * screensDir=external), which Firebase Test Lab can copy back.
+     */
+    val screensDir: File
+        get() = if (InstrumentationRegistry.getArguments().getString("screensDir") == "external")
+            File(app.getExternalFilesDir(null), "screens") else File(app.filesDir, "screens")
+
     /** Saves a screenshot where the build workflow collects it. */
     fun saveScreenshot(name: String, bitmap: Bitmap) {
-        val dir = File(app.filesDir, "screens")
+        val dir = screensDir
         dir.mkdirs()
         FileOutputStream(File(dir, "$name.png")).use { bitmap.compress(Bitmap.CompressFormat.PNG, 100, it) }
     }
@@ -84,7 +93,7 @@ object DeviceTestSupport {
                 }
             }
         }
-        val dir = File(app.filesDir, "screens")
+        val dir = screensDir
         dir.mkdirs()
         File(dir, fileName).writeText(text)
     }
