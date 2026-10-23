@@ -225,7 +225,8 @@ class JourneyDeviceTest {
                 compose.waitForIdle()
                 appShot("12-undo")
             }
-            DeviceTestSupport.pressBack()
+            // Remove (and Undo) can already have closed the photo; Back only if it is still open.
+            if (has("WHY IT")) DeviceTestSupport.pressBack()
             waitFor("Send list to photographer")
         }
 
