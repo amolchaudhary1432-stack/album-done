@@ -40,6 +40,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.albumdone.app.data.ProjectStatus
+import com.albumdone.app.plan.TimeLeft
 
 @Composable
 fun ProgressScreen(vm: AlbumViewModel, projectId: Long) {
@@ -47,6 +48,8 @@ fun ProgressScreen(vm: AlbumViewModel, projectId: Long) {
     val summary by flow.collectAsStateWithLifecycle(initialValue = null)
     val recentFlow = remember(projectId) { vm.recentThumbs(projectId) }
     val recent by recentFlow.collectAsStateWithLifecycle(initialValue = emptyList())
+    // Time left from the recent pace, not the average since the start (the first photos are slow).
+    val timeLeft = remember(projectId) { TimeLeft() }
 
     LaunchedEffect(summary?.project?.status) {
         if (summary?.project?.status == ProjectStatus.DONE) vm.openAlbum(projectId)
@@ -71,9 +74,9 @@ fun ProgressScreen(vm: AlbumViewModel, projectId: Long) {
                 Text("Making your album", style = MaterialTheme.typography.headlineMedium, textAlign = TextAlign.Center)
                 Ring(fraction)
                 Text("${"%,d".format(s.done)} of ${"%,d".format(s.total)} photos checked", style = MaterialTheme.typography.titleMedium)
-                val seconds = s.project.activeMillis / 1000.0
-                if (seconds >= 20 && s.done >= 5) {
-                    val left = ((s.total - s.done) / (s.done / seconds)).toLong()
+                timeLeft.add(s.project.activeMillis, s.done)
+                val left = timeLeft.secondsLeft(s.total)
+                if (left != null) {
                     Text("About ${formatDuration(left * 1000)} left", style = MaterialTheme.typography.bodyLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 } else {
                     Text("Working out how long this will take…", color = MaterialTheme.colorScheme.onSurfaceVariant)
