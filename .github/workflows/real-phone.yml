@@ -8,6 +8,8 @@ name: Real phone test
 # Needs the FIREBASE_KEY secret (a service account key for project album-done-test with the
 # Cloud Testing and Cloud Tool Results APIs on). The free plan allows 5 real-phone runs a day.
 # Started by hand, or by changing tools/realphone/run.json (photos, album_size, device, minutes).
+# With "fetch": "<bucket>/<results dir>" in run.json it only collects an earlier run's results
+# again, without using a phone.
 on:
   push:
     branches: ['claude/**']
@@ -51,6 +53,7 @@ jobs:
           photos="${{ inputs.photos }}"; size="${{ inputs.album_size }}"; device="${{ inputs.device }}"; minutes="${{ inputs.minutes }}"
           if [ "${{ github.event_name }}" = push ]; then
             photos=$(get photos wedding); size=$(get album_size 30); device=$(get device ""); minutes=$(get minutes 40)
+            echo "fetch=$(get fetch "")" >> "$GITHUB_OUTPUT"
           fi
           [ "$minutes" -gt 45 ] && minutes=45
           echo "photos=$photos" >> "$GITHUB_OUTPUT"
@@ -60,6 +63,7 @@ jobs:
           echo "photos=$photos size=$size device=$device minutes=$minutes"
 
       - name: Get the test photos
+        if: steps.s.outputs.fetch == ''
         run: |
           set_name="${{ steps.s.outputs.photos }}"
           git fetch -q --depth 1 origin test-photos
@@ -70,15 +74,18 @@ jobs:
           echo "$(find app/src/androidTest/assets/wedding -name '*.jpg' | wc -l) photos"
 
       - uses: actions/setup-java@v4
+        if: steps.s.outputs.fetch == ''
         with:
           distribution: temurin
           java-version: "17"
 
       - uses: gradle/actions/setup-gradle@v4
+        if: steps.s.outputs.fetch == ''
         with:
           gradle-version: "8.14.3"
 
       - name: Build the app and its phone tests
+        if: steps.s.outputs.fetch == ''
         run: gradle --no-daemon assembleDebug assembleDebugAndroidTest
 
       - uses: google-github-actions/auth@v2
@@ -89,6 +96,7 @@ jobs:
 
       - name: Pick a real phone
         id: d
+        if: steps.s.outputs.fetch == ''
         run: |
           gcloud firebase test android models list --filter=form=PHYSICAL --format=json --project "$PROJECT" > models.json
           device=$(python3 tools/realphone/pick_device.py "${{ steps.s.outputs.device }}" < models.json)
@@ -97,6 +105,7 @@ jobs:
           echo "version=${device#*,}" >> "$GITHUB_OUTPUT"
 
       - name: Run the test on the real phone
+        if: steps.s.outputs.fetch == ''
         run: |
           set -o pipefail
           dir="run-${{ github.run_number }}-${{ github.run_attempt }}"
@@ -116,10 +125,13 @@ jobs:
         run: |
           mkdir -p out
           cp models.json run.txt out/ 2>/dev/null || true
-          bucket=$(grep -o 'test-lab-[a-z0-9_-]*' run.txt | head -1 || true)
+          bucket=$(grep -o 'test-lab-[a-z0-9_-]*' run.txt 2>/dev/null | head -1 || true)
           dir=$(cat results-dir.txt 2>/dev/null || true)
+          fetch="${{ steps.s.outputs.fetch }}"
+          if [ -n "$fetch" ]; then bucket="${fetch%%/*}"; dir="${fetch#*/}"; fi
           if [ -n "$bucket" ] && [ -n "$dir" ]; then
-            gsutil -m -q cp -r "gs://$bucket/$dir" out/lab || echo "could not copy the results"
+            mkdir -p out/lab
+            gsutil -m -q cp -r "gs://$bucket/$dir/*" out/lab/ || echo "could not copy the results"
           fi
           # The phone's own folder (screenshots, report) and Test Lab's files, flattened for reading.
           find out/lab -name 'video.mp4' -exec cp {} out/video.mp4 \; 2>/dev/null || true
