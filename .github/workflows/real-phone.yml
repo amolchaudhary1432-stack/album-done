@@ -28,6 +28,9 @@ on:
       minutes:
         description: "Most minutes the phone may take (45 at most)"
         default: "40"
+      tests:
+        description: "real = the real-photo test only; all = every phone test, start to finish"
+        default: "real"
 
 permissions:
   contents: write
@@ -50,9 +53,9 @@ jobs:
         id: s
         run: |
           get() { python3 -c "import json,sys; print(json.load(open('tools/realphone/run.json')).get('$1', '$2'))"; }
-          photos="${{ inputs.photos }}"; size="${{ inputs.album_size }}"; device="${{ inputs.device }}"; minutes="${{ inputs.minutes }}"
+          photos="${{ inputs.photos }}"; size="${{ inputs.album_size }}"; device="${{ inputs.device }}"; minutes="${{ inputs.minutes }}"; tests="${{ inputs.tests }}"
           if [ "${{ github.event_name }}" = push ]; then
-            photos=$(get photos wedding); size=$(get album_size 30); device=$(get device ""); minutes=$(get minutes 40)
+            photos=$(get photos wedding); size=$(get album_size 30); device=$(get device ""); minutes=$(get minutes 40); tests=$(get tests real)
             echo "fetch=$(get fetch "")" >> "$GITHUB_OUTPUT"
           fi
           [ "$minutes" -gt 45 ] && minutes=45
@@ -60,7 +63,11 @@ jobs:
           echo "size=$size" >> "$GITHUB_OUTPUT"
           echo "device=$device" >> "$GITHUB_OUTPUT"
           echo "minutes=$minutes" >> "$GITHUB_OUTPUT"
-          echo "photos=$photos size=$size device=$device minutes=$minutes"
+          # Which tests: the real-photo test alone, or every phone test (screens, birthday, big
+          # family, models, and the start-to-finish journey through Android's folder picker).
+          if [ "$tests" = all ]; then targets="package com.albumdone.app"; else targets="class com.albumdone.app.RealWeddingDeviceTest"; fi
+          echo "targets=$targets" >> "$GITHUB_OUTPUT"
+          echo "photos=$photos size=$size device=$device minutes=$minutes tests=$tests"
 
       - name: Get the test photos
         if: steps.s.outputs.fetch == ''
@@ -124,7 +131,7 @@ jobs:
             --app app/build/outputs/apk/debug/app-debug.apk \
             --test app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk \
             --device "model=${{ steps.d.outputs.model }},version=${{ steps.d.outputs.version }},locale=en_IN,orientation=portrait" \
-            --test-targets "class com.albumdone.app.RealWeddingDeviceTest" \
+            --test-targets "${{ steps.s.outputs.targets }}" \
             --environment-variables "albumSize=${{ steps.s.outputs.size }},screensDir=external" \
             --directories-to-pull /sdcard/Android/data/com.albumdone.app/files \
             --timeout "${{ steps.s.outputs.minutes }}m" --record-video --performance-metrics \

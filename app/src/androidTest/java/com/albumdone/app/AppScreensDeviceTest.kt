@@ -66,7 +66,7 @@ class AppScreensDeviceTest {
         } catch (e: Throwable) {
             Log.e("AlbumDoneTest", "Step $name failed", e)
             failures += "$name: ${e.message?.lineSequence()?.firstOrNull()}"
-            val dir = File(DeviceTestSupport.app.filesDir, "screens").apply { mkdirs() }
+            val dir = DeviceTestSupport.screensDir.apply { mkdirs() }
             val notes = StringBuilder(e.stackTraceToString()).append("\n\n")
             // Errors inside the app's screens are held back by the test tools until the next sync.
             runCatching { compose.waitForIdle() }.exceptionOrNull()?.let {
