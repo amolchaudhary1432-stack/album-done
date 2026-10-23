@@ -67,10 +67,20 @@ jobs:
         run: |
           set_name="${{ steps.s.outputs.photos }}"
           git fetch -q --depth 1 origin test-photos
-          git cat-file -e "FETCH_HEAD:$set_name/CREDITS.json"
           mkdir -p app/src/androidTest/assets tmp-photos
-          git archive FETCH_HEAD "$set_name" | tar -x -C tmp-photos
-          mv "tmp-photos/$set_name" app/src/androidTest/assets/wedding
+          if [ "$set_name" = big ]; then
+            # The full-size folder (1,000 photos), as in the emulator's real-wedding run.
+            mkdir -p tmp-photos/local && git archive FETCH_HEAD | tar -x -C tmp-photos/local
+            git fetch -q --depth 1 origin harvest-data && git show FETCH_HEAD:sets.jsonl > tmp-photos/sets.jsonl
+            pip install -q pillow
+            python3 tools/test-photos/big_folder.py tmp-photos/local tmp-photos/sets.jsonl app/src/androidTest/assets/wedding 1000
+          else
+            git cat-file -e "FETCH_HEAD:$set_name/CREDITS.json"
+            git archive FETCH_HEAD "$set_name" | tar -x -C tmp-photos
+            mv "tmp-photos/$set_name" app/src/androidTest/assets/wedding
+          fi
+          rm -rf tmp-photos
+          du -sh app/src/androidTest/assets/wedding
           echo "$(find app/src/androidTest/assets/wedding -name '*.jpg' | wc -l) photos"
 
       - uses: actions/setup-java@v4
@@ -138,7 +148,7 @@ jobs:
           find out/lab -name 'logcat' -exec sh -c 'grep -E "AlbumDone|AndroidRuntime|FATAL|TestRunner" "$1" | tail -n 4000 > out/logcat-app.txt' _ {} \; 2>/dev/null || true
           shots=$(find out/lab -type d -path '*com.albumdone.app/files/screens' | head -1)
           [ -n "$shots" ] && mv "$shots" out/screens || true
-          find out/lab -name 'video.mp4' -delete 2>/dev/null || true
+          find out/lab \( -name 'video.mp4' -o -name '*.apk' \) -delete 2>/dev/null || true
           grep -h "Real wedding:" out/logcat-app.txt 2>/dev/null | tail -1 || true
           head -1 out/screens/real-wedding-report.txt 2>/dev/null || true
 

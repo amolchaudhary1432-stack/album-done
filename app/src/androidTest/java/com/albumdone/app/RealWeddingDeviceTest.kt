@@ -126,6 +126,9 @@ class RealWeddingDeviceTest {
         compose.onNodeWithTag("album-grid").performTouchInput { repeat(20) { swipeDown() } }
         compose.waitForIdle()
         if (compose.onAllNodesWithTag("person-chip").fetchSemanticsNodes().isNotEmpty()) {
+            // Family strip at the top: on a real phone it can sit under the floating Send button.
+            compose.onNodeWithTag("album-grid").performScrollToIndex(2)
+            compose.waitForIdle()
             compose.onAllNodesWithTag("person-chip")[0].performClick()
             compose.waitUntil(30_000) { has("In ") }
             screenshot("real-20-family-person")
