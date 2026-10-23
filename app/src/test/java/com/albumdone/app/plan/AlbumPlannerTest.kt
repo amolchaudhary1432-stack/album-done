@@ -546,6 +546,22 @@ class AlbumPlannerTest {
     }
 
     @Test
+    fun othersAsBigAsTheCoupleAreNotTheirPortrait() {
+        // The groom at his haldi with three friends standing round him: not a portrait of the couple.
+        val crowded = couplePhoto(t = start, w = 0.15f, extra = listOf(face(200L, x = 0.05f, w = 0.14f), face(201L, x = 0.75f, w = 0.12f)))
+        // A small guest far behind the couple does not spoil their portrait.
+        val behind = couplePhoto(t = start + 20 * minute, w = 0.15f, extra = listOf(face(202L, x = 0.8f, w = 0.05f)))
+        val guests = List(10) { photo(t = start + (40 + it * 20) * minute, faces = listOf(face(100L + it))) }
+        val a = AlbumPlanner.analyze(listOf(crowded, behind) + guests, couple)
+        assertFalse(AlbumPlanner.coupleIsTheSubject(crowded, couple))
+        assertTrue(AlbumPlanner.coupleIsTheSubject(behind, couple))
+        val s = AlbumPlanner.shortlist(a, 5)
+        assertEquals(behind.id, s.coverId)
+        // Still a good photo for the album, but not called a close-up of the couple.
+        s.reasons[crowded.id]?.let { r -> assertTrue(r.toString(), r.none { it.startsWith("Close-up") }) }
+    }
+
+    @Test
     fun coverIsTheBestCouplePortrait() {
         val close = couplePhoto(t = start, w = 0.15f)
         val full = couplePhoto(t = start + 20 * minute, w = 0.07f)

@@ -181,6 +181,9 @@ object AlbumPlanner {
     const val HIDDEN = 0.6f
     const val CLOSE_UP_FACE = 0.12f
 
+    /** Another face at least this share of the couple's smaller face: they are not the photo's two main faces. */
+    const val COUPLE_MAIN = 0.75f
+
     // ---- Repeats ----
     const val BURST_GAP_MILLIS = 3_000L
     const val BURST_HASH_DISTANCE = 12
@@ -884,6 +887,18 @@ object AlbumPlanner {
             }
     }
 
+    /**
+     * The couple are the photo's two main faces: nobody else is about as big in the frame (the
+     * groom's friends standing round him at the haldi make it a group photo with them, not a
+     * portrait of the couple). Album picks keep such photos; the cover does not use them.
+     */
+    fun coupleIsTheSubject(p: PlanPhoto, tags: PeopleTags): Boolean {
+        val bride = p.faces.firstOrNull { it.personId != null && it.personId == tags.brideId } ?: return false
+        val groom = p.faces.firstOrNull { it.personId != null && it.personId == tags.groomId } ?: return false
+        val smaller = min(bride.box.width, groom.box.width)
+        return p.faces.none { it !== bride && it !== groom && it.box.width >= COUPLE_MAIN * smaller }
+    }
+
     private fun withCouple(p: AssessedPhoto, tags: PeopleTags): Boolean =
         (tags.brideId != null && tags.brideId in p.people) || (tags.groomId != null && tags.groomId in p.people)
 
@@ -999,7 +1014,7 @@ object AlbumPlanner {
         }
 
         fun isCoverCandidate(p: AssessedPhoto): Boolean =
-            p.usable && (p.shot == ShotType.COUPLE_CLOSE || p.shot == ShotType.COUPLE_FULL) &&
+            p.usable && (p.shot == ShotType.COUPLE_CLOSE || p.shot == ShotType.COUPLE_FULL) && coupleIsTheSubject(p.photo, tags) &&
                 (p.allEyesOpenAndLooking || p.coupleLookingAtEachOther)
 
         fun pickCouple() {
@@ -1332,8 +1347,12 @@ object AlbumPlanner {
             if (p.emotional) list += "Real emotion: tears are never a flaw"
             if (p.interaction && !p.allEyesOpenAndLooking) list += "Natural moment: people interacting"
             val kind = when (p.shot) {
-                ShotType.COUPLE_CLOSE -> "Close-up of ${tags.pair()}"
-                ShotType.COUPLE_FULL -> "${tags.pair().capitalized()}, full length"
+                // With others as big in the frame it is a photo with the couple, not their portrait.
+                ShotType.COUPLE_CLOSE, ShotType.COUPLE_FULL -> when {
+                    !coupleIsTheSubject(p.photo, tags) -> "With ${tags.pair()}"
+                    p.shot == ShotType.COUPLE_CLOSE -> "Close-up of ${tags.pair()}"
+                    else -> "${tags.pair().capitalized()}, full length"
+                }
                 ShotType.BRIDE_SOLO, ShotType.GROOM_SOLO -> portraitOf(p.shot)
                 ShotType.GROUP -> if (tags.occasion.couple) "Family group photo" else "Group photo"
                 ShotType.CANDID -> "Candid moment"
