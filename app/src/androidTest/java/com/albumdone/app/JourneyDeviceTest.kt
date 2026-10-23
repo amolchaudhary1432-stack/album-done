@@ -212,10 +212,12 @@ class JourneyDeviceTest {
         step("07-album") {
             // About 1.3 s a photo on a Galaxy A15; the emulator is slower.
             val end = System.currentTimeMillis() + count * 15_000L + 5 * 60_000
+            // The test drives the screen's clock, so the screen only moves on when the test looks:
+            // look often, so the recording shows the album as soon as the phone has it.
             while (!has("Send list to photographer")) {
                 assertTrue("the album was not ready in time", System.currentTimeMillis() < end)
-                compose.mainClock.advanceTimeBy(10_000)
-                Thread.sleep(10_000)
+                compose.mainClock.advanceTimeBy(2_000)
+                Thread.sleep(2_000)
             }
             appShot("07-album")
             compose.onNodeWithTag("album-grid").performScrollToNode(hasTestTag("album-photo"))
