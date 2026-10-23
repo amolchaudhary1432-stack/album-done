@@ -15,6 +15,8 @@ import com.google.mediapipe.tasks.vision.facelandmarker.FaceLandmarker
 import com.google.mediapipe.tasks.vision.objectdetector.ObjectDetector
 import java.io.File
 import java.io.FileOutputStream
+import java.nio.ByteBuffer
+import java.nio.ByteOrder
 import java.text.SimpleDateFormat
 import java.util.Locale
 import kotlin.math.max
@@ -57,10 +59,13 @@ data class PhotoAnalysis(
  */
 class PhotoAnalyzer(private val context: Context) : AutoCloseable {
 
-    private val landmarker: FaceLandmarker = FaceLandmarker.createFromOptions(
+    // The two worker lanes start their models one at a time, each from its own copy of the model
+    // held in memory. On a real Galaxy A15 two lanes starting the face model at the same moment
+    // straight from the app file crashed the app (SIGBUS inside MediaPipe's graph start).
+    private val landmarker: FaceLandmarker = synchronized(START_LOCK) { FaceLandmarker.createFromOptions(
         context,
         FaceLandmarker.FaceLandmarkerOptions.builder()
-            .setBaseOptions(BaseOptions.builder().setModelAssetPath(FACE_MODEL).build())
+            .setBaseOptions(BaseOptions.builder().setModelAssetBuffer(modelBuffer(context, FACE_MODEL)).build())
             .setRunningMode(RunningMode.IMAGE)
             .setNumFaces(MAX_FACES)
             .setMinFaceDetectionConfidence(0.5f)
@@ -68,18 +73,18 @@ class PhotoAnalyzer(private val context: Context) : AutoCloseable {
             .setOutputFaceBlendshapes(true)
             .setOutputFacialTransformationMatrixes(true)
             .build()
-    )
+    ) }
 
-    private val objects: ObjectDetector = ObjectDetector.createFromOptions(
+    private val objects: ObjectDetector = synchronized(START_LOCK) { ObjectDetector.createFromOptions(
         context,
         ObjectDetector.ObjectDetectorOptions.builder()
-            .setBaseOptions(BaseOptions.builder().setModelAssetPath(OBJECT_MODEL).build())
+            .setBaseOptions(BaseOptions.builder().setModelAssetBuffer(modelBuffer(context, OBJECT_MODEL)).build())
             .setRunningMode(RunningMode.IMAGE)
             .setMaxResults(30)
             .setScoreThreshold(0.35f)
             .setCategoryAllowlist(listOf("person", "cell phone"))
             .build()
-    )
+    ) }
 
     private val embedder = FaceEmbedder.get(context)
     private val finder = FaceFinder.get(context)
@@ -334,6 +339,14 @@ class PhotoAnalyzer(private val context: Context) : AutoCloseable {
     companion object {
         const val FACE_MODEL = "models/face_landmarker.task"
         const val OBJECT_MODEL = "models/efficientdet_lite0.tflite"
+
+        private val START_LOCK = Any()
+
+        /** A model file read into native memory (MediaPipe needs a direct buffer). */
+        private fun modelBuffer(context: Context, asset: String): ByteBuffer {
+            val bytes = context.assets.open(asset).use { it.readBytes() }
+            return ByteBuffer.allocateDirect(bytes.size).order(ByteOrder.nativeOrder()).put(bytes).apply { rewind() }
+        }
         const val TARGET_LONG_SIDE = 1280
         const val QUALITY_WIDTH = 256
         const val THUMB_LONG_SIDE = 480f
