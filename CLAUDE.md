@@ -161,6 +161,13 @@ Design mock-up: https://claude.ai/artifact/KzbjcqjdAW5KkNJ47pFf6f
   report (`analysis-report.txt`) and logs to the `phone-test-results` branch. Read them with
   `git fetch origin phone-test-results` and look at every screenshot like a tester before
   handing anything over. Android 11 emulators crash in MediaPipe (ARM translation), use 14.
+- Real phone (`.github/workflows/real-phone.yml`, Firebase Test Lab, project `album-done-test`, secret
+  `FIREBASE_KEY`): started by changing `tools/realphone/run.json` (photos, album_size, device, minutes,
+  tests = real or all; "fetch" collects an earlier run again without a phone). Default phone: Samsung
+  Galaxy A15 (a15, Android 14). Free plan: 5 real-phone runs a day. Video, logs, screenshots and the
+  report go to the `real-phone-results` branch. `JourneyDeviceTest` uses the whole app like the bride:
+  photos in Pictures, the system folder picker (UiAutomator, system screens only), occasion, checking,
+  album, swap/remove/undo, send, share sheet.
 - Test photos: `tools/test-photos/` + `.github/workflows/test-photos.yml` find and download freely
   licensed wedding photos from Wikimedia Commons on the build machine (this session cannot reach
   those sites) and put them on the `test-photos` branch with credits. Test data only, never in the
@@ -179,6 +186,10 @@ tuning. The build fails if the APK ever asks for the internet permission or a mo
 checksum changes, and main only publishes after the phone test passes.
 A full-size folder works on the test phone: 1,000 real photos (phone test option photos = big)
 checked in 43 min at 2.6 s each through ARM translation, nothing unreadable, no crash (22 Oct 2026).
+On a real Samsung Galaxy A15 (Firebase Test Lab, 23 Oct 2026): the same 1,000 photos (made 1400 px)
+in 8 min 51 s, 0.5 s each; every phone test passes there, including the start-to-finish journey.
+The A15 found a crash the emulator never showed (two lanes starting MediaPipe at once, SIGBUS):
+models now start one lane at a time from memory. Not yet measured: full-size camera photos.
 Legal and Play Store notes: `docs/LEGAL_CHECK.md` (target API 36 is needed for new Play uploads).
 How the picking works and planned upgrades: `docs/HOW_IT_PICKS.md`.
 
