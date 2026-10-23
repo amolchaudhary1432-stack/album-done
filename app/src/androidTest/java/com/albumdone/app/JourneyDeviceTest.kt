@@ -137,6 +137,20 @@ class JourneyDeviceTest {
         Thread.sleep(700)
     }
 
+    /** The app's text is on screen (false while another app's screen, such as a share sheet, is in front). */
+    private fun onScreen(text: String) = runCatching { has(text) }.getOrDefault(false)
+
+    /** Presses Back until the app is in front again. */
+    private fun backToApp() {
+        val app = DeviceTestSupport.app.packageName
+        repeat(4) {
+            if (device.currentPackageName == app) return
+            DeviceTestSupport.pressBack()
+            device.wait(Until.hasObject(By.pkg(app).depth(0)), 3_000)
+        }
+        assertTrue("the app came back after the share sheet", device.currentPackageName == app)
+    }
+
     /** Goes to the phone's own storage in the picker, unless it is already showing Pictures. */
     private fun openPhoneStorage() {
         if (find("^Pictures$", timeout = 4_000) != null) return
@@ -238,12 +252,13 @@ class JourneyDeviceTest {
             // Android's own share sheet: any app the bride would send the list with.
             Thread.sleep(2500)
             shot("14-share-sheet")
-            DeviceTestSupport.pressBack()
+            // Back to the app: a phone's share sheet can show a tip that takes the first Back.
+            backToApp()
         }
 
         step("15-home") {
-            repeat(3) { if (!has("Your albums")) DeviceTestSupport.pressBack() }
-            compose.waitUntil(15_000) { has("Your albums") }
+            repeat(3) { if (!onScreen("Your albums")) DeviceTestSupport.pressBack() }
+            compose.waitUntil(15_000) { onScreen("Your albums") }
             appShot("15-home")
             assertTrue("the album card is on the home screen", has(folderName))
         }
