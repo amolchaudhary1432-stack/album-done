@@ -198,7 +198,9 @@ jobs:
           find out/lab -name 'logcat' -exec sh -c 'grep -E "AlbumDone|AndroidRuntime|FATAL|TestRunner" "$1" | tail -n 4000 > out/logcat-app.txt' _ {} \; 2>/dev/null || true
           shots=$(find out/lab -type d -path '*com.albumdone.app/files/screens' | head -1)
           [ -n "$shots" ] && mv "$shots" out/screens || true
-          find out/lab \( -name 'video.mp4' -o -name '*.apk' \) -delete 2>/dev/null || true
+          # Not the app files, nor the photos pushed onto the phone (Test Lab keeps them with the results).
+          find out/lab \( -name 'video.mp4' -o -name '*.apk' -o -iname '*.jpg' -o -iname '*.jpeg' \) -delete 2>/dev/null || true
+          du -sh out
           grep -h "Real wedding:" out/logcat-app.txt 2>/dev/null | tail -1 || true
           head -1 out/screens/real-wedding-report.txt 2>/dev/null || true
 
