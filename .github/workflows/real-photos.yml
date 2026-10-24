@@ -1,0 +1,109 @@
+name: Real couple's photos
+
+# A real wedding from a photographer, shared with the couple's and photographer's permission: one
+# ZIP on Google Drive (raw folder with its event folders, plus the couple's choice as a folder or a
+# list). Its link is the REAL_PHOTOS_LINK secret, never written anywhere. The photos are measured
+# here with the app's own models and rules (tools/harvest/measure.py), people grouped, and only the
+# numbers are kept: the planner's input, the couple's choice (file names) and an inventory, locked
+# with the REAL_DATA_KEY secret and added to the real-data branch. The photos are deleted, and the
+# log shows counts only (the repo can be public).
+# Started by changing tools/realphotos/run.json (name, occasion) or by hand.
+on:
+  push:
+    branches: ['claude/**']
+    paths: ['tools/realphotos/run.json']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: real-photos
+  cancel-in-progress: false
+
+jobs:
+  measure:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - name: Check the secrets are there
+        env:
+          LINK: ${{ secrets.REAL_PHOTOS_LINK }}
+          KEY: ${{ secrets.REAL_DATA_KEY }}
+        run: |
+          test -n "$LINK" || { echo "Add the REAL_PHOTOS_LINK secret (the Google Drive link to the ZIP)"; exit 1; }
+          test -n "$KEY" || { echo "Add the REAL_DATA_KEY secret (the lock key)"; exit 1; }
+
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      # The same versions as the harvest (checked against the phone by check_parity.py).
+      - run: sudo apt-get install -y --no-install-recommends libegl1 libgles2
+      - run: pip install --quiet mediapipe==1.1.1 onnxruntime==1.29.0 numpy==2.5.3 pillow==12.3.0 gdown==5.2.0 openpyxl==3.1.5
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.14.3"
+
+      - name: Download the ZIP (link from the secret)
+        env:
+          LINK: ${{ secrets.REAL_PHOTOS_LINK }}
+        run: |
+          test -n "$LINK" || { echo "The REAL_PHOTOS_LINK secret is missing"; exit 1; }
+          mkdir -p work && cd work
+          gdown --quiet --fuzzy "$LINK" -O photos.zip >/dev/null 2>&1 || { echo "Could not download (is the link set to 'Anyone with the link'?)"; exit 1; }
+          echo "downloaded $(du -h photos.zip | cut -f1)"
+          mkdir in && (unzip -q photos.zip -d in || python3 -c "import zipfile; zipfile.ZipFile('photos.zip').extractall('in')")
+          rm photos.zip
+
+      - name: Find the raw folder and the couple's choice
+        run: python3 tools/realphotos/prepare.py work/in work/out 4
+
+      - name: Measure every photo the way the app does
+        run: |
+          for i in 0 1 2 3; do
+            [ -d work/out/shard-$i ] || continue
+            python3 tools/harvest/measure.py app/src/main/assets/models work/out/m-$i.jsonl work/out/shard-$i 2> work/out/measure-$i.log &
+          done
+          wait
+          cat work/out/m-*.jsonl | python3 -c "
+          import json, sys
+          rows = [json.loads(l) for l in sys.stdin if l.strip()]
+          rows.sort(key=lambda r: (r['folder'], r['name']))
+          sys.stdout.write(''.join(json.dumps(r) + '\n' for r in rows))
+          print(len(rows), 'photos measured,', sum(r.get('failed', False) for r in rows), 'unreadable', file=sys.stderr)
+          " > work/out/real.jsonl
+          occasion=$(python3 -c "import json; print(json.load(open('tools/realphotos/run.json')).get('occasion', 'WEDDING'))")
+          python3 tools/harvest/to_dump.py work/out/real.jsonl work/out/real.raw.txt "$occasion"
+          gradle --no-daemon -q -p tools/harvest/jvm run --args="$PWD/work/out"
+          test -s work/out/real.plan.txt
+          rm -rf work/in work/out/shard-*
+
+      - name: Lock the numbers and keep them on the real-data branch
+        env:
+          KEY: ${{ secrets.REAL_DATA_KEY }}
+        run: |
+          test -n "$KEY" || { echo "The REAL_DATA_KEY secret is missing"; exit 1; }
+          name=$(python3 -c "import json; print(json.load(open('tools/realphotos/run.json'))['name'])")
+          tar -czf real.tgz -C work/out real.plan.txt picks.txt inventory.txt
+          openssl enc -aes-256-cbc -pbkdf2 -iter 200000 -salt -pass env:KEY -in real.tgz -out "$name.tgz.enc"
+          rm -rf work real.tgz
+          mkdir keep && cd keep
+          git init -q -b real-data
+          if git fetch -q --depth 1 "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" real-data; then git checkout -q FETCH_HEAD -- . ; fi
+          cp "../$name.tgz.enc" .
+          printf '# Real couples (locked)\n\nMeasurements of real weddings shared with permission, locked with a key. No photos.\n' > README.md
+          git config user.name "real-photos"
+          git config user.email "real-photos@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Real photos: $name"
+          git push -q "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" HEAD:real-data
+          echo "kept $name (locked)"
