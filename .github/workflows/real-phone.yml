@@ -35,8 +35,9 @@ on:
 permissions:
   contents: write
 
+# Each push its own run, so several phones can be tested at the same time.
 concurrency:
-  group: real-phone
+  group: real-phone-${{ github.sha }}
   cancel-in-progress: false
 
 env:
@@ -211,13 +212,15 @@ jobs:
         if: always()
         run: |
           echo "Run ${{ github.run_number }} for commit ${{ github.sha }}: photos ${{ steps.s.outputs.photos }} on ${{ steps.d.outputs.model }} (API ${{ steps.d.outputs.version }})" > out/RUN.txt
+          # One results branch per phone, so runs on several phones do not overwrite each other.
+          branch=real-phone-results; [ -n "${{ steps.d.outputs.model }}" ] && [ "${{ steps.d.outputs.model }}" != a15 ] && branch="real-phone-results-${{ steps.d.outputs.model }}"
           cd out
-          git init -q -b real-phone-results
+          git init -q -b "$branch"
           git config user.name "phone-test"
           git config user.email "phone-test@users.noreply.github.com"
           git add -A
           git commit -q -m "Real phone run ${{ github.run_number }}"
-          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" real-phone-results
+          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" "$branch"
 
       - name: Fail if the test failed
         run: test ! -f tests-failed
