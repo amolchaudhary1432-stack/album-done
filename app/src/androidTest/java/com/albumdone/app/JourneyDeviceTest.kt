@@ -53,7 +53,10 @@ class JourneyDeviceTest {
     val compose = createAndroidComposeRule<MainActivity>()
 
     private val device get() = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
-    private val folderName = "Sharma Wedding"
+    private val args get() = InstrumentationRegistry.getArguments()
+
+    /** The folder in Pictures the bride picks (the real-phone run can name a real event's folder). */
+    private val folderName get() = args.getString("journeyFolder") ?: "Sharma Wedding"
 
     private fun has(text: String) = compose.onAllNodesWithText(text, substring = true).fetchSemanticsNodes().isNotEmpty()
 
@@ -165,7 +168,9 @@ class JourneyDeviceTest {
     @Test
     fun fromFolderToSentList() {
         assumeTrue("The folder picker needs Android 10 or later", Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
-        val count = step("00-photos") { putPhotosOnThePhone() }
+        // Camera-size photos are pushed into Pictures by the real-phone run before the test starts.
+        val pushed = args.getString("journeyPushed") == "1"
+        val count = step("00-photos") { if (pushed) args.getString("journeyCount")!!.toInt() else putPhotosOnThePhone() }
         Log.i("AlbumDoneTest", "Journey: $count photos in Pictures/$folderName")
 
         step("01-home") {
@@ -200,8 +205,10 @@ class JourneyDeviceTest {
             assertEquals("a wedding folder is guessed as a wedding", Occasion.WEDDING, vm.newOccasion)
         }
 
+        var checkingStarted = 0L
         step("06-start") {
             compose.onNodeWithText("Start checking photos").performClick()
+            checkingStarted = System.currentTimeMillis()
             // Notifications were usually allowed when the app was installed; if Android asks, say yes.
             if (find("^Allow$", timeout = 3_000) != null) tapText("^Allow$")
             compose.waitUntil(30_000) { has("Making your album") }
@@ -219,6 +226,11 @@ class JourneyDeviceTest {
                 compose.mainClock.advanceTimeBy(2_000)
                 Thread.sleep(2_000)
             }
+            val seconds = (System.currentTimeMillis() - checkingStarted) / 1000
+            Log.i("AlbumDoneTest", "Journey: $count photos checked and the album made in $seconds s " +
+                "(${"%.2f".format(seconds.toDouble() / count)} s a photo) on ${Build.MANUFACTURER} ${Build.MODEL}")
+            DeviceTestSupport.screensDir.apply { mkdirs() }.resolve("journey-speed.txt")
+                .writeText("$count photos in Pictures/$folderName, checked and the album made in $seconds s on ${Build.MANUFACTURER} ${Build.MODEL}\n")
             appShot("07-album")
             compose.onNodeWithTag("album-grid").performScrollToNode(hasTestTag("album-photo"))
             appShot("08-album-photos")

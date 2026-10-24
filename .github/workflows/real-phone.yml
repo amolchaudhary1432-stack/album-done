@@ -57,6 +57,9 @@ jobs:
           if [ "${{ github.event_name }}" = push ]; then
             photos=$(get photos wedding); size=$(get album_size 30); device=$(get device ""); minutes=$(get minutes 40); tests=$(get tests real)
             echo "fetch=$(get fetch "")" >> "$GITHUB_OUTPUT"
+            echo "folders=$(get folders "")" >> "$GITHUB_OUTPUT"
+            echo "limit=$(get limit 0)" >> "$GITHUB_OUTPUT"
+            echo "journey_folder=$(get journey_folder "Sharma Wedding")" >> "$GITHUB_OUTPUT"
           fi
           [ "$minutes" -gt 45 ] && minutes=45
           echo "photos=$photos" >> "$GITHUB_OUTPUT"
@@ -75,12 +78,41 @@ jobs:
           echo "photos=$photos size=$size device=$device minutes=$minutes tests=$tests"
 
       - name: Get the test photos
+        id: p
         if: steps.s.outputs.fetch == ''
         run: |
           set_name="${{ steps.s.outputs.photos }}"
           git fetch -q --depth 1 origin test-photos
           mkdir -p app/src/androidTest/assets tmp-photos
-          if [ "$set_name" = big ]; then
+          if [ "${set_name%%:*}" = set ] || [ "${set_name%%:*}" = full ]; then
+            # One real event from the harvest's sets, never a mix: "set:<id>" goes inside the test
+            # app at about the size the app reads; "full:<id>" keeps the photographer's original
+            # files and pushes them into the phone's Pictures folder (camera-size photos).
+            git fetch -q --depth 1 origin harvest-data && git show FETCH_HEAD:sets.jsonl > tmp-photos/sets.jsonl
+            pip install -q pillow
+            if [ "${set_name%%:*}" = set ]; then
+              python3 tools/test-photos/one_set.py tmp-photos/sets.jsonl "${set_name#*:}" app/src/androidTest/assets/wedding small "${{ steps.s.outputs.folders }}" "${{ steps.s.outputs.limit }}"
+            else
+              python3 tools/test-photos/one_set.py tmp-photos/sets.jsonl "${set_name#*:}" full-photos full "${{ steps.s.outputs.folders }}" "${{ steps.s.outputs.limit }}"
+              du -sh full-photos
+              # The files to push, for gcloud (an args file: there are hundreds).
+              python3 - "${{ steps.s.outputs.journey_folder }}" <<'PY'
+          import os, sys, json
+          folder = sys.argv[1]
+          pairs = {}
+          for root, _, files in os.walk("full-photos"):
+              for f in sorted(files):
+                  rel = os.path.relpath(os.path.join(root, f), "full-photos")
+                  pairs[f"/sdcard/Pictures/{folder}/{rel}"] = os.path.join(root, f)
+          with open("push-args.yaml", "w") as fh:
+              fh.write("push:\n  other-files:\n")
+              for k, v in pairs.items():
+                  fh.write(f"    {json.dumps(k)}: {json.dumps(v)}\n")
+          print(len(pairs), "photos to push")
+          PY
+              echo "count=$(find full-photos -name '*.jpg' | wc -l)" >> "$GITHUB_OUTPUT"
+            fi
+          elif [ "$set_name" = big ]; then
             # The full-size folder (1,000 photos), as in the emulator's real-wedding run.
             mkdir -p tmp-photos/local && git archive FETCH_HEAD | tar -x -C tmp-photos/local
             git fetch -q --depth 1 origin harvest-data && git show FETCH_HEAD:sets.jsonl > tmp-photos/sets.jsonl
@@ -92,6 +124,7 @@ jobs:
             mv "tmp-photos/$set_name" app/src/androidTest/assets/wedding
           fi
           rm -rf tmp-photos
+          mkdir -p app/src/androidTest/assets/wedding
           du -sh app/src/androidTest/assets/wedding
           echo "$(find app/src/androidTest/assets/wedding -name '*.jpg' | wc -l) photos"
 
@@ -132,12 +165,15 @@ jobs:
           set -o pipefail
           dir="run-${{ github.run_number }}-${{ github.run_attempt }}"
           echo "$dir" > results-dir.txt
-          gcloud firebase test android run --project "$PROJECT" --type instrumentation \
+          # Camera-size photos are pushed into the phone's Pictures before the test starts.
+          push=""; extra=""
+          if [ -f push-args.yaml ]; then push="push-args.yaml:push"; extra=",journeyPushed=1,journeyCount=${{ steps.p.outputs.count }}"; fi
+          gcloud firebase test android run $push --project "$PROJECT" --type instrumentation \
             --app app/build/outputs/apk/debug/app-debug.apk \
             --test app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk \
             --device "model=${{ steps.d.outputs.model }},version=${{ steps.d.outputs.version }},locale=en_IN,orientation=portrait" \
             --test-targets "${{ steps.s.outputs.targets }}" \
-            --environment-variables "albumSize=${{ steps.s.outputs.size }},screensDir=external,journeyPhotos=1000" \
+            --environment-variables "albumSize=${{ steps.s.outputs.size }},screensDir=external,journeyPhotos=1000,journeyFolder=${{ steps.s.outputs.journey_folder }}$extra" \
             --directories-to-pull /sdcard/Android/data/com.albumdone.app/files \
             --timeout "${{ steps.s.outputs.minutes }}m" --record-video --performance-metrics \
             --results-dir "$dir" --num-flaky-test-attempts 0 2>&1 | tee run.txt || touch tests-failed
