@@ -456,3 +456,25 @@ people pick them too (held back 38% -> 35%).
 - A full 1,000-photo folder on the test phone through the real background job: 87 min at 5.2 s
   a photo through ARM translation, nothing unreadable, no crash, the progress screen's time
   estimate close to right, the album opening by itself at the end.
+
+## 16. Where the 95% goal really stands (24 Oct 2026)
+
+The scores next to two dumb pickers on the same folders (picks: Claude's blind picks, a stand-in for a
+couple; 32 tune and 12 held-back sets):
+
+| | App | Every n-th photo | Random |
+|---|---|---|---|
+| Album places with no planted flaw (tougher test) | 97-98% | 77-86% | 79-83% |
+| Same photo as the picks | 31-37% | 24% | 22-24% |
+| Same moment as the picks | 85-90% | 87-96% | 71-81% |
+
+- "Same moment" mostly rewards spreading picks through the day: picking every n-th photo does it
+  as well as the app or better, so it is no measure of picking like a person. The app's real
+  lead is keeping flawed photos out and choosing the better frame.
+- Tried: a bonus for picks that fill gaps in an event's timeline (with the people caps kept). It
+  gained 3 "same moment" places and lost 5 "same photo" places over all four scores: noise, not
+  kept. No-face shots are not the gap either: people's picks are 15% no-face, the app's 18%.
+- The answer key is the limit. Matching Claude's own picks is not matching an Indian couple's
+  album. The next real step needs finished Indian albums (wedding and birthday) with the raw
+  folders they came from; their page structure (sheets, photos per sheet, share of couple,
+  family, candid and detail photos per function) then sets the rules.
