@@ -198,7 +198,12 @@ On a real Samsung Galaxy A15 (Firebase Test Lab, 23 Oct 2026): the same 1,000 ph
 in 8 min 51 s, 0.5 s each. All phone tests ran there: 10 of 11 passed; the journey went through Samsung's
 folder picker to the share sheet, and only its return home (a share-sheet tip took the Back) failed, fixed since.
 The A15 found a crash the emulator never showed (two lanes starting MediaPipe at once, SIGBUS):
-models now start one lane at a time from memory. Not yet measured: full-size camera photos.
+models now start one lane at a time from memory. Camera-size photos (6000 px, ~8 MB): 1.0 s each on
+the A15. How far it goes (24 Oct 2026, A15, start to finish through the picker): 2,500 real photos from
+five Indian weddings in 25 min 48 s, steady at about 100 a minute from start to end, the app's memory
+flat at 550-600 MB the whole time; people grouped in 4 s and the album made in 21 s. So 5,000 would be
+about 52 min with no slowdown. The album limit is still 1,000 (owner to decide whether to raise it).
+Test Lab's Pixel 8a cannot list its own storage (its folder picker shows "No items"): use Samsungs.
 Legal and Play Store notes: `docs/LEGAL_CHECK.md` (target API 36 is needed for new Play uploads).
 How the picking works and planned upgrades: `docs/HOW_IT_PICKS.md`.
 
