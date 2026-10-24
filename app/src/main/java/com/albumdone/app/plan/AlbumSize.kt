@@ -6,8 +6,12 @@ import kotlin.math.roundToInt
 /** How many photos one album works from, and what album sizes to offer. Pure Kotlin, unit-tested. */
 object AlbumSize {
 
-    /** One folder, up to 1,000 photos: about one big function, or the photographer's best of a wedding. */
-    const val MAX_PHOTOS = 1000
+    /**
+     * One folder, up to 1,000 photos: about one big function, or the photographer's best of a
+     * wedding. Not a constant only so the phone test can raise it to measure bigger folders.
+     */
+    @Volatile
+    var MAX_PHOTOS = 1000
 
     /** About 15 of every 100 photos make a good first album; the couple can change it. */
     const val SHARE = 0.15

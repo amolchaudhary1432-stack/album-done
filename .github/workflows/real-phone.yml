@@ -85,7 +85,7 @@ jobs:
           set_name="${{ steps.s.outputs.photos }}"
           git fetch -q --depth 1 origin test-photos
           mkdir -p app/src/androidTest/assets tmp-photos
-          if [ "${set_name%%:*}" = set ] || [ "${set_name%%:*}" = full ] || [ "${set_name%%:*}" = camera ]; then
+          if [ "${set_name%%:*}" = set ] || [ "${set_name%%:*}" = full ] || [ "${set_name%%:*}" = camera ] || [ "${set_name%%:*}" = push ]; then
             # One real event from the harvest's sets, never a mix: "set:<id>" goes inside the test
             # app at about the size the app reads; "full:<id>" keeps the photographer's original
             # files and pushes them into the phone's Pictures folder (camera-size photos).
@@ -94,8 +94,11 @@ jobs:
             if [ "${set_name%%:*}" = set ]; then
               python3 tools/test-photos/one_set.py tmp-photos/sets.jsonl "${set_name#*:}" app/src/androidTest/assets/wedding small "${{ steps.s.outputs.folders }}" "${{ steps.s.outputs.limit }}"
             else
-              # full: the original files; camera: copies enlarged to camera size (Wikimedia is slow with originals).
-              python3 tools/test-photos/one_set.py tmp-photos/sets.jsonl "${set_name#*:}" full-photos "${set_name%%:*}" "${{ steps.s.outputs.folders }}" "${{ steps.s.outputs.limit }}"
+              # full: the original files; camera: copies enlarged to camera size (Wikimedia is slow with
+              # originals); push: at app size, pushed onto the phone instead of inside the test app
+              # (thousands of photos would make the test app too big).
+              kind="${set_name%%:*}"; [ "$kind" = push ] && kind=small
+              python3 tools/test-photos/one_set.py tmp-photos/sets.jsonl "${set_name#*:}" full-photos "$kind" "${{ steps.s.outputs.folders }}" "${{ steps.s.outputs.limit }}"
               du -sh full-photos
               # The files to push, for gcloud (an args file: there are hundreds).
               python3 - "${{ steps.s.outputs.journey_folder }}" <<'PY'
@@ -175,7 +178,7 @@ jobs:
             --test app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk \
             --device "model=${{ steps.d.outputs.model }},version=${{ steps.d.outputs.version }},locale=en_IN,orientation=portrait" \
             --test-targets "${{ steps.s.outputs.targets }}" \
-            --environment-variables "albumSize=${{ steps.s.outputs.size }},screensDir=external,journeyPhotos=1000,journeyFolder=${{ steps.s.outputs.journey_folder }}$extra" \
+            --environment-variables "albumSize=${{ steps.s.outputs.size }},screensDir=external,journeyPhotos=1000,journeyFolder=${{ steps.s.outputs.journey_folder }},journeyMax=5000$extra" \
             --directories-to-pull /sdcard/Android/data/com.albumdone.app/files \
             --timeout "${{ steps.s.outputs.minutes }}m" --record-video --performance-metrics \
             --results-dir "$dir" --num-flaky-test-attempts 0 2>&1 | tee run.txt || touch tests-failed

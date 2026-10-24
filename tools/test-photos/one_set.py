@@ -74,43 +74,59 @@ def folder_for(title, rules):
     return ""
 
 
+def save(data, f, n, path, size):
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    if size == "full":
+        open(path, "wb").write(data)
+        return
+    img = Image.open(io.BytesIO(data))
+    exif = exif_with_time(img, f.get("taken"))
+    img = img.convert("RGB")
+    if size == "camera":
+        scale = CAMERA_LONG_SIDE / max(img.size)
+        img = img.resize((round(img.width * scale), round(img.height * scale)), Image.BICUBIC)
+        # A camera's photo carries fine grain, which is what makes it 8-10 MB; an enlarged copy
+        # is smooth and far lighter, so grain like a camera's is added.
+        import numpy as np
+        a = np.asarray(img).astype(np.int16)
+        grain = np.random.default_rng(n).normal(0, CAMERA_GRAIN, a.shape[:2] + (1,)).astype(np.int16)
+        img = Image.fromarray(np.clip(a + grain, 0, 255).astype(np.uint8))
+        img.save(path, quality=95, exif=exif)
+    else:
+        img.thumbnail((LONG_SIDE, LONG_SIDE))
+        img.save(path, quality=88, exif=exif)
+
+
 def main(sets_path, set_id, out, size, folders="", limit="0"):
-    s = next(json.loads(l) for l in open(sets_path) if l.strip() and json.loads(l)["id"] == set_id)
+    """SET_ID is one set, or several as "id=Folder name;id2=Folder 2" (each event its own folder,
+    for a big folder made of several real events: a size test, not an album to judge)."""
+    from concurrent.futures import ThreadPoolExecutor
+    wanted = [x.split("=", 1) if "=" in x else [x, None] for x in set_id.split(";") if x.strip()]
+    by_id = {}
+    for line in open(sets_path):
+        if line.strip():
+            r = json.loads(line)
+            if r["id"] in {w[0] for w in wanted}:
+                by_id[r["id"]] = r
     rules = [tuple(x.split("=", 1)) for x in folders.split(",") if "=" in x]
-    files = sorted(s["files"], key=lambda f: (f.get("taken") or "", f.get("title") or ""))
+    jobs, seen = [], set()
+    for sid, name in wanted:
+        for f in sorted(by_id[sid]["files"], key=lambda f: (f.get("taken") or "", f.get("title") or "")):
+            if f["thumb"] in seen:  # the same photo found in two sets
+                continue
+            seen.add(f["thumb"])
+            sub = name if name else (folder_for(f.get("title") or "", rules) if rules else "")
+            jobs.append((f, sub))
     if int(limit) > 0:
-        files = files[: int(limit)]
+        jobs = jobs[: int(limit)]
+    urls = [original(f["thumb"]) if size == "full" else f["thumb"] for f, _ in jobs]
     n = 0
-    for f in files:
-        url = original(f["thumb"]) if size == "full" else f["thumb"]
-        data = fetch(url)
-        if data is None:
-            continue
-        n += 1
-        sub = folder_for(f.get("title") or "", rules) if rules else ""
-        path = os.path.join(out, sub, f"IMG_{n:04d}.jpg")
-        os.makedirs(os.path.dirname(path), exist_ok=True)
-        if size == "full":
-            open(path, "wb").write(data)
-        elif size == "camera":
-            img = Image.open(io.BytesIO(data))
-            exif = exif_with_time(img, f.get("taken"))
-            img = img.convert("RGB")
-            scale = CAMERA_LONG_SIDE / max(img.size)
-            img = img.resize((round(img.width * scale), round(img.height * scale)), Image.BICUBIC)
-            # A camera's photo carries fine grain, which is what makes it 8-10 MB; an enlarged copy
-            # is smooth and far lighter, so grain like a camera's is added.
-            import numpy as np
-            a = np.asarray(img).astype(np.int16)
-            grain = np.random.default_rng(n).normal(0, CAMERA_GRAIN, a.shape[:2] + (1,)).astype(np.int16)
-            img = Image.fromarray(np.clip(a + grain, 0, 255).astype(np.uint8))
-            img.save(path, quality=95, exif=exif)
-        else:
-            img = Image.open(io.BytesIO(data))
-            exif = exif_with_time(img, f.get("taken"))
-            img = img.convert("RGB")
-            img.thumbnail((LONG_SIDE, LONG_SIDE))
-            img.save(path, quality=88, exif=exif)
+    with ThreadPoolExecutor(4) as ex:  # a few at a time; fetch() waits when the site asks
+        for (f, sub), data in zip(jobs, ex.map(fetch, urls)):
+            if data is None:
+                continue
+            n += 1
+            save(data, f, n, os.path.join(out, sub, f"IMG_{n:04d}.jpg"), size)
     print(n, "photos of", set_id, "in", out)
 
 

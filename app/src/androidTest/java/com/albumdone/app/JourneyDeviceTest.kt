@@ -24,10 +24,14 @@ import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiObject2
 import androidx.test.uiautomator.Until
+import com.albumdone.app.data.AppDatabase
+import com.albumdone.app.plan.AlbumSize
 import com.albumdone.app.plan.Occasion
 import com.albumdone.app.ui.AlbumViewModel
 import com.albumdone.app.ui.MainActivity
 import java.util.regex.Pattern
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Assume.assumeTrue
@@ -154,6 +158,16 @@ class JourneyDeviceTest {
         assertTrue("the app came back after the share sheet", device.currentPackageName == app)
     }
 
+    /** The app's memory in use (PSS), in MB, from Android's own count. */
+    private fun memoryMb(): Int = runCatching {
+        val out = InstrumentationRegistry.getInstrumentation().uiAutomation
+            .executeShellCommand("dumpsys meminfo ${DeviceTestSupport.app.packageName}")
+            .use { pfd -> java.io.FileInputStream(pfd.fileDescriptor).use { String(it.readBytes()) } }
+        val kb = Regex("TOTAL PSS:\\s*(\\d+)").find(out)?.groupValues?.get(1)
+            ?: Regex("(?m)^\\s*TOTAL\\s+(\\d+)").find(out)?.groupValues?.get(1)
+        (kb!!.toLong() / 1024).toInt()
+    }.getOrDefault(-1)
+
     /** Goes to the phone's own storage in the picker, unless it is already showing Pictures. */
     private fun openPhoneStorage() {
         if (find("^Pictures$", timeout = 4_000) != null) return
@@ -168,6 +182,8 @@ class JourneyDeviceTest {
     @Test
     fun fromFolderToSentList() {
         assumeTrue("The folder picker needs Android 10 or later", Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+        // A bigger folder than an album takes today, to measure how far the app can go.
+        args.getString("journeyMax")?.toIntOrNull()?.let { AlbumSize.MAX_PHOTOS = it }
         // Camera-size photos are pushed into Pictures by the real-phone run before the test starts.
         val pushed = args.getString("journeyPushed") == "1"
         val count = step("00-photos") { if (pushed) args.getString("journeyCount")!!.toInt() else putPhotosOnThePhone() }
@@ -219,13 +235,30 @@ class JourneyDeviceTest {
         step("07-album") {
             // About 1.3 s a photo on a Galaxy A15; the emulator is slower.
             val end = System.currentTimeMillis() + count * 15_000L + 5 * 60_000
+            // Every minute: photos checked, the step, and the app's memory, to see whether a big
+            // folder slows the phone down or fills its memory as it goes.
+            val dao = AppDatabase.get(DeviceTestSupport.app).dao()
+            val projectId = runBlocking { dao.projectSummaries().first().filter { it.project.name == folderName }.maxOf { it.project.id } }
+            val scaling = StringBuilder("seconds\tchecked\tstep\tmemory MB\n")
+            var lastSample = 0L
+            var lastStatus = ""
             // The test drives the screen's clock, so the screen only moves on when the test looks:
             // look often, so the recording shows the album as soon as the phone has it.
             while (!has("Send photos to photographer")) {
                 assertTrue("the album was not ready in time", System.currentTimeMillis() < end)
+                val now = System.currentTimeMillis()
+                val status = runBlocking { dao.project(projectId)?.status }.orEmpty()
+                if (now - lastSample >= 60_000 || status != lastStatus) {
+                    lastSample = now
+                    lastStatus = status
+                    scaling.append("${(now - checkingStarted) / 1000}\t${runBlocking { dao.countProcessed(projectId) }}\t$status\t${memoryMb()}\n")
+                    DeviceTestSupport.screensDir.apply { mkdirs() }.resolve("journey-scaling.txt").writeText(scaling.toString())
+                }
                 compose.mainClock.advanceTimeBy(2_000)
                 Thread.sleep(2_000)
             }
+            scaling.append("${(System.currentTimeMillis() - checkingStarted) / 1000}\t$count\tALBUM SHOWN\t${memoryMb()}\n")
+            DeviceTestSupport.screensDir.resolve("journey-scaling.txt").writeText(scaling.toString())
             val seconds = (System.currentTimeMillis() - checkingStarted) / 1000
             Log.i("AlbumDoneTest", "Journey: $count photos checked and the album made in $seconds s " +
                 "(${"%.2f".format(seconds.toDouble() / count)} s a photo) on ${Build.MANUFACTURER} ${Build.MODEL}")
