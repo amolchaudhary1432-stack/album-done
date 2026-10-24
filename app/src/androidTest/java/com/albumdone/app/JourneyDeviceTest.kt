@@ -23,6 +23,8 @@ import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiObject2
+import androidx.test.uiautomator.UiScrollable
+import androidx.test.uiautomator.UiSelector
 import androidx.test.uiautomator.Until
 import com.albumdone.app.data.AppDatabase
 import com.albumdone.app.plan.AlbumSize
@@ -200,11 +202,22 @@ class JourneyDeviceTest {
     private fun openPhoneStorage() {
         if (find("^Pictures$", timeout = 4_000) != null) return
         val roots = device.findObject(By.desc(Pattern.compile("(?i)show roots|navigate up|open navigation drawer")))
-            ?: error("The folder picker has no menu button")
-        roots.click()
-        Thread.sleep(1000)
-        // The phone itself, by the names pickers use for it.
-        tapText("^${Pattern.quote(Build.MODEL)}$", "^Internal storage$", "^Galaxy .*", "^Pixel .*", "^This device$", "^Phone$", "^AOSP.*", "^sdk_gphone.*")
+        if (roots != null) {
+            roots.click()
+            Thread.sleep(1000)
+            // The phone itself, by the names pickers use for it.
+            tapText("^${Pattern.quote(Build.MODEL)}$", "^Internal storage$", "^Galaxy .*", "^Pixel .*", "^This device$", "^Phone$", "^AOSP.*", "^sdk_gphone.*")
+        }
+        // A Pixel opens at the phone's storage with no menu button, and its folder list can take a
+        // while to fill (here just after thousands of photos were added): wait, scroll, pull to reload.
+        val end = System.currentTimeMillis() + 90_000
+        while (System.currentTimeMillis() < end) {
+            runCatching { UiScrollable(UiSelector().scrollable(true)).scrollTextIntoView("Pictures") }
+            if (find("^Pictures$", timeout = 10_000) != null) return
+            device.swipe(device.displayWidth / 2, device.displayHeight / 3, device.displayWidth / 2, device.displayHeight * 2 / 3, 30)
+        }
+        shot("02b-picker-no-pictures")
+        error("The folder picker shows no Pictures folder")
     }
 
     @Test
