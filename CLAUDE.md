@@ -145,7 +145,11 @@ Design mock-up: https://claude.ai/artifact/KzbjcqjdAW5KkNJ47pFf6f
 - Photo view (`ViewerScreen.kt`): why it is in the album, look-alike photos to swap in with one
   tap, Remove (the next best photo fills the place at once, with Undo). Swaps are the couple's
   own choices (`PhotoEntity.userChoice`) and are kept when the album is re-made.
-- Send: the exact list (event headings, folder/file names) shared as plain text.
+- Send: the chosen photos copied into a new folder (the original files, untouched, in the
+  photographer's event sub-folders), which the couple hands to the photographer (pendrive, Drive,
+  Files app). Owner's decision, 24 Oct 2026: a list of file names does not work, because
+  photographers want a folder of the chosen photos; searching names is work for them. The plain-text
+  list (event headings, folder/file names) stays as an extra.
 - Look: photo first, white, near-black buttons, one saffron accent (`ui/Theme.kt`). Font: Plus Jakarta
   Sans (OFL) in `res/font/`; Devanagari names use the phone's own font.
   Mock-up: https://claude.ai/artifact/FhsiF3pfnqkssR1UJ5PdQz
