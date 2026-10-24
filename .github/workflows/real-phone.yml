@@ -85,16 +85,17 @@ jobs:
           set_name="${{ steps.s.outputs.photos }}"
           git fetch -q --depth 1 origin test-photos
           mkdir -p app/src/androidTest/assets tmp-photos
-          if [ "${set_name%%:*}" = set ] || [ "${set_name%%:*}" = full ]; then
+          if [ "${set_name%%:*}" = set ] || [ "${set_name%%:*}" = full ] || [ "${set_name%%:*}" = camera ]; then
             # One real event from the harvest's sets, never a mix: "set:<id>" goes inside the test
             # app at about the size the app reads; "full:<id>" keeps the photographer's original
             # files and pushes them into the phone's Pictures folder (camera-size photos).
             git fetch -q --depth 1 origin harvest-data && git show FETCH_HEAD:sets.jsonl > tmp-photos/sets.jsonl
-            pip install -q pillow
+            pip install -q pillow numpy
             if [ "${set_name%%:*}" = set ]; then
               python3 tools/test-photos/one_set.py tmp-photos/sets.jsonl "${set_name#*:}" app/src/androidTest/assets/wedding small "${{ steps.s.outputs.folders }}" "${{ steps.s.outputs.limit }}"
             else
-              python3 tools/test-photos/one_set.py tmp-photos/sets.jsonl "${set_name#*:}" full-photos full "${{ steps.s.outputs.folders }}" "${{ steps.s.outputs.limit }}"
+              # full: the original files; camera: copies enlarged to camera size (Wikimedia is slow with originals).
+              python3 tools/test-photos/one_set.py tmp-photos/sets.jsonl "${set_name#*:}" full-photos "${set_name%%:*}" "${{ steps.s.outputs.folders }}" "${{ steps.s.outputs.limit }}"
               du -sh full-photos
               # The files to push, for gcloud (an args file: there are hundreds).
               python3 - "${{ steps.s.outputs.journey_folder }}" <<'PY'

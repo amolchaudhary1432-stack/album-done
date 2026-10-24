@@ -4,8 +4,10 @@
 
 SET_ID is a set found by the harvest (sets.jsonl on harvest-data), e.g. Goutam1962_2023-11-23 (a
 Garhwali wedding day, 813 photos). SIZE is "small" (the 1280 px copy, made at most 1400 px, about
-what the app reads) or "full" (the photographer's original file, byte for byte, to time the app
-on camera-size photos). FOLDERS splits the photos into the photographer's event folders by words in
+what the app reads), "full" (the photographer's original file, byte for byte; Wikimedia sends
+these slowly, about 25 s each) or "camera" (the 1280 px copy enlarged to 6000 px with a camera's fine
+grain, JPEG quality 95: about the size and file weight of a 24 MP camera's photo, 7-9 MB; for timing, since the app's work depends on
+the file's pixels and bytes, not on how sharp they are). FOLDERS splits the photos into the photographer's event folders by words in
 their titles, e.g. "haldi=01 Haldi,*=02 Wedding" (first match wins; * is the rest); without it
 everything is one folder. LIMIT keeps the first N photos in time order.
 Photos are named IMG_0001.jpg... in time order and keep their capture time (EXIF), which the app
@@ -26,6 +28,8 @@ from PIL import Image
 
 UA = "AlbumDoneTest/1.0 (phone test; freely licensed photos only)"
 LONG_SIDE = 1400
+CAMERA_LONG_SIDE = 6000
+CAMERA_GRAIN = 4.0
 
 
 def original(url):
@@ -88,6 +92,19 @@ def main(sets_path, set_id, out, size, folders="", limit="0"):
         os.makedirs(os.path.dirname(path), exist_ok=True)
         if size == "full":
             open(path, "wb").write(data)
+        elif size == "camera":
+            img = Image.open(io.BytesIO(data))
+            exif = exif_with_time(img, f.get("taken"))
+            img = img.convert("RGB")
+            scale = CAMERA_LONG_SIDE / max(img.size)
+            img = img.resize((round(img.width * scale), round(img.height * scale)), Image.BICUBIC)
+            # A camera's photo carries fine grain, which is what makes it 8-10 MB; an enlarged copy
+            # is smooth and far lighter, so grain like a camera's is added.
+            import numpy as np
+            a = np.asarray(img).astype(np.int16)
+            grain = np.random.default_rng(n).normal(0, CAMERA_GRAIN, a.shape[:2] + (1,)).astype(np.int16)
+            img = Image.fromarray(np.clip(a + grain, 0, 255).astype(np.uint8))
+            img.save(path, quality=95, exif=exif)
         else:
             img = Image.open(io.BytesIO(data))
             exif = exif_with_time(img, f.get("taken"))
