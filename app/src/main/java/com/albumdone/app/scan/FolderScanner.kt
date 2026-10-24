@@ -53,6 +53,8 @@ object FolderScanner {
                     if (name.startsWith(".")) continue
                     val mime = c.getString(2) ?: ""
                     if (mime == DocumentsContract.Document.MIME_TYPE_DIR) {
+                        // A selection the app saved earlier is not one of the photographer's events.
+                        if (SelectionExport.SUFFIX in name) continue
                         val childPath = if (path.isEmpty()) name else "$path/$name"
                         stack.addLast(id to childPath)
                         continue

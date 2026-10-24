@@ -75,7 +75,7 @@ class BigFamilyDeviceTest {
         compose.waitUntil(30_000) { has(name) }
         screenshot("big-01-home")
         compose.onNodeWithText(name).performClick()
-        compose.waitUntil(3 * 60_000) { has("Send list to photographer") }
+        compose.waitUntil(3 * 60_000) { has("Send photos to photographer") }
         screenshot("big-02-album")
         compose.onNodeWithTag("album-grid").performScrollToNode(hasTestTag("quick-tag"))
         screenshot("big-03-family")
@@ -90,7 +90,7 @@ class BigFamilyDeviceTest {
         compose.onNodeWithTag("people-grid").performTouchInput { swipeUp() }
         screenshot("big-06-people-more")
         DeviceTestSupport.pressBack()
-        compose.waitUntil(30_000) { has("Send list to photographer") }
+        compose.waitUntil(30_000) { has("Send photos to photographer") }
 
         // Who's who: a few faces, one tap each, then back to the album.
         compose.onNodeWithTag("album-grid").performScrollToIndex(2)
@@ -106,7 +106,7 @@ class BigFamilyDeviceTest {
         tap("quick-Aunt")
         screenshot("big-09-whos-who-sixth")
         DeviceTestSupport.pressBack()
-        compose.waitUntil(2 * 60_000) { has("Send list to photographer") }
+        compose.waitUntil(2 * 60_000) { has("Send photos to photographer") }
         compose.waitUntil(30_000) { has("Album updated") }
         screenshot("big-10-album-after")
         val named = runBlocking { dao.people(seeded.projectId).count { it.name.isNotBlank() } }
@@ -133,11 +133,11 @@ class BigFamilyDeviceTest {
         }
         screenshot("big-14-every-family-added")
         DeviceTestSupport.pressBack()
-        compose.waitUntil(30_000) { has("Send list to photographer") }
+        compose.waitUntil(30_000) { has("Send photos to photographer") }
 
         // One family's own copy of the album.
-        compose.onNodeWithText("Send list to photographer").performSemanticsAction(SemanticsActions.OnClick)
-        compose.waitUntil(30_000) { has("Share list") }
+        compose.onNodeWithText("Send photos to photographer").performSemanticsAction(SemanticsActions.OnClick)
+        compose.waitUntil(30_000) { has("Save photos to a folder") }
         tap("album-for-BRIDE")
         compose.waitUntil(60_000) { has("Bride's family album") }
         screenshot("big-15-bride-family-album")

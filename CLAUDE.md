@@ -141,7 +141,7 @@ Design mock-up: https://claude.ai/artifact/KzbjcqjdAW5KkNJ47pFf6f
 - Album (`AlbumScreen.kt`): cover edge to edge with the name on it, couple card (found
   automatically; asks "Is this the groom?" when unsure), family strip (top 10 faces, "See all N"),
   "Who's who?" card while faces are unnamed, photos edge to edge in a 3-column grid, floating
-  "Send list to photographer". Album size and "what we left out" in one sheet.
+  "Send photos to photographer". Album size and "what we left out" in one sheet.
 - Photo view (`ViewerScreen.kt`): why it is in the album, look-alike photos to swap in with one
   tap, Remove (the next best photo fills the place at once, with Undo). Swaps are the couple's
   own choices (`PhotoEntity.userChoice`) and are kept when the album is re-made.

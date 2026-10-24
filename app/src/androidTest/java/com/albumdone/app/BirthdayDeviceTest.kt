@@ -78,11 +78,11 @@ class BirthdayDeviceTest {
 
     private fun backToAlbum() {
         repeat(3) {
-            if (has("Send list to photographer")) return
+            if (has("Send photos to photographer")) return
             DeviceTestSupport.pressBack()
             compose.waitForIdle()
         }
-        compose.waitUntil(30_000) { has("Send list to photographer") }
+        compose.waitUntil(30_000) { has("Send photos to photographer") }
     }
 
     @Test
@@ -106,7 +106,7 @@ class BirthdayDeviceTest {
         runBlocking { seed(name) }
         compose.waitUntil(30_000) { has(name) }
         compose.onNodeWithText(name).performClick()
-        compose.waitUntil(3 * 60_000) { has("Send list to photographer") }
+        compose.waitUntil(3 * 60_000) { has("Send photos to photographer") }
 
         step("bday-02-album") {
             screenshot("bday-02-album")
@@ -173,8 +173,8 @@ class BirthdayDeviceTest {
         }
         backToAlbum()
         step("bday-10-send") {
-            compose.onNodeWithText("Send list to photographer").performSemanticsAction(SemanticsActions.OnClick)
-            compose.waitUntil(30_000) { has("Share list") }
+            compose.onNodeWithText("Send photos to photographer").performSemanticsAction(SemanticsActions.OnClick)
+            compose.waitUntil(30_000) { has("Save photos to a folder") }
             screenshot("bday-10-send")
             assertTrue("whose album shown", !hasTag("album-for-BRIDE"))
         }

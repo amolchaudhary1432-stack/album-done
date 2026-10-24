@@ -226,7 +226,7 @@ private fun SendBar(total: Int, onClick: () -> Unit, modifier: Modifier = Modifi
     ) {
         Column(Modifier.weight(1f)) {
             Text("$total photos ready", color = Color.White, style = MaterialTheme.typography.titleSmall)
-            Text("Send list to photographer", color = Color.White.copy(alpha = 0.7f), style = MaterialTheme.typography.bodySmall)
+            Text("Send photos to photographer", color = Color.White.copy(alpha = 0.7f), style = MaterialTheme.typography.bodySmall)
         }
         Row(
             Modifier.height(48.dp).clip(RoundedCornerShape(24.dp)).background(Saffron).padding(horizontal = 18.dp),

@@ -36,6 +36,7 @@ import com.albumdone.app.plan.Side
 import com.albumdone.app.plan.StageGroups
 import com.albumdone.app.scan.FolderScanner
 import com.albumdone.app.scan.FoundPhoto
+import com.albumdone.app.scan.SelectionExport
 import com.albumdone.app.work.AnalyzeWorker
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -912,8 +913,9 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
      * The list for one family's own copy of the album (both families usually keep one): the same
      * folder and the couple's own choices, with that family's relatives first.
      */
-    suspend fun familyListText(projectId: Long, side: Side): String {
-        val project = dao.project(projectId) ?: return ""
+    /** One family's copy of the album: the photos in album order, by event, and the cover. */
+    private suspend fun familyPicks(projectId: Long, side: Side): Pair<List<Pair<String, PhotoEntity>>, Long?> {
+        val project = dao.project(projectId) ?: return emptyList<Pair<String, PhotoEntity>>() to null
         val (photos, tags) = people.planInput(project)
         val saved = dao.photos(projectId)
         return withContext(Dispatchers.Default) {
@@ -922,25 +924,68 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
             val removed = saved.filter { it.removed }.map { it.id }.toSet()
             val list = AlbumPlanner.shortlist(a, project.albumSize, removed, keep)
             val byId = saved.associateBy { it.id }
-            val picked = list.ids.mapNotNull { id -> a.byId[id]?.let { it to byId[id] } }
-            val who = if (side == Side.BRIDE) "Bride's family" else "Groom's family"
-            buildString {
-                append("Album selection: ").append(project.name).append(" (").append(who).append(" album)\n")
-                append(picked.size).append(" photos\n")
-                for (e in a.events) {
-                    val inEvent = picked.filter { it.first.event == e }
-                    if (inEvent.isEmpty()) continue
-                    append('\n').append(Display.eventName(e)).append(" (").append(inEvent.size).append(")\n")
-                    for ((ap, entity) in inEvent) {
-                        val p = entity ?: continue
-                        if (p.folder.isEmpty()) append(p.name) else append(p.folder).append('/').append(p.name)
-                        if (ap.id == list.coverId) append("  (cover)")
-                        append('\n')
-                    }
+            val picked = list.ids.mapNotNull { id -> a.byId[id]?.let { ap -> byId[id]?.let { ap.event to it } } }
+            a.events.flatMap { e -> picked.filter { it.first == e } } to list.coverId
+        }
+    }
+
+    suspend fun familyListText(projectId: Long, side: Side): String {
+        val project = dao.project(projectId) ?: return ""
+        val (picked, coverId) = familyPicks(projectId, side)
+        val who = if (side == Side.BRIDE) "Bride's family" else "Groom's family"
+        return buildString {
+            append("Album selection: ").append(project.name).append(" (").append(who).append(" album)\n")
+            append(picked.size).append(" photos\n")
+            for ((e, inEvent) in picked.groupBy({ it.first }, { it.second })) {
+                append('\n').append(Display.eventName(e)).append(" (").append(inEvent.size).append(")\n")
+                for (p in inEvent) {
+                    if (p.folder.isEmpty()) append(p.name) else append(p.folder).append('/').append(p.name)
+                    if (p.id == coverId) append("  (cover)")
+                    append('\n')
                 }
             }
         }
     }
+
+    // ---- The chosen photos as a folder for the photographer ----
+
+    /** Copying the chosen photos: how far, and the result (null while not copying). */
+    data class SaveState(val done: Int, val total: Int, val result: SelectionExport.Result? = null, val error: String? = null)
+
+    var saving by mutableStateOf<SaveState?>(null)
+        private set
+
+    /**
+     * Copies the album's photos (the couple's, or one family's copy) into a new folder inside
+     * [destTree], keeping the photographer's event sub-folders and file names.
+     */
+    fun savePhotos(projectId: Long, side: Side?, destTree: Uri) {
+        if (saving?.let { it.result == null && it.error == null } == true) return
+        viewModelScope.launch {
+            val project = dao.project(projectId) ?: return@launch
+            val photos = if (side == null) {
+                album(projectId).value?.events?.flatMap { e -> e.photos.map { it.photo } } ?: emptyList()
+            } else {
+                familyPicks(projectId, side).first.map { it.second }
+            }
+            val name = if (side == null) project.name else project.name + if (side == Side.BRIDE) " (bride's family)" else " (groom's family)"
+            saving = SaveState(0, photos.size)
+            saving = try {
+                val result = withContext(Dispatchers.IO) {
+                    SelectionExport.export(getApplication(), destTree, name,
+                        photos.map { SelectionExport.Item(Uri.parse(it.docUri), it.name, it.folder) }) { n ->
+                        saving = SaveState(n, photos.size)
+                    }
+                }
+                SaveState(photos.size, photos.size, result)
+            } catch (e: Exception) {
+                Log.e(TAG, "could not save the photos", e)
+                SaveState(0, photos.size, error = "Could not save the photos there. Please pick another place, such as Pictures.")
+            }
+        }
+    }
+
+    fun clearSaving() { saving = null }
 
     /** Plain text for the photographer: event headings, then file names. */
     fun shareText(state: AlbumState): String = buildString {

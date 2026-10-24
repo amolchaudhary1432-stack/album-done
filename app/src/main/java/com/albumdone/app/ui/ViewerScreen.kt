@@ -1,6 +1,8 @@
 package com.albumdone.app.ui
 
 import android.content.Intent
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -37,6 +39,7 @@ import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
@@ -44,13 +47,15 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.produceState
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -66,6 +71,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.albumdone.app.plan.Display
 import com.albumdone.app.plan.Side
+import com.albumdone.app.scan.SelectionExport
 
 /** Behind the photo: near black, so the photo's own colours show true. */
 private val Backdrop = Color(0xFF0F0B11)
@@ -205,17 +211,35 @@ fun SendScreen(vm: AlbumViewModel, projectId: Long) {
         forWhom == null -> vm.shareText(s)
         else -> familyText
     }
+    val shareList = {
+        if (text != null) {
+            val send = Intent(Intent.ACTION_SEND).setType("text/plain")
+                .putExtra(Intent.EXTRA_SUBJECT, text.lineSequence().first())
+                .putExtra(Intent.EXTRA_TEXT, text)
+            context.startActivity(Intent.createChooser(send, "Send list to photographer"))
+        }
+    }
+    // Photographers want the chosen photos themselves: the couple picks where the new folder goes
+    // (Pictures, a pendrive) and the app copies the photos there, event folders and names kept.
+    val pickPlace = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocumentTree()) { uri ->
+        if (uri != null) vm.savePhotos(projectId, forWhom, uri)
+    }
+    val saving = vm.saving
+    DisposableEffect(projectId) { onDispose { if (vm.saving?.result != null || vm.saving?.error != null) vm.clearSaving() } }
     Scaffold(
         topBar = { AppBar("Send to photographer", onBack = vm::back) },
         bottomBar = {
             if (s != null && text != null) {
                 BottomBar {
-                    BigButton("Share list", icon = Icons.Default.Share, onClick = {
-                        val send = Intent(Intent.ACTION_SEND).setType("text/plain")
-                            .putExtra(Intent.EXTRA_SUBJECT, text.lineSequence().first())
-                            .putExtra(Intent.EXTRA_TEXT, text)
-                        context.startActivity(Intent.createChooser(send, "Send list to photographer"))
-                    })
+                    val copying = saving != null && saving.result == null && saving.error == null
+                    BigButton(if (copying) "Saving photos…" else "Save photos to a folder", icon = LineIcons.Folder,
+                        enabled = !copying, onClick = { pickPlace.launch(SelectionExport.PICTURES) },
+                        modifier = Modifier.testTag("save-photos"))
+                    TextButton(onClick = shareList, modifier = Modifier.fillMaxWidth().testTag("share-list")) {
+                        Icon(Icons.Default.Share, contentDescription = null, modifier = Modifier.size(18.dp))
+                        Spacer(Modifier.width(8.dp))
+                        Text("Or share the list of file names")
+                    }
                 }
             }
         },
@@ -248,8 +272,28 @@ fun SendScreen(vm: AlbumViewModel, projectId: Long) {
                         style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
             }
-            Text("Your photographer or print shop gets a simple list with the exact file names. It works in WhatsApp or email. Only the list is sent, never the photos.",
-                style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            when {
+                saving?.result != null -> SoftCard(Modifier.fillMaxWidth().testTag("saved-photos")) {
+                    val r = saving.result
+                    Text("${r.saved} photos saved", style = MaterialTheme.typography.titleLarge)
+                    Text("In the folder \"${r.folderName}\", sorted into the photographer's own folders. " +
+                        "Give this folder to your photographer: on a pendrive, Google Drive or from the Files app." +
+                        if (r.failed > 0) " ${r.failed} could not be copied; they are in the list of names." else "",
+                        style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                }
+                saving?.error != null -> SoftCard(Modifier.fillMaxWidth()) {
+                    Text(saving.error, style = MaterialTheme.typography.bodyMedium)
+                }
+                saving != null -> SoftCard(Modifier.fillMaxWidth()) {
+                    Text("Copying ${saving.done} of ${saving.total} photos…", style = MaterialTheme.typography.titleMedium)
+                    Spacer(Modifier.height(10.dp))
+                    LinearProgressIndicator(progress = { if (saving.total == 0) 0f else saving.done.toFloat() / saving.total },
+                        modifier = Modifier.fillMaxWidth().height(6.dp).clip(RoundedCornerShape(3.dp)))
+                }
+                else -> Text("Your photographer gets the chosen photos in a new folder, sorted like theirs, with the original files. " +
+                    "Pick where to save it: the phone's Pictures, or a pendrive. Nothing is uploaded.",
+                    style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            }
             if (s != null) {
                 SectionLabel("Preview")
                 Surface(color = MaterialTheme.colorScheme.surfaceContainerLow, shape = RoundedCornerShape(16.dp), modifier = Modifier.weight(1f, fill = false)) {

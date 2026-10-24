@@ -114,7 +114,7 @@ class RealWeddingDeviceTest {
         Log.i("AlbumDoneTest", "Real wedding: ${files.size} photos in $seconds s on ${android.os.Build.MANUFACTURER} ${android.os.Build.MODEL}")
 
         // The finished album opens by itself, as for the couple.
-        compose.waitUntil(5 * 60_000) { has("Send list to photographer") }
+        compose.waitUntil(5 * 60_000) { has("Send photos to photographer") }
         DeviceTestSupport.saveScreenshot("progress-%04d".format(frame), InstrumentationRegistry.getInstrumentation().uiAutomation.takeScreenshot())
         screenshot("real-01-album")
         for (i in 2..14) {
@@ -156,7 +156,7 @@ class RealWeddingDeviceTest {
             compose.waitForIdle()
             screenshot("real-25-whos-who-next")
             DeviceTestSupport.pressBack()
-            compose.waitUntil(60_000) { has("Send list to photographer") }
+            compose.waitUntil(60_000) { has("Send photos to photographer") }
         }
         if (compose.onAllNodesWithTag("cover").fetchSemanticsNodes().isNotEmpty()) {
             compose.onNodeWithTag("cover").performClick()

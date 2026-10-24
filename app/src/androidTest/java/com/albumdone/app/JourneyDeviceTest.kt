@@ -221,7 +221,7 @@ class JourneyDeviceTest {
             val end = System.currentTimeMillis() + count * 15_000L + 5 * 60_000
             // The test drives the screen's clock, so the screen only moves on when the test looks:
             // look often, so the recording shows the album as soon as the phone has it.
-            while (!has("Send list to photographer")) {
+            while (!has("Send photos to photographer")) {
                 assertTrue("the album was not ready in time", System.currentTimeMillis() < end)
                 compose.mainClock.advanceTimeBy(2_000)
                 Thread.sleep(2_000)
@@ -255,14 +255,34 @@ class JourneyDeviceTest {
             }
             // Remove (and Undo) can already have closed the photo; Back only if it is still open.
             if (has("WHY IT")) DeviceTestSupport.pressBack()
-            waitFor("Send list to photographer")
+            waitFor("Send photos to photographer")
         }
 
         step("13-send") {
-            compose.onNodeWithText("Send list to photographer").performSemanticsAction(SemanticsActions.OnClick)
-            waitFor("Share list")
+            compose.onNodeWithText("Send photos to photographer").performSemanticsAction(SemanticsActions.OnClick)
+            waitFor("Save photos to a folder")
             appShot("13-send")
-            compose.onNodeWithText("Share list").performClick()
+        }
+
+        step("13b-save-photos") {
+            // The photographer gets the chosen photos as a folder: the bride picks where (Pictures).
+            compose.onNodeWithTag("save-photos").performClick()
+            device.wait(Until.hasObject(By.pkg(Pattern.compile(".*documentsui.*"))), 15_000)
+            Thread.sleep(1500)
+            // The picker opens in Pictures, where the wedding folder is; if not, go there.
+            if (find("^${Pattern.quote(folderName)}$", timeout = 3_000) == null) {
+                openPhoneStorage()
+                tapText("^Pictures$")
+            }
+            shot("13b-save-picker")
+            tapText("^Use this folder$", "^Select$", "^Allow access.*")
+            tapText("^Allow$", timeout = 10_000)
+            compose.waitUntil(count * 2_000L + 60_000) { onScreen("photos saved") }
+            appShot("13c-saved")
+        }
+
+        step("14-share-list") {
+            compose.onNodeWithTag("share-list").performClick()
             // Android's own share sheet: any app the bride would send the list with.
             Thread.sleep(2500)
             shot("14-share-sheet")

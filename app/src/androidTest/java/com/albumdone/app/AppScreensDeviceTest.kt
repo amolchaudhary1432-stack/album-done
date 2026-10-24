@@ -95,7 +95,7 @@ class AppScreensDeviceTest {
         screenshot("02-checking")
         var opened = false
         step("03-album", goBackOnFailure = false) {
-            waitFor("Send list to photographer", timeout = 8 * 60_000)
+            waitFor("Send photos to photographer", timeout = 8 * 60_000)
             screenshot("03-album")
             opened = true
         }
@@ -135,7 +135,7 @@ class AppScreensDeviceTest {
                 back()
             }
             back()
-            waitFor("Send list to photographer")
+            waitFor("Send photos to photographer")
         }
 
         // "Who's who": one face at a time, one tap each.
@@ -148,7 +148,7 @@ class AppScreensDeviceTest {
                 compose.waitForIdle()
                 screenshot("05d-whos-who-next")
                 back()
-                waitFor("Send list to photographer", timeout = 60_000)
+                waitFor("Send photos to photographer", timeout = 60_000)
                 screenshot("05e-after-whos-who")
             }
         }
@@ -197,12 +197,12 @@ class AppScreensDeviceTest {
             waitFor("Added to your album")
             back()
             back()
-            waitFor("Send list to photographer")
+            waitFor("Send photos to photographer")
         }
 
         step("11-send") {
-            compose.onNodeWithText("Send list to photographer").performSemanticsAction(SemanticsActions.OnClick)
-            waitFor("Share list")
+            compose.onNodeWithText("Send photos to photographer").performSemanticsAction(SemanticsActions.OnClick)
+            waitFor("Save photos to a folder")
             screenshot("11-send")
         }
 
