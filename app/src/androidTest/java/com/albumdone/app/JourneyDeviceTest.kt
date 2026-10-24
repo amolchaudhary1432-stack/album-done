@@ -27,6 +27,8 @@ import androidx.test.uiautomator.UiScrollable
 import androidx.test.uiautomator.UiSelector
 import androidx.test.uiautomator.Until
 import com.albumdone.app.data.AppDatabase
+import com.albumdone.app.data.PhotoEntity
+import com.albumdone.app.data.ProjectEntity
 import com.albumdone.app.plan.AlbumSize
 import com.albumdone.app.plan.Occasion
 import com.albumdone.app.ui.AlbumViewModel
@@ -119,6 +121,17 @@ class JourneyDeviceTest {
         return photos.size
     }
 
+    /** Each photo put in Pictures: (its address, event folder, file name). */
+    private val placed = mutableListOf<Triple<String, String, String>>()
+
+    /**
+     * Some Test Lab phones (those with a 2025 security update) hide every folder at the top of their
+     * storage: the storage service fails a check on /storage/emulated, so the folder picker shows
+     * "No items". Then the same photos are given to the app directly, as the real-photo test does,
+     * and checking is measured the same way.
+     */
+    private var labPickerFault = false
+
     private fun putPhoto(folder: String, name: String, input: java.io.InputStream) {
         val resolver = DeviceTestSupport.app.contentResolver
         val values = ContentValues().apply {
@@ -128,6 +141,7 @@ class JourneyDeviceTest {
         }
         val uri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)!!
         resolver.openOutputStream(uri)!!.use { out -> input.copyTo(out) }
+        placed += Triple(uri.toString(), folder, name)
     }
 
     /**
@@ -198,9 +212,9 @@ class JourneyDeviceTest {
         (kb!!.toLong() / 1024).toInt()
     }.getOrDefault(-1)
 
-    /** Goes to the phone's own storage in the picker, unless it is already showing Pictures. */
-    private fun openPhoneStorage() {
-        if (find("^Pictures$", timeout = 4_000) != null) return
+    /** Goes to the phone's own storage in the picker; false if it shows no Pictures folder. */
+    private fun openPhoneStorage(): Boolean {
+        if (find("^Pictures$", timeout = 4_000) != null) return true
         val roots = device.findObject(By.desc(Pattern.compile("(?i)show roots|navigate up|open navigation drawer")))
         if (roots != null) {
             roots.click()
@@ -213,11 +227,11 @@ class JourneyDeviceTest {
         val end = System.currentTimeMillis() + 90_000
         while (System.currentTimeMillis() < end) {
             runCatching { UiScrollable(UiSelector().scrollable(true)).scrollTextIntoView("Pictures") }
-            if (find("^Pictures$", timeout = 10_000) != null) return
+            if (find("^Pictures$", timeout = 10_000) != null) return true
             device.swipe(device.displayWidth / 2, device.displayHeight / 3, device.displayWidth / 2, device.displayHeight * 2 / 3, 30)
         }
         shot("02b-picker-no-pictures")
-        error("The folder picker shows no Pictures folder")
+        return false
     }
 
     @Test
@@ -250,7 +264,12 @@ class JourneyDeviceTest {
             device.wait(Until.hasObject(By.pkg(Pattern.compile(".*documentsui.*"))), 15_000)
             Thread.sleep(1500)
             shot("02-picker")
-            openPhoneStorage()
+            if (!openPhoneStorage()) {
+                labPickerFault = true
+                Log.w("AlbumDoneTest", "Journey: the folder picker shows no folders (lab phone fault); photos given to the app directly")
+                backToApp()
+                return@step
+            }
             tapText("^Pictures$")
             tapText("^${Pattern.quote(folderName)}$")
             shot("03-picker-folder")
@@ -260,7 +279,7 @@ class JourneyDeviceTest {
             tapText("^Allow$", timeout = 10_000)
         }
 
-        step("05-new-album") {
+        if (!labPickerFault) step("05-new-album") {
             // The app reads the folder and guesses the occasion from its name.
             compose.waitUntil(60_000) { has("What are these photos of?") }
             appShot("05-new-album")
@@ -273,6 +292,26 @@ class JourneyDeviceTest {
 
         var checkingStarted = 0L
         step("06-start") {
+            if (labPickerFault) {
+                assertTrue("photos to give the app directly", placed.isNotEmpty())
+                val dao = AppDatabase.get(DeviceTestSupport.app).dao()
+                val albumSize = args.getString("albumSize")?.toIntOrNull()?.takeIf { it > 0 } ?: 300
+                val id = runBlocking {
+                    val id = dao.insertProject(ProjectEntity(name = folderName, treeUri = "file:///lab-picker-fault",
+                        createdAt = System.currentTimeMillis(), albumSize = albumSize))
+                    dao.insertPhotos(placed.map { (uri, folder, name) ->
+                        PhotoEntity(projectId = id, docUri = uri, name = name, folder = folder, size = 1, lastModified = 0)
+                    })
+                    id
+                }
+                val vm = ViewModelProvider(compose.activity)[AlbumViewModel::class.java]
+                compose.runOnUiThread { vm.openProject(id) }
+                checkingStarted = System.currentTimeMillis()
+                compose.waitUntil(30_000) { has("Making your album") }
+                compose.mainClock.advanceTimeBy(20_000)
+                appShot("06-progress")
+                return@step
+            }
             compose.onNodeWithText("Start checking photos").performClick()
             checkingStarted = System.currentTimeMillis()
             // Notifications were usually allowed when the app was installed; if Android asks, say yes.
@@ -313,7 +352,8 @@ class JourneyDeviceTest {
             Log.i("AlbumDoneTest", "Journey: $count photos checked and the album made in $seconds s " +
                 "(${"%.2f".format(seconds.toDouble() / count)} s a photo) on ${Build.MANUFACTURER} ${Build.MODEL}")
             DeviceTestSupport.screensDir.apply { mkdirs() }.resolve("journey-speed.txt")
-                .writeText("$count photos in Pictures/$folderName, checked and the album made in $seconds s on ${Build.MANUFACTURER} ${Build.MODEL}\n")
+                .writeText("$count photos in Pictures/$folderName, checked and the album made in $seconds s on ${Build.MANUFACTURER} ${Build.MODEL}" +
+                    (if (labPickerFault) " (folder picker skipped: this lab phone's picker shows no folders)" else "") + "\n")
             appShot("07-album")
             compose.onNodeWithTag("album-grid").performScrollToNode(hasTestTag("album-photo"))
             appShot("08-album-photos")
@@ -347,14 +387,14 @@ class JourneyDeviceTest {
             appShot("13-send")
         }
 
-        step("13b-save-photos") {
+        if (!labPickerFault) step("13b-save-photos") {
             // The photographer gets the chosen photos as a folder: the bride picks where (Pictures).
             compose.onNodeWithTag("save-photos").performClick()
             device.wait(Until.hasObject(By.pkg(Pattern.compile(".*documentsui.*"))), 15_000)
             Thread.sleep(1500)
             // The picker opens in Pictures, where the wedding folder is; if not, go there.
             if (find("^${Pattern.quote(folderName)}$", timeout = 3_000) == null) {
-                openPhoneStorage()
+                check(openPhoneStorage()) { "The folder picker shows no Pictures folder" }
                 tapText("^Pictures$")
             }
             shot("13b-save-picker")
