@@ -45,7 +45,8 @@ env:
 jobs:
   real-phone:
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    # Camera-size photos download slowly from Wikimedia (it limits big files).
+    timeout-minutes: 150
     steps:
       - uses: actions/checkout@v4
 

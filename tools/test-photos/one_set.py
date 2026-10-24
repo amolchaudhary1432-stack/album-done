@@ -18,6 +18,7 @@ import os
 import re
 import sys
 import time
+import urllib.error
 import urllib.parse
 import urllib.request
 
@@ -34,10 +35,17 @@ def original(url):
 
 
 def fetch(url):
-    for attempt in range(4):
+    for attempt in range(5):
         try:
             with urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": UA}), timeout=120) as r:
                 return r.read()
+        except urllib.error.HTTPError as e:
+            if e.code == 404:
+                return None
+            # Too many requests: wait as long as the site asks (Wikimedia slows big downloads).
+            wait = int(e.headers.get("Retry-After") or 0) or 5 * (attempt + 1)
+            print("retry", attempt, url, e, file=sys.stderr)
+            time.sleep(min(wait, 60))
         except Exception as e:  # a missing photo is skipped
             print("retry", attempt, url, e, file=sys.stderr)
             time.sleep(3 * (attempt + 1))
