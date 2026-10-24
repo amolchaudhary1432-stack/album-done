@@ -62,14 +62,18 @@ def fetch(url):
             with urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": UA}), timeout=120) as r:
                 return r.read()
         except urllib.error.HTTPError as e:
-            if e.code == 404:
+            # Gone or refused (Flickr refuses build machines with 403): skip this photo at once.
+            if e.code in (400, 401, 403, 404, 410, 451):
+                print("skip", url, e, file=sys.stderr)
                 return None
-            # Too many requests: everyone waits as long as the site asks.
+            # Too many requests or busy: everyone waits as long as the site asks.
             wait = min(int(e.headers.get("Retry-After") or 0) or 5 * (attempt + 1), 120)
-            with _pause_lock:
-                _pause_until[0] = max(_pause_until[0], time.time() + wait)
-            if e.code != 429:
+            if e.code in (429, 503):
+                with _pause_lock:
+                    _pause_until[0] = max(_pause_until[0], time.time() + wait)
+            else:
                 print("retry", attempt, url, e, file=sys.stderr)
+                time.sleep(wait)
         except Exception as e:  # a missing photo is skipped
             print("retry", attempt, url, e, file=sys.stderr)
             time.sleep(3 * (attempt + 1))
