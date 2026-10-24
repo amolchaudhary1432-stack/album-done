@@ -1,0 +1,195 @@
+10-24 07:11:58.199 10946 10946 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+10-24 07:11:58.202 10946 10946 I AndroidRuntime: Using default boot image
+10-24 07:11:58.202 10946 10946 I AndroidRuntime: Leaving lock profiling enabled
+10-24 07:11:58.283 10946 10946 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+10-24 07:11:58.507 10946 10946 I AndroidRuntime: VM exiting with result code 0.
+10-24 07:12:01.980 11574 11574 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+10-24 07:12:01.984 11574 11574 I AndroidRuntime: Using default boot image
+10-24 07:12:01.984 11574 11574 I AndroidRuntime: Leaving lock profiling enabled
+10-24 07:12:02.072 11574 11574 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+10-24 07:12:02.152 11574 11574 I AndroidRuntime: VM exiting with result code 0.
+10-24 07:12:02.388 11633 11633 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+10-24 07:12:02.392 11633 11633 I AndroidRuntime: Using default boot image
+10-24 07:12:02.392 11633 11633 I AndroidRuntime: Leaving lock profiling enabled
+10-24 07:12:02.485 11633 11633 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+10-24 07:12:03.883 11633 11633 I AndroidRuntime: VM exiting with result code 0.
+10-24 07:12:04.007 11876 11876 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+10-24 07:12:04.011 11876 11876 I AndroidRuntime: Using default boot image
+10-24 07:12:04.011 11876 11876 I AndroidRuntime: Leaving lock profiling enabled
+10-24 07:12:04.118 11876 11876 D AndroidRuntime: Calling main entry com.android.commands.content.Content
+10-24 07:12:04.127 11876 11876 D AndroidRuntime: Shutting down VM
+10-24 07:12:05.204 12054 12054 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+10-24 07:12:05.210 12054 12054 I AndroidRuntime: Using default boot image
+10-24 07:12:05.210 12054 12054 I AndroidRuntime: Leaving lock profiling enabled
+10-24 07:12:05.367 12054 12054 D AndroidRuntime: Calling main entry com.android.commands.content.Content
+10-24 07:12:05.379 12054 12054 D AndroidRuntime: Shutting down VM
+10-24 07:12:14.491 13075 13075 I AndroidRuntime: VM exiting with result code 0, cleanup skipped.
+10-24 07:12:14.720 13114 13114 I AndroidRuntime: VM exiting with result code 0, cleanup skipped.
+10-24 07:12:16.502 13276 13276 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+10-24 07:12:16.508 13276 13276 I AndroidRuntime: Using default boot image
+10-24 07:12:16.508 13276 13276 I AndroidRuntime: Leaving lock profiling enabled
+10-24 07:12:16.614 13276 13276 D AndroidRuntime: Calling main entry com.android.commands.content.Content
+10-24 07:12:16.647 13276 13276 D AndroidRuntime: Shutting down VM
+10-24 07:12:18.127 13464 13464 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+10-24 07:12:18.131 13464 13464 I AndroidRuntime: Using default boot image
+10-24 07:12:18.131 13464 13464 I AndroidRuntime: Leaving lock profiling enabled
+10-24 07:12:18.237 13464 13464 D AndroidRuntime: Calling main entry com.android.commands.content.Content
+10-24 07:12:18.520 13464 13464 D AndroidRuntime: Shutting down VM
+10-24 07:12:19.437 13514 13514 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+10-24 07:12:19.441 13514 13514 I AndroidRuntime: Using default boot image
+10-24 07:12:19.441 13514 13514 I AndroidRuntime: Leaving lock profiling enabled
+10-24 07:12:19.542 13514 13514 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+10-24 07:12:20.543 13539 13539 I AndroidJUnitRunner: newApplication com.albumdone.app.AlbumDoneApp
+10-24 07:12:20.714 13539 13701 I TestRunner: run started: 1 tests
+10-24 07:12:20.718 13539 13701 I TestRunner: started: fromFolderToSentList(com.albumdone.app.JourneyDeviceTest)
+10-24 07:13:52.635 13539 13701 I AlbumDoneTest: Journey: 2500 photos in Pictures/Many Weddings
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: Journey step 02-picker failed
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: java.lang.IllegalStateException: The folder picker shows no Pictures folder
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at com.albumdone.app.JourneyDeviceTest.openPhoneStorage(JourneyDeviceTest.kt:220)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at com.albumdone.app.JourneyDeviceTest.fromFolderToSentList$lambda$24(JourneyDeviceTest.kt:253)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at com.albumdone.app.JourneyDeviceTest.$r8$lambda$wjpqKRDZNfoyceE_DwPVcIg948k(Unknown Source:0)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at com.albumdone.app.JourneyDeviceTest$$ExternalSyntheticLambda15.invoke(D8$$SyntheticClass:0)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at com.albumdone.app.JourneyDeviceTest.step(JourneyDeviceTest.kt:89)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at com.albumdone.app.JourneyDeviceTest.fromFolderToSentList(JourneyDeviceTest.kt:247)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at java.lang.reflect.Method.invoke(Native Method)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at org.junit.rules.ExternalResource$1.evaluate(ExternalResource.java:54)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1$evaluate$1.invoke(AndroidComposeTestRule.android.kt:272)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1$evaluate$1.invoke(AndroidComposeTestRule.android.kt:271)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.withDisposableContent(ComposeUiTest.android.kt:505)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1$1$1.invoke(ComposeUiTest.android.kt:333)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.withComposeIdlingResource(ComposeUiTest.android.kt:385)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.access$withComposeIdlingResource(ComposeUiTest.android.kt:219)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1$1.invoke(ComposeUiTest.android.kt:332)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.withWindowRecomposer(ComposeUiTest.android.kt:359)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.access$withWindowRecomposer(ComposeUiTest.android.kt:219)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1.invoke(ComposeUiTest.android.kt:331)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.withTestCoroutines(ComposeUiTest.android.kt:372)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.access$withTestCoroutines(ComposeUiTest.android.kt:219)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1.invoke(ComposeUiTest.android.kt:330)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at androidx.compose.ui.test.EspressoLink.withStrategy(EspressoLink.android.kt:66)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1.invoke(ComposeUiTest.android.kt:329)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at androidx.compose.ui.test.IdlingResourceRegistry.withRegistry(IdlingResourceRegistry.jvm.kt:155)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1.invoke(ComposeUiTest.android.kt:328)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at androidx.compose.ui.test.ComposeRootRegistry.withRegistry(ComposeRootRegistry.android.kt:146)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.runTest(ComposeUiTest.android.kt:327)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1.evaluate(AndroidComposeTestRule.android.kt:271)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at androidx.test.ext.junit.runners.AndroidJUnit4.run(AndroidJUnit4.java:162)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at org.junit.runners.Suite.runChild(Suite.java:128)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at org.junit.runners.Suite.runChild(Suite.java:27)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at org.junit.runner.JUnitCore.run(JUnitCore.java:137)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at org.junit.runner.JUnitCore.run(JUnitCore.java:115)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:68)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:59)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at androidx.test.runner.AndroidJUnitRunner.onStart(AndroidJUnitRunner.java:463)
+10-24 07:15:36.020 13539 13701 E AlbumDoneTest: 	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2606)
+10-24 07:15:39.463 13539 13701 E TestRunner: failed: fromFolderToSentList(com.albumdone.app.JourneyDeviceTest)
+10-24 07:15:39.463 13539 13701 E TestRunner: ----- begin exception -----
+10-24 07:15:39.463 13539 13701 E TestRunner: java.lang.IllegalStateException: The folder picker shows no Pictures folder
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at com.albumdone.app.JourneyDeviceTest.openPhoneStorage(JourneyDeviceTest.kt:220)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at com.albumdone.app.JourneyDeviceTest.fromFolderToSentList$lambda$24(JourneyDeviceTest.kt:253)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at com.albumdone.app.JourneyDeviceTest.$r8$lambda$wjpqKRDZNfoyceE_DwPVcIg948k(Unknown Source:0)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at com.albumdone.app.JourneyDeviceTest$$ExternalSyntheticLambda15.invoke(D8$$SyntheticClass:0)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at com.albumdone.app.JourneyDeviceTest.step(JourneyDeviceTest.kt:89)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at com.albumdone.app.JourneyDeviceTest.fromFolderToSentList(JourneyDeviceTest.kt:247)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at java.lang.reflect.Method.invoke(Native Method)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at org.junit.rules.ExternalResource$1.evaluate(ExternalResource.java:54)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1$evaluate$1.invoke(AndroidComposeTestRule.android.kt:272)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1$evaluate$1.invoke(AndroidComposeTestRule.android.kt:271)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.withDisposableContent(ComposeUiTest.android.kt:505)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1$1$1.invoke(ComposeUiTest.android.kt:333)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.withComposeIdlingResource(ComposeUiTest.android.kt:385)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.access$withComposeIdlingResource(ComposeUiTest.android.kt:219)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1$1.invoke(ComposeUiTest.android.kt:332)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.withWindowRecomposer(ComposeUiTest.android.kt:359)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.access$withWindowRecomposer(ComposeUiTest.android.kt:219)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1.invoke(ComposeUiTest.android.kt:331)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.withTestCoroutines(ComposeUiTest.android.kt:372)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.access$withTestCoroutines(ComposeUiTest.android.kt:219)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1.invoke(ComposeUiTest.android.kt:330)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at androidx.compose.ui.test.EspressoLink.withStrategy(EspressoLink.android.kt:66)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1.invoke(ComposeUiTest.android.kt:329)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at androidx.compose.ui.test.IdlingResourceRegistry.withRegistry(IdlingResourceRegistry.jvm.kt:155)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1.invoke(ComposeUiTest.android.kt:328)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at androidx.compose.ui.test.ComposeRootRegistry.withRegistry(ComposeRootRegistry.android.kt:146)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.runTest(ComposeUiTest.android.kt:327)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1.evaluate(AndroidComposeTestRule.android.kt:271)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at androidx.test.ext.junit.runners.AndroidJUnit4.run(AndroidJUnit4.java:162)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at org.junit.runners.Suite.runChild(Suite.java:128)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at org.junit.runners.Suite.runChild(Suite.java:27)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at org.junit.runner.JUnitCore.run(JUnitCore.java:137)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at org.junit.runner.JUnitCore.run(JUnitCore.java:115)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:68)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:59)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at androidx.test.runner.AndroidJUnitRunner.onStart(AndroidJUnitRunner.java:463)
+10-24 07:15:39.463 13539 13701 E TestRunner: 	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2606)
+10-24 07:15:39.463 13539 13701 E TestRunner: ----- end exception -----
+10-24 07:15:39.465 13539 13701 I TestRunner: finished: fromFolderToSentList(com.albumdone.app.JourneyDeviceTest)
+10-24 07:15:39.468 13539 13701 I TestRunner: run finished: 1 tests, 1 failed, 0 ignored
+10-24 07:15:39.486 13514 13514 I AndroidRuntime: VM exiting with result code 0.
+10-24 07:15:39.658 18908 18908 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+10-24 07:15:39.663 18908 18908 I AndroidRuntime: Using default boot image
+10-24 07:15:39.663 18908 18908 I AndroidRuntime: Leaving lock profiling enabled
+10-24 07:15:39.749 18908 18908 D AndroidRuntime: Calling main entry com.android.commands.content.Content
+10-24 07:15:39.761 18908 18908 D AndroidRuntime: Shutting down VM
+10-24 07:15:40.761 18934 18934 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+10-24 07:15:40.764 18934 18934 I AndroidRuntime: Using default boot image
+10-24 07:15:40.764 18934 18934 I AndroidRuntime: Leaving lock profiling enabled
+10-24 07:15:40.846 18934 18934 D AndroidRuntime: Calling main entry com.android.commands.content.Content
+10-24 07:15:40.855 18934 18934 D AndroidRuntime: Shutting down VM
+10-24 07:15:54.329 19157 19157 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+10-24 07:15:54.333 19157 19157 I AndroidRuntime: Using default boot image
+10-24 07:15:54.333 19157 19157 I AndroidRuntime: Leaving lock profiling enabled
+10-24 07:15:54.417 19157 19157 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+10-24 07:15:54.536 19157 19157 I AndroidRuntime: VM exiting with result code 0.
+10-24 07:15:54.641 19184 19184 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+10-24 07:15:54.645 19184 19184 I AndroidRuntime: Using default boot image
+10-24 07:15:54.645 19184 19184 I AndroidRuntime: Leaving lock profiling enabled
+10-24 07:15:54.726 19184 19184 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+10-24 07:15:55.138 19184 19184 I AndroidRuntime: VM exiting with result code 0.
+10-24 07:15:55.216 30809 30809 I AndroidRuntime: VM exiting with result code 0, cleanup skipped.

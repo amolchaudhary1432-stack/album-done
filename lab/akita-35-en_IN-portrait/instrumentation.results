@@ -1,0 +1,50 @@
+INSTRUMENTATION_STATUS: class=com.albumdone.app.JourneyDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+com.albumdone.app.JourneyDeviceTest:
+INSTRUMENTATION_STATUS: test=fromFolderToSentList
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.albumdone.app.JourneyDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalStateException: The folder picker shows no Pictures folder
+	at com.albumdone.app.JourneyDeviceTest.openPhoneStorage(JourneyDeviceTest.kt:220)
+	at com.albumdone.app.JourneyDeviceTest.fromFolderToSentList$lambda$24(JourneyDeviceTest.kt:253)
+	at com.albumdone.app.JourneyDeviceTest.$r8$lambda$wjpqKRDZNfoyceE_DwPVcIg948k(Unknown Source:0)
+	at com.albumdone.app.JourneyDeviceTest$$ExternalSyntheticLambda15.invoke(D8$$SyntheticClass:0)
+	at com.albumdone.app.JourneyDeviceTest.step(JourneyDeviceTest.kt:89)
+	at com.albumdone.app.JourneyDeviceTest.fromFolderToSentList(JourneyDeviceTest.kt:247)
+
+INSTRUMENTATION_STATUS: stream=
+Error in fromFolderToSentList(com.albumdone.app.JourneyDeviceTest):
+java.lang.IllegalStateException: The folder picker shows no Pictures folder
+	at com.albumdone.app.JourneyDeviceTest.openPhoneStorage(JourneyDeviceTest.kt:220)
+	at com.albumdone.app.JourneyDeviceTest.fromFolderToSentList$lambda$24(JourneyDeviceTest.kt:253)
+	at com.albumdone.app.JourneyDeviceTest.$r8$lambda$wjpqKRDZNfoyceE_DwPVcIg948k(Unknown Source:0)
+	at com.albumdone.app.JourneyDeviceTest$$ExternalSyntheticLambda15.invoke(D8$$SyntheticClass:0)
+	at com.albumdone.app.JourneyDeviceTest.step(JourneyDeviceTest.kt:89)
+	at com.albumdone.app.JourneyDeviceTest.fromFolderToSentList(JourneyDeviceTest.kt:247)
+
+INSTRUMENTATION_STATUS: test=fromFolderToSentList
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 198.769
+There was 1 failure:
+1) fromFolderToSentList(com.albumdone.app.JourneyDeviceTest)
+java.lang.IllegalStateException: The folder picker shows no Pictures folder
+	at com.albumdone.app.JourneyDeviceTest.openPhoneStorage(JourneyDeviceTest.kt:220)
+	at com.albumdone.app.JourneyDeviceTest.fromFolderToSentList$lambda$24(JourneyDeviceTest.kt:253)
+	at com.albumdone.app.JourneyDeviceTest.$r8$lambda$wjpqKRDZNfoyceE_DwPVcIg948k(Unknown Source:0)
+	at com.albumdone.app.JourneyDeviceTest$$ExternalSyntheticLambda15.invoke(D8$$SyntheticClass:0)
+	at com.albumdone.app.JourneyDeviceTest.step(JourneyDeviceTest.kt:89)
+	at com.albumdone.app.JourneyDeviceTest.fromFolderToSentList(JourneyDeviceTest.kt:247)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1
