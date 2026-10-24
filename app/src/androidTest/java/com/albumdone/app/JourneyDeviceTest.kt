@@ -101,7 +101,6 @@ class JourneyDeviceTest {
 
     /** The test photos, put in Pictures/Sharma Wedding/<event folder>/ like a copied pendrive. */
     private fun putPhotosOnThePhone(): Int {
-        val resolver = DeviceTestSupport.app.contentResolver
         val tests = InstrumentationRegistry.getInstrumentation().context.assets
         val real = DeviceTestSupport.testAssets("wedding")
         // (asset path, event folder, file name)
@@ -113,15 +112,44 @@ class JourneyDeviceTest {
             TestWedding.PHOTOS.map { (asset, folder, name) -> Triple("faces/$asset", folder, name) }
         }
         for ((asset, folder, name) in photos) {
-            val values = ContentValues().apply {
-                put(MediaStore.Images.Media.DISPLAY_NAME, name)
-                put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
-                put(MediaStore.Images.Media.RELATIVE_PATH, "Pictures/$folderName/$folder")
-            }
-            val uri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)!!
-            resolver.openOutputStream(uri)!!.use { out -> tests.open(asset).use { it.copyTo(out) } }
+            tests.open(asset).use { putPhoto(folder, name, it) }
         }
         return photos.size
+    }
+
+    private fun putPhoto(folder: String, name: String, input: java.io.InputStream) {
+        val resolver = DeviceTestSupport.app.contentResolver
+        val values = ContentValues().apply {
+            put(MediaStore.Images.Media.DISPLAY_NAME, name)
+            put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
+            put(MediaStore.Images.Media.RELATIVE_PATH, "Pictures/$folderName/$folder")
+        }
+        val uri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)!!
+        resolver.openOutputStream(uri)!!.use { out -> input.copyTo(out) }
+    }
+
+    /**
+     * Thousands of photos pushed by the real-phone run as one ZIP (Test Lab cannot push 2,500
+     * separate files: it gave up after 12 minutes, three times), unpacked into Pictures here.
+     * Entries are "<event folder>/<file name>". The app cannot read another app's file in
+     * Download, so the shell reads it (path without spaces).
+     */
+    private fun unzipPhotos(path: String): Int {
+        var n = 0
+        val shell = InstrumentationRegistry.getInstrumentation().uiAutomation
+        val pipe = shell.executeShellCommand("cat $path")
+        val input = android.os.ParcelFileDescriptor.AutoCloseInputStream(pipe)
+        java.util.zip.ZipInputStream(input.buffered(1 shl 20)).use { zip ->
+            while (true) {
+                val entry = zip.nextEntry ?: break
+                if (entry.isDirectory || !entry.name.endsWith(".jpg", ignoreCase = true)) continue
+                val name = entry.name.removePrefix("./")
+                putPhoto(name.substringBeforeLast('/', ""), name.substringAfterLast('/'), zip)
+                n++
+            }
+        }
+        shell.executeShellCommand("rm $path").close()
+        return n
     }
 
     // ---- Android's folder picker (another app, so driven by what is on the screen) ----
@@ -186,7 +214,14 @@ class JourneyDeviceTest {
         args.getString("journeyMax")?.toIntOrNull()?.let { AlbumSize.MAX_PHOTOS = it }
         // Camera-size photos are pushed into Pictures by the real-phone run before the test starts.
         val pushed = args.getString("journeyPushed") == "1"
-        val count = step("00-photos") { if (pushed) args.getString("journeyCount")!!.toInt() else putPhotosOnThePhone() }
+        val zip = args.getString("journeyZip")
+        val count = step("00-photos") {
+            when {
+                zip != null -> unzipPhotos(zip)
+                pushed -> args.getString("journeyCount")!!.toInt()
+                else -> putPhotosOnThePhone()
+            }
+        }
         Log.i("AlbumDoneTest", "Journey: $count photos in Pictures/$folderName")
 
         step("01-home") {

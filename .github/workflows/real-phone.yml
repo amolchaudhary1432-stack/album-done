@@ -195,6 +195,16 @@ jobs:
             # or camera-size ones, would make the test app too big).
             mv photo-cache full-photos
             du -sh full-photos
+            count=$(find full-photos -name '*.jpg' | wc -l)
+            echo "count=$count" >> "$GITHUB_OUTPUT"
+            if [ "$count" -gt 400 ]; then
+              # Thousands of files: one ZIP (stored, the photos are already compressed), unpacked
+              # into Pictures by the test. Test Lab gave up pushing 2,500 separate files.
+              (cd full-photos && zip -q -0 -r ../photos.zip .)
+              ls -la photos.zip
+              printf 'push:\n  other-files:\n    /sdcard/Download/albumdone-photos.zip: photos.zip\n' > push-args.yaml
+              echo "zip=/sdcard/Download/albumdone-photos.zip" >> "$GITHUB_OUTPUT"
+            else
             # The files to push, for gcloud (an args file: there are hundreds).
             python3 - "${{ steps.s.outputs.journey_folder }}" <<'PY'
           import os, sys, json
@@ -210,7 +220,7 @@ jobs:
                   fh.write(f"    {json.dumps(k)}: {json.dumps(v)}\n")
           print(len(pairs), "photos to push")
           PY
-            echo "count=$(find full-photos -name '*.jpg' | wc -l)" >> "$GITHUB_OUTPUT"
+            fi
           elif [ "$set_name" = big ]; then
             # The full-size folder (1,000 photos), as in the emulator's real-wedding run.
             mkdir -p tmp-photos/local && git archive FETCH_HEAD | tar -x -C tmp-photos/local
@@ -267,6 +277,7 @@ jobs:
           # Camera-size photos are pushed into the phone's Pictures before the test starts.
           push=""; extra=""
           if [ -f push-args.yaml ]; then push="push-args.yaml:push"; extra=",journeyPushed=1,journeyCount=${{ steps.p.outputs.count }}"; fi
+          [ -n "${{ steps.p.outputs.zip }}" ] && extra="$extra,journeyZip=${{ steps.p.outputs.zip }}"
           gcloud firebase test android run $push --project "$PROJECT" --type instrumentation \
             --app app/build/outputs/apk/debug/app-debug.apk \
             --test app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk \
@@ -296,7 +307,7 @@ jobs:
           shots=$(find out/lab -type d -path '*com.albumdone.app/files/screens' | head -1)
           [ -n "$shots" ] && mv "$shots" out/screens || true
           # Not the app files, nor the photos pushed onto the phone (Test Lab keeps them with the results).
-          find out/lab \( -name 'video.mp4' -o -name '*.apk' -o -iname '*.jpg' -o -iname '*.jpeg' \) -delete 2>/dev/null || true
+          find out/lab \( -name 'video.mp4' -o -name '*.apk' -o -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.zip' \) -delete 2>/dev/null || true
           du -sh out
           grep -h "Real wedding:" out/logcat-app.txt 2>/dev/null | tail -1 || true
           head -1 out/screens/real-wedding-report.txt 2>/dev/null || true
