@@ -44,10 +44,24 @@ env:
   PROJECT: album-done-test
 
 jobs:
-  real-phone:
+  # The photos first, on their own: Wikimedia makes new thumbnails slowly for each machine (a few
+  # a minute), so thousands can take hours. Downloaded photos are kept in the Actions cache and a
+  # later run carries on from them; the phone is only used once they are all there.
+  photos:
     runs-on: ubuntu-latest
-    # Camera-size photos download slowly from Wikimedia (it limits big files).
-    timeout-minutes: 150
+    timeout-minutes: 345
+    outputs:
+      photos: ${{ steps.s.outputs.photos }}
+      size: ${{ steps.s.outputs.size }}
+      device: ${{ steps.s.outputs.device }}
+      minutes: ${{ steps.s.outputs.minutes }}
+      targets: ${{ steps.s.outputs.targets }}
+      fetch: ${{ steps.s.outputs.fetch }}
+      folders: ${{ steps.s.outputs.folders }}
+      limit: ${{ steps.s.outputs.limit }}
+      journey_folder: ${{ steps.s.outputs.journey_folder }}
+      key: ${{ steps.s.outputs.key }}
+      download: ${{ steps.s.outputs.download }}
     steps:
       - uses: actions/checkout@v4
 
@@ -56,18 +70,12 @@ jobs:
         run: |
           get() { python3 -c "import json,sys; print(json.load(open('tools/realphone/run.json')).get('$1', '$2'))"; }
           photos="${{ inputs.photos }}"; size="${{ inputs.album_size }}"; device="${{ inputs.device }}"; minutes="${{ inputs.minutes }}"; tests="${{ inputs.tests }}"
+          fetch=""; folders=""; limit=0; journey_folder="Sharma Wedding"
           if [ "${{ github.event_name }}" = push ]; then
             photos=$(get photos wedding); size=$(get album_size 30); device=$(get device ""); minutes=$(get minutes 40); tests=$(get tests real)
-            echo "fetch=$(get fetch "")" >> "$GITHUB_OUTPUT"
-            echo "folders=$(get folders "")" >> "$GITHUB_OUTPUT"
-            echo "limit=$(get limit 0)" >> "$GITHUB_OUTPUT"
-            echo "journey_folder=$(get journey_folder "Sharma Wedding")" >> "$GITHUB_OUTPUT"
+            fetch=$(get fetch ""); folders=$(get folders ""); limit=$(get limit 0); journey_folder=$(get journey_folder "Sharma Wedding")
           fi
           [ "$minutes" -gt 45 ] && minutes=45
-          echo "photos=$photos" >> "$GITHUB_OUTPUT"
-          echo "size=$size" >> "$GITHUB_OUTPUT"
-          echo "device=$device" >> "$GITHUB_OUTPUT"
-          echo "minutes=$minutes" >> "$GITHUB_OUTPUT"
           # Which tests: the real-photo test alone, or every phone test (screens, birthday, big
           # family, models, and the start-to-finish journey through Android's folder picker).
           # journey = the start-to-finish test alone, with every photo in the set (up to 1,000).
@@ -76,8 +84,100 @@ jobs:
             journey) targets="class com.albumdone.app.JourneyDeviceTest" ;;
             *) targets="class com.albumdone.app.RealWeddingDeviceTest" ;;
           esac
-          echo "targets=$targets" >> "$GITHUB_OUTPUT"
-          echo "photos=$photos size=$size device=$device minutes=$minutes tests=$tests"
+          # Photos downloaded from the harvest's sets (set:, full:, camera:, push:) are cached.
+          download=""
+          case "${photos%%:*}" in set|full|camera|push) [ -z "$fetch" ] && download=1 ;; esac
+          key="realphone-photos-v2-$(printf '%s|%s|%s|%s' "$photos" "$folders" "$limit" "$(sha256sum tools/test-photos/one_set.py | cut -c1-16)" | sha256sum | cut -c1-24)"
+          {
+            echo "photos=$photos"; echo "size=$size"; echo "device=$device"; echo "minutes=$minutes"
+            echo "targets=$targets"; echo "fetch=$fetch"; echo "folders=$folders"; echo "limit=$limit"
+            echo "journey_folder=$journey_folder"; echo "key=$key"; echo "download=$download"
+          } >> "$GITHUB_OUTPUT"
+          echo "photos=$photos size=$size device=$device minutes=$minutes tests=$tests key=$key"
+
+      - name: Photos downloaded before
+        if: steps.s.outputs.download != ''
+        uses: actions/cache/restore@v4
+        with:
+          path: photo-cache
+          key: ${{ steps.s.outputs.key }}-done
+          restore-keys: ${{ steps.s.outputs.key }}-
+
+      - name: Download the photos (slowly, as Wikimedia asks)
+        id: dl
+        if: steps.s.outputs.download != ''
+        run: |
+          if [ -f photo-cache/COMPLETE ]; then
+            echo "all photos were downloaded before: $(cat photo-cache/STATUS)"; exit 0
+          fi
+          git fetch -q --depth 1 origin harvest-data && git show FETCH_HEAD:sets.jsonl > sets.jsonl
+          pip install -q pillow numpy
+          set_name="${{ steps.s.outputs.photos }}"
+          # full: the original files; camera: copies enlarged to camera size (Wikimedia is slow with
+          # originals); set and push: at app size.
+          kind="${set_name%%:*}"; { [ "$kind" = push ] || [ "$kind" = set ]; } && kind=small
+          # Stop in time to keep what was downloaded (the job has 345 minutes).
+          DEADLINE=$((320 * 60)) python3 tools/test-photos/one_set.py sets.jsonl "${set_name#*:}" photo-cache "$kind" "${{ steps.s.outputs.folders }}" "${{ steps.s.outputs.limit }}" 2> download-errors.txt
+          tail -3 download-errors.txt || true
+          du -sh photo-cache
+          echo "saved=1" >> "$GITHUB_OUTPUT"
+
+      - name: All there?
+        id: c
+        if: always() && steps.dl.outputs.saved == '1'
+        run: |
+          read n m < photo-cache/STATUS
+          echo "$n of $m photos"
+          # Nearly all (a few are gone from Wikimedia or are not photos): ready for the phone.
+          if python3 -c "import sys; sys.exit(0 if $n >= 0.97 * $m else 1)"; then touch photo-cache/COMPLETE; echo "complete=1" >> "$GITHUB_OUTPUT"; fi
+
+      - name: Keep the photos so far for the next run
+        if: always() && steps.dl.outputs.saved == '1' && steps.c.outputs.complete != '1'
+        uses: actions/cache/save@v4
+        with:
+          path: photo-cache
+          key: ${{ steps.s.outputs.key }}-${{ github.run_id }}-${{ github.run_attempt }}
+
+      - name: Keep the complete set
+        if: always() && steps.c.outputs.complete == '1'
+        uses: actions/cache/save@v4
+        with:
+          path: photo-cache
+          key: ${{ steps.s.outputs.key }}-done
+
+      - name: Stop here if photos are missing
+        if: steps.dl.outputs.saved == '1' && steps.c.outputs.complete != '1'
+        run: |
+          echo "Not all photos yet: run again to carry on from them (no phone was used)"
+          exit 1
+
+  real-phone:
+    needs: photos
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Read the run settings
+        id: s
+        run: |
+          echo "fetch=${{ needs.photos.outputs.fetch }}" >> "$GITHUB_OUTPUT"
+          echo "photos=${{ needs.photos.outputs.photos }}" >> "$GITHUB_OUTPUT"
+          echo "size=${{ needs.photos.outputs.size }}" >> "$GITHUB_OUTPUT"
+          echo "device=${{ needs.photos.outputs.device }}" >> "$GITHUB_OUTPUT"
+          echo "minutes=${{ needs.photos.outputs.minutes }}" >> "$GITHUB_OUTPUT"
+          echo "targets=${{ needs.photos.outputs.targets }}" >> "$GITHUB_OUTPUT"
+          echo "folders=${{ needs.photos.outputs.folders }}" >> "$GITHUB_OUTPUT"
+          echo "limit=${{ needs.photos.outputs.limit }}" >> "$GITHUB_OUTPUT"
+          echo "journey_folder=${{ needs.photos.outputs.journey_folder }}" >> "$GITHUB_OUTPUT"
+
+      - name: The downloaded photos
+        if: needs.photos.outputs.download != ''
+        uses: actions/cache/restore@v4
+        with:
+          path: photo-cache
+          key: ${{ needs.photos.outputs.key }}-done
+          fail-on-cache-miss: true
 
       - name: Get the test photos
         id: p
@@ -86,23 +186,17 @@ jobs:
           set_name="${{ steps.s.outputs.photos }}"
           git fetch -q --depth 1 origin test-photos
           mkdir -p app/src/androidTest/assets tmp-photos
-          if [ "${set_name%%:*}" = set ] || [ "${set_name%%:*}" = full ] || [ "${set_name%%:*}" = camera ] || [ "${set_name%%:*}" = push ]; then
-            # One real event from the harvest's sets, never a mix: "set:<id>" goes inside the test
-            # app at about the size the app reads; "full:<id>" keeps the photographer's original
-            # files and pushes them into the phone's Pictures folder (camera-size photos).
-            git fetch -q --depth 1 origin harvest-data && git show FETCH_HEAD:sets.jsonl > tmp-photos/sets.jsonl
-            pip install -q pillow numpy
-            if [ "${set_name%%:*}" = set ]; then
-              python3 tools/test-photos/one_set.py tmp-photos/sets.jsonl "${set_name#*:}" app/src/androidTest/assets/wedding small "${{ steps.s.outputs.folders }}" "${{ steps.s.outputs.limit }}"
-            else
-              # full: the original files; camera: copies enlarged to camera size (Wikimedia is slow with
-              # originals); push: at app size, pushed onto the phone instead of inside the test app
-              # (thousands of photos would make the test app too big).
-              kind="${set_name%%:*}"; [ "$kind" = push ] && kind=small
-              python3 tools/test-photos/one_set.py tmp-photos/sets.jsonl "${set_name#*:}" full-photos "$kind" "${{ steps.s.outputs.folders }}" "${{ steps.s.outputs.limit }}"
-              du -sh full-photos
-              # The files to push, for gcloud (an args file: there are hundreds).
-              python3 - "${{ steps.s.outputs.journey_folder }}" <<'PY'
+          rm -f photo-cache/STATUS photo-cache/COMPLETE
+          if [ "${set_name%%:*}" = set ]; then
+            # One real event from the harvest's sets, never a mix, inside the test app.
+            rm -rf app/src/androidTest/assets/wedding && mv photo-cache app/src/androidTest/assets/wedding
+          elif [ "${set_name%%:*}" = full ] || [ "${set_name%%:*}" = camera ] || [ "${set_name%%:*}" = push ]; then
+            # Pushed into the phone's Pictures folder before the test starts (thousands of photos,
+            # or camera-size ones, would make the test app too big).
+            mv photo-cache full-photos
+            du -sh full-photos
+            # The files to push, for gcloud (an args file: there are hundreds).
+            python3 - "${{ steps.s.outputs.journey_folder }}" <<'PY'
           import os, sys, json
           folder = sys.argv[1]
           pairs = {}
@@ -116,8 +210,7 @@ jobs:
                   fh.write(f"    {json.dumps(k)}: {json.dumps(v)}\n")
           print(len(pairs), "photos to push")
           PY
-              echo "count=$(find full-photos -name '*.jpg' | wc -l)" >> "$GITHUB_OUTPUT"
-            fi
+            echo "count=$(find full-photos -name '*.jpg' | wc -l)" >> "$GITHUB_OUTPUT"
           elif [ "$set_name" = big ]; then
             # The full-size folder (1,000 photos), as in the emulator's real-wedding run.
             mkdir -p tmp-photos/local && git archive FETCH_HEAD | tar -x -C tmp-photos/local
@@ -208,8 +301,10 @@ jobs:
           grep -h "Real wedding:" out/logcat-app.txt 2>/dev/null | tail -1 || true
           head -1 out/screens/real-wedding-report.txt 2>/dev/null || true
 
+      # Not after a run stopped before it reached a phone: that would replace a phone's results
+      # with nothing.
       - name: Send them to the real-phone-results branch
-        if: always()
+        if: always() && (steps.d.outputs.model != '' || steps.s.outputs.fetch != '')
         run: |
           echo "Run ${{ github.run_number }} for commit ${{ github.sha }}: photos ${{ steps.s.outputs.photos }} on ${{ steps.d.outputs.model }} (API ${{ steps.d.outputs.version }})" > out/RUN.txt
           # One results branch per phone, so runs on several phones do not overwrite each other.

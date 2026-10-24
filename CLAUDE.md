@@ -171,7 +171,11 @@ Design mock-up: https://claude.ai/artifact/KzbjcqjdAW5KkNJ47pFf6f
   Galaxy A15 (a15, Android 14). Free plan: 5 real-phone runs a day. Video, logs, screenshots and the
   report go to the `real-phone-results` branch. `JourneyDeviceTest` uses the whole app like the bride:
   photos in Pictures, the system folder picker (UiAutomator, system screens only), occasion, checking,
-  album, swap/remove/undo, send, share sheet.
+  album, swap/remove/undo, send, share sheet. Photos from the harvest's sets (`push:`, `set:`...)
+  download first in their own job (Wikimedia makes only a few new thumbnails a minute per machine:
+  2,000 take hours), kept in the Actions cache; a run that stops part way carries on next time, and
+  the phone is used only once they are all there. Other phones' results go to
+  `real-phone-results-<model>`.
 - Test photos: `tools/test-photos/` + `.github/workflows/test-photos.yml` find and download freely
   licensed wedding photos from Wikimedia Commons on the build machine (this session cannot reach
   those sites) and put them on the `test-photos` branch with credits. Test data only, never in the
