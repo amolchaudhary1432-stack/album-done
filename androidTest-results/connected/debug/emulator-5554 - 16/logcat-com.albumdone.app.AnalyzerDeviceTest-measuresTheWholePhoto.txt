@@ -1,0 +1,2 @@
+10-24 14:11:17.890  4530  4566 I TestRunner: started: measuresTheWholePhoto(com.albumdone.app.AnalyzerDeviceTest)
+10-24 14:11:17.892  4530  4566 I TestRunner: finished: measuresTheWholePhoto(com.albumdone.app.AnalyzerDeviceTest)

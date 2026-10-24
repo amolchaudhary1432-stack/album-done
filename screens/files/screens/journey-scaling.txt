@@ -1,0 +1,3 @@
+seconds	checked	step	memory MB
+4	0	analyzing	572
+28	7	ALBUM SHOWN	481

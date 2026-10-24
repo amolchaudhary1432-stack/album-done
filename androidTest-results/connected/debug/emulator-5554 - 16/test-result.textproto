@@ -1,0 +1,606 @@
+# proto-message: google.testing.platform.proto.api.core.TestSuiteResult
+# 2026-10-24T14:15:02.880036944Z:
+test_suite_meta_data {
+  scheduled_test_case_count: 11
+  device {
+    id: "emulator-5554"
+    friendly_name: "primary"
+  }
+}
+test_status: PASSED
+test_result {
+  test_case {
+    test_class: "AnalyzerDeviceTest"
+    test_package: "com.albumdone.app"
+    test_method: "findsEveryFace"
+    start_time {
+      seconds: 1792851078
+      nanos: 242000000
+    }
+    end_time {
+      seconds: 1792851078
+      nanos: 308000000
+    }
+    device {
+      id: "emulator-5554"
+      friendly_name: "primary"
+    }
+  }
+  test_status: PASSED
+  output_artifact {
+    label {
+      label: "logcat"
+      namespace: "android"
+    }
+    source_path {
+      path: "/home/runner/work/album-done/album-done/app/build/outputs/androidTest-results/connected/debug/emulator-5554 - 16/logcat-com.albumdone.app.AnalyzerDeviceTest-findsEveryFace.txt"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info"
+      namespace: "android"
+    }
+    source_path {
+      path: "/home/runner/work/album-done/album-done/app/build/outputs/androidTest-results/connected/debug/emulator-5554 - 16/device-info.pb"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info.meminfo"
+      namespace: "android"
+    }
+    source_path {
+      path: "/home/runner/work/album-done/album-done/app/build/outputs/androidTest-results/connected/debug/emulator-5554 - 16/meminfo"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info.cpuinfo"
+      namespace: "android"
+    }
+    source_path {
+      path: "/home/runner/work/album-done/album-done/app/build/outputs/androidTest-results/connected/debug/emulator-5554 - 16/cpuinfo"
+    }
+  }
+}
+test_result {
+  test_case {
+    test_class: "AnalyzerDeviceTest"
+    test_package: "com.albumdone.app"
+    test_method: "measuresTheWholePhoto"
+    start_time {
+      seconds: 1792851078
+      nanos: 333000000
+    }
+    end_time {
+      seconds: 1792851078
+      nanos: 335000000
+    }
+    device {
+      id: "emulator-5554"
+      friendly_name: "primary"
+    }
+  }
+  test_status: PASSED
+  output_artifact {
+    label {
+      label: "logcat"
+      namespace: "android"
+    }
+    source_path {
+      path: "/home/runner/work/album-done/album-done/app/build/outputs/androidTest-results/connected/debug/emulator-5554 - 16/logcat-com.albumdone.app.AnalyzerDeviceTest-measuresTheWholePhoto.txt"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info"
+      namespace: "android"
+    }
+    source_path {
+      path: "/home/runner/work/album-done/album-done/app/build/outputs/androidTest-results/connected/debug/emulator-5554 - 16/device-info.pb"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info.meminfo"
+      namespace: "android"
+    }
+    source_path {
+      path: "/home/runner/work/album-done/album-done/app/build/outputs/androidTest-results/connected/debug/emulator-5554 - 16/meminfo"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info.cpuinfo"
+      namespace: "android"
+    }
+    source_path {
+      path: "/home/runner/work/album-done/album-done/app/build/outputs/androidTest-results/connected/debug/emulator-5554 - 16/cpuinfo"
+    }
+  }
+}
+test_result {
+  test_case {
+    test_class: "AnalyzerDeviceTest"
+    test_package: "com.albumdone.app"
+    test_method: "peopleAreGroupedCorrectly"
+    start_time {
+      seconds: 1792851078
+      nanos: 339000000
+    }
+    end_time {
+      seconds: 1792851078
+      nanos: 341000000
+    }
+    device {
+      id: "emulator-5554"
+      friendly_name: "primary"
+    }
+  }
+  test_status: PASSED
+  output_artifact {
+    label {
+      label: "logcat"
+      namespace: "android"
+    }
+    source_path {
+      path: "/home/runner/work/album-done/album-done/app/build/outputs/androidTest-results/connected/debug/emulator-5554 - 16/logcat-com.albumdone.app.AnalyzerDeviceTest-peopleAreGroupedCorrectly.txt"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info"
+      namespace: "android"
+    }
+    source_path {
+      path: "/home/runner/work/album-done/album-done/app/build/outputs/androidTest-results/connected/debug/emulator-5554 - 16/device-info.pb"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info.meminfo"
+      namespace: "android"
+    }
+    source_path {
+      path: "/home/runner/work/album-done/album-done/app/build/outputs/androidTest-results/connected/debug/emulator-5554 - 16/meminfo"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info.cpuinfo"
+      namespace: "android"
+    }
+    source_path {
+      path: "/home/runner/work/album-done/album-done/app/build/outputs/androidTest-results/connected/debug/emulator-5554 - 16/cpuinfo"
+    }
+  }
+}
+test_result {
+  test_case {
+    test_class: "AnalyzerDeviceTest"
+    test_package: "com.albumdone.app"
+    test_method: "recognisesTheSamePersonAndTellsPeopleApart"
+    start_time {
+      seconds: 1792851078
+      nanos: 346000000
+    }
+    end_time {
+      seconds: 1792851078
+      nanos: 347000000
+    }
+    device {
+      id: "emulator-5554"
+      friendly_name: "primary"
+    }
+  }
+  test_status: PASSED
+  output_artifact {
+    label {
+      label: "logcat"
+      namespace: "android"
+    }
+    source_path {
+      path: "/home/runner/work/album-done/album-done/app/build/outputs/androidTest-results/connected/debug/emulator-5554 - 16/logcat-com.albumdone.app.AnalyzerDeviceTest-recognisesTheSamePersonAndTellsPeopleApart.txt"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info"
+      namespace: "android"
+    }
+    source_path {
+      path: "/home/runner/work/album-done/album-done/app/build/outputs/androidTest-results/connected/debug/emulator-5554 - 16/device-info.pb"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info.meminfo"
+      namespace: "android"
+    }
+    source_path {
+      path: "/home/runner/work/album-done/album-done/app/build/outputs/androidTest-results/connected/debug/emulator-5554 - 16/meminfo"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info.cpuinfo"
+      namespace: "android"
+    }
+    source_path {
+      path: "/home/runner/work/album-done/album-done/app/build/outputs/androidTest-results/connected/debug/emulator-5554 - 16/cpuinfo"
+    }
+  }
+}
+test_result {
+  test_case {
+    test_class: "AnalyzerDeviceTest"
+    test_package: "com.albumdone.app"
+    test_method: "readsExpressionsLikeAPerson"
+    start_time {
+      seconds: 1792851078
+      nanos: 361000000
+    }
+    end_time {
+      seconds: 1792851078
+      nanos: 366000000
+    }
+    device {
+      id: "emulator-5554"
+      friendly_name: "primary"
+    }
+  }
+  test_status: PASSED
+  output_artifact {
+    label {
+      label: "logcat"
+      namespace: "android"
+    }
+    source_path {
+      path: "/home/runner/work/album-done/album-done/app/build/outputs/androidTest-results/connected/debug/emulator-5554 - 16/logcat-com.albumdone.app.AnalyzerDeviceTest-readsExpressionsLikeAPerson.txt"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info"
+      namespace: "android"
+    }
+    source_path {
+      path: "/home/runner/work/album-done/album-done/app/build/outputs/androidTest-results/connected/debug/emulator-5554 - 16/device-info.pb"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info.meminfo"
+      namespace: "android"
+    }
+    source_path {
+      path: "/home/runner/work/album-done/album-done/app/build/outputs/androidTest-results/connected/debug/emulator-5554 - 16/meminfo"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info.cpuinfo"
+      namespace: "android"
+    }
+    source_path {
+      path: "/home/runner/work/album-done/album-done/app/build/outputs/androidTest-results/connected/debug/emulator-5554 - 16/cpuinfo"
+    }
+  }
+}
+test_result {
+  test_case {
+    test_class: "AppScreensDeviceTest"
+    test_package: "com.albumdone.app"
+    test_method: "everyScreenWorks"
+    start_time {
+      seconds: 1792851078
+      nanos: 371000000
+    }
+    end_time {
+      seconds: 1792851138
+      nanos: 519000000
+    }
+    device {
+      id: "emulator-5554"
+      friendly_name: "primary"
+    }
+  }
+  test_status: PASSED
+  output_artifact {
+    label {
+      label: "logcat"
+      namespace: "android"
+    }
+    source_path {
+      path: "/home/runner/work/album-done/album-done/app/build/outputs/androidTest-results/connected/debug/emulator-5554 - 16/logcat-com.albumdone.app.AppScreensDeviceTest-everyScreenWorks.txt"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info"
+      namespace: "android"
+    }
+    source_path {
+      path: "/home/runner/work/album-done/album-done/app/build/outputs/androidTest-results/connected/debug/emulator-5554 - 16/device-info.pb"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info.meminfo"
+      namespace: "android"
+    }
+    source_path {
+      path: "/home/runner/work/album-done/album-done/app/build/outputs/androidTest-results/connected/debug/emulator-5554 - 16/meminfo"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info.cpuinfo"
+      namespace: "android"
+    }
+    source_path {
+      path: "/home/runner/work/album-done/album-done/app/build/outputs/androidTest-results/connected/debug/emulator-5554 - 16/cpuinfo"
+    }
+  }
+}
+test_result {
+  test_case {
+    test_class: "BigFamilyDeviceTest"
+    test_package: "com.albumdone.app"
+    test_method: "fortyRelativesAreEasyToHandle"
+    start_time {
+      seconds: 1792851138
+      nanos: 521000000
+    }
+    end_time {
+      seconds: 1792851172
+      nanos: 140000000
+    }
+    device {
+      id: "emulator-5554"
+      friendly_name: "primary"
+    }
+  }
+  test_status: PASSED
+  output_artifact {
+    label {
+      label: "logcat"
+      namespace: "android"
+    }
+    source_path {
+      path: "/home/runner/work/album-done/album-done/app/build/outputs/androidTest-results/connected/debug/emulator-5554 - 16/logcat-com.albumdone.app.BigFamilyDeviceTest-fortyRelativesAreEasyToHandle.txt"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info"
+      namespace: "android"
+    }
+    source_path {
+      path: "/home/runner/work/album-done/album-done/app/build/outputs/androidTest-results/connected/debug/emulator-5554 - 16/device-info.pb"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info.meminfo"
+      namespace: "android"
+    }
+    source_path {
+      path: "/home/runner/work/album-done/album-done/app/build/outputs/androidTest-results/connected/debug/emulator-5554 - 16/meminfo"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info.cpuinfo"
+      namespace: "android"
+    }
+    source_path {
+      path: "/home/runner/work/album-done/album-done/app/build/outputs/androidTest-results/connected/debug/emulator-5554 - 16/cpuinfo"
+    }
+  }
+}
+test_result {
+  test_case {
+    test_class: "BirthdayDeviceTest"
+    test_package: "com.albumdone.app"
+    test_method: "aBirthdayIsNotAWedding"
+    start_time {
+      seconds: 1792851172
+      nanos: 198000000
+    }
+    end_time {
+      seconds: 1792851202
+      nanos: 39000000
+    }
+    device {
+      id: "emulator-5554"
+      friendly_name: "primary"
+    }
+  }
+  test_status: PASSED
+  output_artifact {
+    label {
+      label: "logcat"
+      namespace: "android"
+    }
+    source_path {
+      path: "/home/runner/work/album-done/album-done/app/build/outputs/androidTest-results/connected/debug/emulator-5554 - 16/logcat-com.albumdone.app.BirthdayDeviceTest-aBirthdayIsNotAWedding.txt"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info"
+      namespace: "android"
+    }
+    source_path {
+      path: "/home/runner/work/album-done/album-done/app/build/outputs/androidTest-results/connected/debug/emulator-5554 - 16/device-info.pb"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info.meminfo"
+      namespace: "android"
+    }
+    source_path {
+      path: "/home/runner/work/album-done/album-done/app/build/outputs/androidTest-results/connected/debug/emulator-5554 - 16/meminfo"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info.cpuinfo"
+      namespace: "android"
+    }
+    source_path {
+      path: "/home/runner/work/album-done/album-done/app/build/outputs/androidTest-results/connected/debug/emulator-5554 - 16/cpuinfo"
+    }
+  }
+}
+test_result {
+  test_case {
+    test_class: "JourneyDeviceTest"
+    test_package: "com.albumdone.app"
+    test_method: "fromFolderToSentList"
+    start_time {
+      seconds: 1792851202
+      nanos: 72000000
+    }
+    end_time {
+      seconds: 1792851274
+      nanos: 937000000
+    }
+    device {
+      id: "emulator-5554"
+      friendly_name: "primary"
+    }
+  }
+  test_status: PASSED
+  output_artifact {
+    label {
+      label: "logcat"
+      namespace: "android"
+    }
+    source_path {
+      path: "/home/runner/work/album-done/album-done/app/build/outputs/androidTest-results/connected/debug/emulator-5554 - 16/logcat-com.albumdone.app.JourneyDeviceTest-fromFolderToSentList.txt"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info"
+      namespace: "android"
+    }
+    source_path {
+      path: "/home/runner/work/album-done/album-done/app/build/outputs/androidTest-results/connected/debug/emulator-5554 - 16/device-info.pb"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info.meminfo"
+      namespace: "android"
+    }
+    source_path {
+      path: "/home/runner/work/album-done/album-done/app/build/outputs/androidTest-results/connected/debug/emulator-5554 - 16/meminfo"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info.cpuinfo"
+      namespace: "android"
+    }
+    source_path {
+      path: "/home/runner/work/album-done/album-done/app/build/outputs/androidTest-results/connected/debug/emulator-5554 - 16/cpuinfo"
+    }
+  }
+}
+test_result {
+  test_case {
+    test_class: "PipelineDeviceTest"
+    test_package: "com.albumdone.app"
+    test_method: "analysesFindsTheCoupleAndPlansAnAlbum"
+    start_time {
+      seconds: 1792851274
+      nanos: 942000000
+    }
+    end_time {
+      seconds: 1792851299
+      nanos: 80000000
+    }
+    device {
+      id: "emulator-5554"
+      friendly_name: "primary"
+    }
+  }
+  test_status: PASSED
+  output_artifact {
+    label {
+      label: "logcat"
+      namespace: "android"
+    }
+    source_path {
+      path: "/home/runner/work/album-done/album-done/app/build/outputs/androidTest-results/connected/debug/emulator-5554 - 16/logcat-com.albumdone.app.PipelineDeviceTest-analysesFindsTheCoupleAndPlansAnAlbum.txt"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info"
+      namespace: "android"
+    }
+    source_path {
+      path: "/home/runner/work/album-done/album-done/app/build/outputs/androidTest-results/connected/debug/emulator-5554 - 16/device-info.pb"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info.meminfo"
+      namespace: "android"
+    }
+    source_path {
+      path: "/home/runner/work/album-done/album-done/app/build/outputs/androidTest-results/connected/debug/emulator-5554 - 16/meminfo"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info.cpuinfo"
+      namespace: "android"
+    }
+    source_path {
+      path: "/home/runner/work/album-done/album-done/app/build/outputs/androidTest-results/connected/debug/emulator-5554 - 16/cpuinfo"
+    }
+  }
+}
+test_result {
+  test_case {
+    test_class: "RealWeddingDeviceTest"
+    test_package: "com.albumdone.app"
+    test_method: "realWedding"
+    start_time {
+      seconds: 1792851299
+      nanos: 85000000
+    }
+    end_time {
+      seconds: 1792851301
+      nanos: 647000000
+    }
+    device {
+      id: "emulator-5554"
+      friendly_name: "primary"
+    }
+  }
+  test_status: IGNORED
+  error {
+    error_message: "org.junit.AssumptionViolatedException: No real wedding photos in this build\nat org.junit.Assume.assumeTrue(Assume.java:68)\nat com.albumdone.app.RealWeddingDeviceTest.realWedding(RealWeddingDeviceTest.kt:60)\nat java.lang.reflect.Method.invoke(Native Method)\nat org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)\nat org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)\nat org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)\nat org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)\nat org.junit.rules.ExternalResource$1.evaluate(ExternalResource.java:54)\nat androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1$evaluate$1.invoke(AndroidComposeTestRule.android.kt:272)\nat androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1$evaluate$1.invoke(AndroidComposeTestRule.android.kt:271)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.withDisposableContent(ComposeUiTest.android.kt:505)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1$1$1.invoke(ComposeUiTest.android.kt:333)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment.withComposeIdlingResource(ComposeUiTest.android.kt:385)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment.access$withComposeIdlingResource(ComposeUiTest.android.kt:219)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1$1.invoke(ComposeUiTest.android.kt:332)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment.withWindowRecomposer(ComposeUiTest.android.kt:359)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment.access$withWindowRecomposer(ComposeUiTest.android.kt:219)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1.invoke(ComposeUiTest.android.kt:331)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment.withTestCoroutines(ComposeUiTest.android.kt:372)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment.access$withTestCoroutines(ComposeUiTest.android.kt:219)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1.invoke(ComposeUiTest.android.kt:330)\nat androidx.compose.ui.test.EspressoLink.withStrategy(EspressoLink.android.kt:66)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1.invoke(ComposeUiTest.android.kt:329)\nat androidx.compose.ui.test.IdlingResourceRegistry.withRegistry(IdlingResourceRegistry.jvm.kt:155)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1.invoke(ComposeUiTest.android.kt:328)\nat androidx.compose.ui.test.ComposeRootRegistry.withRegistry(ComposeRootRegistry.android.kt:146)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment.runTest(ComposeUiTest.android.kt:327)\nat androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1.evaluate(AndroidComposeTestRule.android.kt:271)\nat org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)\nat org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)\nat org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)\nat org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)\nat org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)\nat org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)\nat org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)\nat org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)\nat org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)\nat org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)\nat org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)\nat org.junit.runners.ParentRunner.run(ParentRunner.java:413)\nat androidx.test.ext.junit.runners.AndroidJUnit4.run(AndroidJUnit4.java:162)\nat org.junit.runners.Suite.runChild(Suite.java:128)\nat org.junit.runners.Suite.runChild(Suite.java:27)\nat org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)\nat org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)\nat org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)\nat org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)\nat org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)\nat org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)\nat org.junit.runners.ParentRunner.run(ParentRunner.java:413)\nat org.junit.runner.JUnitCore.run(JUnitCore.java:137)\nat org.junit.runner.JUnitCore.run(JUnitCore.java:115)\nat androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:68)\nat androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:59)\nat androidx.test.runner.AndroidJUnitRunner.onStart(AndroidJUnitRunner.java:463)\nat android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2597)\n"
+    error_type: "org.junit.AssumptionViolatedException"
+    stack_trace: "org.junit.AssumptionViolatedException: No real wedding photos in this build\nat org.junit.Assume.assumeTrue(Assume.java:68)\nat com.albumdone.app.RealWeddingDeviceTest.realWedding(RealWeddingDeviceTest.kt:60)\nat java.lang.reflect.Method.invoke(Native Method)\nat org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)\nat org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)\nat org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)\nat org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)\nat org.junit.rules.ExternalResource$1.evaluate(ExternalResource.java:54)\nat androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1$evaluate$1.invoke(AndroidComposeTestRule.android.kt:272)\nat androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1$evaluate$1.invoke(AndroidComposeTestRule.android.kt:271)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.withDisposableContent(ComposeUiTest.android.kt:505)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1$1$1.invoke(ComposeUiTest.android.kt:333)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment.withComposeIdlingResource(ComposeUiTest.android.kt:385)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment.access$withComposeIdlingResource(ComposeUiTest.android.kt:219)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1$1.invoke(ComposeUiTest.android.kt:332)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment.withWindowRecomposer(ComposeUiTest.android.kt:359)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment.access$withWindowRecomposer(ComposeUiTest.android.kt:219)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1.invoke(ComposeUiTest.android.kt:331)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment.withTestCoroutines(ComposeUiTest.android.kt:372)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment.access$withTestCoroutines(ComposeUiTest.android.kt:219)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1.invoke(ComposeUiTest.android.kt:330)\nat androidx.compose.ui.test.EspressoLink.withStrategy(EspressoLink.android.kt:66)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1.invoke(ComposeUiTest.android.kt:329)\nat androidx.compose.ui.test.IdlingResourceRegistry.withRegistry(IdlingResourceRegistry.jvm.kt:155)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1.invoke(ComposeUiTest.android.kt:328)\nat androidx.compose.ui.test.ComposeRootRegistry.withRegistry(ComposeRootRegistry.android.kt:146)\nat androidx.compose.ui.test.AndroidComposeUiTestEnvironment.runTest(ComposeUiTest.android.kt:327)\nat androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1.evaluate(AndroidComposeTestRule.android.kt:271)\nat org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)\nat org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)\nat org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)\nat org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)\nat org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)\nat org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)\nat org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)\nat org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)\nat org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)\nat org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)\nat org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)\nat org.junit.runners.ParentRunner.run(ParentRunner.java:413)\nat androidx.test.ext.junit.runners.AndroidJUnit4.run(AndroidJUnit4.java:162)\nat org.junit.runners.Suite.runChild(Suite.java:128)\nat org.junit.runners.Suite.runChild(Suite.java:27)\nat org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)\nat org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)\nat org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)\nat org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)\nat org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)\nat org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)\nat org.junit.runners.ParentRunner.run(ParentRunner.java:413)\nat org.junit.runner.JUnitCore.run(JUnitCore.java:137)\nat org.junit.runner.JUnitCore.run(JUnitCore.java:115)\nat androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:68)\nat androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:59)\nat androidx.test.runner.AndroidJUnitRunner.onStart(AndroidJUnitRunner.java:463)\nat android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2597)\n"
+  }
+}
+output_artifact {
+  label {
+    label: "test-results.log"
+    namespace: "com.google.testing.platform.runtime.android.driver.AndroidInstrumentationDriver"
+  }
+  source_path {
+    path: "/home/runner/work/album-done/album-done/app/build/outputs/androidTest-results/connected/debug/emulator-5554 - 16/testlog/test-results.log"
+  }
+  type: TEST_DATA
+  mime_type: "text/plain"
+}

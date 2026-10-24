@@ -1,0 +1,2 @@
+10-24 14:11:17.878  4530  4566 I TestRunner: started: findsEveryFace(com.albumdone.app.AnalyzerDeviceTest)
+10-24 14:11:17.883  4530  4566 I TestRunner: finished: findsEveryFace(com.albumdone.app.AnalyzerDeviceTest)

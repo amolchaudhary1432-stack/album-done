@@ -1,0 +1,2 @@
+10-24 14:11:17.905  4530  4566 I TestRunner: started: readsExpressionsLikeAPerson(com.albumdone.app.AnalyzerDeviceTest)
+10-24 14:11:17.906  4530  4566 I TestRunner: finished: readsExpressionsLikeAPerson(com.albumdone.app.AnalyzerDeviceTest)

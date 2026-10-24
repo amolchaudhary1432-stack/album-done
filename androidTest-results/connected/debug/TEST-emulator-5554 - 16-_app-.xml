@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuite name="com.albumdone.app.AnalyzerDeviceTest" tests="11" failures="0" errors="0" skipped="1" time="224.444" timestamp="2026-10-24T14:15:02" hostname="localhost">
+  <properties>
+    <property name="device" value="emulator-5554 - 16" />
+    <property name="flavor" value="" />
+    <property name="project" value=":app" />
+  </properties>
+  <testcase name="findsEveryFace" classname="com.albumdone.app.AnalyzerDeviceTest" time="0.022" />
+  <testcase name="measuresTheWholePhoto" classname="com.albumdone.app.AnalyzerDeviceTest" time="0.001" />
+  <testcase name="peopleAreGroupedCorrectly" classname="com.albumdone.app.AnalyzerDeviceTest" time="0.0" />
+  <testcase name="recognisesTheSamePersonAndTellsPeopleApart" classname="com.albumdone.app.AnalyzerDeviceTest" time="0.0" />
+  <testcase name="readsExpressionsLikeAPerson" classname="com.albumdone.app.AnalyzerDeviceTest" time="0.0" />
+  <testcase name="everyScreenWorks" classname="com.albumdone.app.AppScreensDeviceTest" time="60.118" />
+  <testcase name="fortyRelativesAreEasyToHandle" classname="com.albumdone.app.BigFamilyDeviceTest" time="33.622" />
+  <testcase name="aBirthdayIsNotAWedding" classname="com.albumdone.app.BirthdayDeviceTest" time="29.851" />
+  <testcase name="fromFolderToSentList" classname="com.albumdone.app.JourneyDeviceTest" time="72.862" />
+  <testcase name="analysesFindsTheCoupleAndPlansAnAlbum" classname="com.albumdone.app.PipelineDeviceTest" time="24.14" />
+  <testcase name="realWedding" classname="com.albumdone.app.RealWeddingDeviceTest" time="2.57">
+    <skipped />
+  </testcase>
+</testsuite>

@@ -1,0 +1,10 @@
+--------- beginning of main
+10-24 14:10:55.529  4530  4566 I AlbumDoneTest: bride.jpg analysed in 10220 ms: 1 faces
+10-24 14:11:04.539  4530  4566 I AlbumDoneTest: bride_again.jpg analysed in 9009 ms: 1 faces
+10-24 14:11:06.878  4530  4566 I AlbumDoneTest: bride_small.jpg analysed in 2339 ms: 1 faces
+10-24 14:11:09.934  4530  4566 I AlbumDoneTest: bride_haldi.jpg analysed in 3056 ms: 1 faces
+10-24 14:11:13.360  4530  4566 I AlbumDoneTest: bride_adhibaas.jpg analysed in 3426 ms: 1 faces
+10-24 14:11:17.878  4530  4566 I AlbumDoneTest: two_people.jpg analysed in 4518 ms: 2 faces
+10-24 14:12:23.570  4530  4566 I AlbumDoneTest: Big family: 40 of 40 relatives guessed, 0 of 20 guests
+10-24 14:13:23.357  4530  4566 I AlbumDoneTest: Journey: 7 photos in Pictures/Sharma Wedding
+10-24 14:14:08.602  4530  4566 I AlbumDoneTest: Journey: 7 photos checked and the album made in 29 s (4.14 s a photo) on Google sdk_gphone64_x86_64

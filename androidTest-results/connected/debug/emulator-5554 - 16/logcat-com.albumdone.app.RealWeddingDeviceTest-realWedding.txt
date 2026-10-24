@@ -1,0 +1,392 @@
+10-24 14:14:58.726  4530  4566 I TestRunner: started: realWedding(com.albumdone.app.RealWeddingDeviceTest)
+10-24 14:14:58.728  4530  4566 D IdlingRegistry: Registering idling resources: [androidx.compose.ui.test.EspressoLink@53b587b]
+10-24 14:14:58.729  4530  4566 W Settings: Setting always_finish_activities has moved from android.provider.Settings.System to android.provider.Settings.Global, returning read-only value.
+10-24 14:14:58.731   673  2007 V GrammaticalInflectionUtils: AttributionSource: AttributionSource { uid = 10216, packageName = null, attributionTag = null, token = android.os.Binder@634f825, deviceId = 0, next = null } does not have READ_SYSTEM_GRAMMATICAL_GENDER permission.
+10-24 14:14:58.735   544   573 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-24 14:14:58.738  1105  1246 D SplashScreenView: Build android.window.SplashScreenView{1f5e73b V.E...... ......ID 0,0-0,0}
+10-24 14:14:58.738  1105  1246 D SplashScreenView: Icon: view: null drawable: null size: 0
+10-24 14:14:58.738  1105  1246 D SplashScreenView: Branding: view: android.view.View{4c99e58 G.ED..... ......I. 0,0-0,0 #1020541 android:id/splashscreen_branding_view} drawable: null size w: 0 h: 0
+10-24 14:14:58.739  2145  2145 W SplitSelectStateCtor: Missing session instanceIds
+10-24 14:14:58.739  2145  2145 D StatsLog: LAUNCHER_SPLIT_SELECTION_EXIT_INTERRUPTED
+10-24 14:14:58.741   616   653 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.750   544   544 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-24 14:14:58.750   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.751   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.751   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.751   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.751   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.752   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.752   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.752   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.752   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.752   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.752   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.752   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.752   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.752   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.752   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.752   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.752   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.752   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.752   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.752   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.752   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.752   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.752   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.752   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.752   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.752   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.752   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.752   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.752   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.753   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.753   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.753   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.753   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.753   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.753   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.753   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.753   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.753   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.753   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.753   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.753   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.753   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.753   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.753   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.753   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.753   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.753   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.753   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.753   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.753   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.753   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.753   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.753   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.753   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.753   673   702 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:14:58.757  6439  6446 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=468: unexpected standardMetadataType=21
+10-24 14:14:58.763   468   510 I netd    : tetherGetStats() -> {[]} <0.39ms>
+10-24 14:14:58.766  4530  5079 W HWUI    : Failed to initialize 101010-2 format, error = EGL_SUCCESS
+10-24 14:14:58.774   628  6453 D BufferPoolAccessor2.0: bufferpool2 0x71c4dd6a34d8 : 1(972000 size) total buffers - 1(972000 size) used buffers - 456/462 (recycle/alloc) - 20/461 (fetch/transfer)
+10-24 14:14:58.779  6439  6446 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=470: unexpected standardMetadataType=21
+10-24 14:14:58.793  4530  4530 D LifecycleMonitor: Lifecycle status change: com.albumdone.app.ui.MainActivity@7ebf7ba in: PRE_ON_CREATE
+10-24 14:14:58.793  4530  4530 V ActivityScenario: Activity lifecycle changed event received but ignored because the reported transition was not ON_CREATE while the last known transition was PRE_ON_CREATE
+10-24 14:14:58.822  4530  4530 D LifecycleMonitor: Lifecycle status change: com.albumdone.app.ui.MainActivity@7ebf7ba in: CREATED
+10-24 14:14:58.823  4530  4530 V ActivityScenario: Update currentActivityStage to CREATED, currentActivity=com.albumdone.app.ui.MainActivity@7ebf7ba
+10-24 14:14:58.823  4530  4530 D LifecycleMonitor: Lifecycle status change: com.albumdone.app.ui.MainActivity@7ebf7ba in: STARTED
+10-24 14:14:58.823  4530  4530 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=com.albumdone.app.ui.MainActivity@7ebf7ba
+10-24 14:14:58.824  4530  4530 D AutofillManager: Fill dialog is enabled:false, hints=[]
+10-24 14:14:58.824  4530  4530 D LifecycleMonitor: Lifecycle status change: com.albumdone.app.ui.MainActivity@7ebf7ba in: RESUMED
+10-24 14:14:58.824  4530  4530 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=com.albumdone.app.ui.MainActivity@7ebf7ba
+10-24 14:14:58.855  6439  6446 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=471: unexpected standardMetadataType=21
+10-24 14:14:58.939   673   673 I system_server: AssetManager2(0x7bf7aa17ee38) locale list changing from [] to [en-US]
+10-24 14:14:58.942  6439  6446 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=445: unexpected standardMetadataType=21
+10-24 14:14:58.952  1898  2305 W AiAiEcho: LyftNotificationParser Ridesharing ETA not enabled
+10-24 14:14:58.952  1898  2305 I AiAiEcho: SmartspaceNotificationPredictor no parser can handle this notification or notification is invalid
+10-24 14:14:58.978  6439  6446 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=475: unexpected standardMetadataType=21
+10-24 14:14:59.036  6439  6446 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=476: unexpected standardMetadataType=21
+10-24 14:14:59.036  2145  2145 D VRI[NexusLauncherActivity]: visibilityChanged oldVisibility=true newVisibility=false
+10-24 14:14:59.052  2145  2145 D NexusLauncherModelDelegate: notifySmartspaceEvent: SmartspaceTargetEvent{mSmartspaceTarget=null, mSmartspaceActionId='null', mEventType=7}
+10-24 14:14:59.063   673  1008 D WifiClientModeImpl[41103:wlan0]: updateLinkLayerStatsRssiSpeedFrequencyCapabilities rssi=-50 TxLinkspeed=1 freq=2437 RxLinkSpeed=2
+10-24 14:14:59.063   673  1008 D WifiDataStall: tx tput in kbps: 37000
+10-24 14:14:59.065   673  1008 D WifiDataStall: rx tput in kbps: 37000
+10-24 14:14:59.069   673  1008 V WifiConfigManager: Updating scan detail cache freq=2437 BSSID=02:15:b2:00:00:01 RSSI=-50 for "AndroidWifi"NONE
+10-24 14:14:59.071   673  1008 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-24 14:14:59.072   673  1008 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+10-24 14:14:59.072   673  1008 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-24 14:14:59.072   673  1008 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+10-24 14:14:59.074   673  1008 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-24 14:14:59.075   673  1008 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+10-24 14:14:59.078   673  1008 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-24 14:14:59.078   673  1008 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+10-24 14:14:59.086   673  1008 D WifiScoreCard: BSSID update SIGNAL_POLL ID: 653347574 SSID: "AndroidWifi", BSSID: 02:15:b2:00:00:01, MAC: 02:15:b2:00:00:00, IP: /10.0.2.16, Security type: 0, Supplicant state: COMPLETED, Wi-Fi standard: legacy, RSSI: -50, Link speed: 1Mbps, Tx Link speed: 1Mbps, Max Supported Tx Link speed: 54Mbps, Rx Link speed: 2Mbps, Max Supported Rx Link speed: 54Mbps, Frequency: 2437MHz, Net ID: 0, Metered hint: false, score: 60, isUsable: true, CarrierMerged: false, SubscriptionId: -1, IsPrimary: 1, Trusted: true, Restricted: false, Ephemeral: false, OEM paid: false, OEM private: false, OSU AP: false, FQDN: <none>, Provider friendly name: <none>, Requesting package name: <none>"AndroidWifi"openMLO Information: , Is TID-To-Link negotiation supported by the AP: false, AP MLD Address: <none>, AP MLO Link Id: <none>, AP MLO Affiliated links: <none>, Vendor Data: <none>
+10-24 14:14:59.086   673  1008 D WifiScoreCard: txRate: 1 txSpeed: 1
+10-24 14:14:59.086   673  1008 D WifiScoreCard: network update SIGNAL_POLL "AndroidWifi" ID: 386860544 RSSI -50 txSpeed -1
+10-24 14:14:59.093   673  1008 D WifiClientModeImpl[41103:wlan0]:  ClientModeImpl$L2ConnectedState screen=on 1 0 "AndroidWifi" 02:15:b2:00:00:01 rssi=-50 f=2437 sc=60 link=1 tx=0.0, 0.0, 0.0 rx=0.0 bcn=0 [on:0 tx:0 rx:0 period:3109] from screen [on:0 period:1849936661] score=60
+10-24 14:14:59.103  6439  6446 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=447: unexpected standardMetadataType=21
+10-24 14:14:59.137   673  2007 W HWUI    : Image decoding logging dropped!
+10-24 14:14:59.189  6439  6446 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=446: unexpected standardMetadataType=21
+10-24 14:14:59.242  1898  2305 W AiAiEcho: LyftNotificationParser Ridesharing ETA not enabled
+10-24 14:14:59.246  1898  2305 I AiAiEcho: SmartspaceNotificationPredictor no parser can handle this notification or notification is invalid
+10-24 14:14:59.319  2145  2145 I NotificationListener: received notification posted event - com.albumdone.app#UserHandle{0},category=-1
+10-24 14:14:59.422  2145  2145 I NotificationListener: received notification removed event - com.albumdone.app#UserHandle{0},category=-1
+10-24 14:14:59.423   673  6539 W HWUI    : Failed to initialize 101010-2 format, error = EGL_SUCCESS
+10-24 14:14:59.443  6439  6446 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=458: unexpected standardMetadataType=21
+10-24 14:14:59.461  6439  6455 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=459: unexpected standardMetadataType=21
+10-24 14:14:59.717  1105  1707 D LocalImageResolver: Couldn't use ImageDecoder for drawable, falling back to non-resized load.
+10-24 14:14:59.719  1105  1707 D LocalImageResolver: Couldn't use ImageDecoder for drawable, falling back to non-resized load.
+10-24 14:14:59.729  1105  1707 D LocalImageResolver: Couldn't use ImageDecoder for drawable, falling back to non-resized load.
+10-24 14:14:59.734  1105  1707 D LocalImageResolver: Couldn't use ImageDecoder for drawable, falling back to non-resized load.
+10-24 14:14:59.738  1105  1707 D LocalImageResolver: Couldn't use ImageDecoder for drawable, falling back to non-resized load.
+10-24 14:14:59.744  1105  1707 D LocalImageResolver: Couldn't use ImageDecoder for drawable, falling back to non-resized load.
+10-24 14:14:59.750  1105  1707 D LocalImageResolver: Couldn't use ImageDecoder for drawable, falling back to non-resized load.
+10-24 14:14:59.771  1105  1105 W NotifRow: cancelAppearDrawing childKey: 0|com.albumdone.app|2005|null|10216 wasDrawing:false
+10-24 14:14:59.774  1105  1105 W NotifRow: cancelAppearDrawing childKey: 0|com.albumdone.app|2004|null|10216 wasDrawing:false
+10-24 14:14:59.977  4530  5121 E SurfaceSyncGroup: Failed to receive transaction ready in 1000ms. Marking SurfaceSyncGroup(wmsSync-VRI[MainActivity]#26) as ready
+10-24 14:14:59.978  4530  5121 E SurfaceSyncGroup: Failed to receive transaction ready in 1000ms. Marking SurfaceSyncGroup(VRI[MainActivity]#27) as ready
+10-24 14:14:59.983  4530  4530 I Choreographer: Skipped 66 frames!  The application may be doing too much work on its main thread.
+10-24 14:14:59.998   673   699 W system_server: Failed to determine oat file name for dex location /data/app/~~u1TVfEo40ONnfN8_2gKvlw==/com.albumdone.app-qXVwSa7P1rn36EYdxJww_g==/base.apk: Dalvik cache directory does not exist
+10-24 14:15:00.014  6439  6455 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=461: unexpected standardMetadataType=21
+10-24 14:15:00.016   673   699 I ActivityTaskManager: Displayed com.albumdone.app/.ui.MainActivity for user 0: +1s267ms
+10-24 14:15:00.018  2145  2145 D BaseDepthController: setSurface:
+10-24 14:15:00.018  2145  2145 D BaseDepthController: 	mWaitingOnSurfaceValidity: false
+10-24 14:15:00.018  2145  2145 D BaseDepthController: 	mBaseSurface: null
+10-24 14:15:00.019  2145  2145 D BaseDepthController: mSurface is null and mCurrentBlur is: 0
+10-24 14:15:00.020  2145  2145 D StateManager: goToState - fromState: Normal, toState: Normal, partial trace:
+10-24 14:15:00.020  2145  2145 D StateManager: 	at com.android.launcher3.statemanager.StateManager.moveToRestState(go/retraceme 43e00d9cd0eb17b3d9dd30fc1741b1c71445c4c0f7c8c9b81300265c86c5b873:4)
+10-24 14:15:00.020  2145  2145 D StateManager: 	at com.android.launcher3.statemanager.StateManager.moveToRestState(go/retraceme 43e00d9cd0eb17b3d9dd30fc1741b1c71445c4c0f7c8c9b81300265c86c5b873:1)
+10-24 14:15:00.020  2145  2145 D StateManager: 	at com.android.launcher3.statemanager.StatefulActivity.onStop(go/retraceme 43e00d9cd0eb17b3d9dd30fc1741b1c71445c4c0f7c8c9b81300265c86c5b873:34)
+10-24 14:15:00.023  2145  2145 D StatsLog: LAUNCHER_ONSTOP
+10-24 14:15:00.025  2145  2145 D StatsLog: LAUNCHER_GOOGLE_SEARCH_RESTORE_LIST_SIZE_AFTER_ACTIVITY_RESTART
+10-24 14:15:00.033  6439  6455 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=463: unexpected standardMetadataType=21
+10-24 14:15:00.037  4530  5135 I HWUI    : Davey! duration=1158ms; Flags=1, FrameTimelineVsyncId=17731, IntendedVsync=369545971412, Vsync=369579304744, InputEventId=0, HandleInputStart=369581052788, AnimationStart=369581053730, PerformTraversalsStart=369581054251, DrawStart=369687145552, FrameDeadline=369562638078, FrameStartTime=369581048911, FrameInterval=16666666, WorkloadTarget=16666666, SyncQueued=369791500184, SyncStart=369817802657, IssueDrawCommandsStart=369821193637, SwapBuffers=370443240482, FrameCompleted=370730784129, DequeueBufferDuration=3627, QueueBufferDuration=311822, GpuCompleted=370730784129, SwapBuffersCompleted=370696895985, DisplayPresentTime=-4831482789838233600, CommandSubmissionCompleted=370443240482,
+10-24 14:15:00.046   616  1699 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:15:00.049   468   510 I netd    : tetherGetStats() -> {[]} <1.63ms>
+10-24 14:15:00.087  6439  6455 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=465: unexpected standardMetadataType=21
+10-24 14:15:00.094  6439  6446 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=466: unexpected standardMetadataType=21
+10-24 14:15:00.114   673   808 I ImeTracker: com.albumdone.app:3ad9e5cc: onRequestHide at ORIGIN_SERVER reason HIDE_UNSPECIFIED_WINDOW fromUser false
+10-24 14:15:00.120  4530  4530 D InsetsController: hide(ime(), fromIme=false)
+10-24 14:15:00.120  4530  4530 I ImeTracker: com.albumdone.app:3ad9e5cc: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+10-24 14:15:00.129  6439  6446 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=448: unexpected standardMetadataType=21
+10-24 14:15:00.172  6439  6446 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=443: unexpected standardMetadataType=21
+10-24 14:15:00.196   673  1181 V GrammaticalInflectionUtils: AttributionSource: AttributionSource { uid = 10217, packageName = null, attributionTag = null, token = android.os.Binder@634f825, deviceId = 0, next = null } does not have READ_SYSTEM_GRAMMATICAL_GENDER permission.
+10-24 14:15:00.232  1105  1246 D SplashScreenView: Build android.window.SplashScreenView{4c37ce4 V.E...... ......ID 0,0-0,0}
+10-24 14:15:00.232  1105  1246 D SplashScreenView: Icon: view: null drawable: null size: 0
+10-24 14:15:00.232  1105  1246 D SplashScreenView: Branding: view: android.view.View{3a1d54d G.ED..... ......I. 0,0-0,0 #1020541 android:id/splashscreen_branding_view} drawable: null size w: 0 h: 0
+10-24 14:15:00.244  1824  1824 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2043
+10-24 14:15:00.245  6439  6446 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=469: unexpected standardMetadataType=21
+10-24 14:15:00.248  1824  1824 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+10-24 14:15:00.248  1824  1824 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1293 onStartInput(EditorInfo{EditorInfo{packageName=com.albumdone.app, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+10-24 14:15:00.249  1824  1824 I EmojiCompatManager: EmojiCompatManager.getEmojiCompatIfLoaded():343 EmojiCompat.init() was never called.
+10-24 14:15:00.249  1824  1824 I EmojiCompatManager: java.lang.IllegalStateException: EmojiCompat is not initialized. Please call EmojiCompat.init() first
+10-24 14:15:00.249  1824  1824 I EmojiCompatManager: 	at asx.p(PG:6)
+10-24 14:15:00.249  1824  1824 I EmojiCompatManager: 	at axb.b(PG:13)
+10-24 14:15:00.249  1824  1824 I EmojiCompatManager: 	at jnr.b(PG:2)
+10-24 14:15:00.249  1824  1824 I EmojiCompatManager: 	at jnr.c(PG:4)
+10-24 14:15:00.249  1824  1824 I EmojiCompatManager: 	at jnr.f(PG:3)
+10-24 14:15:00.249  1824  1824 I EmojiCompatManager: 	at jnx.c(PG:3)
+10-24 14:15:00.249  1824  1824 I EmojiCompatManager: 	at kif.cz(PG:47)
+10-24 14:15:00.249  1824  1824 I EmojiCompatManager: 	at lhl.run(PG:1025)
+10-24 14:15:00.249  1824  1824 I EmojiCompatManager: 	at jaf.execute(PG:12)
+10-24 14:15:00.249  1824  1824 I EmojiCompatManager: 	at nco.v(PG:13)
+10-24 14:15:00.249  1824  1824 I EmojiCompatManager: 	at lhn.m(PG:96)
+10-24 14:15:00.249  1824  1824 I EmojiCompatManager: 	at lhn.k(PG:25)
+10-24 14:15:00.249  1824  1824 I EmojiCompatManager: 	at kgn.onStartInput(PG:250)
+10-24 14:15:00.249  1824  1824 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService.doStartInput(InputMethodService.java:3521)
+10-24 14:15:00.249  1824  1824 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService$InputMethodImpl.startInput(InputMethodService.java:879)
+10-24 14:15:00.249  1824  1824 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService$InputMethodImpl.dispatchStartInput(InputMethodService.java:908)
+10-24 14:15:00.249  1824  1824 I EmojiCompatManager: 	at android.inputmethodservice.IInputMethodWrapper.executeMessage(IInputMethodWrapper.java:201)
+10-24 14:15:00.249  1824  1824 I EmojiCompatManager: 	at com.android.internal.os.HandlerCaller$MyHandler.handleMessage(HandlerCaller.java:44)
+10-24 14:15:00.249  1824  1824 I EmojiCompatManager: 	at android.os.Handler.dispatchMessage(Handler.java:110)
+10-24 14:15:00.249  1824  1824 I EmojiCompatManager: 	at android.os.Looper.loopOnce(Looper.java:248)
+10-24 14:15:00.249  1824  1824 I EmojiCompatManager: 	at android.os.Looper.loop(Looper.java:338)
+10-24 14:15:00.249  1824  1824 I EmojiCompatManager: 	at android.app.ActivityThread.main(ActivityThread.java:9067)
+10-24 14:15:00.249  1824  1824 I EmojiCompatManager: 	at java.lang.reflect.Method.invoke(Native Method)
+10-24 14:15:00.249  1824  1824 I EmojiCompatManager: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:593)
+10-24 14:15:00.249  1824  1824 I EmojiCompatManager: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:932)
+10-24 14:15:00.260  1824  1824 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+10-24 14:15:00.267  4530  4530 D LifecycleMonitor: Lifecycle status change: com.albumdone.app.ui.MainActivity@7ebf7ba in: PAUSED
+10-24 14:15:00.267  4530  4530 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=com.albumdone.app.ui.MainActivity@7ebf7ba
+10-24 14:15:00.288   673  2007 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:15:00.305   544   544 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-24 14:15:00.310   544   731 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-24 14:15:00.325  6020  6055 I EGL_emulation: Opening libGLESv1_CM_emulation.so
+10-24 14:15:00.326  6020  6055 I EGL_emulation: Opening libGLESv2_emulation.so
+10-24 14:15:00.328   673   693 I ImeTracker: system_server:acbe4c89: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+10-24 14:15:00.341  6439  6446 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=449: unexpected standardMetadataType=21
+10-24 14:15:00.341  6020  6055 W HWUI    : Failed to initialize 101010-2 format, error = EGL_SUCCESS
+10-24 14:15:00.351   673   702 I ImeTracker: system_server:acbe4c89: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-24 14:15:00.371  6020  6020 D AutofillManager: Fill dialog is enabled:false, hints=[]
+10-24 14:15:00.372   616  1699 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:15:00.404  6439  6446 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=468: unexpected standardMetadataType=21
+10-24 14:15:00.439  6439  6446 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=470: unexpected standardMetadataType=21
+10-24 14:15:00.486  6439  6446 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=471: unexpected standardMetadataType=21
+10-24 14:15:00.547  6439  6446 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=445: unexpected standardMetadataType=21
+10-24 14:15:00.554  4530  4530 D VRI[MainActivity]: visibilityChanged oldVisibility=true newVisibility=false
+10-24 14:15:00.556   673  2047 W system_server: Long monitor contention with owner android.anim (703) at void com.android.server.wm.WindowAnimator.lambda$new$1(long)(WindowAnimator.java:118) waiters=5 in void com.android.server.wm.BLASTSyncEngine$SyncGroup$1CommitCallback.onCommitted(android.view.SurfaceControl$Transaction) for 106ms
+10-24 14:15:00.578  6439  6455 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=475: unexpected standardMetadataType=21
+10-24 14:15:00.669  6439  6455 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=476: unexpected standardMetadataType=21
+10-24 14:15:00.781  2145  2154 W System  : A resource failed to call release.
+10-24 14:15:00.782  2145  2154 W System  : A resource failed to call release.
+10-24 14:15:00.782  2145  2154 W System  : A resource failed to call release.
+10-24 14:15:00.826   673   699 I ActivityTaskManager: Displayed com.albumdone.app.test/androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity for user 0: +634ms
+10-24 14:15:00.843  6439  6455 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=447: unexpected standardMetadataType=21
+10-24 14:15:00.844   616  1699 W IPCThreadState: Sending oneway calls to frozen process.
+10-24 14:15:00.855  6439  6455 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=446: unexpected standardMetadataType=21
+10-24 14:15:00.887   544   544 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-24 14:15:00.897   544   732 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+10-24 14:15:00.930  4530  4530 D LifecycleMonitor: Lifecycle status change: com.albumdone.app.ui.MainActivity@7ebf7ba in: STOPPED
+10-24 14:15:00.934  4530  4530 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=com.albumdone.app.ui.MainActivity@7ebf7ba
+10-24 14:15:00.935  2145  2145 D ViewRootImpl: Skipping stats log for color mode
+10-24 14:15:00.941  6439  6455 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=458: unexpected standardMetadataType=21
+10-24 14:15:00.942   673   808 I ImeTracker: com.albumdone.app.test:594590f8: onRequestHide at ORIGIN_SERVER reason HIDE_UNSPECIFIED_WINDOW fromUser false
+10-24 14:15:00.949   673  2047 I ImeTracker: system_server:f4d8c930: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+10-24 14:15:00.949  1824  1824 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2043
+10-24 14:15:00.950  1824  1824 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+10-24 14:15:00.951  1824  1824 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1293 onStartInput(EditorInfo{EditorInfo{packageName=com.albumdone.app.test, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+10-24 14:15:00.951  1824  1824 I EmojiCompatManager: EmojiCompatManager.getEmojiCompatIfLoaded():343 EmojiCompat.init() was never called.
+10-24 14:15:00.951  1824  1824 I EmojiCompatManager: java.lang.IllegalStateException: EmojiCompat is not initialized. Please call EmojiCompat.init() first
+10-24 14:15:00.951  1824  1824 I EmojiCompatManager: 	at asx.p(PG:6)
+10-24 14:15:00.951  1824  1824 I EmojiCompatManager: 	at axb.b(PG:13)
+10-24 14:15:00.951  1824  1824 I EmojiCompatManager: 	at jnr.b(PG:2)
+10-24 14:15:00.951  1824  1824 I EmojiCompatManager: 	at jnr.c(PG:4)
+10-24 14:15:00.951  1824  1824 I EmojiCompatManager: 	at jnr.f(PG:3)
+10-24 14:15:00.951  1824  1824 I EmojiCompatManager: 	at jnx.c(PG:3)
+10-24 14:15:00.951  1824  1824 I EmojiCompatManager: 	at kif.cz(PG:47)
+10-24 14:15:00.951  1824  1824 I EmojiCompatManager: 	at lhl.run(PG:1025)
+10-24 14:15:00.951  1824  1824 I EmojiCompatManager: 	at jaf.execute(PG:12)
+10-24 14:15:00.951  1824  1824 I EmojiCompatManager: 	at nco.v(PG:13)
+10-24 14:15:00.951  1824  1824 I EmojiCompatManager: 	at lhn.m(PG:96)
+10-24 14:15:00.951  1824  1824 I EmojiCompatManager: 	at lhn.k(PG:25)
+10-24 14:15:00.951  1824  1824 I EmojiCompatManager: 	at kgn.onStartInput(PG:250)
+10-24 14:15:00.951  1824  1824 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService.doStartInput(InputMethodService.java:3521)
+10-24 14:15:00.951  1824  1824 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService$InputMethodImpl.startInput(InputMethodService.java:879)
+10-24 14:15:00.951  1824  1824 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService$InputMethodImpl.dispatchStartInput(InputMethodService.java:908)
+10-24 14:15:00.951  1824  1824 I EmojiCompatManager: 	at android.inputmethodservice.IInputMethodWrapper.executeMessage(IInputMethodWrapper.java:201)
+10-24 14:15:00.951  1824  1824 I EmojiCompatManager: 	at com.android.internal.os.HandlerCaller$MyHandler.handleMessage(HandlerCaller.java:44)
+10-24 14:15:00.951  1824  1824 I EmojiCompatManager: 	at android.os.Handler.dispatchMessage(Handler.java:110)
+10-24 14:15:00.951  1824  1824 I EmojiCompatManager: 	at android.os.Looper.loopOnce(Looper.java:248)
+10-24 14:15:00.951  1824  1824 I EmojiCompatManager: 	at android.os.Looper.loop(Looper.java:338)
+10-24 14:15:00.951  1824  1824 I EmojiCompatManager: 	at android.app.ActivityThread.main(ActivityThread.java:9067)
+10-24 14:15:00.951  1824  1824 I EmojiCompatManager: 	at java.lang.reflect.Method.invoke(Native Method)
+10-24 14:15:00.951  1824  1824 I EmojiCompatManager: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:593)
+10-24 14:15:00.951  1824  1824 I EmojiCompatManager: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:932)
+10-24 14:15:00.951   673   702 I ImeTracker: system_server:f4d8c930: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-24 14:15:00.954  1824  1824 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+10-24 14:15:00.955  1824  1824 W DynamicLanguageSetterModule: DynamicLanguageSetterModule.getApplicationLocales():385 Failed to get the application locales
+10-24 14:15:00.955  1824  1824 W DynamicLanguageSetterModule: java.lang.SecurityException: getApplicationLocales: Neither user 10153 nor current process has android.permission.READ_APP_SPECIFIC_LOCALES.
+10-24 14:15:00.955  1824  1824 W DynamicLanguageSetterModule: 	at android.os.Parcel.createExceptionOrNull(Parcel.java:3340)
+10-24 14:15:00.955  1824  1824 W DynamicLanguageSetterModule: 	at android.os.Parcel.createException(Parcel.java:3324)
+10-24 14:15:00.955  1824  1824 W DynamicLanguageSetterModule: 	at android.os.Parcel.readException(Parcel.java:3307)
+10-24 14:15:00.955  1824  1824 W DynamicLanguageSetterModule: 	at android.os.Parcel.readException(Parcel.java:3249)
+10-24 14:15:00.955  1824  1824 W DynamicLanguageSetterModule: 	at android.app.ILocaleManager$Stub$Proxy.getApplicationLocales(ILocaleManager.java:237)
+10-24 14:15:00.955  1824  1824 W DynamicLanguageSetterModule: 	at android.app.LocaleManager.getApplicationLocales(LocaleManager.java:149)
+10-24 14:15:00.955  1824  1824 W DynamicLanguageSetterModule: 	at a$$ExternalSyntheticApiModelOutline1.m(D8$$SyntheticClass:16)
+10-24 14:15:00.955  1824  1824 W DynamicLanguageSetterModule: 	at jjw.g(PG:56)
+10-24 14:15:00.955  1824  1824 W DynamicLanguageSetterModule: 	at jjs.c(PG:10)
+10-24 14:15:00.955  1824  1824 W DynamicLanguageSetterModule: 	at kif.cz(PG:47)
+10-24 14:15:00.955  1824  1824 W DynamicLanguageSetterModule: 	at lhl.run(PG:1025)
+10-24 14:15:00.955  1824  1824 W DynamicLanguageSetterModule: 	at qds.execute(PG:1)
+10-24 14:15:00.955  1824  1824 W DynamicLanguageSetterModule: 	at nco.v(PG:13)
+10-24 14:15:00.955  1824  1824 W DynamicLanguageSetterModule: 	at lhn.m(PG:96)
+10-24 14:15:00.955  1824  1824 W DynamicLanguageSetterModule: 	at lhn.k(PG:25)
+10-24 14:15:00.955  1824  1824 W DynamicLanguageSetterModule: 	at kgn.onStartInput(PG:250)
+10-24 14:15:00.955  1824  1824 W DynamicLanguageSetterModule: 	at android.inputmethodservice.InputMethodService.doStartInput(InputMethodService.java:3521)
+10-24 14:15:00.955  1824  1824 W DynamicLanguageSetterModule: 	at android.inputmethodservice.InputMethodService$InputMethodImpl.startInput(InputMethodService.java:879)
+10-24 14:15:00.955  1824  1824 W DynamicLanguageSetterModule: 	at android.inputmethodservice.InputMethodService$InputMethodImpl.dispatchStartInput(InputMethodService.java:908)
+10-24 14:15:00.955  1824  1824 W DynamicLanguageSetterModule: 	at android.inputmethodservice.IInputMethodWrapper.executeMessage(IInputMethodWrapper.java:201)
+10-24 14:15:00.955  1824  1824 W DynamicLanguageSetterModule: 	at com.android.internal.os.HandlerCaller$MyHandler.handleMessage(HandlerCaller.java:44)
+10-24 14:15:00.955  1824  1824 W DynamicLanguageSetterModule: 	at android.os.Handler.dispatchMessage(Handler.java:110)
+10-24 14:15:00.955  1824  1824 W DynamicLanguageSetterModule: 	at android.os.Looper.loopOnce(Looper.java:248)
+10-24 14:15:00.955  1824  1824 W DynamicLanguageSetterModule: 	at android.os.Looper.loop(Looper.java:338)
+10-24 14:15:00.955  1824  1824 W DynamicLanguageSetterModule: 	at android.app.ActivityThread.main(ActivityThread.java:9067)
+10-24 14:15:00.955  1824  1824 W DynamicLanguageSetterModule: 	at java.lang.reflect.Method.invoke(Native Method)
+10-24 14:15:00.955  1824  1824 W DynamicLanguageSetterModule: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:593)
+10-24 14:15:00.955  1824  1824 W DynamicLanguageSetterModule: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:932)
+10-24 14:15:00.955  1824  1824 W DynamicLanguageSetterModule: Caused by: android.os.RemoteException: Remote stack trace:
+10-24 14:15:00.955  1824  1824 W DynamicLanguageSetterModule: 	at android.app.ContextImpl.enforce(ContextImpl.java:2437)
+10-24 14:15:00.955  1824  1824 W DynamicLanguageSetterModule: 	at android.app.ContextImpl.enforceCallingOrSelfPermission(ContextImpl.java:2465)
+10-24 14:15:00.955  1824  1824 W DynamicLanguageSetterModule: 	at com.android.server.locales.LocaleManagerService.enforceReadAppSpecificLocalesPermission(LocaleManagerService.java:504)
+10-24 14:15:00.955  1824  1824 W DynamicLanguageSetterModule: 	at com.android.server.locales.LocaleManagerService.getApplicationLocales(LocaleManagerService.java:432)
+10-24 14:15:00.955  1824  1824 W DynamicLanguageSetterModule: 	at com.android.server.locales.LocaleManagerService$LocaleManagerBinderService.getApplicationLocales(LocaleManagerService.java:196)
+10-24 14:15:00.955  1824  1824 W DynamicLanguageSetterModule:
+10-24 14:15:00.966  2145  2145 D NexusLauncherModelDelegate: notifySmartspaceEvent: SmartspaceTargetEvent{mSmartspaceTarget=null, mSmartspaceActionId='null', mEventType=6}
+10-24 14:15:00.971  6020  6020 D InsetsController: hide(ime(), fromIme=false)
+10-24 14:15:00.971  6020  6020 I ImeTracker: com.albumdone.app.test:594590f8: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+10-24 14:15:00.979  6439  6455 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=459: unexpected standardMetadataType=21
+10-24 14:15:01.010  6439  6455 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=461: unexpected standardMetadataType=21
+10-24 14:15:01.030  2145  2145 D BaseDepthController: setSurface:
+10-24 14:15:01.030  2145  2145 D BaseDepthController: 	mWaitingOnSurfaceValidity: false
+10-24 14:15:01.030  2145  2145 D BaseDepthController: 	mBaseSurface: Surface(name=com.google.android.apps.nexuslauncher/com.google.android.apps.nexuslauncher.NexusLauncherActivity)/@0x4153143
+10-24 14:15:01.067  6439  6455 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=463: unexpected standardMetadataType=21
+10-24 14:15:01.068  4530  4530 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=android.app.Activity$$ExternalSyntheticLambda0@cb4f00c
+10-24 14:15:01.068  4530  4530 D LifecycleMonitor: Lifecycle status change: com.albumdone.app.ui.MainActivity@7ebf7ba in: DESTROYED
+10-24 14:15:01.068  4530  4530 V ActivityScenario: Update currentActivityStage to DESTROYED, currentActivity=null
+10-24 14:15:01.096  4530  4566 D IdlingRegistry: Unregistering idling resources: [androidx.compose.ui.test.EspressoLink@53b587b]
+10-24 14:15:01.147  2145  2145 D StatsLog: LAUNCHER_ONRESUME
+10-24 14:15:01.150  6439  6455 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=465: unexpected standardMetadataType=21
+10-24 14:15:01.158  2145  2145 I NotificationListener: Handling notification state refresh for com.albumdone.app#0
+10-24 14:15:01.158  2145  2145 I NotificationListener: Handling notification state refresh for com.albumdone.app#0
+10-24 14:15:01.159  4530  4530 D ViewRootImpl: Skipping stats log for color mode
+10-24 14:15:01.160  2145  2175 D QuickstepModelDelegate: notifyAppTargetEvent action=1 launchLocation=workspace/0/[-1,-1]/[1,1]
+10-24 14:15:01.166  6439  6455 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=466: unexpected standardMetadataType=21
+10-24 14:15:01.168  1898  2049 I AiAiEcho: Predicting[0]:  [CONTEXT sampling_count=5 ]
+10-24 14:15:01.168  1898  2049 I AiAiEcho: EchoTargets:
+10-24 14:15:01.168  1898  2049 I AiAiEcho: Filtered by AiAi flag check:
+10-24 14:15:01.168  1898  2049 I AiAiEcho: [CONTEXT ratelimit_period="10 SECONDS" ]
+10-24 14:15:01.169  1898  2049 I AiAiEcho: #remoteViewsTwiddler: feature disabled.
+10-24 14:15:01.174  1898  2049 I AiAiEcho: #postPredictionTargets: Sending updates to UISurface home with targets# 0 (types=[])
+10-24 14:15:01.175  2145  2145 D SsBaseTemplateCard: No text view can be set up
+10-24 14:15:01.175  2145  2145 D SsBaseTemplateCard: Passed-in item info is null
+10-24 14:15:01.175  2145  2145 D SsBaseTemplateCard: Passed-in item info is null
+10-24 14:15:01.175  2145  2145 D SsBaseTemplateCard: Passed-in item info is null
+10-24 14:15:01.175  2145  2145 I SsBaseTemplateCard: Secondary card pane is null
+10-24 14:15:01.196  2145  2145 D StateManager: createAtomicAnimation - fromState: Background, toState: Normal, partial trace:
+10-24 14:15:01.196  2145  2145 D StateManager: 	at com.android.quickstep.util.WorkspaceRevealAnim.prepareToAnimate(go/retraceme 43e00d9cd0eb17b3d9dd30fc1741b1c71445c4c0f7c8c9b81300265c86c5b873:22)
+10-24 14:15:01.196  2145  2145 D StateManager: 	at com.android.quickstep.util.WorkspaceRevealAnim.<init>(go/retraceme 43e00d9cd0eb17b3d9dd30fc1741b1c71445c4c0f7c8c9b81300265c86c5b873:11)
+10-24 14:15:01.196  2145  2145 D StateManager: 	at com.android.launcher3.QuickstepTransitionManager.createWallpaperOpenAnimations(go/retraceme 43e00d9cd0eb17b3d9dd30fc1741b1c71445c4c0f7c8c9b81300265c86c5b873:339)
+10-24 14:15:01.197  2145  2145 D b/311077782: LauncherAnimationRunner.setAnimation
+10-24 14:15:01.198  2145  2145 D WorkspaceRevealAnim: onAnimationEnd: workspace alpha = 1.0
+10-24 14:15:01.262  6439  6446 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=448: unexpected standardMetadataType=21
+10-24 14:15:01.276  4530  4566 E TestRunner: assumption failed: realWedding(com.albumdone.app.RealWeddingDeviceTest)
+10-24 14:15:01.278  4530  4566 E TestRunner: ----- begin exception -----
+10-24 14:15:01.278  4530  4566 E TestRunner: org.junit.AssumptionViolatedException: No real wedding photos in this build
+10-24 14:15:01.278  4530  4566 E TestRunner: 	at org.junit.Assume.assumeTrue(Assume.java:68)
+10-24 14:15:01.278  4530  4566 E TestRunner: 	at com.albumdone.app.RealWeddingDeviceTest.realWedding(RealWeddingDeviceTest.kt:60)
+10-24 14:15:01.278  4530  4566 E TestRunner: 	at java.lang.reflect.Method.invoke(Native Method)
+10-24 14:15:01.278  4530  4566 E TestRunner: 	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+10-24 14:15:01.278  4530  4566 E TestRunner: 	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+10-24 14:15:01.278  4530  4566 E TestRunner: 	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+10-24 14:15:01.278  4530  4566 E TestRunner: 	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+10-24 14:15:01.278  4530  4566 E TestRunner: 	at org.junit.rules.ExternalResource$1.evaluate(ExternalResource.java:54)
+10-24 14:15:01.278  4530  4566 E TestRunner: 	at androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1$evaluate$1.invoke(AndroidComposeTestRule.android.kt:272)
+10-24 14:15:01.278  4530  4566 E TestRunner: 	at androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1$evaluate$1.invoke(AndroidComposeTestRule.android.kt:271)
+10-24 14:15:01.278  4530  4566 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.withDisposableContent(ComposeUiTest.android.kt:505)
+10-24 14:15:01.278  4530  4566 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1$1$1.invoke(ComposeUiTest.android.kt:333)
+10-24 14:15:01.278  4530  4566 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.withComposeIdlingResource(ComposeUiTest.android.kt:385)
+10-24 14:15:01.278  4530  4566 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.access$withComposeIdlingResource(ComposeUiTest.android.kt:219)
+10-24 14:15:01.278  4530  4566 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1$1.invoke(ComposeUiTest.android.kt:332)
+10-24 14:15:01.278  4530  4566 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.withWindowRecomposer(ComposeUiTest.android.kt:359)
+10-24 14:15:01.278  4530  4566 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.access$withWindowRecomposer(ComposeUiTest.android.kt:219)
+10-24 14:15:01.278  4530  4566 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1$1.invoke(ComposeUiTest.android.kt:331)
+10-24 14:15:01.278  4530  4566 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.withTestCoroutines(ComposeUiTest.android.kt:372)
+10-24 14:15:01.278  4530  4566 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.access$withTestCoroutines(ComposeUiTest.android.kt:219)
+10-24 14:15:01.278  4530  4566 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1$1.invoke(ComposeUiTest.android.kt:330)
+10-24 14:15:01.278  4530  4566 E TestRunner: 	at androidx.compose.ui.test.EspressoLink.withStrategy(EspressoLink.android.kt:66)
+10-24 14:15:01.278  4530  4566 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1$1.invoke(ComposeUiTest.android.kt:329)
+10-24 14:15:01.278  4530  4566 E TestRunner: 	at androidx.compose.ui.test.IdlingResourceRegistry.withRegistry(IdlingResourceRegistry.jvm.kt:155)
+10-24 14:15:01.278  4530  4566 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$runTest$1.invoke(ComposeUiTest.android.kt:328)
+10-24 14:15:01.278  4530  4566 E TestRunner: 	at androidx.compose.ui.test.ComposeRootRegistry.withRegistry(ComposeRootRegistry.android.kt:146)
+10-24 14:15:01.278  4530  4566 E TestRunner: 	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment.runTest(ComposeUiTest.android.kt:327)
+10-24 14:15:01.278  4530  4566 E TestRunner: 	at androidx.compose.ui.test.junit4.AndroidComposeTestRule$apply$1.evaluate(AndroidComposeTestRule.android.kt:271)
+10-24 14:15:01.278  4530  4566 E TestRunner: 	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+10-24 14:15:01.278  4530  4566 E TestRunner: 	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
+10-24 14:15:01.278  4530  4566 E TestRunner: 	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
+10-24 14:15:01.278  4530  4566 E TestRunner: 	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
+10-24 14:15:01.278  4530  4566 E TestRunner: 	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
+10-24 14:15:01.278  4530  4566 E TestRunner: 	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+10-24 14:15:01.278  4530  4566 E TestRunner: 	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+10-24 14:15:01.278  4530  4566 E TestRunner: 	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+10-24 14:15:01.278  4530  4566 E TestRunner: 	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+10-24 14:15:01.278  4530  4566 E TestRunner: 	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+10-24 14:15:01.278  4530  4566 E TestRunner: 	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+10-24 14:15:01.278  4530  4566 E TestRunner: 	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+10-24 14:15:01.278  4530  4566 E TestRunner: 	at androidx.test.ext.junit.runners.AndroidJUnit4.run(AndroidJUnit4.java:162)
+10-24 14:15:01.278  4530  4566 E TestRunner: 	at org.junit.runners.Suite.runChild(Suite.java:128)
+10-24 14:15:01.278  4530  4566 E TestRunner: 	at org.junit.runners.Suite.runChild(Suite.java:27)
+10-24 14:15:01.279  4530  4566 E TestRunner: 	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+10-24 14:15:01.279  4530  4566 E TestRunner: 	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+10-24 14:15:01.279  4530  4566 E TestRunner: 	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+10-24 14:15:01.279  4530  4566 E TestRunner: 	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+10-24 14:15:01.279  4530  4566 E TestRunner: 	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+10-24 14:15:01.279  4530  4566 E TestRunner: 	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+10-24 14:15:01.279  4530  4566 E TestRunner: 	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+10-24 14:15:01.279  4530  4566 E TestRunner: 	at org.junit.runner.JUnitCore.run(JUnitCore.java:137)
+10-24 14:15:01.279  4530  4566 E TestRunner: 	at org.junit.runner.JUnitCore.run(JUnitCore.java:115)
+10-24 14:15:01.279  4530  4566 E TestRunner: 	at androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:68)
+10-24 14:15:01.279  4530  4566 E TestRunner: 	at androidx.test.internal.runner.TestExecutor.execute(TestExecutor.java:59)
+10-24 14:15:01.279  4530  4566 E TestRunner: 	at androidx.test.runner.AndroidJUnitRunner.onStart(AndroidJUnitRunner.java:463)
+10-24 14:15:01.279  4530  4566 E TestRunner: 	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2597)
+10-24 14:15:01.279  4530  4566 E TestRunner: ----- end exception -----
+10-24 14:15:01.279  4530  4566 I TestRunner: finished: realWedding(com.albumdone.app.RealWeddingDeviceTest)

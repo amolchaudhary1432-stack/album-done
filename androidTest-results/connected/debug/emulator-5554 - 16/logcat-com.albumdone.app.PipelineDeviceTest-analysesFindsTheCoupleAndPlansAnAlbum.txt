@@ -1,0 +1,360 @@
+10-24 14:14:34.577  4530  4566 I TestRunner: started: analysesFindsTheCoupleAndPlansAnAlbum(com.albumdone.app.PipelineDeviceTest)
+10-24 14:14:34.624  6020  6020 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=android.app.Activity$$ExternalSyntheticLambda0@76f7e3c
+10-24 14:14:34.638  2145  2145 D InsetsController: hide(ime(), fromIme=false)
+10-24 14:14:34.639  2145  2145 I ImeTracker: com.google.android.apps.nexuslauncher:508e3bac: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+10-24 14:14:34.639  2145  2145 D RecentsView: onTaskRemoved: 16, not handling task stack changes
+10-24 14:14:34.643   673   694 I ImeTracker: system_server:1507b5c4: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+10-24 14:14:34.644  1824  1824 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2043
+10-24 14:14:34.644  1824  1824 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+10-24 14:14:34.645  1824  1824 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1293 onStartInput(EditorInfo{EditorInfo{packageName=com.google.android.apps.nexuslauncher, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+10-24 14:14:34.647  1824  1824 I EmojiCompatManager: EmojiCompatManager.getEmojiCompatIfLoaded():343 EmojiCompat.init() was never called.
+10-24 14:14:34.647  1824  1824 I EmojiCompatManager: java.lang.IllegalStateException: EmojiCompat is not initialized. Please call EmojiCompat.init() first
+10-24 14:14:34.647  1824  1824 I EmojiCompatManager: 	at asx.p(PG:6)
+10-24 14:14:34.647  1824  1824 I EmojiCompatManager: 	at axb.b(PG:13)
+10-24 14:14:34.647  1824  1824 I EmojiCompatManager: 	at jnr.b(PG:2)
+10-24 14:14:34.647  1824  1824 I EmojiCompatManager: 	at jnr.c(PG:4)
+10-24 14:14:34.647  1824  1824 I EmojiCompatManager: 	at jnr.f(PG:3)
+10-24 14:14:34.647  1824  1824 I EmojiCompatManager: 	at jnx.c(PG:3)
+10-24 14:14:34.647  1824  1824 I EmojiCompatManager: 	at kif.cz(PG:47)
+10-24 14:14:34.647  1824  1824 I EmojiCompatManager: 	at lhl.run(PG:1025)
+10-24 14:14:34.647  1824  1824 I EmojiCompatManager: 	at jaf.execute(PG:12)
+10-24 14:14:34.647  1824  1824 I EmojiCompatManager: 	at nco.v(PG:13)
+10-24 14:14:34.647  1824  1824 I EmojiCompatManager: 	at lhn.m(PG:96)
+10-24 14:14:34.647  1824  1824 I EmojiCompatManager: 	at lhn.k(PG:25)
+10-24 14:14:34.647  1824  1824 I EmojiCompatManager: 	at kgn.onStartInput(PG:250)
+10-24 14:14:34.647  1824  1824 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService.doStartInput(InputMethodService.java:3521)
+10-24 14:14:34.647  1824  1824 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService$InputMethodImpl.startInput(InputMethodService.java:879)
+10-24 14:14:34.647  1824  1824 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService$InputMethodImpl.dispatchStartInput(InputMethodService.java:908)
+10-24 14:14:34.647  1824  1824 I EmojiCompatManager: 	at android.inputmethodservice.IInputMethodWrapper.executeMessage(IInputMethodWrapper.java:201)
+10-24 14:14:34.647  1824  1824 I EmojiCompatManager: 	at com.android.internal.os.HandlerCaller$MyHandler.handleMessage(HandlerCaller.java:44)
+10-24 14:14:34.647  1824  1824 I EmojiCompatManager: 	at android.os.Handler.dispatchMessage(Handler.java:110)
+10-24 14:14:34.647  1824  1824 I EmojiCompatManager: 	at android.os.Looper.loopOnce(Looper.java:248)
+10-24 14:14:34.647  1824  1824 I EmojiCompatManager: 	at android.os.Looper.loop(Looper.java:338)
+10-24 14:14:34.647  1824  1824 I EmojiCompatManager: 	at android.app.ActivityThread.main(ActivityThread.java:9067)
+10-24 14:14:34.647  1824  1824 I EmojiCompatManager: 	at java.lang.reflect.Method.invoke(Native Method)
+10-24 14:14:34.647  1824  1824 I EmojiCompatManager: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:593)
+10-24 14:14:34.647  1824  1824 I EmojiCompatManager: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:932)
+10-24 14:14:34.647  1824  1824 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+10-24 14:14:34.658   673   702 I ImeTracker: system_server:1507b5c4: onCancelled at PHASE_SERVER_SHOULD_HIDE
+10-24 14:14:34.675  6020  6020 D ViewRootImpl: Skipping stats log for color mode
+10-24 14:14:34.682  2145  2145 D RecentsView: onTaskRemoved: 16, not handling task stack changes
+10-24 14:14:34.727  4530  4566 I WM-TestForegroundUpdate: setForegroundAsync for 4911343b-70d1-463f-89be-1e7628b31534
+10-24 14:14:34.744  2145  2145 D RecentsView: onTaskRemoved: 17, not handling task stack changes
+10-24 14:14:34.744  2145  2145 D RecentsView: onTaskRemoved: 17, not handling task stack changes
+10-24 14:14:34.828  6439  6448 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=448: unexpected standardMetadataType=21
+10-24 14:14:34.833   673  1014 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET, states=14
+10-24 14:14:34.834   673  1014 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET6, states=14
+10-24 14:14:34.834   673  1014 D InetDiagMessage: Destroyed live tcp sockets for uids={10172} in 2ms
+10-24 14:14:34.888  6439  6448 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=443: unexpected standardMetadataType=21
+10-24 14:14:34.958   673  1008 D WifiClientModeImpl[41103:wlan0]: updateLinkLayerStatsRssiSpeedFrequencyCapabilities rssi=-50 TxLinkspeed=1 freq=2437 RxLinkSpeed=2
+10-24 14:14:34.958   673  1008 D WifiDataStall: tx tput in kbps: 37000
+10-24 14:14:34.958   673  1008 D WifiDataStall: rx tput in kbps: 37000
+10-24 14:14:34.958   673  1008 V WifiConfigManager: Updating scan detail cache freq=2437 BSSID=02:15:b2:00:00:01 RSSI=-50 for "AndroidWifi"NONE
+10-24 14:14:34.958   673  1008 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-24 14:14:34.958   673  1008 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+10-24 14:14:34.958   673  1008 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-24 14:14:34.958   673  1008 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+10-24 14:14:34.958   673  1008 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-24 14:14:34.958   673  1008 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+10-24 14:14:34.958   673  1008 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-24 14:14:34.958   673  1008 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+10-24 14:14:34.958   673  1008 D WifiScoreCard: BSSID update SIGNAL_POLL ID: 653347574 SSID: "AndroidWifi", BSSID: 02:15:b2:00:00:01, MAC: 02:15:b2:00:00:00, IP: /10.0.2.16, Security type: 0, Supplicant state: COMPLETED, Wi-Fi standard: legacy, RSSI: -50, Link speed: 1Mbps, Tx Link speed: 1Mbps, Max Supported Tx Link speed: 54Mbps, Rx Link speed: 2Mbps, Max Supported Rx Link speed: 54Mbps, Frequency: 2437MHz, Net ID: 0, Metered hint: false, score: 60, isUsable: true, CarrierMerged: false, SubscriptionId: -1, IsPrimary: 1, Trusted: true, Restricted: false, Ephemeral: false, OEM paid: false, OEM private: false, OSU AP: false, FQDN: <none>, Provider friendly name: <none>, Requesting package name: <none>"AndroidWifi"openMLO Information: , Is TID-To-Link negotiation supported by the AP: false, AP MLD Address: <none>, AP MLO Link Id: <none>, AP MLO Affiliated links: <none>, Vendor Data: <none>
+10-24 14:14:34.958   673  1008 D WifiScoreCard: txRate: 1 txSpeed: 1
+10-24 14:14:34.958   673  1008 D WifiScoreCard: network update SIGNAL_POLL "AndroidWifi" ID: 386860544 RSSI -50 txSpeed -1
+10-24 14:14:34.958   673  1008 D WifiClientModeImpl[41103:wlan0]:  ClientModeImpl$L2ConnectedState screen=on 1 0 "AndroidWifi" 02:15:b2:00:00:01 rssi=-50 f=2437 sc=60 link=1 tx=0.8, 0.0, 0.0 rx=0.7 bcn=0 [on:0 tx:0 rx:0 period:3010] from screen [on:0 period:1849912526] score=60
+10-24 14:14:34.965  6439  6446 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=469: unexpected standardMetadataType=21
+10-24 14:14:35.093  4530  8353 I tflite  : Replacing 164 out of 164 node(s) with delegate (TfLiteXNNPackDelegate) node, yielding 1 partitions for the whole graph.
+10-24 14:14:35.114  4530  8354 I tflite  : Replacing 471 out of 471 node(s) with delegate (TfLiteXNNPackDelegate) node, yielding 1 partitions for the whole graph.
+10-24 14:14:35.137  4530  8352 I tflite  : Replacing 159 out of 182 node(s) with delegate (TfLiteXNNPackDelegate) node, yielding 43 partitions for the whole graph.
+10-24 14:14:35.147  4530  4625 D TransportRuntime.SQLiteEventStore: Storing event with priority=DEFAULT, name=COREML_ON_DEVICE_SOLUTIONS for destination cct
+10-24 14:14:35.154  4530  4625 D TransportRuntime.JobInfoScheduler: Scheduling upload for context TransportContext(cct, DEFAULT, MSRodHRwczovL2ZpcmViYXNlbG9nZ2luZy5nb29nbGVhcGlzLmNvbS92MGNjL2xvZy9iYXRjaD9mb3JtYXQ9anNvbl9wcm90bzNc) with jobId=-707845127 in 30000ms(Backend next call timestamp 0). Attempt 1
+10-24 14:14:35.260  4530  8403 I tflite  : Replacing 253 out of 266 node(s) with delegate (TfLiteXNNPackDelegate) node, yielding 26 partitions for the whole graph.
+10-24 14:14:35.280  4530  4625 D TransportRuntime.SQLiteEventStore: Storing event with priority=DEFAULT, name=COREML_ON_DEVICE_SOLUTIONS for destination cct
+10-24 14:14:35.282  4530  4625 D TransportRuntime.JobInfoScheduler: Upload for context TransportContext(cct, DEFAULT, MSRodHRwczovL2ZpcmViYXNlbG9nZ2luZy5nb29nbGVhcGlzLmNvbS92MGNjL2xvZy9iYXRjaD9mb3JtYXQ9anNvbl9wcm90bzNc) is already scheduled. Returning...
+10-24 14:14:35.290  4530  6167 W HWUI    : Image decoding logging dropped!
+10-24 14:14:35.306   468   510 I netd    : tetherGetStats() -> {[]} <0.38ms>
+10-24 14:14:35.336   673   694 W JobInfo : Job 'com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService#1043' has a deadline with no functional constraints. The deadline won't improve job execution latency. Consider removing the deadline.
+10-24 14:14:35.339  6862  6907 W JobInfo : Requested important-while-foreground flag for job555000006 is ignored and takes no effect
+10-24 14:14:35.349   673  2007 D ConnectivityService: requestNetwork for uid/pid:10159/6862 activeRequest: null callbackRequest: 213 [NetworkRequest [ REQUEST id=214, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED&NOT_BANDWIDTH_CONSTRAINED Uid: 10159 RequestorUid: 10159 RequestorPkg: com.google.android.apps.photos UnderlyingNetworks: Null] ]] callback flags: 0 order: 2147483647 isUidTracked: false declaredMethods: AVAIL|LOST|NC
+10-24 14:14:35.350   673  1008 D WifiNetworkFactory: got request NetworkRequest [ REQUEST id=214, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED&NOT_BANDWIDTH_CONSTRAINED Uid: 10159 RequestorUid: 10159 RequestorPkg: com.google.android.apps.photos UnderlyingNetworks: Null] ]
+10-24 14:14:35.350   673  1008 V WifiNetworkFactory: Accepted network request NetworkRequest [ REQUEST id=214, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED&NOT_BANDWIDTH_CONSTRAINED Uid: 10159 RequestorUid: 10159 RequestorPkg: com.google.android.apps.photos UnderlyingNetworks: Null] ]
+10-24 14:14:35.350   673  1008 D UntrustedWifiNetworkFactory: got request NetworkRequest [ REQUEST id=214, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED&NOT_BANDWIDTH_CONSTRAINED Uid: 10159 RequestorUid: 10159 RequestorPkg: com.google.android.apps.photos UnderlyingNetworks: Null] ]
+10-24 14:14:35.350   673  1008 D OemPaidWifiNetworkFactory: got request NetworkRequest [ REQUEST id=214, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED&NOT_BANDWIDTH_CONSTRAINED Uid: 10159 RequestorUid: 10159 RequestorPkg: com.google.android.apps.photos UnderlyingNetworks: Null] ]
+10-24 14:14:35.351   673  1008 D MultiInternetWifiNetworkFactory: got request NetworkRequest [ REQUEST id=214, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED&NOT_BANDWIDTH_CONSTRAINED Uid: 10159 RequestorUid: 10159 RequestorPkg: com.google.android.apps.photos UnderlyingNetworks: Null] ]
+10-24 14:14:35.351   673  1014 D ConnectivityService: NetReassign [214 : null → 101] [c 0] [a 1] [i 1]
+10-24 14:14:35.425  6862  8410 D nativeloader: Load /product/app/Photos/Photos.apk!/lib/x86_64/libnative.so using class loader ns product-clns-9 (caller=/product/app/Photos/Photos.apk!classes5.dex): ok
+10-24 14:14:35.475   673  1994 V GrammaticalInflectionUtils: AttributionSource: AttributionSource { uid = 10159, packageName = null, attributionTag = null, token = android.os.Binder@634f825, deviceId = 0, next = null } does not have READ_SYSTEM_GRAMMATICAL_GENDER permission.
+10-24 14:14:35.483   471   471 D Zygote  : Forked child process 8413
+10-24 14:14:35.512  8413  8413 I metadataservice: Using CollectorTypeCMC GC.
+10-24 14:14:35.512  8413  8413 W metadataservice: Unexpected CPU variant for x86: x86_64.
+10-24 14:14:35.512  8413  8413 W metadataservice: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, goldmont-without-sha-xsaves, tremont, kabylake, alderlake, default
+10-24 14:14:35.514  8413  8413 E metadataservice: Not starting debugger since process cannot load the jdwp agent.
+10-24 14:14:35.516  8413  8413 D nativeloader: Load libframework-connectivity-tiramisu-jni.so using APEX ns com_android_tethering for caller /apex/com.android.tethering/javalib/framework-connectivity-t.jar: ok
+10-24 14:14:35.523  8413  8413 D ApplicationLoaders: Returning zygote-cached class loader: /system/framework/org.apache.http.legacy.jar
+10-24 14:14:35.523  8413  8413 D ApplicationLoaders: Returning zygote-cached class loader: /system_ext/framework/androidx.window.extensions.jar
+10-24 14:14:35.523  8413  8413 D ApplicationLoaders: Returning zygote-cached class loader: /system_ext/framework/androidx.window.sidecar.jar
+10-24 14:14:35.532  8413  8413 D nativeloader: InitLlndkLibrariesProduct: libEGL.so:libGLESv1_CM.so:libGLESv2.so:libGLESv3.so:libRS.so:libandroid_net.so:libapexsupport.so:libavf.so:libbinder_ndk.so:libc.so:libcgrouprc.so:libclang_rt.asan-x86_64-android.so:libcom.android.tethering.connectivity_native.so:libdl.so:libft2.so:liblog.so:libm.so:libmediandk.so:libnativewindow.so:libneuralnetworks.so:libselinux.so:libsync.so:libvendorsupport.so:libvndksupport.so:libvulkan.so
+10-24 14:14:35.532  8413  8413 D nativeloader: Configuring product-clns-9 for unbundled product apk /product/app/Photos/Photos.apk. target_sdk_version=35, uses_libraries=, library_path=/product/app/Photos/lib/x86_64:/product/app/Photos/Photos.apk!/lib/x86_64:/product/lib64:/system/product/lib64, permitted_path=/data:/mnt/expand:/data/user/0/com.google.android.apps.photos:/product/lib64:/system/product/lib64
+10-24 14:14:35.532  8413  8413 D nativeloader: InitVndkspLibrariesProduct: VNDK is deprecated with product
+10-24 14:14:35.532  8413  8413 D CompatChangeReporter: Compat change id reported: 202956589; UID 10159; state: ENABLED
+10-24 14:14:35.535  8413  8413 I metadataservice: AssetManager2(0x7bf7aa1512f8) locale list changing from [] to [en-US]
+10-24 14:14:35.536  8413  8413 V GraphicsEnvironment: Currently set values for:
+10-24 14:14:35.536  8413  8413 V GraphicsEnvironment:   angle_gl_driver_selection_pkgs=[]
+10-24 14:14:35.536  8413  8413 V GraphicsEnvironment:   angle_gl_driver_selection_values=[]
+10-24 14:14:35.536  8413  8413 V GraphicsEnvironment: com.google.android.apps.photos is not listed in per-application setting
+10-24 14:14:35.536  8413  8413 V GraphicsEnvironment: ANGLE allowlist from config: com.dreamgames.royalmatch com.dts.freefiremax com.dxx.firenow com.gramgames.mergedragons com.ludo.king com.mojang.minecraftpe com.my.defense com.nintendo.zaka com.os.airforce com.playrix.fishdomdd.gplay io.teslatech.callbreak jp.konami.prospia net.peakgames.toonblast
+10-24 14:14:35.536  8413  8413 V GraphicsEnvironment: com.google.android.apps.photos is not listed in ANGLE allowlist or settings, returning default
+10-24 14:14:35.536  8413  8413 V GraphicsEnvironment: Neither updatable production driver nor prerelease driver is supported.
+10-24 14:14:35.551  8413  8427 D nativeloader: Load /product/app/Photos/Photos.apk!/lib/x86_64/libnative_crash_handler_jni.so using class loader ns product-clns-9 (caller=/product/app/Photos/Photos.apk!classes4.dex): ok
+10-24 14:14:35.568  1874  3123 I MediaProvider: Open with lower FS for /storage/emulated/0/rec_01.mp4. Uid: 10159
+10-24 14:14:35.613  1874  3123 I MediaProvider: Open with lower FS for /storage/emulated/0/rec_01.mp4. Uid: 10159
+10-24 14:14:35.624  1874  3123 I MediaProvider: Open with lower FS for /storage/emulated/0/rec_01.mp4. Uid: 10159
+10-24 14:14:35.624  8413  8434 W FileSource: offset/length adjusted from 0/576460752303423487 to 0/4395521
+10-24 14:14:35.633  1874  3123 I MediaProvider: Open with lower FS for /storage/emulated/0/rec_01.mp4. Uid: 10159
+10-24 14:14:35.655  1874  3123 I MediaProvider: Open with lower FS for /storage/emulated/0/rec_01.mp4. Uid: 10159
+10-24 14:14:35.658  1874  3123 I MediaProvider: Open with lower FS for /storage/emulated/0/rec_01.mp4. Uid: 10159
+10-24 14:14:35.672  1874  3123 I MediaProvider: Open with lower FS for /storage/emulated/0/rec_01.mp4. Uid: 10159
+10-24 14:14:35.672  8413  8437 W FileSource: offset/length adjusted from 0/576460752303423487 to 0/4395521
+10-24 14:14:35.720   673   693 D FileUtils: Rounded bytes from 4110139392 to 8000000000
+10-24 14:14:35.739  6862  6865 I oid.apps.photos: Compiler allocated 6240KB to compile aaoh ahtr.a(android.database.Cursor, aapd, aapr)
+10-24 14:14:35.843   673  1994 W JobInfo : Job 'com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService#1043' has a deadline with no functional constraints. The deadline won't improve job execution latency. Consider removing the deadline.
+10-24 14:14:36.338   673   699 I GnssLocationProvider: WakeLock acquired by handleDownloadPsdsData()
+10-24 14:14:36.339   673  8439 E GnssPsdsDownloader: No Long-Term PSDS servers were specified in the GnssConfiguration
+10-24 14:14:36.887  1275  1512 D SatelliteController: iisInCarrierRoamingNbIotNtn: satellite is disabled
+10-24 14:14:37.961   673  1008 D WifiClientModeImpl[41103:wlan0]: updateLinkLayerStatsRssiSpeedFrequencyCapabilities rssi=-50 TxLinkspeed=6 freq=2437 RxLinkSpeed=2
+10-24 14:14:37.961   673  1008 D WifiDataStall: tx tput in kbps: 37000
+10-24 14:14:37.961   673  1008 D WifiDataStall: rx tput in kbps: 37000
+10-24 14:14:37.961   673  1008 V WifiConfigManager: Updating scan detail cache freq=2437 BSSID=02:15:b2:00:00:01 RSSI=-50 for "AndroidWifi"NONE
+10-24 14:14:37.961   673  1008 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-24 14:14:37.961   673  1008 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+10-24 14:14:37.961   673  1008 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-24 14:14:37.961   673  1008 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+10-24 14:14:37.961   673  1008 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-24 14:14:37.961   673  1008 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+10-24 14:14:37.961   673  1008 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-24 14:14:37.961   673  1008 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+10-24 14:14:37.962   673  1008 D WifiScoreCard: BSSID update SIGNAL_POLL ID: 653347574 SSID: "AndroidWifi", BSSID: 02:15:b2:00:00:01, MAC: 02:15:b2:00:00:00, IP: /10.0.2.16, Security type: 0, Supplicant state: COMPLETED, Wi-Fi standard: legacy, RSSI: -50, Link speed: 6Mbps, Tx Link speed: 6Mbps, Max Supported Tx Link speed: 54Mbps, Rx Link speed: 2Mbps, Max Supported Rx Link speed: 54Mbps, Frequency: 2437MHz, Net ID: 0, Metered hint: false, score: 60, isUsable: true, CarrierMerged: false, SubscriptionId: -1, IsPrimary: 1, Trusted: true, Restricted: false, Ephemeral: false, OEM paid: false, OEM private: false, OSU AP: false, FQDN: <none>, Provider friendly name: <none>, Requesting package name: <none>"AndroidWifi"openMLO Information: , Is TID-To-Link negotiation supported by the AP: false, AP MLD Address: <none>, AP MLO Link Id: <none>, AP MLO Affiliated links: <none>, Vendor Data: <none>
+10-24 14:14:37.962   673  1008 D WifiScoreCard: txRate: 2 txSpeed: 6
+10-24 14:14:37.962   673  1008 D WifiScoreCard: network update SIGNAL_POLL "AndroidWifi" ID: 386860544 RSSI -50 txSpeed -1
+10-24 14:14:37.962   673  1008 D WifiClientModeImpl[41103:wlan0]:  ClientModeImpl$L2ConnectedState screen=on 1 0 "AndroidWifi" 02:15:b2:00:00:01 rssi=-50 f=2437 sc=60 link=6 tx=1.9, 0.0, 0.0 rx=2.6 bcn=0 [on:0 tx:0 rx:0 period:3003] from screen [on:0 period:1849915530] score=60
+10-24 14:14:38.295  4530  5172 I WM-TestForegroundUpdate: setForegroundAsync for 4911343b-70d1-463f-89be-1e7628b31534
+10-24 14:14:38.312  4530  5172 W HWUI    : Image decoding logging dropped!
+10-24 14:14:40.066   673  1014 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET, states=14
+10-24 14:14:40.067   673  1014 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET6, states=14
+10-24 14:14:40.067   673  1014 D InetDiagMessage: Destroyed live tcp sockets for uids={10111} in 1ms
+10-24 14:14:40.304   673  1014 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET, states=14
+10-24 14:14:40.305   673  1014 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET6, states=14
+10-24 14:14:40.305   673  1014 D InetDiagMessage: Destroyed live tcp sockets for uids={10204} in 1ms
+10-24 14:14:40.305   673  1014 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET, states=14
+10-24 14:14:40.306   673  1014 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET6, states=14
+10-24 14:14:40.306   673  1014 D InetDiagMessage: Destroyed live tcp sockets for uids={20204} in 1ms
+10-24 14:14:40.349   628  1101 D BufferPoolAccessor2.0: bufferpool2 0x71c4dd6a34d8 : 2(1944000 size) total buffers - 0(0 size) used buffers - 456/460 (recycle/alloc) - 19/460 (fetch/transfer)
+10-24 14:14:40.349   628  1101 D BufferPoolAccessor2.0: evictor expired: 1, evicted: 1
+10-24 14:14:40.966   673  1008 D WifiClientModeImpl[41103:wlan0]: updateLinkLayerStatsRssiSpeedFrequencyCapabilities rssi=-50 TxLinkspeed=6 freq=2437 RxLinkSpeed=2
+10-24 14:14:40.966   673  1008 D WifiDataStall: tx tput in kbps: 37000
+10-24 14:14:40.966   673  1008 D WifiDataStall: rx tput in kbps: 37000
+10-24 14:14:40.966   673  1008 V WifiConfigManager: Updating scan detail cache freq=2437 BSSID=02:15:b2:00:00:01 RSSI=-50 for "AndroidWifi"NONE
+10-24 14:14:40.966   673  1008 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-24 14:14:40.966   673  1008 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+10-24 14:14:40.966   673  1008 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-24 14:14:40.966   673  1008 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+10-24 14:14:40.966   673  1008 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-24 14:14:40.967   673  1008 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+10-24 14:14:40.967   673  1008 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-24 14:14:40.967   673  1008 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+10-24 14:14:40.967   673  1008 D WifiScoreCard: BSSID update SIGNAL_POLL ID: 653347574 SSID: "AndroidWifi", BSSID: 02:15:b2:00:00:01, MAC: 02:15:b2:00:00:00, IP: /10.0.2.16, Security type: 0, Supplicant state: COMPLETED, Wi-Fi standard: legacy, RSSI: -50, Link speed: 6Mbps, Tx Link speed: 6Mbps, Max Supported Tx Link speed: 54Mbps, Rx Link speed: 2Mbps, Max Supported Rx Link speed: 54Mbps, Frequency: 2437MHz, Net ID: 0, Metered hint: false, score: 60, isUsable: true, CarrierMerged: false, SubscriptionId: -1, IsPrimary: 1, Trusted: true, Restricted: false, Ephemeral: false, OEM paid: false, OEM private: false, OSU AP: false, FQDN: <none>, Provider friendly name: <none>, Requesting package name: <none>"AndroidWifi"openMLO Information: , Is TID-To-Link negotiation supported by the AP: false, AP MLD Address: <none>, AP MLO Link Id: <none>, AP MLO Affiliated links: <none>, Vendor Data: <none>
+10-24 14:14:40.967   673  1008 D WifiScoreCard: txRate: 2 txSpeed: 6
+10-24 14:14:40.967   673  1008 D WifiScoreCard: network update SIGNAL_POLL "AndroidWifi" ID: 386860544 RSSI -50 txSpeed -1
+10-24 14:14:40.967   673  1008 D WifiClientModeImpl[41103:wlan0]:  ClientModeImpl$L2ConnectedState screen=on 1 0 "AndroidWifi" 02:15:b2:00:00:01 rssi=-50 f=2437 sc=60 link=6 tx=1.1, 0.0, 0.0 rx=1.3 bcn=0 [on:0 tx:0 rx:0 period:3005] from screen [on:0 period:1849918535] score=60
+10-24 14:14:41.695  4530  6167 I WM-TestForegroundUpdate: setForegroundAsync for 4911343b-70d1-463f-89be-1e7628b31534
+10-24 14:14:41.703  4530  6167 W HWUI    : Image decoding logging dropped!
+10-24 14:14:42.065  1551  1551 D BoundBrokerSvc: onUnbind: Intent { act=com.google.android.gms.auth.blockstore.service.START dat=chimera-action:/... xflg=0x4 cmp=com.google.android.gms/.chimera.GmsApiService }
+10-24 14:14:42.090   468   510 I netd    : tetherGetStats() -> {[]} <0.43ms>
+10-24 14:14:43.098  1925  2363 I bbax    : (REDACTED) getHotwordActive::active query: %s, watch: %s, devices connected: %s
+10-24 14:14:43.970   673  1008 D WifiClientModeImpl[41103:wlan0]: updateLinkLayerStatsRssiSpeedFrequencyCapabilities rssi=-50 TxLinkspeed=5 freq=2437 RxLinkSpeed=2
+10-24 14:14:43.970   673  1008 D WifiDataStall: tx tput in kbps: 37000
+10-24 14:14:43.970   673  1008 D WifiDataStall: rx tput in kbps: 37000
+10-24 14:14:43.970   673  1008 V WifiConfigManager: Updating scan detail cache freq=2437 BSSID=02:15:b2:00:00:01 RSSI=-50 for "AndroidWifi"NONE
+10-24 14:14:43.970   673  1008 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-24 14:14:43.970   673  1008 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+10-24 14:14:43.970   673  1008 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-24 14:14:43.970   673  1008 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+10-24 14:14:43.970   673  1008 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-24 14:14:43.970   673  1008 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+10-24 14:14:43.970   673  1008 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-24 14:14:43.970   673  1008 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+10-24 14:14:43.971   673  1008 D WifiScoreCard: BSSID update SIGNAL_POLL ID: 653347574 SSID: "AndroidWifi", BSSID: 02:15:b2:00:00:01, MAC: 02:15:b2:00:00:00, IP: /10.0.2.16, Security type: 0, Supplicant state: COMPLETED, Wi-Fi standard: legacy, RSSI: -50, Link speed: 5Mbps, Tx Link speed: 5Mbps, Max Supported Tx Link speed: 54Mbps, Rx Link speed: 2Mbps, Max Supported Rx Link speed: 54Mbps, Frequency: 2437MHz, Net ID: 0, Metered hint: false, score: 60, isUsable: true, CarrierMerged: false, SubscriptionId: -1, IsPrimary: 1, Trusted: true, Restricted: false, Ephemeral: false, OEM paid: false, OEM private: false, OSU AP: false, FQDN: <none>, Provider friendly name: <none>, Requesting package name: <none>"AndroidWifi"openMLO Information: , Is TID-To-Link negotiation supported by the AP: false, AP MLD Address: <none>, AP MLO Link Id: <none>, AP MLO Affiliated links: <none>, Vendor Data: <none>
+10-24 14:14:43.971   673  1008 D WifiScoreCard: txRate: 1 txSpeed: 5
+10-24 14:14:43.971   673  1008 D WifiScoreCard: network update SIGNAL_POLL "AndroidWifi" ID: 386860544 RSSI -50 txSpeed -1
+10-24 14:14:43.971   673  1008 D WifiClientModeImpl[41103:wlan0]:  ClientModeImpl$L2ConnectedState screen=on 1 0 "AndroidWifi" 02:15:b2:00:00:01 rssi=-50 f=2437 sc=60 link=5 tx=0.8, 0.0, 0.0 rx=0.9 bcn=0 [on:0 tx:0 rx:0 period:3004] from screen [on:0 period:1849921539] score=60
+10-24 14:14:44.076  1419  1584 D CompatChangeReporter: Compat change id reported: 288912692; UID 10144; state: ENABLED
+10-24 14:14:44.082  1105  1221 E FrameTracker: force finish cuj, time out: J<DEFAULT_TASK_TO_TASK_ANIMATION>
+10-24 14:14:44.394  1419  8054 I NetworkScheduler.Stats: Task com.google.android.gms/com.google.android.gms.ipa.base.IpaGcmTaskService started execution. cause:9 exec_start_elapsed_seconds: 355 [CONTEXT service_id=218 ]
+10-24 14:14:44.398  1419  7735 I NetworkScheduler.Stats: Task com.google.android.gms/com.google.android.gms.ipa.base.IpaGcmTaskService finished executing. cause:9 result: 1 elapsed_millis: 12 uptime_millis: 12 exec_start_elapsed_seconds: 355 [CONTEXT service_id=218 ]
+10-24 14:14:44.402   468   510 I netd    : tetherGetStats() -> {[]} <0.32ms>
+10-24 14:14:44.560   673  1014 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET, states=14
+10-24 14:14:44.565   673  1014 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET6, states=14
+10-24 14:14:44.565   673  1014 D InetDiagMessage: Destroyed live tcp sockets for uids={10217} in 6ms
+10-24 14:14:46.153  4530  5172 I WM-TestForegroundUpdate: setForegroundAsync for 4911343b-70d1-463f-89be-1e7628b31534
+10-24 14:14:46.164  4530  5172 W HWUI    : Image decoding logging dropped!
+10-24 14:14:46.354   468   510 I netd    : tetherGetStats() -> {[]} <0.53ms>
+10-24 14:14:46.887  1275  1512 D SatelliteController: iisInCarrierRoamingNbIotNtn: satellite is disabled
+10-24 14:14:46.945  6439  6446 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=449: unexpected standardMetadataType=21
+10-24 14:14:46.952   628  6453 D BufferPoolAccessor2.0: bufferpool2 0x71c4dd6a34d8 : 1(972000 size) total buffers - 1(972000 size) used buffers - 456/461 (recycle/alloc) - 19/460 (fetch/transfer)
+10-24 14:14:46.972   673  1008 D WifiClientModeImpl[41103:wlan0]: updateLinkLayerStatsRssiSpeedFrequencyCapabilities rssi=-50 TxLinkspeed=6 freq=2437 RxLinkSpeed=2
+10-24 14:14:46.972   673  1008 D WifiDataStall: tx tput in kbps: 37000
+10-24 14:14:46.972   673  1008 D WifiDataStall: rx tput in kbps: 37000
+10-24 14:14:46.972   673  1008 V WifiConfigManager: Updating scan detail cache freq=2437 BSSID=02:15:b2:00:00:01 RSSI=-50 for "AndroidWifi"NONE
+10-24 14:14:46.972   673  1008 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-24 14:14:46.972   673  1008 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+10-24 14:14:46.972   673  1008 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-24 14:14:46.972   673  1008 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+10-24 14:14:46.972   673  1008 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-24 14:14:46.972   673  1008 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+10-24 14:14:46.972   673  1008 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-24 14:14:46.972   673  1008 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+10-24 14:14:46.973   673  1008 D WifiScoreCard: BSSID update SIGNAL_POLL ID: 653347574 SSID: "AndroidWifi", BSSID: 02:15:b2:00:00:01, MAC: 02:15:b2:00:00:00, IP: /10.0.2.16, Security type: 0, Supplicant state: COMPLETED, Wi-Fi standard: legacy, RSSI: -50, Link speed: 6Mbps, Tx Link speed: 6Mbps, Max Supported Tx Link speed: 54Mbps, Rx Link speed: 2Mbps, Max Supported Rx Link speed: 54Mbps, Frequency: 2437MHz, Net ID: 0, Metered hint: false, score: 60, isUsable: true, CarrierMerged: false, SubscriptionId: -1, IsPrimary: 1, Trusted: true, Restricted: false, Ephemeral: false, OEM paid: false, OEM private: false, OSU AP: false, FQDN: <none>, Provider friendly name: <none>, Requesting package name: <none>"AndroidWifi"openMLO Information: , Is TID-To-Link negotiation supported by the AP: false, AP MLD Address: <none>, AP MLO Link Id: <none>, AP MLO Affiliated links: <none>, Vendor Data: <none>
+10-24 14:14:46.973   673  1008 D WifiScoreCard: txRate: 2 txSpeed: 6
+10-24 14:14:46.973   673  1008 D WifiScoreCard: network update SIGNAL_POLL "AndroidWifi" ID: 386860544 RSSI -50 txSpeed -1
+10-24 14:14:46.973   673  1008 D WifiClientModeImpl[41103:wlan0]:  ClientModeImpl$L2ConnectedState screen=on 1 0 "AndroidWifi" 02:15:b2:00:00:01 rssi=-50 f=2437 sc=60 link=6 tx=1.1, 0.0, 0.0 rx=1.1 bcn=0 [on:0 tx:0 rx:0 period:3002] from screen [on:0 period:1849924541] score=60
+10-24 14:14:49.185  4530  5172 I WM-TestForegroundUpdate: setForegroundAsync for 4911343b-70d1-463f-89be-1e7628b31534
+10-24 14:14:49.187  4530  5172 W HWUI    : Image decoding logging dropped!
+10-24 14:14:49.401   673  1014 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET, states=14
+10-24 14:14:49.402   673  1014 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET6, states=14
+10-24 14:14:49.402   673  1014 D InetDiagMessage: Destroyed live tcp sockets for uids={10204} in 1ms
+10-24 14:14:49.402   673  1014 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET, states=14
+10-24 14:14:49.403   673  1014 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET6, states=14
+10-24 14:14:49.403   673  1014 D InetDiagMessage: Destroyed live tcp sockets for uids={20204} in 1ms
+10-24 14:14:49.974   673  1008 D WifiClientModeImpl[41103:wlan0]: updateLinkLayerStatsRssiSpeedFrequencyCapabilities rssi=-50 TxLinkspeed=6 freq=2437 RxLinkSpeed=2
+10-24 14:14:49.974   673  1008 D WifiDataStall: tx tput in kbps: 37000
+10-24 14:14:49.974   673  1008 D WifiDataStall: rx tput in kbps: 37000
+10-24 14:14:49.974   673  1008 V WifiConfigManager: Updating scan detail cache freq=2437 BSSID=02:15:b2:00:00:01 RSSI=-50 for "AndroidWifi"NONE
+10-24 14:14:49.974   673  1008 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-24 14:14:49.974   673  1008 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+10-24 14:14:49.974   673  1008 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-24 14:14:49.974   673  1008 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+10-24 14:14:49.975   673  1008 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-24 14:14:49.975   673  1008 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+10-24 14:14:49.975   673  1008 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-24 14:14:49.975   673  1008 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+10-24 14:14:49.975   673  1008 D WifiScoreCard: BSSID update SIGNAL_POLL ID: 653347574 SSID: "AndroidWifi", BSSID: 02:15:b2:00:00:01, MAC: 02:15:b2:00:00:00, IP: /10.0.2.16, Security type: 0, Supplicant state: COMPLETED, Wi-Fi standard: legacy, RSSI: -50, Link speed: 6Mbps, Tx Link speed: 6Mbps, Max Supported Tx Link speed: 54Mbps, Rx Link speed: 2Mbps, Max Supported Rx Link speed: 54Mbps, Frequency: 2437MHz, Net ID: 0, Metered hint: false, score: 60, isUsable: true, CarrierMerged: false, SubscriptionId: -1, IsPrimary: 1, Trusted: true, Restricted: false, Ephemeral: false, OEM paid: false, OEM private: false, OSU AP: false, FQDN: <none>, Provider friendly name: <none>, Requesting package name: <none>"AndroidWifi"openMLO Information: , Is TID-To-Link negotiation supported by the AP: false, AP MLD Address: <none>, AP MLO Link Id: <none>, AP MLO Affiliated links: <none>, Vendor Data: <none>
+10-24 14:14:49.975   673  1008 D WifiScoreCard: txRate: 1 txSpeed: 6
+10-24 14:14:49.975   673  1008 D WifiScoreCard: network update SIGNAL_POLL "AndroidWifi" ID: 386860544 RSSI -50 txSpeed -1
+10-24 14:14:49.975   673  1008 D WifiClientModeImpl[41103:wlan0]:  ClientModeImpl$L2ConnectedState screen=on 1 0 "AndroidWifi" 02:15:b2:00:00:01 rssi=-50 f=2437 sc=60 link=6 tx=0.4, 0.0, 0.0 rx=0.4 bcn=0 [on:0 tx:0 rx:0 period:3002] from screen [on:0 period:1849927543] score=60
+10-24 14:14:50.727   673   718 I WifiService: isFeatureSupported uid=1000 returns [WIFI_FEATURE_INFRA, WIFI_FEATURE_P2P, WIFI_FEATURE_MOBILE_HOTSPOT, WIFI_FEATURE_WPA3_SAE, WIFI_FEATURE_WPA3_SUITE_B, WIFI_FEATURE_OWE, WIFI_FEATURE_DPP, WIFI_FEATURE_AP_RAND_MAC, WIFI_FEATURE_MBO, WIFI_FEATURE_FILS_SHA256, WIFI_FEATURE_FILS_SHA384, WIFI_FEATURE_SAE_PK, WIFI_FEATURE_DPP_ENROLLEE_RESPONDER, WIFI_FEATURE_PASSPOINT_TERMS_AND_CONDITIONS, WIFI_FEATURE_WFD_R2, WIFI_FEATURE_DECORATED_IDENTITY, WIFI_FEATURE_TRUST_ON_FIRST_USE, WIFI_FEATURE_SET_TLS_MINIMUM_VERSION, WIFI_FEATURE_TLS_V1_3, WIFI_FEATURE_WEP, WIFI_FEATURE_WPA_PERSONAL]
+10-24 14:14:51.229  4530  5172 I WM-TestForegroundUpdate: setForegroundAsync for 4911343b-70d1-463f-89be-1e7628b31534
+10-24 14:14:51.237  4530  5172 W HWUI    : Image decoding logging dropped!
+10-24 14:14:51.290   468   510 I netd    : tetherGetStats() -> {[]} <0.43ms>
+10-24 14:14:51.344   673  1014 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET, states=14
+10-24 14:14:51.344   673  1014 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET6, states=14
+10-24 14:14:51.344   673  1014 D InetDiagMessage: Destroyed live tcp sockets for uids={10159} in 1ms
+10-24 14:14:51.345   673  1014 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET, states=14
+10-24 14:14:51.345   673  1014 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET6, states=14
+10-24 14:14:51.345   673  1014 D InetDiagMessage: Destroyed live tcp sockets for uids={20159} in 1ms
+10-24 14:14:51.954   628  1101 D BufferPoolAccessor2.0: bufferpool2 0x71c4dd6a34d8 : 1(972000 size) total buffers - 0(0 size) used buffers - 456/461 (recycle/alloc) - 20/461 (fetch/transfer)
+10-24 14:14:51.954   628  1101 D BufferPoolAccessor2.0: evictor expired: 1, evicted: 1
+10-24 14:14:52.978   673  1008 D WifiClientModeImpl[41103:wlan0]: updateLinkLayerStatsRssiSpeedFrequencyCapabilities rssi=-50 TxLinkspeed=6 freq=2437 RxLinkSpeed=2
+10-24 14:14:52.978   673  1008 D WifiDataStall: tx tput in kbps: 37000
+10-24 14:14:52.978   673  1008 D WifiDataStall: rx tput in kbps: 37000
+10-24 14:14:52.978   673  1008 V WifiConfigManager: Updating scan detail cache freq=2437 BSSID=02:15:b2:00:00:01 RSSI=-50 for "AndroidWifi"NONE
+10-24 14:14:52.979   673  1008 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-24 14:14:52.979   673  1008 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+10-24 14:14:52.979   673  1008 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-24 14:14:52.979   673  1008 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+10-24 14:14:52.979   673  1008 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-24 14:14:52.979   673  1008 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+10-24 14:14:52.979   673  1008 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-24 14:14:52.979   673  1008 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+10-24 14:14:52.980   673  1008 D WifiScoreCard: BSSID update SIGNAL_POLL ID: 653347574 SSID: "AndroidWifi", BSSID: 02:15:b2:00:00:01, MAC: 02:15:b2:00:00:00, IP: /10.0.2.16, Security type: 0, Supplicant state: COMPLETED, Wi-Fi standard: legacy, RSSI: -50, Link speed: 6Mbps, Tx Link speed: 6Mbps, Max Supported Tx Link speed: 54Mbps, Rx Link speed: 2Mbps, Max Supported Rx Link speed: 54Mbps, Frequency: 2437MHz, Net ID: 0, Metered hint: false, score: 60, isUsable: true, CarrierMerged: false, SubscriptionId: -1, IsPrimary: 1, Trusted: true, Restricted: false, Ephemeral: false, OEM paid: false, OEM private: false, OSU AP: false, FQDN: <none>, Provider friendly name: <none>, Requesting package name: <none>"AndroidWifi"openMLO Information: , Is TID-To-Link negotiation supported by the AP: false, AP MLD Address: <none>, AP MLO Link Id: <none>, AP MLO Affiliated links: <none>, Vendor Data: <none>
+10-24 14:14:52.980   673  1008 D WifiScoreCard: txRate: 1 txSpeed: 6
+10-24 14:14:52.980   673  1008 D WifiScoreCard: network update SIGNAL_POLL "AndroidWifi" ID: 386860544 RSSI -50 txSpeed -1
+10-24 14:14:52.980   673  1008 D WifiClientModeImpl[41103:wlan0]:  ClientModeImpl$L2ConnectedState screen=on 1 0 "AndroidWifi" 02:15:b2:00:00:01 rssi=-50 f=2437 sc=60 link=6 tx=0.1, 0.0, 0.0 rx=0.1 bcn=0 [on:0 tx:0 rx:0 period:3005] from screen [on:0 period:1849930548] score=60
+10-24 14:14:53.130   468   510 I netd    : tetherGetStats() -> {[]} <0.45ms>
+10-24 14:14:54.556   673  1014 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET, states=14
+10-24 14:14:54.556   673  1014 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET6, states=14
+10-24 14:14:54.556   673  1014 D InetDiagMessage: Destroyed live tcp sockets for uids={10204} in 1ms
+10-24 14:14:55.663  4530  6167 I WM-TestForegroundUpdate: setForegroundAsync for 4911343b-70d1-463f-89be-1e7628b31534
+10-24 14:14:55.674  4530  6167 W HWUI    : Image decoding logging dropped!
+10-24 14:14:55.983   673  1008 D WifiClientModeImpl[41103:wlan0]: updateLinkLayerStatsRssiSpeedFrequencyCapabilities rssi=-50 TxLinkspeed=6 freq=2437 RxLinkSpeed=2
+10-24 14:14:55.984   673  1008 D WifiDataStall: tx tput in kbps: 37000
+10-24 14:14:55.984   673  1008 D WifiDataStall: rx tput in kbps: 37000
+10-24 14:14:55.984   673  1008 V WifiConfigManager: Updating scan detail cache freq=2437 BSSID=02:15:b2:00:00:01 RSSI=-50 for "AndroidWifi"NONE
+10-24 14:14:55.984   673  1008 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-24 14:14:55.984   673  1008 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+10-24 14:14:55.984   673  1008 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-24 14:14:55.984   673  1008 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+10-24 14:14:55.984   673  1008 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-24 14:14:55.984   673  1008 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+10-24 14:14:55.984   673  1008 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+10-24 14:14:55.984   673  1008 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+10-24 14:14:55.984   673  1008 D WifiScoreCard: BSSID update SIGNAL_POLL ID: 653347574 SSID: "AndroidWifi", BSSID: 02:15:b2:00:00:01, MAC: 02:15:b2:00:00:00, IP: /10.0.2.16, Security type: 0, Supplicant state: COMPLETED, Wi-Fi standard: legacy, RSSI: -50, Link speed: 6Mbps, Tx Link speed: 6Mbps, Max Supported Tx Link speed: 54Mbps, Rx Link speed: 2Mbps, Max Supported Rx Link speed: 54Mbps, Frequency: 2437MHz, Net ID: 0, Metered hint: false, score: 60, isUsable: true, CarrierMerged: false, SubscriptionId: -1, IsPrimary: 1, Trusted: true, Restricted: false, Ephemeral: false, OEM paid: false, OEM private: false, OSU AP: false, FQDN: <none>, Provider friendly name: <none>, Requesting package name: <none>"AndroidWifi"openMLO Information: , Is TID-To-Link negotiation supported by the AP: false, AP MLD Address: <none>, AP MLO Link Id: <none>, AP MLO Affiliated links: <none>, Vendor Data: <none>
+10-24 14:14:55.984   673  1008 D WifiScoreCard: txRate: 1 txSpeed: 6
+10-24 14:14:55.984   673  1008 D WifiScoreCard: network update SIGNAL_POLL "AndroidWifi" ID: 386860544 RSSI -50 txSpeed -1
+10-24 14:14:55.984   673  1008 D WifiClientModeImpl[41103:wlan0]:  ClientModeImpl$L2ConnectedState screen=on 1 0 "AndroidWifi" 02:15:b2:00:00:01 rssi=-50 f=2437 sc=60 link=6 tx=0.0, 0.0, 0.0 rx=0.2 bcn=0 [on:0 tx:0 rx:0 period:3004] from screen [on:0 period:1849933552] score=60
+10-24 14:14:56.347   673  1014 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET, states=14
+10-24 14:14:56.348   673  1014 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET6, states=14
+10-24 14:14:56.348   673  1014 D InetDiagMessage: Destroyed live tcp sockets for uids={10159} in 1ms
+10-24 14:14:56.888  1275  1512 D SatelliteController: iisInCarrierRoamingNbIotNtn: satellite is disabled
+10-24 14:14:57.062   673  1008 D WifiNetworkSelector: Current connected network: 0
+10-24 14:14:57.062   673  1008 V WifiConnectivityManager: No full band scan because current network is sufficient
+10-24 14:14:57.062   673  1008 V WifiConnectivityManager: schedulePeriodicScanTimer intervalMs 160000
+10-24 14:14:57.062   673  1012 I WifiScanningService: Registering listener= com.android.server.wifi.scanner.WifiScannerInternal$ScanListener@324d3a1 uid=1000 packageName=null workSource=WorkSource{1000}
+10-24 14:14:57.062   673  1012 I WifiScanningService: start scan: ClientInfo[uid=1000, package=null, attributionTag=null, com.android.server.wifi.scanner.WifiScannerInternal$ScanListener@324d3a1] package null AttributionTag null
+10-24 14:14:57.063   673  1012 I WifiScanningService: addSingleScanRequest: ClientInfo[uid=1000, package=null, attributionTag=null, com.android.server.wifi.scanner.WifiScannerInternal$ScanListener@324d3a1],WorkSource{1010}, ScanSettings {  type:HIGH ACCURACY band:unspecified ignoreLocationSettings:false period:0 reportEvents:3 numBssidsPerScan:0 maxScansToCache:0 rnrSetting:2 6GhzPscOnlyEnabled:false channels:[ 2437  ]  }
+10-24 14:14:57.063   673  1012 D WifiScanningService: replySucceeded onSuccess
+10-24 14:14:57.067  1342  1342 D wpa_supplicant: nl80211: Drv Event 33 (NL80211_CMD_TRIGGER_SCAN) received for wlan0
+10-24 14:14:57.067  1342  1342 D wpa_supplicant: wlan0: nl80211: Scan trigger
+10-24 14:14:57.068  1342  1342 D wpa_supplicant: wlan0: Event SCAN_STARTED (47) received
+10-24 14:14:57.068  1342  1342 D wpa_supplicant: wlan0: External program started a scan
+10-24 14:14:57.138  1342  1342 D wpa_supplicant: nl80211: Drv Event 34 (NL80211_CMD_NEW_SCAN_RESULTS) received for wlan0
+10-24 14:14:57.138  1342  1342 D wpa_supplicant: wlan0: nl80211: New scan results available
+10-24 14:14:57.138  1342  1342 D wpa_supplicant: nl80211: Scan probed for SSID ''
+10-24 14:14:57.138  1342  1342 D wpa_supplicant: nl80211: Scan included frequencies: 2437
+10-24 14:14:57.138  1342  1342 D wpa_supplicant: wlan0: Event SCAN_RESULTS (3) received
+10-24 14:14:57.138   673  2007 D WifiNl80211Manager: Scan result ready event
+10-24 14:14:57.138  1342  1342 D wpa_supplicant: nl80211: Received scan results (1 BSSes)
+10-24 14:14:57.138  1342  1342 D wpa_supplicant: nl80211: Scan results indicate BSS status with 02:15:b2:00:00:01 as associated
+10-24 14:14:57.138  1342  1342 D wpa_supplicant: wlan0: BSS: Start scan result update 9
+10-24 14:14:57.138   673  2007 D WifiNative: Scan result ready event
+10-24 14:14:57.138  1342  1342 D wpa_supplicant: BSS: last_scan_res_used=1/32
+10-24 14:14:57.138  1342  1342 D wpa_supplicant: wlan0: New scan results available (own=0 ext=1)
+10-24 14:14:57.138  1342  1342 D wpa_supplicant: wlan0: Do not use results from externally requested scan operation for network selection
+10-24 14:14:57.138  1342  1342 D wpa_supplicant: p2p-dev-wlan0: Updating scan results from sibling
+10-24 14:14:57.138  1342  1342 D wpa_supplicant: nl80211: Received scan results (1 BSSes)
+10-24 14:14:57.138  1342  1342 D wpa_supplicant: p2p-dev-wlan0: BSS: Start scan result update 9
+10-24 14:14:57.138  1342  1342 D wpa_supplicant: BSS: last_scan_res_used=1/32
+10-24 14:14:57.138  1342  1342 D wpa_supplicant: p2p-dev-wlan0: New scan results available (own=0 ext=1)
+10-24 14:14:57.138  1342  1342 D wpa_supplicant: p2p-dev-wlan0: Do not use results from externally requested scan operation for network selection
+10-24 14:14:57.138   673  1012 D WifiNl80211Manager: get 1 scan results from wificond
+10-24 14:14:57.138   673  1012 D WifiNative: get 1 scan results from wificond
+10-24 14:14:57.139  1419  2606 I WifiScanner: onFullResults
+10-24 14:14:57.139   673  1012 I WifiScanningService: singleScanResults: ClientInfo[uid=1000, package=null, attributionTag=null, com.android.server.wifi.scanner.WifiScannerInternal$ScanListener@324d3a1],results=1
+10-24 14:14:57.139   673  1012 I WifiScanningService: singleScanResults listener: ClientInfo[uid=1000, package=android, attributionTag=null, com.android.server.wifi.scanner.WifiScannerInternal$ScanListener@52d8020],results=1
+10-24 14:14:57.139   673  1012 I WifiScanningService: singleScanResults listener: ClientInfo[uid=1000, package=android, attributionTag=null, com.android.server.wifi.scanner.WifiScannerInternal$ScanListener@83676ba],results=1
+10-24 14:14:57.139   673  1012 I WifiScanningService: singleScanResults listener: ClientInfo[uid=1000, package=android, attributionTag=null, com.android.server.wifi.scanner.WifiScannerInternal$ScanListener@e0f16],results=1
+10-24 14:14:57.139   673  1012 I WifiScanningService: singleScanResults listener: ClientInfo[uid=10144, package=com.google.android.gms, attributionTag=network_location_provider, android.net.wifi.IWifiScannerListener$Stub$Proxy@be87ed6],results=1
+10-24 14:14:57.139   673  1008 D WifiScanRequestProxy: Scan results received
+10-24 14:14:57.139   673  1008 D WifiScanRequestProxy: Received 1 scan results
+10-24 14:14:57.139   673  1012 I WifiScanningService: Unregistering listener= com.android.server.wifi.scanner.WifiScannerInternal$ScanListener@324d3a1 uid=1000 packageName=null workSource=WorkSource{1000}
+10-24 14:14:57.141   673  1008 I HalDevMgr: bestIfaceCreationProposal is null, requestIface=STA, existingIface=[name=wlan0 type=STA]
+10-24 14:14:57.142   673  1008 V WifiConnectivityManager: AllSingleScanListener onResults: start network selection
+10-24 14:14:57.142   673  1008 V WifiConfigManager: getSavedNetworkFromScanResult Found "AndroidWifi"NONE for AndroidWifi[[ESS]]
+10-24 14:14:57.143   673  1008 D WifiNetworkSelector: Current connected network: 0
+10-24 14:14:57.143   673  1008 D WifiNetworkSelector: wlan0: Current connected network already sufficient. Skip network selection.
+10-24 14:14:57.143   673  1008 V WifiLastResortWatchdog: updateAvailableNetworks: size = 0
+10-24 14:14:57.143   673  1008 V WifiLastResortWatchdog: mWatchdogFeatureEnabled: true
+10-24 14:14:57.143   673  1008 V WifiLastResortWatchdog: mWatchdogAllowedToTrigger: true
+10-24 14:14:57.143   673  1008 V WifiLastResortWatchdog: mRecentAvailableNetworks: 1
+10-24 14:14:57.143   673  1008 V WifiLastResortWatchdog:  02:15:b2:00:00:01: "AndroidWifi" HasEverConnected: false, Failures: {Assoc: 0, Auth: 0, Dhcp: 0}, Age: 8
+10-24 14:14:57.143   673  1008 V WifiLastResortWatchdog: mSsidFailureCount:
+10-24 14:14:57.143   673  1008 V WifiLastResortWatchdog: "AndroidWifi": 1, HasEverConnected: false, Failures: {Assoc: 0, Auth: 0, Dhcp: 0}
+10-24 14:14:57.143   673  1008 V WifiConnectivityManager: AllSingleScanListener:  No candidates
+10-24 14:14:58.656  4530  6167 I WM-TestForegroundUpdate: setForegroundAsync for 4911343b-70d1-463f-89be-1e7628b31534
+10-24 14:14:58.671  4530  4625 D TransportRuntime.SQLiteEventStore: Storing event with priority=DEFAULT, name=COREML_ON_DEVICE_SOLUTIONS for destination cct
+10-24 14:14:58.673  4530  4625 D TransportRuntime.JobInfoScheduler: Upload for context TransportContext(cct, DEFAULT, MSRodHRwczovL2ZpcmViYXNlbG9nZ2luZy5nb29nbGVhcGlzLmNvbS92MGNjL2xvZy9iYXRjaD9mb3JtYXQ9anNvbl9wcm90bzNc) is already scheduled. Returning...
+10-24 14:14:58.690  4530  4625 D TransportRuntime.SQLiteEventStore: Storing event with priority=DEFAULT, name=COREML_ON_DEVICE_SOLUTIONS for destination cct
+10-24 14:14:58.691  4530  4625 D TransportRuntime.JobInfoScheduler: Upload for context TransportContext(cct, DEFAULT, MSRodHRwczovL2ZpcmViYXNlbG9nZ2luZy5nb29nbGVhcGlzLmNvbS92MGNjL2xvZy9iYXRjaD9mb3JtYXQ9anNvbl9wcm90bzNc) is already scheduled. Returning...
+10-24 14:14:58.692  4530  4566 I WM-TestForegroundUpdate: setForegroundAsync for 4911343b-70d1-463f-89be-1e7628b31534
+10-24 14:14:58.705  4530  6167 W HWUI    : Image decoding logging dropped!
+10-24 14:14:58.710  4530  6167 W HWUI    : Image decoding logging dropped!
+10-24 14:14:58.724  4530  4566 I TestRunner: finished: analysesFindsTheCoupleAndPlansAnAlbum(com.albumdone.app.PipelineDeviceTest)
