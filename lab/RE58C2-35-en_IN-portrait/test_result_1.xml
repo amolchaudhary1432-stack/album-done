@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<testsuites>
+  <testsuite name='' hostname='localhost' tests='1' failures='1' skipped='0' errors='0' time='182.273' timestamp='2026-10-24T11:10:56'>
+    <properties />
+    <testcase name='fromFolderToSentList' classname='com.albumdone.app.JourneyDeviceTest' time='182.273'>
+      <failure>java.lang.IllegalStateException: The folder picker shows no Pictures folder
+	at com.albumdone.app.JourneyDeviceTest.openPhoneStorage(JourneyDeviceTest.kt:220)
+	at com.albumdone.app.JourneyDeviceTest.fromFolderToSentList$lambda$24(JourneyDeviceTest.kt:253)
+	at com.albumdone.app.JourneyDeviceTest.$r8$lambda$wjpqKRDZNfoyceE_DwPVcIg948k(Unknown Source:0)
+	at com.albumdone.app.JourneyDeviceTest$$ExternalSyntheticLambda15.invoke(D8$$SyntheticClass:0)
+	at com.albumdone.app.JourneyDeviceTest.step(JourneyDeviceTest.kt:89)
+	at com.albumdone.app.JourneyDeviceTest.fromFolderToSentList(JourneyDeviceTest.kt:247)
+
+      </failure>
+    </testcase>
+  </testsuite>
+</testsuites>
