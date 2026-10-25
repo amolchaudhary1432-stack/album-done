@@ -210,7 +210,11 @@ cannot see on those lab phones, and then hides everything ("Queried directory pr
 Inside Android, before the app: the app cannot fix or cause it. Same code works on our Android 16
 emulator and on updated phones in use; the Galaxy A15 (older update) lists folders. The journey
 test then gives the same photos to the app directly, still measures speed and memory, skips "save
-to a folder", and writes journey-lab-storage.txt (what the phone's storage looks like).
+to a folder", and writes journey-lab-storage.txt (what the phone's storage looks like; every run
+also writes journey-storage.txt, to compare). On both lab phones /storage belongs to "shell".
+More phones (25 Oct 2026, ~2,000 real wedding photos each, picker skipped): Galaxy A05s (Android 15)
+2,000 in 12 min 32 s (0.38 s each); moto g14 (Android 14) 1,978 in 24 min 47 s (0.75 s each, slow for
+its first 4 minutes, then ~90 a minute). Memory flat at 500-620 MB on every phone.
 Legal and Play Store notes: `docs/LEGAL_CHECK.md` (target API 36 is needed for new Play uploads).
 How the picking works and planned upgrades: `docs/HOW_IT_PICKS.md`.
 

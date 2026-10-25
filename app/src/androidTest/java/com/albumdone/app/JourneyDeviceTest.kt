@@ -277,6 +277,8 @@ class JourneyDeviceTest {
         }
         Log.i("AlbumDoneTest", "Journey: $count photos in Pictures/$folderName")
         Log.i("AlbumDoneTest", "Journey: Android ${Build.VERSION.RELEASE}, security update ${Build.VERSION.SECURITY_PATCH}")
+        // Every phone's storage setup, so a phone whose picker works can be compared with one whose doesn't.
+        DeviceTestSupport.screensDir.apply { mkdirs() }.resolve("journey-storage.txt").writeText(storageNotes())
 
         step("01-home") {
             compose.waitUntil(30_000) { has("Choose photos folder") || has("New album") }
