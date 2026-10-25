@@ -1,0 +1,135 @@
+10-25 00:12:16.076 17130 17130 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+10-25 00:12:16.083 17130 17130 I AndroidRuntime: Using default boot image
+10-25 00:12:16.084 17130 17130 I AndroidRuntime: Leaving lock profiling enabled
+10-25 00:12:16.084 17130 17130 D AndroidRuntime: get ro.product.carrier.language:true
+10-25 00:12:16.084 17130 17130 D AndroidRuntime: get vendor.carrier.language:unkow
+10-25 00:12:16.400 17130 17130 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+10-25 00:12:16.805 17130 17130 I AndroidRuntime: VM exiting with result code 0.
+10-25 00:12:23.560 17991 17991 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+10-25 00:12:23.575 17991 17991 I AndroidRuntime: Using default boot image
+10-25 00:12:23.575 17991 17991 I AndroidRuntime: Leaving lock profiling enabled
+10-25 00:12:23.584 17991 17991 D AndroidRuntime: get ro.product.carrier.language:true
+10-25 00:12:23.584 17991 17991 D AndroidRuntime: get vendor.carrier.language:unkow
+10-25 00:12:23.983 17991 17991 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+10-25 00:12:24.471 17991 17991 I AndroidRuntime: VM exiting with result code 0.
+10-25 00:12:25.104 18200 18200 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+10-25 00:12:25.120 18200 18200 I AndroidRuntime: Using default boot image
+10-25 00:12:25.120 18200 18200 I AndroidRuntime: Leaving lock profiling enabled
+10-25 00:12:25.121 18200 18200 D AndroidRuntime: get ro.product.carrier.language:true
+10-25 00:12:25.121 18200 18200 D AndroidRuntime: get vendor.carrier.language:unkow
+10-25 00:12:25.439 18200 18200 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+10-25 00:12:30.975 18200 18200 I AndroidRuntime: VM exiting with result code 0.
+10-25 00:12:31.182 18848 18848 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+10-25 00:12:31.190 18848 18848 I AndroidRuntime: Using default boot image
+10-25 00:12:31.190 18848 18848 I AndroidRuntime: Leaving lock profiling enabled
+10-25 00:12:31.190 18848 18848 D AndroidRuntime: get ro.product.carrier.language:true
+10-25 00:12:31.190 18848 18848 D AndroidRuntime: get vendor.carrier.language:unkow
+10-25 00:12:31.441 18848 18848 D AndroidRuntime: Calling main entry com.android.commands.content.Content
+10-25 00:12:31.499 18848 18848 D AndroidRuntime: Shutting down VM
+10-25 00:12:32.889 19033 19033 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+10-25 00:12:32.897 19033 19033 I AndroidRuntime: Using default boot image
+10-25 00:12:32.897 19033 19033 I AndroidRuntime: Leaving lock profiling enabled
+10-25 00:12:32.898 19033 19033 D AndroidRuntime: get ro.product.carrier.language:true
+10-25 00:12:32.898 19033 19033 D AndroidRuntime: get vendor.carrier.language:unkow
+10-25 00:12:33.201 19033 19033 D AndroidRuntime: Calling main entry com.android.commands.content.Content
+10-25 00:12:33.232 19033 19033 D AndroidRuntime: Shutting down VM
+10-25 00:12:48.178 13589 13589 I AndroidRuntime: VM exiting with result code 0, cleanup skipped.
+10-25 00:12:50.804 20570 20570 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+10-25 00:12:50.811 20570 20570 I AndroidRuntime: Using default boot image
+10-25 00:12:50.811 20570 20570 I AndroidRuntime: Leaving lock profiling enabled
+10-25 00:12:50.811 20570 20570 D AndroidRuntime: get ro.product.carrier.language:true
+10-25 00:12:50.812 20570 20570 D AndroidRuntime: get vendor.carrier.language:unkow
+10-25 00:12:51.071 20570 20570 D AndroidRuntime: Calling main entry com.android.commands.content.Content
+10-25 00:12:51.099 20570 20570 D AndroidRuntime: Shutting down VM
+10-25 00:12:52.947 20767 20767 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+10-25 00:12:52.955 20767 20767 I AndroidRuntime: Using default boot image
+10-25 00:12:52.955 20767 20767 I AndroidRuntime: Leaving lock profiling enabled
+10-25 00:12:52.955 20767 20767 D AndroidRuntime: get ro.product.carrier.language:true
+10-25 00:12:52.956 20767 20767 D AndroidRuntime: get vendor.carrier.language:unkow
+10-25 00:12:53.350 20767 20767 D AndroidRuntime: Calling main entry com.android.commands.content.Content
+10-25 00:12:53.998 20767 20767 D AndroidRuntime: Shutting down VM
+10-25 00:12:54.727 20884 20884 I AndroidRuntime: VM exiting with result code 0, cleanup skipped.
+10-25 00:12:55.132 21054 21054 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+10-25 00:12:55.140 21054 21054 I AndroidRuntime: Using default boot image
+10-25 00:12:55.140 21054 21054 I AndroidRuntime: Leaving lock profiling enabled
+10-25 00:12:55.141 21054 21054 D AndroidRuntime: get ro.product.carrier.language:true
+10-25 00:12:55.141 21054 21054 D AndroidRuntime: get vendor.carrier.language:unkow
+10-25 00:12:55.210 21050 21050 I AndroidRuntime: VM exiting with result code 0, cleanup skipped.
+10-25 00:12:55.422 21054 21054 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+10-25 00:12:55.642 21108 21108 I AndroidRuntime: VM exiting with result code 0, cleanup skipped.
+10-25 00:12:56.461 21189 21189 I AndroidRuntime: VM exiting with result code 0, cleanup skipped.
+10-25 00:12:57.310 21258 21258 I AndroidRuntime: VM exiting with result code 0, cleanup skipped.
+10-25 00:12:57.679 21254 21254 I AndroidRuntime: VM exiting with result code 0, cleanup skipped.
+10-25 00:12:57.991 21368 21368 I AndroidRuntime: VM exiting with result code 0, cleanup skipped.
+10-25 00:12:58.716 21436 21436 I AndroidRuntime: VM exiting with result code 0, cleanup skipped.
+10-25 00:12:59.077 21477 21477 I AndroidRuntime: VM exiting with result code 0, cleanup skipped.
+10-25 00:12:59.445 21154 21154 I AndroidJUnitRunner: newApplication com.albumdone.app.AlbumDoneApp
+10-25 00:12:59.767 21526 21526 I AndroidRuntime: VM exiting with result code 0, cleanup skipped.
+10-25 00:13:00.213 21588 21588 I AndroidRuntime: VM exiting with result code 0, cleanup skipped.
+10-25 00:13:00.307 21154 21614 I TestRunner: run started: 1 tests
+10-25 00:13:00.310 21154 21614 I TestRunner: started: fromFolderToSentList(com.albumdone.app.JourneyDeviceTest)
+10-25 00:13:01.484 21701 21701 I AndroidRuntime: VM exiting with result code 0, cleanup skipped.
+10-25 00:13:01.984 21783 21783 I AndroidRuntime: VM exiting with result code 0, cleanup skipped.
+10-25 00:13:02.818 21826 21826 I AndroidRuntime: VM exiting with result code 0, cleanup skipped.
+10-25 00:13:04.923 21968 21968 I AndroidRuntime: VM exiting with result code 0, cleanup skipped.
+10-25 00:13:05.362 21989 21989 I AndroidRuntime: VM exiting with result code 0, cleanup skipped.
+10-25 00:13:05.617 22013 22013 I AndroidRuntime: VM exiting with result code 0, cleanup skipped.
+10-25 00:13:05.949 22037 22037 I AndroidRuntime: VM exiting with result code 0, cleanup skipped.
+10-25 00:13:06.342 22085 22085 I AndroidRuntime: VM exiting with result code 0, cleanup skipped.
+10-25 00:14:21.356 21154 21614 I AlbumDoneTest: Journey: 1978 photos in Pictures/Weddings
+10-25 00:14:21.356 21154 21614 I AlbumDoneTest: Journey: Android 14, security update 2026-04-05
+10-25 00:16:07.081 21154 21614 W AlbumDoneTest: Journey: the folder picker shows no folders (lab phone fault); photos given to the app directly
+10-25 00:16:08.159 24837 24837 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+10-25 00:16:08.167 24837 24837 I AndroidRuntime: Using default boot image
+10-25 00:16:08.167 24837 24837 I AndroidRuntime: Leaving lock profiling enabled
+10-25 00:16:08.168 24837 24837 D AndroidRuntime: get ro.product.carrier.language:true
+10-25 00:16:08.168 24837 24837 D AndroidRuntime: get vendor.carrier.language:unkow
+10-25 00:16:08.649 24837 24837 D AndroidRuntime: Calling main entry com.android.commands.sm.Sm
+10-25 00:16:08.660 24837 24837 I AndroidRuntime: VM exiting with result code 0.
+10-25 00:18:03.363 25866 25893 I AndroidRuntime: VM exiting with result code 0, cleanup skipped.
+10-25 00:40:49.236 21154 21154 D AlbumDone: open album 1
+10-25 00:40:52.375 21154 21154 D AlbumDone: analysis of 1978 photos in 3035 ms
+10-25 00:40:54.616 21154 24912 D AlbumDone: album planned: 300 of 1978 photos
+10-25 00:40:54.747 21154 24912 D AlbumDone: album saved
+10-25 00:40:54.749 21154 21154 D AlbumDone: album 1 ready to show
+10-25 00:40:55.800 21154 21154 D AlbumDone: album update: 300 selected of 1978, 376 people
+10-25 00:40:58.654 21154 21614 I AlbumDoneTest: Journey: 1978 photos checked and the album made in 1487 s (0.75 s a photo) on motorola moto g14
+10-25 00:41:05.485 21154 21154 D AlbumDone: album update: 300 selected of 1978, 376 people
+10-25 00:41:05.795 21154 21154 D AlbumDone: album update: 300 selected of 1978, 376 people
+10-25 00:41:06.038 21154 21154 D AlbumDone: album update: 300 selected of 1978, 376 people
+10-25 00:41:07.796 21154 21154 D AlbumDone: album update: 300 selected of 1978, 376 people
+10-25 00:41:09.197 21154 21154 D AlbumDone: album update: 300 selected of 1978, 376 people
+10-25 00:41:11.287 21154 21154 D AlbumDone: album update: 300 selected of 1978, 376 people
+10-25 00:41:11.542 21154 21154 D AlbumDone: album update: 300 selected of 1978, 376 people
+10-25 00:41:23.897 21154 21614 I TestRunner: finished: fromFolderToSentList(com.albumdone.app.JourneyDeviceTest)
+10-25 00:41:23.908 21154 21614 I TestRunner: run finished: 1 tests, 0 failed, 0 ignored
+10-25 00:41:23.946 21054 21054 I AndroidRuntime: VM exiting with result code 0.
+10-25 00:41:24.780  6453  6453 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+10-25 00:41:24.789  6453  6453 I AndroidRuntime: Using default boot image
+10-25 00:41:24.789  6453  6453 I AndroidRuntime: Leaving lock profiling enabled
+10-25 00:41:24.790  6453  6453 D AndroidRuntime: get ro.product.carrier.language:true
+10-25 00:41:24.790  6453  6453 D AndroidRuntime: get vendor.carrier.language:unkow
+10-25 00:41:25.182  6453  6453 D AndroidRuntime: Calling main entry com.android.commands.content.Content
+10-25 00:41:25.528  6453  6453 D AndroidRuntime: Shutting down VM
+10-25 00:41:26.717  6517  6517 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+10-25 00:41:26.725  6517  6517 I AndroidRuntime: Using default boot image
+10-25 00:41:26.725  6517  6517 I AndroidRuntime: Leaving lock profiling enabled
+10-25 00:41:26.725  6517  6517 D AndroidRuntime: get ro.product.carrier.language:true
+10-25 00:41:26.726  6517  6517 D AndroidRuntime: get vendor.carrier.language:unkow
+10-25 00:41:26.924  6517  6517 D AndroidRuntime: Calling main entry com.android.commands.content.Content
+10-25 00:41:26.945  6517  6517 D AndroidRuntime: Shutting down VM
+10-25 00:41:42.253  6720  6720 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+10-25 00:41:42.261  6720  6720 I AndroidRuntime: Using default boot image
+10-25 00:41:42.261  6720  6720 I AndroidRuntime: Leaving lock profiling enabled
+10-25 00:41:42.261  6720  6720 D AndroidRuntime: get ro.product.carrier.language:true
+10-25 00:41:42.261  6720  6720 D AndroidRuntime: get vendor.carrier.language:unkow
+10-25 00:41:42.479  6720  6720 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+10-25 00:41:42.687  6720  6720 I AndroidRuntime: VM exiting with result code 0.
+10-25 00:41:42.886  6761  6761 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+10-25 00:41:42.894  6761  6761 I AndroidRuntime: Using default boot image
+10-25 00:41:42.894  6761  6761 I AndroidRuntime: Leaving lock profiling enabled
+10-25 00:41:42.894  6761  6761 D AndroidRuntime: get ro.product.carrier.language:true
+10-25 00:41:42.894  6761  6761 D AndroidRuntime: get vendor.carrier.language:unkow
+10-25 00:41:43.086  6761  6761 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+10-25 00:41:43.728  6761  6761 I AndroidRuntime: VM exiting with result code 0.
+10-25 00:41:43.803 20348 20348 I AndroidRuntime: VM exiting with result code 0, cleanup skipped.

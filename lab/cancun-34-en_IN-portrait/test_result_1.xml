@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<testsuites>
+  <testsuite name='' hostname='localhost' tests='1' failures='0' skipped='0' errors='0' time='1703.126' timestamp='2026-10-25T00:13:01'>
+    <properties />
+    <testcase name='fromFolderToSentList' classname='com.albumdone.app.JourneyDeviceTest' time='1703.126' />
+  </testsuite>
+</testsuites>

@@ -1,0 +1,51 @@
+$ getprop ro.build.version.security_patch
+2026-04-05
+
+$ getprop ro.build.fingerprint
+motorola/cancun_gen/cancun:14/UTLBS34.102-91-4/c702e256:user/release-keys
+
+$ id
+uid=2000(shell) gid=2000(shell) groups=2000(shell),1004(input),1007(log),1011(adb),1015(sdcard_rw),1028(sdcard_r),1078(ext_data_rw),1079(ext_obb_rw),3001(net_bt_admin),3002(net_bt),3003(inet),3006(net_bw_stats),3009(readproc),3011(uhid),3012(readtracefs) context=u:r:shell:s0
+
+$ am get-current-user
+0
+
+$ pm list users
+Users:
+	UserInfo{0:Owner:4c13} running
+
+$ ls -ld /storage /storage/emulated /storage/emulated/0 /storage/emulated/0/Android/data /sdcard
+lrw-r--r--  1 root     root          21 2008-12-31 16:00 /sdcard -> /storage/self/primary
+drwx--x---  4 shell    everybody     80 2026-10-24 11:28 /storage
+drwxrwx---  4 media_rw media_rw    3452 2026-10-24 11:29 /storage/emulated
+drwxrws--- 19 media_rw media_rw    3452 2026-10-25 00:12 /storage/emulated/0
+drwxrws--x 14 media_rw ext_data_rw 3452 2026-10-25 00:14 /storage/emulated/0/Android/data
+
+$ ls -la /storage
+total 7
+drwx--x---  4 shell    everybody   80 2026-10-24 11:28 .
+drwxr-xr-x 28 root     root       658 2008-12-31 16:00 ..
+drwxrwx---  4 media_rw media_rw  3452 2026-10-24 11:29 emulated
+drwxr-xr-x  2 root     root        60 2026-10-24 11:29 self
+
+$ ls -la /storage/emulated
+total 10
+drwxrws--- 19 media_rw media_rw 3452 2026-10-25 00:12 0
+drwxrwx---  2 media_rw media_rw 3452 2026-10-24 11:28 obb
+
+$ sm list-volumes all
+private mounted null
+emulated;0 mounted null
+
+$ pidof com.android.externalstorage
+23702
+$ grep storage /proc/23702/mountinfo
+4974 4818 0:21 /user/0 /storage rw,nosuid,nodev,noexec,relatime master:7 - tmpfs tmpfs rw,seclabel,size=1912088k,nr_inodes=478022,mode=755,gid=1000
+4975 4974 0:44 / /storage/emulated rw,nosuid,nodev,noexec,noatime master:37 - fuse /dev/fuse rw,lazytime,user_id=0,group_id=0,allow_other
+4979 4978 254:56 /user_de/0/com.android.externalstorage /data/user_de/0/com.android.externalstorage rw,nosuid,nodev,noatime master:35 - f2fs /dev/block/dm-56 rw,lazytime,seclabel,background_gc=on,discard,no_heap,user_xattr,inline_xattr,acl,inline_data,inline_dentry,flush_merge,extent_cache,mode=adaptive,active_logs=6,reserve_root=32768,resuid=0,resgid=1065,inlinecrypt,alloc_mode=default,checkpoint_merge,fsync_mode=nobarrier,atgc,discard_unit=block,memory=normal
+4980 4976 254:56 /data/com.android.externalstorage /data/data/com.android.externalstorage rw,nosuid,nodev,noatime master:35 - f2fs /dev/block/dm-56 rw,lazytime,seclabel,background_gc=on,discard,no_heap,user_xattr,inline_xattr,acl,inline_data,inline_dentry,flush_merge,extent_cache,mode=adaptive,active_logs=6,reserve_root=32768,resuid=0,resgid=1065,inlinecrypt,alloc_mode=default,checkpoint_merge,fsync_mode=nobarrier,atgc,discard_unit=block,memory=normal
+4985 4983 254:56 /misc/profiles/cur/0/com.android.externalstorage /data/misc/profiles/cur/0/com.android.externalstorage rw,nosuid,nodev,noatime master:35 - f2fs /dev/block/dm-56 rw,lazytime,seclabel,background_gc=on,discard,no_heap,user_xattr,inline_xattr,acl,inline_data,inline_dentry,flush_merge,extent_cache,mode=adaptive,active_logs=6,reserve_root=32768,resuid=0,resgid=1065,inlinecrypt,alloc_mode=default,checkpoint_merge,fsync_mode=nobarrier,atgc,discard_unit=block,memory=normal
+4986 4984 254:56 /misc/profiles/ref/com.android.externalstorage /data/misc/profiles/ref/com.android.externalstorage rw,nosuid,nodev,noatime master:35 - f2fs /dev/block/dm-56 rw,lazytime,seclabel,background_gc=on,discard,no_heap,user_xattr,inline_xattr,acl,inline_data,inline_dentry,flush_merge,extent_cache,mode=adaptive,active_logs=6,reserve_root=32768,resuid=0,resgid=1065,inlinecrypt,alloc_mode=default,checkpoint_merge,fsync_mode=nobarrier,atgc,discard_unit=block,memory=normal
+
+$ ls -la /proc/23702/root/storage
+
