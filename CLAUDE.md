@@ -203,7 +203,14 @@ the A15. How far it goes (24 Oct 2026, A15, start to finish through the picker):
 five Indian weddings in 25 min 48 s, steady at about 100 a minute from start to end, the app's memory
 flat at 550-600 MB the whole time; people grouped in 4 s and the album made in 21 s. So 5,000 would be
 about 52 min with no slowdown. The album limit is still 1,000 (owner to decide whether to raise it).
-Test Lab's Pixel 8a cannot list its own storage (its folder picker shows "No items"): use Samsungs.
+Test Lab picker fault (24 Oct 2026): on lab phones with a 2025 security update (Pixel 8a, Galaxy
+A05s, realme C53, moto g14) the folder picker shows "No items". Android's storage service
+(ExternalStorageProvider.isRestrictedPath) walks up from each folder to /storage/emulated, which it
+cannot see on those lab phones, and then hides everything ("Queried directory primary: is hidden").
+Inside Android, before the app: the app cannot fix or cause it. Same code works on our Android 16
+emulator and on updated phones in use; the Galaxy A15 (older update) lists folders. The journey
+test then gives the same photos to the app directly, still measures speed and memory, skips "save
+to a folder", and writes journey-lab-storage.txt (what the phone's storage looks like).
 Legal and Play Store notes: `docs/LEGAL_CHECK.md` (target API 36 is needed for new Play uploads).
 How the picking works and planned upgrades: `docs/HOW_IT_PICKS.md`.
 

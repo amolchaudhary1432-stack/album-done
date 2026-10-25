@@ -132,6 +132,32 @@ class JourneyDeviceTest {
      */
     private var labPickerFault = false
 
+    /** Runs a shell command (no shell operators) and returns what it printed. */
+    private fun shell(command: String): String = runCatching {
+        InstrumentationRegistry.getInstrumentation().uiAutomation.executeShellCommand(command)
+            .use { pfd -> java.io.FileInputStream(pfd.fileDescriptor).use { String(it.readBytes()) } }
+    }.getOrElse { "failed: $it" }
+
+    /**
+     * What the phone's storage looks like, for the picker fault: Android's storage service walks up
+     * from each folder to /storage/emulated and hides everything when it cannot see that folder.
+     */
+    private fun storageNotes(): String = buildString {
+        for (c in listOf(
+            "getprop ro.build.version.security_patch", "getprop ro.build.fingerprint", "id",
+            "am get-current-user", "pm list users",
+            "ls -ld /storage /storage/emulated /storage/emulated/0 /storage/emulated/0/Android/data /sdcard",
+            "ls -la /storage", "ls -la /storage/emulated", "sm list-volumes all",
+        )) append("$ ").append(c).append('\n').append(shell(c)).append('\n')
+        val pid = shell("pidof com.android.externalstorage").trim()
+        append("$ pidof com.android.externalstorage\n").append(pid).append('\n')
+        if (pid.isNotEmpty()) {
+            for (c in listOf("grep storage /proc/$pid/mountinfo", "ls -la /proc/$pid/root/storage")) {
+                append("$ ").append(c).append('\n').append(shell(c)).append('\n')
+            }
+        }
+    }
+
     private fun putPhoto(folder: String, name: String, input: java.io.InputStream) {
         val resolver = DeviceTestSupport.app.contentResolver
         val values = ContentValues().apply {
@@ -250,6 +276,7 @@ class JourneyDeviceTest {
             }
         }
         Log.i("AlbumDoneTest", "Journey: $count photos in Pictures/$folderName")
+        Log.i("AlbumDoneTest", "Journey: Android ${Build.VERSION.RELEASE}, security update ${Build.VERSION.SECURITY_PATCH}")
 
         step("01-home") {
             compose.waitUntil(30_000) { has("Choose photos folder") || has("New album") }
@@ -267,6 +294,7 @@ class JourneyDeviceTest {
             if (!openPhoneStorage()) {
                 labPickerFault = true
                 Log.w("AlbumDoneTest", "Journey: the folder picker shows no folders (lab phone fault); photos given to the app directly")
+                DeviceTestSupport.screensDir.apply { mkdirs() }.resolve("journey-lab-storage.txt").writeText(storageNotes())
                 backToApp()
                 return@step
             }
