@@ -211,7 +211,10 @@ fresh emulator: untouched it lists folders; right after the `ls` it does not. Br
 shell; test machines do (Test Lab works on /sdcard from the shell before each test, and our own test
 did on 25 Oct). The journey test must never list those folders; it waits up to 4 minutes, then gives
 the photos to the app directly (still measuring speed and memory). Lab ZIPs go to /data/local/tmp.
-The Galaxy A15 (update before the fix) never had it.
+The Galaxy A15 (update before the fix) never had it. Nothing clears it once set off (restarting the
+storage service, listing other folders, waiting 3 minutes: run 107), and on Test Lab it stays on for
+the whole test, so lab phones other than the A15 skip the picker; the emulator checks the picker on
+every push (diag/1-fresh and 5-after-tests must show "hidden: 0").
 More phones (25 Oct 2026, ~2,000 real wedding photos each, picker skipped): Galaxy A05s (Android 15)
 2,000 in 12 min 32 s (0.38 s each); moto g14 (Android 14) 1,978 in 24 min 47 s (0.75 s each, slow for
 its first 4 minutes, then ~90 a minute). Memory flat at 500-620 MB on every phone.
