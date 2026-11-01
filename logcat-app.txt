@@ -1,0 +1,108 @@
+10-31 21:48:22.159 20726 20726 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+10-31 21:48:22.176 20726 20726 I AndroidRuntime: Using default boot image
+10-31 21:48:22.176 20726 20726 I AndroidRuntime: Leaving lock profiling enabled
+10-31 21:48:22.179 20726 20726 D AndroidRuntime: addProductProperty not brand or 7
+10-31 21:48:22.507 20726 20726 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+10-31 21:48:23.081 20726 20726 I AndroidRuntime: VM exiting with result code 0.
+10-31 21:48:26.159 21092 21092 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+10-31 21:48:26.166 21092 21092 I AndroidRuntime: Using default boot image
+10-31 21:48:26.166 21092 21092 I AndroidRuntime: Leaving lock profiling enabled
+10-31 21:48:26.169 21092 21092 D AndroidRuntime: addProductProperty not brand or 7
+10-31 21:48:26.572 21092 21092 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+10-31 21:48:27.649 21092 21092 I AndroidRuntime: VM exiting with result code 0.
+10-31 21:48:29.135 21337 21337 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+10-31 21:48:29.168 21337 21337 I AndroidRuntime: Using default boot image
+10-31 21:48:29.168 21337 21337 I AndroidRuntime: Leaving lock profiling enabled
+10-31 21:48:29.177 21337 21337 D AndroidRuntime: addProductProperty not brand or 7
+10-31 21:48:29.745 21337 21337 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+10-31 21:48:36.371 21337 21337 I AndroidRuntime: VM exiting with result code 0.
+10-31 21:48:37.421 22115 22115 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+10-31 21:48:37.442 22115 22115 I AndroidRuntime: Using default boot image
+10-31 21:48:37.442 22115 22115 I AndroidRuntime: Leaving lock profiling enabled
+10-31 21:48:37.445 22115 22115 D AndroidRuntime: addProductProperty not brand or 7
+10-31 21:48:37.976 22115 22115 D AndroidRuntime: Calling main entry com.android.commands.content.Content
+10-31 21:48:38.029 22115 22115 D AndroidRuntime: Shutting down VM
+10-31 21:48:39.762 22350 22350 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+10-31 21:48:39.779 22350 22350 I AndroidRuntime: Using default boot image
+10-31 21:48:39.779 22350 22350 I AndroidRuntime: Leaving lock profiling enabled
+10-31 21:48:39.781 22350 22350 D AndroidRuntime: addProductProperty not brand or 7
+10-31 21:48:40.359 22350 22350 D AndroidRuntime: Calling main entry com.android.commands.content.Content
+10-31 21:48:40.394 22350 22350 D AndroidRuntime: Shutting down VM
+10-31 21:49:02.464 24068 24068 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+10-31 21:49:02.514 24068 24068 I AndroidRuntime: Using default boot image
+10-31 21:49:02.514 24068 24068 I AndroidRuntime: Leaving lock profiling enabled
+10-31 21:49:02.520 24068 24068 D AndroidRuntime: addProductProperty not brand or 7
+10-31 21:49:03.160 24068 24068 D AndroidRuntime: Calling main entry com.android.commands.content.Content
+10-31 21:49:03.309 24068 24068 D AndroidRuntime: Shutting down VM
+10-31 21:49:05.600 24357 24357 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+10-31 21:49:05.628 24357 24357 I AndroidRuntime: Using default boot image
+10-31 21:49:05.628 24357 24357 I AndroidRuntime: Leaving lock profiling enabled
+10-31 21:49:05.632 24357 24357 D AndroidRuntime: addProductProperty not brand or 7
+10-31 21:49:06.020 24357 24357 D AndroidRuntime: Calling main entry com.android.commands.content.Content
+10-31 21:49:06.779 24357 24357 D AndroidRuntime: Shutting down VM
+10-31 21:49:08.024 24551 24551 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+10-31 21:49:08.052 24551 24551 I AndroidRuntime: Using default boot image
+10-31 21:49:08.052 24551 24551 I AndroidRuntime: Leaving lock profiling enabled
+10-31 21:49:08.055 24551 24551 D AndroidRuntime: addProductProperty not brand or 7
+10-31 21:49:08.546 24551 24551 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+10-31 21:49:11.882 24642 24642 I AndroidJUnitRunner: newApplication com.albumdone.app.AlbumDoneApp
+10-31 21:49:12.634 24642 24766 I TestRunner: run started: 1 tests
+10-31 21:49:12.640 24642 24766 I TestRunner: started: fromFolderToSentList(com.albumdone.app.JourneyDeviceTest)
+10-31 21:49:13.987 24642 24642 I IDS_TAG : Getting Shared Preference for com.albumdone.app.AlbumDoneApp@8e87d16 uid = 10281
+10-31 21:49:14.015 24642 24642 I IDS_TAG : App com.albumdone.app.AlbumDoneApp@8e87d16 has not finished training
+10-31 21:49:14.017 24642 24642 I IDS_TAG : Getting Shared Preference for com.albumdone.app.AlbumDoneApp@8e87d16 uid = 10281
+10-31 21:49:14.020 24642 24642 I IDS_TAG : IDS count updated to 1 for com.albumdone.app.AlbumDoneApp@8e87d16
+10-31 21:50:22.544 24642 24766 I AlbumDoneTest: Journey: 2000 photos in Pictures/Weddings
+10-31 21:50:22.544 24642 24766 I AlbumDoneTest: Journey: Android 15, security update 2025-08-01
+10-31 21:54:41.103 24642 24766 W AlbumDoneTest: Journey: the folder picker shows no folders (lab phone fault); photos given to the app directly
+10-31 21:54:42.247 32202 32202 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+10-31 21:54:42.259 32202 32202 I AndroidRuntime: Using default boot image
+10-31 21:54:42.259 32202 32202 I AndroidRuntime: Leaving lock profiling enabled
+10-31 21:54:42.261 32202 32202 D AndroidRuntime: addProductProperty not brand or 7
+10-31 21:54:42.610 32202 32202 D AndroidRuntime: Calling main entry com.android.commands.sm.Sm
+10-31 21:54:42.617 32202 32202 I AndroidRuntime: VM exiting with result code 0.
+10-31 22:07:10.933 24642 24642 D AlbumDone: open album 1
+10-31 22:07:12.293 24642 24642 D AlbumDone: analysis of 2000 photos in 1322 ms
+10-31 22:07:13.712 24642 32265 D AlbumDone: album planned: 300 of 2000 photos
+10-31 22:07:13.795 24642 32265 D AlbumDone: album saved
+10-31 22:07:13.796 24642 24642 D AlbumDone: album 1 ready to show
+10-31 22:07:15.430 24642 24642 D AlbumDone: album update: 300 selected of 2000, 343 people
+10-31 22:07:18.149 24642 24766 I AlbumDoneTest: Journey: 2000 photos checked and the album made in 753 s (0.38 s a photo) on samsung SM-A057G
+10-31 22:07:23.613 24642 24642 D AlbumDone: album update: 300 selected of 2000, 343 people
+10-31 22:07:23.770 24642 24642 D AlbumDone: album update: 299 selected of 2000, 343 people
+10-31 22:07:23.915 24642 24642 D AlbumDone: album update: 300 selected of 2000, 343 people
+10-31 22:07:25.730 24642 24642 D AlbumDone: album update: 300 selected of 2000, 343 people
+10-31 22:07:25.903 24642 24642 D AlbumDone: album update: 299 selected of 2000, 343 people
+10-31 22:07:26.224 24642 24642 D AlbumDone: album update: 299 selected of 2000, 343 people
+10-31 22:07:26.625 24642 24642 D AlbumDone: album update: 300 selected of 2000, 343 people
+10-31 22:07:26.772 24642 24642 D AlbumDone: album update: 300 selected of 2000, 343 people
+10-31 22:07:28.356 24642 24642 D AlbumDone: album update: 300 selected of 2000, 343 people
+10-31 22:07:28.486 24642 24642 D AlbumDone: album update: 300 selected of 2000, 343 people
+10-31 22:07:40.090 24642 24766 I TestRunner: finished: fromFolderToSentList(com.albumdone.app.JourneyDeviceTest)
+10-31 22:07:40.105 24642 24766 I TestRunner: run finished: 1 tests, 0 failed, 0 ignored
+10-31 22:07:40.223 24551 24551 I AndroidRuntime: VM exiting with result code 0.
+10-31 22:07:41.309  8938  8938 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+10-31 22:07:41.341  8938  8938 I AndroidRuntime: Using default boot image
+10-31 22:07:41.341  8938  8938 I AndroidRuntime: Leaving lock profiling enabled
+10-31 22:07:41.343  8938  8938 D AndroidRuntime: addProductProperty not brand or 7
+10-31 22:07:41.683  8938  8938 D AndroidRuntime: Calling main entry com.android.commands.content.Content
+10-31 22:07:42.038  8938  8938 D AndroidRuntime: Shutting down VM
+10-31 22:07:43.175  9014  9014 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+10-31 22:07:43.181  9014  9014 I AndroidRuntime: Using default boot image
+10-31 22:07:43.181  9014  9014 I AndroidRuntime: Leaving lock profiling enabled
+10-31 22:07:43.182  9014  9014 D AndroidRuntime: addProductProperty not brand or 7
+10-31 22:07:43.359  9014  9014 D AndroidRuntime: Calling main entry com.android.commands.content.Content
+10-31 22:07:43.375  9014  9014 D AndroidRuntime: Shutting down VM
+10-31 22:07:56.727  9257  9257 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+10-31 22:07:56.733  9257  9257 I AndroidRuntime: Using default boot image
+10-31 22:07:56.733  9257  9257 I AndroidRuntime: Leaving lock profiling enabled
+10-31 22:07:56.734  9257  9257 D AndroidRuntime: addProductProperty not brand or 7
+10-31 22:07:56.917  9257  9257 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+10-31 22:07:57.161  9257  9257 I AndroidRuntime: VM exiting with result code 0.
+10-31 22:07:57.358  9285  9285 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+10-31 22:07:57.365  9285  9285 I AndroidRuntime: Using default boot image
+10-31 22:07:57.365  9285  9285 I AndroidRuntime: Leaving lock profiling enabled
+10-31 22:07:57.366  9285  9285 D AndroidRuntime: addProductProperty not brand or 7
+10-31 22:07:57.549  9285  9285 D AndroidRuntime: Calling main entry com.android.commands.am.Am
+10-31 22:07:58.371  9285  9285 I AndroidRuntime: VM exiting with result code 0.
+10-31 22:07:59.396 20467 20467 I AndroidRuntime: VM exiting with result code 0, cleanup skipped.

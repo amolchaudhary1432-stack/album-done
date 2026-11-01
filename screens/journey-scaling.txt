@@ -1,0 +1,17 @@
+seconds	checked	step	memory MB
+1	0	analyzing	446
+62	197	analyzing	569
+123	386	analyzing	589
+183	609	analyzing	574
+244	763	analyzing	620
+304	858	analyzing	592
+364	1012	analyzing	601
+424	1140	analyzing	587
+485	1265	analyzing	561
+545	1374	analyzing	587
+605	1510	analyzing	598
+665	1719	analyzing	609
+725	1948	analyzing	630
+740	2000	people	485
+746	2000	done	397
+753	2000	ALBUM SHOWN	401

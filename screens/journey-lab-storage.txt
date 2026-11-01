@@ -1,0 +1,27 @@
+$ getprop ro.build.version.security_patch
+2025-08-01
+
+$ getprop ro.build.fingerprint
+samsung/a05seea/a05s:15/AP3A.240905.015.A2/A057GXXS8DYH1:user/release-keys
+
+$ id
+uid=2000(shell) gid=2000(shell) groups=2000(shell),1004(input),1007(log),1011(adb),1015(sdcard_rw),1028(sdcard_r),1078(ext_data_rw),1079(ext_obb_rw),3001(net_bt_admin),3002(net_bt),3003(inet),3006(net_bw_stats),3009(readproc),3011(uhid),3012(readtracefs) context=u:r:shell:s0
+
+$ am get-current-user
+0
+
+$ pm list users
+Users:
+	UserInfo{0:Owner:4c13} running
+
+$ ls -ld /storage /storage/emulated /storage/emulated/0 /storage/emulated/0/Android/data /sdcard
+lrw-r--r--  1 root     root          21 2021-12-31 16:00 /sdcard -> /storage/self/primary
+drwx--x--x  4 shell    everybody     80 1971-08-12 05:30 /storage
+dr-xr-x---  4 media_rw media_rw    3452 2025-08-12 01:26 /storage/emulated
+drwxrws--- 19 media_rw media_rw    3452 2026-10-31 21:49 /storage/emulated/0
+drwxrws--x 16 media_rw ext_data_rw 3452 2026-10-31 21:50 /storage/emulated/0/Android/data
+
+$ sm list-volumes all
+private mounted null
+emulated;0 mounted null
+
