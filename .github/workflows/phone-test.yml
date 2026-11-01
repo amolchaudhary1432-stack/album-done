@@ -81,6 +81,12 @@ jobs:
             mkdir -p video && for f in $(adb shell ls /sdcard/ | tr -d '\r' | grep '^rec_'); do adb pull "/sdcard/$f" video/ || true; done
             mkdir -p screens && (adb exec-out run-as com.albumdone.app tar -c files/screens > screens/screens.tar || true)
             sh tools/phone/picker_check.sh 5-after-tests || true
+            sh tools/phone/picker_check.sh 6-set-off ls -la /storage/emulated || true
+            sh tools/phone/picker_check.sh 7-after-restarting-storage-service am force-stop com.android.externalstorage || true
+            sh tools/phone/picker_check.sh 8-set-off-again ls -la /storage/emulated || true
+            sh tools/phone/picker_check.sh 9-after-listing-0 ls -la /storage/emulated/0 || true
+            sh tools/phone/picker_check.sh 10-after-1-minute sleep 60 || true
+            sh tools/phone/picker_check.sh 11-after-3-minutes sleep 120 || true
             adb logcat -d > logcat.txt || true
             adb logcat -d -s AlbumDoneTest > test-log.txt || true
             adb logcat -d -b crash > crash.txt || true
