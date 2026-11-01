@@ -74,13 +74,16 @@ jobs:
             adb shell cmd uimode night yes || true
             adb shell cmd uimode night no || true
             adb shell am force-stop com.google.android.apps.nexuslauncher || true
-            sh tools/phone/picker_check.sh fresh || true
+            sh tools/phone/picker_check.sh 1-fresh || true
+            sh tools/phone/picker_check.sh 2-after-listing-storage ls -la /storage /storage/emulated || true
+            sh tools/phone/picker_check.sh 3-after-volumes sm list-volumes all || true
+            sh tools/phone/picker_check.sh 4-again || true
             nohup sh -c 'i=1; while [ ! -f stop-rec ] && [ $i -le 20 ]; do adb shell screenrecord --time-limit 180 --size 540x1200 --bit-rate 1500000 /sdcard/rec_$(printf %02d $i).mp4; i=$((i+1)); done' > rec.log 2>&1 &
             gradle --no-daemon connectedDebugAndroidTest -Pandroid.injected.androidTest.leaveApksInstalledAfterRun=true || touch tests-failed
             touch stop-rec; adb shell pkill -INT screenrecord || true; sleep 5
             mkdir -p video && for f in $(adb shell ls /sdcard/ | tr -d '\r' | grep '^rec_'); do adb pull "/sdcard/$f" video/ || true; done
             mkdir -p screens && (adb exec-out run-as com.albumdone.app tar -c files/screens > screens/screens.tar || true)
-            sh tools/phone/picker_check.sh after-tests || true
+            sh tools/phone/picker_check.sh 5-after-tests || true
             adb logcat -d > logcat.txt || true
             adb logcat -d -s AlbumDoneTest > test-log.txt || true
             adb logcat -d -b crash > crash.txt || true
