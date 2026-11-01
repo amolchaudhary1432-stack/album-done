@@ -202,8 +202,10 @@ jobs:
               # into Pictures by the test. Test Lab gave up pushing 2,500 separate files.
               (cd full-photos && zip -q -0 -r ../photos.zip .)
               ls -la photos.zip
-              printf 'push:\n  other-files:\n    /sdcard/Download/albumdone-photos.zip: photos.zip\n' > push-args.yaml
-              echo "zip=/sdcard/Download/albumdone-photos.zip" >> "$GITHUB_OUTPUT"
+              # Outside the phone's shared storage: the less the lab works on /sdcard from the shell,
+              # the less it trips the folder picker fault (see JourneyDeviceTest.labPickerFault).
+              printf 'push:\n  other-files:\n    /data/local/tmp/albumdone-photos.zip: photos.zip\n' > push-args.yaml
+              echo "zip=/data/local/tmp/albumdone-photos.zip" >> "$GITHUB_OUTPUT"
             else
             # The files to push, for gcloud (an args file: there are hundreds).
             python3 - "${{ steps.s.outputs.journey_folder }}" <<'PY'

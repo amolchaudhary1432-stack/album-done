@@ -1,7 +1,8 @@
 #!/bin/sh
-# Android's folder picker and storage service on the emulator: some phones' pickers show "No items"
-# (the storage service hides everything when it cannot see /storage/emulated). Opens the picker at
-# the top of storage, optionally right after a shell command, to find what brings the fault on.
+# Android's folder picker and storage service on the emulator. Found 1 Nov 2026: listing /storage or
+# /storage/emulated from the shell (ls -la) makes the storage service unable to see /storage/emulated
+# for some minutes, and it then hides every folder ("No items"); untouched, the picker lists them.
+# Opens the picker at the top of storage, optionally right after a shell command.
 #   sh tools/phone/picker_check.sh NAME [SHELL COMMAND]   writes diag/NAME.txt and diag/NAME-picker.png
 name="$1"
 shift

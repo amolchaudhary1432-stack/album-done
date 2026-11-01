@@ -203,15 +203,15 @@ the A15. How far it goes (24 Oct 2026, A15, start to finish through the picker):
 five Indian weddings in 25 min 48 s, steady at about 100 a minute from start to end, the app's memory
 flat at 550-600 MB the whole time; people grouped in 4 s and the album made in 21 s. So 5,000 would be
 about 52 min with no slowdown. The album limit is still 1,000 (owner to decide whether to raise it).
-Test Lab picker fault (24 Oct 2026): on lab phones with a 2025 security update (Pixel 8a, Galaxy
-A05s, realme C53, moto g14) the folder picker shows "No items". Android's storage service
-(ExternalStorageProvider.isRestrictedPath) walks up from each folder to /storage/emulated, which it
-cannot see on those lab phones, and then hides everything ("Queried directory primary: is hidden").
-Inside Android, before the app: the app cannot fix or cause it. Same code works on our Android 16
-emulator and on updated phones in use; the Galaxy A15 (older update) lists folders. The journey
-test then gives the same photos to the app directly, still measures speed and memory, skips "save
-to a folder", and writes journey-lab-storage.txt (what the phone's storage looks like; every run
-also writes journey-storage.txt, to compare). On both lab phones /storage belongs to "shell".
+Folder picker fault (found 1 Nov 2026, `tools/phone/picker_check.sh`): since a 2025 security fix,
+Android's storage service (ExternalStorageProvider.isRestrictedPath) checks each folder's path up to
+/storage/emulated, and listing /storage or /storage/emulated from the shell (`ls -la`) leaves it unable
+to see that folder for some minutes, so it hides every folder and the picker shows "No items". On a
+fresh emulator: untouched it lists folders; right after the `ls` it does not. Brides never use the
+shell; test machines do (Test Lab works on /sdcard from the shell before each test, and our own test
+did on 25 Oct). The journey test must never list those folders; it waits up to 4 minutes, then gives
+the photos to the app directly (still measuring speed and memory). Lab ZIPs go to /data/local/tmp.
+The Galaxy A15 (update before the fix) never had it.
 More phones (25 Oct 2026, ~2,000 real wedding photos each, picker skipped): Galaxy A05s (Android 15)
 2,000 in 12 min 32 s (0.38 s each); moto g14 (Android 14) 1,978 in 24 min 47 s (0.75 s each, slow for
 its first 4 minutes, then ~90 a minute). Memory flat at 500-620 MB on every phone.

@@ -125,10 +125,14 @@ class JourneyDeviceTest {
     private val placed = mutableListOf<Triple<String, String, String>>()
 
     /**
-     * Some Test Lab phones (those with a 2025 security update) hide every folder at the top of their
-     * storage: the storage service fails a check on /storage/emulated, so the folder picker shows
-     * "No items". Then the same photos are given to the app directly, as the real-photo test does,
-     * and checking is measured the same way.
+     * The folder picker fault: since a 2025 security fix, Android's storage service checks every
+     * folder's path up to /storage/emulated, and listing /storage or /storage/emulated from the shell
+     * leaves it unable to see that folder for some minutes, so it hides everything ("No items").
+     * Found on the emulator on 1 Nov 2026 (tools/phone/picker_check.sh): untouched it lists folders,
+     * right after `ls -la /storage/emulated` it does not. Test Lab works on the phone's storage from
+     * the shell before each test. A bride never does; this test must not either. If the picker still
+     * shows no folders after waiting, the same photos are given to the app directly, as the
+     * real-photo test does, and checking is measured the same way.
      */
     private var labPickerFault = false
 
@@ -146,16 +150,10 @@ class JourneyDeviceTest {
         for (c in listOf(
             "getprop ro.build.version.security_patch", "getprop ro.build.fingerprint", "id",
             "am get-current-user", "pm list users",
+            // Only stat, never list: listing /storage or /storage/emulated brings the fault on.
             "ls -ld /storage /storage/emulated /storage/emulated/0 /storage/emulated/0/Android/data /sdcard",
-            "ls -la /storage", "ls -la /storage/emulated", "sm list-volumes all",
+            "sm list-volumes all",
         )) append("$ ").append(c).append('\n').append(shell(c)).append('\n')
-        val pid = shell("pidof com.android.externalstorage").trim()
-        append("$ pidof com.android.externalstorage\n").append(pid).append('\n')
-        if (pid.isNotEmpty()) {
-            for (c in listOf("grep storage /proc/$pid/mountinfo", "ls -la /proc/$pid/root/storage")) {
-                append("$ ").append(c).append('\n').append(shell(c)).append('\n')
-            }
-        }
     }
 
     private fun putPhoto(folder: String, name: String, input: java.io.InputStream) {
@@ -248,9 +246,10 @@ class JourneyDeviceTest {
             // The phone itself, by the names pickers use for it.
             tapText("^${Pattern.quote(Build.MODEL)}$", "^Internal storage$", "^Galaxy .*", "^Pixel .*", "^This device$", "^Phone$", "^AOSP.*", "^sdk_gphone.*")
         }
-        // A Pixel opens at the phone's storage with no menu button, and its folder list can take a
-        // while to fill (here just after thousands of photos were added): wait, scroll, pull to reload.
-        val end = System.currentTimeMillis() + 90_000
+        // A Pixel opens at the phone's storage with no menu button. Its folder list can be empty for
+        // some minutes if the lab listed the storage from the shell (see labPickerFault): wait,
+        // scroll, pull to reload.
+        val end = System.currentTimeMillis() + 4 * 60_000
         while (System.currentTimeMillis() < end) {
             runCatching { UiScrollable(UiSelector().scrollable(true)).scrollTextIntoView("Pictures") }
             if (find("^Pictures$", timeout = 10_000) != null) return true
@@ -277,8 +276,6 @@ class JourneyDeviceTest {
         }
         Log.i("AlbumDoneTest", "Journey: $count photos in Pictures/$folderName")
         Log.i("AlbumDoneTest", "Journey: Android ${Build.VERSION.RELEASE}, security update ${Build.VERSION.SECURITY_PATCH}")
-        // Every phone's storage setup, so a phone whose picker works can be compared with one whose doesn't.
-        DeviceTestSupport.screensDir.apply { mkdirs() }.resolve("journey-storage.txt").writeText(storageNotes())
 
         step("01-home") {
             compose.waitUntil(30_000) { has("Choose photos folder") || has("New album") }
