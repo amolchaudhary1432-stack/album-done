@@ -341,9 +341,15 @@ class JourneyDeviceTest {
             }
             compose.onNodeWithText("Start checking photos").performClick()
             checkingStarted = System.currentTimeMillis()
-            // Notifications were usually allowed when the app was installed; if Android asks, say yes.
-            if (find("^Allow$", timeout = 3_000) != null) tapText("^Allow$")
-            compose.waitUntil(30_000) { has("Making your album") }
+            // Android asks whether the app may show notifications (Android 13+), unless allowed
+            // already: say yes. A tap while the dialog is still sliding in is ignored by Android, so
+            // keep tapping Allow until the app's progress screen is back.
+            val end = System.currentTimeMillis() + 30_000
+            while (!onScreen("Making your album")) {
+                assertTrue("checking did not start", System.currentTimeMillis() < end)
+                device.findObject(text("^Allow$"))?.click()
+                Thread.sleep(1_000)
+            }
             compose.mainClock.advanceTimeBy(20_000)
             appShot("06-progress")
         }
