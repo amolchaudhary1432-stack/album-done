@@ -7,11 +7,14 @@ import kotlin.math.roundToInt
 object AlbumSize {
 
     /**
-     * One folder, up to 1,000 photos: about one big function, or the photographer's best of a
-     * wedding. Not a constant only so the phone test can raise it to measure bigger folders.
+     * One folder, up to 2,500 photos: a whole wedding day from most photographers. Measured on
+     * real budget phones (Galaxy A15: 2,500 real wedding photos in 26 minutes, steady speed and
+     * memory from first photo to last; Galaxy A05s and moto g14: 2,000 in 13 and 25 minutes).
+     * Raised from 1,000 on 2 Nov 2026 (owner's decision). Not a constant only so the phone test can
+     * raise it to measure bigger folders.
      */
     @Volatile
-    var MAX_PHOTOS = 1000
+    var MAX_PHOTOS = 2500
 
     /** About 15 of every 100 photos make a good first album; the couple can change it. */
     const val SHARE = 0.15

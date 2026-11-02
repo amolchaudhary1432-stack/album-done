@@ -9,8 +9,9 @@ that must stay true.
 
 - **Buyer:** the couple, usually the bride. She has the photographer's photos (pendrive copied to
   phone, or a Drive folder saved offline) and family pressure to finish the album selection.
-- **One folder, up to 1,000 photos** per album (`plan/AlbumSize.kt`). Bigger folders are refused
-  with a friendly message (pick one function's folder, or the photographer's selection).
+- **One folder, up to 2,500 photos** per album (`plan/AlbumSize.kt`; raised from 1,000 on 2 Nov 2026,
+  owner's decision, after 2,000-2,500 real photos ran smoothly on three budget phones). Bigger folders
+  are refused with a friendly message (pick one function's folder, or the photographer's selection).
 - **The job is picking good photos like a person would.** No ritual sorting or ritual labels in
   the app (owner's decision); the photographer's sub-folders are only used as given.
 - Indian weddings are huge: the app must handle 40+ relatives smoothly, not 6.
@@ -202,7 +203,7 @@ models now start one lane at a time from memory. Camera-size photos (6000 px, ~8
 the A15. How far it goes (24 Oct 2026, A15, start to finish through the picker): 2,500 real photos from
 five Indian weddings in 25 min 48 s, steady at about 100 a minute from start to end, the app's memory
 flat at 550-600 MB the whole time; people grouped in 4 s and the album made in 21 s. So 5,000 would be
-about 52 min with no slowdown. The album limit is still 1,000 (owner to decide whether to raise it).
+about 52 min with no slowdown. The album limit is now 2,500 (2 Nov 2026).
 Folder picker fault (found 1 Nov 2026, `tools/phone/picker_check.sh`): since a 2025 security fix,
 Android's storage service (ExternalStorageProvider.isRestrictedPath) checks each folder's path up to
 /storage/emulated, and listing /storage or /storage/emulated from the shell (`ls -la`) leaves it unable

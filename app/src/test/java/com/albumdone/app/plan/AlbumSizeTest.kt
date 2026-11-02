@@ -13,8 +13,15 @@ class AlbumSizeTest {
     }
 
     @Test
+    fun aWholeWeddingDayOfTwoAndAHalfThousand() {
+        assertEquals(2500, AlbumSize.MAX_PHOTOS)
+        assertEquals(380, AlbumSize.suggested(2500))
+        assertEquals(listOf(200, 250, 380, 500), AlbumSize.choices(2500))
+    }
+
+    @Test
     fun choicesAlwaysIncludeTheSuggestionAndFitTheFolder() {
-        for (n in listOf(5, 12, 40, 206, 333, 600, 999, 1000)) {
+        for (n in listOf(5, 12, 40, 206, 333, 600, 999, 1000, 1700, 2499, 2500)) {
             val s = AlbumSize.suggested(n)
             val c = AlbumSize.choices(n)
             assertTrue("$n: $c has $s", s in c)
