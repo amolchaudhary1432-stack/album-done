@@ -21,6 +21,8 @@ import java.util.Base64
  */
 fun main(args: Array<String>) {
     if (args[0] == "score") return score(args.drop(1))
+    if (args[0] == "learn-data") return learnData(args.drop(1))
+    if (args[0] == "harvest-score") return harvestScore(args.drop(1))
     if (args[0] == "couple" && File(args[1]).isDirectory) {
         // Every plan dump in a folder: the couple stored in it (as found when it was made) and now.
         for (f in File(args[1]).listFiles { x -> x.name.endsWith(".plan.txt") }.orEmpty().sortedBy { it.name }) {
