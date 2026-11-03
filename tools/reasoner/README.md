@@ -20,3 +20,12 @@ a lot, because weddings are shot in bursts: 35% of the couple's moments at 233 p
 random to perfect that a list closes. Claude's blind 766: (93.6-78.6)/(100-78.6) = 70%; the app at
 766: 48%; the app at 400: 30%; the app at the album's own size (233): 5%. "Same scene by look-alike"
 is useless here (random 400 scores 74-78%, the app 79%).
+
+## Album Mind v0 (`mind.py`, JAX on the CPU)
+
+Our own small transformer: every photo of a day is a token (SigLIP 2's 64 main directions, the face
+and people measurements, its place in the day); two attention layers let each photo weigh itself
+against all the others; out comes how much the album needs it (picks ranked above the rest). First
+runs (3 Nov): learned on 41 practice sets, it learns them by heart (95%) but on the 22 held-back sets
+scores 35-40% same photo, 65-70% same moment, about the old brain (33%, 81%) and no better than the
+simple learned score (41-45%, 70-80%). The network works; it needs many more taught examples.
