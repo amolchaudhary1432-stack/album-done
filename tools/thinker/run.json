@@ -1,1 +1,14 @@
-{"name": "wedding-1", "every": 55, "models": "qwen3vl2b,smolvlm2b,smolvlm500m", "tokens": 220}
+{
+  "name": "wedding-1",
+  "round": 2,
+  "groups": {
+    "phone": {"every": 55, "tokens": 260, "models": [
+      "ggml-org/gemma-4-E2B-it-GGUF|gemma-4-E2B-it-Q8_0.gguf|mmproj-gemma-4-E2B-it-Q8_0.gguf",
+      "google/gemma-4-E4B-it-qat-q4_0-gguf|gemma-4-E4B_q4_0-it.gguf|gemma-4-E4B-it-mmproj.gguf",
+      "Qwen/Qwen3-VL-4B-Instruct-GGUF|Qwen3VL-4B-Instruct-Q8_0.gguf|mmproj-Qwen3VL-4B-Instruct-Q8_0.gguf",
+      "bartowski/OpenGVLab_InternVL3_5-2B-GGUF|OpenGVLab_InternVL3_5-2B-Q8_0.gguf|mmproj-OpenGVLab_InternVL3_5-2B-f16.gguf"]},
+    "teacher": {"every": 110, "tokens": 400, "models": [
+      "Qwen/Qwen3-VL-8B-Instruct-GGUF|Qwen3VL-8B-Instruct-Q4_K_M.gguf|mmproj-Qwen3VL-8B-Instruct-Q8_0.gguf",
+      "openbmb/MiniCPM-V-4_5-gguf|MiniCPM-V-4_5-Q4_K_M.gguf|mmproj-model-f16.gguf"]}
+  }
+}
