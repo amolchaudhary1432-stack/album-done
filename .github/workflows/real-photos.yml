@@ -179,7 +179,8 @@ jobs:
           ls -la *.locked
           mkdir out && cd out
           git init -q -b real-data
-          if git fetch -q --depth 1 "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" real-data; then git checkout -q FETCH_HEAD -- . ; fi
+          # On top of what is kept already (a second step adds to the first's files).
+          if git fetch -q --depth 1 "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" real-data; then git reset -q --hard FETCH_HEAD; fi
           rm -f "$name-$step".*.locked
           mv ../"$name-$step".*.locked .
           printf '# Real couples (locked)\n\nA real wedding shared with permission, locked with Claude'"'"'s public key. Only Claude can open it.\n' > README.md
