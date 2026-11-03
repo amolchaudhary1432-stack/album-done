@@ -27,7 +27,12 @@ import kotlin.math.abs
  * The report names photos (locked before it is kept); the console prints numbers only.
  */
 fun score(args: List<String>) {
-    val (photos, tags) = PlanDump.read(File(args[0]).readText())
+    val (photos, stored) = PlanDump.read(File(args[0]).readText())
+    // The couple and family found again now, as the phone does after grouping people (the dump keeps
+    // whatever was found when it was made).
+    val main = com.albumdone.app.people.PeoplePlan.findMain(stored.occasion, photos)
+    val tags = com.albumdone.app.people.PeoplePlan.tags(stored.occasion, photos, main.first, main.second)
+    println("couple: stored ${stored.brideId} ${stored.groomId}, now ${main.first} ${main.second}")
     val key = photos.associateBy { if (it.folder.isEmpty()) it.name else "${it.folder}/${it.name}" }
     fun read(f: String) = File(f).readLines().map { it.trim() }.filter { it.isNotEmpty() }.mapNotNull { key[it]?.id }.distinct()
     val couple = read(args[1])
