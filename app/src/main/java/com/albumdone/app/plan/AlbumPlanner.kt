@@ -446,8 +446,19 @@ object AlbumPlanner {
      * The bride's or groom's own function at home (haldi, mehendi, adhibaas...): their families are
      * there, the other half of the couple usually is not.
      */
+    /**
+     * Words that mean the wedding day itself. A photographer's folder often holds the morning haldi
+     * and the wedding together ("Haldi Wedd Photos"): such a folder is the wedding, where the groom
+     * is, not the bride's own function (wedding-1, 3 Nov 2026: the couple was missed because of it).
+     */
+    private val WEDDING_DAY = listOf("wedd", "shaadi", "shadi", "vivah", "phera", "phere", "lagna", "marriage",
+        "biye", "bibaho", "kalyanam", "nikah", "anand karaj", "saptapadi", "kanyadaan", "kanyadan", "varmala", "jaimala")
+
+    fun weddingDay(name: String): Boolean = name.lowercase().let { n -> WEDDING_DAY.any { n.contains(it) } }
+
     fun ownFunction(name: String): Boolean {
         val n = name.lowercase()
+        if (weddingDay(n)) return false
         return listOf("haldi", "halad", "holud", "mehendi", "mehndi", "mehandi", "adhibas", "adhibaas", "adhivas",
             "aiburobhat", "pellikuthuru", "pellikoduku", "nalangu", "maiyan", "pithi", "chooda", "chuda", "tilak",
             "getting ready", "makeup").any { n.contains(it) }
@@ -461,6 +472,7 @@ object AlbumPlanner {
             has("vidaai", "vidai", "bidaai", "bidai", "bidaayi", "doli", "kanakanjali", "pathavani") -> EventKind.VIDAAI
             has("sangeet", "reception", "cocktail", "party", "dj ", "dance", "garba", "dandiya", "bou bhaat",
                 "boubhat", "bauvat", "engagement", "ring ceremony", "sagai", "roka", "sakharpuda") -> EventKind.PARTY
+            weddingDay(n) -> EventKind.RITUAL
             has("haldi", "halad", "holud", "mehendi", "mehndi", "mehandi", "tilak", "chooda", "chuda", "getting ready",
                 "makeup", "aiburobhat", "pellikuthuru", "pellikoduku", "nalangu", "maiyan", "pithi") -> EventKind.PREP
             has("wedding", "shaadi", "shadi", "vivah", "phera", "phere", "mandap", "ceremony", "puja", "pooja",

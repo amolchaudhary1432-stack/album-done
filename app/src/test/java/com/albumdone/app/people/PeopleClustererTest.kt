@@ -126,6 +126,22 @@ class PeopleClustererTest {
     }
 
     @Test
+    fun photosOfJustTheTwoOfThemFindTheGroomWhereverTheyAreFiled() {
+        // wedding-1 (a real couple, 3 Nov 2026): the couple's own shoot was filed with the haldi, so
+        // it counted as the bride's own function, while relatives were beside her at the engagement.
+        val engagement = (1L..100L).toSet()
+        val haldiFolder = (101L..500L).toSet()
+        val photosOf = mapOf(
+            1L to engagement + haldiFolder,                    // bride
+            2L to (1L..5L).toSet() + (101L..300L),             // groom: a few at the engagement, the rest in the haldi folder
+            5L to (1L..50L).toSet() + (401L..450L),            // relatives beside the bride
+        )
+        val weight = { id: Long -> if (id in engagement) PeopleClusterer.WEDDING_WEIGHT else PeopleClusterer.OWN_FUNCTION_WEIGHT }
+        val twoShots = (201L..260L).toSet() + (1L..10L)        // 60 of the couple alone, 10 of the bride with a relative
+        assertEquals(1L to 2L, PeopleClusterer.detectCouple(photosOf, (101L..500L).toSet(), weight, twoShots))
+    }
+
+    @Test
     fun twoFacesInOnePhotoAreAlwaysTwoPeople() {
         // Women in matching saris at haldi, faces small: fingerprints come out alike. Whatever the
         // similarity, faces from the same photo must never become one person.

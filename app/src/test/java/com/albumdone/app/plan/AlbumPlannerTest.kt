@@ -909,6 +909,13 @@ class AlbumPlannerTest {
         assertTrue(AlbumPlanner.ownFunction("Haldi"))
         assertFalse(AlbumPlanner.ownFunction("Wedding"))
         assertFalse(AlbumPlanner.ownFunction("Reception"))
+        // One folder for the morning haldi and the wedding (wedding-1, a real photographer's naming):
+        // the wedding, where the groom is, not the bride's own function.
+        assertFalse(AlbumPlanner.ownFunction("Haldi Wedd Photos"))
+        assertEquals(EventKind.RITUAL, AlbumPlanner.eventKind("Haldi Wedd Photos"))
+        assertEquals(EventKind.RITUAL, AlbumPlanner.eventKind("Haldi & Wedding"))
+        assertEquals(EventKind.PREP, AlbumPlanner.eventKind("Haldi Warna"))
+        assertTrue(AlbumPlanner.ownFunction("Mehendi"))
     }
 
     @Test

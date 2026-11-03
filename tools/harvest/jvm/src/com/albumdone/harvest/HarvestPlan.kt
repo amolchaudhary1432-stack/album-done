@@ -17,9 +17,34 @@ import java.util.Base64
  *     gradle run --args="raw-dump.txt plan-input.txt [OCCASION]"
  *     gradle run --args="FOLDER"     every *.raw.txt in FOLDER -> *.plan.txt
  *     gradle run --args="score ..."  albums against a couple's real album (AlbumScore.kt)
+ *     gradle run --args="couple PLAN" who the app finds as the couple in a plan dump, found again
  */
 fun main(args: Array<String>) {
     if (args[0] == "score") return score(args.drop(1))
+    if (args[0] == "couple" && File(args[1]).isDirectory) {
+        // Every plan dump in a folder: the couple stored in it (as found when it was made) and now.
+        for (f in File(args[1]).listFiles { x -> x.name.endsWith(".plan.txt") }.orEmpty().sortedBy { it.name }) {
+            val (photos, tags) = com.albumdone.app.plan.PlanDump.read(f.readText())
+            val main = com.albumdone.app.people.PeoplePlan.findMain(tags.occasion, photos)
+            val same = tags.brideId == main.first && tags.groomId == main.second
+            println("${if (same) "same   " else "CHANGED"} ${f.name}: was ${tags.brideId} ${tags.groomId}, now ${main.first} ${main.second} sure=${main.sure}")
+        }
+        return
+    }
+    if (args[0] == "couple") {
+        val (photos, tags) = com.albumdone.app.plan.PlanDump.read(File(args[1]).readText())
+        val main = com.albumdone.app.people.PeoplePlan.findMain(tags.occasion, photos)
+        println("dump: ${tags.brideId} ${tags.groomId} | now: ${main.first} ${main.second} sure=${main.sure}")
+        // With a size and an output file: the album made with the couple found now, cover first.
+        val size = args.getOrNull(2)?.toIntOrNull() ?: return
+        val now = com.albumdone.app.people.PeoplePlan.tags(tags.occasion, photos, main.first, main.second)
+        val a = com.albumdone.app.plan.AlbumPlanner.analyze(photos, now)
+        val list = com.albumdone.app.plan.AlbumPlanner.shortlist(a, size)
+        fun label(id: Long) = a.byId.getValue(id).photo.let { if (it.folder.isEmpty()) it.name else "${it.folder}/${it.name}" }
+        File(args[3]).writeText((listOfNotNull(list.coverId) + list.ids.filter { it != list.coverId }).joinToString("") { label(it) + "\n" })
+        println("cover: ${list.coverId?.let { label(it) }}, ${list.ids.size} photos")
+        return
+    }
     val first = File(args[0])
     if (first.isDirectory) {
         for (raw in first.listFiles { f -> f.name.endsWith(".raw.txt") }.orEmpty().sortedBy { it.name }) {

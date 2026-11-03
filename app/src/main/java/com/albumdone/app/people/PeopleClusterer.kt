@@ -148,7 +148,7 @@ object PeopleClusterer {
      * rituals and the reception. Photos count by where they were taken ([weightOf]): at the
      * bride's own functions (haldi, adhibaas, mehendi) her mother or aunt is beside her all day
      * while the groom is not even there, so those count least. A photo of just the two of them
-     * ([twoShots]) counts extra.
+     * ([twoShots]) counts extra, and as much as a wedding photo wherever it was taken.
      *
      * @param photosOf person -> photos they are clearly visible in
      * @param brideHints photos from the bride's own functions, to tell the bride from the groom
@@ -170,7 +170,9 @@ object PeopleClusterer {
             val a = top[i]; val b = top[j]
             val shared = a.value.filter { it in b.value }
             if (shared.size < 2) continue
-            val together = shared.sumOf { weightOf(it) * (if (it in twoShots) 1.5 else 1.0) }
+            // A photo of just the two of them is the surest sign wherever it was taken (the couple's
+            // own shoot is often filed with the haldi): it counts as much as one at the wedding.
+            val together = shared.sumOf { if (it in twoShots) 1.5 * max(weightOf(it), WEDDING_WEIGHT) else weightOf(it) }
             var score = 2.0 * together + min(weighted(a.value), weighted(b.value))
             // Never at the wedding or reception together: not the couple (a mother and daughter at haldi).
             if (weddingPhotos && shared.none { weightOf(it) >= WEDDING_WEIGHT }) score *= 0.3
