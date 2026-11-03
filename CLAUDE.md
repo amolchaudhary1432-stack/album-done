@@ -178,8 +178,10 @@ Design mock-up: https://claude.ai/artifact/KzbjcqjdAW5KkNJ47pFf6f
   the phone is used only once they are all there. Other phones' results go to
   `real-phone-results-<model>`.
 - Real couple's wedding (`.github/workflows/real-photos.yml`, `tools/realphotos/`): the
-  photographer's raw Drive folder and the printed album PDF, links in the REAL_LINKS secret (one per
-  line, never written anywhere else; Drive API via the FIREBASE_KEY service account, gdown fallback).
+  photographer's raw Drive folder link in the REAL_LINKS secret (never written anywhere else; Drive
+  API via the FIREBASE_KEY service account, gdown fallback). The owner gives Claude the album PDF
+  directly, only after Claude's blind picks; the raw step keeps 800 px copies so Claude matches the
+  PDF's photos on Claude's machine (or the PDF link can be REAL_LINKS' second line).
   Step "raw": photos fetched (2560 px), measured like the app, contact sheets for Claude's blind picks;
   step "album" (only after Claude's picks are committed in `tools/realphotos/picks/`): the PDF's photos
   found among the raw ones (`match_album.py`, SIFT + geometric check, 12/12 on a faked album page)

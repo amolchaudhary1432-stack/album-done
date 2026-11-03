@@ -2,8 +2,9 @@ name: Real couple's photos
 
 # A real wedding shared by its photographer, with the couple's and photographer's permission: the
 # raw photos (a Google Drive folder, sub-folders = events) and the printed album (a PDF). The
-# REAL_LINKS secret holds the two links, one per line (raw folder, then album PDF), never written
-# anywhere else. Everything kept is locked with Claude's public key (tools/realphotos/lock.sh): only
+# REAL_LINKS secret holds the raw folder's link (and optionally the album PDF's on a second line),
+# never written anywhere else. The owner can instead give Claude the PDF directly, after Claude's
+# blind picks: the raw step keeps small copies of every photo for matching on Claude's machine. Everything kept is locked with Claude's public key (tools/realphotos/lock.sh): only
 # Claude can open it, and no secret is needed for that. The log shows counts only (the repo can be
 # public for a while). Started by changing tools/realphotos/run.json:
 #   step "raw":   every photo checked the way the app does, people grouped, the app's album, and
@@ -122,8 +123,30 @@ jobs:
         if: steps.s.outputs.step == 'raw'
         run: |
           mkdir -p keep
-          python3 tools/realphotos/sheets.py "$(cat work/out/raw-dir.txt)" keep/raw
+          raw="$(cat work/out/raw-dir.txt)"
+          python3 tools/realphotos/sheets.py "$raw" keep/raw
           cp work/out/real.plan.txt work/out/inventory.txt keep/raw/
+          # Small copies (800 px) of every raw photo, for finding the printed album's photos among
+          # them on Claude's machine when the owner shares the album PDF there.
+          python3 - "$raw" keep/raw/small <<'PY'
+          import os, sys
+          from PIL import Image, ImageOps
+          raw, out = sys.argv[1], sys.argv[2]
+          n = 0
+          for root, _, files in os.walk(raw):
+              for f in files:
+                  if not f.lower().endswith((".jpg", ".jpeg", ".png", ".webp")):
+                      continue
+                  rel = os.path.relpath(os.path.join(root, f), raw)
+                  dst = os.path.join(out, os.path.splitext(rel)[0] + ".jpg")
+                  os.makedirs(os.path.dirname(dst), exist_ok=True)
+                  with Image.open(os.path.join(root, f)) as im:
+                      im = ImageOps.exif_transpose(im).convert("RGB")
+                      im.thumbnail((800, 800))
+                      im.save(dst, quality=80)
+                  n += 1
+          print(n, "small copies")
+          PY
 
       - name: The couple's album, found among the raw photos, and the scores
         if: steps.s.outputs.step == 'album'
@@ -148,21 +171,24 @@ jobs:
       - name: Lock and keep on the real-data branch
         run: |
           name="${{ steps.s.outputs.name }}"; step="${{ steps.s.outputs.step }}"
+          # In parts under GitHub's 100 MB file limit, each locked on its own.
           tar -cf bundle.tar -C keep .
-          sh tools/realphotos/lock.sh bundle.tar "$name-$step.locked"
+          split -b 90m -d -a 2 bundle.tar part-
           rm -rf keep bundle.tar
-          ls -la "$name-$step.locked"
+          for p in part-*; do sh tools/realphotos/lock.sh "$p" "$name-$step.$p.locked"; rm "$p"; done
+          ls -la *.locked
           mkdir out && cd out
           git init -q -b real-data
           if git fetch -q --depth 1 "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" real-data; then git checkout -q FETCH_HEAD -- . ; fi
-          mv "../$name-$step.locked" .
+          rm -f "$name-$step".*.locked
+          mv ../"$name-$step".*.locked .
           printf '# Real couples (locked)\n\nA real wedding shared with permission, locked with Claude'"'"'s public key. Only Claude can open it.\n' > README.md
           git config user.name "real-photos"
           git config user.email "real-photos@users.noreply.github.com"
           git add -A
           git commit -q -m "Real photos: $name, step $step"
           git push -q "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" HEAD:real-data
-          echo "kept $name-$step (locked)"
+          echo "kept $name-$step (locked, $(ls "$name-$step".*.locked | wc -l) parts)"
 
       - name: Remove the photos from the build machine
         if: always()
