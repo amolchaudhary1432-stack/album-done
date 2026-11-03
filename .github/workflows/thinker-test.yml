@@ -37,7 +37,7 @@ jobs:
           import json, sys
           r = json.load(open('tools/thinker/run.json')); g = r['groups'][sys.argv[1]]
           print(f"name={r.get('name', 'wedding-1')}"); print(f"every={g['every']}"); print(f"tokens={g['tokens']}"); print(f"minutes={g.get('minutes', 25)}")
-          print("models=" + ' '.join(g['models']))
+          open('models.txt', 'w').write(''.join(m + '\n' for m in g['models']))
           PY
 
       - name: The couple's photos from the real-photos run
@@ -81,11 +81,14 @@ jobs:
         run: |
           mkdir -p keep
           cp sample/list.tsv keep/
-          for spec in ${{ steps.s.outputs.models }}; do
-            IFS='|' read -r repo M P <<< "$spec"
+          # The model list is read on its own channel (3), so nothing inside the loop can swallow it.
+          while IFS='|' read -r repo M P <&3; do
+            [ -n "$M" ] || continue
             m=$(basename "$M" .gguf)
             # One model on disk at a time.
-            mkdir -p models && for f in "$M" "$P"; do curl -sSfL -o "models/$f" "https://huggingface.co/$repo/resolve/main/$f"; done
+            mkdir -p models; ok=1
+            for f in "$M" "$P"; do curl -sSfL -o "models/$f" "https://huggingface.co/$repo/resolve/main/$f" || ok=0; done
+            [ $ok = 1 ] || { echo "$m: download failed" | tee -a keep/timing.txt; rm -rf models; continue; }
             echo "$m: $(du -sh models | cut -f1) downloaded"
             mkdir -p "keep/$m"; start=$(date +%s)
             for f in sample/*.jpg; do
@@ -100,7 +103,7 @@ jobs:
             n=$(ls "keep/$m"/*.txt 2>/dev/null | grep -vc seconds); s=$(( $(date +%s) - start ))
             echo "$m: $n photos in $s s, $(echo "scale=1; $s / $n" | bc) s each" | tee -a keep/timing.txt
             rm -rf models
-          done
+          done 3< models.txt
 
       - name: Lock and keep on the real-data branch
         if: always() && steps.s.outputs.name != ''
