@@ -1,0 +1,121 @@
+name: Small thinking models on a real wedding
+
+# Which free small vision-language models (Apache 2.0: Qwen3-VL-2B, SmolVLM2 2.2B and 500M) understand
+# an Indian wedding photo the way a person does, and how long each takes on a plain CPU (the phone's
+# brain would run one on its short list). They look at a sample of the real couple's photos (from the
+# real-photos cache) and answer: what is happening, who, mood, flaws, keep or skip and why. Answers are
+# locked with Claude's public key (tools/realphotos/lock.sh) on the real-data branch; the log shows
+# timings and counts only. Started by changing tools/thinker/run.json.
+on:
+  push:
+    branches: ['claude/**']
+    paths: ['tools/thinker/run.json']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: thinker-test
+  cancel-in-progress: false
+
+jobs:
+  think:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Settings
+        id: s
+        run: |
+          get() { python3 -c "import json; print(json.load(open('tools/thinker/run.json')).get('$1', '$2'))"; }
+          echo "name=$(get name wedding-1)" >> "$GITHUB_OUTPUT"
+          echo "every=$(get every 55)" >> "$GITHUB_OUTPUT"
+          echo "models=$(get models qwen3vl2b)" >> "$GITHUB_OUTPUT"
+          echo "tokens=$(get tokens 220)" >> "$GITHUB_OUTPUT"
+
+      - name: The couple's photos from the real-photos run
+        id: cache
+        uses: actions/cache/restore@v4
+        with:
+          path: work
+          key: real-${{ steps.s.outputs.name }}-v1
+
+      - name: Stop if the photos are not there
+        run: test -s work/out/raw-dir.txt || { echo "no cached photos for ${{ steps.s.outputs.name }}"; exit 1; }
+
+      - name: Build the llama.cpp runner (CPU)
+        run: |
+          git clone -q --depth 1 https://github.com/ggml-org/llama.cpp llama.cpp
+          echo "llama.cpp at $(git -C llama.cpp rev-parse --short HEAD)"
+          cmake -S llama.cpp -B llama.cpp/build -DCMAKE_BUILD_TYPE=Release -DLLAMA_CURL=OFF > /dev/null
+          cmake --build llama.cpp/build -j4 --target llama-mtmd-cli > /dev/null
+          ls llama.cpp/build/bin/llama-mtmd-cli
+
+      - name: The models
+        run: |
+          mkdir -p models
+          get() { curl -sSfL -o "models/$2" "https://huggingface.co/$1/resolve/main/$2"; }
+          for m in $(echo "${{ steps.s.outputs.models }}" | tr ',' ' '); do
+            case $m in
+              qwen3vl2b) get ggml-org/Qwen3-VL-2B-Instruct-GGUF Qwen3-VL-2B-Instruct-Q8_0.gguf; get ggml-org/Qwen3-VL-2B-Instruct-GGUF mmproj-Qwen3-VL-2B-Instruct-Q8_0.gguf ;;
+              smolvlm2b) get ggml-org/SmolVLM2-2.2B-Instruct-GGUF SmolVLM2-2.2B-Instruct-Q8_0.gguf; get ggml-org/SmolVLM2-2.2B-Instruct-GGUF mmproj-SmolVLM2-2.2B-Instruct-Q8_0.gguf ;;
+              smolvlm500m) get ggml-org/SmolVLM2-500M-Video-Instruct-GGUF SmolVLM2-500M-Video-Instruct-Q8_0.gguf; get ggml-org/SmolVLM2-500M-Video-Instruct-GGUF mmproj-SmolVLM2-500M-Video-Instruct-Q8_0.gguf ;;
+            esac
+          done
+          ls -la models | tail -n +2 | awk '{print $5, $9}'
+
+      - name: A sample of the day, at the size the phone would use
+        run: |
+          python3 -m pip install -q pillow==12.3.0
+          python3 - "$(cat work/out/raw-dir.txt)" sample "${{ steps.s.outputs.every }}" <<'PY'
+          import os, sys
+          from PIL import Image, ImageOps
+          raw, out, every = sys.argv[1], sys.argv[2], int(sys.argv[3])
+          files = sorted(os.path.relpath(os.path.join(d, f), raw) for d, _, fs in os.walk(raw) for f in fs if f.lower().endswith(('.jpg', '.jpeg')))
+          os.makedirs(out, exist_ok=True)
+          with open(os.path.join(out, 'list.tsv'), 'w') as lst:
+              for k, rel in enumerate(files[::every]):
+                  im = ImageOps.exif_transpose(Image.open(os.path.join(raw, rel))).convert('RGB'); im.thumbnail((768, 768))
+                  im.save(os.path.join(out, f'{k:03d}.jpg'), quality=90); lst.write(f'{k:03d}.jpg\t{rel}\n')
+          print(len(files[::every]), 'photos in the sample')
+          PY
+
+      - name: Each model looks at each photo
+        run: |
+          mkdir -p keep
+          cp sample/list.tsv keep/
+          for m in $(echo "${{ steps.s.outputs.models }}" | tr ',' ' '); do
+            case $m in
+              qwen3vl2b) M=Qwen3-VL-2B-Instruct-Q8_0.gguf; P=mmproj-Qwen3-VL-2B-Instruct-Q8_0.gguf ;;
+              smolvlm2b) M=SmolVLM2-2.2B-Instruct-Q8_0.gguf; P=mmproj-SmolVLM2-2.2B-Instruct-Q8_0.gguf ;;
+              smolvlm500m) M=SmolVLM2-500M-Video-Instruct-Q8_0.gguf; P=mmproj-SmolVLM2-500M-Video-Instruct-Q8_0.gguf ;;
+            esac
+            mkdir -p "keep/$m"; start=$(date +%s)
+            for f in sample/*.jpg; do
+              t0=$(date +%s.%N)
+              timeout 600 llama.cpp/build/bin/llama-mtmd-cli -m "models/$M" --mmproj "models/$P" --image "$f" \
+                -p "$(cat tools/thinker/prompt.txt)" -n "${{ steps.s.outputs.tokens }}" --temp 0 -t 4 \
+                > "keep/$m/$(basename "$f" .jpg).txt" 2> /dev/null || echo "(no answer)" >> "keep/$m/$(basename "$f" .jpg).txt"
+              echo "$(basename "$f")	$(echo "$(date +%s.%N) - $t0" | bc)" >> "keep/$m/seconds.tsv"
+            done
+            n=$(ls sample/*.jpg | wc -l); s=$(( $(date +%s) - start ))
+            echo "$m: $n photos in $s s, $(echo "scale=1; $s / $n" | bc) s each" | tee -a keep/timing.txt
+          done
+
+      - name: Lock and keep on the real-data branch
+        run: |
+          name="${{ steps.s.outputs.name }}"; step="thinker"
+          tar -cf bundle.tar -C keep . && split -b 90m -d -a 2 bundle.tar part- && rm -rf keep bundle.tar
+          for p in part-*; do sh tools/realphotos/lock.sh "$p" "$name-$step.$p.locked"; rm "$p"; done
+          mkdir out && cd out && git init -q -b real-data
+          if git fetch -q --depth 1 "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" real-data; then git reset -q --hard FETCH_HEAD; fi
+          rm -f "$name-$step".*.locked && mv ../"$name-$step".*.locked .
+          git config user.name "thinker-test"; git config user.email "thinker-test@users.noreply.github.com"
+          git add -A && git commit -q -m "Thinker test: $name" && git push -q "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" HEAD:real-data
+          echo "kept $name-$step"
+
+      - name: Remove the photos from the build machine
+        if: always()
+        run: rm -rf work sample keep bundle.tar
