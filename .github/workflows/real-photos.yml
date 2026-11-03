@@ -1,13 +1,16 @@
 name: Real couple's photos
 
-# A real wedding from a photographer, shared with the couple's and photographer's permission: one
-# ZIP on Google Drive (raw folder with its event folders, plus the couple's choice as a folder or a
-# list). Its link is the REAL_PHOTOS_LINK secret, never written anywhere. The photos are measured
-# here with the app's own models and rules (tools/harvest/measure.py), people grouped, and only the
-# numbers are kept: the planner's input, the couple's choice (file names) and an inventory, locked
-# with the REAL_DATA_KEY secret and added to the real-data branch. The photos are deleted, and the
-# log shows counts only (the repo can be public).
-# Started by changing tools/realphotos/run.json (name, occasion) or by hand.
+# A real wedding shared by its photographer, with the couple's and photographer's permission: the
+# raw photos (a Google Drive folder, sub-folders = events) and the printed album (a PDF). The
+# REAL_LINKS secret holds the two links, one per line (raw folder, then album PDF), never written
+# anywhere else. Everything kept is locked with Claude's public key (tools/realphotos/lock.sh): only
+# Claude can open it, and no secret is needed for that. The log shows counts only (the repo can be
+# public for a while). Started by changing tools/realphotos/run.json:
+#   step "raw":   every photo checked the way the app does, people grouped, the app's album, and
+#                 numbered contact sheets for Claude's blind picks (real-data branch, locked).
+#   step "album": only after Claude's picks are in tools/realphotos/picks/NAME-claude.txt: the album
+#                 PDF's photos are found among the raw photos (match_album.py), and the app's and
+#                 Claude's albums are scored against the couple's (AlbumScore.kt).
 on:
   push:
     branches: ['claude/**']
@@ -22,27 +25,39 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  measure:
+  wedding:
     runs-on: ubuntu-latest
-    timeout-minutes: 240
+    timeout-minutes: 300
     steps:
-      - name: Check the secrets are there
-        env:
-          LINK: ${{ secrets.REAL_PHOTOS_LINK }}
-          KEY: ${{ secrets.REAL_DATA_KEY }}
-        run: |
-          test -n "$LINK" || { echo "Add the REAL_PHOTOS_LINK secret (the Google Drive link to the ZIP)"; exit 1; }
-          test -n "$KEY" || { echo "Add the REAL_DATA_KEY secret (the lock key)"; exit 1; }
-
       - uses: actions/checkout@v4
+
+      - name: Read the run settings and the links
+        id: s
+        env:
+          LINKS: ${{ secrets.REAL_LINKS }}
+        run: |
+          test -n "$LINKS" || { echo "Add the REAL_LINKS secret: the raw photos folder link, then the album PDF link, one per line"; exit 1; }
+          raw=$(printf '%s\n' "$LINKS" | sed -n 1p | tr -d '\r '); album=$(printf '%s\n' "$LINKS" | sed -n 2p | tr -d '\r ')
+          echo "::add-mask::$raw"; [ -n "$album" ] && echo "::add-mask::$album"
+          get() { python3 -c "import json; print(json.load(open('tools/realphotos/run.json')).get('$1', '$2'))"; }
+          echo "name=$(get name wedding-1)" >> "$GITHUB_OUTPUT"
+          echo "occasion=$(get occasion WEDDING)" >> "$GITHUB_OUTPUT"
+          echo "step=$(get step raw)" >> "$GITHUB_OUTPUT"
+          { echo "RAW_LINK=$raw"; echo "ALBUM_LINK=$album"; } >> "$GITHUB_ENV"
+          echo "step $(get step raw) for $(get name wedding-1)"
+
+      - name: Make room on the build machine
+        run: sudo rm -rf /usr/share/dotnet /opt/ghc /usr/local/.ghcup /opt/hostedtoolcache/CodeQL /usr/local/share/boost /usr/share/swift /usr/local/lib/android && df -h / | tail -1
 
       - uses: actions/setup-python@v5
         with:
           python-version: "3.13"
 
       # The same versions as the harvest (checked against the phone by check_parity.py).
-      - run: sudo apt-get install -y --no-install-recommends libegl1 libgles2
-      - run: pip install --quiet mediapipe==1.1.1 onnxruntime==1.29.0 numpy==2.5.3 pillow==12.3.0 gdown==5.2.0 openpyxl==3.1.5
+      - run: |
+          sudo apt-get install -y --no-install-recommends libegl1 libgles2 poppler-utils > /dev/null
+          pip install --quiet mediapipe==1.1.1 onnxruntime==1.29.0 numpy==2.5.3 pillow==12.3.0 gdown==5.2.0 \
+            openpyxl==3.1.5 opencv-python-headless==4.11.0.86 pillow-heif==0.21.0 google-auth==2.38.0 requests==2.32.3
 
       - uses: actions/setup-java@v4
         with:
@@ -53,22 +68,30 @@ jobs:
         with:
           gradle-version: "8.14.3"
 
-      - name: Download the ZIP (link from the secret)
+      - name: Google sign-in for reading the Drive share
         env:
-          LINK: ${{ secrets.REAL_PHOTOS_LINK }}
+          KEY: ${{ secrets.FIREBASE_KEY }}
         run: |
-          test -n "$LINK" || { echo "The REAL_PHOTOS_LINK secret is missing"; exit 1; }
-          mkdir -p work && cd work
-          gdown --quiet --fuzzy "$LINK" -O photos.zip >/dev/null 2>&1 || { echo "Could not download (is the link set to 'Anyone with the link'?)"; exit 1; }
-          echo "downloaded $(du -h photos.zip | cut -f1)"
-          mkdir in && (unzip -q photos.zip -d in || python3 -c "import zipfile; zipfile.ZipFile('photos.zip').extractall('in')")
-          rm photos.zip
+          mkdir -p "$RUNNER_TEMP/g" && printf '%s' "$KEY" > "$RUNNER_TEMP/g/key.json"
+          echo "GOOGLE_APPLICATION_CREDENTIALS=$RUNNER_TEMP/g/key.json" >> "$GITHUB_ENV"
 
-      - name: Find the raw folder and the couple's choice
-        run: python3 tools/realphotos/prepare.py work/in work/out 4
+      # The raw photos (made 2560 px, about what the app reads, so a whole wedding fits on the
+      # machine) and the measurements, kept between the two steps.
+      - name: Raw photos and measurements from an earlier run
+        id: cache
+        uses: actions/cache/restore@v4
+        with:
+          path: work
+          key: real-${{ steps.s.outputs.name }}-v1
 
-      - name: Measure every photo the way the app does
+      - name: Download the raw photos
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: python3 tools/realphotos/drive_fetch.py "$RAW_LINK" work/in --max-long-side 2560
+
+      - name: Check every photo the way the app does
+        if: steps.cache.outputs.cache-hit != 'true'
         run: |
+          python3 tools/realphotos/prepare.py work/in work/out 4
           for i in 0 1 2 3; do
             [ -d work/out/shard-$i ] || continue
             python3 tools/harvest/measure.py app/src/main/assets/models work/out/m-$i.jsonl work/out/shard-$i 2> work/out/measure-$i.log &
@@ -81,29 +104,66 @@ jobs:
           sys.stdout.write(''.join(json.dumps(r) + '\n' for r in rows))
           print(len(rows), 'photos measured,', sum(r.get('failed', False) for r in rows), 'unreadable', file=sys.stderr)
           " > work/out/real.jsonl
-          occasion=$(python3 -c "import json; print(json.load(open('tools/realphotos/run.json')).get('occasion', 'WEDDING'))")
-          python3 tools/harvest/to_dump.py work/out/real.jsonl work/out/real.raw.txt "$occasion"
+          python3 tools/harvest/to_dump.py work/out/real.jsonl work/out/real.raw.txt "${{ steps.s.outputs.occasion }}"
           gradle --no-daemon -q -p tools/harvest/jvm run --args="$PWD/work/out"
           test -s work/out/real.plan.txt
-          rm -rf work/in work/out/shard-*
+          rm -rf work/out/shard-* work/out/m-*.jsonl
 
-      - name: Lock the numbers and keep them on the real-data branch
-        env:
-          KEY: ${{ secrets.REAL_DATA_KEY }}
+      - name: Keep them for the album step
+        if: steps.cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: work
+          key: real-${{ steps.s.outputs.name }}-v1
+
+      # The app's own album is made in the album step, at the couple's album size, so both are the
+      # same size; the app's rules do not change in between.
+      - name: Contact sheets for Claude's blind picks
+        if: steps.s.outputs.step == 'raw'
         run: |
-          test -n "$KEY" || { echo "The REAL_DATA_KEY secret is missing"; exit 1; }
-          name=$(python3 -c "import json; print(json.load(open('tools/realphotos/run.json'))['name'])")
-          tar -czf real.tgz -C work/out real.plan.txt picks.txt inventory.txt
-          openssl enc -aes-256-cbc -pbkdf2 -iter 200000 -salt -pass env:KEY -in real.tgz -out "$name.tgz.enc"
-          rm -rf work real.tgz
-          mkdir keep && cd keep
+          mkdir -p keep
+          python3 tools/realphotos/sheets.py "$(cat work/out/raw-dir.txt)" keep/raw
+          cp work/out/real.plan.txt work/out/inventory.txt keep/raw/
+
+      - name: The couple's album, found among the raw photos, and the scores
+        if: steps.s.outputs.step == 'album'
+        run: |
+          name="${{ steps.s.outputs.name }}"
+          test -s "tools/realphotos/picks/$name-claude.txt" || { echo "Claude's blind picks are not in yet: tools/realphotos/picks/$name-claude.txt"; exit 1; }
+          test -n "$ALBUM_LINK" || { echo "The second line of REAL_LINKS (the album PDF link) is missing"; exit 1; }
+          mkdir -p keep/album work/pdf work/pages
+          python3 tools/realphotos/drive_fetch.py "$ALBUM_LINK" work/pdf
+          pdf=$(find work/pdf -iname '*.pdf' | head -1); test -n "$pdf"
+          pdftoppm -r 150 -jpeg -jpegopt quality=85 "$pdf" work/pages/page
+          raw="$(cat work/out/raw-dir.txt)"
+          python3 tools/realphotos/sheets.py "$raw" work/idx --index-only
+          python3 tools/realphotos/match_album.py "$raw" work/idx/index.tsv work/pages keep/album
+          gradle --no-daemon -q -p tools/harvest/jvm run --args="score $PWD/work/out/real.plan.txt $PWD/keep/album/album-picks.txt $PWD/keep/album/score.txt claude=$PWD/tools/realphotos/picks/$name-claude.txt"
+          # The album's pages, smaller, for Claude to check the matches by eye.
+          mkdir -p keep/album/pages && for f in work/pages/*.jpg; do python3 -c "
+          import sys; from PIL import Image
+          im = Image.open(sys.argv[1]); im.thumbnail((1600, 1600)); im.save(sys.argv[2], quality=80)" "$f" "keep/album/pages/$(basename "$f")"; done
+          cp work/idx/index.tsv keep/album/
+
+      - name: Lock and keep on the real-data branch
+        run: |
+          name="${{ steps.s.outputs.name }}"; step="${{ steps.s.outputs.step }}"
+          tar -cf bundle.tar -C keep .
+          sh tools/realphotos/lock.sh bundle.tar "$name-$step.locked"
+          rm -rf keep bundle.tar
+          ls -la "$name-$step.locked"
+          mkdir out && cd out
           git init -q -b real-data
           if git fetch -q --depth 1 "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" real-data; then git checkout -q FETCH_HEAD -- . ; fi
-          cp "../$name.tgz.enc" .
-          printf '# Real couples (locked)\n\nMeasurements of real weddings shared with permission, locked with a key. No photos.\n' > README.md
+          mv "../$name-$step.locked" .
+          printf '# Real couples (locked)\n\nA real wedding shared with permission, locked with Claude'"'"'s public key. Only Claude can open it.\n' > README.md
           git config user.name "real-photos"
           git config user.email "real-photos@users.noreply.github.com"
           git add -A
-          git commit -q -m "Real photos: $name"
+          git commit -q -m "Real photos: $name, step $step"
           git push -q "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" HEAD:real-data
-          echo "kept $name (locked)"
+          echo "kept $name-$step (locked)"
+
+      - name: Remove the photos from the build machine
+        if: always()
+        run: rm -rf work keep bundle.tar "$RUNNER_TEMP/g"

@@ -85,6 +85,8 @@ def main(src, out, shares="4"):
     for p, r in rel.items():
         by_name[os.path.basename(r).lower()].append(r)
     inv.append(f"raw folder: {raw or '(top)'}: {len(raw_photos)} photos")
+    with open(os.path.join(out, "raw-dir.txt"), "w") as fh:
+        fh.write(raw_dir + "\n")
     for d in sorted({os.path.dirname(r) for r in rel.values()}):
         inv.append(f"  event folder {d or '(top)'}: {sum(1 for r in rel.values() if os.path.dirname(r) == d)} photos")
 

@@ -177,6 +177,15 @@ Design mock-up: https://claude.ai/artifact/KzbjcqjdAW5KkNJ47pFf6f
   2,000 take hours), kept in the Actions cache; a run that stops part way carries on next time, and
   the phone is used only once they are all there. Other phones' results go to
   `real-phone-results-<model>`.
+- Real couple's wedding (`.github/workflows/real-photos.yml`, `tools/realphotos/`): the
+  photographer's raw Drive folder and the printed album PDF, links in the REAL_LINKS secret (one per
+  line, never written anywhere else; Drive API via the FIREBASE_KEY service account, gdown fallback).
+  Step "raw": photos fetched (2560 px), measured like the app, contact sheets for Claude's blind picks;
+  step "album" (only after Claude's picks are committed in `tools/realphotos/picks/`): the PDF's photos
+  found among the raw ones (`match_album.py`, SIFT + geometric check, 12/12 on a faked album page)
+  and the app's and Claude's albums scored against the couple's (`AlbumScore.kt`: same photo, same
+  moment, wrong moments, event balance, people). Kept on the `real-data` branch locked with Claude's
+  public key (`lock.sh`; the private key stays on Claude's machine). Logs show counts only.
 - Test photos: `tools/test-photos/` + `.github/workflows/test-photos.yml` find and download freely
   licensed wedding photos from Wikimedia Commons on the build machine (this session cannot reach
   those sites) and put them on the `test-photos` branch with credits. Test data only, never in the

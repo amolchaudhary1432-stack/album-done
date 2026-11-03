@@ -16,8 +16,10 @@ import java.util.Base64
  *
  *     gradle run --args="raw-dump.txt plan-input.txt [OCCASION]"
  *     gradle run --args="FOLDER"     every *.raw.txt in FOLDER -> *.plan.txt
+ *     gradle run --args="score ..."  albums against a couple's real album (AlbumScore.kt)
  */
 fun main(args: Array<String>) {
+    if (args[0] == "score") return score(args.drop(1))
     val first = File(args[0])
     if (first.isDirectory) {
         for (raw in first.listFiles { f -> f.name.endsWith(".raw.txt") }.orEmpty().sortedBy { it.name }) {
