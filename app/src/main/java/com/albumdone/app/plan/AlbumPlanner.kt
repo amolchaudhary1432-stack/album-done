@@ -941,7 +941,11 @@ object AlbumPlanner {
             keep.filter { it !in removed }.mapNotNull { a.byId[it] }
                 .filter { Issue.UNREADABLE !in it.issues }
                 .forEach { add(it, null) }
-            val usableCounts = a.events.associateWith { e -> a.photos.count { it.event == e && it.usable } }
+            val weightOf = eventWeight
+            val usableCounts = a.events.associateWith { e ->
+                val n = a.photos.count { it.event == e && it.usable }
+                if (weightOf == null) n else (n * (weightOf[e] ?: 1.0)).roundToInt()
+            }
             quotas = allocate(usableCounts, size)
         }
 
@@ -1223,7 +1227,7 @@ object AlbumPlanner {
             var left = budget
             val anchors = moments.filter { it.key }.sortedByDescending { it.photoIds.size } +
                 listOfNotNull(moments.firstOrNull(), moments.lastOrNull()) +
-                moments.sortedByDescending { it.photoIds.size }
+                (if (anchorEveryMoment) moments.sortedByDescending { it.photoIds.size } else emptyList())
             for (m in anchors.distinctBy { it.id }) {
                 if (left <= 0) break
                 if ((momentPicks[m.id]?.size ?: 0) > 0 || (cleanIn[m.id] ?: 0) == 0) continue
@@ -1233,7 +1237,7 @@ object AlbumPlanner {
             if (left > 0) {
                 // Bigger moments get more, but gently: 23 photos of one portrait session should not
                 // take half the event's places from the rituals around it.
-                val weights = moments.associate { m -> m.id.toString() to sqrt(m.photoIds.size.toDouble()) }
+                val weights = moments.associate { m -> m.id.toString() to m.photoIds.size.toDouble().pow(momentPower) }
                 val ideal = weights.mapValues { (k, w) -> left * w / weights.values.sum() }
                 val extra = ideal.mapValues { floor(it.value).toInt() }.toMutableMap()
                 var rest = left - extra.values.sum()
@@ -1265,7 +1269,7 @@ object AlbumPlanner {
 
         /** Value of adding [c] now: quality, plus people, variety and balance. */
         fun value(c: AssessedPhoto): Double {
-            var v = (1 - APPEAL_MIX) * c.quality + APPEAL_MIX * (appeal[c.id] ?: c.quality)
+            var v = (1 - appealMix) * c.quality + appealMix * (appeal[c.id] ?: c.quality)
             for (p in c.people) {
                 if (tags.isCouple(p)) continue
                 val t = tags.tag(p)
@@ -1293,7 +1297,11 @@ object AlbumPlanner {
             if (repeatsNeighbour(c)) v -= 0.3
             // Spread the album across the day: each photo already picked from this moment counts against it.
             val sameMoment = momentPicks[c.momentId].orEmpty()
-            v -= MOMENT_CROWDING * sameMoment.size / max(1.0, momentFair[c.momentId] ?: 1.0)
+            // A different group of people in the same moment (the next family on the stage) is a new scene.
+            val newScene = sceneBonus > 0 && c.repeatGroup >= 0 && c.people.isNotEmpty() &&
+                sameMoment.none { it.repeatGroup == c.repeatGroup }
+            if (newScene) v += sceneBonus
+            else v -= MOMENT_CROWDING * sameMoment.size / max(1.0, momentFair[c.momentId] ?: 1.0)
             // Within a long moment, the next pick comes from a part not yet shown (the end of a long
             // ritual, not five frames from its start).
             if (sameMoment.isNotEmpty()) {
@@ -1385,6 +1393,18 @@ object AlbumPlanner {
      * Splits [total] places across groups in proportion to their counts (largest remainder),
      * at least 1 each when [atLeastOne], never more than a group has.
      */
+    /** Build-machine experiments: how much the learned appeal counts next to quality (APPEAL_MIX in the app). */
+    @Volatile var appealMix = APPEAL_MIX
+    /** Build-machine experiments: value of a new group of people within a moment (0 in the app). */
+    @Volatile var sceneBonus = 0.0
+    /** Build-machine experiments: every moment gets one photo before any gets a second (true in the app). */
+    @Volatile var anchorEveryMoment = true
+    /** Build-machine experiments: how a moment's places grow with its size (0.5 = square root, the app). */
+    @Volatile var momentPower = 0.5
+
+    /** Build-machine experiments only: how much each event's share of the album is scaled. Null in the app. */
+    @Volatile var eventWeight: Map<String, Double>? = null
+
     fun allocate(counts: Map<String, Int>, total: Int, atLeastOne: Boolean = true): Map<String, Int> {
         val active = counts.filterValues { it > 0 }
         val sum = active.values.sum()

@@ -39,7 +39,20 @@ fun score(args: List<String>) {
     val a = AlbumPlanner.analyze(photos, tags)
     val n = couple.size
     val pickers = linkedMapOf<String, List<Long>>()
-    val specs = args.drop(3)
+    val specs = args.drop(3).filter { !it.startsWith("appeal=") && !it.startsWith("eventweights=") && !it.startsWith("knob=") }
+    for (k in args.drop(3).filter { it.startsWith("knob=") }.map { it.removePrefix("knob=") }) {
+        val (n, v) = k.split(':')
+        when (n) { "anchorAll" -> AlbumPlanner.anchorEveryMoment = v == "1"; "power" -> AlbumPlanner.momentPower = v.toDouble(); "scene" -> AlbumPlanner.sceneBonus = v.toDouble() }
+    }
+    // "eventweights=Engagement:0.5,Mehendi:0.6": scales each event's share of the album (experiments).
+    args.drop(3).firstOrNull { it.startsWith("eventweights=") }?.let { spec ->
+        AlbumPlanner.eventWeight = spec.removePrefix("eventweights=").split(',').associate { it.substringBeforeLast(":").replace("_", " ") to it.substringAfterLast(':').toDouble() }
+    }
+    // An appeal file ("folder/name<TAB>0..1") replaces the learned appeal for this scoring run.
+    args.drop(3).firstOrNull { it.startsWith("appeal=") }?.let { f ->
+        com.albumdone.app.plan.Appeal.external = File(f.removePrefix("appeal=")).readLines()
+            .map { it.split('\t') }.filter { it.size == 2 }.associate { it[0] to it[1].toDouble() }
+    }
     val appSizes = specs.filter { it.startsWith("app@") }.map { it.removePrefix("app@").toInt() }
         .ifEmpty { listOf(n, Math.round(photos.size * 0.15).toInt()) }
     for (k in appSizes) pickers["app@$k"] = AlbumPlanner.shortlist(a, k).ids

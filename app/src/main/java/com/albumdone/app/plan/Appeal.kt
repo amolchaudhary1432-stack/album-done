@@ -36,8 +36,20 @@ object Appeal {
         return f
     }
 
+    /**
+     * Appeal worked out elsewhere, by "folder/name" (the build machine's experiments with what an
+     * image model sees). Null in the app.
+     */
+    @Volatile var external: Map<String, Double>? = null
+
     /** Every photo's appeal, 0..1. */
     fun score(a: AlbumAnalysis): Map<Long, Double> {
+        external?.let { ext ->
+            return a.photos.associate { p ->
+                val key = if (p.photo.folder.isEmpty()) p.photo.name else "${p.photo.folder}/${p.photo.name}"
+                p.id to (ext[key] ?: 0.0)
+            }
+        }
         val weights = override ?: AppealWeights.WEIGHTS
         val bias = weights["bias"]?.get(2) ?: 0.0
         val medPeak = AlbumPlanner.median(a.photos.map { it.photo.peakSharpness })
