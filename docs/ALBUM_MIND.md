@@ -69,3 +69,23 @@ network takes over each step as it beats it on the honest test.
 - Designed and tuned on part of the data, scored on parts it never saw (held-back sets, wedding-1's
   wedding day), by community.
 - The goal: first Claude's level, then beyond it.
+
+## 4. Progress log
+
+**3 Nov 2026**
+- Senses: SigLIP 2 B/32 int8 (96 MB) embeds a photo in 0.02-0.05 s here; free thinking models
+  (Gemma 4, Qwen 3.5, MiniCPM-V 4.6/4.7, WeVisOne-VL, InternVL 3.5; teachers Qwen 3.5 9B, MiniCPM-V
+  4.5, Qwen3-VL 8B) under test on the real couple's photos (`thinker-test.yml`).
+- Album Mind v0 (`tools/reasoner/mind.py`, JAX): trains; on held-back sets 35-40% same photo,
+  65-70% same moment (old brain 33%, 81%); learns the 41 practice sets by heart. Too few examples.
+- Frame judge (`frame_judge.py`): of a kept photo and its unkept near-twin, which was kept? 50% on
+  held-back pairs (coin flip; the quality number alone 54%). The picks were made from 300 px contact
+  sheets, where eyes and expressions cannot be seen: frame choices must be taught at full size.
+- Scene judge (`scene_judge.py`): which moments a person uses at all: 86.8% of them found on held-back
+  sets, vs 83.3% biggest-first and 81.8% random (small sets use most moments; little room).
+- Data: free, commercially usable Indian wedding albums online are scarce (licences, not effort):
+  YFCC 3.3M listings gave 359 candidate photos (many false hits); Wikimedia's wedding category tree
+  about 600 more; the labelled sets about 900. The big lasting source is the brides' own swaps on
+  their phones (owner's "option 1", on hold).
+- Next: the jury judges at full size (frame against frame, scene by scene) on the build machine's
+  cached 1280 px wedding photos; Album Mind trains on that; exam on wedding-1 by the honest yardstick.
