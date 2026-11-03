@@ -388,6 +388,11 @@ class JourneyDeviceTest {
                 .writeText("$count photos in Pictures/$folderName, checked and the album made in $seconds s on ${Build.MANUFACTURER} ${Build.MODEL}" +
                     (if (labPickerFault) " (folder picker skipped: this lab phone's picker shows no folders)" else "") + "\n")
             appShot("07-album")
+            // The phone's own album, as the brain chose it (before this test swaps and removes),
+            // for studying against a couple's real album.
+            val album = runBlocking { dao.photos(projectId) }.filter { it.selected }
+                .joinToString("") { (if (it.folder.isEmpty()) it.name else "${it.folder}/${it.name}") + "\n" }
+            DeviceTestSupport.screensDir.resolve("journey-album.txt").writeText(album)
             compose.onNodeWithTag("album-grid").performScrollToNode(hasTestTag("album-photo"))
             appShot("08-album-photos")
         }

@@ -170,6 +170,17 @@ jobs:
           echo "folders=${{ needs.photos.outputs.folders }}" >> "$GITHUB_OUTPUT"
           echo "limit=${{ needs.photos.outputs.limit }}" >> "$GITHUB_OUTPUT"
           echo "journey_folder=${{ needs.photos.outputs.journey_folder }}" >> "$GITHUB_OUTPUT"
+          # real:NAME = a real couple's raw folder, as the real-photos workflow downloaded it.
+          p="${{ needs.photos.outputs.photos }}"
+          case "$p" in real:*) echo "real=${p#real:}" >> "$GITHUB_OUTPUT"; echo "realkey=real-${p#real:}-v1" >> "$GITHUB_OUTPUT" ;; esac
+
+      - name: The couple's photos (kept by the real-photos workflow)
+        if: steps.s.outputs.real != ''
+        uses: actions/cache/restore@v4
+        with:
+          path: work
+          key: ${{ steps.s.outputs.realkey }}
+          fail-on-cache-miss: true
 
       - name: The downloaded photos
         if: needs.photos.outputs.download != ''
@@ -187,6 +198,11 @@ jobs:
           git fetch -q --depth 1 origin test-photos
           mkdir -p app/src/androidTest/assets tmp-photos
           rm -f photo-cache/STATUS photo-cache/COMPLETE
+          if [ -n "${{ steps.s.outputs.real }}" ]; then
+            # The couple's own photos only, pushed like any big folder.
+            mv "$(cat work/out/raw-dir.txt)" photo-cache && rm -rf work
+            set_name="push:real"
+          fi
           if [ "${set_name%%:*}" = set ]; then
             # One real event from the harvest's sets, never a mix, inside the test app.
             rm -rf app/src/androidTest/assets/wedding && mv photo-cache app/src/androidTest/assets/wedding
@@ -314,10 +330,58 @@ jobs:
           grep -h "Real wedding:" out/logcat-app.txt 2>/dev/null | tail -1 || true
           head -1 out/screens/real-wedding-report.txt 2>/dev/null || true
 
+      # A real couple's run: the phone's own album as a PDF (the photos the brain chose, before the
+      # test swaps and removes any), for Claude to study against the couple's real album.
+      - name: The phone's album as a PDF
+        if: always() && steps.s.outputs.real != '' && steps.d.outputs.model != ''
+        run: |
+          test -s out/screens/journey-album.txt || { echo "no album list from the phone"; exit 0; }
+          python3 - out/screens/journey-album.txt full-photos "out/phone-album-${{ steps.d.outputs.model }}.pdf" <<'PY'
+          import os, sys
+          from PIL import Image, ImageDraw, ImageOps
+          names = [l.strip() for l in open(sys.argv[1]) if l.strip()]
+          W, H, M = 2480, 1754, 40          # A4 landscape at 150 dpi, 2 x 2 photos a page
+          cw, ch = (W - 3 * M) // 2, (H - 3 * M) // 2 - 30
+          pages = []
+          for i in range(0, len(names), 4):
+              page = Image.new("RGB", (W, H), "white")
+              d = ImageDraw.Draw(page)
+              for k, rel in enumerate(names[i:i + 4]):
+                  x, y = M + (k % 2) * (cw + M), M + (k // 2) * (ch + 30 + M)
+                  path = os.path.join(sys.argv[2], os.path.splitext(rel)[0] + ".jpg")
+                  if os.path.exists(path):
+                      im = ImageOps.exif_transpose(Image.open(path)).convert("RGB")
+                      im.thumbnail((cw, ch))
+                      page.paste(im, (x + (cw - im.width) // 2, y))
+                  d.text((x, y + ch + 6), f"{i + k + 1}. {rel}", fill="black")
+              pages.append(page)
+          pages[0].save(sys.argv[3], save_all=True, append_images=pages[1:], resolution=150)
+          print(len(names), "photos on", len(pages), "pages")
+          PY
+
+      # A real couple's run is locked with Claude's public key (video, screenshots and the album show
+      # their photos) and kept on its own branch; other runs go to real-phone-results as they are.
+      - name: Lock a real couple's run
+        if: always() && steps.s.outputs.real != '' && steps.d.outputs.model != ''
+        run: |
+          echo "Run ${{ github.run_number }}, $(date -u '+%Y-%m-%d %H:%M UTC'), commit ${{ github.sha }}: ${{ steps.s.outputs.photos }} on ${{ steps.d.outputs.model }} (API ${{ steps.d.outputs.version }})" > out/RUN.txt
+          name="${{ steps.s.outputs.real }}-${{ steps.d.outputs.model }}"
+          tar -cf bundle.tar -C out . && rm -rf out && mkdir out
+          split -b 90m -d -a 2 bundle.tar part- && rm bundle.tar
+          for p in part-*; do sh tools/realphotos/lock.sh "$p" "out/$name.$p.locked"; rm "$p"; done
+          ls -la out
+          cd out
+          git init -q -b "real-phone-locked-${{ steps.d.outputs.model }}"
+          git config user.name "phone-test"
+          git config user.email "phone-test@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Real couple's run ${{ github.run_number }} (locked)"
+          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" "real-phone-locked-${{ steps.d.outputs.model }}"
+
       # Not after a run stopped before it reached a phone: that would replace a phone's results
       # with nothing.
       - name: Send them to the real-phone-results branch
-        if: always() && (steps.d.outputs.model != '' || steps.s.outputs.fetch != '')
+        if: always() && steps.s.outputs.real == '' && (steps.d.outputs.model != '' || steps.s.outputs.fetch != '')
         run: |
           echo "Run ${{ github.run_number }} for commit ${{ github.sha }}: photos ${{ steps.s.outputs.photos }} on ${{ steps.d.outputs.model }} (API ${{ steps.d.outputs.version }})" > out/RUN.txt
           # One results branch per phone, so runs on several phones do not overwrite each other.
