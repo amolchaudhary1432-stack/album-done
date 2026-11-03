@@ -91,9 +91,13 @@ fun planFeatures(args: List<String>) {
         var header = false
         for (p in a.photos) {
             val f = Appeal.features(p, a, medPeak, medBright)
-            if (!header) { out.println((listOf("name", "moment", "order", "repeat", "event", "usable") + f.keys).joinToString(",")); header = true }
+            if (!header) { out.println((listOf("name", "moment", "order", "repeat", "event", "usable", "taken", "who", "family") + f.keys).joinToString(",")); header = true }
             val label = if (p.photo.folder.isEmpty()) p.photo.name else "${p.photo.folder}/${p.photo.name}"
-            out.println((listOf(label, "${p.momentId}", "${p.order}", "${p.repeatGroup}", p.event.replace(',', ' '), if (p.usable) "1" else "0") + f.values.map { "%.5f".format(it) }).joinToString(","))
+            // Who is clearly in it, and which of them the app takes for close family (or the couple).
+            val who = p.people.joinToString(";")
+            val family = p.people.filter { tags.isCouple(it) || tags.tag(it).priority.name in setOf("MUST", "IMPORTANT") }.joinToString(";")
+            out.println((listOf(label, "${p.momentId}", "${p.order}", "${p.repeatGroup}", p.event.replace(',', ' '), if (p.usable) "1" else "0",
+                "${p.photo.takenAt}", who, family) + f.values.map { "%.5f".format(it) }).joinToString(","))
         }
     }
 }
@@ -107,6 +111,7 @@ fun momentTable(args: List<String>) {
     val key = photos.associateBy { if (it.folder.isEmpty()) it.name else "${it.folder}/${it.name}" }
     val couple = File(args[1]).readLines().mapNotNull { key[it.trim()]?.id }.toSet()
     val app = AlbumPlanner.shortlist(a, args[2].toInt()).ids.toSet()
+    args.getOrNull(4)?.let { f -> File(f).writeText(app.mapNotNull { a.byId[it] }.joinToString("") { (if (it.photo.folder.isEmpty()) it.photo.name else "${it.photo.folder}/${it.photo.name}") + "\n" }) }
     File(args[3]).printWriter().use { out ->
         out.println("moment\tevent\tkey\tphotos\tcouple\tapp\tboth\tfirst\tlast\tminutes")
         for (m in a.moments) {
