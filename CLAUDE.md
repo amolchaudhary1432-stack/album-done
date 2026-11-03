@@ -188,6 +188,9 @@ Design mock-up: https://claude.ai/artifact/KzbjcqjdAW5KkNJ47pFf6f
   and the app's and Claude's albums scored against the couple's (`AlbumScore.kt`: same photo, same
   moment, wrong moments, event balance, people). Kept on the `real-data` branch locked with Claude's
   public key (`lock.sh`; the private key stays on Claude's machine). Logs show counts only.
+  Wedding-1 (3 Nov 2026, owner): the couple are the owner's friends and gave all rights; Claude may
+  study and show their photos to the owner (private report pages). Kept locked in the repo only
+  because the repo goes public for some windows.
 - Test photos: `tools/test-photos/` + `.github/workflows/test-photos.yml` find and download freely
   licensed wedding photos from Wikimedia Commons on the build machine (this session cannot reach
   those sites) and put them on the `test-photos` branch with credits. Test data only, never in the
