@@ -191,6 +191,12 @@ Design mock-up: https://claude.ai/artifact/KzbjcqjdAW5KkNJ47pFf6f
   Wedding-1 (3 Nov 2026, owner): the couple are the owner's friends and gave all rights; Claude may
   study and show their photos to the owner (private report pages). Kept locked in the repo only
   because the repo goes public for some windows.
+- Recordings for the owner (owner, 3 Nov 2026): each video on the test-runs artifact has its own
+  title about that test only. Only the checking (scanning) part is sped up; every other step plays
+  at normal speed. The showcase recording of a real couple's folder uses the app like a person who
+  knows the family: looking at the faces, Who's who, naming, swapping, playing around, at normal
+  speed. Record it only once the brain's picks are reliably close to the couple's own choice; until
+  then keep training the brain against real albums.
 - Test photos: `tools/test-photos/` + `.github/workflows/test-photos.yml` find and download freely
   licensed wedding photos from Wikimedia Commons on the build machine (this session cannot reach
   those sites) and put them on the `test-photos` branch with credits. Test data only, never in the
