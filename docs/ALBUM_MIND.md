@@ -89,3 +89,22 @@ network takes over each step as it beats it on the honest test.
   their phones (owner's "option 1", on hold).
 - Next: the jury judges at full size (frame against frame, scene by scene) on the build machine's
   cached 1280 px wedding photos; Album Mind trains on that; exam on wedding-1 by the honest yardstick.
+
+**4 Nov 2026, 2:45 am IST: the free thinking models, tested on the real couple's photos**
+(`thinker-test.yml` round 4, 512 px, 4-core build machine; answers locked on real-data)
+
+| Model | Size | s/photo | Seen against the photos |
+|---|---|---|---|
+| MiniCPM-V 4.6 | 1.3B | 12.6 | basic, vague ("a traditional ceremony") |
+| MiniCPM-V 4.7 | 1B | 21 | describes, then reasons badly ("skip to keep it authentic") |
+| Qwen 3.5 | 2B | 49 | invents ritual names (an engagement blessing called "saptapadi", a woman called "the groom"); skips solo bride portraits |
+| InternVL 3.5 | 2B | 109 | most accurate of the small ones (notices background people), ritual still guessed |
+| WeVisOne-VL | 2B | 105 | answers in box/grounding codes, no use here |
+| Gemma 4 E2B | | 178 | empty answers in this llama.cpp build |
+| Qwen 3.5 (teacher) | 9B | 138 | clearer ("pre-wedding shoot", "four women, likely family") |
+| Qwen3-VL (teacher) | 8B | 610 | clearest, slowest |
+
+Decision: no free thinking model is good enough to be the brain or the teacher; small ones are too
+weak and too slow for hundreds of photos on a phone (perhaps a handful, such as the cover). Album
+Mind stays: fast senses on every photo, our own learned judges and reasoning network, taught by
+Claude at full size (frame against frame, scene by scene).
