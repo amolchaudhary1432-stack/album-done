@@ -36,7 +36,7 @@ jobs:
           python3 - "${{ matrix.group }}" <<'PY' >> "$GITHUB_OUTPUT"
           import json, sys
           r = json.load(open('tools/thinker/run.json')); g = r['groups'][sys.argv[1]]
-          print(f"name={r.get('name', 'wedding-1')}"); print(f"every={g['every']}"); print(f"tokens={g['tokens']}")
+          print(f"name={r.get('name', 'wedding-1')}"); print(f"every={g['every']}"); print(f"tokens={g['tokens']}"); print(f"minutes={g.get('minutes', 25)}")
           print("models=" + ' '.join(g['models']))
           PY
 
@@ -72,7 +72,7 @@ jobs:
           os.makedirs(out, exist_ok=True)
           with open(os.path.join(out, 'list.tsv'), 'w') as lst:
               for k, rel in enumerate(files[::every]):
-                  im = ImageOps.exif_transpose(Image.open(os.path.join(raw, rel))).convert('RGB'); im.thumbnail((768, 768))
+                  im = ImageOps.exif_transpose(Image.open(os.path.join(raw, rel))).convert('RGB'); im.thumbnail((512, 512))
                   im.save(os.path.join(out, f'{k:03d}.jpg'), quality=90); lst.write(f'{k:03d}.jpg\t{rel}\n')
           print(len(files[::every]), 'photos in the sample')
           PY
@@ -89,19 +89,23 @@ jobs:
             echo "$m: $(du -sh models | cut -f1) downloaded"
             mkdir -p "keep/$m"; start=$(date +%s)
             for f in sample/*.jpg; do
+              # Each model gets the same time; one slow model must not use up the others' turn.
+              [ $(( $(date +%s) - start )) -gt $(( ${{ steps.s.outputs.minutes }} * 60 )) ] && { echo "$m: time budget used" | tee -a keep/timing.txt; break; }
               t0=$(date +%s.%N)
               timeout 900 llama.cpp/build/bin/llama-mtmd-cli -m "models/$M" --mmproj "models/$P" --image "$f" \
                 -p "$(cat tools/thinker/prompt.txt)" -n "${{ steps.s.outputs.tokens }}" --temp 0 -t 4 \
                 > "keep/$m/$(basename "$f" .jpg).txt" 2> /dev/null || echo "(no answer)" >> "keep/$m/$(basename "$f" .jpg).txt"
               echo "$(basename "$f")	$(echo "$(date +%s.%N) - $t0" | bc)" >> "keep/$m/seconds.tsv"
             done
-            n=$(ls sample/*.jpg | wc -l); s=$(( $(date +%s) - start ))
+            n=$(ls "keep/$m"/*.txt 2>/dev/null | grep -vc seconds); s=$(( $(date +%s) - start ))
             echo "$m: $n photos in $s s, $(echo "scale=1; $s / $n" | bc) s each" | tee -a keep/timing.txt
             rm -rf models
           done
 
       - name: Lock and keep on the real-data branch
+        if: always() && steps.s.outputs.name != ''
         run: |
+          test -d keep || { echo "nothing to keep"; exit 0; }
           name="${{ steps.s.outputs.name }}"; step="thinker-r$(python3 -c "import json; print(json.load(open('tools/thinker/run.json')).get('round', 1))")-${{ matrix.group }}"
           tar -cf bundle.tar -C keep . && split -b 90m -d -a 2 bundle.tar part- && rm -rf keep bundle.tar
           for p in part-*; do sh tools/realphotos/lock.sh "$p" "$name-$step.$p.locked"; rm "$p"; done
