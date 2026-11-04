@@ -61,6 +61,28 @@ for l in open(W2 + '/moments.tsv'):
 lab = {code[c[0]]: int(c[1]) for c in (l.split('\t') for l in open(W2 + '/labels.tsv'))}
 keys2 = [k for k in M2 if k in lab]
 X2 = np.array([M2[k][0] for k in keys2]); y2 = np.array([lab[k] for k in keys2]); ev2 = np.array([k[0] for k in keys2])
+# Lessons from the picked web sets of every community too (WEB=1): a moment's worth = how many of its
+# photos the person kept (0, 1, 2+). Couple = the two most photographed people of the set.
+import os, glob
+comm2 = np.array(['marathi-hindu'] * len(keys2))
+if os.environ.get('WEB') == '1':
+    zs = np.load(S + '/reasoner/sets.npz'); es = dict(zip(zs['keys'], zs['vecs'].astype(np.float32)))
+    LAB = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../harvest/labels')
+    XW, YW, CW = [], [], []
+    for f in sorted(glob.glob(S + '/webfeat/*.csv')):
+        sid = os.path.basename(f)[:-4]; rows_ = list(csv.DictReader(open(f)))
+        lines = [l.strip() for l in open(os.path.join(LAB, sid + '.txt'))]
+        comm = next((l.split(':', 1)[1].strip() for l in lines if l.startswith('# community:')), 'older')
+        picked = {l for l in lines if l and not l.startswith('#')}
+        rows_ = [r for r in rows_ if f"{sid}/{r['name']}" in es]
+        if len(rows_) < 10: continue
+        Es = np.array([es[f"{sid}/{r['name']}"] for r in rows_])
+        cnt = collections.Counter(p for r in rows_ for p in set(r['who'].split(';')) - {''})
+        cpl = {p for p, _ in cnt.most_common(2)}
+        for (ev, m), (x, rs) in folder_moments(rows_, Es, cpl).items():
+            XW.append(x); YW.append(min(2, sum(r['name'] in picked for r in rs))); CW.append(comm)
+    X2 = np.vstack([X2, np.array(XW)]); y2 = np.r_[y2, np.array(YW)]; comm2 = np.r_[comm2, np.array(CW)]; ev2 = np.r_[ev2, np.array(CW)]
+    print(len(XW), 'web moments from', len(set(CW)), 'communities added')
 xm, xs = X2.mean(0), X2.std(0) + 1e-6
 def fit(X, y, l2=30.0):
     w = np.zeros(X.shape[1]); b = 0.0; pos_ = max(1e-3, y.mean()); wt = np.where(y > 0, .5 / pos_, .5 / (1 - pos_))
@@ -79,6 +101,13 @@ for e in sorted(set(ev2)):
     ms = [fit(Xn[tr], (y2[tr] >= 1).astype(float)), fit(Xn[tr], (y2[tr] >= 2).astype(float))]
     s = judge(X2[~tr], ms)
     auc1.append(auc(s, y2[~tr] >= 1)); auc2.append(auc(s, y2[~tr] >= 2))
+loco = []
+for c in sorted(set(comm2)):
+    tr = comm2 != c
+    if tr.all() or (~tr).sum() < 20: continue
+    Xn_ = (X2 - xm) / xs; ms = [fit(Xn_[tr], (y2[tr] >= 1).astype(float)), fit(Xn_[tr], (y2[tr] >= 2).astype(float))]
+    sc = judge(X2[~tr], ms); loco.append((c, (~tr).sum(), auc(sc, y2[~tr] >= 1)))
+print('community never seen in training, keep-or-skip AUC: ' + ', '.join(f'{c} {a:.2f} ({n})' for c, n, a in loco))
 print('wedding-2, each folder unseen: keep-or-skip AUC %.2f, peak AUC %.2f (0.5 = coin)' % (np.nanmean(auc1), np.nanmean(auc2)))
 Xn = (X2 - xm) / xs
 models = [fit(Xn, (y2 >= 1).astype(float)), fit(Xn, (y2 >= 2).astype(float))]

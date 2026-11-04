@@ -272,3 +272,14 @@ album agrees with the owner.
 Also: the reasoning brain has so far learned moments from one raw folder (a Maharashtrian Hindu
 wedding). Frame lessons come from web sets of many communities; the scene judge must learn from them
 too, and from raw folders of other communities, with the leave-one-community-out test.
+
+**4 Nov 2026, ~5 pm IST: moment lessons from every community** (`WEB=1 mind_v2.py`: wedding-2's 961 moments
+plus 487 moments of the 71 picked web sets, 9 community labels; `features-dir` writes the sets' details)
+- A community left out of training, keep-or-skip judged on it (AUC, coin 0.5): Bengali/East Hindu 0.74,
+  North Hindu 0.81, Maharashtrian Hindu (all of wedding-2 left out, learned from web sets only) 0.72,
+  older mixed sets 0.84. Sikh, Muslim, South and West Hindu have under 20 moments each: too few to test
+  alone yet. Judgement learned on some communities carries to others; not yet as well as at home.
+- Exam (wedding-1): 233 photos 45.1% (16% of the gap), 400 63.5% (20%), 766 91.8% (62%); wedding-2 alone
+  gave 46.8 / 63.1 / 92.3 (64%). Within noise: the curated web sets add breadth, not exam points.
+- Next for breadth without asking anyone for photos: the harvest's fuller single-photographer web sets
+  (300-800 photos of one day) per community, judged moment by moment like wedding-2.

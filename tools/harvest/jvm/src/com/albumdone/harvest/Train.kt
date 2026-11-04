@@ -126,3 +126,11 @@ fun momentTable(args: List<String>) {
         }
     }
 }
+
+/** features-dir PLANS LABELS OUT_DIR: planFeatures for every labelled set (OUT_DIR/<set>.csv), one JVM. */
+fun planFeaturesDir(args: List<String>) {
+    File(args[2]).mkdirs()
+    for (s in labelled(File(args[0]), File(args[1]))) {
+        try { planFeatures(listOf(s.plan.path, File(args[2], "${s.id}.csv").path)) } catch (e: Exception) { println("${s.id}: ${e.message}") }
+    }
+}
