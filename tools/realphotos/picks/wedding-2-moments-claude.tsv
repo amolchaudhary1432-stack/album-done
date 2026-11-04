@@ -1,0 +1,96 @@
+M000	0	other	photographer's logo card
+M001	0	other	photographer's logo card
+M002	0	other	photographer's logo card
+M003	0	detail	decor prop alone, adds nothing
+M004	1	relatives	two ladies in haldi yellow posed at the floral arch: one good frame
+M005	1	relatives	same two ladies with sunglasses, playful: one frame, different mood
+M006	1	relatives	ladies at the arch and a young woman solo: one group frame
+M007	1	detail	the haldi altar decor (devi with peacocks): one detail shot sets the scene
+M008	1	detail	home puja altar lit for the haldi: one detail shot
+M009	2	ritual	groom's haldi begins, first lady applies turmeric: the opening of the ritual, a wide and a close
+M010	1	ritual	next lady applies haldi: one frame of each close relative's turn
+M011	1	ritual	another relative's turn applying haldi
+M012	1	ritual	another relative's turn applying haldi
+M013	1	ritual	another relative's turn applying haldi
+M014	1	ritual	another relative's turn applying haldi
+M015	1	groom	groom alone in haldi yellow, smiling: one solo portrait
+M016	2	family	groom with his parents at home during haldi: core family, keep the best
+M017	0	groom	groom sitting alone again, similar to the solo already kept
+M018	1	relatives	two ladies with haldi plates at the arch
+M019	1	relatives	a couple of relatives posed at the arch
+M020	1	relatives	relatives posing with sunglasses and a child: one fun candid
+M021	2	family	parents applying haldi to the groom on the stage, then posing with him: key family moment
+M022	1	family	groom with parents and sunglasses, playful: one frame
+M023	1	family	groom with family group at the arch: one group frame
+M024	1	relatives	groom with a group of relatives at the haldi stage
+M025	1	ritual	an uncle and aunt applying haldi to the groom, fun with sunglasses
+M026	1	ritual	several relatives' turns applying haldi including an elderly lady: keep the elder's turn
+M027	0	guests	one blurred wide of the stage crowd
+M028	1	family	groom with a family group and children at the arch
+M029	1	ritual	aunts applying haldi and posing with the groom
+M030	1	ritual	aunts and an uncle applying haldi, the turmeric on the face
+M031	1	elders	two elderly ladies posing with the groom: elders get one photo
+M032	1	relatives	two aunts with the groom posing
+M033	2	candid	women laughing and smearing haldi on each other, the groom watching: a real candid joy moment
+M034	1	candid	ladies applying haldi to each other, laughing
+M035	1	friends	two male friends with the groom, playful
+M036	2	candid	cousins all round the groom throwing haldi: the peak of the haldi fun
+M037	2	family	the big group photo of all the ladies with the groom: everyone in one frame
+M038	1	family	group photo with the men and youngsters around the groom
+M039	1	groom	groom solo portraits in yellow at the arch, plus with a friend: one best portrait
+M040	1	ritual	father and groom at the haldi bath ritual with family behind
+M041	1	family	a group of ladies with the groom at the end of the haldi
+M042	1	ritual	men pouring water: the post-haldi bath
+M043	0	detail	venue entrance gate, empty
+M044	2	groom	groom ready in wedding sherwani with sehra: groom solo portraits (one best, one with a relative)
+M045	1	family	groom with family posing at the sangeet stage
+M046	2	ritual	groom bowing at the Ganapati temple before the wedding: a once-only blessing
+M047	1	relatives	group of ladies in sarees and a lady's solo portraits outdoors: one group frame
+M048	2	family	an elder couple in pheta and paithani dressed for the wedding (likely parents): a couple portrait and a solo of him
+M049	1	family	groom with a big group of ladies and cousins before the baraat: one group frame
+M050	2	candid	baraat dancing: relatives dancing on the road, joyous faces; keep the best two
+M051	2	ritual	groom arrives on the decorated horse under the umbrella: the baraat's once-only moment
+M052	2	family	the couple seated after the wedding with an elderly man and family standing behind: blessing with elders
+M053	0	detail	puja plates and kalash at the bride's home, repeated by the next moment
+M054	1	detail	the kalash and puja setup at the bride's home: one detail
+M055	1	family	bride's family seated at home before the puja, an elderly lady present
+M056	1	ritual	parents performing the home puja before the Devi
+M057	0	ritual	same puja, one frame repeating M056
+M058	1	ritual	bride seated with her parents at the home puja, family watching
+M059	2	ritual	bride doing aarti at the home puja: the bride's own ritual moment
+M060	1	ritual	wide of the home puja with the whole family
+M061	0	ritual	another wide of the same puja
+M062	1	ritual	bride and parents with the lamp, close
+M063	1	detail	the Devi figure dressed in a red saree with the puja: one detail
+M064	2	candid	family dancing joyously at home (gondhal celebration): keep the liveliest two
+M065	1	candid	more dancing, the bride's father in the orange cap joining
+M066	1	candid	cousins dancing in the living room
+M067	1	candid	family dancing, children included (avoid the blurred frame)
+M068	1	ritual	bride receives a tray from the ladies (oti/blessing)
+M069	1	candid	bride dancing with the family, smiling
+M070	1	candid	everyone clapping round an elder dancing
+M071	0	candid	two frames of a small group, repeats the moments before
+M072	1	ritual	relatives offering at the home puja one by one, ladies in paithani
+M073	1	ritual	bride with a cousin offering at the puja, family around
+M074	2	ritual	bride with parents doing aarti with the plates, family joining: the closing aarti
+M075	1	ritual	same aarti from another side, brother included
+M076	1	ritual	elders bowing at the puja after the aarti
+M077	0	candid	father and ladies chatting, nothing new
+M078	0	detail	the Devi setup again, already kept in M063
+M079	1	relatives	two ladies at the marigold arch, and a man with a child: one frame each family unit at most
+M080	1	relatives	three ladies in paithani at the marigold decor
+M081	2	elders	two ladies with the grandmother at the decor: an elder, keep one good frame
+M082	0	relatives	solo portraits of one relative, too many of a guest
+M083	1	relatives	a relative's solo portrait in blue paithani: one at most
+M084	0	detail	"shaadi wala ghar" sign alone
+M085	1	bride	bride solo in pink saree at the marigold decor: one of the best portraits
+M086	1	bride	bride at the colourful backdrop with the shaadi sign
+M087	2	family	bride with her parents and brother at the backdrop: the bride's core family
+M088	2	family	bride's family again, plus her parents as a pair: keep parents' couple photo
+M089	1	bride	bride touching the marigold strings: a candid-feeling portrait
+M090	1	bride	bride portrait, hand at the ear, smiling
+M091	0	bride	more of the same solo pose
+M092	0	bride	more of the same solo pose
+M093	1	bride	bride close-up with jhumka, eyes down: the best close portrait of the day so far
+M094	0	bride	bride at the backdrop again, repeats M086
+M095	0	bride	bride at the backdrop again, repeats M086
