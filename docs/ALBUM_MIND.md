@@ -187,3 +187,15 @@ training; the AI learns from real people's choices (people-rated eyes, real albu
 sees every photo at full size and the whole day at once, and is scored against Claude on the exam
 (wedding-1: Claude 70% of the gap closed), with a separate count on the photos where Claude and the
 couple disagree.
+
+**Order of work (owner agreed, 4 Nov 2026)**, every step judged by one thing: did the exam go up?
+1. The reasoning brain (the main brain): it holds the whole day, weighs each scene against the rest
+   (once-only moments, who is covered yet, already told, how many photos, which frame) and says why.
+   Taught on wedding-2 (Claude's blind picks with reasons, scene by scene), scored on wedding-1.
+   Most of what is lost on the exam is which moments, not which frame (random already lands on 35% of
+   the couple's moments at 233 photos, 10% of the exact photos).
+2. Speed of the one-pass judge on a real phone (A15): ~7 s a pass on a 4-core build machine, so it may
+   need smaller photos or only the shortlist.
+3. Birthdays, occasions, frame lessons from the web: in the background.
+Honest limit: beating Claude needs real people's choices (more real albums, the brides' swaps); Claude's
+picks alone can get near Claude, not past.
