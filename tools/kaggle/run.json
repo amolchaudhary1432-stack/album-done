@@ -1,1 +1,1 @@
-{"script": "train_frames.py", "slug": "album-done-train-frames", "datasets": ["album-done-twins"], "mode": "send", "wait": 3, "also_fetch": ["album-done-judge-all"]}
+{"script": "train_frames.py", "slug": "album-done-train-frames", "datasets": ["album-done-twins"], "mode": "fetch", "wait": 25}
