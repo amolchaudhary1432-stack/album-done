@@ -18,9 +18,11 @@ sys.path.insert(0, ck)
 import inference as I
 
 random.seed(7); torch.manual_seed(7)
-STATE = ("Photos from an Indian wedding (any community), shot within seconds of each other. "
-         "A family is choosing which ones go into their wedding album: the best moment, everyone's "
-         "eyes open and faces at their best, nobody blocked or cut off, sharp, well lit.")
+# Occasion-neutral (owner, 4 Nov 2026): the same judge must reason about a birthday or a naming as
+# well as a wedding; the occasion is told, the rest it must see.
+STATE = {"occasion": "an Indian wedding", "photos": "near-twins, shot within seconds of each other",
+         "task": "A family is choosing which ones go into their album: the moment that matters, the "
+                 "important people at their best (eyes open, good expression), nobody blocked or cut off, sharp, well lit."}
 L = 'ABCD'
 index = {g['id']: g for g in json.load(open(f'{root}/index.json'))}
 labels = {}

@@ -209,6 +209,10 @@ Design mock-up: https://claude.ai/artifact/KzbjcqjdAW5KkNJ47pFf6f
   never seen (a Muslim raw folder: nikah, mehndi, walima), from what it sees, not from rules per
   religion. Tested by leaving a community out of training and scoring the AI on it: it passes only
   if it does as well on the unseen community as on the ones it learned from.
+- Owner (4 Nov 2026): the same AI must reason deeply about any occasion now, not later (a birthday
+  folder today: the birthday child, mummy and papa, cake and candles). Its questions do not assume a
+  wedding (the occasion is told, the rest it sees); birthday and family-function photos join the
+  training; tested by leaving an occasion out of training, like a community.
 - Recordings for the owner (owner, 3 Nov 2026): each video on the test-runs artifact has its own
   title about that test only. Only the checking (scanning) part is sped up; every other step plays
   at normal speed. The showcase recording of a real couple's folder uses the app like a person who
