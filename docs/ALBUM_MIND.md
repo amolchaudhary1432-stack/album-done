@@ -227,3 +227,18 @@ trained numbers, 1,334 pair lessons from the practice groups, 3 rounds, Kaggle T
 by heart; too few lessons. Below the untrained eyes together (71.8%). Next: far more lessons (wedding-2
 at real scale, the birthday/function twins), and the judge trained on top of the eyes' opinions rather
 than alone.
+
+**4 Nov 2026, evening: wedding-2 judged moment by moment** (training data, `tools/realphotos/picks/
+wedding-2-moments-claude.tsv`; index of photos per moment in `wedding-2-moments-index.tsv`)
+- A Maharashtrian Hindu wedding over five days, 7,697 raw photos in 10 photographer folders: groom's
+  haldi, gondhal, bride's haldi and mehendi, chuda and devak, simant pujan, sangeet, vyahi bhet, the
+  antarpat and mangalashtak, kanyadaan, saptapadi, kaan pili, vidaai, griha pravesh, the ring game,
+  nanhora and a foam party, satyanarayan puja, reception.
+- 961 moments (the app's own split), each with how much the album needs it (0 skip, 1 one photo,
+  2 a peak worth two or more), its kind and a reason: 129 peaks, 432 one-photo, 400 skip.
+- What a person does that the app does not: stage guests are almost all skipped (149 of 152 guest
+  moments), elders and parents almost never (elders 22 of 22 kept, family 67 of 68), every ritual's
+  key instant is a peak while its repeats are skipped (ritual: 39 peaks, 117 one, 61 skip), details
+  only once each, many photographer's styled solos of cousins skipped.
+- Next: the reasoning brain learns these on Kaggle (moment worth from what the eyes see + who is in it
+  + where it sits in the day), tested on held-back parts of wedding-2 and then on the wedding-1 exam.
