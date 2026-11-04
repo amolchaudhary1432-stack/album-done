@@ -136,3 +136,31 @@ held-back sets (scene judge learned on practice sets only) before anything goes 
 sets unchanged at 81%, but practice sets 88% -> 85%. Lesson: the public sets are curated uploads (a
 person uses almost every moment), not raw folders; wedding-1 is the only raw folder and is the exam.
 Kept as an experiment switch, off in the app, until more raw folders can confirm it.
+
+**4 Nov 2026, 9:40 am IST: wider search for a base of our own model** (Hugging Face API, 52 labs:
+Chinese (Qwen, InternVL/InternLM, MiniCPM, GLM, Kimi, Step, DeepSeek, ERNIE, Tencent, Xiaomi MiMo,
+ByteDance Seed, Ant inclusionAI, SenseNova, BAAI, Kwai, Meituan...), and others (Google, Microsoft,
+NVIDIA, IBM, Cohere, Liquid, AllenAI, HF, Mistral, Sarvam, Krutrim, Kakao, Naver, LG...). 665 vision
+models; 148 at or under 5.5B.)
+
+- New kind found: **decision models**. They answer typed questions (yes/no, choose one of A-D, a score)
+  in one forward pass and write no text. Writing text was what made the thinking models too slow
+  (round 4: 12-600 s a photo), so this is the shape a phone can afford.
+  - Intern-Decision 0.8B / 2B / 4B (Shanghai AI Lab, Apache, on Qwen 3.5): up to 8 photos and 16
+    questions per pass.
+  - OneJev 1.6 0.8B (Apache, on Qwen 3.5): highest-scoring model up to 2.5B on the Decision Index.
+  - H2O-Lightning-4B (Apache, on Qwen 3.5).
+  - Liquid d1-2B / d1-3B: LFM licence, free only under $10M revenue, so not our first choice.
+- A photo-quality judge of the same shape: Q-ReAlign Mini 0.8B (Apache, Qwen 3.5): quality and beauty
+  from the probabilities of "excellent ... bad", 0.879 agreement with people on seven quality sets.
+- Other new small ones: Cohere North Micro Vision 2.4B (Apache, Hindi among its languages), ZwZ 2B/4B
+  (Ant, Apache, fine detail in one pass), MiniCPM-V 4.6 Thinking, Gemma 4 E2B mobile build, LFM3-VL-2B
+  (LFM licence).
+- Not usable: Gemma 3 terms, Llama, FAIR non-commercial (Perception-LM), NVIDIA and Apple research
+  licences, Krutrim and Kakao licences, Youtu licences.
+
+Plan: our own model = one shared Qwen 3.5 0.8B decision backbone (Apache), fine-tuned by us on the
+album's own questions (keep this scene? how many photos? which frame? is this a peak? who matters
+here?), asked in one pass per scene, on the phone, for the few hundred candidates the fast senses
+leave. First, the ready-made ones are tested untrained on the full-size frame choices
+(`judge-test.yml`, `tools/reasoner/judge_test.py`).
