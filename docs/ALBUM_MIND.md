@@ -301,3 +301,20 @@ community at scale, only licences that allow a paid app)
 - CommonCatalog CC BY + CC BY-SA (every CC Flickr photo with captions, crores of photos): caption scan
   running on Kaggle (`caption_scan.py`), carries on across runs until every file is read.
 - Then Megalith-10M (CC0) and PD12M (public domain) by caption, and the eyes + SigLIP on everything found.
+
+**Paused 4 Nov 2026, 8:20 pm IST (owner needs his weekly limit; he will say when to resume)**
+Where things stand:
+- Exam (wedding-1, 766 photos): Album Mind v2 + own small frame judge = 66% of the gap (Claude 70%);
+  exact couple's photos 41.6% (Claude 38.6%). Commands: `WEB=1 FRAME=tools/reasoner/weights/frame-distill-twins.npy
+  python3 -I tools/reasoner/mind_v2.py S 766` (S = scratchpad with w1/w2 features and SigLIP vectors).
+- Lessons: wedding-2's 961 moments judged (`tools/realphotos/picks/wedding-2-moments-claude.tsv`, stage
+  family groups kept one each); 71 picked web sets; 302+206 near-twin rankings.
+- Still running on Kaggle (owner's account, no Claude use; results wait there): `album-done-eyes-web`
+  (eyes score 8,264 web wedding photos), `album-done-cc-weddings` (CommonCatalog caption scan),
+  `album-done-mp-weddings` (Megalith + PD12M). Collect with tools/kaggle/run.json mode fetch.
+To resume:
+1. Re-enable the scheduled task "Album brain: keep training until it beats Claude" (paused, not deleted).
+2. Rebuild the scratchpad if the machine was reset: unlock real-data (wedding-1, wedding-2), `features` /
+   `features-dir` (tools/harvest/jvm), `embed.py` for SigLIP vectors.
+3. Fetch the three Kaggle outputs; re-send cc scan to carry on (files_done.txt); train frame_distill on
+   eyes.npz; filter Indian photos by SigLIP; group by owner/date into sets; judge; retrain; exam.
