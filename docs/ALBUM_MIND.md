@@ -283,3 +283,12 @@ plus 487 moments of the 71 picked web sets, 9 community labels; `features-dir` w
   gave 46.8 / 63.1 / 92.3 (64%). Within noise: the curated web sets add breadth, not exam points.
 - Next for breadth without asking anyone for photos: the harvest's fuller single-photographer web sets
   (300-800 photos of one day) per community, judged moment by moment like wedding-2.
+
+**4 Nov 2026, ~4:45 pm IST: our own small frame judge, taught by the eyes** (`frame_distill.py`: 768
+numbers over the SigLIP vector, learned to predict Q-ReAlign + Intern-Decision on 861 twin photos; no
+human ranking used to learn it)
+- Full-size frame rankings by people: 62.8% of pairs right (old judge 57-59%, the big eyes 72%).
+- In Album Mind v2's frame choice (`FRAME=...`, added to the old judge): exam at 766 photos, same photo
+  38.2% -> 41.6% (Claude 38.6%), couple's moments 92.3% -> 92.7%, 64% -> 66% of the gap (Claude 70%).
+- Running on Kaggle: the eyes score all 8,264 harvested wedding photos (`eyes_web.py`) to teach it far
+  more; Open Images searched for South Asian weddings (`oi_weddings.py`, 9M CC BY photos).

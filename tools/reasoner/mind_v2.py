@@ -3,7 +3,7 @@ scene judge v2 learned on wedding-2 (a raw folder, judged moment by moment) and 
 one at a time to the moment that gains most (its worth, less for each photo it already has), the best
 unchosen frame that is not a near-copy, then everyone close with the couple.
     python3 -I mind_v1.py S SIZE [decay]"""
-import csv, glob, json, sys, collections, random
+import csv, glob, json, os, sys, collections, random
 import numpy as np
 S, SIZE = sys.argv[1], int(sys.argv[2]); DECAY = float(sys.argv[3]) if len(sys.argv) > 3 else 0.5
 z = np.load(S + '/reasoner/sets.npz'); emb = dict(zip(z['keys'], z['vecs'].astype(np.float32)))
@@ -138,6 +138,10 @@ for i, r in enumerate(t):
     r['i'] = i; r['ok'] = float(r['usable']) > 0.5; r['f'] = np.array([float(r[k]) for k in feat])
     r['who'] = set(r['who'].split(';')) - {''}; r['fam'] = set(r['family'].split(';')) - {''}
     r['frame'] = float(np.concatenate([(r['f'] - mu) / sd, Ew[i] @ Vt[:64].T]) @ fw)
+if os.environ.get('FRAME'):
+    # Our own small frame judge, taught by the eyes (frame_distill.py), added to the old one, both made comparable.
+    wd = np.load(os.environ['FRAME']); dist = Ew @ wd[:-1] + wd[-1]; old_ = np.array([r['frame'] for r in t])
+    for i, r in enumerate(t): r['frame'] = (old_[i] - old_.mean()) / (old_.std() + 1e-9) + float(os.environ.get('FRAME_W', '1')) * (dist[i] - dist.mean()) / (dist.std() + 1e-9)
 by_ev = collections.defaultdict(list)
 for r in t: by_ev[r['event']].append(r)
 mom = collections.defaultdict(list)
