@@ -194,6 +194,13 @@ couple disagree.
    Taught on wedding-2 (Claude's blind picks with reasons, scene by scene), scored on wedding-1.
    Most of what is lost on the exam is which moments, not which frame (random already lands on 35% of
    the couple's moments at 233 photos, 10% of the exact photos).
+   Ritual understanding is part of this brain (internal only, never shown): what each ritual is from
+   what it sees (mandap and fire, qazi and nikahnama, Guru Granth Sahib and laavan, altar, haldi,
+   sindoor, thali, varmala), its decisive instant, who must be in it, how it should look (serious at
+   pheras, tears at vidaai). Small models today invent ritual names (Qwen 2B: an engagement blessing
+   called saptapadi), so it is taught (ritual lessons from every community's photos, the day's order)
+   and tested: name the ritual and its key instant on unseen photos with no inventing, on a community
+   left out, and by the exam's key moments.
 2. Speed of the one-pass judge on a real phone (A15): ~7 s a pass on a 4-core build machine, so it may
    need smaller photos or only the shortlist.
 3. Birthdays, occasions, frame lessons from the web: in the background.
