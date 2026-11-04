@@ -7,7 +7,7 @@ judge_test.py's format (frames-before.tsv, frames-after.tsv), scored with judge_
 Only freely licensed Commons photos are used here (frame-level lessons only, owner's rule).
 """
 import glob, json, os, random, subprocess, sys, time
-subprocess.run([sys.executable, '-m', 'pip', 'install', '-q', 'transformers==5.14.1', 'peft==0.17.1', 'huggingface_hub'], check=True)
+subprocess.run([sys.executable, '-m', 'pip', 'install', '-q', 'transformers==5.14.1', 'huggingface_hub'], check=True)
 import torch
 from huggingface_hub import snapshot_download
 from PIL import Image
@@ -83,10 +83,29 @@ for gid, (order, strength) in labels.items():
             pairs += [(g, order[i], order[j], w), (g, order[j], order[i], -w)]
 print(len(pairs), 'training examples', flush=True)
 
-from peft import LoraConfig, get_peft_model
-model = get_peft_model(model, LoraConfig(r=16, lora_alpha=32, lora_dropout=0.05,
-    target_modules=r'.*language_model.*\.(q_proj|k_proj|v_proj|o_proj|gate_proj|up_proj|down_proj)'))
-model.print_trainable_parameters()
+# Our own small LoRA (no peft: its versions clash with transformers 5): each chosen layer of the
+# language model gets two small trainable matrices; the base model stays frozen.
+import re
+
+
+class LoRA(torch.nn.Module):
+    def __init__(self, base, r=16, alpha=32):
+        super().__init__()
+        self.base, self.scale = base, alpha / r
+        self.a = torch.nn.Parameter(torch.randn(r, base.in_features, device=base.weight.device) * 0.01)
+        self.b = torch.nn.Parameter(torch.zeros(base.out_features, r, device=base.weight.device))
+
+    def forward(self, x):
+        return self.base(x) + (x @ self.a.t() @ self.b.t()) * self.scale
+
+
+for p in model.parameters(): p.requires_grad_(False)
+pattern = re.compile(r'.*language_model.*\.(q_proj|k_proj|v_proj|o_proj|gate_proj|up_proj|down_proj)$')
+names = [n for n, m in model.named_modules() if isinstance(m, torch.nn.Linear) and pattern.match(n)]
+for n in names:
+    parent, leaf = n.rsplit('.', 1)
+    mod = model.get_submodule(parent); setattr(mod, leaf, LoRA(getattr(mod, leaf)))
+print(len(names), 'layers with LoRA,', sum(p.numel() for p in model.parameters() if p.requires_grad), 'trainable numbers', flush=True)
 opt = torch.optim.AdamW([p for p in model.parameters() if p.requires_grad], lr=1e-4, weight_decay=0.0)
 EPOCHS, ACC = 3, 8
 step = 0
@@ -102,7 +121,7 @@ for epoch in range(EPOCHS):
     print(f'epoch {epoch + 1}: loss {total / n:.3f}', flush=True)
 
 answer('test', 'frames-after.tsv')
-model.save_pretrained('frame-judge-lora')
+torch.save({k: v for k, v in model.state_dict().items() if k.endswith('.a') or k.endswith('.b')}, 'frame-judge-lora.pt')
 r = subprocess.run([sys.executable, f'{root}/judge_test.py', 'score', f'{root}/frame-labels.tsv', f'{root}/index.json',
                     'frames-before.tsv', 'frames-after.tsv'], capture_output=True, text=True)
 print(r.stdout, r.stderr[-2000:])

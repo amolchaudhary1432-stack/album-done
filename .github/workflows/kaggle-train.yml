@@ -81,12 +81,18 @@ jobs:
             sleep 60
           done
       - name: Bring the output back
-        if: always() && env.FINISHED == '1'
+        if: always()
         run: |
-          mkdir -p out && kaggle kernels output "$KAGGLE_USERNAME/$SLUG" -p out || true
-          ls -la out
-          tail -c 4000 out/*.log 2>/dev/null || true
-          cd out && rm -rf .git && git init -q -b kaggle-results && git config user.name "kaggle" && git config user.email "kaggle@users.noreply.github.com"
-          printf '# Kaggle results\n\nOutput of the last training job (%s). Numbers only.\n' "$SLUG" > README.md
-          find . -size +90M -delete
-          git add -A && git commit -q -m "Kaggle output: $SLUG" && git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" HEAD:kaggle-results
+          # Each job's output in its own folder on kaggle-results; run.json "also_fetch" collects earlier jobs too.
+          mkdir -p res && if git fetch -q --depth 1 origin kaggle-results; then git --work-tree=res checkout FETCH_HEAD -- . && git reset -q; fi
+          slugs=$(python3 -c "import json; r=json.load(open('tools/kaggle/run.json')); print(' '.join(r.get('also_fetch', [])))")
+          [ "$FINISHED" = 1 ] && slugs="$slugs $SLUG"
+          for s in $slugs; do
+            st=$(kaggle kernels status "$KAGGLE_USERNAME/$s" 2>&1 | tail -1); echo "$s: $st"
+            case "$st" in *COMPLETE*|*complete*|*ERROR*|*error*) rm -rf "res/$s" && mkdir -p "res/$s" && kaggle kernels output "$KAGGLE_USERNAME/$s" -p "res/$s" || true;; esac
+            cat res/$s/scores.txt 2>/dev/null || true
+          done
+          find res -size +90M -delete; rm -f res/*.log res/*.tsv res/*.json
+          cd res && rm -rf .git && git init -q -b kaggle-results && git config user.name "kaggle" && git config user.email "kaggle@users.noreply.github.com"
+          printf '# Kaggle results\n\nOne folder per job. Numbers only (freely licensed test photos; no couple photos).\n' > README.md
+          git add -A && git commit -q -m "Kaggle output: $slugs" && git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" HEAD:kaggle-results
