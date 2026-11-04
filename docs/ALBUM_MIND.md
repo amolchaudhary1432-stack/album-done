@@ -220,3 +220,10 @@ picks alone can get near Claude, not past.
 
 The 95-group CPU sample was a little kind (Q-ReAlign 69.6% held back there, 64.8% on all). Several eyes
 together beat any one: the brain should take several opinions, as a person weighs several things.
+
+**4 Nov 2026, ~3 pm IST: first training of our judge** (Intern-Decision 0.8B + our own LoRA, 6.4M
+trained numbers, 1,334 pair lessons from the practice groups, 3 rounds, Kaggle T4): held-back pairs
+60.5% -> 63.9% (sure ones 50% -> 68%, only 22 pairs). Training loss 0.68 -> 0.29: it learns the lessons
+by heart; too few lessons. Below the untrained eyes together (71.8%). Next: far more lessons (wedding-2
+at real scale, the birthday/function twins), and the judge trained on top of the eyes' opinions rather
+than alone.
