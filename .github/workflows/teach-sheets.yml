@@ -1,0 +1,48 @@
+name: Teaching sheets at full size
+
+# Near-twin groups from the picked photo sets (freely licensed, Wikimedia Commons), side by side at
+# full size, so Claude can judge which frame a family keeps and why: eyes, expressions, the decisive
+# instant, which 300 px contact sheets cannot show. Sheets and photos go to the teach-sheets branch
+# with the sets' credits. Started by changing tools/reasoner/twin-groups.json or by hand.
+on:
+  push:
+    branches: ['claude/**']
+    paths: ['tools/reasoner/twin-groups.json']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: teach-sheets
+  cancel-in-progress: false
+
+jobs:
+  sheets:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - name: Credits of the sets
+        run: |
+          git fetch -q --depth 1 origin harvest-data
+          mkdir -p credits && for s in $(python3 -c "import json; print(' '.join(sorted({g['set'] for g in json.load(open('tools/reasoner/twin-groups.json'))})))"); do git show "FETCH_HEAD:sets/$s.credits.json" > "credits/$s.credits.json"; done
+          ls credits | wc -l
+      - name: Earlier sheets (carry on where the last run stopped)
+        run: |
+          mkdir -p out && if git fetch -q --depth 1 origin teach-sheets; then git --work-tree=out checkout FETCH_HEAD -- . && git reset -q; fi
+          ls out | wc -l
+      - name: Fetch and lay out
+        env:
+          DEADLINE: "5700"
+        run: |
+          python3 -m pip install -q pillow==12.3.0
+          python3 tools/reasoner/teach_sheets.py tools/reasoner/twin-groups.json credits out
+          cp credits/*.credits.json out/ 2>/dev/null || true
+      - name: Keep on the teach-sheets branch
+        if: always()
+        run: |
+          cd out && git init -q -b teach-sheets && git config user.name "teach-sheets" && git config user.email "teach-sheets@users.noreply.github.com"
+          printf '# Teaching sheets\n\nNear-twin groups from freely licensed Wikimedia Commons sets (credits: *.credits.json), side by side at full size for judging. Test data only, never in the app.\n' > README.md
+          git add -A && git commit -q -m "Teaching sheets" && git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" HEAD:teach-sheets
+          echo "kept $(ls g*.jpg 2>/dev/null | wc -l) sheets"
