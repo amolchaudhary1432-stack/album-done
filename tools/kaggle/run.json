@@ -1,1 +1,1 @@
-{"script": "oi_weddings.py", "slug": "album-done-oi-weddings", "mode": "fetch", "wait": 3, "also_fetch": ["album-done-eyes-web"]}
+{"script": "caption_scan2.py", "slug": "album-done-mp-weddings", "gpu": false, "mode": "send", "wait": 3}
