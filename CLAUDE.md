@@ -191,6 +191,14 @@ Design mock-up: https://claude.ai/artifact/KzbjcqjdAW5KkNJ47pFf6f
   Wedding-1 (3 Nov 2026, owner): the couple are the owner's friends and gave all rights; Claude may
   study and show their photos to the owner (private report pages). Kept locked in the repo only
   because the repo goes public for some windows.
+  Wedding-2 (REAL_LINKS_2, raw folder, no album; 4 Nov 2026, owner): the family agreed to their photos
+  being used to train the app. It is training data (Claude's blind picks with reasons); wedding-1
+  stays the exam until a third raw folder comes. Its photos may go to the owner's private Kaggle
+  account for GPU training (secrets KAGGLE_JSON, KAGGLE_USERNAME; `kaggle-train.yml`) and are deleted
+  from Kaggle afterwards. Web (Commons) photos teach only frame-level lessons (which near-twin is
+  better), never how much of a day to keep: they are curated uploads, not raw folders.
+- Owner (4 Nov 2026): work on your own; come back to him only when our AI reaches human-level
+  selection (or for a decision only he can make).
 - Recordings for the owner (owner, 3 Nov 2026): each video on the test-runs artifact has its own
   title about that test only. Only the checking (scanning) part is sped up; every other step plays
   at normal speed. The showcase recording of a real couple's folder uses the app like a person who
