@@ -263,3 +263,12 @@ when (place in the event); wedding-1 never seen)
 - The fair comparison with Claude is at 766 (the size Claude picked): v2 60% vs Claude 70%. Ten points
   of the gap to go before it beats Claude on the exam. One raw folder of lessons did this; more raw
   folders, frame lessons from the eyes, and the brides' swaps are the way on.
+
+**Owner's correction (4 Nov 2026):** stage group photos are close family, extended relatives and close
+friends, not strangers: one photo per group is kept (its best frame). Claude had skipped 99 such moments
+on wedding-2 as "guests" (faces it did not know). Relabelled; retrained v2; exam: 233 photos 42.1% ->
+46.8% (18% of the gap), 400 62.7% -> 63.1%, 766 91.4% -> 92.3% (64%; Claude 70%). The couple's real
+album agrees with the owner.
+Also: the reasoning brain has so far learned moments from one raw folder (a Maharashtrian Hindu
+wedding). Frame lessons come from web sets of many communities; the scene judge must learn from them
+too, and from raw folders of other communities, with the leave-one-community-out test.

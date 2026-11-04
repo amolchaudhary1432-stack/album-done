@@ -25,7 +25,7 @@ M023	1	family	groom with family group at the arch: one group frame
 M024	1	relatives	groom with a group of relatives at the haldi stage
 M025	1	ritual	an uncle and aunt applying haldi to the groom, fun with sunglasses
 M026	1	ritual	several relatives' turns applying haldi including an elderly lady: keep the elder's turn
-M027	0	guests	one blurred wide of the stage crowd
+M027	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
 M028	1	family	groom with a family group and children at the arch
 M029	1	ritual	aunts applying haldi and posing with the groom
 M030	1	ritual	aunts and an uncle applying haldi, the turmeric on the face
@@ -471,53 +471,53 @@ M469	1	relatives	an elder couple (likely the bride's grandparents or uncles) on 
 M470	1	relatives	close relatives with the couple on the stage, a lady blessing
 M471	1	relatives	the bride with an aunt, then the couple with her: one frame
 M472	1	guests	the stage line of guests with the couple: one or two of the closest; most are not needed
-M473	0	guests	guests with the couple
-M474	0	guests	guests with the couple
-M475	0	guests	guests with the couple
-M476	0	guests	guests with the couple
-M477	0	guests	guests with the couple
-M478	0	guests	guests with the couple
-M479	0	guests	guests with the couple
+M473	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M474	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M475	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M476	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M477	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M478	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M479	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
 M480	1	couple	the couple's moody portrait in the corridor, groom seated
-M481	0	guests	guests with the couple
+M481	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
 M482	1	couple	the couple's corridor portrait, smiling at each other: one of the two corridor sets
-M483	0	guests	a family with the couple on stage
+M483	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
 M484	0	couple	motion-blur experiments, weaker
-M485	0	guests	guests with the couple
-M486	0	guests	guests with the couple
-M487	0	guests	guests with the couple
-M488	0	guests	guests with the couple
+M485	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M486	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M487	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M488	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
 M489	2	couple	the couple's sangeet portrait, the groom's hand at her face, playful: among the best couple frames
-M490	0	guests	friends with the couple
+M490	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
 M491	1	relatives	the bride's cousins in lehengas around the couple on stage
-M492	0	guests	guests with the couple
+M492	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
 M493	2	couple	the couple close, she holds his lapel, both smiling: the warmest sangeet couple portrait
-M494	0	guests	guests with the couple
-M495	0	guests	guests with the couple
-M496	0	guests	guests with the couple
+M494	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M495	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M496	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
 M497	1	couple	the couple standing together at the sangeet, a cleaner full length
-M498	0	guests	guests with the couple
-M499	0	guests	guests with the couple
+M498	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M499	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
 M500	0	couple	couple portraits repeating the set
-M501	0	guests	guests with the couple
+M501	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
 M502	1	couple	couple portraits, her head on his shoulder
 M503	1	family	a large family group on the stage (one side's relatives): one big group
-M504	0	guests	guests with the couple
-M505	0	guests	guests with the couple
-M506	0	guests	guests with the couple
+M504	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M505	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M506	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
 M507	1	candid	the bride watching her family dance at night (sangeet after-party), from behind
 M508	1	elders	an elderly lady blessing the bride with a hand on her head
 M509	0	relatives	a cousin's styled solo portraits
-M510	0	guests	friends with the couple
-M511	0	guests	friends with the couple
-M512	0	guests	a lady with the couple
-M513	0	guests	a large group with the couple, small in frame
-M514	0	guests	guests with the couple
+M510	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M511	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M512	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M513	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M514	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
 M515	1	friends	the bride's girl friends with the couple
 M516	1	family	a family with the couple standing (likely the bride's close relatives)
 M517	0	other	blurred abstract
-M518	0	guests	a family with the couple standing
-M519	0	guests	guests with the couple standing
+M518	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M519	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
 M520	0	couple	dark, couple with sparklers, too dark
 M521	2	family	the groom's parents standing with the couple at the mandap: the formal family portrait
 M522	1	couple	the couple surrounded by phone lights at night: one atmospheric frame, the best lit
@@ -538,14 +538,14 @@ M536	1	family	the couple with an elder pair seated between them
 M537	1	family	the couple with the groom's parents standing (or uncle and aunt)
 M538	1	friends	the groom's brother/friend between the couple
 M539	0	bride	more solo portraits, repeats
-M540	0	guests	guests with the couple
-M541	0	guests	guests with the couple
+M540	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M541	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
 M542	1	friends	the couple's friends posing with them at the sangeet
 M543	0	relatives	cousins' solo portraits
 M544	1	family	an elder (likely an uncle) with the couple
 M545	1	family	a very large family group on the stage
 M546	0	family	the large group again, repeats
-M547	0	guests	a group with the couple
+M547	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
 M548	1	friends	the couple's office/college friends with a gift
 M549	0	friends	the friends group again
 M550	0	relatives	a lady with the groom
@@ -553,9 +553,9 @@ M551	1	relatives	a mother and her children (cousins) on the sofa
 M552	0	guests	guests seated
 M553	0	guests	a group of guests posing in the hall
 M554	1	relatives	a young couple (cousins) on the stage sofa
-M555	0	guests	guests with the couple
+M555	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
 M556	0	guests	a guest giving a gift
-M557	0	guests	guests with the couple
+M557	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
 M558	1	candid	the family lunch: the long tables of guests eating
 M559	1	candid	the groom's father (in pheta) serving food to the guests: a warm host moment
 M560	0	candid	serving food, repeats
@@ -805,72 +805,72 @@ M803	1	couple	the couple walking in, the groom looking at the crowd
 M804	0	couple	the couple on the red carpet, repeats
 M805	2	couple	the couple on the reception stage with the fireworks and fog: the stage portrait
 M806	1	family	the bride's (or groom's) parents with the couple on the reception stage
-M807	0	guests	guests on stage
+M807	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
 M808	1	family	a family with the grandmother on the stage
-M809	0	guests	guests on stage
-M810	0	guests	guests on stage
-M811	0	guests	guests on stage
-M812	0	guests	guests on stage
-M813	0	guests	guests on stage
-M814	0	guests	guests on stage
-M815	0	guests	guests on stage, many families in turn
-M816	0	guests	guests on the reception stage with the couple, one family after another
-M817	0	guests	guests on the reception stage with the couple, one family after another
-M818	0	guests	guests on the reception stage with the couple, one family after another
-M819	0	guests	guests on the reception stage with the couple, one family after another
+M809	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M810	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M811	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M812	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M813	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M814	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M815	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M816	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M817	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M818	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M819	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
 M820	1	family	a big family group on the reception stage (likely one side's relatives)
-M821	0	guests	guests on the reception stage with the couple, one family after another
-M822	0	guests	guests on the reception stage with the couple, one family after another
-M823	0	guests	guests on the reception stage with the couple, one family after another
-M824	0	guests	guests on the reception stage with the couple, one family after another
-M825	0	guests	guests on the reception stage with the couple, one family after another
-M826	0	guests	guests on the reception stage with the couple, one family after another
-M827	0	guests	guests on the reception stage with the couple, one family after another
-M828	0	guests	guests on the reception stage with the couple, one family after another
-M829	0	guests	guests on the reception stage with the couple, one family after another
-M830	0	guests	guests on the reception stage with the couple, one family after another
-M831	0	guests	guests on the reception stage with the couple, one family after another
+M821	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M822	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M823	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M824	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M825	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M826	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M827	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M828	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M829	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M830	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M831	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
 M832	1	elders	an elderly man in white with a big family group on stage: elders get one
 M833	1	family	the biggest group of the night on stage: one wide group
-M834	0	guests	guests on the reception stage with the couple, one family after another
-M835	0	guests	guests on the reception stage with the couple, one family after another
-M836	0	guests	guests on the reception stage with the couple, one family after another
-M837	0	guests	guests on the reception stage with the couple, one family after another
-M838	0	guests	guests on the reception stage with the couple, one family after another
-M839	0	guests	guests on the reception stage with the couple, one family after another
-M840	0	guests	guests on the reception stage with the couple, one family after another
-M841	0	guests	guests on the reception stage with the couple, one family after another
-M842	0	guests	guests on the reception stage with the couple, one family after another
-M843	0	guests	guests on the reception stage with the couple, one family after another
+M834	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M835	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M836	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M837	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M838	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M839	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M840	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M841	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M842	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M843	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
 M844	1	guests	guests giving bouquets: one frame for the gifting
-M845	0	guests	guests on the reception stage with the couple, one family after another
-M846	0	guests	guests on the reception stage with the couple, one family after another
+M845	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M846	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
 M847	1	family	the big group of the couple's relatives on the reception stage
-M848	0	guests	guests on the reception stage with the couple, one family after another
-M849	0	guests	guests on the reception stage with the couple, one family after another
-M850	0	guests	guests on the reception stage with the couple, one family after another
-M851	0	guests	guests on the reception stage with the couple, one family after another
-M852	0	guests	guests on the reception stage with the couple, one family after another
-M853	0	guests	guests on the reception stage with the couple, one family after another
-M854	0	guests	guests on the reception stage with the couple, one family after another
-M855	0	guests	guests on the reception stage with the couple, one family after another
+M848	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M849	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M850	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M851	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M852	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M853	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M854	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M855	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
 M856	1	elders	two elderly ladies (likely grandmothers) with the couple, then friends
-M857	0	guests	guests on the reception stage with the couple, one family after another
-M858	0	guests	guests on the reception stage with the couple, one family after another
-M859	0	guests	guests on the reception stage with the couple, one family after another
+M857	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M858	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M859	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
 M860	1	family	a big family group with children in red on the stage: one wide
-M861	0	guests	guests on the reception stage with the couple, one family after another
-M862	0	guests	guests on the reception stage with the couple, one family after another
-M863	0	guests	guests on the reception stage with the couple, one family after another
-M864	0	guests	guests on the reception stage
-M865	0	guests	guests on the reception stage
-M866	0	guests	guests on the reception stage
-M867	0	guests	a group on the stage
-M868	0	guests	guests on the reception stage
-M869	0	guests	guests on the reception stage
+M861	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M862	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M863	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M864	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M865	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M866	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M867	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M868	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
+M869	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
 M870	1	friends	the couple's close friends on the stage
 M871	1	friends	a friend seated between the couple on the sofa, laughing
-M872	0	guests	guests on the reception stage
+M872	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
 M873	0	candid	a boy lounging on the sofa
 M874	1	candid	the reception dinner: guests at the tables, one wide
 M875	1	couple	the couple's spotlight portrait, groom in front: the reception's styled set
@@ -901,9 +901,9 @@ M899	1	candid	the anchor speaking, the bride dancing on the floor
 M900	1	candid	the anchor interviewing the couple on stage, both laughing
 M901	1	couple	the couple dancing on stage in the cold fireworks (candid)
 M902	0	couple	the couple seated on the stage sofa
-M903	0	guests	a guest greeting on stage
+M903	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
 M904	0	guests	guests greeting with bouquets
-M905	0	guests	a family on stage
+M905	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
 M906	0	guests	a guest
 M907	1	elders	an elder blessing the couple on the reception stage, hand on the groom's head
 M908	0	guests	guests mingling on the lawn
@@ -911,12 +911,12 @@ M909	0	couple	the couple standing, plain
 M910	2	elders	three grandmothers laughing together on the lawn: a precious candid of the elders
 M911	0	guests	a boy's portraits
 M912	1	detail	the saxophone player at the reception, black-and-white close-up: one mood detail
-M913	0	guests	a guest family on stage
+M913	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
 M914	1	candid	a little girl in pink posing proudly at the neon backdrop: one sweet child frame
 M915	0	guests	a guest couple at the neon backdrop
 M916	1	elders	an elderly man blessing the groom on stage, the bride laughing
 M917	0	guests	a guest couple at the backdrop
-M918	0	guests	guests greeting on stage
+M918	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
 M919	0	guests	guests on the lawn
 M920	0	guests	a boy's portraits
 M921	0	guests	a gift handed to the couple, a girl's portraits
@@ -925,7 +925,7 @@ M923	0	guests	a guest
 M924	0	guests	a cousin's portraits
 M925	0	relatives	a cousin and her husband's portraits
 M926	0	relatives	a girl's portraits
-M927	0	guests	guests with bouquets on stage
+M927	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
 M928	0	relatives	ladies posing, and with the couple
 M929	0	guests	a guest's portraits
 M930	1	candid	the lawn at night: a toddler running, families: one candid of the reception's warmth
@@ -944,7 +944,7 @@ M942	0	relatives	a cousin's portraits
 M943	0	relatives	cousins' portraits
 M944	0	relatives	a young couple (cousins) posing
 M945	1	relatives	the groom with the little girls on the stage sofa, and the bride with an aunt
-M946	0	guests	a stage hand
+M946	1	family-group	a family group with the couple on stage (close family, extended relatives, close friends): one photo per group, the best frame
 M947	0	relatives	the bride with relatives and a baby on the lawn
 M948	0	friends	the groom with a friend
 M949	1	groom	the groom's reception portrait at the stage
