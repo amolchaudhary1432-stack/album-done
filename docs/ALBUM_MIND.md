@@ -164,3 +164,20 @@ album's own questions (keep this scene? how many photos? which frame? is this a 
 here?), asked in one pass per scene, on the phone, for the few hundred candidates the fast senses
 leave. First, the ready-made ones are tested untrained on the full-size frame choices
 (`judge-test.yml`, `tools/reasoner/judge_test.py`).
+
+**4 Nov 2026, 11:15 am IST: ready-made one-pass judges, untrained, on the full-size frame choices**
+(`judge-test.yml`; build machine CPU, ~57 s per group of 2-4 photos, so only ~95 of 288 groups judged
+in 90 minutes; Intern-Decision 2B ran out of memory). Share of ranked pairs put in the helpers' order:
+
+| Judge | all | held back | sure |
+|---|---|---|---|
+| Random | 50% | 50% | 50% |
+| Our frame judge (`frame_judge2.py`, trained) | | 57-59% | 68% |
+| Q-ReAlign Mini 0.8B, "quality" | 68.7% | 69.6% | 79.6% |
+| Intern-Decision 0.8B, "which one would the family keep?" (all photos at once) | 65.5% | 64.3% | 74.4% |
+| Intern-Decision 0.8B, each photo "how good for the album?" | 66.4% | 64.3% | 76.7% |
+
+Untrained, both beat our own trained judge: they see faces and the moment better than SigLIP plus our
+measurements. Small sample: confirm on all groups with a GPU. Next: the eyes (Q-ReAlign, SigLIP, faces)
+feed our brain, a Qwen 3.5 0.8B decision model fine-tuned on Kaggle's free GPU on Claude's album
+judgements (frames, scenes, keep/skip, why), tested on held-back sets and then the exam.
