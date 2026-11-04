@@ -3,7 +3,7 @@
     python3 judge_test.py run MODEL INDEX.json PHOTOS_DIR LABELS.tsv OUT.tsv   (build machine)
     python3 judge_test.py score LABELS.tsv INDEX.json OUT.tsv [OUT2.tsv ...]   (anywhere)
 
-MODEL: intern-0.8b | intern-2b | qrealign-mini. These models answer typed questions in one forward
+MODEL: intern-0.8b | intern-2b | intern-4b | qrealign-mini (DEVICE=cuda on a GPU). These models answer typed questions in one forward
 pass, with no text written, which is what a phone can afford. Each group of near-twins (2-4 photos,
 seconds apart, from freely licensed Commons sets) is asked "which would the family keep?", and each
 photo on its own "how good is it for the album?". Scored like frame_judge2.py: of every pair the
@@ -35,23 +35,25 @@ def run(model, index, photos, labels, out):
     if model.startswith('intern'):
         sys.path.insert(0, os.environ['CKPT'])
         from inference import DecisionEngine
-        eng = DecisionEngine(checkpoint=os.environ['CKPT'], device='cpu', dtype='float32')
+        dev = os.environ.get('DEVICE', 'cpu')
+        eng = DecisionEngine(checkpoint=os.environ['CKPT'], device=dev, dtype=os.environ.get('DTYPE', 'float16' if dev == 'cuda' else 'float32'))
     else:
         import torch
         from PIL import Image
         from transformers import AutoModelForImageTextToText, AutoProcessor
         torch.set_num_threads(os.cpu_count())
         proc = AutoProcessor.from_pretrained(os.environ['CKPT'])
-        net = AutoModelForImageTextToText.from_pretrained(os.environ['CKPT'], dtype=torch.float32).eval()
+        dev = os.environ.get('DEVICE', 'cpu')
+        net = AutoModelForImageTextToText.from_pretrained(os.environ['CKPT'], dtype=torch.float16 if dev == 'cuda' else torch.float32).to(dev).eval()
         levels, weights = ['excellent', 'good', 'fair', 'poor', 'bad'], [1.0, 0.75, 0.5, 0.25, 0.0]
         ids = [proc.tokenizer(' ' + w, add_special_tokens=False).input_ids[0] for w in levels]
 
         def rate(path, ask):
             msg = [{'role': 'user', 'content': [{'type': 'image'}, {'type': 'text', 'text': f'How would you rate the {ask} of this image?'}]}]
             text = proc.apply_chat_template(msg, add_generation_prompt=True) + f'The {ask} of the image is'
-            inp = proc(text=[text], images=[Image.open(path).convert('RGB')], return_tensors='pt')
+            inp = proc(text=[text], images=[Image.open(path).convert('RGB')], return_tensors='pt').to(dev)
             with torch.inference_mode():
-                p = net(**inp).logits[0, -1, ids].softmax(-1)
+                p = net(**inp).logits[0, -1, ids].float().softmax(-1).cpu()
             return float((p * torch.tensor(weights)).sum())
     for g in groups:
         if g['id'] in done: continue

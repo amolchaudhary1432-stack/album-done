@@ -40,6 +40,21 @@ jobs:
           python3 -m pip install -q "kaggle>=1.8"
           kaggle --version
           kaggle kernels list --mine --page-size 5 || true
+      - name: Upload the photos (freely licensed Commons sets only)
+        run: |
+          U=$(python3 -c "import json; print(json.load(open('tools/kaggle/run.json')).get('upload', ''))")
+          [ "$U" = twins ] || exit 0
+          git fetch -q --depth 1 origin teach-sheets
+          mkdir -p data && git --work-tree=data checkout FETCH_HEAD -- photos index.json && git reset -q
+          cp tools/reasoner/frame-labels.tsv tools/reasoner/judge_test.py data/
+          git show FETCH_HEAD:README.md > data/CREDITS.md; git --work-tree=data checkout FETCH_HEAD -- $(git ls-tree --name-only FETCH_HEAD | grep credits.json) && git reset -q
+          printf '{"title": "album-done-twins", "id": "%s/album-done-twins", "licenses": [{"name": "other"}]}' "$KAGGLE_USERNAME" > data/dataset-metadata.json
+          if kaggle datasets status "$KAGGLE_USERNAME/album-done-twins" >/dev/null 2>&1; then
+            kaggle datasets version -p data -m "update" --dir-mode zip -q
+          else
+            kaggle datasets create -p data --dir-mode zip -q
+          fi
+          for i in $(seq 1 30); do s=$(kaggle datasets status "$KAGGLE_USERNAME/album-done-twins" 2>&1 | tail -1); echo "$s"; case "$s" in *ready*) break;; esac; sleep 20; done
       - name: Send the job
         run: |
           SCRIPT=$(python3 -c "import json; print(json.load(open('tools/kaggle/run.json'))['script'])")
@@ -51,7 +66,7 @@ jobs:
           run = json.load(open('tools/kaggle/run.json'))
           json.dump({"id": f"{os.environ['KAGGLE_USERNAME']}/{run['slug']}", "title": run['slug'], "code_file": "run.py",
                      "language": "python", "kernel_type": "script", "is_private": True, "enable_gpu": True,
-                     "enable_internet": True, "dataset_sources": run.get('datasets', []), "model_sources": [],
+                     "enable_internet": True, "dataset_sources": [f"{os.environ['KAGGLE_USERNAME']}/{d}" for d in run.get('datasets', [])], "model_sources": [],
                      "kernel_sources": [], "competition_sources": []}, open('job/kernel-metadata.json', 'w'), indent=1)
           PY
           cat job/kernel-metadata.json

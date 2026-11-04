@@ -1,1 +1,1 @@
-{"script": "gpu_check.py", "slug": "album-done-gpu-check"}
+{"script": "judge_all.py", "slug": "album-done-judge-all", "datasets": ["album-done-twins"], "upload": "twins"}
