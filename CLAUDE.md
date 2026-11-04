@@ -218,6 +218,11 @@ Design mock-up: https://claude.ai/artifact/KzbjcqjdAW5KkNJ47pFf6f
   the day goes, who the family is: "a 3-5 year old boy's birthday on a lawn") and reasons from that.
   The occasion picker can stay in the app as an optional hint. Tested on the web sets whose occasion
   is known: the AI gets only the photos and must say what the event is.
+- Owner (4 Nov 2026): the target is Indian weddings of every community and religion. Photos from
+  neighbouring countries (Pakistan, Bangladesh, Nepal, Sri Lanka) are kept apart, used only where they
+  look like an Indian community's wedding (Bengali, Punjabi, Muslim), and never count as Indian in a
+  test. Gather as many openly licensed Indian wedding photos as possible first (CommonCatalog, Open
+  Images, Megalith, PD12M, Wikimedia), then train on them. Only licences that allow a paid app.
 - Recordings for the owner (owner, 3 Nov 2026): each video on the test-runs artifact has its own
   title about that test only. Only the checking (scanning) part is sped up; every other step plays
   at normal speed. The showcase recording of a real couple's folder uses the app like a person who
