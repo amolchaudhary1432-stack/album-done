@@ -205,6 +205,10 @@ Design mock-up: https://claude.ai/artifact/KzbjcqjdAW5KkNJ47pFf6f
   swaps), sees every photo at full size and the whole day at once, and counts as a win only when it
   beats Claude's blind picks on the exam (wedding-1: Claude closed 70% of the gap from random to the
   couple's choice), including the photos where Claude and the couple disagree.
+- Owner (4 Nov 2026): it must reason like a person and understand any community's wedding it has
+  never seen (a Muslim raw folder: nikah, mehndi, walima), from what it sees, not from rules per
+  religion. Tested by leaving a community out of training and scoring the AI on it: it passes only
+  if it does as well on the unseen community as on the ones it learned from.
 - Recordings for the owner (owner, 3 Nov 2026): each video on the test-runs artifact has its own
   title about that test only. Only the checking (scanning) part is sped up; every other step plays
   at normal speed. The showcase recording of a real couple's folder uses the app like a person who
