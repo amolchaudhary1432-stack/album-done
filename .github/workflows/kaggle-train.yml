@@ -1,0 +1,65 @@
+name: Train on Kaggle GPU
+
+# Runs a training script on the owner's free Kaggle GPU (secrets KAGGLE_API_TOKEN, KAGGLE_USERNAME)
+# and brings its output back to the kaggle-results branch. Only freely licensed test photos and
+# numbers go to Kaggle, never a couple's photos. tools/kaggle/run.json names the script.
+on:
+  push:
+    branches: ['claude/**']
+    paths: ['tools/kaggle/**', '.github/workflows/kaggle-train.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: kaggle-train
+  cancel-in-progress: false
+
+jobs:
+  train:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    env:
+      KAGGLE_API_TOKEN: ${{ secrets.KAGGLE_API_TOKEN }}
+      KAGGLE_USERNAME: ${{ secrets.KAGGLE_USERNAME }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Kaggle tools
+        run: |
+          python3 -m pip install -q "kaggle>=1.8"
+          kaggle --version
+          kaggle kernels list --mine --page-size 5 || true
+      - name: Send the job
+        run: |
+          SCRIPT=$(python3 -c "import json; print(json.load(open('tools/kaggle/run.json'))['script'])")
+          SLUG=$(python3 -c "import json; print(json.load(open('tools/kaggle/run.json'))['slug'])")
+          echo "SLUG=$SLUG" >> $GITHUB_ENV
+          mkdir -p job && cp "tools/kaggle/$SCRIPT" job/run.py
+          python3 - <<PY
+          import json, os
+          run = json.load(open('tools/kaggle/run.json'))
+          json.dump({"id": f"{os.environ['KAGGLE_USERNAME']}/{run['slug']}", "title": run['slug'], "code_file": "run.py",
+                     "language": "python", "kernel_type": "script", "is_private": True, "enable_gpu": True,
+                     "enable_internet": True, "dataset_sources": run.get('datasets', []), "model_sources": [],
+                     "kernel_sources": [], "competition_sources": []}, open('job/kernel-metadata.json', 'w'), indent=1)
+          PY
+          cat job/kernel-metadata.json
+          kaggle kernels push -p job
+      - name: Wait for it
+        run: |
+          for i in $(seq 1 280); do
+            s=$(kaggle kernels status "$KAGGLE_USERNAME/$SLUG" 2>&1 | tail -1); echo "$(date -u +%H:%M) $s"
+            case "$s" in *COMPLETE*|*complete*|*ERROR*|*error*|*CANCEL*|*cancel*) break;; esac
+            sleep 60
+          done
+      - name: Bring the output back
+        if: always()
+        run: |
+          mkdir -p out && kaggle kernels output "$KAGGLE_USERNAME/$SLUG" -p out || true
+          ls -la out
+          tail -c 4000 out/*.log 2>/dev/null || true
+          cd out && rm -rf .git && git init -q -b kaggle-results && git config user.name "kaggle" && git config user.email "kaggle@users.noreply.github.com"
+          printf '# Kaggle results\n\nOutput of the last training job (%s). Numbers only.\n' "$SLUG" > README.md
+          find . -size +90M -delete
+          git add -A && git commit -q -m "Kaggle output: $SLUG" && git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" HEAD:kaggle-results
