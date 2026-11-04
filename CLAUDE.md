@@ -199,6 +199,12 @@ Design mock-up: https://claude.ai/artifact/KzbjcqjdAW5KkNJ47pFf6f
   better), never how much of a day to keep: they are curated uploads, not raw folders.
 - Owner (4 Nov 2026): work on your own; come back to him only when our AI reaches human-level
   selection (or for a decision only he can make).
+- Owner (4 Nov 2026): the goal is not to copy Claude's intelligence but to outperform it and reach
+  human-level selection. Claude's picks are only starting lessons; the AI also learns from real
+  people's choices (people-rated eyes such as Q-ReAlign, real couples' albums, later the brides'
+  swaps), sees every photo at full size and the whole day at once, and counts as a win only when it
+  beats Claude's blind picks on the exam (wedding-1: Claude closed 70% of the gap from random to the
+  couple's choice), including the photos where Claude and the couple disagree.
 - Recordings for the owner (owner, 3 Nov 2026): each video on the test-runs artifact has its own
   title about that test only. Only the checking (scanning) part is sped up; every other step plays
   at normal speed. The showcase recording of a real couple's folder uses the app like a person who

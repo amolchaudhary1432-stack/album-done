@@ -181,3 +181,9 @@ Untrained, both beat our own trained judge: they see faces and the moment better
 measurements. Small sample: confirm on all groups with a GPU. Next: the eyes (Q-ReAlign, SigLIP, faces)
 feed our brain, a Qwen 3.5 0.8B decision model fine-tuned on Kaggle's free GPU on Claude's album
 judgements (frames, scenes, keep/skip, why), tested on held-back sets and then the exam.
+
+**Goal, owner, 4 Nov 2026:** outperform Claude, then human level. Claude's picks only start the
+training; the AI learns from real people's choices (people-rated eyes, real albums, the brides' swaps),
+sees every photo at full size and the whole day at once, and is scored against Claude on the exam
+(wedding-1: Claude 70% of the gap closed), with a separate count on the photos where Claude and the
+couple disagree.
