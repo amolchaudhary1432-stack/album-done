@@ -46,6 +46,6 @@ for g in groups:
     for k, im in enumerate(ims):
         sheet.paste(im, (x, 60)); d.text((x, 14), 'ABCD'[k], fill='black', font=font); x += im.width + 20
     sheet.save(os.path.join(out, g['id'] + '.jpg'), quality=85)
-    index.append({'id': g['id'], 'set': g['set'], 'split': g['split'], 'photos': g['photos']}); done += 1
+    index.append({'id': g['id'], 'set': g['set'], 'split': g['split'], 'occasion': g.get('occasion', 'WEDDING'), 'photos': g['photos']}); done += 1
 json.dump(index, open(os.path.join(out, 'index.json'), 'w'), indent=0)
 print(done, 'of', len(groups), 'groups made into sheets')
