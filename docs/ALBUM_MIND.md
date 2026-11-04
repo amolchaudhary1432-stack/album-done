@@ -118,3 +118,15 @@ Claude at full size (frame against frame, scene by scene).
 - Frame judge learned on the full-size rankings (`frame_judge2.py`): 57-59% on held-back pairs (68%
   on the sure ones), up from 50% (thumbnail teaching) and 55% (the app's quality number). A real
   but small step: what SigLIP and the measurements see of a frame is not yet the decisive instant.
+
+**4 Nov 2026, Album Mind v1 on the exam** (wedding-1, share of the gap from random to perfect closed)
+
+| | 233 photos (the album's size) | 400 photos |
+|---|---|---|
+| Old brain | 38.2% of the couple's moments (5%) | 68.2% (30%) |
+| v1 alone (`mind_v1.py`: scene judge + frame judge + reasoning) | 43.8% (14%) | 65.2% (24%) |
+| Scene judge driving the old brain, every-moment-first off | 43.3% (13%) | 68.2% (30%) |
+| Random | 34.8% | 54.4% |
+
+Better at the album's size, equal at 400: a step, not yet a clear win. Still to check on the
+held-back sets (scene judge learned on practice sets only) before anything goes into the app.

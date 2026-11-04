@@ -39,10 +39,14 @@ fun score(args: List<String>) {
     val a = AlbumPlanner.analyze(photos, tags)
     val n = couple.size
     val pickers = linkedMapOf<String, List<Long>>()
-    val specs = args.drop(3).filter { !it.startsWith("appeal=") && !it.startsWith("eventweights=") && !it.startsWith("knob=") }
+    val specs = args.drop(3).filter { !it.startsWith("appeal=") && !it.startsWith("eventweights=") && !it.startsWith("knob=") && !it.startsWith("worth=") }
+    // "worth=FILE": moment id<TAB>how much a person would want it (a learned scene judge).
+    args.drop(3).firstOrNull { it.startsWith("worth=") }?.let { f ->
+        AlbumPlanner.momentWorth = File(f.removePrefix("worth=")).readLines().map { it.split('\t') }.filter { it.size == 2 }.associate { it[0].toInt() to it[1].toDouble() }
+    }
     for (k in args.drop(3).filter { it.startsWith("knob=") }.map { it.removePrefix("knob=") }) {
         val (n, v) = k.split(':')
-        when (n) { "anchorAll" -> AlbumPlanner.anchorEveryMoment = v == "1"; "power" -> AlbumPlanner.momentPower = v.toDouble(); "scene" -> AlbumPlanner.sceneBonus = v.toDouble() }
+        when (n) { "anchorAll" -> AlbumPlanner.anchorEveryMoment = v == "1"; "power" -> AlbumPlanner.momentPower = v.toDouble(); "scene" -> AlbumPlanner.sceneBonus = v.toDouble(); "mix" -> AlbumPlanner.appealMix = v.toDouble() }
     }
     // "eventweights=Engagement:0.5,Mehendi:0.6": scales each event's share of the album (experiments).
     args.drop(3).firstOrNull { it.startsWith("eventweights=") }?.let { spec ->

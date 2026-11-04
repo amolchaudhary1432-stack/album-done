@@ -1225,7 +1225,7 @@ object AlbumPlanner {
             val plan = HashMap<Int, Int>()
             val cleanIn = moments.associate { m -> m.id to clean.count { it.momentId == m.id && available(it) } }
             var left = budget
-            val anchors = moments.filter { it.key }.sortedByDescending { it.photoIds.size } +
+            val anchors = moments.filter { it.key }.sortedByDescending { m -> momentWorth?.get(m.id) ?: m.photoIds.size.toDouble() } +
                 listOfNotNull(moments.firstOrNull(), moments.lastOrNull()) +
                 (if (anchorEveryMoment) moments.sortedByDescending { it.photoIds.size } else emptyList())
             for (m in anchors.distinctBy { it.id }) {
@@ -1237,7 +1237,8 @@ object AlbumPlanner {
             if (left > 0) {
                 // Bigger moments get more, but gently: 23 photos of one portrait session should not
                 // take half the event's places from the rituals around it.
-                val weights = moments.associate { m -> m.id.toString() to m.photoIds.size.toDouble().pow(momentPower) }
+                val worthOf = momentWorth
+                val weights = moments.associate { m -> m.id.toString() to m.photoIds.size.toDouble().pow(momentPower) * (worthOf?.get(m.id) ?: 1.0) }
                 val ideal = weights.mapValues { (k, w) -> left * w / weights.values.sum() }
                 val extra = ideal.mapValues { floor(it.value).toInt() }.toMutableMap()
                 var rest = left - extra.values.sum()
@@ -1395,6 +1396,8 @@ object AlbumPlanner {
      */
     /** Build-machine experiments: how much the learned appeal counts next to quality (APPEAL_MIX in the app). */
     @Volatile var appealMix = APPEAL_MIX
+    /** Build-machine experiments: how much a person would want each moment (a learned scene judge). Null in the app. */
+    @Volatile var momentWorth: Map<Int, Double>? = null
     /** Build-machine experiments: value of a new group of people within a moment (0 in the app). */
     @Volatile var sceneBonus = 0.0
     /** Build-machine experiments: every moment gets one photo before any gets a second (true in the app). */
