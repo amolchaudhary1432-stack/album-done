@@ -242,3 +242,24 @@ wedding-2-moments-claude.tsv`; index of photos per moment in `wedding-2-moments-
   only once each, many photographer's styled solos of cousins skipped.
 - Next: the reasoning brain learns these on Kaggle (moment worth from what the eyes see + who is in it
   + where it sits in the day), tested on held-back parts of wedding-2 and then on the wedding-1 exam.
+
+**4 Nov 2026, 3:30 pm IST: Album Mind v2 on the exam** (`tools/reasoner/mind_v2.py`: v1's reasoning and frame
+judge, with a new scene judge learned on wedding-2's 961 judged moments: what the moment shows (SigLIP,
+against its event), who is in it (couple, how many family, how rare they are, strangers per photo), and
+when (place in the event); wedding-1 never seen)
+- Inside wedding-2, each photographer folder judged by a judge that never saw it: keep-or-skip AUC 0.76,
+  peak AUC 0.81 (coin 0.5). It learns a person's judgement of moments, not by heart.
+- Wedding-1 exam, share of the couple's moments (share of the gap from random closed):
+
+| | 233 photos | 400 photos | 766 photos |
+|---|---|---|---|
+| Random | 34.8% | 54.4% | 78.6% |
+| Old app planner | 38.2% (5%) | 68.2% (30%) | 88.8% (48%) |
+| App planner driven by v2's worth (every moment first only if room) | 42.1% (11%) | 69.5% (33%) | 89.7% (52%) |
+| Album Mind v1 | 41.6% (10%) | 61.4% (15%) | 90.1% (54%) |
+| **Album Mind v2** | 42.1% (11%) | 62.7% (18%) | **91.4% (60%)** |
+| Claude's blind picks | (ranked in day order: cutting the list is not fair) | | 93.6% (70%) |
+
+- The fair comparison with Claude is at 766 (the size Claude picked): v2 60% vs Claude 70%. Ten points
+  of the gap to go before it beats Claude on the exam. One raw folder of lessons did this; more raw
+  folders, frame lessons from the eyes, and the brides' swaps are the way on.
