@@ -213,6 +213,11 @@ Design mock-up: https://claude.ai/artifact/KzbjcqjdAW5KkNJ47pFf6f
   folder today: the birthday child, mummy and papa, cake and candles). Its questions do not assume a
   wedding (the occasion is told, the rest it sees); birthday and family-function photos join the
   training; tested by leaving an occasion out of training, like a community.
+- Owner (4 Nov 2026): the AI must not depend on a category ("wedding", "birthday"): like a person, it
+  first understands the folder from the photos alone (what the event is, whose it is, age, place, how
+  the day goes, who the family is: "a 3-5 year old boy's birthday on a lawn") and reasons from that.
+  The occasion picker can stay in the app as an optional hint. Tested on the web sets whose occasion
+  is known: the AI gets only the photos and must say what the event is.
 - Recordings for the owner (owner, 3 Nov 2026): each video on the test-runs artifact has its own
   title about that test only. Only the checking (scanning) part is sped up; every other step plays
   at normal speed. The showcase recording of a real couple's folder uses the app like a person who

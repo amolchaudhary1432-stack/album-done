@@ -18,10 +18,10 @@ sys.path.insert(0, ck)
 import inference as I
 
 random.seed(7); torch.manual_seed(7)
-# Occasion-neutral (owner, 4 Nov 2026): the same judge must reason about a birthday or a naming as
-# well as a wedding; the occasion is told, the rest it must see.
-STATE = {"occasion": "an Indian wedding", "photos": "near-twins, shot within seconds of each other",
-         "task": "A family is choosing which ones go into their album: the moment that matters, the "
+# No category given (owner, 4 Nov 2026): the judge must see for itself what the event is and who
+# matters, as a person does; nothing here says wedding, birthday or trip.
+STATE = {"photos": "near-twins from a family's event, shot within seconds of each other",
+         "task": "The family is choosing which ones go into their album: the moment that matters, the "
                  "important people at their best (eyes open, good expression), nobody blocked or cut off, sharp, well lit."}
 L = 'ABCD'
 index = {g['id']: g for g in json.load(open(f'{root}/index.json'))}
