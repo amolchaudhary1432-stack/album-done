@@ -130,3 +130,9 @@ Claude at full size (frame against frame, scene by scene).
 
 Better at the album's size, equal at 400: a step, not yet a clear win. Still to check on the
 held-back sets (scene judge learned on practice sets only) before anything goes into the app.
+
+**Scale-aware moments** ("every moment first only if the event has a place for each"): wedding-1 at
+233 photos 38.2% -> 42.1% of the couple's moments (with the scene judge 42.9%; at 400 69.1%), held-back
+sets unchanged at 81%, but practice sets 88% -> 85%. Lesson: the public sets are curated uploads (a
+person uses almost every moment), not raw folders; wedding-1 is the only raw folder and is the exam.
+Kept as an experiment switch, off in the app, until more raw folders can confirm it.

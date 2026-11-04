@@ -57,10 +57,15 @@ fun harvestScore(args: List<String>) {
     val total = sortedMapOf<String, IntArray>()
     val appealDir = args.getOrNull(2)?.takeIf { it != "-" }?.let(::File)
     args.getOrNull(3)?.toDoubleOrNull()?.let { AlbumPlanner.appealMix = it }
+    val worthDir = args.getOrNull(4)?.takeIf { it != "-" }?.let(::File)
+    args.getOrNull(5)?.let { AlbumPlanner.anchorEveryMoment = it != "0"; AlbumPlanner.anchorOnlyIfRoom = it == "room" }
     for (s in labelled(File(args[0]), File(args[1]))) {
         // A learned appeal for this set (APPEAL_DIR/<set>.tsv, "name<TAB>0..1"), else the app's own.
         Appeal.external = appealDir?.let { File(it, "${s.id}.tsv") }?.takeIf { it.exists() }?.readLines()
             ?.map { it.split('\t') }?.filter { it.size == 2 }?.associate { it[0] to it[1].toDouble() }
+        // A learned scene judge's worth per moment (WORTH_DIR/<set>.tsv), and every-moment-first on or off.
+        AlbumPlanner.momentWorth = worthDir?.let { File(it, "${s.id}.tsv") }?.takeIf { it.exists() }?.readLines()
+            ?.map { it.split('\t') }?.filter { it.size == 2 }?.associate { it[0].toInt() to it[1].toDouble() }
         val (photos, tags) = PlanDump.read(s.plan.readText())
         val key = photos.associateBy { if (it.folder.isEmpty()) it.name else "${it.folder}/${it.name}" }
         val human = s.picks.mapNotNull { key[it] }

@@ -1227,7 +1227,7 @@ object AlbumPlanner {
             var left = budget
             val anchors = moments.filter { it.key }.sortedByDescending { m -> momentWorth?.get(m.id) ?: m.photoIds.size.toDouble() } +
                 listOfNotNull(moments.firstOrNull(), moments.lastOrNull()) +
-                (if (anchorEveryMoment) moments.sortedByDescending { it.photoIds.size } else emptyList())
+                (if (anchorEveryMoment && (!anchorOnlyIfRoom || budget >= moments.size)) moments.sortedByDescending { it.photoIds.size } else emptyList())
             for (m in anchors.distinctBy { it.id }) {
                 if (left <= 0) break
                 if ((momentPicks[m.id]?.size ?: 0) > 0 || (cleanIn[m.id] ?: 0) == 0) continue
@@ -1402,6 +1402,13 @@ object AlbumPlanner {
     @Volatile var sceneBonus = 0.0
     /** Build-machine experiments: every moment gets one photo before any gets a second (true in the app). */
     @Volatile var anchorEveryMoment = true
+    /**
+     * Build-machine experiments (false in the app): every moment gets a photo first only when the
+     * event has a place for each. On wedding-1 (raw, 314 moments) 38.2% -> 42.1% of the couple's
+     * moments at the album's size; held-back sets unchanged (81%) but practice sets 88% -> 85%: the
+     * public sets are curated uploads, not raw folders. Needs more raw folders before it ships.
+     */
+    @Volatile var anchorOnlyIfRoom = false
     /** Build-machine experiments: how a moment's places grow with its size (0.5 = square root, the app). */
     @Volatile var momentPower = 0.5
 

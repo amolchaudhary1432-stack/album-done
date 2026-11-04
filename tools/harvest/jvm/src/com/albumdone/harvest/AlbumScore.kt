@@ -46,7 +46,7 @@ fun score(args: List<String>) {
     }
     for (k in args.drop(3).filter { it.startsWith("knob=") }.map { it.removePrefix("knob=") }) {
         val (n, v) = k.split(':')
-        when (n) { "anchorAll" -> AlbumPlanner.anchorEveryMoment = v == "1"; "power" -> AlbumPlanner.momentPower = v.toDouble(); "scene" -> AlbumPlanner.sceneBonus = v.toDouble(); "mix" -> AlbumPlanner.appealMix = v.toDouble() }
+        when (n) { "anchorAll" -> AlbumPlanner.anchorEveryMoment = v == "1"; "power" -> AlbumPlanner.momentPower = v.toDouble(); "scene" -> AlbumPlanner.sceneBonus = v.toDouble(); "mix" -> AlbumPlanner.appealMix = v.toDouble(); "room" -> AlbumPlanner.anchorOnlyIfRoom = v == "1" }
     }
     // "eventweights=Engagement:0.5,Mehendi:0.6": scales each event's share of the album (experiments).
     args.drop(3).firstOrNull { it.startsWith("eventweights=") }?.let { spec ->
