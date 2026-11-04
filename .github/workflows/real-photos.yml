@@ -9,6 +9,9 @@ name: Real couple's photos
 # public for a while). Started by changing tools/realphotos/run.json:
 #   step "raw":   every photo checked the way the app does, people grouped, the app's album, and
 #                 numbered contact sheets for Claude's blind picks (real-data branch, locked).
+#                 A wedding with no album (raw only) is teaching material: Claude's blind picks
+#                 teach the brain at real scale; only a wedding with the couple's album is an exam.
+#                 run.json "links" names the secret holding this wedding's links.
 #   step "album": only after Claude's picks are in tools/realphotos/picks/NAME-claude.txt: the album
 #                 PDF's photos are found among the raw photos (match_album.py), and the app's and
 #                 Claude's albums are scored against the couple's (AlbumScore.kt).
@@ -35,9 +38,14 @@ jobs:
       - name: Read the run settings and the links
         id: s
         env:
-          LINKS: ${{ secrets.REAL_LINKS }}
+          LINKS1: ${{ secrets.REAL_LINKS }}
+          LINKS2: ${{ secrets.REAL_LINKS_2 }}
+          LINKS3: ${{ secrets.REAL_LINKS_3 }}
         run: |
-          test -n "$LINKS" || { echo "Add the REAL_LINKS secret: the raw photos folder link, then the album PDF link, one per line"; exit 1; }
+          # Which secret holds this wedding's links: run.json "links" (REAL_LINKS, REAL_LINKS_2, REAL_LINKS_3).
+          which=$(python3 -c "import json; print(json.load(open('tools/realphotos/run.json')).get('links', 'REAL_LINKS'))")
+          case "$which" in REAL_LINKS_2) LINKS="$LINKS2" ;; REAL_LINKS_3) LINKS="$LINKS3" ;; *) LINKS="$LINKS1" ;; esac
+          test -n "$LINKS" || { echo "Add the $which secret: the raw photos folder link (and the album PDF link on a second line, if there is one)"; exit 1; }
           raw=$(printf '%s\n' "$LINKS" | sed -n 1p | tr -d '\r '); album=$(printf '%s\n' "$LINKS" | sed -n 2p | tr -d '\r ')
           echo "::add-mask::$raw"; [ -n "$album" ] && echo "::add-mask::$album"
           get() { python3 -c "import json; print(json.load(open('tools/realphotos/run.json')).get('$1', '$2'))"; }
