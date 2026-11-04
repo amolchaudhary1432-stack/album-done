@@ -292,3 +292,12 @@ human ranking used to learn it)
   38.2% -> 41.6% (Claude 38.6%), couple's moments 92.3% -> 92.7%, 64% -> 66% of the gap (Claude 70%).
 - Running on Kaggle: the eyes score all 8,264 harvested wedding photos (`eyes_web.py`) to teach it far
   more; Open Images searched for South Asian weddings (`oi_weddings.py`, 9M CC BY photos).
+
+**4 Nov 2026, 5:50 pm IST: open photo collections** (owner: gather Indian wedding photos of every
+community at scale, only licences that allow a paid app)
+- Open Images (9M CC BY Flickr photos): only 327 carry a human-checked wedding/bride/groom/mehndi/sari
+  label; 236 downloadable; 185 look Indian/South Asian (mostly sari portraits). Small. Its machine labels
+  are next if needed.
+- CommonCatalog CC BY + CC BY-SA (every CC Flickr photo with captions, crores of photos): caption scan
+  running on Kaggle (`caption_scan.py`), carries on across runs until every file is read.
+- Then Megalith-10M (CC0) and PD12M (public domain) by caption, and the eyes + SigLIP on everything found.
