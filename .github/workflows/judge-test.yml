@@ -1,0 +1,72 @@
+name: One-pass judges on frame choices
+
+# Ready-made decision models (one forward pass, no text written: what a phone can afford) asked
+# which near-twin photo a family keeps, untrained, against the helpers' full-size rankings
+# (tools/reasoner/frame-labels.tsv). Photos: the teach-sheets branch (freely licensed Commons sets).
+# Answers go to the judge-test branch; tools/reasoner/judge_test.py scores them.
+on:
+  push:
+    branches: ['claude/**']
+    paths: ['tools/reasoner/judge_test.py', '.github/workflows/judge-test.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: judge-test
+  cancel-in-progress: true
+
+jobs:
+  judge:
+    runs-on: ubuntu-latest
+    timeout-minutes: 110
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { name: intern-0.8b, repo: internlm/Intern-Decision-0.8B }
+          - { name: intern-2b, repo: internlm/Intern-Decision-2B }
+          - { name: qrealign-mini, repo: q-future/Q-ReAlign-Mini-0.8B }
+    steps:
+      - uses: actions/checkout@v4
+      - name: Photos
+        run: |
+          git fetch -q --depth 1 origin teach-sheets
+          mkdir -p sheets && git --work-tree=sheets checkout FETCH_HEAD -- photos index.json && git reset -q
+          ls sheets/photos | wc -l
+      - name: Tools
+        run: |
+          python3 -m pip install -q torch==2.9.1 torchvision==0.24.1 --index-url https://download.pytorch.org/whl/cpu
+          python3 -m pip install -q transformers==5.14.1 pillow==12.3.0 huggingface_hub accelerate
+          python3 -c "from huggingface_hub import snapshot_download; snapshot_download('${{ matrix.repo }}', local_dir='ckpt')"
+      - name: Judge
+        env:
+          CKPT: ckpt
+          DEADLINE: "5400"
+        run: |
+          nproc
+          python3 tools/reasoner/judge_test.py run ${{ matrix.name }} sheets/index.json sheets/photos tools/reasoner/frame-labels.tsv ${{ matrix.name }}.tsv
+          python3 tools/reasoner/judge_test.py score tools/reasoner/frame-labels.tsv sheets/index.json ${{ matrix.name }}.tsv
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ${{ matrix.name }}
+          path: ${{ matrix.name }}.tsv
+          if-no-files-found: ignore
+
+  keep:
+    needs: judge
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: out
+          merge-multiple: true
+      - name: Keep on the judge-test branch
+        run: |
+          cd out && git init -q -b judge-test && git config user.name "judge-test" && git config user.email "judge-test@users.noreply.github.com"
+          printf '# One-pass judges\n\nAnswers of ready-made decision models on near-twin frame choices (freely licensed Commons photos). Test data only.\n' > README.md
+          git add -A && git commit -q -m "Judge answers" && git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" HEAD:judge-test
+          ls
