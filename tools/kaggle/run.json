@@ -1,1 +1,1 @@
-{"script": "train_frames.py", "slug": "album-done-train-frames", "datasets": ["album-done-twins"], "mode": "fetch", "wait": 20}
+{"script": "eyes_web.py", "slug": "album-done-eyes-web", "datasets": ["album-done-weblist"], "upload": "weblist", "occasions": ["WEDDING", "ENGAGEMENT"], "mode": "send", "wait": 3}

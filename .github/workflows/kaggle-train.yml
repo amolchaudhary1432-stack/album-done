@@ -58,6 +58,26 @@ jobs:
             kaggle datasets create -p data --dir-mode zip -q
           fi
           for i in $(seq 1 30); do s=$(kaggle datasets status "$KAGGLE_USERNAME/album-done-twins" 2>&1 | tail -1); echo "$s"; case "$s" in *ready*) break;; esac; sleep 20; done
+      - name: Upload the web photo list (Commons links only, no photos)
+        run: |
+          U=$(python3 -c "import json; print(json.load(open('tools/kaggle/run.json')).get('upload', ''))")
+          [ "$MODE" = send ] && [ "$U" = weblist ] || exit 0
+          git fetch -q --depth 1 origin harvest-data
+          mkdir -p wl && git show FETCH_HEAD:sets.jsonl > sets.jsonl
+          python3 - <<PY
+          import json
+          occ = set(json.load(open('tools/kaggle/run.json')).get('occasions', ['WEDDING', 'ENGAGEMENT']))
+          with open('wl/weblist.jsonl', 'w') as f:
+              for l in open('sets.jsonl'):
+                  s = json.loads(l)
+                  if s['occasion'] not in occ: continue
+                  for x in s['files']:
+                      f.write(json.dumps({'set': s['id'], 'file': x['file'], 'url': x['thumb'], 'occasion': s['occasion']}) + '\n')
+          PY
+          wc -l wl/weblist.jsonl
+          printf '{"title": "album-done-weblist", "id": "%s/album-done-weblist", "licenses": [{"name": "other"}]}' "$KAGGLE_USERNAME" > wl/dataset-metadata.json
+          if kaggle datasets status "$KAGGLE_USERNAME/album-done-weblist" >/dev/null 2>&1; then kaggle datasets version -p wl -m update -q; else kaggle datasets create -p wl -q; fi
+          for i in $(seq 1 30); do s=$(kaggle datasets status "$KAGGLE_USERNAME/album-done-weblist" 2>&1 | tail -1); echo "$s"; case "$s" in *ready*) break;; esac; sleep 20; done
       - name: Send the job
         if: env.MODE == 'send'
         run: |
