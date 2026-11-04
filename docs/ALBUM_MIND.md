@@ -206,3 +206,17 @@ couple disagree.
 3. Birthdays, occasions, frame lessons from the web: in the background.
 Honest limit: beating Claude needs real people's choices (more real albums, the brides' swaps); Claude's
 picks alone can get near Claude, not past.
+
+**4 Nov 2026, 1:35 pm IST: all 288 frame groups, Kaggle GPU (T4), untrained** (pairs in the helpers' order)
+
+| Judge | s/group (GPU) | all | held back | sure |
+|---|---|---|---|---|
+| Our old frame judge (trained) | | | 57-59% | 68% |
+| Q-ReAlign Mini 0.8B, quality | 1.3 | 65.5% | 64.8% | 78.1% |
+| Intern-Decision 0.8B, each photo keep | 1.9 | 64.2% | 63.3% | 72.8% |
+| Intern-Decision 2B, each photo keep | 4.5 | 66.3% | 67.6% | 75.0% |
+| Intern-Decision 4B, all photos at once | 2.8 | 68.1% | 66.8% | 78.9% |
+| Q-ReAlign + Intern 2B keep + Intern 4B group (ranks added) | | **72.2%** | **71.8%** | 82.4% |
+
+The 95-group CPU sample was a little kind (Q-ReAlign 69.6% held back there, 64.8% on all). Several eyes
+together beat any one: the brain should take several opinions, as a person weighs several things.
