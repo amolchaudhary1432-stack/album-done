@@ -114,6 +114,9 @@ jobs:
             case "$st" in *COMPLETE*|*complete*|*ERROR*|*error*) rm -rf "res/$s" && mkdir -p "res/$s" && kaggle kernels output "$KAGGLE_USERNAME/$s" -p "res/$s" || true;; esac
             cat res/$s/scores.txt 2>/dev/null || true
           done
+          # Found photos stay on Kaggle (cc_img/, mp_img/...): only lists and numbers come back; a small
+          # sample of each image folder is kept for looking at.
+          for d in res/*/*_img res/*/judge-tmp; do [ -d "$d" ] || continue; ls "$d" | wc -l > "$d.count"; ls "$d" | head -200 | sed "s#^#$d/#" > "$d.keep"; find "$d" -type f | grep -v -F -f "$d.keep" | xargs -r rm -f; rm -f "$d.keep"; done
           find res -size +90M -delete; rm -f res/*.log res/*.tsv res/*.json
           cd res && rm -rf .git && git init -q -b kaggle-results && git config user.name "kaggle" && git config user.email "kaggle@users.noreply.github.com"
           printf '# Kaggle results\n\nOne folder per job. Numbers only (freely licensed test photos; no couple photos).\n' > README.md
