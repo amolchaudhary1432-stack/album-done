@@ -1,1 +1,1 @@
-{"script": "eyes_web.py", "slug": "album-done-eyes-web", "datasets": ["album-done-weblist"], "upload": "weblist", "occasions": ["WEDDING", "ENGAGEMENT"], "mode": "send", "wait": 3}
+{"script": "oi_weddings.py", "slug": "album-done-oi-weddings", "gpu": false, "mode": "send", "wait": 3}
