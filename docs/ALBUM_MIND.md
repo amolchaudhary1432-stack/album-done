@@ -108,3 +108,13 @@ Decision: no free thinking model is good enough to be the brain or the teacher; 
 weak and too slow for hundreds of photos on a phone (perhaps a handful, such as the cover). Album
 Mind stays: fast senses on every photo, our own learned judges and reasoning network, taught by
 Claude at full size (frame against frame, scene by scene).
+
+**4 Nov 2026, morning: frames taught at full size**
+- `teach-sheets.yml` laid 302 near-twin groups side by side at 1280 px (teach-sheets branch); six
+  helpers ranked them as a family would, with reasons (`tools/reasoner/frame-labels.tsv`: 56 sure,
+  232 close, 14 equal). Most groups are nearby moments rather than true bursts, hence "close".
+- The old 300 px picks agree with the full-size rankings on only 67% of pairs: the earlier teaching
+  was noisy, as suspected.
+- Frame judge learned on the full-size rankings (`frame_judge2.py`): 57-59% on held-back pairs (68%
+  on the sure ones), up from 50% (thumbnail teaching) and 55% (the app's quality number). A real
+  but small step: what SigLIP and the measurements see of a frame is not yet the decisive instant.
