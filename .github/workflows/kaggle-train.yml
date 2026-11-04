@@ -19,7 +19,7 @@ concurrency:
 jobs:
   train:
     runs-on: ubuntu-latest
-    timeout-minutes: 300
+    timeout-minutes: 60
     env:
       KAGGLE_USERNAME: ${{ secrets.KAGGLE_USERNAME }}
     steps:
@@ -37,13 +37,16 @@ jobs:
           esac
       - name: Kaggle tools
         run: |
+          # run.json: "mode" send (upload, start, wait a little) or fetch (only collect an earlier job's
+          # output); "wait" minutes to wait here (default 15), so this machine is not billed while Kaggle works.
+          python3 -c "import json; r=json.load(open('tools/kaggle/run.json')); print('SLUG=%s\nMODE=%s\nWAIT=%s' % (r['slug'], r.get('mode', 'send'), r.get('wait', 15)))" >> $GITHUB_ENV
           python3 -m pip install -q "kaggle>=1.8"
           kaggle --version
           kaggle kernels list --mine --page-size 5 || true
       - name: Upload the photos (freely licensed Commons sets only)
         run: |
           U=$(python3 -c "import json; print(json.load(open('tools/kaggle/run.json')).get('upload', ''))")
-          [ "$U" = twins ] || exit 0
+          [ "$MODE" = send ] && [ "$U" = twins ] || exit 0
           git fetch -q --depth 1 origin teach-sheets
           mkdir -p data && git --work-tree=data checkout FETCH_HEAD -- photos index.json && git reset -q
           cp tools/reasoner/frame-labels.tsv tools/reasoner/judge_test.py data/
@@ -56,10 +59,9 @@ jobs:
           fi
           for i in $(seq 1 30); do s=$(kaggle datasets status "$KAGGLE_USERNAME/album-done-twins" 2>&1 | tail -1); echo "$s"; case "$s" in *ready*) break;; esac; sleep 20; done
       - name: Send the job
+        if: env.MODE == 'send'
         run: |
           SCRIPT=$(python3 -c "import json; print(json.load(open('tools/kaggle/run.json'))['script'])")
-          SLUG=$(python3 -c "import json; print(json.load(open('tools/kaggle/run.json'))['slug'])")
-          echo "SLUG=$SLUG" >> $GITHUB_ENV
           mkdir -p job && cp "tools/kaggle/$SCRIPT" job/run.py
           python3 - <<PY
           import json, os
@@ -73,13 +75,13 @@ jobs:
           kaggle kernels push -p job
       - name: Wait for it
         run: |
-          for i in $(seq 1 280); do
+          for i in $(seq 1 "$WAIT"); do
             s=$(kaggle kernels status "$KAGGLE_USERNAME/$SLUG" 2>&1 | tail -1); echo "$(date -u +%H:%M) $s"
-            case "$s" in *COMPLETE*|*complete*|*ERROR*|*error*|*CANCEL*|*cancel*) break;; esac
+            case "$s" in *COMPLETE*|*complete*|*ERROR*|*error*|*CANCEL*|*cancel*) echo "FINISHED=1" >> $GITHUB_ENV; break;; esac
             sleep 60
           done
       - name: Bring the output back
-        if: always()
+        if: always() && env.FINISHED == '1'
         run: |
           mkdir -p out && kaggle kernels output "$KAGGLE_USERNAME/$SLUG" -p out || true
           ls -la out
