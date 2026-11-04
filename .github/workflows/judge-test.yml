@@ -4,10 +4,8 @@ name: One-pass judges on frame choices
 # which near-twin photo a family keeps, untrained, against the helpers' full-size rankings
 # (tools/reasoner/frame-labels.tsv). Photos: the teach-sheets branch (freely licensed Commons sets).
 # Answers go to the judge-test branch; tools/reasoner/judge_test.py scores them.
+# By hand only: the full run is on Kaggle's GPU now (tools/kaggle/judge_all.py).
 on:
-  push:
-    branches: ['claude/**']
-    paths: ['tools/reasoner/judge_test.py', '.github/workflows/judge-test.yml']
   workflow_dispatch:
 
 permissions:
