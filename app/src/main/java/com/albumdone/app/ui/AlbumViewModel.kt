@@ -414,7 +414,8 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
             val keep = photos.filter { it.selected && it.userChoice }.map { it.id }.toSet()
             val removed = photos.filter { it.removed }.map { it.id }.toSet()
             val list = AlbumPlanner.shortlist(analysis, project.albumSize, removed, keep)
-            Log.d(TAG, "album planned: ${list.ids.size} of ${photos.size} photos")
+            val by = if (com.albumdone.app.plan.AlbumMind.weights != null && com.albumdone.app.plan.AlbumMind.canSee(analysis)) "the album brain" else "the rules"
+            Log.d(TAG, "album planned by $by: ${list.ids.size} of ${photos.size} photos")
             dao.replaceSelection(projectId, list.ids)
             dao.setPickReasons(list.ids.filter { it !in keep }.associateWith { list.reasons[it].orEmpty().joinToString("\n") })
             dao.setCover(projectId, list.coverId)

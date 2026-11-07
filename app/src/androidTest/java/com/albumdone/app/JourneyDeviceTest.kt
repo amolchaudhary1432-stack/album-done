@@ -439,6 +439,16 @@ class JourneyDeviceTest {
             val album = runBlocking { dao.photos(projectId) }.filter { it.selected }
                 .joinToString("") { (if (it.folder.isEmpty()) it.name else "${it.folder}/${it.name}") + "\n" }
             DeviceTestSupport.screensDir.resolve("journey-album.txt").writeText(album)
+            // Who the app took for the couple and why, and whether the brain or the rules made the album.
+            runCatching {
+                val project = runBlocking { dao.project(projectId) }!!
+                val (planPhotos, tags) = runBlocking { com.albumdone.app.people.PeopleRepository(dao).planInput(project) }
+                com.albumdone.app.analysis.MindLoader.ensure(DeviceTestSupport.app)
+                val analysis = com.albumdone.app.plan.AlbumPlanner.analyze(planPhotos, tags)
+                val by = if (com.albumdone.app.plan.AlbumMind.weights != null && com.albumdone.app.plan.AlbumMind.canSee(analysis)) "the brain (AlbumMind)" else "the rules"
+                DeviceTestSupport.screensDir.resolve("journey-couple.txt").writeText(
+                    "album made by $by\n" + com.albumdone.app.people.PeoplePlan.explainCouple(project.brideId, project.groomId, planPhotos))
+            }.onFailure { Log.e("AlbumDoneTest", "couple report", it) }
             compose.onNodeWithTag("album-grid").performScrollToNode(hasTestTag("album-photo"))
             appShot("08-album-photos")
         }
