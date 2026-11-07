@@ -55,7 +55,7 @@ jobs:
           sudo udevadm trigger --name-match=kvm
 
       - name: Build the app and its phone tests
-        run: bash tools/fetch_models.sh && (cd app/src/main/assets && sha256sum -c ../../../models.sha256) && gradle --no-daemon assembleDebug assembleDebugAndroidTest
+        run: bash app/scripts/fetch_models.sh && (cd app/src/main/assets && sha256sum -c ../../../models.sha256) && gradle --no-daemon assembleDebug assembleDebugAndroidTest
 
       - name: Run the tests on an Android 16 emulator (Pixel 7 size)
         uses: reactivecircus/android-emulator-runner@v2
@@ -183,7 +183,7 @@ jobs:
 
       - name: Build the app and its phone tests
         if: steps.photos.outputs.found == 'true'
-        run: bash tools/fetch_models.sh && (cd app/src/main/assets && sha256sum -c ../../../models.sha256) && gradle --no-daemon assembleDebug assembleDebugAndroidTest
+        run: bash app/scripts/fetch_models.sh && (cd app/src/main/assets && sha256sum -c ../../../models.sha256) && gradle --no-daemon assembleDebug assembleDebugAndroidTest
 
       - name: Check the real wedding on an Android 16 emulator (Pixel 7 size)
         if: steps.photos.outputs.found == 'true'

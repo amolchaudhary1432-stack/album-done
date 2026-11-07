@@ -3,7 +3,7 @@
 # Their checksums are in app/models.sha256 (checked by every build), like the bundled models.
 set -euo pipefail
 here="$(cd "$(dirname "$0")" && pwd)"
-cd "$here/../app/src/main/assets/models"
+cd "$here/../src/main/assets/models"
 # SigLIP 2 image model (Google, Apache 2.0; int8 ONNX by onnx-community): what each photo shows, for the
 # album brain. Its one ConvInteger layer has no Android kernel, so patch_siglip.py rewrites it as plain
 # float maths (vectors identical, checked on real photos).

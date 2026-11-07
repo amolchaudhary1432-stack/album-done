@@ -275,7 +275,7 @@ Album brain (resumed 7 Nov 2026): exam at 766 photos 76% of the gap (Claude 70%)
 (Claude 38.6%), after giving long moments room by their distinct beats (the idea came from one look at
 the exam's misses). In the app as `plan/AlbumMind.kt` (numbers in `assets/models/album_mind.bin`, from
 `tools/reasoner/mind_v2.py` EXPORT=...); SigLIP 2 vectors are made while checking (`analysis/SceneEmbedder.kt`,
-`scenes` table; the 96 MB model is fetched by `tools/fetch_models.sh`). Albums checked before keep the rules.
+`scenes` table; the 96 MB model is fetched by `app/scripts/fetch_models.sh`). Albums checked before keep the rules.
 Status and next steps: end of `docs/ALBUM_MIND.md`.
 Legal and Play Store notes: `docs/LEGAL_CHECK.md` (target API 36 is needed for new Play uploads).
 How the picking works and planned upgrades: `docs/HOW_IT_PICKS.md`.

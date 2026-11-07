@@ -18,4 +18,4 @@ The two fonts carry their copyright and licence inside the font files. The OFL a
 an app that is sold, as long as the fonts themselves are not sold on their own.
 
 Checksums of the bundled model files are pinned in `app/models.sha256`. The SigLIP 2 file (96 MB) is
-too big for git: `tools/fetch_models.sh` downloads it at a pinned revision when the app is built.
+too big for git: `app/scripts/fetch_models.sh` downloads it at a pinned revision when the app is built.

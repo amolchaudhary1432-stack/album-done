@@ -34,7 +34,7 @@ jobs:
           gradle-version: "8.14.3"
 
       - name: Check the bundled model files
-        run: bash tools/fetch_models.sh && cd app/src/main/assets && sha256sum -c ../../../models.sha256
+        run: bash app/scripts/fetch_models.sh && cd app/src/main/assets && sha256sum -c ../../../models.sha256
 
       - name: Run tests and build the app
         run: gradle --no-daemon testReleaseUnitTest assembleRelease
