@@ -23,13 +23,17 @@ WEDDING = r"wedding|bride|bridal|groom|marriage|married|ceremony|reception|engag
 SA = re.compile(r"\b(" + SOUTH_ASIA + r")\b", re.I); WED = re.compile(r"\b(" + WEDDING + r")", re.I)
 fs = HfFileSystem()
 done_path = 'files_done.txt'; done = set(open(done_path).read().split()) if os.path.exists(done_path) else set()
+import glob as _g
+for prev in _g.glob('/kaggle/input/**/files_done*.txt', recursive=True): done |= set(open(prev).read().split())
+SHARD = os.environ.get('SHARD', '0/1'); _i, _n = (int(x) for x in SHARD.split('/'))
+print('already scanned:', len(done), 'files; shard', SHARD, flush=True)
 os.makedirs('cc_img', exist_ok=True)
 out = open('cc.jsonl', 'a'); n_rows = n_hit = n_files = 0
 for coll in ('common-canvas/commoncatalog-cc-by', 'common-canvas/commoncatalog-cc-by-sa'):
     files = sorted(f for f in fs.glob(f'datasets/{coll}/**/*.parquet'))
     print(coll, len(files), 'files', flush=True)
-    for f in files:
-        if f in done: continue
+    for k_, f in enumerate(files):
+        if f in done or k_ % _n != _i: continue
         if time.time() - START > LIMIT: break
         try:
             pf = pq.ParquetFile(fs.open(f, 'rb', block_size=2 ** 20))

@@ -1,1 +1,1 @@
-{"script": "caption_scan.py", "slug": "album-done-cc-weddings", "mode": "fetch", "wait": 2, "also_fetch": ["album-done-eyes-web", "album-done-mp-weddings"]}
+{"script": "caption_scan.py", "slug": "album-done-cc-scan", "gpu": false, "shards": 4, "upload": "scanstate", "datasets": ["album-done-scanstate"], "mode": "send", "wait": 2}

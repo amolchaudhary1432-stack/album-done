@@ -80,6 +80,16 @@ jobs:
           printf '{"title": "album-done-weblist", "id": "%s/album-done-weblist", "licenses": [{"name": "other"}]}' "$KAGGLE_USERNAME" > wl/dataset-metadata.json
           if kaggle datasets status "$KAGGLE_USERNAME/album-done-weblist" >/dev/null 2>&1; then kaggle datasets version -p wl -m update -q; else kaggle datasets create -p wl -q; fi
           for i in $(seq 1 30); do s=$(kaggle datasets status "$KAGGLE_USERNAME/album-done-weblist" 2>&1 | tail -1); echo "$s"; case "$s" in *ready*) break;; esac; sleep 20; done
+      - name: Upload what earlier runs already scanned
+        run: |
+          U=$(python3 -c "import json; print(json.load(open('tools/kaggle/run.json')).get('upload', ''))")
+          [ "$MODE" = send ] && [ "$U" = scanstate ] || exit 0
+          mkdir -p st && if git fetch -q --depth 1 origin kaggle-results; then
+            for f in $(git ls-tree -r --name-only FETCH_HEAD | grep 'files_done.txt$'); do git show "FETCH_HEAD:$f" >> st/files_done_all.txt; done; fi
+          touch st/files_done_all.txt; wc -l st/files_done_all.txt
+          printf '{"title": "album-done-scanstate", "id": "%s/album-done-scanstate", "licenses": [{"name": "other"}]}' "$KAGGLE_USERNAME" > st/dataset-metadata.json
+          if kaggle datasets status "$KAGGLE_USERNAME/album-done-scanstate" >/dev/null 2>&1; then kaggle datasets version -p st -m update -q; else kaggle datasets create -p st -q; fi
+          for i in $(seq 1 30); do s=$(kaggle datasets status "$KAGGLE_USERNAME/album-done-scanstate" 2>&1 | tail -1); echo "$s"; case "$s" in *ready*) break;; esac; sleep 20; done
       - name: Send the job
         if: env.MODE == 'send'
         run: |
@@ -94,7 +104,18 @@ jobs:
                      "kernel_sources": [], "competition_sources": []}, open('job/kernel-metadata.json', 'w'), indent=1)
           PY
           cat job/kernel-metadata.json
-          kaggle kernels push -p job
+          N=$(python3 -c "import json; print(json.load(open('tools/kaggle/run.json')).get('shards', 0))")
+          if [ "$N" -gt 0 ]; then
+            # The same job on N Kaggle machines at once, each doing every N-th file (SHARD=i/N).
+            for i in $(seq 0 $((N-1))); do
+              rm -rf "job$i" && cp -r job "job$i"
+              { echo "import os; os.environ['SHARD'] = '$i/$N'"; cat job/run.py; } > "job$i/run.py"
+              python3 -c "import json,sys; m=json.load(open('job$i/kernel-metadata.json')); m['id']+='-$i'; m['title']+='-$i'; json.dump(m, open('job$i/kernel-metadata.json','w'))"
+              kaggle kernels push -p "job$i"
+            done
+          else
+            kaggle kernels push -p job
+          fi
       - name: Wait for it
         run: |
           for i in $(seq 1 "$WAIT"); do
