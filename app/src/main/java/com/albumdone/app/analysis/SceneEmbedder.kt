@@ -67,6 +67,12 @@ class SceneEmbedder private constructor(private val session: OrtSession) {
 
         @Volatile private var instance: SceneEmbedder? = null
 
+        /** Frees the model once a folder is checked (it is opened again for the next one). */
+        fun release() = synchronized(this) {
+            try { instance?.session?.close() } catch (_: Exception) {}
+            instance = null
+        }
+
         /** Null when the model is not in this build (the album then uses the older rules). */
         fun get(context: Context): SceneEmbedder? =
             instance ?: synchronized(this) {
@@ -78,7 +84,15 @@ class SceneEmbedder private constructor(private val session: OrtSession) {
                         context.assets.open(MODEL).use { input -> part.outputStream().use { input.copyTo(it, 1 shl 20) } }
                         part.renameTo(file)
                     }
-                    val options = OrtSession.SessionOptions().apply { setIntraOpNumThreads(2) }
+                    // Memory: on a Galaxy A15 the default session took the app from about 550 MB to 785 MB
+                    // while checking. No arena (memory is given back after each photo) and no second,
+                    // pre-packed copy of the weights.
+                    val options = OrtSession.SessionOptions().apply {
+                        setIntraOpNumThreads(2)
+                        setCPUArenaAllocator(false)
+                        setMemoryPatternOptimization(false)
+                        addConfigEntry("session.disable_prepacking", "1")
+                    }
                     SceneEmbedder(OrtEnvironment.getEnvironment().createSession(file.path, options))
                 } catch (e: Exception) {
                     android.util.Log.w("SceneEmbedder", "no scene model: ${e.message}")
