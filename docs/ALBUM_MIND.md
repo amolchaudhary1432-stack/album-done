@@ -389,3 +389,13 @@ To resume:
   the folder is checked): memory while checking 650-717 MB, average 671 (was 779, max 818); after checking
   341-354 MB (was 553). Speed 0.76 s a photo, 2,664 photos in 33 min 51 s (was 0.69 s). Kept: on cheap
   phones memory runs out before patience does. Test passed again.
+
+**7 Nov 2026, ~6:30 pm IST: wedding-2 check (owner: run the second raw folder and see if it beats Claude)**
+- Wedding-2 has no family album, so nobody's choice is there to judge Claude and the brain against; and
+  the shipped brain learned its scene judge from Claude's wedding-2 judgements. So "beats Claude" cannot
+  be measured on it. Fair check instead: a brain that never saw wedding-2 (`NO_W2=1`, web moments only),
+  on wedding-2's haldi / mehendi / gondhal / nanhora folders (1,558 photos, 234 chosen, `TARGET=w2
+  FOLDERS=...`), against Claude's moment judgements: Claude's keep moments covered 64.8% (random 53.9%),
+  Claude's peaks 85.3% (random 53.5%), places on moments Claude skips 12.0% (random 22.8%). The shipped
+  brain (it learned these moments): 73.9% / 97.1% / 10.7%.
+- Real phone: the same four folders on the A15 with the showcase recording (run 39).

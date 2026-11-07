@@ -84,6 +84,9 @@ if os.environ.get('WEB') == '1':
             XW.append(x); YW.append(min(2, sum(r['name'] in picked for r in rs))); CW.append(comm)
     X2 = np.vstack([X2, np.array(XW)]); y2 = np.r_[y2, np.array(YW)]; comm2 = np.r_[comm2, np.array(CW)]; ev2 = np.r_[ev2, np.array(CW)]
     print(len(XW), 'web moments from', len(set(CW)), 'communities added')
+if os.environ.get('NO_W2') == '1':
+    keep_ = comm2 != 'marathi-hindu'; X2, y2, comm2, ev2 = X2[keep_], y2[keep_], comm2[keep_], ev2[keep_]
+    print('wedding-2 left out of the lessons:', len(y2), 'web moments only')
 xm, xs = X2.mean(0), X2.std(0) + 1e-6
 def fit(X, y, l2=30.0):
     w = np.zeros(X.shape[1]); b = 0.0; pos_ = max(1e-3, y.mean()); wt = np.where(y > 0, .5 / pos_, .5 / (1 - pos_))
@@ -133,7 +136,13 @@ for f in glob.glob(S + '/frames/labels-*.tsv'):
 D = np.array(D); XX = np.vstack([D, -D]); yy = np.r_[np.ones(len(D)), np.zeros(len(D))]; fw = np.zeros(XX.shape[1])
 for _ in range(3000): pp = 1 / (1 + np.exp(-(XX @ fw))); fw -= 0.05 * (XX.T @ (pp - yy) / len(yy) + 1.0 * fw / len(yy))
 # The real folder.
-t = list(csv.DictReader(open(S + '/reasoner/w1-features.csv'))); zt = np.load(S + '/reasoner/w1.npz'); temb = dict(zip(zt['keys'], zt['vecs'].astype(np.float32)))
+TARGET = os.environ.get('TARGET', 'w1')
+if TARGET == 'w2':
+    # Wedding-2 (no family album): some of its event folders, scored against Claude's moment judgements.
+    keepf = set(os.environ['FOLDERS'].split('|')) if os.environ.get('FOLDERS') else None
+    t = [dict(r) for r in w2rows if keepf is None or r['event'] in keepf]; temb = e2
+else:
+    t = list(csv.DictReader(open(S + '/reasoner/w1-features.csv'))); zt = np.load(S + '/reasoner/w1.npz'); temb = dict(zip(zt['keys'], zt['vecs'].astype(np.float32)))
 Ew = np.array([temb[r['name'].rsplit('.', 1)[0] + '.jpg'] for r in t])
 for i, r in enumerate(t):
     r['i'] = i; r['ok'] = float(r['usable']) > 0.5; r['f'] = np.array([float(r[k]) for k in feat])
@@ -210,6 +219,20 @@ for p in sorted(fam):
     if cands:
         drop = min(chosen, key=lambda c: worth[c["moment"]] * DECAY ** ((count[c["moment"]] - 1) / room[c["moment"]])); chosen.remove(drop); taken.discard(drop['i']); count[drop['moment']] -= 1
         add = max(cands, key=lambda r: r['frame']); chosen.append(add); taken.add(add['i']); count[add['moment']] += 1
+if TARGET == 'w2':
+    # Claude's judgement of each moment: 0 skip, 1 one photo, 2 a peak. How many of the moments Claude
+    # keeps get a photo, how many peaks, and how many places go to moments Claude skips.
+    def w2score(app):
+        got = {(r['event'], r['moment']) for r in app}; ms = {(r['event'], r['moment']) for r in t}
+        keepm = [m for m in ms if lab.get(m, 0) >= 1]; peaks = [m for m in ms if lab.get(m, 0) >= 2]
+        return (sum(m in got for m in keepm) / len(keepm), sum(m in got for m in peaks) / len(peaks),
+                sum(lab.get((r['event'], r['moment']), 0) == 0 for r in app) / len(app))
+    k1, k2, k0 = w2score(chosen)
+    usable = [r for r in t if r['ok']]; rr = np.mean([w2score(random.Random(i).sample(usable, min(SIZE, len(usable)))) for i in range(5)], axis=0)
+    print(f"Album Mind v2 on wedding-2 ({len(t)} photos, {SIZE} chosen): Claude's keep moments covered {k1:.1%} (random {rr[0]:.1%}), "
+          f"peaks {k2:.1%} (random {rr[1]:.1%}), places on moments Claude skips {k0:.1%} (random {rr[2]:.1%})")
+    open(S + f'/reasoner/mind-v2-w2-{SIZE}.txt', 'w').writelines(r['name'] + '\n' for r in chosen)
+    sys.exit(0)
 couple = [r for r in t if r['name'] in {l.strip() for l in open(S + '/w1album/album/album-picks.txt')}]
 def same(a, c): return a is c or (int(a['repeat']) >= 0 and a['repeat'] == c['repeat']) or (a['moment'] == c['moment'] and int(a['moment']) >= 0 and abs(int(a['order']) - int(c['order'])) <= 3)
 def score(app):
