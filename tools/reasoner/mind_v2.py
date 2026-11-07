@@ -6,6 +6,7 @@ unchosen frame that is not a near-copy, then everyone close with the couple.
 import csv, glob, json, os, sys, collections, random
 import numpy as np
 S, SIZE = sys.argv[1], int(sys.argv[2]); DECAY = float(sys.argv[3]) if len(sys.argv) > 3 else 0.5
+BEATS = os.environ.get('BEATS') == '1'; BEAT_T = float(os.environ.get('BEAT_T', '0.85'))
 z = np.load(S + '/reasoner/sets.npz'); emb = dict(zip(z['keys'], z['vecs'].astype(np.float32)))
 rows = [r for r in csv.DictReader(open(S + '/features.csv')) if f"{r['set']}/{r['name']}" in emb]
 meta = ('set', 'split', 'community', 'name', 'picked', 'moment', 'order', 'repeat')
@@ -142,6 +143,23 @@ if os.environ.get('FRAME'):
     # Our own small frame judge, taught by the eyes (frame_distill.py), added to the old one, both made comparable.
     wd = np.load(os.environ['FRAME']); dist = Ew @ wd[:-1] + wd[-1]; old_ = np.array([r['frame'] for r in t])
     for i, r in enumerate(t): r['frame'] = (old_[i] - old_.mean()) / (old_.std() + 1e-9) + float(os.environ.get('FRAME_W', '1')) * (dist[i] - dist.mean()) / (dist.std() + 1e-9)
+if os.environ.get('EXPORT'):
+    # Everything the phone needs to reason the same way (AlbumMind.kt): written as named float arrays.
+    wd_ = np.load(os.environ['FRAME']) if os.environ.get('FRAME') else np.zeros(Ew.shape[1] + 1)
+    arrs = {'P': Vt[:32].T, 'P2': P2, 'V64': Vt[:64].T, 'xm': xm, 'xs': xs, 'w1': models[0][0], 'b1': [models[0][1]],
+            'w2': models[1][0], 'b2': [models[1][1]], 'mu': mu, 'sd': sd, 'fw': fw, 'wd': wd_,
+            'consts': [DECAY, BEAT_T, 0.92, float(os.environ.get('FRAME_W', '1')), 1.0 if os.environ.get('FRAME') else 0.0]}
+    import struct
+    with open(os.environ['EXPORT'], 'wb') as fo:
+        fo.write(b'AMND'); fo.write(struct.pack('<i', 1)); names = '\n'.join(feat).encode(); fo.write(struct.pack('<i', len(names))); fo.write(names)
+        fo.write(struct.pack('<i', len(arrs)))
+        for k, v in arrs.items():
+            v = np.asarray(v, dtype='<f4'); v2 = v.reshape(v.shape[0], -1) if v.ndim > 1 else v.reshape(-1, 1)
+            kb = k.encode(); fo.write(struct.pack('<i', len(kb))); fo.write(kb); fo.write(struct.pack('<ii', *v2.shape)); fo.write(v2.tobytes())
+    print('exported', os.environ['EXPORT'], {k: np.asarray(v).shape for k, v in arrs.items()})
+    if os.environ.get('DUMP'):
+        # Reference numbers for checking the Kotlin version on the same folder (never committed for a couple's folder).
+        np.savez(os.environ['DUMP'], names=np.array([r['name'] for r in t]), frame=np.array([r['frame'] for r in t]))
 by_ev = collections.defaultdict(list)
 for r in t: by_ev[r['event']].append(r)
 mom = collections.defaultdict(list)
@@ -152,7 +170,6 @@ for ev, rs in by_ev.items():
 # while they look alike (SigLIP cosine >= 0.85 to the beat's first photo; set on wedding-2: a beat is a pose
 # of about 3-4 frames). A moment's next photo comes from a beat it has not used yet, like a person who
 # picks different poses from a long portrait session rather than three frames of one pose.
-BEATS = os.environ.get('BEATS') == '1'; BEAT_T = float(os.environ.get('BEAT_T', '0.85'))
 for m, rs in mom.items():
     anchor, b = None, -1
     for r in sorted(rs, key=lambda r: int(r['order'])):

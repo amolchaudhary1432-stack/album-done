@@ -7,3 +7,5 @@ local.properties
 __pycache__/
 *.pyc
 .kotlin/
+# Downloaded by tools/fetch_models.sh (too big for git)
+app/src/main/assets/models/siglip2_vision_int8.onnx

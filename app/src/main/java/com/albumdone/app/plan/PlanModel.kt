@@ -89,6 +89,8 @@ data class PlanPhoto(
     val peopleArea: Float = 0f,
     /** The photo could not be read. */
     val failed: Boolean = false,
+    /** What the photo shows (SigLIP 2 numbers) for [AlbumMind]; null when not measured. */
+    val scene: FloatArray? = null,
 ) {
     val portrait: Boolean get() = height > width
 }

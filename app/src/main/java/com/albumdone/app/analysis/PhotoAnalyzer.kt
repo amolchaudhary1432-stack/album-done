@@ -48,6 +48,8 @@ data class PhotoAnalysis(
     val foregroundBacks: Int,
     /** Share of the photo covered by people (from the object detector), 0..1. */
     val peopleArea: Float,
+    /** What the photo shows (SigLIP 2, 768 numbers), null when the model is missing or failed. */
+    val scene: FloatArray? = null,
 )
 
 /**
@@ -88,6 +90,7 @@ class PhotoAnalyzer(private val context: Context) : AutoCloseable {
 
     private val embedder = FaceEmbedder.get(context)
     private val finder = FaceFinder.get(context)
+    private val scenes = SceneEmbedder.get(context)
 
     fun analyze(uri: Uri, thumbFile: File): PhotoAnalysis {
         val resolver = context.contentResolver
@@ -145,6 +148,7 @@ class PhotoAnalyzer(private val context: Context) : AutoCloseable {
             val faces = findFaces(bitmap).map { measureFace(bitmap, gray, qw, qh, it) }
             val backs = SceneRules.foregroundBacks(surePeople, faces.map { it.reading.box })
 
+            val scene = try { scenes?.embed(bitmap) } catch (e: Exception) { null }
             writeThumbnail(bitmap, thumbFile)
             val rotatedSides = orientation == ExifInterface.ORIENTATION_ROTATE_90 ||
                 orientation == ExifInterface.ORIENTATION_ROTATE_270
@@ -160,6 +164,7 @@ class PhotoAnalyzer(private val context: Context) : AutoCloseable {
                 phones = phones,
                 foregroundBacks = backs,
                 peopleArea = people.sumOf { it.area.toDouble() }.toFloat().coerceIn(0f, 1f),
+                scene = scene,
             )
         } finally {
             bitmap.recycle()

@@ -119,7 +119,8 @@ class PeopleRepository(private val dao: AlbumDao) {
     /** Every photo of the project with its faces, as the planner sees them. */
     private suspend fun planPhotos(projectId: Long): List<PlanPhoto> {
         val faces = dao.faceRows(projectId).groupBy { it.photoId }
-        return dao.photos(projectId).map { p -> p.toPlan(faces[p.id].orEmpty().map { f ->
+        val scenes = dao.scenes(projectId).associate { it.photoId to com.albumdone.app.analysis.FaceEmbedder.fromBytes(it.vector) }
+        return dao.photos(projectId).map { p -> p.toPlan(scenes[p.id], faces[p.id].orEmpty().map { f ->
             PlanFace(
                 personId = f.personId,
                 box = Box(f.left, f.top, f.right, f.bottom),
@@ -137,7 +138,7 @@ class PeopleRepository(private val dao: AlbumDao) {
         }) }
     }
 
-    private fun PhotoEntity.toPlan(faces: List<PlanFace>) = PlanPhoto(
+    private fun PhotoEntity.toPlan(scene: FloatArray?, faces: List<PlanFace>) = PlanPhoto(
         id = id,
         name = name,
         folder = folder,
@@ -156,6 +157,7 @@ class PeopleRepository(private val dao: AlbumDao) {
         foregroundBacks = foregroundBacks,
         peopleArea = peopleArea,
         failed = failed || !processed,
+        scene = scene,
     )
 
     companion object {

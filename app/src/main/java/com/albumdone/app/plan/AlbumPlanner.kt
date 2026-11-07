@@ -822,7 +822,18 @@ object AlbumPlanner {
         size: Int,
         removed: Set<Long> = emptySet(),
         keep: Set<Long> = emptySet(),
-    ): Shortlist = Selector(analysis, size, removed, keep).run()
+    ): Shortlist {
+        // The learned brain, when it is in this build and has seen (nearly) every photo of the folder.
+        val mind = AlbumMind.weights
+        if (mind != null && AlbumMind.canSee(analysis)) return AlbumMind.shortlist(analysis, mind, size, removed, keep)
+        return rules(analysis, size, removed, keep)
+    }
+
+    /** The rules alone (albums checked before the brain could see, and the reasons for any list). */
+    fun rules(
+        analysis: AlbumAnalysis, size: Int, removed: Set<Long> = emptySet(), keep: Set<Long> = emptySet(),
+        keepReasons: Map<Long, String> = emptyMap(),
+    ): Shortlist = Selector(analysis, size, removed, keep, keepReasons).run()
 
     /** A photo that could take another's place, and in plain words why it wasn't picked. */
     data class Alternative(val photoId: Long, val note: String)
@@ -919,6 +930,7 @@ object AlbumPlanner {
         val size: Int,
         val removed: Set<Long>,
         keep: Set<Long>,
+        keepReasons: Map<Long, String> = emptyMap(),
     ) {
         val tags = a.tags
         val picked = LinkedHashSet<Long>()
@@ -940,7 +952,7 @@ object AlbumPlanner {
         init {
             keep.filter { it !in removed }.mapNotNull { a.byId[it] }
                 .filter { Issue.UNREADABLE !in it.issues }
-                .forEach { add(it, null) }
+                .forEach { add(it, keepReasons[it.id]) }
             val weightOf = eventWeight
             val usableCounts = a.events.associateWith { e ->
                 val n = a.photos.count { it.event == e && it.usable }

@@ -26,6 +26,7 @@ fun main(args: Array<String>) {
     if (args[0] == "features") return planFeatures(args.drop(1))
     if (args[0] == "features-dir") return planFeaturesDir(args.drop(1))
     if (args[0] == "moments") return momentTable(args.drop(1))
+    if (args[0] == "mind") return mindRun(args.drop(1))
     if (args[0] == "couple" && File(args[1]).isDirectory) {
         // Every plan dump in a folder: the couple stored in it (as found when it was made) and now.
         for (f in File(args[1]).listFiles { x -> x.name.endsWith(".plan.txt") }.orEmpty().sortedBy { it.name }) {

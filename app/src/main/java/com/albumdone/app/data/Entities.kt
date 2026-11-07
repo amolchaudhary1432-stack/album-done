@@ -187,3 +187,17 @@ data class ProjectSummary(
     /** The cover's thumbnail, or the first checked photo's while the album is not ready. */
     val coverThumb: String? = null,
 )
+
+/**
+ * What one photo shows: 768 SigLIP numbers (float32, little-endian) for the album brain. Kept apart
+ * from [PhotoEntity] so the album's live photo list stays light (2,500 photos = 7.5 MB of these).
+ */
+@Entity(tableName = "scenes", indices = [Index("projectId")])
+class SceneEntity(
+    @PrimaryKey val photoId: Long,
+    val projectId: Long,
+    val vector: ByteArray,
+)
+
+/** A photo's scene numbers, as read for planning. */
+class SceneRow(val photoId: Long, val vector: ByteArray)

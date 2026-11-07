@@ -268,7 +268,7 @@ jobs:
 
       - name: Build the app and its phone tests
         if: steps.s.outputs.fetch == ''
-        run: gradle --no-daemon assembleDebug assembleDebugAndroidTest
+        run: bash tools/fetch_models.sh && (cd app/src/main/assets && sha256sum -c ../../../models.sha256) && gradle --no-daemon assembleDebug assembleDebugAndroidTest
 
       - uses: google-github-actions/auth@v2
         with:

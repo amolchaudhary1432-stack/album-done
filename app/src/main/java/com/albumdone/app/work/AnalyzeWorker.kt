@@ -80,8 +80,8 @@ class AnalyzeWorker(
                     PhotoAnalyzer(applicationContext).use { analyzer ->
                         for (photo in queue) {
                             if (isStopped) break
-                            val (updated, faces) = analyzeOne(analyzer, photo, thumbDir)
-                            dao.savePhotoResult(updated, faces)
+                            val (updated, faces, scene) = analyzeOne(analyzer, photo, thumbDir)
+                            dao.savePhotoResult(updated, faces, scene)
                             val done = doneCount.incrementAndGet()
                             progressLock.withLock {
                                 val now = System.currentTimeMillis()
@@ -113,7 +113,7 @@ class AnalyzeWorker(
         return Result.success()
     }
 
-    private fun analyzeOne(analyzer: PhotoAnalyzer, photo: PhotoEntity, thumbDir: File): Pair<PhotoEntity, List<FaceEntity>> {
+    private fun analyzeOne(analyzer: PhotoAnalyzer, photo: PhotoEntity, thumbDir: File): Triple<PhotoEntity, List<FaceEntity>, ByteArray?> {
         val thumbFile = File(thumbDir, "${photo.id}.jpg")
         return try {
             val a = analyzer.analyze(Uri.parse(photo.docUri), thumbFile)
@@ -157,13 +157,13 @@ class AnalyzeWorker(
                     embedding = f.embedding?.let { FaceEmbedder.toBytes(it) },
                 )
             }
-            updated to faces
+            Triple(updated, faces, a.scene?.let { FaceEmbedder.toBytes(it) })
         } catch (e: OutOfMemoryError) {
             // Skip this one photo instead of crashing the whole run.
             System.gc()
-            photo.copy(processed = true, failed = true) to emptyList()
+            Triple<PhotoEntity, List<FaceEntity>, ByteArray?>(photo.copy(processed = true, failed = true), emptyList(), null)
         } catch (e: Exception) {
-            photo.copy(processed = true, failed = true) to emptyList()
+            Triple<PhotoEntity, List<FaceEntity>, ByteArray?>(photo.copy(processed = true, failed = true), emptyList(), null)
         }
     }
 

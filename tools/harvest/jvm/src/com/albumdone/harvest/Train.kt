@@ -134,3 +134,30 @@ fun planFeaturesDir(args: List<String>) {
         try { planFeatures(listOf(s.plan.path, File(args[2], "${s.id}.csv").path)) } catch (e: Exception) { println("${s.id}: ${e.message}") }
     }
 }
+
+/**
+ * mind PLAN VECTORS.bin WEIGHTS.bin SIZE OUT.txt [READING.tsv]: the app's Album Mind (AlbumMind.kt) on one
+ * plan dump, with SigLIP vectors written by tools/reasoner/vectors_bin.py ("folder/name" keys). Writes the
+ * chosen photos and, optionally, each photo's moment worth, frame score and beat (to check against mind_v2.py).
+ */
+fun mindRun(args: List<String>) {
+    val (photos, stored) = PlanDump.read(File(args[0]).readText())
+    val main = com.albumdone.app.people.PeoplePlan.findMain(stored.occasion, photos)
+    val tags = com.albumdone.app.people.PeoplePlan.tags(stored.occasion, photos, main.first, main.second)
+    val a = AlbumPlanner.analyze(photos, tags)
+    fun label(p: com.albumdone.app.plan.PlanPhoto) = if (p.folder.isEmpty()) p.name else "${p.folder}/${p.name}"
+    val bb = java.nio.ByteBuffer.wrap(File(args[1]).readBytes()).order(java.nio.ByteOrder.LITTLE_ENDIAN)
+    val n = bb.int; val dim = bb.int
+    val byName = HashMap<String, FloatArray>()
+    repeat(n) { val k = ByteArray(bb.int); bb.get(k); byName[String(k, Charsets.UTF_8)] = FloatArray(dim) { bb.float } }
+    val vectors = a.photos.associate { it.id to byName.getValue(label(it.photo).substringBeforeLast('.') + ".jpg") }
+    val w = com.albumdone.app.plan.AlbumMind.read(File(args[2]).readBytes())
+    val t0 = System.currentTimeMillis()
+    val reading = com.albumdone.app.plan.AlbumMind.read(a, vectors, w)
+    val picks = com.albumdone.app.plan.AlbumMind.choose(a, vectors, w, args[3].toInt(), reading = reading)
+    println("Album Mind (Kotlin): ${picks.size} photos chosen in ${System.currentTimeMillis() - t0} ms; couple ${tags.brideId} ${tags.groomId}")
+    File(args[4]).writeText(picks.joinToString("") { label(a.byId.getValue(it).photo) + "\n" })
+    args.getOrNull(5)?.let { f ->
+        File(f).writeText(a.photos.joinToString("") { p -> "${label(p.photo)}\t${p.momentId}\t${reading.worth[p.momentId]}\t${reading.frame[p.id]}\t${reading.beat[p.id]}\n" })
+    }
+}

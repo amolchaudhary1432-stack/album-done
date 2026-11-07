@@ -127,6 +127,7 @@ interface AlbumDao {
     @Transaction
     suspend fun deleteProjectWithPhotos(id: Long) {
         deleteFaces(id)
+        deleteScenes(id)
         deletePeople(id)
         deletePhotos(id)
         deleteProject(id)
@@ -142,11 +143,21 @@ interface AlbumDao {
 
     /** Saves one analysed photo and its faces together, so a stopped run never leaves half a photo. */
     @Transaction
-    suspend fun savePhotoResult(photo: PhotoEntity, faces: List<FaceEntity>) {
+    suspend fun savePhotoResult(photo: PhotoEntity, faces: List<FaceEntity>, scene: ByteArray? = null) {
         deleteFacesOfPhoto(photo.id)
         if (faces.isNotEmpty()) insertFaces(faces)
+        if (scene != null) insertScene(SceneEntity(photo.id, photo.projectId, scene))
         updatePhoto(photo)
     }
+
+    @Insert(onConflict = androidx.room.OnConflictStrategy.REPLACE)
+    suspend fun insertScene(scene: SceneEntity)
+
+    @Query("SELECT photoId, vector FROM scenes WHERE projectId = :projectId")
+    suspend fun scenes(projectId: Long): List<SceneRow>
+
+    @Query("DELETE FROM scenes WHERE projectId = :id")
+    suspend fun deleteScenes(id: Long)
 
     @Query("DELETE FROM faces WHERE projectId = :id")
     suspend fun deleteFaces(id: Long)

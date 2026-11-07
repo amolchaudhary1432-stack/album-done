@@ -179,6 +179,7 @@ data class ViewerState(val photo: AlbumPhoto, val alternatives: List<Alternative
     val leftOutWhy: String? = null)
 
 private const val TAG = "AlbumDone"
+private const val MIND_FILE = "models/album_mind.bin"
 
 /**
  * Screens always get new values on the main thread. Work inside the flows runs elsewhere; without
@@ -233,6 +234,7 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
 
     private suspend fun analysisFor(projectId: Long): AlbumAnalysis = analysisLock.withLock {
         cachedAnalysis?.let { (id, a) -> if (id == projectId) return@withLock a }
+        loadMind()
         val started = System.currentTimeMillis()
         val project = dao.project(projectId) ?: error("No such album")
         val (photos, tags) = people.planInput(project)
@@ -243,6 +245,17 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     private fun forgetAnalysis() { cachedAnalysis = null }
+
+    /** The album brain's learned numbers (350 KB), read once; without them the rules plan alone. */
+    private fun loadMind() {
+        if (com.albumdone.app.plan.AlbumMind.weights != null) return
+        try {
+            val bytes = getApplication<Application>().assets.open(MIND_FILE).use { it.readBytes() }
+            com.albumdone.app.plan.AlbumMind.weights = com.albumdone.app.plan.AlbumMind.read(bytes)
+        } catch (e: Exception) {
+            Log.w(TAG, "album brain not loaded: ${e.message}")
+        }
+    }
 
     private fun say(text: String, undoAction: (() -> Unit)? = null) {
         message = text
