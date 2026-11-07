@@ -331,7 +331,7 @@ To resume:
   best tested set-up stays 66%. Not tuned further on the exam (that would teach one couple's taste).
 - CommonCatalog scan now runs on 4 Kaggle machines at once, carrying on from the files already read.
 
-**7 Nov 2026, ~3:30 pm IST: the brain passes Claude on the exam (wedding-1, 766 photos)**
+**7 Nov 2026, ~2:20 pm IST: the brain passes Claude on the exam (wedding-1, 766 photos)**
 - Found web sets judged by eye, set by set (`tools/harvest/labels-found-sets.tsv`): of 107 sets (1,276
   photos), 42 are Indian weddings (228 photos: Kerala, Tamil, Karnataka, Telangana, Bengali, Gujarati,
   Punjabi, North Indian, abroad); Malay, Indonesian, Bangladeshi, Western, henna-art and non-wedding

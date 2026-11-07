@@ -271,10 +271,12 @@ every push (diag/1-fresh and 5-after-tests must show "hidden: 0").
 More phones (25 Oct 2026, ~2,000 real wedding photos each, picker skipped): Galaxy A05s (Android 15)
 2,000 in 12 min 32 s (0.38 s each); moto g14 (Android 14) 1,978 in 24 min 47 s (0.75 s each, slow for
 its first 4 minutes, then ~90 a minute). Memory flat at 500-620 MB on every phone.
-Album brain (paused 4 Nov 2026, 8:20 pm IST, owner's weekly limit; he says when to resume): exam at
-766 photos 66% of the gap (Claude 70%), exact photos 41.6% (Claude 38.6%). Kaggle jobs left running
-(eyes-web, cc-weddings, mp-weddings). Status and resume steps: end of `docs/ALBUM_MIND.md`; the
-3-hourly scheduled task "Album brain: keep training until it beats Claude" is paused, re-enable it.
+Album brain (resumed 7 Nov 2026): exam at 766 photos 76% of the gap (Claude 70%), exact photos 42.9%
+(Claude 38.6%), after giving long moments room by their distinct beats (the idea came from one look at
+the exam's misses). In the app as `plan/AlbumMind.kt` (numbers in `assets/models/album_mind.bin`, from
+`tools/reasoner/mind_v2.py` EXPORT=...); SigLIP 2 vectors are made while checking (`analysis/SceneEmbedder.kt`,
+`scenes` table; the 96 MB model is fetched by `tools/fetch_models.sh`). Albums checked before keep the rules.
+Status and next steps: end of `docs/ALBUM_MIND.md`.
 Legal and Play Store notes: `docs/LEGAL_CHECK.md` (target API 36 is needed for new Play uploads).
 How the picking works and planned upgrades: `docs/HOW_IT_PICKS.md`.
 
