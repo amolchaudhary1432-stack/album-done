@@ -586,9 +586,11 @@ class JourneyDeviceTest {
             mark("Remove: the next best photo takes its place")
             personTap(1_500, 3_000) { compose.onNodeWithText("Remove").performClick() }
             appShot("s10-removed")
-            if (has("Undo")) {
+            // Undo shows only for a few seconds: tap it at once, like a person who changed their mind.
+            if (has("Undo")) runCatching {
                 mark("Undo")
-                personTap(1_000, 3_000) { compose.onNodeWithText("Undo").performClick() }
+                compose.onNodeWithText("Undo").performClick()
+                look(3_000)
             }
             if (has("WHY IT")) { DeviceTestSupport.pressBack(); look(1_500) }
             waitFor("Send photos to photographer")
