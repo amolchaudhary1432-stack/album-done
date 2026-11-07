@@ -1,0 +1,110 @@
+# Found web sets (CommonCatalog CC BY / BY-SA, Megalith, PD12M) judged by eye, set by set (one owner, one day).
+# label: indian | lookalike (abroad, looks like an Indian community; kept apart) | neighbour (Bangladesh, Nepal...; kept apart) | not-indian | not-wedding | skip
+set	owner	day	photos	label	community	note
+S000	pd12m.s3.us-west-2.amazonaws.com		376	not-wedding	-	PD12M art and old portraits; "groom" matched horse grooms
+S001	23059063@N00	2008-04-04	199	not-indian	-	Western white wedding
+S002	17868205@N00	2007-08-10	137	not-indian	-	Malay wedding, Malaysia
+S003	28238346@N00	2007-01-19	31	lookalike	tamil	Tamil Hindu temple wedding in Malaysia, Western groom: kept apart
+S004	12276011@N02	2005-06-29	31	neighbour	bengali-muslim	Gaye holud, Faridpur, Bangladesh: kept apart
+S005	8000550@N06	2007-11-17	30	not-wedding	-	henna artist's work, Michigan
+S006	17559478@N00	2007-02-03	27	not-wedding	-	Japan travel (name Shadi)
+S007	66401486@N00	2008-01-16	17	indian	karnataka	Mangalore Hindu wedding, French and Indian couples; stage groups, rituals
+S008	58435577@N00	2007-01-03	16	indian	telangana	Hyderabad wedding: sangeet night, rituals, guests
+S009	25692853@N00	2006-05-18	15	indian	kerala	Kerala Hindu wedding: sweets to the couple, jasmine, family groups
+S010	17559478@N00	2006-12-17	13	not-wedding	-	festival lights
+S011	59769174@N00	2005-11-19	13	indian	diaspora	US Hindu wedding hall: mandap, family groups, dance
+S012	43541636@N00	2006-08-20	13	indian	bengali	Bengali wedding (topor), abroad, Western groom: rituals, garden
+S013	94324017@N00	2005-11-19	12	indian	gujarati-punjabi	US baraat with dhol, dancing, garba-style night
+S014	59769174@N00	2007-06-09	12	indian	diaspora	US: mandap, guests, Ganesh detail
+S015	17559478@N00	2007-01-29	11	not-wedding	-	city
+S016	59769174@N00	2005-11-18	11	indian	diaspora	US mehndi/sangeet night: aarti plate, family
+S017	28238346@N00	2007-01-18	8	lookalike	tamil	same Malaysian Tamil wedding as S003 (day before)
+S018	58435577@N00	2007-01-02	8	indian	telangana	same Hyderabad wedding as S008 (day before): guests in kurtas
+S019	44124401501@N01	2004-06-19	8	not-indian	-	US party
+S020	16105263@N00	2005-12-03	8	not-wedding	-	old portraits, Australia
+S021	20819183@N00	2007-02-23	8	neighbour	bangladesh	Bangladesh trip around a wedding: mostly travel
+S022	81747959@N00	2009-01-27	7	lookalike	malaysian-indian	Engagement, saris, Indian family; owner's other sets are Malaysia
+S023	75752531@N00	2006-09-02	6	indian	diaspora	US Hindu wedding: mandap with parents, hotel guests
+S024	20819183@N00	2007-02-24	6	neighbour	bangladesh	Bangladesh trip, villagers
+S025	88078580@N00	2008-01-25	6	indian	tamil	Chennai sangeet night: dancing, laughing family
+S026	8000550@N06	2007-10-10	6	not-wedding	-	henna art
+S027	18560756@N05	2007-11-10	6	not-wedding	-	Mexico City parade
+S028	7858857@N04	2008-09-20	6	indian	diaspora	Hindu wedding abroad, Western bride: varmala, pheras, family
+S029	24527747@N07	2009-01-04	6	skip	-	photographer's collage pages (Pakistani or Indian Muslim bride)
+S030	17352537@N00	2006-10-10	5	indian	tamil	Chennai "bridegroom-making" ceremony, food, decor
+S031	85378079@N00	2005-05-01	5	indian	diaspora	Mandap and couple portraits
+S032	60417617@N00	2006-06-01	5	not-wedding	-	travel
+S033	8000550@N06	2007-10-19	5	not-wedding	-	henna feet
+S034	12276011@N02	2006-02-15	5	neighbour	bangladesh	baby photos
+S035	27663349@N07	2007-05-01	5	indian	north	Hindu rituals: saptapadi, garlands, sindoor
+S036	88758808@N00	2007-03-03	4	not-indian	-	Malay nikah (songkok)
+S037	7278145@N08	2006-12-13	4	neighbour	bengali-muslim	Bengali Muslim bride in red; owner likely Bangladesh: kept apart
+S038	32662631@N00	2005-12-11	4	indian	south	Reception stage: guests with the couple, rituals
+S039	19364701@N00	2006-07-12	4	indian	bengali	Bengali bride (shy bride), night
+S040	25692853@N00	2006-05-17	4	indian	kerala	same Kerala family (S009) blessing
+S041	84858864@N00	2007-04-14	4	indian	diaspora	Hindu wedding with Western guests: couple on stage, rituals
+S042	78368745@N00	2004-08-08	4	not-indian	-	Indonesian (Borneo) wedding
+S043	60417617@N00	2006-06-19	4	not-wedding	-	Greece
+S044	27669614@N00	2007-03-04	4	indian	gujarati	Hindu wedding vows: couple, rose petals, family, child
+S045	75374840@N00	2006-12-09	4	not-wedding	-	India monuments
+S046	63669472@N00	2007-08-25	4	indian	gujarati	Hasta melap, baraat umbrellas, mandap
+S047	66401486@N00	2008-01-17	4	not-wedding	-	Mangalore scenery
+S048	66401486@N00	2008-01-14	4	indian	karnataka	same Mangalore wedding (S007): mehndi, food
+S049	8000550@N06	2007-10-06	4	not-wedding	-	henna boxes
+S050	12276011@N02	2006-04-07	4	neighbour	bangladesh	child's birthday (cake), not a wedding
+S051	13585614@N06	2007-09-16	4	indian	north	Bride in red with mehndi, parents, groom
+S052	89324753@N00	2006-08-24	3	indian	karnataka	Bangalore groom on horse, mehndi detail
+S053	33088287@N00	2005-11-10	3	not-wedding	-	Nepal daily life
+S054	29172291@N00	2005-05-02	3	indian	tamil	Chennai reception crowd
+S055	50959196@N00	2005-07-08	3	indian	diaspora	Couple shoot, clothes detail
+S056	17352537@N00	2006-10-11	3	indian	tamil	Chennai reception stage group
+S057	17352537@N00	2006-10-12	3	not-wedding	-	Chennai churches
+S058	75374840@N00	2006-12-10	3	not-wedding	-	Taj Mahal
+S059	33088287@N00	2005-05-20	3	not-wedding	-	Nepal
+S060	75374840@N00	2006-12-12	3	indian	north	ritual close-ups at night, India trip
+S061	98518669@N00	2006-06-05	3	not-wedding	-	Rotterdam
+S062	75374840@N00	2006-12-21	3	not-wedding	-	hotel
+S063	75374840@N00	2006-12-11	3	indian	north	wedding party in India (2 of 3)
+S064	77727541@N00	2008-02-03	3	indian	tamil	Chennai nalangu: bride, couple, mehndi
+S065	88078580@N00	2008-01-24	3	indian	tamil	Chennai mehendi
+S066	12276011@N02	2006-02-21	3	neighbour	bangladesh	baby photos
+S067	12276011@N02	2007-01-26	3	neighbour	bangladesh	family outing
+S068	12276011@N02	2006-03-11	3	neighbour	bangladesh	baby photos
+S069	12276011@N02	2006-05-13	3	neighbour	bangladesh	baby photos
+S070	92405724@N00	2008-11-29	3	not-indian	-	Malay nikah
+S071	31465324@N00	2006-12-24	2	indian	south	reception, couple (polaroid scans)
+S072	60417617@N00	2005-12-23	2	not-wedding	-	family selfies
+S073	58575431@N00	2005-01-01	2	indian	north	Delhi dance floor
+S074	56087830@N00	2007-02-08	2	not-wedding	-	awards
+S075	65193799@N00	2006-08-14	2	not-wedding	-	houses
+S076	57977817@N00	2005-08-06	2	not-wedding	-	Toronto
+S077	74698556@N00	2003-07-05	2	indian	diaspora	Hindu wedding hall, blurred
+S078	94324017@N00	2006-05-27	2	indian	diaspora	US dance floor, children
+S079	31816140@N00	2006-11-04	2	not-indian	-	Malay nikah
+S080	80667779@N00	2006-08-13	2	not-wedding	-	fort trip
+S081	64798733@N00	2006-07-16	2	lookalike	malaysian-indian	turbaned groom, rituals; owner likely Malaysia
+S082	70142054@N00	2007-03-24	2	neighbour	south-asian-diaspora	shoes detail (Shaadi), community unclear
+S083	71509163@N00	2007-01-26	2	indian	karnataka	engagement mehndi hands
+S084	84858864@N00	2007-04-15	2	indian	diaspora	groom on screen, stage
+S085	75374840@N00	2006-12-17	2	not-wedding	-	beach
+S086	60417617@N00	2006-03-03	2	not-wedding	-	travel
+S087	60417617@N00	2006-01-01	2	not-wedding	-	friends
+S088	60417617@N00	2006-06-21	2	not-wedding	-	travel
+S089	75374840@N00	2006-12-20	2	not-wedding	-	hotel
+S090	60417617@N00	2006-06-11	2	not-wedding	-	walls
+S091	75374840@N00	2006-12-19	2	not-wedding	-	beach
+S092	60417617@N00	2006-06-14	2	not-wedding	-	tents
+S093	51035723793@N01	2007-10-27	2	indian	north	ceremony, women in red, rituals
+S094	51035566865@N01	2008-01-24	2	indian	north	varmala, turbaned groom
+S095	51035723793@N01	2007-10-26	2	lookalike	muslim-north	groom with sehra; Indian or Pakistani unclear
+S096	74507678@N00	2007-11-05	2	indian	punjabi	crying bride (vidaai)
+S097	19762676@N00	2007-07-28	2	not-indian	-	Moroccan, Paris
+S098	92405724@N00	2007-11-01	2	not-indian	-	Malay nikah
+S099	36323312@N00	2008-03-09	2	indian	tamil	Chennai sweets and jewellery details
+S100	38891071@N00	2008-03-22	2	not-wedding	-	Holi, Netherlands
+S101	8000550@N06	2007-09-21	2	not-wedding	-	henna art
+S102	8000550@N06	2007-09-26	2	not-wedding	-	henna art
+S103	12276011@N02	2006-03-13	2	neighbour	bangladesh	mother and child
+S104	12276011@N02	2005-06-30	2	neighbour	bengali-muslim	wedding at Faridpur, Bangladesh
+S105	81747959@N00	2009-01-26	2	lookalike	malaysian-indian	same engagement as S022
+S106	53908695@N00	2008-12-21	2	indian	punjabi	dhol, groom
