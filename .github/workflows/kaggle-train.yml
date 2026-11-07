@@ -101,7 +101,7 @@ jobs:
           json.dump({"id": f"{os.environ['KAGGLE_USERNAME']}/{run['slug']}", "title": run['slug'], "code_file": "run.py",
                      "language": "python", "kernel_type": "script", "is_private": True, "enable_gpu": run.get("gpu", True),
                      "enable_internet": True, "dataset_sources": [f"{os.environ['KAGGLE_USERNAME']}/{d}" for d in run.get('datasets', [])], "model_sources": [],
-                     "kernel_sources": [], "competition_sources": []}, open('job/kernel-metadata.json', 'w'), indent=1)
+                     "kernel_sources": [f"{os.environ['KAGGLE_USERNAME']}/{k}" for k in run.get('kernels', [])], "competition_sources": []}, open('job/kernel-metadata.json', 'w'), indent=1)
           PY
           cat job/kernel-metadata.json
           N=$(python3 -c "import json; print(json.load(open('tools/kaggle/run.json')).get('shards', 0))")

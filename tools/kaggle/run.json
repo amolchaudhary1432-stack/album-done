@@ -1,1 +1,1 @@
-{"script": "caption_scan.py", "slug": "album-done-cc-scan", "gpu": false, "shards": 4, "upload": "scanstate", "datasets": ["album-done-scanstate"], "mode": "send", "wait": 2}
+{"script": "classify_found.py", "slug": "album-done-classify-found", "kernels": ["album-done-cc-weddings", "album-done-mp-weddings"], "mode": "send", "wait": 2}
