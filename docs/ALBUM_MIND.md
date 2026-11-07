@@ -385,3 +385,7 @@ To resume:
   moment 68.2%, same photo 23.2% (the test version: 68.2% / 21.9%), so the phone runs the brain as tested.
   The "album as a PDF" side step failed (viewing aid only). Next: lower the model's memory (arena,
   prepacking) and check a 4 GB phone.
+- A15 again (run 38) with the SigLIP session lighter (no memory arena, no pre-packed weights, freed once
+  the folder is checked): memory while checking 650-717 MB, average 671 (was 779, max 818); after checking
+  341-354 MB (was 553). Speed 0.76 s a photo, 2,664 photos in 33 min 51 s (was 0.69 s). Kept: on cheap
+  phones memory runs out before patience does. Test passed again.
