@@ -1,1 +1,1 @@
-{"script": "classify_found.py", "slug": "album-done-classify-found", "mode": "fetch", "wait": 2, "also_fetch": ["album-done-cc-scan-0", "album-done-cc-scan-1", "album-done-cc-scan-2", "album-done-cc-scan-3"]}
+{"script": "set_sheets.py", "slug": "album-done-set-sheets", "gpu": false, "kernels": ["album-done-cc-weddings", "album-done-mp-weddings"], "mode": "send", "wait": 12}
