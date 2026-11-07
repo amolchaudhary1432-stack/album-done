@@ -148,19 +148,38 @@ mom = collections.defaultdict(list)
 for ev, rs in by_ev.items():
     E = Ew[[r['i'] for r in rs]]; E = E - E.mean(0); ii = {r['i']: k for k, r in enumerate(rs)}
     for r in rs: mom[r['moment']].append(r)
+# Beats (BEATS=1): a long moment holds several poses or happenings. Photos in time order stay in one beat
+# while they look alike (SigLIP cosine >= 0.85 to the beat's first photo; set on wedding-2: a beat is a pose
+# of about 3-4 frames). A moment's next photo comes from a beat it has not used yet, like a person who
+# picks different poses from a long portrait session rather than three frames of one pose.
+BEATS = os.environ.get('BEATS') == '1'; BEAT_T = float(os.environ.get('BEAT_T', '0.85'))
+for m, rs in mom.items():
+    anchor, b = None, -1
+    for r in sorted(rs, key=lambda r: int(r['order'])):
+        v = Ew[r['i']] / np.linalg.norm(Ew[r['i']])
+        if anchor is None or float(v @ anchor) < BEAT_T: anchor, b = v, b + 1
+        r['beat'] = b
 M1 = folder_moments(t, Ew, {'1', '2'})
 worth = {}
 for (ev, m), (x, rs) in M1.items(): worth[m] = float(judge(x[None], models)[0]) / 2
 open(S + '/reasoner/w1-worth-v2.tsv', 'w').writelines(f'{m}\t{v:.4f}\n' for m, v in worth.items())
+# Room (BEATS=1): a moment with more distinct beats has room for more photos before it repeats itself:
+# each extra photo loses value as if the moment were sqrt(beats) times shorter (one beat: as before).
+room = {m: (np.sqrt(1 + max(r['beat'] for r in rs)) if BEATS else 1.0) for m, rs in mom.items()}
+room['-1'] = 1.0
 chosen, count = [], collections.Counter(); taken = set()
 def best_frame(m):
     cands = [r for r in mom[m] if r['ok'] and r['i'] not in taken]
     if chosen: cands = [r for r in cands if float(np.max(Ew[[c['i'] for c in chosen if c['moment'] == m] or [chosen[0]['i']]] @ Ew[r['i']])) < 0.92] if any(c['moment'] == m for c in chosen) else cands
+    if BEATS:
+        used = {c['beat'] for c in chosen if c['moment'] == m}
+        fresh = [r for r in cands if r['beat'] not in used]
+        if fresh: cands = fresh
     return max(cands, key=lambda r: r['frame'], default=None)
 while len(chosen) < SIZE:
     best, bv = None, -1
     for m in mom:
-        v = worth[m] * DECAY ** count[m]
+        v = worth[m] * DECAY ** (count[m] / room[m])
         if v > bv:
             r = best_frame(m)
             if r is not None: best, bv = r, v
@@ -172,7 +191,7 @@ for p in sorted(fam):
     if any(p in c['who'] and (bride in c['who'] or groom in c['who']) for c in chosen): continue
     cands = [r for r in t if r['ok'] and p in r['who'] and (bride in r['who'] or groom in r['who']) and r['i'] not in taken]
     if cands:
-        drop = min(chosen, key=lambda c: worth[c['moment']] * DECAY ** (count[c['moment']] - 1)); chosen.remove(drop); taken.discard(drop['i']); count[drop['moment']] -= 1
+        drop = min(chosen, key=lambda c: worth[c["moment"]] * DECAY ** ((count[c["moment"]] - 1) / room[c["moment"]])); chosen.remove(drop); taken.discard(drop['i']); count[drop['moment']] -= 1
         add = max(cands, key=lambda r: r['frame']); chosen.append(add); taken.add(add['i']); count[add['moment']] += 1
 couple = [r for r in t if r['name'] in {l.strip() for l in open(S + '/w1album/album/album-picks.txt')}]
 def same(a, c): return a is c or (int(a['repeat']) >= 0 and a['repeat'] == c['repeat']) or (a['moment'] == c['moment'] and int(a['moment']) >= 0 and abs(int(a['order']) - int(c['order'])) <= 3)

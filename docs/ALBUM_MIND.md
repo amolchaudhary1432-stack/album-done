@@ -330,3 +330,33 @@ To resume:
   those photos). On the exam the frame judges move the score only within noise (60-64% at 766); the
   best tested set-up stays 66%. Not tuned further on the exam (that would teach one couple's taste).
 - CommonCatalog scan now runs on 4 Kaggle machines at once, carrying on from the files already read.
+
+**7 Nov 2026, ~3:30 pm IST: the brain passes Claude on the exam (wedding-1, 766 photos)**
+- Found web sets judged by eye, set by set (`tools/harvest/labels-found-sets.tsv`): of 107 sets (1,276
+  photos), 42 are Indian weddings (228 photos: Kerala, Tamil, Karnataka, Telangana, Bengali, Gujarati,
+  Punjabi, North Indian, abroad); Malay, Indonesian, Bangladeshi, Western, henna-art and non-wedding
+  sets kept apart.
+- Where the brain lost to the couple: almost every miss was inside a long moment (20-63 photos: the
+  bride's portrait session, the haldi itself) where it stopped at 5-6 photos and took them close
+  together, while it spent places on short moments. A person picks more from a long happening, one
+  per pose. Two changes in `mind_v2.py` (`BEATS=1`), fixed beforehand, not searched on the exam:
+  - beats: photos in time order stay one beat while they look alike (SigLIP cosine >= 0.85 to the
+    beat's first photo; level set on wedding-2: a pose of about 3-4 frames); a moment's next photo
+    comes from a beat it has not used;
+  - room: each extra photo of a moment loses value as if the moment were sqrt(beats) times shorter.
+- Exam (`BEATS=1 WEB=1 FRAME=tools/reasoner/weights/frame-distill-twins.npy mind_v2.py S SIZE`):
+
+| | 233 photos | 400 photos | 766 photos | same photo at 766 |
+|---|---|---|---|---|
+| Random | 34.8% | 54.4% | 78.6% (0%) | |
+| Old app planner | 38.2% | 68.2% | 88.8% (48%) | |
+| Brain before | 45.1% | 63.5% | 91.8-92.3% (62-64%) | 41.6% |
+| **Brain with beats + room** | 46.8% | 69.1% | **94.8% (76%)** | **42.9%** |
+| Claude's blind picks | | | 93.6% (70%) | 38.6% |
+
+- Of the 15 couple's photos Claude missed, the brain catches 13; of the 218 Claude caught, 208.
+- Steady, not a lucky setting: beat level 0.80 / 0.88 / 0.90 gives 74 / 74 / 72%; decay 0.4 / 0.6 gives
+  76 / 72%. Without the small frame judge 66-68%: the eyes' frame lessons and the beats work together.
+- Honest caveat: the idea came from looking at the exam's misses once, so wedding-1 is no longer a
+  fully blind exam for this change. A new raw folder (any family's) is the clean check; until one comes,
+  the leave-one-out checks on wedding-2 and the web sets stand in.
