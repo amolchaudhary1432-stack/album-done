@@ -360,3 +360,28 @@ To resume:
 - Honest caveat: the idea came from looking at the exam's misses once, so wedding-1 is no longer a
   fully blind exam for this change. A new raw folder (any family's) is the clean check; until one comes,
   the leave-one-out checks on wedding-2 and the web sets stand in.
+
+**7 Nov 2026, ~3:40 pm IST: the brain is in the app**
+- `plan/AlbumMind.kt`: the same steps as `mind_v2.py` (BEATS=1) in pure Kotlin. On wedding-1 (JVM tool:
+  `gradle -p tools/harvest/jvm run --args="mind PLAN VECTORS.bin album_mind.bin 766 OUT.txt [READING.tsv]"`,
+  vectors from `tools/reasoner/vectors_bin.py`): moment worth within 7e-5, frame scores within 5e-4 of
+  Python, 764 of 766 photos the same, exam 94.8% / 42.9% the same. 2,664 photos planned in 1.8 s.
+- Learned numbers: `app/src/main/assets/models/album_mind.bin` (350 KB), written by
+  `BEATS=1 WEB=1 FRAME=tools/reasoner/weights/frame-distill-twins.npy EXPORT=... mind_v2.py S 766`.
+- SigLIP 2 on the phone (`analysis/SceneEmbedder.kt`), each photo's 768 numbers in the `scenes` table
+  (database 7 -> 8). Android's ONNX Runtime has no ConvInteger for the model's one 8-bit patch layer
+  (the first phone run fell back to the rules without saying so); `app/scripts/patch_siglip.py` rewrites
+  that layer as float maths (vectors bit-identical on real photos), `app/scripts/fetch_models.sh`
+  downloads the pinned model, checks it, rewrites it (103 MB, checksum pinned). The phone test now fails
+  if any photo has no scene numbers.
+- `AlbumPlanner.shortlist` uses the brain when it has seen at least 95% of the folder; albums checked
+  before keep the rules. Cover and the couple's own choices are kept; reasons in plain words ("A moment
+  that matters in the Haldi", "Another side of the same moment", "<name> with the couple").
+- Emulator (ARM translation): 7-photo journey 5.0 -> 8.6 s a photo (includes the one-time model copy).
+- Real Galaxy A15 (Test Lab run 37, the couple's 2,664 raw photos through the system folder picker, start
+  to finish): checked and the album made in 30 min 39 s, 0.69 s a photo (before the brain: 26 min 37 s,
+  0.60 s); no crash; the journey (swap, remove, undo, send, share) passed. App memory while checking
+  780-795 MB (before 530-560 MB): the SigLIP session. The phone's own 400-photo album on the exam: same
+  moment 68.2%, same photo 23.2% (the test version: 68.2% / 21.9%), so the phone runs the brain as tested.
+  The "album as a PDF" side step failed (viewing aid only). Next: lower the model's memory (arena,
+  prepacking) and check a 4 GB phone.
