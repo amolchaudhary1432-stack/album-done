@@ -15,6 +15,11 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollToNode
+import androidx.compose.ui.test.performTouchInput
+import androidx.compose.ui.test.swipeDown
+import androidx.compose.ui.test.swipeLeft
+import androidx.compose.ui.test.swipeUp
+import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.performSemanticsAction
 import androidx.compose.ui.test.printToString
 import androidx.lifecycle.ViewModelProvider
@@ -119,6 +124,37 @@ class JourneyDeviceTest {
             tests.open(asset).use { putPhoto(folder, name, it) }
         }
         return photos.size
+    }
+
+    // ---- The showcase recording (showcase=1): the app used slowly, like a person, for the owner ----
+
+    private val showcase get() = args.getString("showcase") == "1"
+    private val testStart = android.os.SystemClock.elapsedRealtime()
+    private val marks = StringBuilder()
+
+    /**
+     * A caption for the recording from this moment on (seconds since the test started). The
+     * real-phone run turns these into the video's captions and speeds up only "Checking".
+     */
+    private fun mark(caption: String) {
+        marks.append("%.1f\t%s\n".format((android.os.SystemClock.elapsedRealtime() - testStart) / 1000.0, caption))
+        runCatching { DeviceTestSupport.screensDir.apply { mkdirs() }.resolve("showcase-marks.txt").writeText(marks.toString()) }
+        Log.i("AlbumDoneTest", "Showcase: $caption")
+    }
+
+    /** Waits like a person looking at the screen; the screen keeps moving (the test drives its clock). */
+    private fun look(ms: Long) {
+        if (!showcase) return
+        val end = System.currentTimeMillis() + ms
+        while (System.currentTimeMillis() < end) {
+            compose.mainClock.advanceTimeBy(100)
+            Thread.sleep(100)
+        }
+    }
+
+    /** Taps like a person: a short look first, then the tap, then a look at what happened. */
+    private fun personTap(before: Long = 1_200, after: Long = 2_000, tap: () -> Unit) {
+        look(before); tap(); compose.waitForIdle(); look(after)
     }
 
     /** Each photo put in Pictures: (its address, event folder, file name). */
@@ -277,6 +313,7 @@ class JourneyDeviceTest {
         Log.i("AlbumDoneTest", "Journey: $count photos in Pictures/$folderName")
         Log.i("AlbumDoneTest", "Journey: Android ${Build.VERSION.RELEASE}, security update ${Build.VERSION.SECURITY_PATCH}")
 
+        mark("Home screen")
         step("01-home") {
             compose.waitUntil(30_000) { has("Choose photos folder") || has("New album") }
             // The intro fades by the screen's own clock, which the test drives.
@@ -285,6 +322,7 @@ class JourneyDeviceTest {
         }
 
         step("02-picker") {
+            mark("Choosing the photos folder (Android's own folder picker)")
             val button = if (has("Choose photos folder")) "Choose photos folder" else "New album"
             compose.onNodeWithText(button).performClick()
             device.wait(Until.hasObject(By.pkg(Pattern.compile(".*documentsui.*"))), 15_000)
@@ -309,6 +347,8 @@ class JourneyDeviceTest {
         if (!labPickerFault) step("05-new-album") {
             // The app reads the folder and guesses the occasion from its name.
             compose.waitUntil(60_000) { has("What are these photos of?") }
+            mark("New album: the app counts the photos and guesses the occasion")
+            look(5_000)
             appShot("05-new-album")
             assertTrue("folder count shown", has("%,d photos".format(count)))
             val vm = ViewModelProvider(compose.activity)[AlbumViewModel::class.java]
@@ -333,12 +373,15 @@ class JourneyDeviceTest {
                 }
                 val vm = ViewModelProvider(compose.activity)[AlbumViewModel::class.java]
                 compose.runOnUiThread { vm.openProject(id) }
+                mark("Checking every photo on the phone (no internet)")
                 checkingStarted = System.currentTimeMillis()
                 compose.waitUntil(30_000) { has("Making your album") }
                 compose.mainClock.advanceTimeBy(20_000)
                 appShot("06-progress")
                 return@step
             }
+            look(1_500)
+            mark("Checking every photo on the phone (no internet)")
             compose.onNodeWithText("Start checking photos").performClick()
             checkingStarted = System.currentTimeMillis()
             // Android asks whether the app may show notifications (Android 13+), unless allowed
@@ -379,6 +422,7 @@ class JourneyDeviceTest {
                 compose.mainClock.advanceTimeBy(2_000)
                 Thread.sleep(2_000)
             }
+            mark("The album is ready")
             scaling.append("${(System.currentTimeMillis() - checkingStarted) / 1000}\t$count\tALBUM SHOWN\t${memoryMb()}\n")
             DeviceTestSupport.screensDir.resolve("journey-scaling.txt").writeText(scaling.toString())
             val seconds = (System.currentTimeMillis() - checkingStarted) / 1000
@@ -397,7 +441,9 @@ class JourneyDeviceTest {
             appShot("08-album-photos")
         }
 
-        step("09-photo") {
+        if (showcase) step("showcase") { explore() }
+
+        if (!showcase) step("09-photo") {
             compose.onAllNodesWithTag("album-photo")[0].performSemanticsAction(SemanticsActions.OnClick)
             waitFor("WHY IT")
             appShot("09-photo")
@@ -420,8 +466,11 @@ class JourneyDeviceTest {
         }
 
         step("13-send") {
+            mark("Sending the chosen photos to the photographer")
+            look(1_500)
             compose.onNodeWithText("Send photos to photographer").performSemanticsAction(SemanticsActions.OnClick)
             waitFor("Save photos to a folder")
+            look(4_000)
             appShot("13-send")
         }
 
@@ -452,10 +501,157 @@ class JourneyDeviceTest {
         }
 
         step("15-home") {
+            mark("Back home: the album card")
             repeat(3) { if (!onScreen("Your albums")) DeviceTestSupport.pressBack() }
             compose.waitUntil(15_000) { onScreen("Your albums") }
             appShot("15-home")
             assertTrue("the album card is on the home screen", has(folderName))
+            look(4_000)
+            mark("end")
+        }
+    }
+
+    private fun scrollGrid(up: Boolean) = compose.onNodeWithTag("album-grid").performTouchInput {
+        if (up) swipeUp(durationMillis = 900) else swipeDown(durationMillis = 900)
+    }
+
+    /**
+     * The album looked at the way the bride would, slowly: the cover and the couple, the photos,
+     * her own photos, the family, naming people in Who's who, why photos were picked, a swap, a
+     * removal and Undo, the album size and what was left out. Every step is optional when the
+     * folder does not offer it (no look-alike, nobody to name...), so the recording never fails on it.
+     */
+    private fun explore() {
+        mark("The album: cover photo and the couple, found on their own")
+        look(6_000)
+        appShot("s01-album-top")
+        if (hasTag("confirm-groom")) {
+            mark("The app is not sure about the groom and asks once: Yes")
+            personTap(2_500, 3_000) { compose.onNodeWithTag("confirm-groom").performClick() }
+        }
+
+        mark("Looking through the album")
+        repeat(6) { scrollGrid(up = true); look(2_500) }
+        appShot("s02-album-scrolled")
+        repeat(7) { scrollGrid(up = false); look(600) }
+        look(1_500)
+
+        runCatching {
+            mark("The bride's own photos")
+            personTap { compose.onNodeWithTag("couple-bride").performClick() }
+            look(4_000)
+            appShot("s03-bride")
+            DeviceTestSupport.pressBack(); look(1_500)
+        }
+
+        runCatching {
+            mark("Family & friends: everyone in the photos, most photographed first")
+            compose.onNodeWithTag("album-grid").performScrollToNode(hasTestTag("see-all-people"))
+            personTap { compose.onNodeWithTag("see-all-people").performClick() }
+            waitFor("Family & friends")
+            look(4_000)
+            appShot("s04-people")
+            for ((tag, caption) in listOf("filter-BRIDE" to "Bride's side", "filter-GROOM" to "Groom's side", "filter-unnamed" to "Not named yet", "filter-all" to "Everyone")) {
+                if (!hasTag(tag)) continue
+                mark("Family & friends: $caption")
+                personTap(1_000, 3_000) { compose.onNodeWithTag(tag).performClick() }
+            }
+            if (compose.onAllNodesWithTag("person-tile").fetchSemanticsNodes().size > 3) {
+                mark("One relative's photos")
+                personTap { compose.onAllNodesWithTag("person-tile")[3].performClick() }
+                look(4_000)
+                appShot("s05-person")
+                DeviceTestSupport.pressBack(); look(1_500)
+            }
+            DeviceTestSupport.pressBack()
+            waitFor("Send photos to photographer")
+            look(1_500)
+        }
+
+        if (hasTag("quick-tag")) runCatching {
+            mark("Who's who: one face at a time, one tap each (test answers)")
+            personTap { compose.onNodeWithTag("quick-tag").performClick() }
+            compose.waitUntil(30_000) { hasTag("quick-Mother") || has("All done") }
+            // Answers a person might give; the test cannot know this family, so they are examples.
+            val answers = listOf("Bride's side" to "Mother", "Bride's side" to "Father", "Groom's side" to "Mother",
+                "Groom's side" to "Father", "Bride's side" to "Grandmother", "skip" to "", "Groom's side" to "Uncle",
+                "Bride's side" to "Cousin", "not" to "", "Groom's side" to "Aunt")
+            for ((i, a) in answers.withIndex()) {
+                if (!hasTag("quick-Mother")) break
+                look(2_500)
+                if (i == 0) appShot("s06-whos-who")
+                when (a.first) {
+                    "skip" -> personTap(800, 1_500) { compose.onNodeWithTag("quick-skip").performClick() }
+                    "not" -> personTap(800, 1_500) { compose.onNodeWithTag("quick-not-family").performClick() }
+                    else -> {
+                        if (has(a.first)) personTap(800, 1_000) { compose.onNodeWithText(a.first).performClick() }
+                        personTap(800, 1_500) { compose.onNodeWithTag("quick-${a.second}").performClick() }
+                    }
+                }
+            }
+            // Leave the rest for later: Back, or the "All done" card's button.
+            if (!has("All done")) { DeviceTestSupport.pressBack(); look(1_500) }
+            if (has("See your album")) {
+                look(2_500)
+                appShot("s07-whos-who-done")
+                mark("The album is remade with the family named")
+                personTap { compose.onNodeWithText("See your album").performClick() }
+            }
+            waitFor("Send photos to photographer", timeout = 120_000)
+            look(4_000)
+        }
+
+        runCatching {
+            mark("A photo: why it is in the album")
+            compose.onNodeWithTag("album-grid").performScrollToNode(hasTestTag("album-photo"))
+            look(1_500)
+            personTap { compose.onAllNodesWithTag("album-photo")[0].performSemanticsAction(SemanticsActions.OnClick) }
+            waitFor("WHY IT")
+            look(5_000)
+            appShot("s08-photo")
+            repeat(3) {
+                mark("The next photo, and why")
+                runCatching { compose.onAllNodes(isRoot())[0].performTouchInput { swipeLeft(durationMillis = 500) } }
+                look(4_500)
+            }
+            if (hasTag("alternative")) {
+                mark("Look-alike photos: swap one in with one tap")
+                look(2_000)
+                personTap(1_500, 3_500) { compose.onAllNodesWithTag("alternative")[0].performClick() }
+                appShot("s09-swapped")
+            }
+            mark("Remove: the next best photo takes its place")
+            personTap(1_500, 3_000) { compose.onNodeWithText("Remove").performClick() }
+            appShot("s10-removed")
+            if (has("Undo")) {
+                mark("Undo")
+                personTap(1_000, 3_000) { compose.onNodeWithText("Undo").performClick() }
+            }
+            if (has("WHY IT")) { DeviceTestSupport.pressBack(); look(1_500) }
+            waitFor("Send photos to photographer")
+        }
+
+        runCatching {
+            mark("Album size and what we left out")
+            personTap { compose.onNodeWithContentDescription("Album size and more").performClick() }
+            waitFor("What we left out")
+            look(5_000)
+            appShot("s11-album-size")
+            DeviceTestSupport.pressBack()
+            compose.waitUntil(10_000) { !has("What we left out") }
+            look(1_500)
+            compose.onNodeWithTag("album-grid").performScrollToNode(hasTestTag("left-out"))
+            personTap { compose.onNodeWithTag("left-out").performSemanticsAction(SemanticsActions.OnClick) }
+            waitFor("What we left out")
+            look(4_000)
+            mark("A photo we left out, and why")
+            personTap { compose.onAllNodesWithTag("left-out-photo")[0].performSemanticsAction(SemanticsActions.OnClick) }
+            look(5_000)
+            appShot("s12-left-out-photo")
+            DeviceTestSupport.pressBack(); look(1_000)
+            DeviceTestSupport.pressBack()
+            waitFor("Send photos to photographer")
+            look(2_000)
         }
     }
 

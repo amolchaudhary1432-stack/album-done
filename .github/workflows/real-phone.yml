@@ -201,6 +201,20 @@ jobs:
           if [ -n "${{ steps.s.outputs.real }}" ]; then
             # The couple's own photos only, pushed like any big folder.
             mv "$(cat work/out/raw-dir.txt)" photo-cache && rm -rf work
+            # run.json "folders": "A|B|C" keeps only those event folders (a bride picks one function's
+            # folders when the whole wedding is over the album limit or the lab's 45 minutes).
+            folders="${{ steps.s.outputs.folders }}"
+            if [ -n "$folders" ]; then
+              python3 - "$folders" <<'PY2'
+          import os, shutil, sys
+          keep = set(sys.argv[1].split('|'))
+          for d in os.listdir('photo-cache'):
+              p = os.path.join('photo-cache', d)
+              if d not in keep:
+                  shutil.rmtree(p) if os.path.isdir(p) else os.remove(p)
+          print('kept', sorted(os.listdir('photo-cache')))
+          PY2
+            fi
             set_name="push:real"
           fi
           if [ "${set_name%%:*}" = set ]; then
@@ -295,6 +309,8 @@ jobs:
           # Camera-size photos are pushed into the phone's Pictures before the test starts.
           push=""; extra=""
           if [ -f push-args.yaml ]; then push="push-args.yaml:push"; extra=",journeyPushed=1,journeyCount=${{ steps.p.outputs.count }}"; fi
+          # run.json "showcase": 1 = the app used slowly, like a person, for the owner's recording.
+          [ "$(python3 -c "import json; print(json.load(open('tools/realphone/run.json')).get('showcase', 0))")" = 1 ] && extra="$extra,showcase=1"
           [ -n "${{ steps.p.outputs.zip }}" ] && extra="$extra,journeyZip=${{ steps.p.outputs.zip }}"
           gcloud firebase test android run $push --project "$PROJECT" --type instrumentation \
             --app app/build/outputs/apk/debug/app-debug.apk \
@@ -329,6 +345,15 @@ jobs:
           du -sh out
           grep -h "Real wedding:" out/logcat-app.txt 2>/dev/null | tail -1 || true
           head -1 out/screens/real-wedding-report.txt 2>/dev/null || true
+
+      # The showcase recording: a title, a caption for each step, only the checking sped up.
+      - name: The showcase video
+        if: always() && steps.s.outputs.fetch == ''
+        run: |
+          test -s out/screens/showcase-marks.txt && test -s out/video.mp4 || { echo "no showcase"; exit 0; }
+          command -v ffmpeg >/dev/null || { sudo apt-get update -q && sudo apt-get install -y -q ffmpeg fonts-dejavu-core; }
+          title=$(python3 -c "import json; print(json.load(open('tools/realphone/run.json')).get('title', 'Album Done on a real phone'))")
+          python3 tools/realphone/edit_video.py out/video.mp4 out/screens/showcase-marks.txt "$title" out/showcase.mp4 || echo "could not edit the video"
 
       # A real couple's run: the phone's own album as a PDF (the photos the brain chose, before the
       # test swaps and removes any), for Claude to study against the couple's real album.
