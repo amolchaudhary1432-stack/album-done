@@ -45,6 +45,14 @@ class PipelineDeviceTest {
         val analysis = AlbumPlanner.analyze(planPhotos, tags)
         DeviceTestSupport.writeReport(analysis, "analysis-report.txt")
         assertEquals(listOf("01 Haldi", "02 Wedding"), analysis.events)
+        // The album brain sees every photo (SigLIP 2 on the phone) and plans the album: never the rules
+        // alone because the model failed to start on this phone.
+        val scenes = dao.scenes(id)
+        assertEquals("scene numbers for every photo", photos.size, scenes.size)
+        assertTrue(scenes.all { it.vector.size == 768 * 4 })
+        com.albumdone.app.plan.AlbumMind.weights = com.albumdone.app.plan.AlbumMind.read(
+            DeviceTestSupport.app.assets.open("models/album_mind.bin").use { it.readBytes() })
+        assertTrue(com.albumdone.app.plan.AlbumMind.canSee(analysis))
         val list = AlbumPlanner.shortlist(analysis, 4)
         assertEquals(4, list.ids.size)
         assertTrue(list.ids.all { list.reasons[it].orEmpty().isNotEmpty() })
