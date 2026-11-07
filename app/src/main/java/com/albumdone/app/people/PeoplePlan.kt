@@ -40,8 +40,38 @@ object PeoplePlan {
         }
         val twoShots = byPhoto.filter { it.value.size == 2 }.keys
         val portraits = byPhoto.filter { (_, f) -> f.size == 2 && f.all { it.second.box.width >= 0.08f } }.keys
-        val couple = PeopleClusterer.detectCouple(photosOf, hints, { weight[it] ?: 1.0 }, twoShots) ?: return Main(null, null, false)
+        val found = PeopleClusterer.detectCouple(photosOf, hints, { weight[it] ?: 1.0 }, twoShots) ?: return Main(null, null, false)
+        val couple = brideFirst(found, photos, byPhoto)
         return Main(couple.first, couple.second, PeopleClusterer.coupleSure(photosOf, couple, { weight[it] ?: 1.0 }, portraits))
+    }
+
+    /** Photos of one person alone needed on each side before the app trusts what it sees. */
+    const val SOLO_PHOTOS = 3
+    /** How much more "woman" the bride's own photos must look than the groom's to swap them. */
+    const val WOMAN_MARGIN = 0.01
+
+    /**
+     * Which of the two is the bride, from what the photos show (the album brain's eyes, SigLIP 2): the
+     * one whose photos alone look more like a woman. The most photographed is not always the bride (a
+     * groom's own haldi folder is mostly him). On two real weddings her solo photos leaned "woman"
+     * 96-97% of the time, his 23-41%. Unchanged when the brain is missing or there are too few photos.
+     */
+    fun brideFirst(couple: Pair<Long, Long>, photos: List<PlanPhoto>, byPhoto: Map<Long, List<Pair<Long, com.albumdone.app.plan.PlanFace>>>): Pair<Long, Long> {
+        val w = com.albumdone.app.plan.AlbumMind.weights ?: return couple
+        val woman = w.direction("woman", "man") ?: return couple
+        val byId = photos.associateBy { it.id }
+        fun score(person: Long): Double? {
+            val solo = byPhoto.filter { (_, f) -> f.size == 1 && f[0].second.personId == person }.keys.mapNotNull { byId[it]?.scene }
+            if (solo.size < SOLO_PHOTOS) return null
+            return solo.map { v ->
+                var n = 0.0; var d = 0.0
+                for (i in v.indices) { n += v[i].toDouble() * v[i]; d += v[i] * woman[i] }
+                d / kotlin.math.sqrt(n.coerceAtLeast(1e-12))
+            }.average()
+        }
+        val a = score(couple.first) ?: return couple
+        val b = score(couple.second) ?: return couple
+        return if (b - a > WOMAN_MARGIN) couple.second to couple.first else couple
     }
 
     /**

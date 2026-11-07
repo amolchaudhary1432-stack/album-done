@@ -59,6 +59,12 @@ object AlbumMind {
     class Weights(val feat: List<String>, private val arrays: Map<String, Array<FloatArray>>) {
         fun mat(name: String): Array<FloatArray> = arrays.getValue(name)
         fun vec(name: String): DoubleArray = arrays.getValue(name).let { m -> DoubleArray(m.size) { m[it][0].toDouble() } }
+        /** SigLIP text direction from [to] towards [from] (e.g. "woman" minus "man"), when the file has them. */
+        fun direction(from: String, to: String): DoubleArray? {
+            if (from !in arrays || to !in arrays) return null
+            val f = vec(from); val t = vec(to)
+            return DoubleArray(f.size) { f[it] - t[it] }
+        }
         private val consts = vec("consts")
         val decay = consts[0]
         val beatLevel = consts[1]

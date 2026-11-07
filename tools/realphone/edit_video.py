@@ -18,7 +18,8 @@ for line in open(marks_path, encoding='utf-8'):
     t, _, cap = line.rstrip('\n').partition('\t')
     if t: marks.append((float(t), cap))
 end_t = next((t for t, c in marks if c == 'end'), marks[-1][0])
-shift = max(0.0, dur - end_t - 2.0)  # video seconds before the test's first second
+# The recording runs about 6 s past the test's last caption (Test Lab's own screen): measured on run 39.
+shift = max(0.0, dur - end_t - 6.0)  # video seconds before the test's first second
 marks = [(min(dur, t + shift), c) for t, c in marks]
 # Sped up: the photos being copied onto the phone before the app opens (a still screen), and checking.
 first = marks[0][0]
@@ -30,7 +31,8 @@ for a, b, target in fast:
     if a > t0: segs.append((t0, a, 1.0))
     if b > a: segs.append((a, b, max(1.0, (b - a) / target)))
     t0 = max(t0, b)
-segs.append((t0, dur, 1.0))
+stop = min(dur, next((t for t, c in marks if c == 'end'), dur) + 2.0)  # not Test Lab's screen after the test
+segs.append((t0, stop, 1.0))
 print(f'video {dur:.0f} s, test clock shifted {shift:.1f} s; ' + ', '.join(f'{a:.0f}-{b:.0f} s x{f:.0f}' for a, b, f in segs if f > 1))
 
 def new_t(t):
@@ -70,7 +72,7 @@ for a, b, f in segs: base.append(acc); acc += (b - a) / f
 expr = f"{base[-1]:.3f}+(T-{segs[-1][0]:.3f})/{segs[-1][2]:.4f}"
 for (a, b, f), b0 in reversed(list(zip(segs[:-1], base[:-1]))):
     expr = f"if(lt(T,{b:.3f}),{b0:.3f}+(T-{a:.3f})/{f:.4f},{expr})"
-vf = f"setpts='({expr})/TB',fps=30" + ''.join(',' + d for d in draws)
+vf = f"trim=0:{stop:.2f},setpts='({expr})/TB',fps=30" + ''.join(',' + d for d in draws)
 subprocess.run(['ffmpeg', '-y', '-v', 'error', '-i', video, '-vf', vf, '-an', '-threads', '2',
                 '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '26', '-pix_fmt', 'yuv420p', '-movflags', '+faststart', out], check=True)
 print('written', out, f'{os.path.getsize(out) / 1e6:.0f} MB')

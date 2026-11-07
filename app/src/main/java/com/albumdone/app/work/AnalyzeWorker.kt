@@ -104,6 +104,8 @@ class AnalyzeWorker(
         dao.setStatus(projectId, ProjectStatus.PEOPLE)
         trySetForeground(projectId, project.name, total, total, "Finding the people in your photos…")
         com.albumdone.app.analysis.SceneEmbedder.release()
+        // The brain's eyes also tell the bride from the groom when the couple is found.
+        com.albumdone.app.analysis.MindLoader.ensure(applicationContext)
         PeopleRepository(dao).build(projectId)
         FaceCrops.saveAll(applicationContext, dao, projectId)
         dao.setActiveMillis(projectId, baseActive + (System.currentTimeMillis() - runStart))

@@ -15,6 +15,7 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollToNode
+import androidx.compose.ui.test.performScrollToIndex
 import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.swipeDown
 import androidx.compose.ui.test.swipeLeft
@@ -342,6 +343,7 @@ class JourneyDeviceTest {
             // Android asks once more whether the app may read the folder.
             shot("04-picker-allow")
             tapText("^Allow$", timeout = 10_000)
+            mark("The app reads the folder: photos and the photographer's event folders")
         }
 
         if (!labPickerFault) step("05-new-album") {
@@ -515,93 +517,54 @@ class JourneyDeviceTest {
         if (up) swipeUp(durationMillis = 900) else swipeDown(durationMillis = 900)
     }
 
+    /** Back to the top of the album (the cover, the couple and the album size button live there). */
+    private fun albumTop() {
+        compose.waitUntil(30_000) { compose.onAllNodesWithTag("album-grid").fetchSemanticsNodes().size == 1 }
+        compose.onNodeWithTag("album-grid").performScrollToIndex(0)
+        look(1_500)
+    }
+
     /**
-     * The album looked at the way the bride would, slowly: the cover and the couple, the photos,
-     * her own photos, the family, naming people in Who's who, why photos were picked, a swap, a
-     * removal and Undo, the album size and what was left out. Every step is optional when the
-     * folder does not offer it (no look-alike, nobody to name...), so the recording never fails on it.
+     * One part of the showcase. A part the folder does not offer is skipped; a part that goes wrong is
+     * written down (log, screenshot, what was on screen) and the recording goes on with the next part.
+     */
+    private fun part(name: String, block: () -> Unit) {
+        try {
+            block()
+        } catch (e: Throwable) {
+            Log.e("AlbumDoneTest", "Showcase part $name went wrong", e)
+            runCatching { shot("s-$name-FAILED") }
+            val notes = StringBuilder(e.stackTraceToString()).append("\n\n")
+            runCatching { notes.append(compose.onAllNodes(isRoot()).printToString(maxDepth = Int.MAX_VALUE)) }
+            runCatching { DeviceTestSupport.screensDir.apply { mkdirs() }.resolve("showcase-$name-FAILED.txt").writeText(notes.toString()) }
+            mark("(skipped: $name)")
+            // Back to the album for the next part.
+            repeat(3) { if (!onScreen("Send photos to photographer")) { DeviceTestSupport.pressBack(); look(1_500) } }
+        }
+    }
+
+    /**
+     * The album looked at the way the bride would, slowly: the cover and the couple, the photos, why
+     * they were picked, a swap, a removal and Undo, the album size and what was left out, her own
+     * photos, the family, and naming people in Who's who (last: it remakes the album).
      */
     private fun explore() {
         mark("The album: cover photo and the couple, found on their own")
         look(6_000)
         appShot("s01-album-top")
-        if (hasTag("confirm-groom")) {
+        if (hasTag("confirm-groom")) part("confirm-groom") {
             mark("The app is not sure about the groom and asks once: Yes")
             personTap(2_500, 3_000) { compose.onNodeWithTag("confirm-groom").performClick() }
         }
 
-        mark("Looking through the album")
-        repeat(6) { scrollGrid(up = true); look(2_500) }
-        appShot("s02-album-scrolled")
-        repeat(7) { scrollGrid(up = false); look(600) }
-        look(1_500)
-
-        runCatching {
-            mark("The bride's own photos")
-            personTap { compose.onNodeWithTag("couple-bride").performClick() }
-            look(4_000)
-            appShot("s03-bride")
-            DeviceTestSupport.pressBack(); look(1_500)
+        part("scroll") {
+            mark("Looking through the album")
+            repeat(6) { scrollGrid(up = true); look(2_500) }
+            appShot("s02-album-scrolled")
+            albumTop()
         }
 
-        runCatching {
-            mark("Family & friends: everyone in the photos, most photographed first")
-            compose.onNodeWithTag("album-grid").performScrollToNode(hasTestTag("see-all-people"))
-            personTap { compose.onNodeWithTag("see-all-people").performClick() }
-            waitFor("Family & friends")
-            look(4_000)
-            appShot("s04-people")
-            for ((tag, caption) in listOf("filter-BRIDE" to "Bride's side", "filter-GROOM" to "Groom's side", "filter-unnamed" to "Not named yet", "filter-all" to "Everyone")) {
-                if (!hasTag(tag)) continue
-                mark("Family & friends: $caption")
-                personTap(1_000, 3_000) { compose.onNodeWithTag(tag).performClick() }
-            }
-            if (compose.onAllNodesWithTag("person-tile").fetchSemanticsNodes().size > 3) {
-                mark("One relative's photos")
-                personTap { compose.onAllNodesWithTag("person-tile")[3].performClick() }
-                look(4_000)
-                appShot("s05-person")
-                DeviceTestSupport.pressBack(); look(1_500)
-            }
-            DeviceTestSupport.pressBack()
-            waitFor("Send photos to photographer")
-            look(1_500)
-        }
-
-        if (hasTag("quick-tag")) runCatching {
-            mark("Who's who: one face at a time, one tap each (test answers)")
-            personTap { compose.onNodeWithTag("quick-tag").performClick() }
-            compose.waitUntil(30_000) { hasTag("quick-Mother") || has("All done") }
-            // Answers a person might give; the test cannot know this family, so they are examples.
-            val answers = listOf("Bride's side" to "Mother", "Bride's side" to "Father", "Groom's side" to "Mother",
-                "Groom's side" to "Father", "Bride's side" to "Grandmother", "skip" to "", "Groom's side" to "Uncle",
-                "Bride's side" to "Cousin", "not" to "", "Groom's side" to "Aunt")
-            for ((i, a) in answers.withIndex()) {
-                if (!hasTag("quick-Mother")) break
-                look(2_500)
-                if (i == 0) appShot("s06-whos-who")
-                when (a.first) {
-                    "skip" -> personTap(800, 1_500) { compose.onNodeWithTag("quick-skip").performClick() }
-                    "not" -> personTap(800, 1_500) { compose.onNodeWithTag("quick-not-family").performClick() }
-                    else -> {
-                        if (has(a.first)) personTap(800, 1_000) { compose.onNodeWithText(a.first).performClick() }
-                        personTap(800, 1_500) { compose.onNodeWithTag("quick-${a.second}").performClick() }
-                    }
-                }
-            }
-            // Leave the rest for later: Back, or the "All done" card's button.
-            if (!has("All done")) { DeviceTestSupport.pressBack(); look(1_500) }
-            if (has("See your album")) {
-                look(2_500)
-                appShot("s07-whos-who-done")
-                mark("The album is remade with the family named")
-                personTap { compose.onNodeWithText("See your album").performClick() }
-            }
-            waitFor("Send photos to photographer", timeout = 120_000)
-            look(4_000)
-        }
-
-        runCatching {
+        part("photo") {
             mark("A photo: why it is in the album")
             compose.onNodeWithTag("album-grid").performScrollToNode(hasTestTag("album-photo"))
             look(1_500)
@@ -631,7 +594,8 @@ class JourneyDeviceTest {
             waitFor("Send photos to photographer")
         }
 
-        runCatching {
+        part("album-size") {
+            albumTop()
             mark("Album size and what we left out")
             personTap { compose.onNodeWithContentDescription("Album size and more").performClick() }
             waitFor("What we left out")
@@ -652,6 +616,74 @@ class JourneyDeviceTest {
             DeviceTestSupport.pressBack()
             waitFor("Send photos to photographer")
             look(2_000)
+        }
+
+        part("bride") {
+            albumTop()
+            mark("The bride's own photos")
+            personTap { compose.onNodeWithTag("couple-bride").performClick() }
+            look(4_000)
+            appShot("s03-bride")
+            DeviceTestSupport.pressBack(); look(1_500)
+        }
+
+        part("people") {
+            mark("Family & friends: everyone in the photos, most photographed first")
+            compose.onNodeWithTag("album-grid").performScrollToNode(hasTestTag("see-all-people"))
+            personTap { compose.onNodeWithTag("see-all-people").performClick() }
+            waitFor("Family & friends")
+            look(4_000)
+            appShot("s04-people")
+            for ((tag, caption) in listOf("filter-BRIDE" to "Bride's side", "filter-GROOM" to "Groom's side", "filter-unnamed" to "Not named yet", "filter-all" to "Everyone")) {
+                if (!hasTag(tag)) continue
+                mark("Family & friends: $caption")
+                personTap(1_000, 3_000) { compose.onNodeWithTag(tag).performClick() }
+            }
+            if (compose.onAllNodesWithTag("person-tile").fetchSemanticsNodes().size > 3) {
+                mark("One relative's photos")
+                personTap { compose.onAllNodesWithTag("person-tile")[3].performClick() }
+                look(4_000)
+                appShot("s05-person")
+                DeviceTestSupport.pressBack(); look(1_500)
+            }
+            DeviceTestSupport.pressBack()
+            waitFor("Send photos to photographer")
+            look(1_500)
+        }
+
+        if (hasTag("quick-tag")) part("whos-who") {
+            mark("Who's who: one face at a time, one tap each (test answers)")
+            personTap { compose.onNodeWithTag("quick-tag").performClick() }
+            compose.waitUntil(30_000) { hasTag("quick-Mother") || has("All done") }
+            // Answers a person might give; the test cannot know this family, so they are examples.
+            val answers = listOf("Bride's side" to "Mother", "Bride's side" to "Father", "Groom's side" to "Mother",
+                "Groom's side" to "Father", "Bride's side" to "Grandmother", "skip" to "", "Groom's side" to "Uncle",
+                "Bride's side" to "Cousin", "not" to "", "Groom's side" to "Aunt")
+            for ((i, a) in answers.withIndex()) {
+                if (!hasTag("quick-Mother")) break
+                look(2_500)
+                if (i == 0) appShot("s06-whos-who")
+                when (a.first) {
+                    "skip" -> personTap(800, 1_500) { compose.onNodeWithTag("quick-skip").performClick() }
+                    "not" -> personTap(800, 1_500) { compose.onNodeWithTag("quick-not-family").performClick() }
+                    else -> {
+                        if (has(a.first)) personTap(800, 1_000) { compose.onNodeWithText(a.first).performClick() }
+                        personTap(800, 1_500) { compose.onNodeWithTag("quick-${a.second}").performClick() }
+                    }
+                }
+            }
+            // Leave the rest for later: Back, or the "All done" card's button.
+            if (!has("All done")) { DeviceTestSupport.pressBack(); look(1_500) }
+            if (has("See your album")) {
+                look(2_500)
+                appShot("s07-whos-who-done")
+                personTap { compose.onNodeWithText("See your album").performClick() }
+            }
+            waitFor("Send photos to photographer", timeout = 120_000)
+            mark("The album, remade with the family named")
+            albumTop()
+            look(4_000)
+            appShot("s13-album-after-naming")
         }
     }
 

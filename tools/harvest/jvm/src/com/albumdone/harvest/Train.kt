@@ -141,17 +141,20 @@ fun planFeaturesDir(args: List<String>) {
  * chosen photos and, optionally, each photo's moment worth, frame score and beat (to check against mind_v2.py).
  */
 fun mindRun(args: List<String>) {
-    val (photos, stored) = PlanDump.read(File(args[0]).readText())
-    val main = com.albumdone.app.people.PeoplePlan.findMain(stored.occasion, photos)
-    val tags = com.albumdone.app.people.PeoplePlan.tags(stored.occasion, photos, main.first, main.second)
-    val a = AlbumPlanner.analyze(photos, tags)
+    val (raw, stored) = PlanDump.read(File(args[0]).readText())
     fun label(p: com.albumdone.app.plan.PlanPhoto) = if (p.folder.isEmpty()) p.name else "${p.folder}/${p.name}"
     val bb = java.nio.ByteBuffer.wrap(File(args[1]).readBytes()).order(java.nio.ByteOrder.LITTLE_ENDIAN)
     val n = bb.int; val dim = bb.int
     val byName = HashMap<String, FloatArray>()
     repeat(n) { val k = ByteArray(bb.int); bb.get(k); byName[String(k, Charsets.UTF_8)] = FloatArray(dim) { bb.float } }
-    val vectors = a.photos.associate { it.id to byName.getValue(label(it.photo).substringBeforeLast('.') + ".jpg") }
+    // As on the phone: every photo carries what it shows, and the brain is loaded before the couple is found.
+    val photos = raw.map { it.copy(scene = byName[label(it).substringBeforeLast('.') + ".jpg"]) }
     val w = com.albumdone.app.plan.AlbumMind.read(File(args[2]).readBytes())
+    com.albumdone.app.plan.AlbumMind.weights = w
+    val main = com.albumdone.app.people.PeoplePlan.findMain(stored.occasion, photos)
+    val tags = com.albumdone.app.people.PeoplePlan.tags(stored.occasion, photos, main.first, main.second)
+    val a = AlbumPlanner.analyze(photos, tags)
+    val vectors = com.albumdone.app.plan.AlbumMind.vectors(a)
     val t0 = System.currentTimeMillis()
     val reading = com.albumdone.app.plan.AlbumMind.read(a, vectors, w)
     val picks = com.albumdone.app.plan.AlbumMind.choose(a, vectors, w, args[3].toInt(), reading = reading)
