@@ -318,3 +318,15 @@ To resume:
    `features-dir` (tools/harvest/jvm), `embed.py` for SigLIP vectors.
 3. Fetch the three Kaggle outputs; re-send cc scan to carry on (files_done.txt); train frame_distill on
    eyes.npz; filter Indian photos by SigLIP; group by owner/date into sets; judge; retrain; exam.
+
+**Resumed 7 Nov 2026, 11:47 am IST**
+- Kaggle results: CommonCatalog caption scan read 820 of ~9,700 files (3.09M photos) in 11.3 h and
+  found 1,101 photos (all CC BY); Megalith + PD12M 376; the eyes scored 3,083 of the 8,264 web photos.
+- A look at a sample of what the captions found: many "nikah" photos are Malay weddings (Malaysia /
+  Indonesia), some are not weddings at all. Captions are not enough: each photo is now looked at by
+  SigLIP against Indian and other weddings (`classify_found.py`), and only the Indian ones are scored by
+  the eyes and kept. The sample also shows whole events from one photographer (sets, like raw folders).
+- Small frame judge learned on the 3,083 web photos only: 63.4% of people's ranked pairs (it never saw
+  those photos). On the exam the frame judges move the score only within noise (60-64% at 766); the
+  best tested set-up stays 66%. Not tuned further on the exam (that would teach one couple's taste).
+- CommonCatalog scan now runs on 4 Kaggle machines at once, carrying on from the files already read.
