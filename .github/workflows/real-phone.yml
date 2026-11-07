@@ -336,6 +336,7 @@ jobs:
         if: always() && steps.s.outputs.real != '' && steps.d.outputs.model != ''
         run: |
           test -s out/screens/journey-album.txt || { echo "no album list from the phone"; exit 0; }
+          python3 -c "import PIL" 2>/dev/null || python3 -m pip install -q --user pillow || sudo apt-get install -y -q python3-pil
           python3 - out/screens/journey-album.txt full-photos "out/phone-album-${{ steps.d.outputs.model }}.pdf" <<'PY'
           import os, sys
           from PIL import Image, ImageDraw, ImageOps
