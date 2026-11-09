@@ -531,7 +531,7 @@ class AlbumPlannerTest {
         val a = AlbumPlanner.analyze(listOf(haldiSolo, solo) + guests, couple)
         val s = AlbumPlanner.shortlist(a, 5)
         assertEquals(solo.id, s.coverId)
-        assertEquals("Cover: the bride's best portrait", s.reasons.getValue(solo.id).first())
+        assertEquals("Cover: the best portrait of one of the couple", s.reasons.getValue(solo.id).first())
     }
 
     @Test
@@ -541,7 +541,7 @@ class AlbumPlannerTest {
             List(10) { couplePhoto(t = start + (200 + it * 20) * minute) }
         val a = AlbumPlanner.analyze(photos, tags(PersonTag(elder, "", Priority.MUST, Side.BRIDE, elder = true)))
         val all = AlbumPlanner.shortlist(a, 8).reasons.values.flatten()
-        assertTrue(all.toString(), all.any { it == "Family elder with the bride" })
+        assertTrue(all.toString(), all.any { it == "Family elder with one of the couple" })
         assertTrue(all.none { it.contains("Must") || it.contains("Person ") })
     }
 
@@ -629,7 +629,7 @@ class AlbumPlannerTest {
         val cov = s.coverage.single { it.personId == aai }
         assertEquals(5, cov.target)
         assertNull(cov.warning)
-        assertTrue(s.reasons.values.flatten().any { it.contains("Aai with the bride") })
+        assertTrue(s.reasons.values.flatten().any { it.contains("Aai with one of the couple") })
     }
 
     @Test
@@ -1000,7 +1000,8 @@ class AlbumPlannerTest {
         assertEquals("the couple", couple.pair())
         assertEquals("the couple", PeopleTags(BRIDE, GROOM, occasion = Occasion.ANNIVERSARY).pair())
         assertEquals("the parents-to-be", PeopleTags(BRIDE, GROOM, occasion = Occasion.BABY_SHOWER).pair())
-        assertEquals("Bride", couple.label(BRIDE))
+        // Which of the couple is the bride is never guessed (owner, 7 Nov 2026).
+        assertEquals("Couple", couple.label(BRIDE))
     }
 
     @Test

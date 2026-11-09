@@ -96,14 +96,14 @@ class BigFamilyDeviceTest {
         compose.onNodeWithTag("album-grid").performScrollToIndex(2)
         compose.waitForIdle()
         tap("quick-tag")
-        compose.waitUntil(30_000) { hasTag("quick-Aunt") }
+        compose.waitUntil(30_000) { hasTag("quick-close") }
         screenshot("big-07-whos-who")
-        tap("quick-Mother")
+        tap("quick-must")
         screenshot("big-08-whos-who-second")
-        tap("quick-Father")
+        tap("quick-must")
         tap("quick-skip")
         tap("quick-not-family")
-        tap("quick-Aunt")
+        tap("quick-close")
         screenshot("big-09-whos-who-sixth")
         DeviceTestSupport.pressBack()
         compose.waitUntil(2 * 60_000) { has("Send photos to photographer") }

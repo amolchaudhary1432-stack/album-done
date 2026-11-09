@@ -39,7 +39,7 @@ jobs:
         run: |
           # run.json: "mode" send (upload, start, wait a little) or fetch (only collect an earlier job's
           # output); "wait" minutes to wait here (default 15), so this machine is not billed while Kaggle works.
-          python3 -c "import json; r=json.load(open('tools/kaggle/run.json')); print('SLUG=%s\nMODE=%s\nWAIT=%s' % (r['slug'], r.get('mode', 'send'), r.get('wait', 15)))" >> $GITHUB_ENV
+          python3 -c "import json; r=json.load(open('tools/kaggle/run.json')); print('SLUG=%s\nMODE=%s\nWAIT=%s\nUPLOAD=%s' % (r['slug'], r.get('mode', 'send'), r.get('wait', 15), r.get('upload', '')))" >> $GITHUB_ENV
           python3 -m pip install -q "kaggle>=1.8"
           kaggle --version
           kaggle kernels list --mine --page-size 5 || true
@@ -80,6 +80,39 @@ jobs:
           printf '{"title": "album-done-weblist", "id": "%s/album-done-weblist", "licenses": [{"name": "other"}]}' "$KAGGLE_USERNAME" > wl/dataset-metadata.json
           if kaggle datasets status "$KAGGLE_USERNAME/album-done-weblist" >/dev/null 2>&1; then kaggle datasets version -p wl -m update -q; else kaggle datasets create -p wl -q; fi
           for i in $(seq 1 30); do s=$(kaggle datasets status "$KAGGLE_USERNAME/album-done-weblist" 2>&1 | tail -1); echo "$s"; case "$s" in *ready*) break;; esac; sleep 20; done
+      # Wedding-2's raw folder (the family agreed to Kaggle use, 4 Nov 2026): a private dataset at 1,024 px,
+      # deleted from Kaggle when the training is done. Wedding-1 (the exam) never goes to Kaggle.
+      - name: Wedding-2 photos (kept by the real-photos workflow)
+        if: env.MODE == 'send' && env.UPLOAD == 'w2'
+        uses: actions/cache/restore@v4
+        with:
+          path: work
+          key: real-wedding-2-v1
+          fail-on-cache-miss: true
+      - name: Upload wedding-2 as a private Kaggle dataset
+        if: env.MODE == 'send' && env.UPLOAD == 'w2'
+        run: |
+          python3 -m pip install -q pillow
+          python3 - "$(cat work/out/raw-dir.txt)" <<'PY'
+          import os, sys
+          from PIL import Image, ImageOps
+          src = sys.argv[1]; n = 0
+          for d, _, fs in os.walk(src):
+              for f in fs:
+                  if not f.lower().endswith(('.jpg', '.jpeg')): continue
+                  rel = os.path.relpath(os.path.join(d, f), src); dst = os.path.join('w2up/w2', os.path.splitext(rel)[0] + '.jpg')
+                  os.makedirs(os.path.dirname(dst), exist_ok=True)
+                  try:
+                      im = ImageOps.exif_transpose(Image.open(os.path.join(d, f))).convert('RGB'); im.thumbnail((1024, 1024)); im.save(dst, quality=88); n += 1
+                  except Exception as e:
+                      print('skip', rel, e)
+          print(n, 'photos ready')
+          PY
+          rm -rf work
+          du -sh w2up
+          printf '{"title": "album-done-w2", "id": "%s/album-done-w2", "licenses": [{"name": "other"}]}' "$KAGGLE_USERNAME" > w2up/dataset-metadata.json
+          if kaggle datasets status "$KAGGLE_USERNAME/album-done-w2" >/dev/null 2>&1; then kaggle datasets version -p w2up -m update --dir-mode zip -q; else kaggle datasets create -p w2up --dir-mode zip -q; fi
+          for i in $(seq 1 60); do s=$(kaggle datasets status "$KAGGLE_USERNAME/album-done-w2" 2>&1 | tail -1); echo "$s"; case "$s" in *ready*) break;; esac; sleep 20; done
       - name: Upload what earlier runs already scanned
         run: |
           U=$(python3 -c "import json; print(json.load(open('tools/kaggle/run.json')).get('upload', ''))")

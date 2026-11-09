@@ -829,12 +829,13 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
     /** A few photos of this person, to help recognise a face. */
     suspend fun samples(personId: Long): List<String> = dao.sampleThumbs(personId).distinct().take(3)
 
-    fun quickTag(personId: Long, side: String, relation: String) {
+    /** "Very close" (must be in the album) or "Close" (a few photos): no relation, no side. */
+    fun quickTag(personId: Long, closeness: String) {
         quickTagged++
         quickTagSaves += viewModelScope.launch(Dispatchers.IO) {
             val person = dao.person(personId) ?: return@launch
-            val (priority, elder) = FamilyGuess.fromRelation(relation)
-            dao.updatePerson(person.copy(name = relationLabel(side, relation), priority = priority.name, elder = elder, side = side))
+            val priority = if (closeness == "must") PersonPriority.MUST else PersonPriority.IMPORTANT
+            dao.updatePerson(person.copy(priority = priority))
         }
     }
 

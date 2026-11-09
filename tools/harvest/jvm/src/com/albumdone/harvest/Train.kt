@@ -153,14 +153,6 @@ fun mindRun(args: List<String>) {
     val w = com.albumdone.app.plan.AlbumMind.read(File(args[2]).readBytes())
     com.albumdone.app.plan.AlbumMind.weights = w
     val main = com.albumdone.app.people.PeoplePlan.findMain(stored.occasion, photos)
-    // What the eyes see of each of the two: photos alone, and how much they look like a woman.
-    val woman = w.direction("woman", "man")
-    for (person in listOfNotNull(main.first, main.second)) {
-        val solo = photos.filter { p -> p.faces.filter { it.box.width >= 0.03f }.let { f -> f.size == 1 && f[0].personId == person } }.mapNotNull { it.scene }
-        val score = if (woman == null) Double.NaN else solo.map { v -> val n = kotlin.math.sqrt(v.sumOf { it.toDouble() * it }); v.indices.sumOf { v[it] * woman[it] } / n }.average()
-        val all = photos.count { p -> p.faces.any { it.personId == person && it.box.width >= 0.03f } }
-        println("main person $person: in $all photos, alone in ${solo.size}, woman-minus-man %.4f".format(score))
-    }
     val tags = com.albumdone.app.people.PeoplePlan.tags(stored.occasion, photos, main.first, main.second)
     val a = AlbumPlanner.analyze(photos, tags)
     val vectors = com.albumdone.app.plan.AlbumMind.vectors(a)

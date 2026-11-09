@@ -49,23 +49,19 @@ class FamilyGuessTest {
     }
 
     @Test
-    fun sidesComeFromWhoTheyArePhotographedWith() {
+    fun sidesAreNeverGuessedFromPhotos() {
+        // Owner, 7 Nov 2026: whose family someone is cannot be told reliably from photos; only the couple say it.
         val g = FamilyGuess.guess(wedding(), BRIDE, GROOM)
-        assertEquals(Side.BRIDE, g.getValue(10L).side)
-        assertEquals(Side.BRIDE, g.getValue(12L).side)
-        assertEquals(Side.GROOM, g.getValue(20L).side)
-        assertEquals(Side.GROOM, g.getValue(21L).side)
-        assertEquals(Side.UNKNOWN, g.getValue(105L).side)
+        assertTrue(g.values.all { it.side == Side.UNKNOWN })
     }
 
     @Test
-    fun closestTwoOnEachSideGetTheMostPhotos() {
+    fun theFourClosestGetTheMostPhotos() {
+        // The four closest (most likely both sets of parents) without knowing whose side they are on.
         val g = FamilyGuess.guess(wedding(), BRIDE, GROOM)
-        assertEquals(Priority.MUST, g.getValue(10L).priority)
-        assertEquals(Priority.MUST, g.getValue(11L).priority)
-        assertEquals(Priority.MUST, g.getValue(20L).priority)
-        assertEquals(Priority.MUST, g.getValue(21L).priority)
-        assertEquals(Priority.IMPORTANT, g.getValue(12L).priority) // the aunt: in, but fewer photos
+        val must = g.values.filter { it.priority == Priority.MUST }.map { it.personId }.toSet()
+        assertEquals(4, must.size)
+        assertTrue("both families' closest are in: $must", must.containsAll(setOf(10L, 20L)))
         assertEquals(Priority.NORMAL, g.getValue(120L).priority)
     }
 
@@ -127,10 +123,12 @@ class FamilyGuessTest {
         val merged = FamilyGuess.mergeWithUserTags(g, user, userTagged = setOf(12L, 99L))
         assertEquals(Priority.MUST, merged.tag(12L).priority)
         assertEquals(Priority.SKIP, merged.tag(99L).priority)
-        // Only a name was given: the guess still decides how important and which side.
+        // Only a name was given: the guess still decides how important; no side is guessed.
         assertEquals("Sasubai", merged.tag(20L).name)
         assertEquals(Priority.MUST, merged.tag(20L).priority)
-        assertEquals(Side.GROOM, merged.tag(20L).side)
+        assertEquals(Side.UNKNOWN, merged.tag(20L).side)
+        // What the couple said about a side is kept.
+        assertEquals(Side.BRIDE, merged.tag(12L).side)
         // Untouched people keep the guess.
         assertEquals(Priority.MUST, merged.tag(10L).priority)
         assertEquals(BRIDE, merged.brideId)

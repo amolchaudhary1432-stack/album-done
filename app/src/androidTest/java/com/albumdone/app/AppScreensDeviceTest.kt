@@ -105,7 +105,7 @@ class AppScreensDeviceTest {
         if (hasTag("confirm-groom")) {
             step("03b-choose-groom") {
                 compose.onNodeWithTag("choose-groom").performClick()
-                waitFor("Who is the groom?")
+                waitFor("Who is the other one of the couple?")
                 screenshot("03b-choose-groom")
                 back()
                 compose.onNodeWithTag("confirm-groom").performClick()
@@ -142,9 +142,9 @@ class AppScreensDeviceTest {
         if (hasTag("quick-tag")) {
             step("05c-whos-who") {
                 compose.onNodeWithTag("quick-tag").performClick()
-                compose.waitUntil(30_000) { hasTag("quick-Aunt") }
+                compose.waitUntil(30_000) { hasTag("quick-close") }
                 screenshot("05c-whos-who")
-                compose.onNodeWithTag("quick-Aunt").performClick()
+                compose.onNodeWithTag("quick-close").performClick()
                 compose.waitForIdle()
                 screenshot("05d-whos-who-next")
                 back()

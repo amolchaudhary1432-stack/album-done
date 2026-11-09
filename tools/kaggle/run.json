@@ -1,1 +1,1 @@
-{"script": "set_sheets.py", "slug": "album-done-set-sheets", "gpu": false, "kernels": ["album-done-cc-weddings", "album-done-mp-weddings"], "mode": "send", "wait": 12}
+{"script": "people_teacher.py", "slug": "album-done-people-teacher", "gpu": true, "upload": "w2", "datasets": ["album-done-w2"], "kernels": ["album-done-cc-weddings"], "also_fetch": ["album-done-cc-scan-0", "album-done-cc-scan-1", "album-done-cc-scan-2", "album-done-cc-scan-3"], "mode": "send", "wait": 15}

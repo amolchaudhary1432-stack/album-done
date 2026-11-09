@@ -122,27 +122,14 @@ object FamilyGuess {
         val close = ranked.filter { it.value >= CLOSE_SHARE_OF_TOP * top && (stats.getValue(it.key).visits() ?: 3) >= 3 }
             .take(maxClose).map { it.key }.toSet()
 
-        fun sideOf(s: Stats): Side {
-            if (!sides) return Side.UNKNOWN
-            val diff = s.withBrideOnly - s.withGroomOnly
-            val margin = max(2, (0.2 * (s.withBrideOnly + s.withGroomOnly)).toInt())
-            return when {
-                diff >= margin -> Side.BRIDE
-                -diff >= margin -> Side.GROOM
-                else -> Side.UNKNOWN
-            }
-        }
+        // Which family someone belongs to is never guessed from photos (owner, 7 Nov 2026): a wrong
+        // "bride's side" shown to the family is worse than none. Only the couple can say it.
+        fun sideOf(@Suppress("UNUSED_PARAMETER") s: Stats): Side = Side.UNKNOWN
 
-        // The two closest people on each side are most likely the parents: they get the most photos.
-        // Without sides (a birthday, a baby's function), the two closest people overall.
+        // The closest people get the most photos: the four closest for a couple (most likely both sets of
+        // parents), the two closest otherwise (a birthday child's mummy and papa).
         val mustIds = HashSet<Long>()
-        if (sides) {
-            for (side in listOf(Side.BRIDE, Side.GROOM)) {
-                ranked.filter { it.key in close && sideOf(stats.getValue(it.key)) == side }.take(2).forEach { mustIds += it.key }
-            }
-        } else {
-            ranked.filter { it.key in close }.take(2).forEach { mustIds += it.key }
-        }
+        ranked.filter { it.key in close }.take(if (sides) 4 else 2).forEach { mustIds += it.key }
 
         return stats.keys.associateWith { id ->
             val s = stats.getValue(id)

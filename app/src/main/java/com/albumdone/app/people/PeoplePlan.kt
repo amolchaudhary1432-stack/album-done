@@ -40,53 +40,19 @@ object PeoplePlan {
         }
         val twoShots = byPhoto.filter { it.value.size == 2 }.keys
         val portraits = byPhoto.filter { (_, f) -> f.size == 2 && f.all { it.second.box.width >= 0.08f } }.keys
-        val found = PeopleClusterer.detectCouple(photosOf, hints, { weight[it] ?: 1.0 }, twoShots) ?: return Main(null, null, false)
-        val couple = brideFirst(found, photos, byPhoto)
+        val couple = PeopleClusterer.detectCouple(photosOf, hints, { weight[it] ?: 1.0 }, twoShots) ?: return Main(null, null, false)
         return Main(couple.first, couple.second, PeopleClusterer.coupleSure(photosOf, couple, { weight[it] ?: 1.0 }, portraits))
     }
 
-    /** Photos of one person alone needed on each side before the app trusts what it sees. */
-    const val SOLO_PHOTOS = 3
-    /** How much more "woman" the bride's own photos must look than the groom's to swap them. */
-    const val WOMAN_MARGIN = 0.01
-
-    /**
-     * Which of the two is the bride, from what the photos show (the album brain's eyes, SigLIP 2): the
-     * one whose photos alone look more like a woman. The most photographed is not always the bride (a
-     * groom's own haldi folder is mostly him). On two real weddings her solo photos leaned "woman"
-     * 96-97% of the time, his 23-41%. Unchanged when the brain is missing or there are too few photos.
-     */
-    fun brideFirst(couple: Pair<Long, Long>, photos: List<PlanPhoto>, byPhoto: Map<Long, List<Pair<Long, com.albumdone.app.plan.PlanFace>>>): Pair<Long, Long> {
-        val a = womanScore(couple.first, photos, byPhoto).second ?: return couple
-        val b = womanScore(couple.second, photos, byPhoto).second ?: return couple
-        return if (b - a > WOMAN_MARGIN) couple.second to couple.first else couple
-    }
-
-    /** (photos of [person] alone that the eyes saw, how much they look like a woman; null below [SOLO_PHOTOS]). */
-    fun womanScore(person: Long, photos: List<PlanPhoto>, byPhoto: Map<Long, List<Pair<Long, com.albumdone.app.plan.PlanFace>>>): Pair<Int, Double?> {
-        val woman = com.albumdone.app.plan.AlbumMind.weights?.direction("woman", "man") ?: return 0 to null
-        val byId = photos.associateBy { it.id }
-        val solo = byPhoto.filter { (_, f) -> f.size == 1 && f[0].second.personId == person }.keys.mapNotNull { byId[it]?.scene }
-        if (solo.size < SOLO_PHOTOS) return solo.size to null
-        return solo.size to solo.map { v ->
-            var n = 0.0; var d = 0.0
-            for (i in v.indices) { n += v[i].toDouble() * v[i]; d += v[i] * woman[i] }
-            d / kotlin.math.sqrt(n.coerceAtLeast(1e-12))
-        }.average()
-    }
-
-    /** In plain numbers, why this couple is the bride and groom (for the phone test's report). */
-    fun explainCouple(brideId: Long?, groomId: Long?, photos: List<PlanPhoto>): String {
+    /** In plain numbers, who the app took for the couple (for the phone test's report). */
+    fun explainCouple(firstId: Long?, secondId: Long?, photos: List<PlanPhoto>): String {
         val clear = photos.flatMap { p -> p.faces.filter { it.box.width >= 0.03f }.map { p.id to it } }
-        val byPhoto = clear.groupBy { it.first }
-        val brain = com.albumdone.app.plan.AlbumMind.weights
         return buildString {
-            append("photos ${photos.size}, with what they show (SigLIP) ${photos.count { it.scene != null }}, brain loaded ${brain != null}, ")
-            append("woman/man vectors ${brain?.direction("woman", "man") != null}\n")
-            for ((role, id) in listOf("bride" to brideId, "groom" to groomId)) {
-                if (id == null) { append("$role: none\n"); continue }
-                val (n, s) = womanScore(id, photos, byPhoto)
-                append("$role person $id: in ${clear.count { it.second.personId == id }} photos, alone in $n with scene numbers, woman-minus-man ${s?.let { "%.4f".format(it) } ?: "-"}\n")
+            append("photos ${photos.size}, with what they show (SigLIP) ${photos.count { it.scene != null }}, brain loaded ${com.albumdone.app.plan.AlbumMind.weights != null}\n")
+            for (id in listOf(firstId, secondId)) {
+                if (id == null) { append("couple: none\n"); continue }
+                val alone = clear.groupBy { it.first }.count { (_, f) -> f.size == 1 && f[0].second.personId == id }
+                append("couple person $id: in ${clear.count { it.second.personId == id }} photos, alone in $alone\n")
             }
         }
     }

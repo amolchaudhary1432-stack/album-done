@@ -257,8 +257,9 @@ fun SendScreen(vm: AlbumViewModel, projectId: Long) {
                     }
                     s.cover?.let { c -> PhotoThumb(c.photo, c.crop, Modifier.size(84.dp).clip(RoundedCornerShape(16.dp))) }
                 }
-                // Only a wedding has two families who each keep their own copy.
-                if (s.occasion.couple) {
+                // Only a wedding has two families who each keep their own copy, and only once the couple
+                // have said who is on which side themselves: the app never guesses it (owner, 7 Nov 2026).
+                if (s.occasion.couple && (s.family + s.others).any { it.side == com.albumdone.app.data.PersonSide.BRIDE || it.side == com.albumdone.app.data.PersonSide.GROOM }) {
                     SectionLabel("Whose album")
                     FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         for ((value, label) in listOf(null to "The two of you", Side.BRIDE to "Bride's family", Side.GROOM to "Groom's family")) {

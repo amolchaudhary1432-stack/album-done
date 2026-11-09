@@ -139,7 +139,8 @@ enum class Occasion(val label: String, val sub: String? = null) {
 
     /** Who the album is about, when nobody has named them: "the bride", "the birthday star". */
     fun role(first: Boolean): String = when {
-        couple -> if (first) "the bride" else "the groom"
+        // The app never decides which of the two is the bride (owner, 7 Nov 2026): their names, or "the couple".
+        couple -> "one of the couple"
         first && (this == KIDS_BIRTHDAY || this == BIRTHDAY) -> "the birthday star"
         first && this == CHILD_FUNCTION -> "the little one"
         this == BABY_SHOWER -> if (first) "the mother-to-be" else "the father-to-be"
@@ -148,7 +149,7 @@ enum class Occasion(val label: String, val sub: String? = null) {
     }
 
     /** The same as a label: "Bride", "Birthday star", "Main person". */
-    fun title(first: Boolean): String = role(first).removePrefix("the ").capitalized()
+    fun title(first: Boolean): String = if (couple) "Couple" else role(first).removePrefix("the ").capitalized()
 
     companion object {
         // "BABY" was an occasion before baby functions became family functions.

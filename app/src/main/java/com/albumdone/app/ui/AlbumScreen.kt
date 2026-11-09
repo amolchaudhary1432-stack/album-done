@@ -399,7 +399,7 @@ private fun CoupleCard(s: AlbumState, onTap: (Long) -> Unit, onSwap: () -> Unit,
                     if (unsure) {
                         Text(
                             when {
-                                couple -> "Is this the groom?"
+                                couple -> "Are these two the couple?"
                                 main.size == 1 -> "Are the photos about ${main[0].label.takeIf { main[0].known } ?: "this person"}?"
                                 else -> "Are the photos about these two?"
                             },
@@ -409,7 +409,7 @@ private fun CoupleCard(s: AlbumState, onTap: (Long) -> Unit, onSwap: () -> Unit,
                             color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 2)
                     } else {
                         val title = when {
-                            couple && s.bride!!.label == "Bride" && s.groom!!.label == "Groom" -> "Bride & groom"
+                            couple && !s.bride!!.known && !s.groom!!.known -> "The couple"
                             else -> main.joinToString(" & ") { it.label }
                         }
                         Text(title, style = MaterialTheme.typography.titleMedium, maxLines = 1, overflow = TextOverflow.Ellipsis)
@@ -426,7 +426,7 @@ private fun CoupleCard(s: AlbumState, onTap: (Long) -> Unit, onSwap: () -> Unit,
                         )
                     }
                 }
-                if (!unsure && couple) TextButton(onClick = onSwap) { Text("Swap") }
+                // No "Swap": the app does not say which of the two is the bride.
             }
             if (unsure) {
                 Row(Modifier.fillMaxWidth().padding(end = 6.dp), horizontalArrangement = Arrangement.End) {
@@ -450,8 +450,8 @@ private fun ChooseGroomSheet(s: AlbumState, onPick: (Long) -> Unit, onClose: () 
         .take(24)
     ModalBottomSheet(onDismissRequest = onClose, sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)) {
         Column(Modifier.padding(horizontal = 20.dp).padding(bottom = 28.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-            Text(if (couple) "Who is the groom?" else "Who are the photos about?", style = MaterialTheme.typography.headlineSmall)
-            Text(if (couple) "Tap his face. The album is remade around the two of you." else "Tap their face. The album is remade around them.",
+            Text(if (couple) "Who is the other one of the couple?" else "Who are the photos about?", style = MaterialTheme.typography.headlineSmall)
+            Text(if (couple) "Tap their face. The album is remade around the two of you." else "Tap their face. The album is remade around them.",
                 color = MaterialTheme.colorScheme.onSurfaceVariant)
             FlowRow(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalArrangement = Arrangement.spacedBy(12.dp),
                 modifier = Modifier.verticalScroll(rememberScrollState())) {

@@ -1034,7 +1034,7 @@ object AlbumPlanner {
             val (best, reason) = when {
                 couple != null -> couple to "Cover: the best portrait of ${tags.pair()}"
                 else -> (pool { it.usable && it.shot == ShotType.BRIDE_SOLO }
-                    .maxByOrNull { it.quality * dressed(it) } ?: return) to "Cover: ${tags.who(tags.brideId ?: 0)}'s best portrait"
+                    .maxByOrNull { it.quality * dressed(it) } ?: return) to soloCover()
             }
             coverId = best.id
             if (best.id in picked) reasons.getOrPut(best.id) { mutableListOf() }.add(0, reason)
@@ -1075,6 +1075,13 @@ object AlbumPlanner {
 
         fun portraitOf(type: ShotType): String =
             "Portrait of " + tags.who((if (type == ShotType.BRIDE_SOLO) tags.brideId else tags.groomId) ?: 0)
+
+        /** "Cover: Riya's best portrait", "Cover: the birthday star's best portrait"; never "the bride's" (not guessed). */
+        fun soloCover(): String {
+            val id = tags.brideId ?: 0
+            val named = tags.tags[id]?.name?.isNotBlank() == true
+            return if (tags.occasion.couple && !named) "Cover: the best portrait of one of the couple" else "Cover: ${tags.who(id)}'s best portrait"
+        }
 
         fun lookingAtEachOther(): String = tags.pair().capitalized() + " looking at each other"
 

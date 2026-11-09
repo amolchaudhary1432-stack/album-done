@@ -632,7 +632,7 @@ class JourneyDeviceTest {
 
         part("bride") {
             albumTop()
-            mark("The bride's own photos")
+            mark("One of the couple: their own photos")
             personTap { compose.onNodeWithTag("couple-bride").performClick() }
             look(4_000)
             appShot("s03-bride")
@@ -664,24 +664,19 @@ class JourneyDeviceTest {
         }
 
         if (hasTag("quick-tag")) part("whos-who") {
-            mark("Who's who: one face at a time, one tap each (test answers)")
+            mark("Who's who: how close is each person? One tap each (test answers)")
             personTap { compose.onNodeWithTag("quick-tag").performClick() }
-            compose.waitUntil(30_000) { hasTag("quick-Mother") || has("All done") }
+            compose.waitUntil(30_000) { hasTag("quick-must") || has("All done") }
             // Answers a person might give; the test cannot know this family, so they are examples.
-            val answers = listOf("Bride's side" to "Mother", "Bride's side" to "Father", "Groom's side" to "Mother",
-                "Groom's side" to "Father", "Bride's side" to "Grandmother", "skip" to "", "Groom's side" to "Uncle",
-                "Bride's side" to "Cousin", "not" to "", "Groom's side" to "Aunt")
+            val answers = listOf("must", "must", "close", "must", "close", "skip", "close", "must", "not", "close")
             for ((i, a) in answers.withIndex()) {
-                if (!hasTag("quick-Mother")) break
+                if (!hasTag("quick-must")) break
                 look(2_500)
                 if (i == 0) appShot("s06-whos-who")
-                when (a.first) {
+                when (a) {
                     "skip" -> personTap(800, 1_500) { compose.onNodeWithTag("quick-skip").performClick() }
                     "not" -> personTap(800, 1_500) { compose.onNodeWithTag("quick-not-family").performClick() }
-                    else -> {
-                        if (has(a.first)) personTap(800, 1_000) { compose.onNodeWithText(a.first).performClick() }
-                        personTap(800, 1_500) { compose.onNodeWithTag("quick-${a.second}").performClick() }
-                    }
+                    else -> personTap(1_000, 1_500) { compose.onNodeWithTag("quick-$a").performClick() }
                 }
             }
             // Leave the rest for later: Back, or the "All done" card's button.

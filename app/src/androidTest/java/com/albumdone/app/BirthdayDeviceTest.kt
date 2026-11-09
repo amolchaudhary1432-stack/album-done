@@ -143,10 +143,10 @@ class BirthdayDeviceTest {
         step("bday-06-whos-who") {
             compose.onNodeWithTag("album-grid").performScrollToIndex(2)
             tap("quick-tag")
-            compose.waitUntil(30_000) { hasTag("quick-Aunt") }
+            compose.waitUntil(30_000) { hasTag("quick-close") }
             screenshot("bday-06-whos-who")
             assertTrue("whose side asked", !has("Whose side"))
-            tap("quick-Grandmother")
+            tap("quick-must")
         }
         backToAlbum()
         step("bday-07-groups") {

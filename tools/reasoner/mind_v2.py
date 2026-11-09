@@ -158,10 +158,6 @@ if os.environ.get('EXPORT'):
     arrs = {'P': Vt[:32].T, 'P2': P2, 'V64': Vt[:64].T, 'xm': xm, 'xs': xs, 'w1': models[0][0], 'b1': [models[0][1]],
             'w2': models[1][0], 'b2': [models[1][1]], 'mu': mu, 'sd': sd, 'fw': fw, 'wd': wd_,
             'consts': [DECAY, BEAT_T, 0.92, float(os.environ.get('FRAME_W', '1')), 1.0 if os.environ.get('FRAME') else 0.0]}
-    if os.environ.get('GENDER'):
-        # SigLIP text vectors for "an Indian woman / bride..." and "an Indian man / groom..." (weights/woman-man.npy):
-        # which of the two main people is the bride (PeoplePlan.brideFirst).
-        g = np.load(os.environ['GENDER']); arrs['woman'], arrs['man'] = g[0], g[1]
     import struct
     with open(os.environ['EXPORT'], 'wb') as fo:
         fo.write(b'AMND'); fo.write(struct.pack('<i', 1)); names = '\n'.join(feat).encode(); fo.write(struct.pack('<i', len(names))); fo.write(names)

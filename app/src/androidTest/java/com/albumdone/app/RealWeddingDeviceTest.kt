@@ -150,7 +150,7 @@ class RealWeddingDeviceTest {
             compose.onNodeWithTag("album-grid").performScrollToIndex(2)
             compose.waitForIdle()
             compose.onNodeWithTag("quick-tag").performClick()
-            compose.waitUntil(30_000) { compose.onAllNodesWithTag("quick-Aunt").fetchSemanticsNodes().isNotEmpty() }
+            compose.waitUntil(30_000) { compose.onAllNodesWithTag("quick-close").fetchSemanticsNodes().isNotEmpty() }
             screenshot("real-24-whos-who")
             compose.onNodeWithTag("quick-skip").performClick()
             compose.waitForIdle()

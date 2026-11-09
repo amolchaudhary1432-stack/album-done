@@ -40,7 +40,9 @@ class OccasionTest {
         assertEquals("A child's", Occasion.KIDS_BIRTHDAY.sub)
         assertEquals("the birthday star", Occasion.BIRTHDAY.role(first = true))
         assertEquals("Birthday star", Occasion.KIDS_BIRTHDAY.title(first = true))
-        assertEquals("Groom", Occasion.WEDDING.title(first = false))
+        // The app never says which of the couple is the bride (owner, 7 Nov 2026).
+        assertEquals("Couple", Occasion.WEDDING.title(first = false))
+        assertEquals("Couple", Occasion.WEDDING.title(first = true))
         assertEquals(Occasion.WEDDING, Occasion.of(null))
         assertEquals(Occasion.TRIP, Occasion.of("TRIP"))
     }

@@ -90,10 +90,9 @@ fun PeopleScreen(vm: AlbumViewModel, projectId: Long) {
         val rest = s.family + s.others
         val everyone = couple + rest
         // Sides only at a wedding; a birthday or a trip has no bride's side and groom's side.
+        // No bride's side / groom's side filters: the app does not sort people into sides (owner, 7 Nov 2026).
         val filters = listOfNotNull(
             "all" to "All ${everyone.size}",
-            (PersonSide.BRIDE to "Bride's side ${rest.count { it.side == PersonSide.BRIDE }}").takeIf { s.occasion.couple },
-            (PersonSide.GROOM to "Groom's side ${rest.count { it.side == PersonSide.GROOM }}").takeIf { s.occasion.couple },
             "unnamed" to "Not named ${rest.count { !it.known }}",
         )
         val shown = when (filter) {
@@ -158,9 +157,13 @@ private fun PersonTile(c: PersonChip, onClick: () -> Unit) {
     }
 }
 
-private val QUICK_RELATIONS = listOf(
-    "Mother", "Father", "Grandmother", "Grandfather", "Sister", "Brother",
-    "Aunt", "Uncle", "Cousin", "Other relative", "Friend",
+/**
+ * How close someone is, in the family's words: the only thing the album needs to know. No relation
+ * (mother, aunt...) and no side: the app never guesses those from photos (owner, 7 Nov 2026).
+ */
+private val QUICK_CLOSENESS = listOf(
+    Triple("must", "Very close", "Must be in the album, with the couple"),
+    Triple("close", "Close", "A few good photos are enough"),
 )
 
 /**
@@ -215,8 +218,8 @@ fun QuickTagScreen(vm: AlbumViewModel, projectId: Long) {
         ) { i ->
             val c = q.getOrNull(i)
             if (c != null) {
-                FaceQuestion(vm, c, i, q.size, sides = state?.occasion?.couple ?: true) { side, relation ->
-                    vm.quickTag(c.personId, side, relation)
+                FaceQuestion(vm, c, i, q.size) { closeness ->
+                    vm.quickTag(c.personId, closeness)
                     named++
                     index++
                 }
@@ -227,8 +230,7 @@ fun QuickTagScreen(vm: AlbumViewModel, projectId: Long) {
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun FaceQuestion(vm: AlbumViewModel, c: PersonChip, i: Int, total: Int, sides: Boolean, onAnswer: (side: String, relation: String) -> Unit) {
-    var side by remember(c.personId) { mutableStateOf(c.side) }
+private fun FaceQuestion(vm: AlbumViewModel, c: PersonChip, i: Int, total: Int, onAnswer: (closeness: String) -> Unit) {
     val samples by produceState(emptyList<String>(), c.personId) { value = vm.samples(c.personId) }
     Column(
         Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal = 20.dp),
@@ -245,7 +247,7 @@ private fun FaceQuestion(vm: AlbumViewModel, c: PersonChip, i: Int, total: Int, 
         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(16.dp)) {
             FaceAvatar(c.face, 120.dp, ring = true)
             Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                Text("Who is this?", style = MaterialTheme.typography.headlineMedium)
+                Text("How close are they?", style = MaterialTheme.typography.headlineMedium)
                 Text("In ${c.photoCount} photos", color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
         }
@@ -258,22 +260,14 @@ private fun FaceQuestion(vm: AlbumViewModel, c: PersonChip, i: Int, total: Int, 
                 repeat(3 - samples.size) { Spacer(Modifier.weight(1f)) }
             }
         }
-        if (sides) {
-            SectionLabel("Whose side")
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                for ((value, label) in listOf(PersonSide.BRIDE to "Bride's side", PersonSide.GROOM to "Groom's side")) {
-                    Pill(selected = side == value, onClick = { side = if (side == value) PersonSide.UNKNOWN else value }, label = { Text(label) })
-                }
-            }
-        }
-        SectionLabel("Tap one")
-        FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            for (r in QUICK_RELATIONS) {
-                Surface(
-                    color = MaterialTheme.colorScheme.surfaceContainer, shape = RoundedCornerShape(24.dp),
-                    modifier = Modifier.clip(RoundedCornerShape(24.dp)).clickable { onAnswer(side, r) }.testTag("quick-$r"),
-                ) {
-                    Text(r, style = MaterialTheme.typography.titleSmall, modifier = Modifier.padding(horizontal = 20.dp, vertical = 13.dp))
+        for ((value, title, line) in QUICK_CLOSENESS) {
+            Surface(
+                color = MaterialTheme.colorScheme.surfaceContainer, shape = RoundedCornerShape(20.dp),
+                modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(20.dp)).clickable { onAnswer(value) }.testTag("quick-$value"),
+            ) {
+                Column(Modifier.padding(horizontal = 20.dp, vertical = 14.dp), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                    Text(title, style = MaterialTheme.typography.titleMedium)
+                    Text(line, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
             }
         }
