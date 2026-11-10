@@ -80,12 +80,13 @@ class BigFamilyDeviceTest {
         compose.onNodeWithTag("album-grid").performScrollToNode(hasTestTag("quick-tag"))
         screenshot("big-03-family")
 
-        // Everyone, then one side only.
+        // Everyone, then those not named yet (no bride's side / groom's side filters: sides are never guessed).
         tap("see-all-people")
         compose.waitUntil(30_000) { has("Family & friends") }
         screenshot("big-04-people")
-        tap("filter-BRIDE")
-        screenshot("big-05-people-bride-side")
+        assertTrue("no side filters", !hasTag("filter-BRIDE") && !hasTag("filter-GROOM"))
+        tap("filter-unnamed")
+        screenshot("big-05-people-not-named")
         tap("filter-all")
         compose.onNodeWithTag("people-grid").performTouchInput { swipeUp() }
         screenshot("big-06-people-more")
@@ -109,8 +110,10 @@ class BigFamilyDeviceTest {
         compose.waitUntil(2 * 60_000) { has("Send photos to photographer") }
         compose.waitUntil(30_000) { has("Album updated") }
         screenshot("big-10-album-after")
-        val named = runBlocking { dao.people(seeded.projectId).count { it.name.isNotBlank() } }
-        assertEquals("bride, groom and the three people named", 5, named)
+        // Three people marked very close or close, one not family; nobody is given a relation or a side.
+        val people = runBlocking { dao.people(seeded.projectId) }
+        assertTrue("three people marked close", people.count { it.priority == "MUST" || it.priority == "IMPORTANT" } >= 3)
+        assertTrue("one marked not family", people.any { it.priority == "SKIP" })
 
         // Family groups: one photo per group, name a whole family at once, add every family.
         // The card at the top of the screen, clear of the floating Send button (hero 0, couple 1, family 2, groups 3).
