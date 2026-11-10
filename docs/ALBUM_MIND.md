@@ -399,3 +399,15 @@ To resume:
   Claude's peaks 85.3% (random 53.5%), places on moments Claude skips 12.0% (random 22.8%). The shipped
   brain (it learned these moments): 73.9% / 97.1% / 10.7%.
 - Real phone: the same four folders on the A15 with the showcase recording (run 39).
+
+**10 Nov 2026, ~10:30 am IST (review with a newer Claude model; repo public again, jobs run)**
+- Owner (7 Nov): no fixed woman/man check, no guessing of sides or relations. Done: the couple are "the
+  couple" (or their names); `FamilyGuess` never guesses a side; Who's who asks "How close are they?".
+- Tried boosted trees as the moment judge (`JUDGE=trees`): better on training folders held out (keep AUC
+  0.795 vs 0.774, peak 0.825 vs 0.797) but not on the exam (766: 93.6% / 70% vs 94.8% / 76%; 400: 68.2%
+  same; 233: 44.2% vs 46.8%). Not adopted: one exam folder cannot tell these apart, and the simple judge
+  is the one already checked on the phone. More raw-folder lessons matter more than a fancier judge.
+- Teachers on Kaggle (Qwen2.5-VL-7B, Apache 2.0): `people_teacher.py` (who each person is in the day, age,
+  how they present, judged from the whole photo) and `scene_teacher.py` (which ritual or part of the day,
+  any community, in its own words; kind of photo; key moment). The phone's small models learn from them
+  on the phone's own SigLIP vectors (`tools/reasoner/people_student.py`), scored on events never seen.
