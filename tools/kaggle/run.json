@@ -1,1 +1,1 @@
-{"script": "scene_teacher.py", "slug": "album-done-scene-teacher", "gpu": true, "datasets": ["album-done-w2"], "kernels": ["album-done-cc-weddings"], "also_fetch": ["album-done-people-teacher", "album-done-cc-scan-0", "album-done-cc-scan-1", "album-done-cc-scan-2", "album-done-cc-scan-3"], "mode": "send", "wait": 15}
+{"script": "scene_teacher.py", "slug": "album-done-scene-teacher", "mode": "fetch", "also_fetch": ["album-done-people-teacher", "album-done-scene-teacher"], "wait": 1}
