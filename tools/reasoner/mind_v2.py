@@ -88,6 +88,7 @@ if os.environ.get('NO_W2') == '1':
     keep_ = comm2 != 'marathi-hindu'; X2, y2, comm2, ev2 = X2[keep_], y2[keep_], comm2[keep_], ev2[keep_]
     print('wedding-2 left out of the lessons:', len(y2), 'web moments only')
 xm, xs = X2.mean(0), X2.std(0) + 1e-6
+if os.environ.get('DUMPX'): np.savez(os.environ['DUMPX'], X=X2, y=y2, ev=ev2, comm=comm2)  # the judge's lessons, for trying other judges
 def fit(X, y, l2=30.0):
     w = np.zeros(X.shape[1]); b = 0.0; pos_ = max(1e-3, y.mean()); wt = np.where(y > 0, .5 / pos_, .5 / (1 - pos_))
     for _ in range(4000):
