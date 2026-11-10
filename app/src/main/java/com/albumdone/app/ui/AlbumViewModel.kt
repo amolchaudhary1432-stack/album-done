@@ -413,7 +413,7 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
             val photos = dao.photos(projectId)
             val keep = photos.filter { it.selected && it.userChoice }.map { it.id }.toSet()
             val removed = photos.filter { it.removed }.map { it.id }.toSet()
-            val list = AlbumPlanner.shortlist(analysis, project.albumSize, removed, keep)
+            val list = AlbumPlanner.shortlist(analysis, project.albumSize, removed, keep, liked = keep)
             val by = if (com.albumdone.app.plan.AlbumMind.weights != null && com.albumdone.app.plan.AlbumMind.canSee(analysis)) "the album brain" else "the rules"
             Log.d(TAG, "album planned by $by: ${list.ids.size} of ${photos.size} photos")
             dao.replaceSelection(projectId, list.ids)
@@ -638,7 +638,8 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
         return withContext(Dispatchers.Default) {
             val photos = dao.photos(projectId)
             val keep = photos.filter { it.selected }.map { it.id }.toSet()
-            val list = AlbumPlanner.shortlist(analysis, project.albumSize, photos.filter { it.removed }.map { it.id }.toSet(), keep)
+            val list = AlbumPlanner.shortlist(analysis, project.albumSize, photos.filter { it.removed }.map { it.id }.toSet(), keep,
+                liked = photos.filter { it.selected && it.userChoice }.map { it.id }.toSet())
             dao.replaceSelection(projectId, list.ids)
             val new = list.ids.filter { it !in before }
             dao.setPickReasons(new.associateWith { list.reasons[it].orEmpty().joinToString("\n") })
@@ -928,7 +929,7 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
             val a = AlbumPlanner.analyze(photos, tags.forFamily(side))
             val keep = saved.filter { it.selected && it.userChoice }.map { it.id }.toSet()
             val removed = saved.filter { it.removed }.map { it.id }.toSet()
-            val list = AlbumPlanner.shortlist(a, project.albumSize, removed, keep)
+            val list = AlbumPlanner.shortlist(a, project.albumSize, removed, keep, liked = keep)
             val byId = saved.associateBy { it.id }
             val picked = list.ids.mapNotNull { id -> a.byId[id]?.let { ap -> byId[id]?.let { ap.event to it } } }
             a.events.flatMap { e -> picked.filter { it.first == e } } to list.coverId

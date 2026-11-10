@@ -105,4 +105,27 @@ class AlbumMindTest {
         assertFalse(AlbumMind.canSee(notSeen))
         assertEquals(AlbumPlanner.rules(notSeen, 8).ids, AlbumPlanner.shortlist(notSeen, 8).ids)
     }
+
+    @Test
+    fun theAlbumLearnsTheCouplesTasteFromWhatTheyRemove() {
+        // Two kinds of photos through the day, A and B (they look different). The couple remove four A photos.
+        val r = Random(11)
+        val kinds = List(2) { unit(FloatArray(768) { r.nextFloat() - 0.5f }) }
+        val kindOf = HashMap<Long, Int>()
+        val photos = (1L..60L).map { id ->
+            val k = (id % 2).toInt(); kindOf[id] = k
+            PlanPhoto(id, "IMG_$id.jpg", "Day", takenAt = 1_000_000L + id * 120_000L, hash = r.nextLong(),
+                scene = unit(FloatArray(768) { kinds[k][it] + 0.25f * (r.nextFloat() - 0.5f) }))
+        }
+        val a = AlbumPlanner.analyze(photos)
+        val v = AlbumMind.vectors(a)
+        val before = AlbumMind.choose(a, v, weights, 20)
+        val removed = before.filter { kindOf.getValue(it) == 0 }.take(4).toSet()
+        assertEquals("the first album has both kinds", 4, removed.size)
+        val after = AlbumMind.choose(a, v, weights, 20, removed = removed)
+        val one = AlbumMind.choose(a, v, weights, 20, removed = removed.take(1).toSet())
+        fun kindA(ids: List<Long>) = ids.count { kindOf.getValue(it) == 0 }
+        assertTrue("fewer of the kind they removed: ${kindA(before)} -> ${kindA(after)}", kindA(after) < kindA(before) - 4)
+        assertTrue("one removal is only about that photo", kindA(one) >= kindA(before) - 2)
+    }
 }

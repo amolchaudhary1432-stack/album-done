@@ -822,10 +822,12 @@ object AlbumPlanner {
         size: Int,
         removed: Set<Long> = emptySet(),
         keep: Set<Long> = emptySet(),
+        /** Photos the couple chose themselves (swapped in, added back): with [removed], what the brain learns their taste from. */
+        liked: Set<Long> = emptySet(),
     ): Shortlist {
         // The learned brain, when it is in this build and has seen (nearly) every photo of the folder.
         val mind = AlbumMind.weights
-        if (mind != null && AlbumMind.canSee(analysis)) return AlbumMind.shortlist(analysis, mind, size, removed, keep)
+        if (mind != null && AlbumMind.canSee(analysis)) return AlbumMind.shortlist(analysis, mind, size, removed, keep, liked)
         return rules(analysis, size, removed, keep)
     }
 

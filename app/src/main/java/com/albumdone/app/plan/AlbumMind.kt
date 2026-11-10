@@ -43,13 +43,13 @@ object AlbumMind {
      * The album as the brain chooses it, with the cover and the reasons from the rules: the cover is the
      * rules' (the couple's best portrait), the brain fills every other place, then each photo is described.
      */
-    fun shortlist(a: AlbumAnalysis, w: Weights, size: Int, removed: Set<Long> = emptySet(), keep: Set<Long> = emptySet()): Shortlist {
+    fun shortlist(a: AlbumAnalysis, w: Weights, size: Int, removed: Set<Long> = emptySet(), keep: Set<Long> = emptySet(), liked: Set<Long> = emptySet()): Shortlist {
         if (size <= 0) return Shortlist(emptyList(), emptyMap(), null, emptyList())
         val coverList = AlbumPlanner.rules(a, 1, removed, emptySet())
         val cover = coverList.coverId
         val vectors = vectors(a)
         val why = HashMap<Long, String>()
-        val picks = choose(a, vectors, w, size, removed, keep + listOfNotNull(cover), why = why)
+        val picks = choose(a, vectors, w, size, removed, keep + listOfNotNull(cover), why = why, liked = liked)
         val described = AlbumPlanner.rules(a, picks.size, removed, picks.toSet(), why)
         val reasons = HashMap<Long, List<String>>(described.reasons)
         if (cover != null && cover in picks) reasons[cover] = coverList.reasons[cover].orEmpty() + described.reasons[cover].orEmpty()
@@ -192,6 +192,7 @@ object AlbumMind {
         a: AlbumAnalysis, vectors: Map<Long, FloatArray>, w: Weights, size: Int,
         removed: Set<Long> = emptySet(), keep: Set<Long> = emptySet(), reading: Reading = read(a, vectors, w),
         why: MutableMap<Long, String>? = null,
+        liked: Set<Long> = emptySet(),
     ): List<Long> {
         val e = a.photos.associate { it.id to normalised(vectors.getValue(it.id)) }
         val moments = LinkedHashMap<Int, MutableList<AssessedPhoto>>()
@@ -200,7 +201,9 @@ object AlbumMind {
         val chosen = ArrayList<AssessedPhoto>(); val taken = HashSet<Long>(); val count = HashMap<Int, Int>()
         fun take(p: AssessedPhoto) { chosen += p; taken += p.id; count[p.momentId] = (count[p.momentId] ?: 0) + 1 }
         keep.filter { it !in removed }.mapNotNull { a.byId[it] }.forEach { take(it) }
-        val worth = reading.worth; val frame = reading.frame
+        val taste = taste(a, e, removed, liked, w)
+        val frame = if (taste == null) reading.frame else reading.frame.mapValues { (id, f) -> f + (taste.photo[id] ?: 0.0) }
+        val worth = if (taste == null) reading.worth else reading.worth.mapValues { (m, v) -> v * (taste.moment[m] ?: 1.0) }
         fun room(m: Int) = reading.room[m] ?: 1.0
         fun value(m: Int, already: Int) = (worth[m] ?: 0.0) * w.decay.pow(already / room(m))
         fun bestFrame(m: Int): AssessedPhoto? {
@@ -241,6 +244,53 @@ object AlbumMind {
             take(add)
         }
         return chosen.map { it.id }
+    }
+
+    /** What the couple's own changes to this album say about their taste: a push per photo and per moment. */
+    class Taste(val photo: Map<Long, Double>, val moment: Map<Int, Double>)
+
+    /** Changes needed before the brain reads a taste into them (one removal can be about one photo only). */
+    const val TASTE_FROM = 3
+    /** Changes after which the taste counts in full. */
+    const val TASTE_FULL = 10
+
+    /**
+     * Learning inside one album, on the phone: photos the couple took out ([removed]) and chose themselves
+     * ([liked]) show what they like. The direction from what they removed towards what they chose, in what
+     * the photos show (SigLIP), pushes every other photo and moment up or down, more as they make more
+     * changes; a photo that looks just like one they removed is pushed down hard. People they keep removing
+     * are shown less (never the couple). Nothing is stored beyond the album and nothing leaves the phone.
+     */
+    fun taste(a: AlbumAnalysis, e: Map<Long, DoubleArray>, removed: Set<Long>, liked: Set<Long>, w: Weights): Taste? {
+        val rem = removed.mapNotNull { e[it] }; val lik = liked.filter { it !in removed }.mapNotNull { e[it] }
+        val n = rem.size + lik.size
+        if (n < TASTE_FROM) return null
+        val dim = e.values.first().size
+        fun mean(vs: Collection<DoubleArray>) = DoubleArray(dim).also { m -> for (v in vs) for (j in 0 until dim) m[j] += v[j] / vs.size }
+        val all = mean(e.values)
+        val d = DoubleArray(dim)
+        if (lik.isNotEmpty()) mean(lik).let { m -> for (j in 0 until dim) d[j] += m[j] - all[j] }
+        if (rem.isNotEmpty()) mean(rem).let { m -> for (j in 0 until dim) d[j] -= m[j] - all[j] }
+        val norm = sqrt(d.sumOf { it * it }).takeIf { it > 1e-9 } ?: return null
+        val strength = minOf(1.0, n.toDouble() / TASTE_FULL)
+        val ids = a.photos.map { it.id }
+        val z = zScores(DoubleArray(ids.size) { i -> dot(e.getValue(ids[i]), d) / norm })
+        // People in several removed photos and in none they chose: shown less.
+        val couple = setOfNotNull(a.tags.brideId, a.tags.groomId)
+        val out = HashMap<Long, Int>()
+        for (id in removed) for (p in a.byId[id]?.people.orEmpty()) if (p !in couple) out[p] = (out[p] ?: 0) + 1
+        for (id in liked) for (p in a.byId[id]?.people.orEmpty()) out.remove(p)
+        val less = out.filterValues { it >= TASTE_FROM }.keys
+        val photo = HashMap<Long, Double>()
+        for ((i, p) in a.photos.withIndex()) {
+            var t = 0.75 * strength * z[i]
+            if (rem.any { r -> dot(r, e.getValue(p.id)) >= w.nearCopy }) t -= 2.0
+            if (p.people.any { it in less }) t -= 1.0
+            photo[p.id] = t
+        }
+        val moment = a.photos.withIndex().groupBy({ it.value.momentId }, { z[it.index] })
+            .mapValues { (_, zs) -> exp((0.3 * strength * zs.average()).coerceIn(-0.6, 0.6)) }
+        return Taste(photo, moment)
     }
 
     /** Why the brain gave a place to this photo, in plain words. */
