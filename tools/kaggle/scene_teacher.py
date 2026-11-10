@@ -14,7 +14,10 @@ subprocess.run([sys.executable, '-m', 'pip', 'install', '-q', 'transformers==5.1
 import numpy as np, torch, onnxruntime as ort
 from PIL import Image, ImageOps
 from huggingface_hub import snapshot_download
-photos = sorted(glob.glob('/kaggle/input/**/w2/**/*.jpg', recursive=True)) + sorted(glob.glob('/kaggle/input/**/cc_img/*.jpg', recursive=True))
+allj = [p for p in glob.glob('/kaggle/input/**/*', recursive=True) if p.lower().endswith(('.jpg', '.jpeg'))]
+photos = sorted(p for p in allj if '/w2/' in p) + sorted(p for p in allj if '/cc_img/' in p)
+print('inputs:', sorted({'/'.join(p.split('/')[:5]) for p in allj}), sum('/w2/' in p for p in photos), 'wedding-2 photos', flush=True)
+if os.environ.get('NEED_W2', '1') == '1' and not any('/w2/' in p for p in photos): sys.exit('wedding-2 photos are not attached yet')
 print(len(photos), 'photos', flush=True)
 def key(p): return ('w2/' + p.split('/w2/', 1)[1]) if '/w2/' in p else 'cc/' + os.path.basename(p)
 sd = snapshot_download('onnx-community/siglip2-base-patch32-256-ONNX', allow_patterns=['onnx/vision_model_int8.onnx'], local_dir='/kaggle/tmp/siglip')
