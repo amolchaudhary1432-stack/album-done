@@ -169,7 +169,7 @@ fun AlbumScreen(vm: AlbumViewModel, projectId: Long) {
                 item(key = "event-${e.name}", span = full) {
                     Row(Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp, top = 28.dp, bottom = 10.dp), verticalAlignment = Alignment.Bottom) {
                         Text(if (titled) e.title else "Your album", style = MaterialTheme.typography.headlineSmall, modifier = Modifier.weight(1f))
-                        Text("${e.photos.size} photos", color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.bodyMedium)
+                        Text(if (e.photos.size == 1) "1 photo" else "${e.photos.size} photos", color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.bodyMedium)
                     }
                 }
                 itemsIndexed(e.photos, key = { _, p -> p.photo.id }) { i, p ->
@@ -409,7 +409,7 @@ private fun CoupleCard(s: AlbumState, onTap: (Long) -> Unit, onSwap: () -> Unit,
                             color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 2)
                     } else {
                         val title = when {
-                            couple && !s.bride!!.known && !s.groom!!.known -> "The couple"
+                            couple && s.bride!!.label == "Couple" && s.groom!!.label == "Couple" -> "The couple"
                             else -> main.joinToString(" & ") { it.label }
                         }
                         Text(title, style = MaterialTheme.typography.titleMedium, maxLines = 1, overflow = TextOverflow.Ellipsis)
@@ -458,7 +458,7 @@ private fun ChooseGroomSheet(s: AlbumState, onPick: (Long) -> Unit, onClose: () 
                 for (c in people) {
                     Column(Modifier.width(72.dp).clickable { onPick(c.personId) }, horizontalAlignment = Alignment.CenterHorizontally) {
                         FaceAvatar(c.face, 64.dp)
-                        Text("${c.photoCount} photos", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        Text(if (c.photoCount == 1) "1 photo" else "${c.photoCount} photos", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                 }
             }
