@@ -424,3 +424,18 @@ To resume:
 - Reading: one web photo alone gives the teacher too little (no day around it). The raw folder is where
   "who is the bride" is clear (the same person through the day); a better student input than one crop is
   the person's whole set of photos (average over their faces), and the teacher's vote per person, not per face.
+
+**10 Nov 2026, ~5 pm IST: a small reasoning model on the phone (owner: reasoning like Claude for any event,
+not rules, not ritual-by-ritual teaching)**
+- Direction: a small general vision-language model is the judge; the fast eyes (SigLIP, checks) only group
+  photos into moments and drop blurry / duplicate frames, so it looks at a few hundred moments, not 2,500.
+- SmolVLM2-500M (Apache 2.0), ONNX q4: vision 66 MB + embeddings 47 MB + decoder 229 MB = 342 MB, plain ONNX
+  Runtime (already in the app), one 512 px tile = 64 image tokens, answers read from next-token scores
+  (`tools/reasoner/smol_vlm.py`; photo preparation and prompt by hand, tokenizer ids can be precomputed, so
+  no tokenizer on the phone). 0.9 s a yes/no question on 4 server threads.
+- Out of the box it has no album judgement: on 240 wedding-2 moments vs Claude's labels, "key moment?" AUC
+  0.48 / 0.54 and "would they keep it?" 0.45 / 0.42 (coin 0.5; our learned judge 0.77 / 0.80). It says "a
+  moment of celebration and joy" for everything.
+- Next: (1) the same test with a 2B model (Qwen2-VL-2B ONNX, the teacher's family); (2) fine-tune the small
+  model itself on Kaggle (LoRA) with Claude's judgements and people's frame rankings, so it keeps its general
+  knowledge of the world and gains the judgement; then measure on the exam and on an unseen community.
