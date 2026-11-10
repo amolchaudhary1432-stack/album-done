@@ -62,13 +62,14 @@ ASK = ("This photo is from an Indian family event (a wedding, engagement, birthd
        "would: their clothes and jewellery, mehendi or haldi on them, a garland, where they sit, whether the event "
        "centres on them, how others treat them. Do not guess from hair length alone. Answer with JSON only: "
        '{"role": "bride" | "groom" | "birthday person" | "baby of the day" | "guest", '
-       '"age": "baby" | "child" | "teen" | "adult" | "elder", "sure": "yes" | "no", "why": "a few words"}')
+       '"age": "baby" | "child" | "teen" | "adult" | "elder", "presents": "woman" | "man" | "girl" | "boy" | "unsure", '
+       '"sure": "yes" | "no", "why": "a few words"}')
 def ask(im, b):
     marked = im.copy(); d = ImageDraw.Draw(marked); x, y, fw, fh = b[:4]
     d.rectangle([x - 0.15 * fw, y - 0.15 * fh, x + 1.15 * fw, y + 1.15 * fh], outline=(255, 0, 0), width=max(3, int(im.size[0] / 200)))
     msg = [{'role': 'user', 'content': [{'type': 'image', 'image': marked}, {'type': 'text', 'text': ASK}]}]
     inp = proc.apply_chat_template(msg, add_generation_prompt=True, tokenize=True, return_dict=True, return_tensors='pt').to(net.device)
-    with torch.inference_mode(): out = net.generate(**inp, max_new_tokens=60, do_sample=False)
+    with torch.inference_mode(): out = net.generate(**inp, max_new_tokens=70, do_sample=False)
     text = proc.batch_decode(out[:, inp['input_ids'].shape[1]:], skip_special_tokens=True)[0]
     m = re.search(r'\{.*\}', text, re.S)
     try: return json.loads(m.group(0)) if m else {'raw': text}
