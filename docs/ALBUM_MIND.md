@@ -411,3 +411,16 @@ To resume:
   how they present, judged from the whole photo) and `scene_teacher.py` (which ritual or part of the day,
   any community, in its own words; kind of photo; key moment). The phone's small models learn from them
   on the phone's own SigLIP vectors (`tools/reasoner/people_student.py`), scored on events never seen.
+
+**10 Nov 2026, ~3:15 pm IST: first pass of the teachers (web photos only)**
+- Wedding-2's dataset was still being prepared on Kaggle when both jobs started, so they saw only the
+  1,101 CC web photos (2,152 faces). Jobs now stop if wedding-2 is missing; people teacher sent again.
+- People (teacher's cut-off answers recovered): the teacher calls 591 of 1,843 faces "bride": it over-calls
+  any woman in a saree in single web photos. Student on SigLIP crop + photo, events never seen: role 57%
+  (bride 55%, groom 74%, guest 57%), age 67% (elder 0% of 8). Not usable yet.
+- Scenes: teacher names rituals in its own words (henna application, exchange of rings / garlands, holud,
+  bor jatra, cake cutting...). Student on the photo's SigLIP vector, 5-fold: kind of photo 67% (commonest
+  58%; detail 90%), key moment yes/no 76% (coin 51%).
+- Reading: one web photo alone gives the teacher too little (no day around it). The raw folder is where
+  "who is the bride" is clear (the same person through the day); a better student input than one crop is
+  the person's whole set of photos (average over their faces), and the teacher's vote per person, not per face.
