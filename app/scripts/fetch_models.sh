@@ -14,7 +14,7 @@ if [ ! -f "$f" ]; then
   curl -fsSL --retry 5 --retry-delay 10 -o "$tmp/original.onnx" "$url"
   echo "2e0aa5748e1a018696f6e088753dbda1c5e596687d9b4193d18e32cb9e08b518  $tmp/original.onnx" | sha256sum -c -
   python3 -m venv "$tmp/venv"
-  "$tmp/venv/bin/pip" install -q --only-binary=:all: onnx==1.23.2 numpy==2.2.6
+  "$tmp/venv/bin/pip" install -q --only-binary=:all: onnx==1.23.2 numpy
   "$tmp/venv/bin/python" -I "$here/patch_siglip.py" "$tmp/original.onnx" "$f.part"
   mv "$f.part" "$f"
   rm -rf "$tmp"
