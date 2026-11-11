@@ -439,3 +439,21 @@ not rules, not ritual-by-ritual teaching)**
 - Next: (1) the same test with a 2B model (Qwen2-VL-2B ONNX, the teacher's family); (2) fine-tune the small
   model itself on Kaggle (LoRA) with Claude's judgements and people's frame rankings, so it keeps its general
   knowledge of the world and gains the judgement; then measure on the exam and on an unseen community.
+
+**11 Nov 2026: one track again (owner: a small part of Claude for album selection, any event; no side work)**
+- Side experiments stopped (ritual names, who is the bride, small chat model). The selection brain in the
+  app is the product; what is missing is proof beyond one wedding.
+- `tools/reasoner/web_exam.py` (66 picked web sets, 731 of Claude's picks; brain as in the app; scene judge
+  retrained without the tested community):
+
+| | same photo as Claude | same moment as Claude |
+|---|---|---|
+| Community never seen in training | 38% | 80% |
+| Community seen in training | 39% | 81% |
+| Random picking | 28% | 73% |
+
+  Per community (never seen / random, same photo): Bengali-east 50/32, north 35/31, south 41/35, west 39/31,
+  Sikh 54/42 (2 small sets), Muslim 57/49 (1 set of 12 photos), older mixed sets 38/26.
+- Reading: judgement carries over to a community it never learned from (38 vs 39, 80 vs 81). But web sets are
+  small and already curated, so random is close behind and the margins are thin; Muslim and Sikh have almost
+  no data here. No birthday or other-occasion sets have picks yet: Claude's blind picks on those are next.
