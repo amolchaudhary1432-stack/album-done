@@ -125,7 +125,7 @@ class BigFamilyDeviceTest {
         tap("name-group")
         compose.waitUntil(10_000) { hasTag("save-group") }
         screenshot("big-12-name-group")
-        tap("group-side-GROOM")
+        tap("group-side-FAMILY")
         tap("save-group")
         compose.waitUntil(2 * 60_000) { has("Album updated") }
         screenshot("big-13-group-named")
@@ -138,12 +138,6 @@ class BigFamilyDeviceTest {
         DeviceTestSupport.pressBack()
         compose.waitUntil(30_000) { has("Send photos to photographer") }
 
-        // One family's own copy of the album.
-        compose.onNodeWithText("Send photos to photographer").performSemanticsAction(SemanticsActions.OnClick)
-        compose.waitUntil(30_000) { has("Save photos to a folder") }
-        tap("album-for-BRIDE")
-        compose.waitUntil(60_000) { has("Bride's family album") }
-        screenshot("big-15-bride-family-album")
     }
 
     private class Seeded(val projectId: Long, val relatives: List<Long>, val guests: List<Long>)

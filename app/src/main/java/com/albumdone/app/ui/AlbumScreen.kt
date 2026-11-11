@@ -554,11 +554,9 @@ private fun PersonSheetContent(
 ) {
     val person = d.person
     val couple = album.occasion.couple
-    // A wedding has the bride's family and the groom's; a birthday or a trip just has family and friends.
-    val sides = if (couple) listOf(PersonSide.BRIDE to "Bride's family", PersonSide.GROOM to "Groom's family", PersonSide.UNKNOWN to "Friend")
-        else listOf(FAMILY_SIDE to "Family", PersonSide.UNKNOWN to "Friend")
-    val chosenSide = side ?: person.side.takeIf { it != PersonSide.UNKNOWN } ?: d.guessedSide.takeIf { it != PersonSide.UNKNOWN }
-        ?: sides.first().first
+    // Family or friend, for every occasion: the app never splits people into the bride's side and the groom's (owner).
+    val sides = listOf(FAMILY_SIDE to "Family", PersonSide.UNKNOWN to "Friend")
+    val chosenSide = side ?: FAMILY_SIDE
     Column(
         Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).padding(horizontal = 20.dp).padding(bottom = 28.dp),
         verticalArrangement = Arrangement.spacedBy(14.dp),

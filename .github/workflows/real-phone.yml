@@ -353,7 +353,7 @@ jobs:
           test -s out/screens/showcase-marks.txt && test -s out/video.mp4 || { echo "no showcase"; exit 0; }
           command -v ffmpeg >/dev/null || { sudo apt-get update -q && sudo apt-get install -y -q ffmpeg fonts-dejavu-core; }
           title=$(python3 -c "import json; print(json.load(open('tools/realphone/run.json')).get('title', 'Album Done on a real phone'))")
-          python3 tools/realphone/edit_video.py out/video.mp4 out/screens/showcase-marks.txt "$title" out/showcase.mp4 || echo "could not edit the video"
+          timeout 900 python3 tools/realphone/edit_video.py out/video.mp4 out/screens/showcase-marks.txt "$title" out/showcase.mp4 || echo "could not edit the video"
 
       # A real couple's run: the phone's own album as a PDF (the photos the brain chose, before the
       # test swaps and removes any), for Claude to study against the couple's real album.

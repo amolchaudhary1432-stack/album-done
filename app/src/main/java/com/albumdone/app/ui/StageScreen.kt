@@ -200,11 +200,9 @@ private fun NameGroupSheet(
     onNotFamily: () -> Unit,
     onClose: () -> Unit,
 ) {
-    val guessed = item.guests.map { it.side }.filter { it != PersonSide.UNKNOWN }.groupingBy { it }.eachCount().maxByOrNull { it.value }?.key
-    // A wedding has two families; a birthday or a trip just has family and friends.
-    val choices = if (couple) listOf(PersonSide.BRIDE to "Bride's family", PersonSide.GROOM to "Groom's family", PersonSide.UNKNOWN to "Friends")
-        else listOf(FAMILY to "Family", PersonSide.UNKNOWN to "Friends")
-    var side by rememberSaveable(item.photo.photo.id) { mutableStateOf(guessed ?: choices.first().first) }
+    // Family or friends, for every occasion: no bride's side or groom's side (owner).
+    val choices = listOf(FAMILY to "Family", PersonSide.UNKNOWN to "Friends")
+    var side by rememberSaveable(item.photo.photo.id) { mutableStateOf(choices.first().first) }
     var name by rememberSaveable(item.photo.photo.id) { mutableStateOf("") }
     ModalBottomSheet(onDismissRequest = onClose, sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)) {
         Column(
