@@ -61,6 +61,34 @@ def run(sid, models_):
     us = [r for r in t if r['ok']]
     rnd = np.mean([score(random.Random(i).sample(us, min(len(picked), len(us)))) for i in range(20)], axis=0)
     return score(chosen), rnd, len(t), len(human)
+# ---- Other occasions: trained on weddings only (wedding-2 and the wedding web sets), tested on birthdays,
+# child functions, trips and other events. The lessons are rebuilt per set so any set can be left out.
+import subprocess, json as _json
+occ = {}
+try:
+    for l in subprocess.run(['git', 'show', 'origin/harvest-data:sets.jsonl'], capture_output=True, text=True, cwd=os.path.dirname(os.path.abspath(__file__))).stdout.splitlines():
+        d = _json.loads(l); occ[d['id']] = d['occasion']
+except Exception: pass
+n_w2 = int((comm2 == 'marathi-hindu').sum())
+lessons = {}
+for sid, (comm, t, picked) in sets.items():
+    E = np.array([es[f"{sid}/{r['name']}"] for r in t])
+    cnt = collections.Counter(p for r in t for p in set(r['who'].split(';')) - {''}); cpl = {p for p, _ in cnt.most_common(2)}
+    xy = [(x, min(2, sum(r['name'] in picked for r in rs))) for (ev, m), (x, rs) in folder_moments([dict(r) for r in t], E, cpl).items()]
+    lessons[sid] = (np.array([a for a, _ in xy]), np.array([b for _, b in xy]))
+def train(leave):
+    X = np.vstack([X2[:n_w2]] + [lessons[s][0] for s in sets if s not in leave]); y = np.r_[y2[:n_w2], np.concatenate([lessons[s][1] for s in sets if s not in leave])]
+    Xn_ = (X - xm) / xs
+    return [fit(Xn_, (y >= 1).astype(float)), fit(Xn_, (y >= 2).astype(float))]
+if occ:
+    wed = {'WEDDING', 'ENGAGEMENT'}; other = [s for s in sets if occ.get(s) not in wed and s in occ]
+    ms = train(set(other))
+    print('occasion (trained on weddings only) | sets | Claude picked | same photo: app / random | same moment: app / random')
+    for o in sorted({occ[s] for s in other}) + ['ALL OTHER OCCASIONS']:
+        res = [run(s, ms) for s in other if o.startswith('ALL') or occ[s] == o]
+        w = np.array([r[3] for r in res], float); av = lambda f: float(np.sum([f(r) * r[3] for r in res]) / w.sum())
+        print(f"{o:20s} | {len(res):2d} | {int(w.sum()):4d} | {av(lambda r: r[0][0]):.0%} / {av(lambda r: r[1][0]):.0%} | {av(lambda r: r[0][1]):.0%} / {av(lambda r: r[1][1]):.0%}")
+if os.environ.get('ONLY') == 'occasions': sys.exit(0)
 Xn = (X2 - xm) / xs
 seen_models = [fit(Xn, (y2 >= 1).astype(float)), fit(Xn, (y2 >= 2).astype(float))]
 print('community | sets | photos | Claude picked | same photo: never seen / seen / random | same moment: never seen / seen / random')

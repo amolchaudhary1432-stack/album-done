@@ -457,3 +457,8 @@ not rules, not ritual-by-ritual teaching)**
 - Reading: judgement carries over to a community it never learned from (38 vs 39, 80 vs 81). But web sets are
   small and already curated, so random is close behind and the margins are thin; Muslim and Sikh have almost
   no data here. No birthday or other-occasion sets have picks yet: Claude's blind picks on those are next.
+- Other occasions, brain trained on weddings only (wedding-2 + the wedding web sets), 14 sets with Claude's
+  picks (198 photos), same photo app / random and same moment app / random: child functions (5) 37/19 and
+  77/68; children's birthdays (3) 41/23 and 88/73; trips (4) 45/27 and 91/84; other (2) 38/33 and 86/80;
+  all 40/24 and 84/76. The margin over random is larger than on weddings of a seen community (39/28):
+  what it learned on weddings carries to other events.
