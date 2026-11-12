@@ -435,9 +435,9 @@ private fun CoupleCard(s: AlbumState, onTap: (Long) -> Unit, onSwap: () -> Unit,
                 // One tap answers it: the couple, or one person's own function (a haldi at their own home).
                 FlowRow(Modifier.fillMaxWidth().padding(top = 10.dp, end = 8.dp, bottom = 6.dp), horizontalArrangement = Arrangement.spacedBy(8.dp),
                     verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    AnswerChip("Both, the couple", main.map { it.face }, "confirm-groom", filled = true, onClick = onConfirm)
-                    AnswerChip("Only", listOf(main[0].face), "only-first") { onOnly(main[0].personId) }
-                    AnswerChip("Only", listOf(main[1].face), "only-second") { onOnly(main[1].personId) }
+                    AnswerChip("Both", main.map { it.face }, "confirm-groom", filled = true, onClick = onConfirm)
+                    AnswerChip("only", listOf(main[0].face), "only-first") { onOnly(main[0].personId) }
+                    AnswerChip("only", listOf(main[1].face), "only-second") { onOnly(main[1].personId) }
                     AnswerChip("Someone else", emptyList(), "choose-groom", onClick = onChoose)
                 }
             } else if (unsure) {
