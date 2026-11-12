@@ -1,0 +1,4 @@
+album made by the brain (AlbumMind)
+photos 7, with what they show (SigLIP) 7, brain loaded true
+couple person 90: in 7 photos, alone in 5
+couple person 91: in 2 photos, alone in 0

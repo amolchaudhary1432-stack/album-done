@@ -1,0 +1,24 @@
+0.8	Home screen
+2.1	Choosing the photos folder (Android's own folder picker)
+13.0	The app reads the folder: photos and the photographer's event folders
+13.0	New album: the app counts the photos and guesses the occasion
+20.5	Checking every photo on the phone (no internet)
+45.0	The album is ready
+48.1	The album: cover photo and the main people, found on their own
+55.6	The app is not sure about the groom and asks once: Yes
+61.3	Looking through the album
+79.2	A photo: why it is in the album
+90.2	The next photo, and why
+94.8	The next photo, and why
+99.3	The next photo, and why
+103.8	Remove: the next best photo takes its place
+110.0	Undo
+114.5	Album size and what we left out
+133.9	A photo we left out, and why
+149.3	A main person: their own photos
+160.5	Family & friends: everyone in the photos, most photographed first
+168.8	Family & friends: Not named yet
+172.9	Family & friends: Everyone
+179.1	Sending the chosen photos to the photographer
+196.4	Back home: the album card
+202.9	end

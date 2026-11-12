@@ -1,0 +1,946 @@
+11-12 14:03:41.200  4689  4712 I TestRunner: started: aBirthdayIsNotAWedding(com.albumdone.app.BirthdayDeviceTest)
+11-12 14:03:41.207  4689  4712 D IdlingRegistry: Registering idling resources: [androidx.compose.ui.test.EspressoLink@eb87092]
+11-12 14:03:41.216  4689  4712 W Settings: Setting always_finish_activities has moved from android.provider.Settings.System to android.provider.Settings.Global, returning read-only value.
+11-12 14:03:41.219   668  2036 V GrammaticalInflectionUtils: AttributionSource: AttributionSource { uid = 10216, packageName = null, attributionTag = null, token = android.os.Binder@d003b25, deviceId = 0, next = null } does not have READ_SYSTEM_GRAMMATICAL_GENDER permission.
+11-12 14:03:41.244  1949  1949 D RecentsView: onTaskRemoved: 12, not handling task stack changes
+11-12 14:03:41.244  1949  1949 D RecentsView: onTaskRemoved: 12, not handling task stack changes
+11-12 14:03:41.248  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=259: unexpected standardMetadataType=21
+11-12 14:03:41.260  1949  1949 W SplitSelectStateCtor: Missing session instanceIds
+11-12 14:03:41.260  1949  1949 D StatsLog: LAUNCHER_SPLIT_SELECTION_EXIT_INTERRUPTED
+11-12 14:03:41.275  1088  1235 D SplashScreenView: Build android.window.SplashScreenView{dc5eeaa V.E...... ......ID 0,0-0,0}
+11-12 14:03:41.275  1088  1235 D SplashScreenView: Icon: view: null drawable: null size: 0
+11-12 14:03:41.275  1088  1235 D SplashScreenView: Branding: view: android.view.View{d7a9a9b G.ED..... ......I. 0,0-0,0 #1020541 android:id/splashscreen_branding_view} drawable: null size w: 0 h: 0
+11-12 14:03:41.305   546   627 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+11-12 14:03:41.306  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=188: unexpected standardMetadataType=21
+11-12 14:03:41.306  4689  4689 D LifecycleMonitor: Lifecycle status change: com.albumdone.app.ui.MainActivity@2410d24 in: PRE_ON_CREATE
+11-12 14:03:41.306  4689  4689 V ActivityScenario: Activity lifecycle changed event received but ignored because the reported transition was not ON_CREATE while the last known transition was PRE_ON_CREATE
+11-12 14:03:41.308  4689  4689 D LifecycleMonitor: Lifecycle status change: com.albumdone.app.ui.MainActivity@2410d24 in: CREATED
+11-12 14:03:41.308  4689  4689 V ActivityScenario: Update currentActivityStage to CREATED, currentActivity=com.albumdone.app.ui.MainActivity@2410d24
+11-12 14:03:41.310   546   546 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+11-12 14:03:41.314  4689  4689 D LifecycleMonitor: Lifecycle status change: com.albumdone.app.ui.MainActivity@2410d24 in: STARTED
+11-12 14:03:41.314  4689  4689 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=com.albumdone.app.ui.MainActivity@2410d24
+11-12 14:03:41.314  4689  4689 D AutofillManager: Fill dialog is enabled:false, hints=[]
+11-12 14:03:41.330  4689  4689 D LifecycleMonitor: Lifecycle status change: com.albumdone.app.ui.MainActivity@2410d24 in: RESUMED
+11-12 14:03:41.331  4689  4689 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=com.albumdone.app.ui.MainActivity@2410d24
+11-12 14:03:41.333   612   653 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:03:41.420   623  3361 D BufferPoolAccessor2.0: bufferpool2 0x76f6a635cf08 : 2(1944000 size) total buffers - 1(972000 size) used buffers - 314/322 (recycle/alloc) - 19/322 (fetch/transfer)
+11-12 14:03:41.420  3282  3353 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=414: unexpected standardMetadataType=21
+11-12 14:03:41.524  1949  1949 D VRI[NexusLauncherActivity]: visibilityChanged oldVisibility=true newVisibility=false
+11-12 14:03:41.535  1949  1949 D NexusLauncherModelDelegate: notifySmartspaceEvent: SmartspaceTargetEvent{mSmartspaceTarget=null, mSmartspaceActionId='null', mEventType=7}
+11-12 14:03:41.614  3282  3353 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=260: unexpected standardMetadataType=21
+11-12 14:03:41.638  3282  3353 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=261: unexpected standardMetadataType=21
+11-12 14:03:41.669   668   690 W system_server: Failed to determine oat file name for dex location /data/app/~~0vV703iQaRplWsjpDP2zNQ==/com.albumdone.app-_Alspur_LqfGn8IV7HkmSA==/base.apk: Dalvik cache directory does not exist
+11-12 14:03:41.679   668   690 I ActivityTaskManager: Displayed com.albumdone.app/.ui.MainActivity for user 0: +447ms
+11-12 14:03:41.712   668   693 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:03:41.727   612   653 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:03:41.742   668   791 I ImeTracker: com.albumdone.app:67b56425: onRequestHide at ORIGIN_SERVER reason HIDE_UNSPECIFIED_WINDOW fromUser false
+11-12 14:03:41.745  4689  4689 D InsetsController: hide(ime(), fromIme=false)
+11-12 14:03:41.745  4689  4689 I ImeTracker: com.albumdone.app:67b56425: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+11-12 14:03:41.748   471   510 I netd    : tetherGetStats() -> {[]} <0.57ms>
+11-12 14:03:41.763  1709  1709 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2043
+11-12 14:03:41.768  1709  1709 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+11-12 14:03:41.777  1709  1709 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1293 onStartInput(EditorInfo{EditorInfo{packageName=com.albumdone.app, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+11-12 14:03:41.777  1709  1709 I EmojiCompatManager: EmojiCompatManager.getEmojiCompatIfLoaded():343 EmojiCompat.init() was never called.
+11-12 14:03:41.777  1709  1709 I EmojiCompatManager: java.lang.IllegalStateException: EmojiCompat is not initialized. Please call EmojiCompat.init() first
+11-12 14:03:41.777  1709  1709 I EmojiCompatManager: 	at asx.p(PG:6)
+11-12 14:03:41.777  1709  1709 I EmojiCompatManager: 	at axb.b(PG:13)
+11-12 14:03:41.777  1709  1709 I EmojiCompatManager: 	at jnr.b(PG:2)
+11-12 14:03:41.777  1709  1709 I EmojiCompatManager: 	at jnr.c(PG:4)
+11-12 14:03:41.777  1709  1709 I EmojiCompatManager: 	at jnr.f(PG:3)
+11-12 14:03:41.777  1709  1709 I EmojiCompatManager: 	at jnx.c(PG:3)
+11-12 14:03:41.777  1709  1709 I EmojiCompatManager: 	at kif.cz(PG:47)
+11-12 14:03:41.777  1709  1709 I EmojiCompatManager: 	at lhl.run(PG:1025)
+11-12 14:03:41.777  1709  1709 I EmojiCompatManager: 	at jaf.execute(PG:12)
+11-12 14:03:41.777  1709  1709 I EmojiCompatManager: 	at nco.v(PG:13)
+11-12 14:03:41.777  1709  1709 I EmojiCompatManager: 	at lhn.m(PG:96)
+11-12 14:03:41.777  1709  1709 I EmojiCompatManager: 	at lhn.k(PG:25)
+11-12 14:03:41.777  1709  1709 I EmojiCompatManager: 	at kgn.onStartInput(PG:250)
+11-12 14:03:41.777  1709  1709 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService.doStartInput(InputMethodService.java:3521)
+11-12 14:03:41.777  1709  1709 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService$InputMethodImpl.startInput(InputMethodService.java:879)
+11-12 14:03:41.777  1709  1709 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService$InputMethodImpl.dispatchStartInput(InputMethodService.java:908)
+11-12 14:03:41.777  1709  1709 I EmojiCompatManager: 	at android.inputmethodservice.IInputMethodWrapper.executeMessage(IInputMethodWrapper.java:201)
+11-12 14:03:41.777  1709  1709 I EmojiCompatManager: 	at com.android.internal.os.HandlerCaller$MyHandler.handleMessage(HandlerCaller.java:44)
+11-12 14:03:41.777  1709  1709 I EmojiCompatManager: 	at android.os.Handler.dispatchMessage(Handler.java:110)
+11-12 14:03:41.777  1709  1709 I EmojiCompatManager: 	at android.os.Looper.loopOnce(Looper.java:248)
+11-12 14:03:41.777  1709  1709 I EmojiCompatManager: 	at android.os.Looper.loop(Looper.java:338)
+11-12 14:03:41.777  1709  1709 I EmojiCompatManager: 	at android.app.ActivityThread.main(ActivityThread.java:9067)
+11-12 14:03:41.777  1709  1709 I EmojiCompatManager: 	at java.lang.reflect.Method.invoke(Native Method)
+11-12 14:03:41.777  1709  1709 I EmojiCompatManager: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:593)
+11-12 14:03:41.777  1709  1709 I EmojiCompatManager: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:932)
+11-12 14:03:41.779   668  2539 I ImeTracker: system_server:fe3cea50: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+11-12 14:03:41.781  1709  1709 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+11-12 14:03:41.784  1949  1949 D BaseDepthController: setSurface:
+11-12 14:03:41.784  1949  1949 D BaseDepthController: 	mWaitingOnSurfaceValidity: false
+11-12 14:03:41.784  1949  1949 D BaseDepthController: 	mBaseSurface: null
+11-12 14:03:41.784  1949  1949 D BaseDepthController: mSurface is null and mCurrentBlur is: 0
+11-12 14:03:41.786  1949  1949 D StateManager: goToState - fromState: Normal, toState: Normal, partial trace:
+11-12 14:03:41.786  1949  1949 D StateManager: 	at com.android.launcher3.statemanager.StateManager.moveToRestState(go/retraceme 43e00d9cd0eb17b3d9dd30fc1741b1c71445c4c0f7c8c9b81300265c86c5b873:4)
+11-12 14:03:41.786  1949  1949 D StateManager: 	at com.android.launcher3.statemanager.StateManager.moveToRestState(go/retraceme 43e00d9cd0eb17b3d9dd30fc1741b1c71445c4c0f7c8c9b81300265c86c5b873:1)
+11-12 14:03:41.786  1949  1949 D StateManager: 	at com.android.launcher3.statemanager.StatefulActivity.onStop(go/retraceme 43e00d9cd0eb17b3d9dd30fc1741b1c71445c4c0f7c8c9b81300265c86c5b873:34)
+11-12 14:03:41.792   668   693 I ImeTracker: system_server:fe3cea50: onCancelled at PHASE_SERVER_SHOULD_HIDE
+11-12 14:03:41.796  3282  3353 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=117: unexpected standardMetadataType=21
+11-12 14:03:41.805  1949  1949 D StatsLog: LAUNCHER_ONSTOP
+11-12 14:03:41.810  1949  1949 D StatsLog: LAUNCHER_GOOGLE_SEARCH_RESTORE_LIST_SIZE_AFTER_ACTIVITY_RESTART
+11-12 14:03:41.846  3282  3353 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=181: unexpected standardMetadataType=21
+11-12 14:03:41.889   668  1926 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:03:41.936   668   998 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET, states=14
+11-12 14:03:41.938   668   998 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET6, states=14
+11-12 14:03:41.938   668   998 D InetDiagMessage: Destroyed live tcp sockets for uids={10193} in 2ms
+11-12 14:03:41.943  3282  3353 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=262: unexpected standardMetadataType=21
+11-12 14:03:42.087  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=183: unexpected standardMetadataType=21
+11-12 14:03:42.967   668   992 D WifiClientModeImpl[29069:wlan0]: updateLinkLayerStatsRssiSpeedFrequencyCapabilities rssi=-50 TxLinkspeed=1 freq=2437 RxLinkSpeed=2
+11-12 14:03:42.967   668   992 D WifiDataStall: tx tput in kbps: 37000
+11-12 14:03:42.967   668   992 D WifiDataStall: rx tput in kbps: 37000
+11-12 14:03:42.967   668   992 V WifiConfigManager: Updating scan detail cache freq=2437 BSSID=02:15:b2:00:00:01 RSSI=-50 for "AndroidWifi"NONE
+11-12 14:03:42.967   668   992 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+11-12 14:03:42.967   668   992 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+11-12 14:03:42.967   668   992 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+11-12 14:03:42.967   668   992 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+11-12 14:03:42.967   668   992 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+11-12 14:03:42.967   668   992 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+11-12 14:03:42.967   668   992 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+11-12 14:03:42.967   668   992 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+11-12 14:03:42.969   668   992 D WifiScoreCard: BSSID update SIGNAL_POLL ID: 1424021950 SSID: "AndroidWifi", BSSID: 02:15:b2:00:00:01, MAC: 02:15:b2:00:00:00, IP: /10.0.2.16, Security type: 0, Supplicant state: COMPLETED, Wi-Fi standard: legacy, RSSI: -50, Link speed: 1Mbps, Tx Link speed: 1Mbps, Max Supported Tx Link speed: 54Mbps, Rx Link speed: 2Mbps, Max Supported Rx Link speed: 54Mbps, Frequency: 2437MHz, Net ID: 0, Metered hint: false, score: 60, isUsable: true, CarrierMerged: false, SubscriptionId: -1, IsPrimary: 1, Trusted: true, Restricted: false, Ephemeral: false, OEM paid: false, OEM private: false, OSU AP: false, FQDN: <none>, Provider friendly name: <none>, Requesting package name: <none>"AndroidWifi"openMLO Information: , Is TID-To-Link negotiation supported by the AP: false, AP MLD Address: <none>, AP MLO Link Id: <none>, AP MLO Affiliated links: <none>, Vendor Data: <none>
+11-12 14:03:42.971   668   992 D WifiScoreCard: txRate: 1 txSpeed: 1
+11-12 14:03:42.971   668   992 D WifiScoreCard: network update SIGNAL_POLL "AndroidWifi" ID: 601247878 RSSI -50 txSpeed -1
+11-12 14:03:42.971   668   992 D WifiClientModeImpl[29069:wlan0]:  ClientModeImpl$L2ConnectedState screen=on 1 0 "AndroidWifi" 02:15:b2:00:00:01 rssi=-50 f=2437 sc=60 link=1 tx=0.0, 0.0, 0.0 rx=0.0 bcn=0 [on:0 tx:0 rx:0 period:3008] from screen [on:0 period:-804106757] score=60
+11-12 14:03:43.097  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=189: unexpected standardMetadataType=21
+11-12 14:03:43.152  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=184: unexpected standardMetadataType=21
+11-12 14:03:43.194  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=102: unexpected standardMetadataType=21
+11-12 14:03:43.204  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=185: unexpected standardMetadataType=21
+11-12 14:03:44.162   668   992 D WifiNetworkSelector: Current connected network: 0
+11-12 14:03:44.162   668   992 V WifiConnectivityManager: No full band scan because current network is sufficient
+11-12 14:03:44.162   668   992 V WifiConnectivityManager: schedulePeriodicScanTimer intervalMs 160000
+11-12 14:03:44.162   668   996 I WifiScanningService: Registering listener= com.android.server.wifi.scanner.WifiScannerInternal$ScanListener@565c923 uid=1000 packageName=null workSource=WorkSource{1000}
+11-12 14:03:44.162   668   996 I WifiScanningService: start scan: ClientInfo[uid=1000, package=null, attributionTag=null, com.android.server.wifi.scanner.WifiScannerInternal$ScanListener@565c923] package null AttributionTag null
+11-12 14:03:44.163   668   996 I WifiScanningService: addSingleScanRequest: ClientInfo[uid=1000, package=null, attributionTag=null, com.android.server.wifi.scanner.WifiScannerInternal$ScanListener@565c923],WorkSource{1010}, ScanSettings {  type:HIGH ACCURACY band:unspecified ignoreLocationSettings:false period:0 reportEvents:3 numBssidsPerScan:0 maxScansToCache:0 rnrSetting:2 6GhzPscOnlyEnabled:false channels:[ 2437  ]  }
+11-12 14:03:44.163   668   996 D WifiScanningService: replySucceeded onSuccess
+11-12 14:03:44.165  1316  1316 D wpa_supplicant: nl80211: Drv Event 33 (NL80211_CMD_TRIGGER_SCAN) received for wlan0
+11-12 14:03:44.165  1316  1316 D wpa_supplicant: wlan0: nl80211: Scan trigger
+11-12 14:03:44.165  1316  1316 D wpa_supplicant: wlan0: Event SCAN_STARTED (47) received
+11-12 14:03:44.165  1316  1316 D wpa_supplicant: wlan0: External program started a scan
+11-12 14:03:44.218  1316  1316 D wpa_supplicant: nl80211: Drv Event 34 (NL80211_CMD_NEW_SCAN_RESULTS) received for wlan0
+11-12 14:03:44.218  1316  1316 D wpa_supplicant: wlan0: nl80211: New scan results available
+11-12 14:03:44.218  1316  1316 D wpa_supplicant: nl80211: Scan probed for SSID ''
+11-12 14:03:44.218  1316  1316 D wpa_supplicant: nl80211: Scan included frequencies: 2437
+11-12 14:03:44.218  1316  1316 D wpa_supplicant: wlan0: Event SCAN_RESULTS (3) received
+11-12 14:03:44.218  1316  1316 D wpa_supplicant: nl80211: Received scan results (1 BSSes)
+11-12 14:03:44.218  1316  1316 D wpa_supplicant: nl80211: Scan results indicate BSS status with 02:15:b2:00:00:01 as associated
+11-12 14:03:44.218  1316  1316 D wpa_supplicant: wlan0: BSS: Start scan result update 7
+11-12 14:03:44.218  1316  1316 D wpa_supplicant: BSS: last_scan_res_used=1/32
+11-12 14:03:44.218  1316  1316 D wpa_supplicant: wlan0: New scan results available (own=0 ext=1)
+11-12 14:03:44.218  1316  1316 D wpa_supplicant: wlan0: Do not use results from externally requested scan operation for network selection
+11-12 14:03:44.218  1316  1316 D wpa_supplicant: p2p-dev-wlan0: Updating scan results from sibling
+11-12 14:03:44.218  1316  1316 D wpa_supplicant: nl80211: Received scan results (1 BSSes)
+11-12 14:03:44.218  1316  1316 D wpa_supplicant: p2p-dev-wlan0: BSS: Start scan result update 7
+11-12 14:03:44.218  1316  1316 D wpa_supplicant: BSS: last_scan_res_used=1/32
+11-12 14:03:44.218  1316  1316 D wpa_supplicant: p2p-dev-wlan0: New scan results available (own=0 ext=1)
+11-12 14:03:44.218  1316  1316 D wpa_supplicant: p2p-dev-wlan0: Do not use results from externally requested scan operation for network selection
+11-12 14:03:44.219   668  2263 D WifiNl80211Manager: Scan result ready event
+11-12 14:03:44.219   668  2263 D WifiNative: Scan result ready event
+11-12 14:03:44.220   668   996 D WifiNl80211Manager: get 1 scan results from wificond
+11-12 14:03:44.220   668   996 D WifiNative: get 1 scan results from wificond
+11-12 14:03:44.221   668   996 I WifiScanningService: singleScanResults: ClientInfo[uid=1000, package=null, attributionTag=null, com.android.server.wifi.scanner.WifiScannerInternal$ScanListener@565c923],results=1
+11-12 14:03:44.221  1403  2295 I WifiScanner: onFullResults
+11-12 14:03:44.221   668   996 I WifiScanningService: singleScanResults listener: ClientInfo[uid=1000, package=android, attributionTag=null, com.android.server.wifi.scanner.WifiScannerInternal$ScanListener@a0e2cb6],results=1
+11-12 14:03:44.221   668   996 I WifiScanningService: singleScanResults listener: ClientInfo[uid=1000, package=android, attributionTag=null, com.android.server.wifi.scanner.WifiScannerInternal$ScanListener@a458c6],results=1
+11-12 14:03:44.221   668   996 I WifiScanningService: singleScanResults listener: ClientInfo[uid=1000, package=android, attributionTag=null, com.android.server.wifi.scanner.WifiScannerInternal$ScanListener@52a6121],results=1
+11-12 14:03:44.221   668   996 I WifiScanningService: singleScanResults listener: ClientInfo[uid=10144, package=com.google.android.gms, attributionTag=network_location_provider, android.net.wifi.IWifiScannerListener$Stub$Proxy@149f310],results=1
+11-12 14:03:44.221   668   996 I WifiScanningService: Unregistering listener= com.android.server.wifi.scanner.WifiScannerInternal$ScanListener@565c923 uid=1000 packageName=null workSource=WorkSource{1000}
+11-12 14:03:44.221   668   992 D WifiScanRequestProxy: Scan results received
+11-12 14:03:44.221   668   992 D WifiScanRequestProxy: Received 1 scan results
+11-12 14:03:44.222   668   992 I HalDevMgr: bestIfaceCreationProposal is null, requestIface=STA, existingIface=[name=wlan0 type=STA]
+11-12 14:03:44.222   668   992 V WifiConnectivityManager: AllSingleScanListener onResults: start network selection
+11-12 14:03:44.222   668   992 V WifiConfigManager: getSavedNetworkFromScanResult Found "AndroidWifi"NONE for AndroidWifi[[ESS]]
+11-12 14:03:44.222   668   992 D WifiNetworkSelector: Current connected network: 0
+11-12 14:03:44.222   668   992 D WifiNetworkSelector: wlan0: Current connected network already sufficient. Skip network selection.
+11-12 14:03:44.222   668   992 V WifiLastResortWatchdog: updateAvailableNetworks: size = 0
+11-12 14:03:44.222   668   992 V WifiLastResortWatchdog: mWatchdogFeatureEnabled: true
+11-12 14:03:44.222   668   992 V WifiLastResortWatchdog: mWatchdogAllowedToTrigger: true
+11-12 14:03:44.222   668   992 V WifiLastResortWatchdog: mRecentAvailableNetworks: 1
+11-12 14:03:44.222   668   992 V WifiLastResortWatchdog:  02:15:b2:00:00:01: "AndroidWifi" HasEverConnected: false, Failures: {Assoc: 0, Auth: 0, Dhcp: 0}, Age: 6
+11-12 14:03:44.222   668   992 V WifiLastResortWatchdog: mSsidFailureCount:
+11-12 14:03:44.222   668   992 V WifiLastResortWatchdog: "AndroidWifi": 1, HasEverConnected: false, Failures: {Assoc: 0, Auth: 0, Dhcp: 0}
+11-12 14:03:44.222   668   992 V WifiConnectivityManager: AllSingleScanListener:  No candidates
+11-12 14:03:45.080  4689  6043 W HWUI    : Image decoding logging dropped!
+11-12 14:03:45.082  4689  6043 W HWUI    : Image decoding logging dropped!
+11-12 14:03:45.083  4689  6043 W HWUI    : Image decoding logging dropped!
+11-12 14:03:45.084  4689  6043 W HWUI    : Image decoding logging dropped!
+11-12 14:03:45.085  4689  6043 W HWUI    : Image decoding logging dropped!
+11-12 14:03:45.086  4689  6043 W HWUI    : Image decoding logging dropped!
+11-12 14:03:45.087  4689  6043 W HWUI    : Image decoding logging dropped!
+11-12 14:03:45.088  4689  6043 W HWUI    : Image decoding logging dropped!
+11-12 14:03:45.089  4689  6043 W HWUI    : Image decoding logging dropped!
+11-12 14:03:45.090  4689  6043 W HWUI    : Image decoding logging dropped!
+11-12 14:03:45.091  4689  6043 W HWUI    : Image decoding logging dropped!
+11-12 14:03:45.092  4689  6043 W HWUI    : Image decoding logging dropped!
+11-12 14:03:45.093  4689  6043 W HWUI    : Image decoding logging dropped!
+11-12 14:03:45.094  4689  6043 W HWUI    : Image decoding logging dropped!
+11-12 14:03:45.095  4689  6043 W HWUI    : Image decoding logging dropped!
+11-12 14:03:45.096  4689  6043 W HWUI    : Image decoding logging dropped!
+11-12 14:03:45.097  4689  6043 W HWUI    : Image decoding logging dropped!
+11-12 14:03:45.098  4689  6043 W HWUI    : Image decoding logging dropped!
+11-12 14:03:45.099  4689  6043 W HWUI    : Image decoding logging dropped!
+11-12 14:03:45.100  4689  6043 W HWUI    : Image decoding logging dropped!
+11-12 14:03:45.101  4689  6043 W HWUI    : Image decoding logging dropped!
+11-12 14:03:45.103  4689  6043 W HWUI    : Image decoding logging dropped!
+11-12 14:03:45.104  4689  6043 W HWUI    : Image decoding logging dropped!
+11-12 14:03:45.105  4689  6043 W HWUI    : Image decoding logging dropped!
+11-12 14:03:45.106  4689  6043 W HWUI    : Image decoding logging dropped!
+11-12 14:03:45.113  4689  4689 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=androidx.activity.OnBackPressedDispatcher$Api34Impl$createOnBackAnimationCallback$1@f1f5024
+11-12 14:03:45.132  4689  6043 W HWUI    : Image decoding logging dropped!
+11-12 14:03:45.133  4689  6042 W HWUI    : Image decoding logging dropped!
+11-12 14:03:45.214  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=253: unexpected standardMetadataType=21
+11-12 14:03:45.219  4689  4689 D AlbumDone: open album 3
+11-12 14:03:45.288  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=256: unexpected standardMetadataType=21
+11-12 14:03:45.325  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=257: unexpected standardMetadataType=21
+11-12 14:03:45.484  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=258: unexpected standardMetadataType=21
+11-12 14:03:45.557  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=186: unexpected standardMetadataType=21
+11-12 14:03:45.639  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=259: unexpected standardMetadataType=21
+11-12 14:03:45.653  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=188: unexpected standardMetadataType=21
+11-12 14:03:45.674  4689  4689 D AlbumDone: analysis of 240 photos in 111 ms
+11-12 14:03:45.704  4689  6043 D AlbumDone: album planned by the rules: 40 of 240 photos
+11-12 14:03:45.707  4689  6043 D AlbumDone: album saved
+11-12 14:03:45.707  4689  4689 D AlbumDone: album 3 ready to show
+11-12 14:03:45.765  4689  4689 D AlbumDone: album update: 40 selected of 240, 25 people
+11-12 14:03:45.784  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=414: unexpected standardMetadataType=21
+11-12 14:03:45.800  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=260: unexpected standardMetadataType=21
+11-12 14:03:45.851  4689  6042 W HWUI    : Image decoding logging dropped!
+11-12 14:03:45.854  4689  5066 W HWUI    : Image decoding logging dropped!
+11-12 14:03:45.861  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=261: unexpected standardMetadataType=21
+11-12 14:03:45.877  4689  6043 W HWUI    : Image decoding logging dropped!
+11-12 14:03:45.884  4689  6045 W HWUI    : Image decoding logging dropped!
+11-12 14:03:45.884  4689  5066 W HWUI    : Image decoding logging dropped!
+11-12 14:03:45.887  4689  6045 W HWUI    : Image decoding logging dropped!
+11-12 14:03:45.892  4689  6045 W HWUI    : Image decoding logging dropped!
+11-12 14:03:45.896  4689  6045 W HWUI    : Image decoding logging dropped!
+11-12 14:03:45.899  4689  6043 W HWUI    : Image decoding logging dropped!
+11-12 14:03:45.908  4689  6043 W HWUI    : Image decoding logging dropped!
+11-12 14:03:45.909  4689  6045 W HWUI    : Image decoding logging dropped!
+11-12 14:03:45.909  4689  5066 W HWUI    : Image decoding logging dropped!
+11-12 14:03:45.917  4689  5066 W HWUI    : Image decoding logging dropped!
+11-12 14:03:45.919  4689  6045 W HWUI    : Image decoding logging dropped!
+11-12 14:03:45.971   668   992 D WifiClientModeImpl[29069:wlan0]: updateLinkLayerStatsRssiSpeedFrequencyCapabilities rssi=-50 TxLinkspeed=6 freq=2437 RxLinkSpeed=2
+11-12 14:03:45.974   668   992 D WifiDataStall: tx tput in kbps: 37000
+11-12 14:03:45.974   668   992 D WifiDataStall: rx tput in kbps: 37000
+11-12 14:03:45.974   668   992 V WifiConfigManager: Updating scan detail cache freq=2437 BSSID=02:15:b2:00:00:01 RSSI=-50 for "AndroidWifi"NONE
+11-12 14:03:45.974   668   992 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+11-12 14:03:45.974   668   992 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+11-12 14:03:45.974   668   992 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+11-12 14:03:45.974   668   992 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+11-12 14:03:45.974   668   992 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+11-12 14:03:45.974   668   992 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+11-12 14:03:45.974   668   992 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+11-12 14:03:45.974   668   992 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+11-12 14:03:45.974   668   992 D WifiScoreCard: BSSID update SIGNAL_POLL ID: 1424021950 SSID: "AndroidWifi", BSSID: 02:15:b2:00:00:01, MAC: 02:15:b2:00:00:00, IP: /10.0.2.16, Security type: 0, Supplicant state: COMPLETED, Wi-Fi standard: legacy, RSSI: -50, Link speed: 6Mbps, Tx Link speed: 6Mbps, Max Supported Tx Link speed: 54Mbps, Rx Link speed: 2Mbps, Max Supported Rx Link speed: 54Mbps, Frequency: 2437MHz, Net ID: 0, Metered hint: false, score: 60, isUsable: true, CarrierMerged: false, SubscriptionId: -1, IsPrimary: 1, Trusted: true, Restricted: false, Ephemeral: false, OEM paid: false, OEM private: false, OSU AP: false, FQDN: <none>, Provider friendly name: <none>, Requesting package name: <none>"AndroidWifi"openMLO Information: , Is TID-To-Link negotiation supported by the AP: false, AP MLD Address: <none>, AP MLO Link Id: <none>, AP MLO Affiliated links: <none>, Vendor Data: <none>
+11-12 14:03:45.974   668   992 D WifiScoreCard: txRate: 1 txSpeed: 6
+11-12 14:03:45.974   668   992 D WifiScoreCard: network update SIGNAL_POLL "AndroidWifi" ID: 601247878 RSSI -50 txSpeed -1
+11-12 14:03:45.974   668   992 D WifiClientModeImpl[29069:wlan0]:  ClientModeImpl$L2ConnectedState screen=on 1 0 "AndroidWifi" 02:15:b2:00:00:01 rssi=-50 f=2437 sc=60 link=6 tx=0.0, 0.0, 0.0 rx=0.0 bcn=0 [on:0 tx:0 rx:0 period:3003] from screen [on:0 period:-804103754] score=60
+11-12 14:03:45.986  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=117: unexpected standardMetadataType=21
+11-12 14:03:46.034  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=181: unexpected standardMetadataType=21
+11-12 14:03:46.057  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=262: unexpected standardMetadataType=21
+11-12 14:03:47.048  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=183: unexpected standardMetadataType=21
+11-12 14:03:47.061   623  3361 D BufferPoolAccessor2.0: bufferpool2 0x76f6a635cf08 : 2(1944000 size) total buffers - 1(972000 size) used buffers - 354/362 (recycle/alloc) - 21/361 (fetch/transfer)
+11-12 14:03:47.068  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=189: unexpected standardMetadataType=21
+11-12 14:03:47.071  4689  5180 W HWUI    : Image decoding logging dropped!
+11-12 14:03:47.095  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=184: unexpected standardMetadataType=21
+11-12 14:03:47.201  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=102: unexpected standardMetadataType=21
+11-12 14:03:47.216  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=185: unexpected standardMetadataType=21
+11-12 14:03:47.246  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=253: unexpected standardMetadataType=21
+11-12 14:03:47.369  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=256: unexpected standardMetadataType=21
+11-12 14:03:47.370   668   791 I ImeTracker: com.albumdone.app:2a78cf4a: onRequestHide at ORIGIN_SERVER reason HIDE_UNSPECIFIED_WINDOW fromUser false
+11-12 14:03:47.383  4689  4689 D AlbumDone: person 66: found=true among 25
+11-12 14:03:47.383  4689  4689 D AlbumDone: person 66: ready, 4 samples
+11-12 14:03:47.385   668  1926 I ImeTracker: system_server:5592e9d9: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+11-12 14:03:47.386  1709  1709 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2043
+11-12 14:03:47.386   668   693 I ImeTracker: system_server:5592e9d9: onCancelled at PHASE_SERVER_SHOULD_HIDE
+11-12 14:03:47.386  1709  1709 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+11-12 14:03:47.387  1709  1709 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1293 onStartInput(EditorInfo{EditorInfo{packageName=com.albumdone.app, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+11-12 14:03:47.388  1709  1709 I EmojiCompatManager: EmojiCompatManager.getEmojiCompatIfLoaded():343 EmojiCompat.init() was never called.
+11-12 14:03:47.388  1709  1709 I EmojiCompatManager: java.lang.IllegalStateException: EmojiCompat is not initialized. Please call EmojiCompat.init() first
+11-12 14:03:47.388  1709  1709 I EmojiCompatManager: 	at asx.p(PG:6)
+11-12 14:03:47.388  1709  1709 I EmojiCompatManager: 	at axb.b(PG:13)
+11-12 14:03:47.388  1709  1709 I EmojiCompatManager: 	at jnr.b(PG:2)
+11-12 14:03:47.388  1709  1709 I EmojiCompatManager: 	at jnr.c(PG:4)
+11-12 14:03:47.388  1709  1709 I EmojiCompatManager: 	at jnr.f(PG:3)
+11-12 14:03:47.388  1709  1709 I EmojiCompatManager: 	at jnx.c(PG:3)
+11-12 14:03:47.388  1709  1709 I EmojiCompatManager: 	at kif.cz(PG:47)
+11-12 14:03:47.388  1709  1709 I EmojiCompatManager: 	at lhl.run(PG:1025)
+11-12 14:03:47.388  1709  1709 I EmojiCompatManager: 	at jaf.execute(PG:12)
+11-12 14:03:47.388  1709  1709 I EmojiCompatManager: 	at nco.v(PG:13)
+11-12 14:03:47.388  1709  1709 I EmojiCompatManager: 	at lhn.m(PG:96)
+11-12 14:03:47.388  1709  1709 I EmojiCompatManager: 	at lhn.k(PG:25)
+11-12 14:03:47.388  1709  1709 I EmojiCompatManager: 	at kgn.onStartInput(PG:250)
+11-12 14:03:47.388  1709  1709 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService.doStartInput(InputMethodService.java:3521)
+11-12 14:03:47.388  1709  1709 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService$InputMethodImpl.startInput(InputMethodService.java:879)
+11-12 14:03:47.388  1709  1709 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService$InputMethodImpl.dispatchStartInput(InputMethodService.java:908)
+11-12 14:03:47.388  1709  1709 I EmojiCompatManager: 	at android.inputmethodservice.IInputMethodWrapper.executeMessage(IInputMethodWrapper.java:201)
+11-12 14:03:47.388  1709  1709 I EmojiCompatManager: 	at com.android.internal.os.HandlerCaller$MyHandler.handleMessage(HandlerCaller.java:44)
+11-12 14:03:47.388  1709  1709 I EmojiCompatManager: 	at android.os.Handler.dispatchMessage(Handler.java:110)
+11-12 14:03:47.388  1709  1709 I EmojiCompatManager: 	at android.os.Looper.loopOnce(Looper.java:248)
+11-12 14:03:47.388  1709  1709 I EmojiCompatManager: 	at android.os.Looper.loop(Looper.java:338)
+11-12 14:03:47.388  1709  1709 I EmojiCompatManager: 	at android.app.ActivityThread.main(ActivityThread.java:9067)
+11-12 14:03:47.388  1709  1709 I EmojiCompatManager: 	at java.lang.reflect.Method.invoke(Native Method)
+11-12 14:03:47.388  1709  1709 I EmojiCompatManager: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:593)
+11-12 14:03:47.388  1709  1709 I EmojiCompatManager: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:932)
+11-12 14:03:47.395  1709  1709 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+11-12 14:03:47.407  5585  5597 W umdone.app.test: Cleared Reference was only reachable from finalizer (only reported once)
+11-12 14:03:47.444  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=257: unexpected standardMetadataType=21
+11-12 14:03:47.461  4689  4689 D InsetsController: hide(ime(), fromIme=false)
+11-12 14:03:47.461  4689  4689 I ImeTracker: com.albumdone.app:2a78cf4a: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+11-12 14:03:47.474  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=258: unexpected standardMetadataType=21
+11-12 14:03:47.526  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=186: unexpected standardMetadataType=21
+11-12 14:03:47.543  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=259: unexpected standardMetadataType=21
+11-12 14:03:47.612  4689  5874 W HWUI    : Image decoding logging dropped!
+11-12 14:03:47.615  4689  6044 W HWUI    : Image decoding logging dropped!
+11-12 14:03:47.615  4689  5066 W HWUI    : Image decoding logging dropped!
+11-12 14:03:47.678  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=188: unexpected standardMetadataType=21
+11-12 14:03:47.699  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=414: unexpected standardMetadataType=21
+11-12 14:03:48.766  1258  1502 D SatelliteController: iisInCarrierRoamingNbIotNtn: satellite is disabled
+11-12 14:03:48.812  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=260: unexpected standardMetadataType=21
+11-12 14:03:48.967  5610  5616 W gs.intelligence: Cleared Reference was only reachable from finalizer (only reported once)
+11-12 14:03:48.976   668   992 D WifiClientModeImpl[29069:wlan0]: updateLinkLayerStatsRssiSpeedFrequencyCapabilities rssi=-50 TxLinkspeed=6 freq=2437 RxLinkSpeed=2
+11-12 14:03:48.976   668   992 D WifiDataStall: tx tput in kbps: 37000
+11-12 14:03:48.976   668   992 D WifiDataStall: rx tput in kbps: 37000
+11-12 14:03:48.976   668   992 V WifiConfigManager: Updating scan detail cache freq=2437 BSSID=02:15:b2:00:00:01 RSSI=-50 for "AndroidWifi"NONE
+11-12 14:03:48.976   668   992 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+11-12 14:03:48.976   668   992 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+11-12 14:03:48.976   668   992 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+11-12 14:03:48.976   668   992 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+11-12 14:03:48.976   668   992 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+11-12 14:03:48.976   668   992 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+11-12 14:03:48.976   668   992 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+11-12 14:03:48.976   668   992 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+11-12 14:03:48.976   668   992 D WifiScoreCard: BSSID update SIGNAL_POLL ID: 1424021950 SSID: "AndroidWifi", BSSID: 02:15:b2:00:00:01, MAC: 02:15:b2:00:00:00, IP: /10.0.2.16, Security type: 0, Supplicant state: COMPLETED, Wi-Fi standard: legacy, RSSI: -50, Link speed: 6Mbps, Tx Link speed: 6Mbps, Max Supported Tx Link speed: 54Mbps, Rx Link speed: 2Mbps, Max Supported Rx Link speed: 54Mbps, Frequency: 2437MHz, Net ID: 0, Metered hint: false, score: 60, isUsable: true, CarrierMerged: false, SubscriptionId: -1, IsPrimary: 1, Trusted: true, Restricted: false, Ephemeral: false, OEM paid: false, OEM private: false, OSU AP: false, FQDN: <none>, Provider friendly name: <none>, Requesting package name: <none>"AndroidWifi"openMLO Information: , Is TID-To-Link negotiation supported by the AP: false, AP MLD Address: <none>, AP MLO Link Id: <none>, AP MLO Affiliated links: <none>, Vendor Data: <none>
+11-12 14:03:48.976   668   992 D WifiScoreCard: txRate: 1 txSpeed: 6
+11-12 14:03:48.977   668   992 D WifiScoreCard: network update SIGNAL_POLL "AndroidWifi" ID: 601247878 RSSI -50 txSpeed -1
+11-12 14:03:48.977   668   992 D WifiClientModeImpl[29069:wlan0]:  ClientModeImpl$L2ConnectedState screen=on 1 0 "AndroidWifi" 02:15:b2:00:00:01 rssi=-50 f=2437 sc=60 link=6 tx=0.0, 0.0, 0.0 rx=0.0 bcn=0 [on:0 tx:0 rx:0 period:3003] from screen [on:0 period:-804100751] score=60
+11-12 14:03:50.147  1709  1709 I StylusModule: StylusModule.onUpdateToolType():801 Update tool type = 0
+11-12 14:03:50.196  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=261: unexpected standardMetadataType=21
+11-12 14:03:50.662  4689  4689 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=androidx.compose.material3.ModalBottomSheetDialogLayout$Api34Impl$createBackCallback$1@30089f9
+11-12 14:03:50.674   668   694 I ImeTracker: system_server:4ec15075: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+11-12 14:03:50.674   668   693 I ImeTracker: system_server:4ec15075: onCancelled at PHASE_SERVER_SHOULD_HIDE
+11-12 14:03:50.684  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=117: unexpected standardMetadataType=21
+11-12 14:03:50.711  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=181: unexpected standardMetadataType=21
+11-12 14:03:50.745  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=262: unexpected standardMetadataType=21
+11-12 14:03:50.770   668   791 I ImeTracker: com.albumdone.app:dd51be59: onRequestHide at ORIGIN_SERVER reason HIDE_UNSPECIFIED_WINDOW fromUser false
+11-12 14:03:50.771  4689  4689 D InsetsController: hide(ime(), fromIme=false)
+11-12 14:03:50.771  4689  4689 I ImeTracker: com.albumdone.app:dd51be59: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+11-12 14:03:50.776  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=183: unexpected standardMetadataType=21
+11-12 14:03:50.783  1709  1709 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2043
+11-12 14:03:50.785  1709  1709 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+11-12 14:03:50.786  1709  1709 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1293 onStartInput(EditorInfo{EditorInfo{packageName=com.albumdone.app, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+11-12 14:03:50.786  1709  1709 I EmojiCompatManager: EmojiCompatManager.getEmojiCompatIfLoaded():343 EmojiCompat.init() was never called.
+11-12 14:03:50.786  1709  1709 I EmojiCompatManager: java.lang.IllegalStateException: EmojiCompat is not initialized. Please call EmojiCompat.init() first
+11-12 14:03:50.786  1709  1709 I EmojiCompatManager: 	at asx.p(PG:6)
+11-12 14:03:50.786  1709  1709 I EmojiCompatManager: 	at axb.b(PG:13)
+11-12 14:03:50.786  1709  1709 I EmojiCompatManager: 	at jnr.b(PG:2)
+11-12 14:03:50.786  1709  1709 I EmojiCompatManager: 	at jnr.c(PG:4)
+11-12 14:03:50.786  1709  1709 I EmojiCompatManager: 	at jnr.f(PG:3)
+11-12 14:03:50.786  1709  1709 I EmojiCompatManager: 	at jnx.c(PG:3)
+11-12 14:03:50.786  1709  1709 I EmojiCompatManager: 	at kif.cz(PG:47)
+11-12 14:03:50.786  1709  1709 I EmojiCompatManager: 	at lhl.run(PG:1025)
+11-12 14:03:50.786  1709  1709 I EmojiCompatManager: 	at jaf.execute(PG:12)
+11-12 14:03:50.786  1709  1709 I EmojiCompatManager: 	at nco.v(PG:13)
+11-12 14:03:50.786  1709  1709 I EmojiCompatManager: 	at lhn.m(PG:96)
+11-12 14:03:50.786  1709  1709 I EmojiCompatManager: 	at lhn.k(PG:25)
+11-12 14:03:50.786  1709  1709 I EmojiCompatManager: 	at kgn.onStartInput(PG:250)
+11-12 14:03:50.786  1709  1709 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService.doStartInput(InputMethodService.java:3521)
+11-12 14:03:50.786  1709  1709 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService$InputMethodImpl.startInput(InputMethodService.java:879)
+11-12 14:03:50.786  1709  1709 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService$InputMethodImpl.dispatchStartInput(InputMethodService.java:908)
+11-12 14:03:50.786  1709  1709 I EmojiCompatManager: 	at android.inputmethodservice.IInputMethodWrapper.executeMessage(IInputMethodWrapper.java:201)
+11-12 14:03:50.786  1709  1709 I EmojiCompatManager: 	at com.android.internal.os.HandlerCaller$MyHandler.handleMessage(HandlerCaller.java:44)
+11-12 14:03:50.786  1709  1709 I EmojiCompatManager: 	at android.os.Handler.dispatchMessage(Handler.java:110)
+11-12 14:03:50.786  1709  1709 I EmojiCompatManager: 	at android.os.Looper.loopOnce(Looper.java:248)
+11-12 14:03:50.786  1709  1709 I EmojiCompatManager: 	at android.os.Looper.loop(Looper.java:338)
+11-12 14:03:50.786  1709  1709 I EmojiCompatManager: 	at android.app.ActivityThread.main(ActivityThread.java:9067)
+11-12 14:03:50.786  1709  1709 I EmojiCompatManager: 	at java.lang.reflect.Method.invoke(Native Method)
+11-12 14:03:50.786  1709  1709 I EmojiCompatManager: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:593)
+11-12 14:03:50.786  1709  1709 I EmojiCompatManager: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:932)
+11-12 14:03:50.791  1709  1709 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+11-12 14:03:50.801   668  2549 I ImeTracker: system_server:16542cb5: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+11-12 14:03:50.805   668   693 I ImeTracker: system_server:16542cb5: onCancelled at PHASE_SERVER_SHOULD_HIDE
+11-12 14:03:50.866  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=189: unexpected standardMetadataType=21
+11-12 14:03:50.897  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=184: unexpected standardMetadataType=21
+11-12 14:03:51.045   668   998 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET, states=14
+11-12 14:03:51.045   668   998 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET6, states=14
+11-12 14:03:51.045   668   998 D InetDiagMessage: Destroyed live tcp sockets for uids={10217} in 1ms
+11-12 14:03:51.411  1088  1234 E FrameTracker: force finish cuj, time out: J<SPLASHSCREEN_EXIT_ANIM>
+11-12 14:03:51.808  4689  5066 W HWUI    : Image decoding logging dropped!
+11-12 14:03:51.810  4689  6044 W HWUI    : Image decoding logging dropped!
+11-12 14:03:51.811  4689  6043 W HWUI    : Image decoding logging dropped!
+11-12 14:03:51.814  4689  5180 W HWUI    : Image decoding logging dropped!
+11-12 14:03:51.817  4689  5874 W HWUI    : Image decoding logging dropped!
+11-12 14:03:51.821  4689  5066 W HWUI    : Image decoding logging dropped!
+11-12 14:03:51.823  4689  5180 W HWUI    : Image decoding logging dropped!
+11-12 14:03:51.823  4689  5874 W HWUI    : Image decoding logging dropped!
+11-12 14:03:51.828  4689  6044 W HWUI    : Image decoding logging dropped!
+11-12 14:03:51.888  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=102: unexpected standardMetadataType=21
+11-12 14:03:51.900  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=185: unexpected standardMetadataType=21
+11-12 14:03:51.939  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=253: unexpected standardMetadataType=21
+11-12 14:03:51.953  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=256: unexpected standardMetadataType=21
+11-12 14:03:51.985   668   992 D WifiClientModeImpl[29069:wlan0]: updateLinkLayerStatsRssiSpeedFrequencyCapabilities rssi=-50 TxLinkspeed=6 freq=2437 RxLinkSpeed=2
+11-12 14:03:51.986   668   992 D WifiDataStall: tx tput in kbps: 37000
+11-12 14:03:51.986   668   992 D WifiDataStall: rx tput in kbps: 37000
+11-12 14:03:51.986   668   992 V WifiConfigManager: Updating scan detail cache freq=2437 BSSID=02:15:b2:00:00:01 RSSI=-50 for "AndroidWifi"NONE
+11-12 14:03:51.986   668   992 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+11-12 14:03:51.986   668   992 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+11-12 14:03:51.986   668   992 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+11-12 14:03:51.986   668   992 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+11-12 14:03:51.986   668   992 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+11-12 14:03:51.986   668   992 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+11-12 14:03:51.986   668   992 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+11-12 14:03:51.986   668   992 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+11-12 14:03:51.987   668   992 D WifiScoreCard: BSSID update SIGNAL_POLL ID: 1424021950 SSID: "AndroidWifi", BSSID: 02:15:b2:00:00:01, MAC: 02:15:b2:00:00:00, IP: /10.0.2.16, Security type: 0, Supplicant state: COMPLETED, Wi-Fi standard: legacy, RSSI: -50, Link speed: 6Mbps, Tx Link speed: 6Mbps, Max Supported Tx Link speed: 54Mbps, Rx Link speed: 2Mbps, Max Supported Rx Link speed: 54Mbps, Frequency: 2437MHz, Net ID: 0, Metered hint: false, score: 60, isUsable: true, CarrierMerged: false, SubscriptionId: -1, IsPrimary: 1, Trusted: true, Restricted: false, Ephemeral: false, OEM paid: false, OEM private: false, OSU AP: false, FQDN: <none>, Provider friendly name: <none>, Requesting package name: <none>"AndroidWifi"openMLO Information: , Is TID-To-Link negotiation supported by the AP: false, AP MLD Address: <none>, AP MLO Link Id: <none>, AP MLO Affiliated links: <none>, Vendor Data: <none>
+11-12 14:03:51.987   668   992 D WifiScoreCard: txRate: 1 txSpeed: 6
+11-12 14:03:51.987   668   992 D WifiScoreCard: network update SIGNAL_POLL "AndroidWifi" ID: 601247878 RSSI -50 txSpeed -1
+11-12 14:03:51.987   668   992 D WifiClientModeImpl[29069:wlan0]:  ClientModeImpl$L2ConnectedState screen=on 1 0 "AndroidWifi" 02:15:b2:00:00:01 rssi=-50 f=2437 sc=60 link=6 tx=0.0, 0.0, 0.0 rx=0.0 bcn=0 [on:0 tx:0 rx:0 period:3010] from screen [on:0 period:-804097741] score=60
+11-12 14:03:51.991  4689  6044 W HWUI    : Image decoding logging dropped!
+11-12 14:03:51.994  4689  5874 W HWUI    : Image decoding logging dropped!
+11-12 14:03:51.998  4689  5874 W HWUI    : Image decoding logging dropped!
+11-12 14:03:52.003  4689  5874 W HWUI    : Image decoding logging dropped!
+11-12 14:03:52.028  4689  5180 W HWUI    : Image decoding logging dropped!
+11-12 14:03:52.044  4689  6044 W HWUI    : Image decoding logging dropped!
+11-12 14:03:52.048  4689  5874 W HWUI    : Image decoding logging dropped!
+11-12 14:03:52.049  4689  6043 W HWUI    : Image decoding logging dropped!
+11-12 14:03:52.049  4689  6044 W HWUI    : Image decoding logging dropped!
+11-12 14:03:52.050  4689  5066 W HWUI    : Image decoding logging dropped!
+11-12 14:03:52.055  4689  6042 W HWUI    : Image decoding logging dropped!
+11-12 14:03:52.060  4689  6040 W HWUI    : Image decoding logging dropped!
+11-12 14:03:52.063  4689  5177 W HWUI    : Image decoding logging dropped!
+11-12 14:03:52.109  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=257: unexpected standardMetadataType=21
+11-12 14:03:52.136  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=258: unexpected standardMetadataType=21
+11-12 14:03:52.881  2344  2557 D WM-DelayedWorkTracker: Scheduling work 8ea5e74c-4368-4b8c-b421-4cc5a9a716b3
+11-12 14:03:52.881  2344  2557 D WM-GreedyScheduler: Starting tracking for 8ea5e74c-4368-4b8c-b421-4cc5a9a716b3
+11-12 14:03:52.884  2344  2548 D WM-ConstraintTracker: fkd: initial state = NetworkState(isConnected=true, isValidated=true, isMetered=false, isNotRoaming=true)
+11-12 14:03:52.884  2344  2344 D WM-SystemJobService: onStartJob for WorkGenerationalId(workSpecId=8ea5e74c-4368-4b8c-b421-4cc5a9a716b3, generation=0)
+11-12 14:03:52.884  2344  2548 D WM-NetworkStateTracker: Registering network callback
+11-12 14:03:52.885   668  2549 D ConnectivityService: requestNetwork for uid/pid:10135/2344 activeRequest: null callbackRequest: 201 [NetworkRequest [ REQUEST id=202, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED&NOT_BANDWIDTH_CONSTRAINED Uid: 10135 RequestorUid: 10135 RequestorPkg: com.google.android.dialer UnderlyingNetworks: Null] ]] callback flags: 0 order: 2147483647 isUidTracked: false declaredMethods: AVAIL|LOST|NC
+11-12 14:03:52.885   668   992 D WifiNetworkFactory: got request NetworkRequest [ REQUEST id=202, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED&NOT_BANDWIDTH_CONSTRAINED Uid: 10135 RequestorUid: 10135 RequestorPkg: com.google.android.dialer UnderlyingNetworks: Null] ]
+11-12 14:03:52.885   668   992 V WifiNetworkFactory: Accepted network request NetworkRequest [ REQUEST id=202, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED&NOT_BANDWIDTH_CONSTRAINED Uid: 10135 RequestorUid: 10135 RequestorPkg: com.google.android.dialer UnderlyingNetworks: Null] ]
+11-12 14:03:52.885   668   992 D UntrustedWifiNetworkFactory: got request NetworkRequest [ REQUEST id=202, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED&NOT_BANDWIDTH_CONSTRAINED Uid: 10135 RequestorUid: 10135 RequestorPkg: com.google.android.dialer UnderlyingNetworks: Null] ]
+11-12 14:03:52.885   668   992 D OemPaidWifiNetworkFactory: got request NetworkRequest [ REQUEST id=202, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED&NOT_BANDWIDTH_CONSTRAINED Uid: 10135 RequestorUid: 10135 RequestorPkg: com.google.android.dialer UnderlyingNetworks: Null] ]
+11-12 14:03:52.885   668   998 D ConnectivityService: NetReassign [202 : null → 100] [c 1] [a 0] [i 0]
+11-12 14:03:52.886   668   992 D MultiInternetWifiNetworkFactory: got request NetworkRequest [ REQUEST id=202, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED&NOT_BANDWIDTH_CONSTRAINED Uid: 10135 RequestorUid: 10135 RequestorPkg: com.google.android.dialer UnderlyingNetworks: Null] ]
+11-12 14:03:52.886  2344  3149 D WM-NetworkStateTracker: Network capabilities changed: [ Transports: WIFI Capabilities: NOT_METERED&INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VPN&VALIDATED&NOT_ROAMING&FOREGROUND&NOT_CONGESTED&NOT_SUSPENDED&NOT_VCN_MANAGED&NOT_BANDWIDTH_CONSTRAINED LinkUpBandwidth>=12000Kbps LinkDnBandwidth>=30000Kbps TransportInfo: <SSID: <unknown ssid>, BSSID: 02:00:00:00:00:00, MAC: 02:00:00:00:00:00, IP: /10.0.2.16, Security type: 0, Supplicant state: COMPLETED, Wi-Fi standard: legacy, RSSI: -50, Link speed: 1Mbps, Tx Link speed: 1Mbps, Max Supported Tx Link speed: 54Mbps, Rx Link speed: 2Mbps, Max Supported Rx Link speed: 54Mbps, Frequency: 2437MHz, Net ID: -1, Metered hint: false, score: 60, isUsable: true, CarrierMerged: false, SubscriptionId: -1, IsPrimary: -1, Trusted: true, Restricted: false, Ephemeral: false, OEM paid: false, OEM private: false, OSU AP: false, FQDN: <none>, Provider friendly name: <none>, Requesting package name: <none><none>MLO Information: , Is TID-To-Link negotiation supported by the AP: false, AP MLD Address: <none>, AP MLO Link Id: <none>, AP MLO Affiliated links: <none>, Vendor Data: <none>> SignalStrength: -50 UnderlyingNetworks: Null]
+11-12 14:03:52.888  2344  2548 D WM-Processor: fgy: processing WorkGenerationalId(workSpecId=8ea5e74c-4368-4b8c-b421-4cc5a9a716b3, generation=0)
+11-12 14:03:52.890  2344  2344 D WM-WorkerWrapper: Starting work for com.google.apps.tiktok.contrib.work.TikTokListenableWorker
+11-12 14:03:52.890  2344  2548 D WM-GreedyScheduler: Constraints met: Scheduling work ID WorkGenerationalId(workSpecId=8ea5e74c-4368-4b8c-b421-4cc5a9a716b3, generation=0)
+11-12 14:03:52.891  2344  2554 I DialerSingletonScopedExternalsLogging: com.google.android.dialershared.externals.logging.SingletonScopedExternalsLogging.recordCallMethodInvocation:75 event: TIKTOK_WORK_EXECUTION_MONITOR_ON_WORK_STARTED, function parameters: [8ea5e74c-4368-4b8c-b421-4cc5a9a716b3,com.android.dialer.voicemail.service.impl.VvmTaskWorker], return value: <empty>
+11-12 14:03:52.891  2344  2611 I DialerVvmTaskWorkerDelegate: com.android.dialer.voicemail.service.impl.scheduler.VvmTaskWorker$VvmTaskWorkerDelegate.executeVvmJob:191 Beginning execution of job ID: 2
+11-12 14:03:52.891  2344  2611 I DialerSingletonScopedExternalsLogging: com.google.android.dialershared.externals.logging.SingletonScopedExternalsLogging.recordCallMethodInvocation:66 event: VVM_TASK_WORKER_EXECUTE_VVM_JOB, function parameters: [2], return value: <empty> [CONTEXT enable_persistent_logger=true ]
+11-12 14:03:52.892  2344  2548 D WM-Processor: Work WorkGenerationalId(workSpecId=8ea5e74c-4368-4b8c-b421-4cc5a9a716b3, generation=0) is already enqueued for processing
+11-12 14:03:52.893  2344  6386 I DialerVvmCarrierIdentifierImpl: com.android.dialer.voicemail.service.impl.carriermapping.VvmCarrierIdentifierImpl.getVvmCarrierNameBlocking:120 Looking up carrier name for phone account handle: 1 [CONTEXT ratelimit_period="1 MINUTES" skipped=15 ]
+11-12 14:03:52.893  1561  6382 I ChimeraConfigurator: Starting update, reason: 4 urgentFeatures: vision.ocr:-1
+11-12 14:03:52.894  2344  2554 I DialerRestVoicemailEnabledFn: com.android.dialer.voicemail.service.impl.vvmclients.rest.RestVoicemailEnabledFn.isEnabled:67 device is supported, enabling. [CONTEXT ratelimit_period="1 MINUTES" skipped=95 ]
+11-12 14:03:52.896  1561  6382 W FeatureMgr: Attempted to request and unrequest the same feature: appsearch_impl. Ignoring unrequest.
+11-12 14:03:52.896  1561  6382 W FeatureMgr: Attempted to request and unrequest the same feature: wasmlibs. Ignoring unrequest.
+11-12 14:03:52.900  1561  6382 I ChimeraConfigurator: Detected pending changes for urgent request: [vision.ocr]. Pending module sets: container:2526359260800+mlkit.ocr.common+vision.ocr,tflite_dynamite:2640104055100800+tflite_dynamite
+11-12 14:03:52.903   471   510 I netd    : tetherGetStats() -> {[]} <0.29ms>
+11-12 14:03:52.904  1561  6382 I GmsDebugLogger: [73] 1801
+11-12 14:03:52.905  1561  6382 W ZappDownloader: No successful Zapp module downloads for requested modules [MlkitOcrCommon.optional:252635100800:permitMetered, VisionOcr.optional:252635100000:permitMetered, TfliteDynamiteDynamite.integ:264010405100800:permitMetered].
+11-12 14:03:52.905  1561  6382 I GmsDebugLogger: [30] [MlkitOcrCommon.optional:252635100800],[VisionOcr.optional:252635100000],[TfliteDynamiteDynamite.integ:264010405100800]
+11-12 14:03:52.906  1561  6382 W ChimeraConfigService: Retry attempt was throttled. [CONTEXT service_id=264 ]
+11-12 14:03:52.906  1561  6382 I GmsDebugLogger: [83] 1 [vision.ocr]
+11-12 14:03:52.907  1561  6381 W Vision  : Request for optional module download of ocr failed. Request again.
+11-12 14:03:52.907  1561  6381 W Vision  : Would have logged:
+11-12 14:03:52.907  1561  6381 W Vision  : # gptm@37884fe7
+11-12 14:03:52.907  1561  6381 I Vision  : Schedule retrying download ocr at 202441 with backoff 80 seconds
+11-12 14:03:52.912  2344  2554 I DialerVvmExecutorImpl: com.android.dialer.voicemail.service.impl.scheduler.VvmExecutorImpl.execute:229 Beginning VVM action: SYNC with retryCount: 2 for ComponentInfo{com.android.phone/com.android.services.telephony.TelephonyConnectionService}, 1, UserHandle{0} [CONTEXT enable_persistent_logger=true ]
+11-12 14:03:52.914  2344  2611 E DialerRestVvmCarrierService: com.android.dialer.voicemail.service.impl.vvmclients.rest.RestVvmCarrierService.getMsisdn:420 Retrieved phone number in an unexpected format: +15551234567 [CONTEXT disable_client_error_logging=true ]
+11-12 14:03:52.914  2344  2611 E DialerRestVvmCarrierService: zxo: MEDIUM
+11-12 14:03:52.914  2344  2611 E DialerRestVvmCarrierService: 	at a.cN(PG:15)
+11-12 14:03:52.914  2344  2611 E DialerRestVvmCarrierService: 	at pxq.apply(PG:489)
+11-12 14:03:52.914  2344  2611 E DialerRestVvmCarrierService: 	at zcp.apply(PG:13)
+11-12 14:03:52.914  2344  2611 E DialerRestVvmCarrierService: 	at aaka.d(PG:3)
+11-12 14:03:52.914  2344  2611 E DialerRestVvmCarrierService: 	at aakb.run(PG:38)
+11-12 14:03:52.914  2344  2611 E DialerRestVvmCarrierService: 	at umz.run(PG:7)
+11-12 14:03:52.914  2344  2611 E DialerRestVvmCarrierService: 	at aadu.run(PG:44)
+11-12 14:03:52.914  2344  2611 E DialerRestVvmCarrierService: 	at tdt.run(PG:78)
+11-12 14:03:52.914  2344  2611 E DialerRestVvmCarrierService: 	at cp.run(PG:143)
+11-12 14:03:52.914  2344  2611 E DialerRestVvmCarrierService: 	at java.lang.Thread.run(Thread.java:1119)
+11-12 14:03:52.914  2344  2611 E DialerRestVvmCarrierService: 	at uoe.run(PG:61)
+11-12 14:03:52.915  2344  2611 I DialerLogcatLoggingBindings: com.android.dialer.logging.logcat.LogcatLoggingBindings.logImpression:54 Impression: ANDROID_API_UNEXPECTED_PHONE_NUMBER_FORMAT
+11-12 14:03:52.917  2344  2554 I DialerLogcatLoggingBindings: com.android.dialer.logging.logcat.LogcatLoggingBindings.logImpression:47 Impression: VVM_SYNC_STARTED
+11-12 14:03:52.918  2344  2611 W DialerGbaCredentialProvider: com.android.dialer.voicemail.service.impl.vvmclients.rest.GbaCredentialProvider$1.onAuthenticationFailure:93 GBA failed with reason: 1 [CONTEXT disable_client_error_logging=true ]
+11-12 14:03:52.918  2344  2554 I DialerSingletonScopedExternalsLogging: com.google.android.dialershared.externals.logging.SingletonScopedExternalsLogging.recordCallMethodInvocation:75 event: TELEPHONY_BOOTSTRAP_AUTHENTICATION_REQUEST, function parameters: [], return value: Default
+11-12 14:03:52.918  2344  2554 I DialerLoggingConsentCheckerImpl: com.google.android.dialershared.logging.consent.impl.LoggingConsentCheckerImpl.getConsent:72 timer stop with success, timer present: false
+11-12 14:03:52.918  2344  2554 W DialerVvmExecutorImpl: com.android.dialer.voicemail.service.impl.scheduler.VvmExecutorImpl.executeWorkOnCarrierService:444 Could not complete vvm work with action: SYNC. Error: [GeneralFailureReason: UNSPECIFIED, RestFailureReason: GBA_AUTHENTICATION_FAILURE_FEATURE_NOT_SUPPORTED, OmtpFailureReason: OMTP_UNSPECIFIED] for ComponentInfo{com.android.phone/com.android.services.telephony.TelephonyConnectionService}, 1, UserHandle{0} [CONTEXT disable_client_error_logging=true enable_persistent_logger=true ]
+11-12 14:03:52.918  2344  2554 I DialerVvmExecutorImpl: com.android.dialer.voicemail.service.impl.scheduler.VvmExecutorImpl.executeWork:204 VvmResult is: # pug@1db0ddb for ComponentInfo{com.android.phone/com.android.services.telephony.TelephonyConnectionService}, 1, UserHandle{0}
+11-12 14:03:52.919  2344  2611 I DialerLoggingConsentCheckerImpl: com.google.android.dialershared.logging.consent.impl.LoggingConsentCheckerImpl.getConsent:72 timer stop with success, timer present: false
+11-12 14:03:52.919  2344  2554 I DialerLoggingConsentCheckerImpl: com.google.android.dialershared.logging.consent.impl.LoggingConsentCheckerImpl.getConsent:72 timer stop with success, timer present: false
+11-12 14:03:52.923  2344  2554 I DialerSingletonScopedExternalsLogging: com.google.android.dialershared.externals.logging.SingletonScopedExternalsLogging.recordCallMethodInvocation:75 event: TIKTOK_WORK_EXECUTION_MONITOR_ON_WORK_FINISHED, function parameters: [8ea5e74c-4368-4b8c-b421-4cc5a9a716b3,com.android.dialer.voicemail.service.impl.VvmTaskWorker], return value: Retry
+11-12 14:03:52.926  2344  2554 I DialerLoggingConsentCheckerImpl: com.google.android.dialershared.logging.consent.impl.LoggingConsentCheckerImpl.getConsent:72 timer stop with success, timer present: false
+11-12 14:03:52.926  2344  2556 I WM-WorkerWrapper: Worker result RETRY for Work [ id=8ea5e74c-4368-4b8c-b421-4cc5a9a716b3, tags={ com.google.apps.tiktok.contrib.work.TikTokListenableWorker,1,SYNC,TikTokWorker#com.android.dialer.voicemail.service.impl.VvmTaskWorker } ]
+11-12 14:03:52.928  2344  2344 D WM-Processor: fgy 8ea5e74c-4368-4b8c-b421-4cc5a9a716b3 executed; reschedule = true
+11-12 14:03:52.928  2344  2344 D WM-GreedyScheduler: Stopping tracking for WorkGenerationalId(workSpecId=8ea5e74c-4368-4b8c-b421-4cc5a9a716b3, generation=0)
+11-12 14:03:52.928  2344  2344 D WM-SystemJobService: 8ea5e74c-4368-4b8c-b421-4cc5a9a716b3 executed on JobScheduler
+11-12 14:03:52.933  2344  2556 D WM-GreedyScheduler: Cancelling work ID 8ea5e74c-4368-4b8c-b421-4cc5a9a716b3
+11-12 14:03:52.940  2344  2556 D WM-SystemJobScheduler: Scheduling work ID 63b5c054-3de3-40ce-a13b-829828d31dbaJob ID 31
+11-12 14:03:52.941  2344  2556 D WM-GreedyScheduler: Ignoring {WorkSpec: 435ba58a-4c55-4d0a-be8c-8415376bdddb}. Requires device idle.
+11-12 14:03:52.941  2344  2556 D WM-GreedyScheduler: Ignoring {WorkSpec: 177e2219-727d-4537-8a14-ddc6114074ec}. Requires device idle.
+11-12 14:03:52.941  2344  2556 D WM-GreedyScheduler: Ignoring {WorkSpec: 11e05d80-ce1b-481d-b327-ec73c59fc4aa}. Requires device idle.
+11-12 14:03:52.941  2344  2556 D WM-GreedyScheduler: Ignoring {WorkSpec: 8771924a-4680-4374-a49d-e55d797b6ad8}. Requires device idle.
+11-12 14:03:52.941  2344  2556 D WM-GreedyScheduler: Ignoring {WorkSpec: d4221181-2f52-42d4-a930-a92a0099360d}. Requires device idle.
+11-12 14:03:52.942  2344  2556 D WM-NetworkStateTracker: Unregistering network callback
+11-12 14:03:53.193  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=186: unexpected standardMetadataType=21
+11-12 14:03:53.200   623  3361 D BufferPoolAccessor2.0: bufferpool2 0x76f6a635cf08 : 2(1944000 size) total buffers - 1(972000 size) used buffers - 381/389 (recycle/alloc) - 23/388 (fetch/transfer)
+11-12 14:03:53.202  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=259: unexpected standardMetadataType=21
+11-12 14:03:53.214  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=188: unexpected standardMetadataType=21
+11-12 14:03:53.232  4689  4689 D AlbumDone: person 65: found=true among 25
+11-12 14:03:53.233  4689  4689 D AlbumDone: person 65: ready, 4 samples
+11-12 14:03:53.268  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=414: unexpected standardMetadataType=21
+11-12 14:03:53.297  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=260: unexpected standardMetadataType=21
+11-12 14:03:53.321  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=261: unexpected standardMetadataType=21
+11-12 14:03:53.395  4689  6040 W HWUI    : Image decoding logging dropped!
+11-12 14:03:53.398   668   791 I ImeTracker: com.albumdone.app:37b05f38: onRequestHide at ORIGIN_SERVER reason HIDE_UNSPECIFIED_WINDOW fromUser false
+11-12 14:03:53.402  1709  1709 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2043
+11-12 14:03:53.403   668  2036 I ImeTracker: system_server:b4fbe509: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+11-12 14:03:53.414  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=117: unexpected standardMetadataType=21
+11-12 14:03:53.418   668   693 I ImeTracker: system_server:b4fbe509: onCancelled at PHASE_SERVER_SHOULD_HIDE
+11-12 14:03:53.443  4689  6046 W HWUI    : Image decoding logging dropped!
+11-12 14:03:53.464  4689  4689 D InsetsController: hide(ime(), fromIme=false)
+11-12 14:03:53.464  4689  4689 I ImeTracker: com.albumdone.app:37b05f38: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+11-12 14:03:53.481  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=181: unexpected standardMetadataType=21
+11-12 14:03:53.557  1709  1709 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+11-12 14:03:53.557  1709  1709 W NotificationCenter: NotificationCenter$NotificationQueue.notifyPendingNotificationsOnExecutor():877 Heavy notify work detected on UI thread: [kig->jnx, kig->khc, kig->ilu, kig->ilu, kig->ilu, kig->ilu, kig->imt, kig->ilu, kig->ilu, kig->ilu, kig->gkl, kig->ilu, kig->ilu, kig->ilu, kig->ilu, kig->ilu, kig->ilu, kig->khg, kig->ijm, kig->fro, kig->fef, kig->fcb, kig->lux] takes 140ms
+11-12 14:03:53.558  1709  1709 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1293 onStartInput(EditorInfo{EditorInfo{packageName=com.albumdone.app, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+11-12 14:03:53.568  1709  1709 I EmojiCompatManager: EmojiCompatManager.getEmojiCompatIfLoaded():343 EmojiCompat.init() was never called.
+11-12 14:03:53.568  1709  1709 I EmojiCompatManager: java.lang.IllegalStateException: EmojiCompat is not initialized. Please call EmojiCompat.init() first
+11-12 14:03:53.568  1709  1709 I EmojiCompatManager: 	at asx.p(PG:6)
+11-12 14:03:53.568  1709  1709 I EmojiCompatManager: 	at axb.b(PG:13)
+11-12 14:03:53.568  1709  1709 I EmojiCompatManager: 	at jnr.b(PG:2)
+11-12 14:03:53.568  1709  1709 I EmojiCompatManager: 	at jnr.c(PG:4)
+11-12 14:03:53.568  1709  1709 I EmojiCompatManager: 	at jnr.f(PG:3)
+11-12 14:03:53.568  1709  1709 I EmojiCompatManager: 	at jnx.c(PG:3)
+11-12 14:03:53.568  1709  1709 I EmojiCompatManager: 	at kif.cz(PG:47)
+11-12 14:03:53.568  1709  1709 I EmojiCompatManager: 	at lhl.run(PG:1025)
+11-12 14:03:53.568  1709  1709 I EmojiCompatManager: 	at jaf.execute(PG:12)
+11-12 14:03:53.568  1709  1709 I EmojiCompatManager: 	at nco.v(PG:13)
+11-12 14:03:53.568  1709  1709 I EmojiCompatManager: 	at lhn.m(PG:96)
+11-12 14:03:53.568  1709  1709 I EmojiCompatManager: 	at lhn.k(PG:25)
+11-12 14:03:53.568  1709  1709 I EmojiCompatManager: 	at kgn.onStartInput(PG:250)
+11-12 14:03:53.568  1709  1709 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService.doStartInput(InputMethodService.java:3521)
+11-12 14:03:53.568  1709  1709 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService$InputMethodImpl.startInput(InputMethodService.java:879)
+11-12 14:03:53.568  1709  1709 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService$InputMethodImpl.dispatchStartInput(InputMethodService.java:908)
+11-12 14:03:53.568  1709  1709 I EmojiCompatManager: 	at android.inputmethodservice.IInputMethodWrapper.executeMessage(IInputMethodWrapper.java:201)
+11-12 14:03:53.568  1709  1709 I EmojiCompatManager: 	at com.android.internal.os.HandlerCaller$MyHandler.handleMessage(HandlerCaller.java:44)
+11-12 14:03:53.568  1709  1709 I EmojiCompatManager: 	at android.os.Handler.dispatchMessage(Handler.java:110)
+11-12 14:03:53.568  1709  1709 I EmojiCompatManager: 	at android.os.Looper.loopOnce(Looper.java:248)
+11-12 14:03:53.568  1709  1709 I EmojiCompatManager: 	at android.os.Looper.loop(Looper.java:338)
+11-12 14:03:53.568  1709  1709 I EmojiCompatManager: 	at android.app.ActivityThread.main(ActivityThread.java:9067)
+11-12 14:03:53.568  1709  1709 I EmojiCompatManager: 	at java.lang.reflect.Method.invoke(Native Method)
+11-12 14:03:53.568  1709  1709 I EmojiCompatManager: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:593)
+11-12 14:03:53.568  1709  1709 I EmojiCompatManager: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:932)
+11-12 14:03:53.577  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=262: unexpected standardMetadataType=21
+11-12 14:03:53.606  1709  1709 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+11-12 14:03:53.606  1709  1709 W NotificationCenter: NotificationCenter$NotificationQueue.notifyPendingNotificationsOnExecutor():877 Heavy notify work detected on UI thread: [kig->jnx, kig->khc, kig->ilu, kig->ilu, kig->ilu, kig->ilu, kig->imt, kig->ilu, kig->ilu, kig->ilu, kig->gkl, kig->ilu, kig->ilu, kig->ilu, kig->ilu, kig->ilu, kig->ilu, kig->khg, kig->ijm, kig->fro, kig->fef, kig->fcb, kig->lux] takes 38ms
+11-12 14:03:53.644  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=183: unexpected standardMetadataType=21
+11-12 14:03:53.670  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=189: unexpected standardMetadataType=21
+11-12 14:03:53.677  4689  5873 W HWUI    : Image decoding logging dropped!
+11-12 14:03:53.752  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=184: unexpected standardMetadataType=21
+11-12 14:03:53.769  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=102: unexpected standardMetadataType=21
+11-12 14:03:54.990   668   992 D WifiClientModeImpl[29069:wlan0]: updateLinkLayerStatsRssiSpeedFrequencyCapabilities rssi=-50 TxLinkspeed=6 freq=2437 RxLinkSpeed=2
+11-12 14:03:54.990   668   992 D WifiDataStall: tx tput in kbps: 37000
+11-12 14:03:54.990   668   992 D WifiDataStall: rx tput in kbps: 37000
+11-12 14:03:54.990   668   992 V WifiConfigManager: Updating scan detail cache freq=2437 BSSID=02:15:b2:00:00:01 RSSI=-50 for "AndroidWifi"NONE
+11-12 14:03:54.990   668   992 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+11-12 14:03:54.990   668   992 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+11-12 14:03:54.990   668   992 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+11-12 14:03:54.990   668   992 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+11-12 14:03:54.990   668   992 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+11-12 14:03:54.990   668   992 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+11-12 14:03:54.990   668   992 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+11-12 14:03:54.990   668   992 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+11-12 14:03:54.991   668   992 D WifiScoreCard: BSSID update SIGNAL_POLL ID: 1424021950 SSID: "AndroidWifi", BSSID: 02:15:b2:00:00:01, MAC: 02:15:b2:00:00:00, IP: /10.0.2.16, Security type: 0, Supplicant state: COMPLETED, Wi-Fi standard: legacy, RSSI: -50, Link speed: 6Mbps, Tx Link speed: 6Mbps, Max Supported Tx Link speed: 54Mbps, Rx Link speed: 2Mbps, Max Supported Rx Link speed: 54Mbps, Frequency: 2437MHz, Net ID: 0, Metered hint: false, score: 60, isUsable: true, CarrierMerged: false, SubscriptionId: -1, IsPrimary: 1, Trusted: true, Restricted: false, Ephemeral: false, OEM paid: false, OEM private: false, OSU AP: false, FQDN: <none>, Provider friendly name: <none>, Requesting package name: <none>"AndroidWifi"openMLO Information: , Is TID-To-Link negotiation supported by the AP: false, AP MLD Address: <none>, AP MLO Link Id: <none>, AP MLO Affiliated links: <none>, Vendor Data: <none>
+11-12 14:03:54.991   668   992 D WifiScoreCard: txRate: 1 txSpeed: 6
+11-12 14:03:54.991   668   992 D WifiScoreCard: network update SIGNAL_POLL "AndroidWifi" ID: 601247878 RSSI -50 txSpeed -1
+11-12 14:03:54.991   668   992 D WifiClientModeImpl[29069:wlan0]:  ClientModeImpl$L2ConnectedState screen=on 1 0 "AndroidWifi" 02:15:b2:00:00:01 rssi=-50 f=2437 sc=60 link=6 tx=0.0, 0.0, 0.0 rx=0.0 bcn=0 [on:0 tx:0 rx:0 period:3004] from screen [on:0 period:-804094737] score=60
+11-12 14:03:56.155  1709  1709 I StylusModule: StylusModule.onUpdateToolType():801 Update tool type = 0
+11-12 14:03:56.211  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=185: unexpected standardMetadataType=21
+11-12 14:03:56.674  4689  4689 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=androidx.compose.material3.ModalBottomSheetDialogLayout$Api34Impl$createBackCallback$1@1a05192
+11-12 14:03:56.687   668   694 I ImeTracker: system_server:53519cdc: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+11-12 14:03:56.687   668   693 I ImeTracker: system_server:53519cdc: onCancelled at PHASE_SERVER_SHOULD_HIDE
+11-12 14:03:56.724  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=253: unexpected standardMetadataType=21
+11-12 14:03:56.735  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=256: unexpected standardMetadataType=21
+11-12 14:03:56.751   668   791 I ImeTracker: com.albumdone.app:edcc6247: onRequestHide at ORIGIN_SERVER reason HIDE_UNSPECIFIED_WINDOW fromUser false
+11-12 14:03:56.755  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=257: unexpected standardMetadataType=21
+11-12 14:03:56.756  1709  1709 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2043
+11-12 14:03:56.756  1709  1709 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+11-12 14:03:56.757  1709  1709 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1293 onStartInput(EditorInfo{EditorInfo{packageName=com.albumdone.app, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+11-12 14:03:56.757  1709  1709 I EmojiCompatManager: EmojiCompatManager.getEmojiCompatIfLoaded():343 EmojiCompat.init() was never called.
+11-12 14:03:56.757  1709  1709 I EmojiCompatManager: java.lang.IllegalStateException: EmojiCompat is not initialized. Please call EmojiCompat.init() first
+11-12 14:03:56.757  1709  1709 I EmojiCompatManager: 	at asx.p(PG:6)
+11-12 14:03:56.757  1709  1709 I EmojiCompatManager: 	at axb.b(PG:13)
+11-12 14:03:56.757  1709  1709 I EmojiCompatManager: 	at jnr.b(PG:2)
+11-12 14:03:56.757  1709  1709 I EmojiCompatManager: 	at jnr.c(PG:4)
+11-12 14:03:56.757  1709  1709 I EmojiCompatManager: 	at jnr.f(PG:3)
+11-12 14:03:56.757  1709  1709 I EmojiCompatManager: 	at jnx.c(PG:3)
+11-12 14:03:56.757  1709  1709 I EmojiCompatManager: 	at kif.cz(PG:47)
+11-12 14:03:56.757  1709  1709 I EmojiCompatManager: 	at lhl.run(PG:1025)
+11-12 14:03:56.757  1709  1709 I EmojiCompatManager: 	at jaf.execute(PG:12)
+11-12 14:03:56.757  1709  1709 I EmojiCompatManager: 	at nco.v(PG:13)
+11-12 14:03:56.757  1709  1709 I EmojiCompatManager: 	at lhn.m(PG:96)
+11-12 14:03:56.757  1709  1709 I EmojiCompatManager: 	at lhn.k(PG:25)
+11-12 14:03:56.757  1709  1709 I EmojiCompatManager: 	at kgn.onStartInput(PG:250)
+11-12 14:03:56.757  1709  1709 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService.doStartInput(InputMethodService.java:3521)
+11-12 14:03:56.757  1709  1709 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService$InputMethodImpl.startInput(InputMethodService.java:879)
+11-12 14:03:56.757  1709  1709 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService$InputMethodImpl.dispatchStartInput(InputMethodService.java:908)
+11-12 14:03:56.757  1709  1709 I EmojiCompatManager: 	at android.inputmethodservice.IInputMethodWrapper.executeMessage(IInputMethodWrapper.java:201)
+11-12 14:03:56.757  1709  1709 I EmojiCompatManager: 	at com.android.internal.os.HandlerCaller$MyHandler.handleMessage(HandlerCaller.java:44)
+11-12 14:03:56.757  1709  1709 I EmojiCompatManager: 	at android.os.Handler.dispatchMessage(Handler.java:110)
+11-12 14:03:56.757  1709  1709 I EmojiCompatManager: 	at android.os.Looper.loopOnce(Looper.java:248)
+11-12 14:03:56.757  1709  1709 I EmojiCompatManager: 	at android.os.Looper.loop(Looper.java:338)
+11-12 14:03:56.757  1709  1709 I EmojiCompatManager: 	at android.app.ActivityThread.main(ActivityThread.java:9067)
+11-12 14:03:56.757  1709  1709 I EmojiCompatManager: 	at java.lang.reflect.Method.invoke(Native Method)
+11-12 14:03:56.757  1709  1709 I EmojiCompatManager: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:593)
+11-12 14:03:56.757  1709  1709 I EmojiCompatManager: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:932)
+11-12 14:03:56.766  4689  4689 D InsetsController: hide(ime(), fromIme=false)
+11-12 14:03:56.766  4689  4689 I ImeTracker: com.albumdone.app:edcc6247: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+11-12 14:03:56.767   668  2263 I ImeTracker: system_server:70a3c9c2: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+11-12 14:03:56.768  1709  1709 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+11-12 14:03:56.768  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=258: unexpected standardMetadataType=21
+11-12 14:03:56.775  1709  1709 I StylusModule: StylusModule.onUpdateToolType():801 Update tool type = 0
+11-12 14:03:56.780   668   693 I ImeTracker: system_server:70a3c9c2: onCancelled at PHASE_SERVER_SHOULD_HIDE
+11-12 14:03:56.824  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=186: unexpected standardMetadataType=21
+11-12 14:03:56.868  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=259: unexpected standardMetadataType=21
+11-12 14:03:57.415  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=188: unexpected standardMetadataType=21
+11-12 14:03:57.449  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=414: unexpected standardMetadataType=21
+11-12 14:03:57.517  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=260: unexpected standardMetadataType=21
+11-12 14:03:57.558  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=261: unexpected standardMetadataType=21
+11-12 14:03:57.627  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=117: unexpected standardMetadataType=21
+11-12 14:03:57.660  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=181: unexpected standardMetadataType=21
+11-12 14:03:57.728  4689  5873 W HWUI    : Image decoding logging dropped!
+11-12 14:03:57.731  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=262: unexpected standardMetadataType=21
+11-12 14:03:57.764  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=183: unexpected standardMetadataType=21
+11-12 14:03:57.809  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=189: unexpected standardMetadataType=21
+11-12 14:03:57.936   668   998 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET, states=14
+11-12 14:03:57.936   668   998 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET6, states=14
+11-12 14:03:57.936   668   998 D InetDiagMessage: Destroyed live tcp sockets for uids={10135} in 1ms
+11-12 14:03:57.936   668   998 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET, states=14
+11-12 14:03:57.936   668   998 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET6, states=14
+11-12 14:03:57.936   668   998 D InetDiagMessage: Destroyed live tcp sockets for uids={20135} in 0ms
+11-12 14:03:57.994   668   992 D WifiClientModeImpl[29069:wlan0]: updateLinkLayerStatsRssiSpeedFrequencyCapabilities rssi=-50 TxLinkspeed=6 freq=2437 RxLinkSpeed=2
+11-12 14:03:57.994   668   992 D WifiDataStall: tx tput in kbps: 37000
+11-12 14:03:57.994   668   992 D WifiDataStall: rx tput in kbps: 37000
+11-12 14:03:57.994   668   992 V WifiConfigManager: Updating scan detail cache freq=2437 BSSID=02:15:b2:00:00:01 RSSI=-50 for "AndroidWifi"NONE
+11-12 14:03:57.994   668   992 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+11-12 14:03:57.994   668   992 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+11-12 14:03:57.994   668   992 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+11-12 14:03:57.994   668   992 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+11-12 14:03:57.994   668   992 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+11-12 14:03:57.994   668   992 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+11-12 14:03:57.994   668   992 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+11-12 14:03:57.994   668   992 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+11-12 14:03:57.995   668   992 D WifiScoreCard: BSSID update SIGNAL_POLL ID: 1424021950 SSID: "AndroidWifi", BSSID: 02:15:b2:00:00:01, MAC: 02:15:b2:00:00:00, IP: /10.0.2.16, Security type: 0, Supplicant state: COMPLETED, Wi-Fi standard: legacy, RSSI: -50, Link speed: 6Mbps, Tx Link speed: 6Mbps, Max Supported Tx Link speed: 54Mbps, Rx Link speed: 2Mbps, Max Supported Rx Link speed: 54Mbps, Frequency: 2437MHz, Net ID: 0, Metered hint: false, score: 60, isUsable: true, CarrierMerged: false, SubscriptionId: -1, IsPrimary: 1, Trusted: true, Restricted: false, Ephemeral: false, OEM paid: false, OEM private: false, OSU AP: false, FQDN: <none>, Provider friendly name: <none>, Requesting package name: <none>"AndroidWifi"openMLO Information: , Is TID-To-Link negotiation supported by the AP: false, AP MLD Address: <none>, AP MLO Link Id: <none>, AP MLO Affiliated links: <none>, Vendor Data: <none>
+11-12 14:03:57.995   668   992 D WifiScoreCard: txRate: 1 txSpeed: 6
+11-12 14:03:57.995   668   992 D WifiScoreCard: network update SIGNAL_POLL "AndroidWifi" ID: 601247878 RSSI -50 txSpeed -1
+11-12 14:03:57.995   668   992 D WifiClientModeImpl[29069:wlan0]:  ClientModeImpl$L2ConnectedState screen=on 1 0 "AndroidWifi" 02:15:b2:00:00:01 rssi=-50 f=2437 sc=60 link=6 tx=0.0, 0.0, 0.0 rx=0.0 bcn=0 [on:0 tx:0 rx:0 period:3004] from screen [on:0 period:-804091733] score=60
+11-12 14:03:58.760  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=184: unexpected standardMetadataType=21
+11-12 14:03:58.764   623  3361 D BufferPoolAccessor2.0: bufferpool2 0x76f6a635cf08 : 2(1944000 size) total buffers - 1(972000 size) used buffers - 410/418 (recycle/alloc) - 25/417 (fetch/transfer)
+11-12 14:03:58.771  1258  1502 D SatelliteController: iisInCarrierRoamingNbIotNtn: satellite is disabled
+11-12 14:03:58.785  4689  4689 D AlbumDone: album update: 40 selected of 240, 25 people
+11-12 14:03:58.816  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=102: unexpected standardMetadataType=21
+11-12 14:03:58.839  1709  1709 I StylusModule: StylusModule.onUpdateToolType():801 Update tool type = 0
+11-12 14:03:58.859  4689  4689 D AlbumDone: analysis of 240 photos in 18 ms
+11-12 14:03:58.882  4689  5873 D AlbumDone: album planned by the rules: 40 of 240 photos
+11-12 14:03:58.885  4689  4689 D AlbumDone: album update: 40 selected of 240, 25 people
+11-12 14:03:58.886  4689  5066 D AlbumDone: album saved
+11-12 14:03:58.888  4689  4689 D AlbumDone: album update: 40 selected of 240, 25 people
+11-12 14:03:58.890  4689  4689 D AlbumDone: album update: 40 selected of 240, 25 people
+11-12 14:03:59.363  4689  4694 I m.albumdone.app: Compiler allocated 4389KB to compile void com.albumdone.app.ui.AlbumScreenKt$CoupleCard$2.invoke(androidx.compose.runtime.Composer, int)
+11-12 14:03:59.392  4689  5873 W HWUI    : Image decoding logging dropped!
+11-12 14:03:59.511  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=185: unexpected standardMetadataType=21
+11-12 14:03:59.511  4689  6040 W HWUI    : Image decoding logging dropped!
+11-12 14:03:59.561  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=253: unexpected standardMetadataType=21
+11-12 14:03:59.566  4689  5066 W HWUI    : Image decoding logging dropped!
+11-12 14:03:59.587  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=256: unexpected standardMetadataType=21
+11-12 14:03:59.591  4689  6040 W HWUI    : Image decoding logging dropped!
+11-12 14:03:59.633  4689  6041 W HWUI    : Image decoding logging dropped!
+11-12 14:03:59.634  4689  6039 W HWUI    : Image decoding logging dropped!
+11-12 14:03:59.680  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=257: unexpected standardMetadataType=21
+11-12 14:03:59.690  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=258: unexpected standardMetadataType=21
+11-12 14:03:59.746  4689  4695 I m.albumdone.app: NativeAlloc concurrent mark compact GC freed 16MB AllocSpace bytes, 11(216KB) LOS objects, 49% free, 18MB/37MB, paused 1.417ms,11.502ms total 189.651ms
+11-12 14:03:59.750  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=186: unexpected standardMetadataType=21
+11-12 14:03:59.802  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=259: unexpected standardMetadataType=21
+11-12 14:03:59.834  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=188: unexpected standardMetadataType=21
+11-12 14:03:59.848  4689  6039 W HWUI    : Image decoding logging dropped!
+11-12 14:03:59.856  4689  6041 W HWUI    : Image decoding logging dropped!
+11-12 14:03:59.860  4689  6040 W HWUI    : Image decoding logging dropped!
+11-12 14:03:59.867  4689  6040 W HWUI    : Image decoding logging dropped!
+11-12 14:03:59.870  4689  6041 W HWUI    : Image decoding logging dropped!
+11-12 14:03:59.876  4689  6041 W HWUI    : Image decoding logging dropped!
+11-12 14:03:59.940  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=414: unexpected standardMetadataType=21
+11-12 14:03:59.945   471   510 I netd    : tetherGetStats() -> {[]} <0.29ms>
+11-12 14:03:59.949  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=260: unexpected standardMetadataType=21
+11-12 14:04:00.043  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=261: unexpected standardMetadataType=21
+11-12 14:04:00.967  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=117: unexpected standardMetadataType=21
+11-12 14:04:00.991  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=181: unexpected standardMetadataType=21
+11-12 14:04:00.998   668   992 D WifiClientModeImpl[29069:wlan0]: updateLinkLayerStatsRssiSpeedFrequencyCapabilities rssi=-50 TxLinkspeed=6 freq=2437 RxLinkSpeed=2
+11-12 14:04:01.000   668   992 D WifiDataStall: tx tput in kbps: 37000
+11-12 14:04:01.000   668   992 D WifiDataStall: rx tput in kbps: 37000
+11-12 14:04:01.000   668   992 V WifiConfigManager: Updating scan detail cache freq=2437 BSSID=02:15:b2:00:00:01 RSSI=-50 for "AndroidWifi"NONE
+11-12 14:04:01.002   668   992 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+11-12 14:04:01.002   668   992 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+11-12 14:04:01.002   668   992 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+11-12 14:04:01.002   668   992 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+11-12 14:04:01.003   668   992 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+11-12 14:04:01.003   668   992 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+11-12 14:04:01.003   668   992 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+11-12 14:04:01.003   668   992 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+11-12 14:04:01.003   668   992 D WifiScoreCard: BSSID update SIGNAL_POLL ID: 1424021950 SSID: "AndroidWifi", BSSID: 02:15:b2:00:00:01, MAC: 02:15:b2:00:00:00, IP: /10.0.2.16, Security type: 0, Supplicant state: COMPLETED, Wi-Fi standard: legacy, RSSI: -50, Link speed: 6Mbps, Tx Link speed: 6Mbps, Max Supported Tx Link speed: 54Mbps, Rx Link speed: 2Mbps, Max Supported Rx Link speed: 54Mbps, Frequency: 2437MHz, Net ID: 0, Metered hint: false, score: 60, isUsable: true, CarrierMerged: false, SubscriptionId: -1, IsPrimary: 1, Trusted: true, Restricted: false, Ephemeral: false, OEM paid: false, OEM private: false, OSU AP: false, FQDN: <none>, Provider friendly name: <none>, Requesting package name: <none>"AndroidWifi"openMLO Information: , Is TID-To-Link negotiation supported by the AP: false, AP MLD Address: <none>, AP MLO Link Id: <none>, AP MLO Affiliated links: <none>, Vendor Data: <none>
+11-12 14:04:01.003   668   992 D WifiScoreCard: txRate: 1 txSpeed: 6
+11-12 14:04:01.003   668   992 D WifiScoreCard: network update SIGNAL_POLL "AndroidWifi" ID: 601247878 RSSI -50 txSpeed -1
+11-12 14:04:01.003   668   992 D WifiClientModeImpl[29069:wlan0]:  ClientModeImpl$L2ConnectedState screen=on 1 0 "AndroidWifi" 02:15:b2:00:00:01 rssi=-50 f=2437 sc=60 link=6 tx=0.0, 0.0, 0.0 rx=0.0 bcn=0 [on:0 tx:0 rx:0 period:3008] from screen [on:0 period:-804088725] score=60
+11-12 14:04:01.030  4689  5067 W HWUI    : Image decoding logging dropped!
+11-12 14:04:01.089  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=262: unexpected standardMetadataType=21
+11-12 14:04:01.118  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=183: unexpected standardMetadataType=21
+11-12 14:04:01.185  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=189: unexpected standardMetadataType=21
+11-12 14:04:01.237  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=184: unexpected standardMetadataType=21
+11-12 14:04:01.262  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=102: unexpected standardMetadataType=21
+11-12 14:04:01.274   668   791 I ImeTracker: com.albumdone.app:1ef39b2a: onRequestHide at ORIGIN_SERVER reason HIDE_UNSPECIFIED_WINDOW fromUser false
+11-12 14:04:01.279  1709  1709 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2043
+11-12 14:04:01.280  1709  1709 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+11-12 14:04:01.280  1709  1709 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1293 onStartInput(EditorInfo{EditorInfo{packageName=com.albumdone.app, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+11-12 14:04:01.280  1709  1709 I EmojiCompatManager: EmojiCompatManager.getEmojiCompatIfLoaded():343 EmojiCompat.init() was never called.
+11-12 14:04:01.280  1709  1709 I EmojiCompatManager: java.lang.IllegalStateException: EmojiCompat is not initialized. Please call EmojiCompat.init() first
+11-12 14:04:01.280  1709  1709 I EmojiCompatManager: 	at asx.p(PG:6)
+11-12 14:04:01.280  1709  1709 I EmojiCompatManager: 	at axb.b(PG:13)
+11-12 14:04:01.280  1709  1709 I EmojiCompatManager: 	at jnr.b(PG:2)
+11-12 14:04:01.280  1709  1709 I EmojiCompatManager: 	at jnr.c(PG:4)
+11-12 14:04:01.280  1709  1709 I EmojiCompatManager: 	at jnr.f(PG:3)
+11-12 14:04:01.280  1709  1709 I EmojiCompatManager: 	at jnx.c(PG:3)
+11-12 14:04:01.280  1709  1709 I EmojiCompatManager: 	at kif.cz(PG:47)
+11-12 14:04:01.280  1709  1709 I EmojiCompatManager: 	at lhl.run(PG:1025)
+11-12 14:04:01.280  1709  1709 I EmojiCompatManager: 	at jaf.execute(PG:12)
+11-12 14:04:01.280  1709  1709 I EmojiCompatManager: 	at nco.v(PG:13)
+11-12 14:04:01.280  1709  1709 I EmojiCompatManager: 	at lhn.m(PG:96)
+11-12 14:04:01.280  1709  1709 I EmojiCompatManager: 	at lhn.k(PG:25)
+11-12 14:04:01.280  1709  1709 I EmojiCompatManager: 	at kgn.onStartInput(PG:250)
+11-12 14:04:01.280  1709  1709 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService.doStartInput(InputMethodService.java:3521)
+11-12 14:04:01.280  1709  1709 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService$InputMethodImpl.startInput(InputMethodService.java:879)
+11-12 14:04:01.280  1709  1709 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService$InputMethodImpl.dispatchStartInput(InputMethodService.java:908)
+11-12 14:04:01.280  1709  1709 I EmojiCompatManager: 	at android.inputmethodservice.IInputMethodWrapper.executeMessage(IInputMethodWrapper.java:201)
+11-12 14:04:01.280  1709  1709 I EmojiCompatManager: 	at com.android.internal.os.HandlerCaller$MyHandler.handleMessage(HandlerCaller.java:44)
+11-12 14:04:01.280  1709  1709 I EmojiCompatManager: 	at android.os.Handler.dispatchMessage(Handler.java:110)
+11-12 14:04:01.280  1709  1709 I EmojiCompatManager: 	at android.os.Looper.loopOnce(Looper.java:248)
+11-12 14:04:01.280  1709  1709 I EmojiCompatManager: 	at android.os.Looper.loop(Looper.java:338)
+11-12 14:04:01.280  1709  1709 I EmojiCompatManager: 	at android.app.ActivityThread.main(ActivityThread.java:9067)
+11-12 14:04:01.280  1709  1709 I EmojiCompatManager: 	at java.lang.reflect.Method.invoke(Native Method)
+11-12 14:04:01.280  1709  1709 I EmojiCompatManager: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:593)
+11-12 14:04:01.280  1709  1709 I EmojiCompatManager: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:932)
+11-12 14:04:01.281  1709  1709 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+11-12 14:04:01.324   668  2549 I ImeTracker: system_server:e27e1ff6: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+11-12 14:04:01.331  4689  4689 D InsetsController: hide(ime(), fromIme=false)
+11-12 14:04:01.331  4689  4689 I ImeTracker: com.albumdone.app:1ef39b2a: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+11-12 14:04:01.348   668   693 I ImeTracker: system_server:e27e1ff6: onCancelled at PHASE_SERVER_SHOULD_HIDE
+11-12 14:04:01.395  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=185: unexpected standardMetadataType=21
+11-12 14:04:01.443  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=253: unexpected standardMetadataType=21
+11-12 14:04:01.478  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=256: unexpected standardMetadataType=21
+11-12 14:04:01.518  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=257: unexpected standardMetadataType=21
+11-12 14:04:01.965   668   709 I WifiService: isFeatureSupported uid=1000 returns [WIFI_FEATURE_INFRA, WIFI_FEATURE_P2P, WIFI_FEATURE_MOBILE_HOTSPOT, WIFI_FEATURE_WPA3_SAE, WIFI_FEATURE_WPA3_SUITE_B, WIFI_FEATURE_OWE, WIFI_FEATURE_DPP, WIFI_FEATURE_AP_RAND_MAC, WIFI_FEATURE_MBO, WIFI_FEATURE_FILS_SHA256, WIFI_FEATURE_FILS_SHA384, WIFI_FEATURE_SAE_PK, WIFI_FEATURE_DPP_ENROLLEE_RESPONDER, WIFI_FEATURE_PASSPOINT_TERMS_AND_CONDITIONS, WIFI_FEATURE_WFD_R2, WIFI_FEATURE_DECORATED_IDENTITY, WIFI_FEATURE_TRUST_ON_FIRST_USE, WIFI_FEATURE_SET_TLS_MINIMUM_VERSION, WIFI_FEATURE_TLS_V1_3, WIFI_FEATURE_WEP, WIFI_FEATURE_WPA_PERSONAL]
+11-12 14:04:02.480  4689  4689 D AlbumDone: album update: 40 selected of 240, 25 people
+11-12 14:04:02.512  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=258: unexpected standardMetadataType=21
+11-12 14:04:02.522  4689  4689 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=androidx.compose.material3.ModalBottomSheetDialogLayout$Api34Impl$createBackCallback$1@df50316
+11-12 14:04:02.569  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=186: unexpected standardMetadataType=21
+11-12 14:04:02.595  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=259: unexpected standardMetadataType=21
+11-12 14:04:02.605  4689  4689 D AlbumDone: album update: 40 selected of 240, 25 people
+11-12 14:04:02.607   668   694 I ImeTracker: system_server:a5a16568: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+11-12 14:04:02.613   668   693 I ImeTracker: system_server:a5a16568: onCancelled at PHASE_SERVER_SHOULD_HIDE
+11-12 14:04:02.641  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=188: unexpected standardMetadataType=21
+11-12 14:04:02.694  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=414: unexpected standardMetadataType=21
+11-12 14:04:02.751   668   791 I ImeTracker: com.albumdone.app:ea4d8eb: onRequestHide at ORIGIN_SERVER reason HIDE_UNSPECIFIED_WINDOW fromUser false
+11-12 14:04:02.752  4689  4689 D InsetsController: hide(ime(), fromIme=false)
+11-12 14:04:02.752  1709  1709 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2043
+11-12 14:04:02.753  1709  1709 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+11-12 14:04:02.753  1709  1709 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1293 onStartInput(EditorInfo{EditorInfo{packageName=com.albumdone.app, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+11-12 14:04:02.756  4689  4689 I ImeTracker: com.albumdone.app:ea4d8eb: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+11-12 14:04:02.758   668  2549 I ImeTracker: system_server:40bf9bb3: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+11-12 14:04:02.760  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=260: unexpected standardMetadataType=21
+11-12 14:04:02.763  1709  1709 I EmojiCompatManager: EmojiCompatManager.getEmojiCompatIfLoaded():343 EmojiCompat.init() was never called.
+11-12 14:04:02.763  1709  1709 I EmojiCompatManager: java.lang.IllegalStateException: EmojiCompat is not initialized. Please call EmojiCompat.init() first
+11-12 14:04:02.763  1709  1709 I EmojiCompatManager: 	at asx.p(PG:6)
+11-12 14:04:02.763  1709  1709 I EmojiCompatManager: 	at axb.b(PG:13)
+11-12 14:04:02.763  1709  1709 I EmojiCompatManager: 	at jnr.b(PG:2)
+11-12 14:04:02.763  1709  1709 I EmojiCompatManager: 	at jnr.c(PG:4)
+11-12 14:04:02.763  1709  1709 I EmojiCompatManager: 	at jnr.f(PG:3)
+11-12 14:04:02.763  1709  1709 I EmojiCompatManager: 	at jnx.c(PG:3)
+11-12 14:04:02.763  1709  1709 I EmojiCompatManager: 	at kif.cz(PG:47)
+11-12 14:04:02.763  1709  1709 I EmojiCompatManager: 	at lhl.run(PG:1025)
+11-12 14:04:02.763  1709  1709 I EmojiCompatManager: 	at jaf.execute(PG:12)
+11-12 14:04:02.763  1709  1709 I EmojiCompatManager: 	at nco.v(PG:13)
+11-12 14:04:02.763  1709  1709 I EmojiCompatManager: 	at lhn.m(PG:96)
+11-12 14:04:02.763  1709  1709 I EmojiCompatManager: 	at lhn.k(PG:25)
+11-12 14:04:02.763  1709  1709 I EmojiCompatManager: 	at kgn.onStartInput(PG:250)
+11-12 14:04:02.763  1709  1709 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService.doStartInput(InputMethodService.java:3521)
+11-12 14:04:02.763  1709  1709 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService$InputMethodImpl.startInput(InputMethodService.java:879)
+11-12 14:04:02.763  1709  1709 I EmojiCompatManager: 	at android.inputmethodservice.InputMethodService$InputMethodImpl.dispatchStartInput(InputMethodService.java:908)
+11-12 14:04:02.763  1709  1709 I EmojiCompatManager: 	at android.inputmethodservice.IInputMethodWrapper.executeMessage(IInputMethodWrapper.java:201)
+11-12 14:04:02.763  1709  1709 I EmojiCompatManager: 	at com.android.internal.os.HandlerCaller$MyHandler.handleMessage(HandlerCaller.java:44)
+11-12 14:04:02.763  1709  1709 I EmojiCompatManager: 	at android.os.Handler.dispatchMessage(Handler.java:110)
+11-12 14:04:02.763  1709  1709 I EmojiCompatManager: 	at android.os.Looper.loopOnce(Looper.java:248)
+11-12 14:04:02.763  1709  1709 I EmojiCompatManager: 	at android.os.Looper.loop(Looper.java:338)
+11-12 14:04:02.763  1709  1709 I EmojiCompatManager: 	at android.app.ActivityThread.main(ActivityThread.java:9067)
+11-12 14:04:02.763  1709  1709 I EmojiCompatManager: 	at java.lang.reflect.Method.invoke(Native Method)
+11-12 14:04:02.763  1709  1709 I EmojiCompatManager: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:593)
+11-12 14:04:02.763  1709  1709 I EmojiCompatManager: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:932)
+11-12 14:04:02.763  1709  1709 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+11-12 14:04:02.764   668   693 I ImeTracker: system_server:40bf9bb3: onCancelled at PHASE_SERVER_SHOULD_HIDE
+11-12 14:04:02.780  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=261: unexpected standardMetadataType=21
+11-12 14:04:02.802  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=117: unexpected standardMetadataType=21
+11-12 14:04:02.808  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=181: unexpected standardMetadataType=21
+11-12 14:04:02.821  4689  4689 D AlbumDone: analysis of 240 photos in 215 ms
+11-12 14:04:02.830  1709  1709 I StylusModule: StylusModule.onUpdateToolType():801 Update tool type = 0
+11-12 14:04:02.875  4689  6046 D AlbumDone: album planned by the rules: 40 of 240 photos
+11-12 14:04:02.884  4689  4689 D AlbumDone: album update: 40 selected of 240, 25 people
+11-12 14:04:02.888  4689  5067 D AlbumDone: album saved
+11-12 14:04:02.889  4689  4689 D AlbumDone: album update: 40 selected of 240, 25 people
+11-12 14:04:02.893  4689  4689 D AlbumDone: album update: 40 selected of 240, 25 people
+11-12 14:04:02.935   668   998 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET, states=14
+11-12 14:04:02.935   668   998 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET6, states=14
+11-12 14:04:02.935   668   998 D InetDiagMessage: Destroyed live tcp sockets for uids={10135} in 1ms
+11-12 14:04:02.962   668   998 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET, states=14
+11-12 14:04:02.962   668   998 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET6, states=14
+11-12 14:04:02.962   668   998 D InetDiagMessage: Destroyed live tcp sockets for uids={10096} in 1ms
+11-12 14:04:03.448  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=262: unexpected standardMetadataType=21
+11-12 14:04:03.478  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=183: unexpected standardMetadataType=21
+11-12 14:04:03.586  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=189: unexpected standardMetadataType=21
+11-12 14:04:03.635  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=184: unexpected standardMetadataType=21
+11-12 14:04:03.670  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=102: unexpected standardMetadataType=21
+11-12 14:04:03.692  1199  1359 D ApfFilter: (wlan0): Ignoring RA RA fe80::2 -> ff02::1 1800s fec0::/64 86400s/14400s  which matches RA fe80::2 -> ff02::1 1800s fec0::/64 86400s/14400s
+11-12 14:04:03.752  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=185: unexpected standardMetadataType=21
+11-12 14:04:03.772  4689  6041 W HWUI    : Image decoding logging dropped!
+11-12 14:04:03.827  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=253: unexpected standardMetadataType=21
+11-12 14:04:03.843  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=256: unexpected standardMetadataType=21
+11-12 14:04:03.867  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=257: unexpected standardMetadataType=21
+11-12 14:04:03.913  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=258: unexpected standardMetadataType=21
+11-12 14:04:04.007   668   992 D WifiClientModeImpl[29069:wlan0]: updateLinkLayerStatsRssiSpeedFrequencyCapabilities rssi=-50 TxLinkspeed=6 freq=2437 RxLinkSpeed=2
+11-12 14:04:04.007   668   992 D WifiDataStall: tx tput in kbps: 37000
+11-12 14:04:04.007   668   992 D WifiDataStall: rx tput in kbps: 37000
+11-12 14:04:04.007   668   992 V WifiConfigManager: Updating scan detail cache freq=2437 BSSID=02:15:b2:00:00:01 RSSI=-50 for "AndroidWifi"NONE
+11-12 14:04:04.007   668   992 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+11-12 14:04:04.007   668   992 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+11-12 14:04:04.007   668   992 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+11-12 14:04:04.007   668   992 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+11-12 14:04:04.007   668   992 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+11-12 14:04:04.007   668   992 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+11-12 14:04:04.007   668   992 D WifiThroughputPredictor:  utilization (LLS) 80 isBluetoothConnected: false final utilization: 80
+11-12 14:04:04.007   668   992 D WifiThroughputPredictor:  BW: 0 RSSI: -50 Nss: 1 Mode: 1 symDur: 4000 snrDb 30 bitPerTone: 4500 rate: 54 throughput: 37
+11-12 14:04:04.007   668   992 D WifiScoreCard: BSSID update SIGNAL_POLL ID: 1424021950 SSID: "AndroidWifi", BSSID: 02:15:b2:00:00:01, MAC: 02:15:b2:00:00:00, IP: /10.0.2.16, Security type: 0, Supplicant state: COMPLETED, Wi-Fi standard: legacy, RSSI: -50, Link speed: 6Mbps, Tx Link speed: 6Mbps, Max Supported Tx Link speed: 54Mbps, Rx Link speed: 2Mbps, Max Supported Rx Link speed: 54Mbps, Frequency: 2437MHz, Net ID: 0, Metered hint: false, score: 60, isUsable: true, CarrierMerged: false, SubscriptionId: -1, IsPrimary: 1, Trusted: true, Restricted: false, Ephemeral: false, OEM paid: false, OEM private: false, OSU AP: false, FQDN: <none>, Provider friendly name: <none>, Requesting package name: <none>"AndroidWifi"openMLO Information: , Is TID-To-Link negotiation supported by the AP: false, AP MLD Address: <none>, AP MLO Link Id: <none>, AP MLO Affiliated links: <none>, Vendor Data: <none>
+11-12 14:04:04.007   668   992 D WifiScoreCard: txRate: 1 txSpeed: 6
+11-12 14:04:04.007   668   992 D WifiScoreCard: network update SIGNAL_POLL "AndroidWifi" ID: 601247878 RSSI -50 txSpeed -1
+11-12 14:04:04.008   668   992 D WifiClientModeImpl[29069:wlan0]:  ClientModeImpl$L2ConnectedState screen=on 1 0 "AndroidWifi" 02:15:b2:00:00:01 rssi=-50 f=2437 sc=60 link=6 tx=0.0, 0.0, 0.0 rx=0.2 bcn=0 [on:0 tx:0 rx:0 period:3005] from screen [on:0 period:-804085720] score=60
+11-12 14:04:04.797  1709  1709 I StylusModule: StylusModule.onUpdateToolType():801 Update tool type = 0
+11-12 14:04:04.926   668   998 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET, states=14
+11-12 14:04:04.926   668   998 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET6, states=14
+11-12 14:04:04.926   668   998 D InetDiagMessage: Destroyed live tcp sockets for uids={10193} in 1ms
+11-12 14:04:04.927   668   998 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET, states=14
+11-12 14:04:04.927   668   998 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET6, states=14
+11-12 14:04:04.927   668   998 D InetDiagMessage: Destroyed live tcp sockets for uids={20193} in 0ms
+11-12 14:04:05.405  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=186: unexpected standardMetadataType=21
+11-12 14:04:05.410   623  3361 D BufferPoolAccessor2.0: bufferpool2 0x76f6a635cf08 : 2(1944000 size) total buffers - 1(972000 size) used buffers - 453/461 (recycle/alloc) - 28/460 (fetch/transfer)
+11-12 14:04:05.457  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=259: unexpected standardMetadataType=21
+11-12 14:04:05.484  3282  3368 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=188: unexpected standardMetadataType=21
+11-12 14:04:05.531  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=414: unexpected standardMetadataType=21
+11-12 14:04:06.437   668  2549 V GrammaticalInflectionUtils: AttributionSource: AttributionSource { uid = 10217, packageName = null, attributionTag = null, token = android.os.Binder@d003b25, deviceId = 0, next = null } does not have READ_SYSTEM_GRAMMATICAL_GENDER permission.
+11-12 14:04:06.439   546  1398 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+11-12 14:04:06.441  1088  1235 D SplashScreenView: Build android.window.SplashScreenView{ab7e341 V.E...... ......ID 0,0-0,0}
+11-12 14:04:06.441  1088  1235 D SplashScreenView: Icon: view: null drawable: null size: 0
+11-12 14:04:06.441  1088  1235 D SplashScreenView: Branding: view: android.view.View{ccfc0e6 G.ED..... ......I. 0,0-0,0 #1020541 android:id/splashscreen_branding_view} drawable: null size w: 0 h: 0
+11-12 14:04:06.442  4689  4689 D LifecycleMonitor: Lifecycle status change: com.albumdone.app.ui.MainActivity@2410d24 in: PAUSED
+11-12 14:04:06.442  4689  4689 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=com.albumdone.app.ui.MainActivity@2410d24
+11-12 14:04:06.443   668  2036 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:04:06.443   612   653 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:04:06.451   546   546 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+11-12 14:04:06.465   471   510 I netd    : tetherGetStats() -> {[]} <0.31ms>
+11-12 14:04:06.465  5585  5620 I EGL_emulation: Opening libGLESv1_CM_emulation.so
+11-12 14:04:06.466  5585  5620 I EGL_emulation: Opening libGLESv2_emulation.so
+11-12 14:04:06.471  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=260: unexpected standardMetadataType=21
+11-12 14:04:06.478   668   693 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:04:06.478   668   693 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:04:06.478   668   693 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:04:06.479  5585  5597 W umdone.app.test: Suspending all threads took: 8.305ms
+11-12 14:04:06.480  5585  5620 W HWUI    : Failed to initialize 101010-2 format, error = EGL_SUCCESS
+11-12 14:04:06.480  5585  5585 I umdone.app.test: AssetManager2(0x71ca4a62a178) locale list changing from [] to [en-US]
+11-12 14:04:06.481   668   693 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:04:06.481   668   693 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:04:06.481   668   693 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:04:06.481   668   693 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:04:06.481   668   693 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:04:06.481   668   693 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:04:06.481   668   693 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:04:06.481   668   693 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:04:06.481   668   693 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:04:06.481   668   693 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:04:06.481   668   693 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:04:06.481   668   693 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:04:06.481   668   693 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:04:06.481   668   693 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:04:06.481   668   693 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:04:06.481   668   693 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:04:06.481   668   693 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:04:06.481   668   693 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:04:06.481   668   693 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:04:06.481   668   693 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:04:06.481   668   693 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:04:06.481   668   693 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:04:06.481   668   693 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:04:06.481   668   693 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:04:06.481   668   693 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:04:06.481   668   693 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:04:06.481   668   693 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:04:06.481   668   693 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:04:06.481   668   693 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:04:06.481   668   693 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:04:06.481   668   693 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:04:06.481   668   693 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:04:06.481   668   693 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:04:06.481   668   693 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:04:06.481   668   693 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:04:06.481   668   693 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:04:06.481   668   693 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:04:06.481   668   693 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:04:06.481   668   693 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:04:06.481   668   693 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:04:06.481   668   693 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:04:06.481   668   693 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:04:06.481   668   693 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:04:06.481   668   693 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:04:06.482   668   693 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:04:06.482   668   693 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:04:06.482   668   693 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:04:06.482   668   693 W IPCThreadState: Sending oneway calls to frozen process.
+11-12 14:04:06.501  5585  5585 D AutofillManager: Fill dialog is enabled:false, hints=[]
+11-12 14:04:06.516  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=261: unexpected standardMetadataType=21
+11-12 14:04:06.544  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=117: unexpected standardMetadataType=21
+11-12 14:04:06.556   505   535 I RanchuHwc: logCompositionFallbackIfChanged: layer 43 CompositionType fallback from 3 to 1
+11-12 14:04:06.592  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=181: unexpected standardMetadataType=21
+11-12 14:04:06.611  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=262: unexpected standardMetadataType=21
+11-12 14:04:06.614  4689  4689 D VRI[MainActivity]: visibilityChanged oldVisibility=true newVisibility=false
+11-12 14:04:06.641  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=183: unexpected standardMetadataType=21
+11-12 14:04:06.731   546   627 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+11-12 14:04:06.732  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=189: unexpected standardMetadataType=21
+11-12 14:04:06.766  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=184: unexpected standardMetadataType=21
+11-12 14:04:06.766   546   546 I BpBinder: onLastStrongRef automatically unlinking death recipients:
+11-12 14:04:06.769  1949  1949 D ViewRootImpl: Skipping stats log for color mode
+11-12 14:04:06.772  4689  4689 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=androidx.activity.OnBackPressedDispatcher$Api34Impl$createOnBackAnimationCallback$1@f1f5024
+11-12 14:04:06.773  4689  4689 D LifecycleMonitor: Lifecycle status change: com.albumdone.app.ui.MainActivity@2410d24 in: STOPPED
+11-12 14:04:06.773  4689  4689 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=com.albumdone.app.ui.MainActivity@2410d24
+11-12 14:04:06.783  4689  4689 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=android.app.Activity$$ExternalSyntheticLambda0@95fb366
+11-12 14:04:06.783  4689  4689 D LifecycleMonitor: Lifecycle status change: com.albumdone.app.ui.MainActivity@2410d24 in: DESTROYED
+11-12 14:04:06.783  4689  4689 V ActivityScenario: Update currentActivityStage to DESTROYED, currentActivity=null
+11-12 14:04:06.785  4689  4689 D ViewRootImpl: Skipping stats log for color mode
+11-12 14:04:06.789  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=102: unexpected standardMetadataType=21
+11-12 14:04:06.790  4689  4712 D IdlingRegistry: Unregistering idling resources: [androidx.compose.ui.test.EspressoLink@eb87092]
+11-12 14:04:06.794  1949  1949 D NexusLauncherModelDelegate: notifySmartspaceEvent: SmartspaceTargetEvent{mSmartspaceTarget=null, mSmartspaceActionId='null', mEventType=6}
+11-12 14:04:06.801   668  2263 I ImeTracker: system_server:176401ce: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+11-12 14:04:06.801   668   693 I ImeTracker: system_server:176401ce: onCancelled at PHASE_SERVER_SHOULD_HIDE
+11-12 14:04:06.806  3282  3350 E mapper.ranchu: getStandardMetadataImpl:886 failure: UNSUPPORTED: id=185: unexpected standardMetadataType=21
+11-12 14:04:06.810  1949  1955 I s.nexuslauncher: NativeAlloc concurrent mark compact GC freed 726KB AllocSpace bytes, 10(520KB) LOS objects, 49% free, 6076KB/11MB, paused 258us,485us total 150.212ms
+11-12 14:04:06.811  1949  1957 W System  : A resource failed to call release.
+11-12 14:04:06.811  1949  1957 W System  : A resource failed to call release.
+11-12 14:04:06.811  1949  1957 W System  : A resource failed to call release.
+11-12 14:04:06.831  1949  1949 D BaseDepthController: setSurface:
+11-12 14:04:06.831  1949  1949 D BaseDepthController: 	mWaitingOnSurfaceValidity: false
+11-12 14:04:06.831  1949  1949 D BaseDepthController: 	mBaseSurface: Surface(name=com.google.android.apps.nexuslauncher/com.google.android.apps.nexuslauncher.NexusLauncherActivity)/@0xa6e8b09
+11-12 14:04:06.836  4689  4712 I TestRunner: finished: aBirthdayIsNotAWedding(com.albumdone.app.BirthdayDeviceTest)

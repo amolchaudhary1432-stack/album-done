@@ -1,0 +1,35 @@
+--------- beginning of main
+11-12 14:02:09.010  4689  4712 I AlbumDoneTest: bride.jpg analysed in 4291 ms: 1 faces
+11-12 14:02:12.031  4689  4712 I AlbumDoneTest: bride_again.jpg analysed in 3021 ms: 1 faces
+11-12 14:02:14.324  4689  4712 I AlbumDoneTest: bride_small.jpg analysed in 2293 ms: 1 faces
+11-12 14:02:17.530  4689  4712 I AlbumDoneTest: bride_haldi.jpg analysed in 3206 ms: 1 faces
+11-12 14:02:20.743  4689  4712 I AlbumDoneTest: bride_adhibaas.jpg analysed in 3213 ms: 1 faces
+11-12 14:02:24.825  4689  4712 I AlbumDoneTest: two_people.jpg analysed in 4081 ms: 2 faces
+11-12 14:03:18.945  4689  4712 I AlbumDoneTest: Big family: 40 of 40 relatives guessed, 0 of 20 guests
+11-12 14:04:07.691  4689  4712 I AlbumDoneTest: Journey: 7 photos in Pictures/Sharma Wedding
+11-12 14:04:07.691  4689  4712 I AlbumDoneTest: Journey: Android 16, security update 2025-07-05
+11-12 14:04:07.691  4689  4712 I AlbumDoneTest: Showcase: Home screen
+11-12 14:04:08.907  4689  4712 I AlbumDoneTest: Showcase: Choosing the photos folder (Android's own folder picker)
+11-12 14:04:19.826  4689  4712 I AlbumDoneTest: Showcase: The app reads the folder: photos and the photographer's event folders
+11-12 14:04:19.886  4689  4712 I AlbumDoneTest: Showcase: New album: the app counts the photos and guesses the occasion
+11-12 14:04:27.396  4689  4712 I AlbumDoneTest: Showcase: Checking every photo on the phone (no internet)
+11-12 14:04:51.860  4689  4712 I AlbumDoneTest: Showcase: The album is ready
+11-12 14:04:52.066  4689  4712 I AlbumDoneTest: Journey: 7 photos checked and the album made in 24 s (3.43 s a photo) on Google sdk_gphone64_x86_64
+11-12 14:04:54.986  4689  4712 I AlbumDoneTest: Showcase: The album: cover photo and the main people, found on their own
+11-12 14:05:02.458  4689  4712 I AlbumDoneTest: Showcase: The app is not sure about the groom and asks once: Yes
+11-12 14:05:08.135  4689  4712 I AlbumDoneTest: Showcase: Looking through the album
+11-12 14:05:26.051  4689  4712 I AlbumDoneTest: Showcase: A photo: why it is in the album
+11-12 14:05:37.081  4689  4712 I AlbumDoneTest: Showcase: The next photo, and why
+11-12 14:05:41.610  4689  4712 I AlbumDoneTest: Showcase: The next photo, and why
+11-12 14:05:46.141  4689  4712 I AlbumDoneTest: Showcase: The next photo, and why
+11-12 14:05:50.673  4689  4712 I AlbumDoneTest: Showcase: Remove: the next best photo takes its place
+11-12 14:05:56.866  4689  4712 I AlbumDoneTest: Showcase: Undo
+11-12 14:06:01.385  4689  4712 I AlbumDoneTest: Showcase: Album size and what we left out
+11-12 14:06:20.789  4689  4712 I AlbumDoneTest: Showcase: A photo we left out, and why
+11-12 14:06:36.152  4689  4712 I AlbumDoneTest: Showcase: A main person: their own photos
+11-12 14:06:47.338  4689  4712 I AlbumDoneTest: Showcase: Family & friends: everyone in the photos, most photographed first
+11-12 14:06:55.671  4689  4712 I AlbumDoneTest: Showcase: Family & friends: Not named yet
+11-12 14:06:59.728  4689  4712 I AlbumDoneTest: Showcase: Family & friends: Everyone
+11-12 14:07:05.909  4689  4712 I AlbumDoneTest: Showcase: Sending the chosen photos to the photographer
+11-12 14:07:23.240  4689  4712 I AlbumDoneTest: Showcase: Back home: the album card
+11-12 14:07:29.752  4689  4712 I AlbumDoneTest: Showcase: end

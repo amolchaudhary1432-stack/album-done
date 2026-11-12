@@ -1,0 +1,2 @@
+11-12 14:02:24.830  4689  4712 I TestRunner: started: peopleAreGroupedCorrectly(com.albumdone.app.AnalyzerDeviceTest)
+11-12 14:02:24.834  4689  4712 I TestRunner: finished: peopleAreGroupedCorrectly(com.albumdone.app.AnalyzerDeviceTest)

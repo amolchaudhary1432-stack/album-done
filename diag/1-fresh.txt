@@ -1,0 +1,14 @@
+== 1-fresh
+google/sdk_gphone64_x86_64/emu64xa:16/BE2A.250530.026.F3/13894323:userdebug/dev-keys
+2025-07-05
+package:com.google.android.providers.media.module versionCode:36
+package:com.google.android.documentsui versionCode:360527520
+package:com.android.providers.media versionCode:1024
+package:com.android.externalstorage versionCode:36
+-- storage service log since 11-12 14:01:06.000:
+--------- beginning of main
+11-12 14:01:08.763  2239  2239 D ExternalStorage: After updating volumes, found 1 active roots
+11-12 14:01:09.033  2239  2239 D ExternalStorage: After updating volumes, found 1 active roots
+11-12 14:01:09.119  2239  2239 D ExternalStorage: After updating volumes, found 1 active roots
+11-12 14:01:09.139  2239  2239 D ExternalStorage: After updating volumes, found 1 active roots
+-- times a folder was hidden: 0

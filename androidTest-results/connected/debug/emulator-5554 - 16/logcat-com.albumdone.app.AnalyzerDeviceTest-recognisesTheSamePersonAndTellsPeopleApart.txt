@@ -1,0 +1,2 @@
+11-12 14:02:24.835  4689  4712 I TestRunner: started: recognisesTheSamePersonAndTellsPeopleApart(com.albumdone.app.AnalyzerDeviceTest)
+11-12 14:02:24.835  4689  4712 I TestRunner: finished: recognisesTheSamePersonAndTellsPeopleApart(com.albumdone.app.AnalyzerDeviceTest)

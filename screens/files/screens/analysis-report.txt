@@ -1,0 +1,42 @@
+Couple: bride=92 groom=93
+Tags: 92:NORMAL/UNKNOWN, 93:NORMAL/UNKNOWN
+People photo counts: 92=7, 93=2
+Events: 01 Haldi 2/3 PREP, 02 Wedding 3/4 RITUAL
+Key moments: 
+
+01 Haldi/IMG_0002.jpg [01 Haldi] 1280x960 shot=BRIDE_SOLO usable=true quality=0.713 moment=0 repeat=-1 order=0
+  issues=[] people=[92] ritual=false emotional=false tilt=0.0 backs=0 phones=0 taken=1685361801000
+  sharp=13790 peak=28543 bright=134 dark=0.01 blown=0.01
+  face person=92 box=0.08,0.36,0.42,0.89 eyes=OPEN expr=NATURAL smile=0.01 looking=false dir=1.00 sharp=3539 bright=166 backlit=false occl=0.27 cut=0.00
+
+01 Haldi/IMG_0001.jpg [01 Haldi] 1280x853 shot=BRIDE_SOLO usable=true quality=0.560 moment=1 repeat=-1 order=1
+  issues=[FACE_PARTLY_HIDDEN] people=[92] ritual=false emotional=false tilt=0.0 backs=0 phones=0 taken=1685366896000
+  sharp=1226 peak=4370 bright=164 dark=0.00 blown=0.06
+  face person=92 box=0.51,0.32,0.75,0.76 eyes=OPEN expr=SMILE smile=0.96 looking=true dir=1.00 sharp=496 bright=132 backlit=false occl=0.85 cut=0.00
+
+01 Haldi/IMG_0003.jpg [01 Haldi] 853x1280 shot=COUPLE_CLOSE usable=false quality=0.048 moment=2 repeat=-1 order=2
+  issues=[BLURRY, FACE_PARTLY_HIDDEN, NOT_LOOKING, MID_TALK, FACE_CUT_OFF] people=[92, 93] ritual=false emotional=false tilt=0.0 backs=0 phones=0 taken=1685400663000
+  sharp=777 peak=2707 bright=94 dark=0.08 blown=0.00
+  face person=92 box=0.23,0.22,0.48,0.41 eyes=OPEN expr=NATURAL smile=0.00 looking=true dir=0.70 sharp=301 bright=112 backlit=false occl=0.85 cut=0.00
+  face person=93 box=0.84,0.27,1.03,0.43 eyes=OPEN expr=MID_TALK smile=0.05 looking=false dir=1.00 sharp=50 bright=104 backlit=false occl=0.00 cut=0.18
+
+02 Wedding/IMG_0101.jpg [02 Wedding] 960x1280 shot=BRIDE_SOLO usable=true quality=0.886 moment=3 repeat=-1 order=3
+  issues=[] people=[92] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685389116000
+  sharp=4183 peak=13738 bright=123 dark=0.00 blown=0.01
+  face person=92 box=0.20,0.43,0.56,0.74 eyes=OPEN expr=SMILE smile=0.52 looking=false dir=-1.00 sharp=1789 bright=169 backlit=false occl=0.11 cut=0.00
+
+02 Wedding/IMG_0104.jpg [02 Wedding] 960x1280 shot=BRIDE_SOLO usable=true quality=0.899 moment=3 repeat=-1 order=4
+  issues=[] people=[92] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685389198000
+  sharp=3970 peak=10086 bright=85 dark=0.03 blown=0.00
+  face person=92 box=0.41,0.33,0.81,0.68 eyes=OPEN expr=NATURAL smile=0.00 looking=false dir=-1.00 sharp=3013 bright=158 backlit=false occl=0.18 cut=0.00
+
+02 Wedding/IMG_0103.jpg [02 Wedding] 853x1280 shot=COUPLE_CLOSE usable=false quality=0.077 moment=4 repeat=-1 order=5
+  issues=[BLURRY, FACE_PARTLY_HIDDEN, MID_TALK, FACE_CUT_OFF] people=[92, 93] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=1685400663000
+  sharp=777 peak=2707 bright=94 dark=0.08 blown=0.00
+  face person=92 box=0.23,0.22,0.48,0.41 eyes=OPEN expr=NATURAL smile=0.00 looking=true dir=0.70 sharp=301 bright=112 backlit=false occl=0.85 cut=0.00
+  face person=93 box=0.84,0.27,1.03,0.43 eyes=OPEN expr=MID_TALK smile=0.05 looking=false dir=1.00 sharp=50 bright=104 backlit=false occl=0.00 cut=0.18
+
+02 Wedding/IMG_0102.jpg [02 Wedding] 240x320 shot=BRIDE_SOLO usable=true quality=0.654 moment=5 repeat=-1 order=6
+  issues=[] people=[92] ritual=true emotional=false tilt=0.0 backs=0 phones=0 taken=0
+  sharp=527 peak=1208 bright=123 dark=0.00 blown=0.00
+  face person=92 box=0.20,0.44,0.56,0.74 eyes=OPEN expr=SMILE smile=0.51 looking=false dir=-1.00 sharp=756 bright=170 backlit=false occl=0.00 cut=0.00
