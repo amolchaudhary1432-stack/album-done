@@ -171,7 +171,7 @@ class AppScreensDeviceTest {
             }
 
             // Remove it: the next best photo takes its place.
-            compose.onNodeWithText("Remove").performClick()
+            compose.onNodeWithText("Remove from album").performClick()
             waitFor("Removed")
             screenshot("09-removed")
         }

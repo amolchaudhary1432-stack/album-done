@@ -109,7 +109,7 @@ fun PeopleScreen(vm: AlbumViewModel, projectId: Long) {
             item(key = "intro", span = fullSpan) {
                 Column(Modifier.padding(horizontal = 4.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
                     Text(
-                        "Most photographed first. Tap a face to say who they are, join two that are the same person, or leave someone out.",
+                        "Most photographed first. Tap a face to fix anything.",
                         color = MaterialTheme.colorScheme.onSurfaceVariant, style = MaterialTheme.typography.bodyMedium,
                     )
                     if (s.toName.isNotEmpty()) QuickTagCard(s.toName, { vm.openQuickTag(projectId) })
@@ -146,7 +146,7 @@ private fun PersonTile(c: PersonChip, onClick: () -> Unit) {
             FaceAvatar(c.face, 80.dp)
         }
         Spacer(Modifier.height(6.dp))
-        Text(c.label, style = MaterialTheme.typography.labelLarge, maxLines = 2, overflow = TextOverflow.Ellipsis, textAlign = TextAlign.Center,
+        if (c.label.isNotBlank()) Text(c.label, style = MaterialTheme.typography.labelLarge, maxLines = 2, overflow = TextOverflow.Ellipsis, textAlign = TextAlign.Center,
             color = if (c.known) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.padding(horizontal = 4.dp))
         Text(

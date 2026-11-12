@@ -112,10 +112,7 @@ fun ViewerScreen(vm: AlbumViewModel, projectId: Long, photoId: Long) {
                             onClick = { vm.remove(projectId, photoId) },
                             modifier = Modifier.weight(1f).height(56.dp), shape = RoundedCornerShape(28.dp),
                             border = BorderStroke(1.5.dp, MaterialTheme.colorScheme.outline),
-                        ) { Text("Remove", style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.onSurface) }
-                        Button(onClick = vm::back, modifier = Modifier.weight(1f).height(56.dp), shape = RoundedCornerShape(28.dp)) {
-                            Text("Keep", style = MaterialTheme.typography.titleMedium)
-                        }
+                        ) { Text("Remove from album", style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.onSurface) }
                     }
                 }
             }
@@ -296,16 +293,21 @@ fun SendScreen(vm: AlbumViewModel, projectId: Long) {
                     style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
             if (s != null) {
-                SectionLabel("Preview")
-                Surface(color = MaterialTheme.colorScheme.surfaceContainerLow, shape = RoundedCornerShape(16.dp), modifier = Modifier.weight(1f, fill = false)) {
-                    if (text == null) {
-                        Box(Modifier.fillMaxWidth().height(120.dp), contentAlignment = Alignment.Center) { CircularProgressIndicator() }
-                    } else {
-                        SelectionContainer {
-                            Text(text, fontFamily = FontFamily.Monospace, style = MaterialTheme.typography.bodySmall,
-                                modifier = Modifier.padding(16.dp).verticalScroll(rememberScrollState()))
+                if (forWhom == null) {
+                    SectionLabel("In the folder")
+                    Column(Modifier.weight(1f, fill = false).verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                        for (e in s.events) {
+                            Row(Modifier.fillMaxWidth().clip(RoundedCornerShape(16.dp)).background(MaterialTheme.colorScheme.surfaceContainerLow).padding(10.dp),
+                                verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                                e.photos.firstOrNull()?.let { p -> PhotoThumb(p.photo, p.crop, Modifier.size(48.dp).clip(RoundedCornerShape(10.dp))) }
+                                Text(e.title, style = MaterialTheme.typography.titleSmall, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f))
+                                Text("${e.photos.size} photo${if (e.photos.size == 1) "" else "s"}", color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    style = MaterialTheme.typography.bodyMedium)
+                            }
                         }
                     }
+                } else if (text == null) {
+                    Box(Modifier.fillMaxWidth().height(120.dp), contentAlignment = Alignment.Center) { CircularProgressIndicator() }
                 }
             }
         }

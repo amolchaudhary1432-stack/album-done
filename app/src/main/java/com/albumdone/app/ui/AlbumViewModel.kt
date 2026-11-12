@@ -191,7 +191,7 @@ private fun <T> Flow<T>.onMain(): Flow<T> = flowOn(Dispatchers.Main)
 private const val MAX_PEOPLE_SHOWN = 80
 
 /** At most this many faces in one round of "Who's who". */
-private const val QUICK_TAG_MAX = 40
+private const val QUICK_TAG_MAX = 15
 
 class AlbumViewModel(app: Application) : AndroidViewModel(app) {
 
@@ -467,13 +467,15 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
         fun chip(id: Long, label: String? = null, family: Boolean = false): PersonChip {
             val entity = personById[id]?.person
             val c = coverage[id]
-            val known = entity?.name?.isNotBlank() == true
-            // Not named yet: say what the app thinks, humbly, instead of a row of question marks.
+            // Known: the family named them, or answered how close they are (Who's who). Then they are not asked again.
+            val answered = entity != null && entity.priority != PersonPriority.NORMAL
+            val known = entity?.name?.isNotBlank() == true || answered
+            // No name: what the family said about them, or nothing (a face needs no made-up label).
             val guess = when {
                 id in tags.parents -> "Parent"
-                tags.tag(id).side == com.albumdone.app.plan.Side.BRIDE -> "Bride's side"
-                tags.tag(id).side == com.albumdone.app.plan.Side.GROOM -> "Groom's side"
-                else -> if (family) "Family" else "Not named"
+                entity?.priority == PersonPriority.MUST -> "Very close"
+                entity?.priority == PersonPriority.IMPORTANT -> "Close"
+                else -> ""
             }
             return PersonChip(
                 personId = id,
@@ -806,6 +808,13 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
         editPeople(projectId, "Album updated for $label") {
             dao.updatePerson(person.copy(name = label, priority = priority.name, elder = elder, side = side))
         }
+    }
+
+    /** From a person's own page: very close ("must") or close, and a name if the family gave one. */
+    fun setCloseness(projectId: Long, person: PersonEntity, closeness: String, name: String) {
+        val priority = when (closeness) { "must" -> PersonPriority.MUST; "close" -> PersonPriority.IMPORTANT; else -> person.priority }
+        val label = name.trim().ifEmpty { person.name }
+        editPeople(projectId, "Album updated") { dao.updatePerson(person.copy(name = label, priority = priority)) }
     }
 
     /** "Photos of Nani in the album: 4": her best photos fill that many places (null: back to automatic). */

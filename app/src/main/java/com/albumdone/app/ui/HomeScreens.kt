@@ -156,7 +156,7 @@ private fun Welcome(modifier: Modifier) {
         Column(verticalArrangement = Arrangement.spacedBy(18.dp)) {
             Step(LineIcons.Tick, "We check every photo", "Blur, closed eyes, repeats, bad light. Even with the phone locked.")
             Step(LineIcons.Person, "Your people in it", "The best of whoever the photos are about, and the family who matter.")
-            Step(LineIcons.Send, "Swap, then send", "Change any photo you don't love, then send the list to your photographer or print shop.")
+            Step(LineIcons.Send, "Swap, then send", "Change any photo you don't love, then send the chosen photos to your photographer in one folder.")
         }
         Row(
             Modifier.fillMaxWidth().clip(RoundedCornerShape(20.dp)).background(MaterialTheme.colorScheme.surfaceContainer).padding(16.dp),

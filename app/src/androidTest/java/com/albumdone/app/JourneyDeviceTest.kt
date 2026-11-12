@@ -464,7 +464,7 @@ class JourneyDeviceTest {
                 waitFor("Swapped")
                 appShot("10-swapped")
             }
-            compose.onNodeWithText("Remove").performClick()
+            compose.onNodeWithText("Remove from album").performClick()
             waitFor("Removed")
             appShot("11-removed")
             if (has("Undo")) {
@@ -594,7 +594,7 @@ class JourneyDeviceTest {
                 appShot("s09-swapped")
             }
             mark("Remove: the next best photo takes its place")
-            personTap(1_500, 3_000) { compose.onNodeWithText("Remove").performClick() }
+            personTap(1_500, 3_000) { compose.onNodeWithText("Remove from album").performClick() }
             appShot("s10-removed")
             // Undo shows only for a few seconds: tap it at once, like a person who changed their mind.
             if (has("Undo")) runCatching {
@@ -646,7 +646,7 @@ class JourneyDeviceTest {
             waitFor("Family & friends")
             look(4_000)
             appShot("s04-people")
-            for ((tag, caption) in listOf("filter-BRIDE" to "Bride's side", "filter-GROOM" to "Groom's side", "filter-unnamed" to "Not named yet", "filter-all" to "Everyone")) {
+            for ((tag, caption) in listOf("filter-unnamed" to "Not named yet", "filter-all" to "Everyone")) {
                 if (!hasTag(tag)) continue
                 mark("Family & friends: $caption")
                 personTap(1_000, 3_000) { compose.onNodeWithTag(tag).performClick() }

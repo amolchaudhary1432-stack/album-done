@@ -1397,7 +1397,7 @@ object AlbumPlanner {
                 }
                 ShotType.BRIDE_SOLO, ShotType.GROOM_SOLO -> portraitOf(p.shot)
                 ShotType.GROUP -> if (tags.occasion.couple) "Family group photo" else "Group photo"
-                ShotType.CANDID -> "Candid moment"
+                ShotType.CANDID -> if (p.allEyesOpenAndLooking) null else "Candid moment"
                 ShotType.GUEST -> "Portrait"
                 ShotType.DETAIL -> null
             }
