@@ -543,12 +543,12 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
             },
             parents = tags.parents.map { chip(it, family = true) },
             mainWords = when {
-                tags.occasion.couple -> "the two of you"
+                tags.asCouple -> "the two of you"
                 tags.groomId != null -> tags.pair()
                 else -> tags.brideId?.let { tags.who(it) } ?: "you"
             },
-            bride = tags.brideId?.let { chip(it, personById[it]?.person?.name?.takeIf { n -> n.isNotBlank() } ?: tags.occasion.title(first = true)) },
-            groom = tags.groomId?.let { chip(it, personById[it]?.person?.name?.takeIf { n -> n.isNotBlank() } ?: tags.occasion.title(first = false)) },
+            bride = tags.brideId?.let { chip(it, personById[it]?.person?.name?.takeIf { n -> n.isNotBlank() } ?: tags.occasion.title(first = true, pair = tags.asCouple)) },
+            groom = tags.groomId?.let { chip(it, personById[it]?.person?.name?.takeIf { n -> n.isNotBlank() } ?: tags.occasion.title(first = false, pair = tags.asCouple)) },
             family = family,
             others = others,
             toName = toName,
@@ -778,7 +778,8 @@ class AlbumViewModel(app: Application) : AndroidViewModel(app) {
                 face = faceCrop(projectId, p),
                 samples = samples,
                 role = Occasion.of(project?.occasion).let { o ->
-                    when (personId) { project?.brideId -> o.title(first = true); project?.groomId -> o.title(first = false); else -> null }
+                    val pair = project != null && project.coupleSure && project.brideId != null && project.groomId != null
+                    when (personId) { project?.brideId -> o.title(first = true, pair = pair); project?.groomId -> o.title(first = false, pair = pair); else -> null }
                 },
                 guessedSide = guessedSide,
             ).also { Log.d(TAG, "person $personId: ready, ${samples.size} samples") }

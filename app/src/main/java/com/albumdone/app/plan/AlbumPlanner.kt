@@ -1082,7 +1082,7 @@ object AlbumPlanner {
         fun soloCover(): String {
             val id = tags.brideId ?: 0
             val named = tags.tags[id]?.name?.isNotBlank() == true
-            return if (tags.occasion.couple && !named) "Cover: the best portrait of one of the couple" else "Cover: ${tags.who(id)}'s best portrait"
+            return if (tags.asCouple && !named) "Cover: the best portrait of one of the couple" else "Cover: ${tags.who(id)}'s best portrait"
         }
 
         fun lookingAtEachOther(): String = tags.pair().capitalized() + " looking at each other"

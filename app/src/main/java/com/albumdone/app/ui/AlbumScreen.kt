@@ -211,7 +211,7 @@ fun AlbumScreen(vm: AlbumViewModel, projectId: Long) {
         if (chooseGroom) ChooseGroomSheet(s, onPick = {
             chooseGroom = false
             if (s.occasion.couple) vm.setGroom(projectId, it) else vm.setMain(projectId, it)
-        }, onClose = { chooseGroom = false })
+        }, onOnlyOne = { chooseGroom = false; vm.setMain(projectId, it) }, onClose = { chooseGroom = false })
     }
 }
 
@@ -370,7 +370,8 @@ fun QuickTagCard(toName: List<PersonChip>, onClick: () -> Unit, modifier: Modifi
 private fun CoupleCard(s: AlbumState, onTap: (Long) -> Unit, onSwap: () -> Unit, onConfirm: () -> Unit, onChoose: () -> Unit) {
     val couple = s.occasion.couple
     val main = listOfNotNull(s.bride, s.groom)
-    val found = if (couple) main.size == 2 else main.isNotEmpty()
+    // A wedding folder can be one person's own function (a haldi at the groom's home): one main person is fine once chosen.
+    val found = main.size == 2 || (main.size == 1 && (!couple || s.project.coupleSure))
     // A child's album shows the child with mummy and papa: the family the album is about.
     val faces = main + (if (s.occasion.child && found) s.parents.take(2) else emptyList())
     val unsure = found && !s.project.coupleSure
@@ -405,7 +406,7 @@ private fun CoupleCard(s: AlbumState, onTap: (Long) -> Unit, onSwap: () -> Unit,
                             },
                             style = MaterialTheme.typography.titleMedium,
                         )
-                        Text("We are not sure from the photos", style = MaterialTheme.typography.bodySmall,
+                        Text(if (couple) "They are in the most photos. If it is one person's own function, tap No" else "We are not sure from the photos", style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 2)
                     } else {
                         val title = when {
@@ -416,6 +417,7 @@ private fun CoupleCard(s: AlbumState, onTap: (Long) -> Unit, onSwap: () -> Unit,
                         val parents = s.parents.take(2)
                         Text(
                             when {
+                                couple && main.size == 1 -> "The album is built around them"
                                 couple -> "Tap a face to see their photos"
                                 s.occasion.child && parents.size == 2 ->
                                     if (parents.all { it.known }) "With ${parents[0].label} & ${parents[1].label}"
@@ -441,7 +443,7 @@ private fun CoupleCard(s: AlbumState, onTap: (Long) -> Unit, onSwap: () -> Unit,
 /** "Who is the groom?" (or for a birthday or a trip, "Who are the photos about?"): the most photographed people, tap one. */
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
-private fun ChooseGroomSheet(s: AlbumState, onPick: (Long) -> Unit, onClose: () -> Unit) {
+private fun ChooseGroomSheet(s: AlbumState, onPick: (Long) -> Unit, onOnlyOne: (Long) -> Unit, onClose: () -> Unit) {
     val couple = s.occasion.couple
     val people = (s.family + s.others + listOfNotNull(s.groom) + (if (couple) emptyList() else listOfNotNull(s.bride)))
         .filter { !couple || it.personId != s.bride?.personId }
@@ -453,6 +455,21 @@ private fun ChooseGroomSheet(s: AlbumState, onPick: (Long) -> Unit, onClose: () 
             Text(if (couple) "Who is the other one of the couple?" else "Who are the photos about?", style = MaterialTheme.typography.headlineSmall)
             Text(if (couple) "Tap their face. The album is remade around the two of you." else "Tap their face. The album is remade around them.",
                 color = MaterialTheme.colorScheme.onSurfaceVariant)
+            // One person's own function (a haldi or mehendi at their own home): there is no second person to find.
+            val first = s.bride
+            if (couple && first != null) {
+                Surface(color = MaterialTheme.colorScheme.surfaceContainer, shape = RoundedCornerShape(18.dp),
+                    modifier = Modifier.fillMaxWidth().clickable { onOnlyOne(first.personId) }.testTag("only-one")) {
+                    Row(Modifier.padding(12.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                        FaceAvatar(first.face, 44.dp)
+                        Column {
+                            Text("Only this person", style = MaterialTheme.typography.titleMedium)
+                            Text("These photos are their own function", style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        }
+                    }
+                }
+            }
             FlowRow(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalArrangement = Arrangement.spacedBy(12.dp),
                 modifier = Modifier.verticalScroll(rememberScrollState())) {
                 for (c in people) {

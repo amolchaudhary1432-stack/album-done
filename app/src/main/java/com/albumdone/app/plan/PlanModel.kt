@@ -138,9 +138,11 @@ enum class Occasion(val label: String, val sub: String? = null) {
     val detailShare: Double get() = if (this == TRIP) 0.25 else 0.10
 
     /** Who the album is about, when nobody has named them: "the bride", "the birthday star". */
-    fun role(first: Boolean): String = when {
+    fun role(first: Boolean, pair: Boolean = true): String = when {
         // The app never decides which of the two is the bride (owner, 7 Nov 2026): their names, or "the couple".
-        couple -> "one of the couple"
+        // And it says "couple" only once the two are certain ([pair]): a haldi at the groom's own home has
+        // no couple in it, so until then they are the main people (owner, 12 Nov 2026).
+        couple -> if (pair) "one of the couple" else "the main person"
         first && (this == KIDS_BIRTHDAY || this == BIRTHDAY) -> "the birthday star"
         first && this == CHILD_FUNCTION -> "the little one"
         this == BABY_SHOWER -> if (first) "the mother-to-be" else "the father-to-be"
@@ -149,7 +151,8 @@ enum class Occasion(val label: String, val sub: String? = null) {
     }
 
     /** The same as a label: "Bride", "Birthday star", "Main person". */
-    fun title(first: Boolean): String = if (couple) "Couple" else role(first).removePrefix("the ").capitalized()
+    fun title(first: Boolean, pair: Boolean = true): String =
+        if (couple && pair) "Couple" else role(first, pair).removePrefix("the ").capitalized()
 
     companion object {
         // "BABY" was an occasion before baby functions became family functions.
@@ -197,7 +200,12 @@ data class PeopleTags(
     val occasion: Occasion = Occasion.WEDDING,
     /** A child's mummy and papa (named, or the app's guess): the album needs the three of them together. */
     val parents: List<Long> = emptyList(),
+    /** The two main people are certainly the couple (the family said so, or the photos leave no doubt). */
+    val coupleSure: Boolean = true,
 ) {
+    /** A wedding's two main people, certain: only then does the app call them "the couple". */
+    val asCouple: Boolean get() = occasion.couple && coupleSure && brideId != null && groomId != null
+
     /**
      * The same wedding as one family's album (both families usually keep their own copy): their
      * relatives come first, with close relatives getting a close family's share; the other side's
@@ -215,16 +223,17 @@ data class PeopleTags(
     fun tag(id: Long): PersonTag = tags[id] ?: PersonTag(id)
     fun isCouple(id: Long?): Boolean = id != null && (id == brideId || id == groomId)
     fun label(id: Long): String = tags[id]?.name?.takeIf { it.isNotBlank() } ?: when (id) {
-        brideId -> occasion.title(first = true)
-        groomId -> occasion.title(first = false)
+        brideId -> occasion.title(first = true, pair = asCouple)
+        groomId -> occasion.title(first = false, pair = asCouple)
         else -> "Person $id"
     }
 
     /** In a sentence: their name when given, otherwise "the bride", "the birthday star". */
-    fun who(id: Long): String = tags[id]?.name?.takeIf { it.isNotBlank() } ?: occasion.role(first = id == brideId)
+    fun who(id: Long): String = tags[id]?.name?.takeIf { it.isNotBlank() } ?: occasion.role(first = id == brideId, pair = asCouple)
 
     /** Both main people in a sentence: "the couple", "Riya and Arjun", "the two of them". */
     fun pair(): String {
+        if (occasion.couple && !asCouple) return "the two main people"
         if (occasion.couple || occasion == Occasion.ANNIVERSARY) return "the couple"
         val a = brideId?.let { tags[it]?.name }?.takeIf { it.isNotBlank() }
         val b = groomId?.let { tags[it]?.name }?.takeIf { it.isNotBlank() }

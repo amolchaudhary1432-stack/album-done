@@ -559,7 +559,7 @@ class JourneyDeviceTest {
      * photos, the family, and naming people in Who's who (last: it remakes the album).
      */
     private fun explore() {
-        mark("The album: cover photo and the couple, found on their own")
+        mark("The album: cover photo and the main people, found on their own")
         look(6_000)
         appShot("s01-album-top")
         if (hasTag("confirm-groom")) part("confirm-groom") {
@@ -632,7 +632,7 @@ class JourneyDeviceTest {
 
         part("bride") {
             albumTop()
-            mark("One of the couple: their own photos")
+            mark("A main person: their own photos")
             personTap { compose.onNodeWithTag("couple-bride").performClick() }
             look(4_000)
             appShot("s03-bride")

@@ -114,6 +114,7 @@ class PeopleRepository(private val dao: AlbumDao) {
             it.priority != PersonPriority.NORMAL || it.side != PersonSide.UNKNOWN || it.elder
         }.map { it.id }.toSet()
         return photos to PeoplePlan.tags(Occasion.of(project.occasion), photos, project.brideId, project.groomId, userTags, userTagged)
+            .copy(coupleSure = project.coupleSure)
     }
 
     /** Every photo of the project with its faces, as the planner sees them. */

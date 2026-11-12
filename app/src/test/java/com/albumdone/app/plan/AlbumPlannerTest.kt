@@ -998,6 +998,13 @@ class AlbumPlannerTest {
         assertEquals("Riya", tags.who(BRIDE))
         assertEquals("Main person", PeopleTags(BRIDE, GROOM, occasion = Occasion.TRIP).label(GROOM))
         assertEquals("the couple", couple.pair())
+        // Until the two are certainly the couple (a haldi at the groom's own home has no couple), nobody is called one.
+        val unsure = PeopleTags(BRIDE, GROOM, coupleSure = false)
+        assertEquals("Main person", unsure.label(BRIDE))
+        assertEquals("the main person", unsure.who(GROOM))
+        assertEquals("the two main people", unsure.pair())
+        // One person's own function, chosen by the family: still not a couple.
+        assertEquals("Main person", PeopleTags(BRIDE, null).label(BRIDE))
         assertEquals("the couple", PeopleTags(BRIDE, GROOM, occasion = Occasion.ANNIVERSARY).pair())
         assertEquals("the parents-to-be", PeopleTags(BRIDE, GROOM, occasion = Occasion.BABY_SHOWER).pair())
         // Which of the couple is the bride is never guessed (owner, 7 Nov 2026).

@@ -162,7 +162,7 @@ private fun PersonTile(c: PersonChip, onClick: () -> Unit) {
  * (mother, aunt...) and no side: the app never guesses those from photos (owner, 7 Nov 2026).
  */
 private val QUICK_CLOSENESS = listOf(
-    Triple("must", "Very close", "Must be in the album, with the couple"),
+    Triple("must", "Very close", "Must be in the album, in the main photos"),
     Triple("close", "Close", "A few good photos are enough"),
 )
 
