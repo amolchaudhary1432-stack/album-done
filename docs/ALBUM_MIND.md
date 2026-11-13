@@ -462,3 +462,23 @@ not rules, not ritual-by-ritual teaching)**
   77/68; children's birthdays (3) 41/23 and 88/73; trips (4) 45/27 and 91/84; other (2) 38/33 and 86/80;
   all 40/24 and 84/76. The margin over random is larger than on weddings of a seen community (39/28):
   what it learned on weddings carries to other events.
+
+**13 Nov 2026: an honest look at where the brain stands (after the real-phone run on wedding-2)**
+
+- The headline number (76% of the gap, 42.9% of the couple's exact photos) is at 766 photos, more than
+  three times the couple's real album (233 of 2,664, 8.7%). At the album's own size the same brain gets
+  12.0% of the couple's exact photos (random 8.7%) and 47.2% of their moments (random 34.8%); at 400,
+  21.9% and 69.1%. Report the album-size numbers first from now on.
+- Claude's ranked blind picks on the same yardstick (`SCORE_LIST=tools/realphotos/picks/wedding-1-claude.txt`):
+  the 170 "must" picks 6.9% / 32.6% (random 27.7%; the brain at 170: 6.4% / 32.6%); cut to 233, 7.7% / 36.5%
+  (a skewed cut: tier 2 is in photo order). So at album size neither an intelligent outsider nor the brain
+  is close to the couple's own choice: much of that choice is personal (who matters, what they remember).
+  What works is the wide shortlist: at 29% of the folder almost every moment the couple wanted is inside.
+- Look-alikes are not a fault: photos with a look-alike already in the album (whole-photo SigLIP, same
+  folder, cosine >= 0.92 / 0.90): the couple's own album 25% / 52%, the brain at 233 22% / 50%, the phone's
+  wedding-2 album 25% / 53%, random 26-36% / 42-56%. Couples keep every relative's turn in the same
+  ritual. Do not cut them.
+- Product gaps seen: wedding-2's whole folder is 7,697 photos (album limit 2,500); the app suggests 15%
+  of the folder while this couple kept 8.7%; nobody outside the tests has used the app.
+- Next: (1) simulate the couple's Who's who answers on the exam and measure the lift at 233;
+  (2) measure a wide shortlist + trim flow (how many taps from 766 to the couple's 233).

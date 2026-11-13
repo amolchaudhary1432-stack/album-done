@@ -244,6 +244,12 @@ couple = [r for r in t if r['name'] in {l.strip() for l in open(S + '/w1album/al
 def same(a, c): return a is c or (int(a['repeat']) >= 0 and a['repeat'] == c['repeat']) or (a['moment'] == c['moment'] and int(a['moment']) >= 0 and abs(int(a['order']) - int(c['order'])) <= 3)
 def score(app):
     s = {id(x) for x in app}; return sum(id(h) in s for h in couple) / len(couple), sum(any(same(h, a) for a in app) for h in couple) / len(couple)
+if os.environ.get('SCORE_LIST'):
+    # Another album (Claude's ranked blind picks, cut to this size) on the same yardstick.
+    byname = {r['name']: r for r in t}
+    other = [byname[l.strip()] for l in open(os.environ['SCORE_LIST']) if l.strip() in byname and not l.startswith('#')][:SIZE]
+    oe, om = score(other); rm_ = np.mean([score(random.Random(i).sample([r for r in t if r['ok']], len(other)))[1] for i in range(5)])
+    print(f"Other album, {len(other)} photos: same photo {oe:.1%}, same moment {om:.1%} | random moment {rm_:.1%} | share of the gap closed {(om - rm_) / (1 - rm_):.0%}")
 ex, mo = score(chosen)
 usable = [r for r in t if r['ok']]; rs_ = [score(random.Random(i).sample(usable, SIZE)) for i in range(5)]; rm = np.mean([x[1] for x in rs_])
 print(f"Album Mind v2, {SIZE} photos (decay {DECAY}): same photo {ex:.1%}, same moment {mo:.1%} | random moment {rm:.1%} | share of the gap closed {(mo - rm) / (1 - rm):.0%} | moments used {len(count)}")
