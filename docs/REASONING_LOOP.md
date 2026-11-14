@@ -95,11 +95,31 @@ brain at 170.
 - Web photos for other communities: the `teach-sheets` branch holds 1,158 photos of the picked web
   sets (CC licences); `harvest-data` lists 922 sets with their occasion.
 
+**14 Nov 2026, 12:45 pm IST. Owner: "use your own reasoning for our AI, across all Indian communities". S4 started.**
+
+- That is the method (distillation): Claude writes its judgement of photos of every community, the
+  small model learns from those words. More of Claude's own gold comes first, the open teacher second.
+- What is in hand for other communities: the caption scans found 6,334 Flickr CC BY photos in 1,416
+  sets (one photographer, one day). 42 sets Claude already called Indian by eye (235 photos), and 129
+  sets of 4+ photos say India by place or words (1,739 photos; hints: Muslim 248 photos, north 155,
+  west 158, south 133, Sikh 78, Christian 55, east 41). Most are not judged yet. Beware: the scan's
+  "Muslim wedding" photos include Malay weddings (not Indian; kept apart, never an Indian test).
+- Kaggle job sent (`tools/kaggle/india_sets.py`, slug album-done-india-sets, CPU): lays those sets out
+  on numbered sheets (12 photos each, set by set, in time order) -> `kaggle-results` branch
+  `album-done-india-sets/sheets/Q###.jpg` + `india.jsonl`; the photos stay on Kaggle (`india_img/`) for
+  the training job.
+- First web gold in Claude's words: `tools/reasoner/gold/web-claude.tsv`, 30 photos of 6 sets (Kerala,
+  Gujarati, north, Punjabi/Sikh, diaspora), keyed by Flickr photo id.
+
 ## NEXT STEP
 
 1. Read `reader/run-256m/scores.txt` and `answers-*.jsonl` (scratchpad): verdict agreement against the
    ceiling (82.7% / 75.6%) and the baseline (70-75% / 62-67%); read 30 of its answers and grade the words.
 2. Run SmolVLM-500M the same way (`reader/SmolVLM-500M-Instruct`), compare.
 3. Fix the long-moment picture (more frames, or pick the frames that differ most) and re-run the better model.
-4. Start S4: moments of the web sets on `teach-sheets` (other communities), sheets for Claude to judge
-   (100-150 per wake-up).
+4. S4, every wake-up: `git fetch origin kaggle-results`, read the next 10-12 sheets
+   `album-done-india-sets/sheets/Q###.jpg`, write the judgement of each photo (verdict, kind, words,
+   community as seen; mark sets that are not Indian) into `tools/reasoner/gold/web-claude.tsv` keyed by
+   the photo id from `india.jsonl`. Thin communities first (Muslim, Sikh, Christian sets).
+5. Then teach the reader on wedding-2 + web gold together (on Kaggle, where the web photos are), and
+   test with one community left out (test D).
