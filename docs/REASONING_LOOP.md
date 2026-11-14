@@ -1,0 +1,105 @@
+# The reasoning AI: standing plan and log
+
+Owner, 14 Nov 2026: "I want AI that at least reasons like you. Until then don't complain, don't come
+back to me, loop yourself every 3 hours." A scheduled task wakes Claude every 3 hours with this file
+as its memory. Read it top to bottom, do NEXT STEP, write the log, commit, push.
+
+## What "reasons like Claude" means here (the goal test)
+
+The phone's own AI, with no internet, looks at a raw folder the way Claude does: it says what is
+happening in each moment, who it is about, whether it belongs in the album and why, remembering what
+it has already kept. Come back to the owner only when all of these hold:
+
+- **A. Says the same as Claude.** On moments it has never seen (whole events held out, then whole
+  weddings), its keep / skip / peak verdict agrees with Claude's as often as Claude agrees with
+  itself when judging the same moments again blind (the ceiling, measured in S2), and its words about
+  the moment are judged right by Claude at the same rate as Claude's own.
+- **B. Understands the folder.** From the photos alone it says what the occasion is and whose it is
+  (web sets whose occasion is known), as often as Claude does.
+- **C. Picks like Claude or better.** On the exam (wedding-1, never trained on) it beats Claude's
+  blind picks at 233, 400 and 766 photos (numbers at the album's own size, 233, come first).
+- **D. Any community.** A and C on a community left out of the teaching are as good as on the ones
+  it learned from.
+- **E. On a real budget phone.** Galaxy A15, no internet, a 2,500-photo folder done in about an hour.
+
+## Design (why this is reasoning, not rules)
+
+A small model that sees and writes (a vision-language model, Apache/MIT licence) reads the day
+moment by moment, in order. For each moment it gets the picture (up to four frames), a line of facts
+the app already measures (folder, how many photos, are the main people in it), and what it said about
+the most similar moments it has already read. It writes: what kind of moment, what is happening,
+keep / skip / peak, and why ("mehendi on another relative, repeats the idea"). The album is then made
+from its verdicts, and its words are the reasons shown under each photo. It is taught by Claude's own
+written judgements (distillation), never by per-ritual or per-community rules.
+
+## Teaching material
+
+- Gold (Claude's own words): `tools/realphotos/picks/wedding-2-moments-claude.tsv`, 961 moments of
+  wedding-2 (kind, 0 skip / 1 one photo / 2 peak, reason). Moment -> photos:
+  `tools/reasoner/w2-moments.tsv`. Photos: 800 px copies on Claude's machine (scratchpad `w2/x/raw`),
+  1,024 px on the owner's private Kaggle (upload "w2" in `tools/kaggle/run.json`; the family agreed).
+- Frame lessons: `tools/reasoner/frame-labels.tsv` (302 near-twin groups ranked, with reasons).
+- More gold is needed from other communities and occasions (web photos, CC licences): Claude judges
+  about 100-150 web moments per wake-up from contact sheets until every community has some.
+- Wedding-1 is the exam only: never trained on, never sent to Kaggle.
+
+## Stages
+
+- S1. Examples from the gold: one picture + facts + similar earlier moments -> Claude's words. Split
+  by event folder (held-out folders are never trained on). Baseline to beat: the current scene judge.
+- S2. Ceiling: Claude judges ~120 held-out moments again, blind; Claude-with-Claude agreement.
+- S3. First student: fine-tune a small model (SmolVLM 256M / 500M) on the gold; score on held-out.
+- S4. More teaching: Claude's gold on web moments of other communities and occasions; a big open
+  teacher on Kaggle for volume, kept only where it agrees with Claude's gold.
+- S5. Bigger students if the small ones fall short (2B class), and the phone runtime (ONNX Runtime is
+  already in the app; llama.cpp is the fallback); speed on the real A15.
+- S6. In the app: the model reads the moments after checking; the album follows its verdicts; its
+  words are the reasons. Phone test, real phone.
+- S7. Goal test A-E; then, and only then, a plain report to the owner with a real-phone video.
+
+## Rules of the loop
+
+- Measure on the yardstick, never on a hunch. Album-size numbers (233) first.
+- Each wake-up: collect finished jobs, do NEXT STEP, start the next long job, log, commit, push.
+- Long jobs: Kaggle GPU through `kaggle-train.yml` (30 GPU hours a week), or this machine's 4 CPUs
+  in the background (2 hours at most per job). Disk here is tight (about 6 GB free).
+- No message to the owner, no complaint. One short status line at the end of each turn.
+
+## Log
+
+**14 Nov 2026, 12:00 pm IST. Loop started.** Stock taken: 961 gold moments with Claude's reasons
+(wedding-2: 301 skip, 531 keep, 129 peak; 11 folders); wedding-2 photos are on this machine at 800 px;
+the Kaggle copy was never attached (the people-teacher job stopped for that reason); torch works here
+on CPU (scratchpad venv). The brain today at the album's size (233): 12.0% of the couple's exact
+photos, 47.2% of their moments (random 34.8%); Claude's 170 must-picks 32.6% of moments, same as the
+brain at 170.
+
+**14 Nov 2026, 12:20 pm IST. S1 done, S2 done, S3 started.**
+
+- Examples built (`reader_data.py`): 961 moments, each a 512 px sheet of up to four frames + facts +
+  what was said about similar earlier moments -> Claude's words and verdict. Held out, never trained
+  on: the reception, the gondhal and the nanhora (272 moments: 105 skip, 150 keep, 17 peak); 689 to
+  learn from.
+- What the reader must beat on those 272 (`reader_baseline.py`): always the commonest answer 61.4%
+  keep-or-skip / 55.1% skip-keep-peak; a numbers-only scorer like today's brain 70-75% / 62-67%.
+- **The ceiling (S2):** Claude judged 127 of the held-out moments again, blind
+  (`wedding-2-moments-claude-again.tsv`): same keep-or-skip **82.7%**, same skip/keep/peak **75.6%**.
+  So on the verdict alone the gap between a plain scorer and Claude is only about 8 points; the real
+  difference is in the words (knowing what is happening), so the words must be graded too (test A).
+  Lesson from the misses: a long moment shown as four frames hides its point (M159: 32 photos, the
+  dancing was not in the four; M757: the sieve ritual too small to see). The reader needs more than
+  four frames of a long moment, or its busiest frames.
+- First student started on this machine: SmolVLM-256M (Apache 2.0), 4 rounds, eyes frozen, about
+  5 million numbers learning (`reader_train.py`, output scratchpad `reader/run-256m`). SmolVLM-500M is
+  downloaded for the next run.
+- Web photos for other communities: the `teach-sheets` branch holds 1,158 photos of the picked web
+  sets (CC licences); `harvest-data` lists 922 sets with their occasion.
+
+## NEXT STEP
+
+1. Read `reader/run-256m/scores.txt` and `answers-*.jsonl` (scratchpad): verdict agreement against the
+   ceiling (82.7% / 75.6%) and the baseline (70-75% / 62-67%); read 30 of its answers and grade the words.
+2. Run SmolVLM-500M the same way (`reader/SmolVLM-500M-Instruct`), compare.
+3. Fix the long-moment picture (more frames, or pick the frames that differ most) and re-run the better model.
+4. Start S4: moments of the web sets on `teach-sheets` (other communities), sheets for Claude to judge
+   (100-150 per wake-up).
