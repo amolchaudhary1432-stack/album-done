@@ -1,0 +1,18 @@
+[{"stream_name":"stdout","time":110.762800378,"data":"v7/oidv7-train-annotations-human-imagelabels.csv 294 images so far 110 s\n"}
+,{"stream_name":"stdout","time":113.156849911,"data":"v7/oidv7-val-annotations-human-imagelabels.csv 299 images so far 112 s\n"}
+,{"stream_name":"stdout","time":120.17163691,"data":"v7/oidv7-test-annotations-human-imagelabels.csv 327 images so far 119 s\n"}
+,{"stream_name":"stdout","time":230.81806925,"data":"v6/oidv6-train-images-with-labels-with-rotation.csv 294 with metadata 230 s\n"}
+,{"stream_name":"stdout","time":231.026147021,"data":"meta failed v5/validation-images-with-rotation.csv HTTP Error 403: Forbidden\n"}
+,{"stream_name":"stdout","time":231.026287963,"data":"v5/validation-images-with-rotation.csv 294 with metadata 230 s\n"}
+,{"stream_name":"stdout","time":231.238718937,"data":"meta failed v5/test-images-with-rotation.csv HTTP Error 403: Forbidden\n"}
+,{"stream_name":"stdout","time":231.23895553,"data":"v5/test-images-with-rotation.csv 294 with metadata 230 s\n"}
+,{"stream_name":"stdout","time":248.381043319,"data":"236 thumbnails of 294 247 s\n"}
+,{"stream_name":"stderr","time":262.212546342,"data":"\rFetching 3 files:   0%|          | 0/3 [00:00\u003c?, ?it/s]\rFetching 3 files:  33%|███▎      | 1/3 [00:02\u003c00:05,  2.88s/it]\rFetching 3 files:  67%|██████▋   | 2/3 [00:08\u003c00:04,  4.29s/it]\rFetching 3 files: 100%|██████████| 3/3 [00:11\u003c00:00,  3.93s/it]\rFetching 3 files: 100%|██████████| 3/3 [00:11\u003c00:00,  3.89s/it]\n"}
+,{"stream_name":"stdout","time":287.489462505,"data":"done: 236 photos; 186 look South Asian; 286 s\n"}
+,{"stream_name":"stderr","time":290.862704201,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":290.862745826,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":291.305722971,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":291.305754728,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":292.563343708,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":294.065384668,"data":"[NbConvertApp] Writing 304704 bytes to __results__.html\n"}
+]

@@ -1,0 +1,9 @@
+[{"stream_name":"stdout","time":27.814991317,"data":"inputs: ['/kaggle/input/datasets/amol0909', '/kaggle/input/notebooks/amol0909'] 0 wedding-2 photos\n"}
+,{"stream_name":"stderr","time":27.815251733,"data":"wedding-2 photos are not attached yet\n"}
+,{"stream_name":"stderr","time":32.243432935,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":32.243459616,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":32.509318686,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":32.509343086,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":33.326484269,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":34.325564864,"data":"[NbConvertApp] Writing 313785 bytes to __results__.html\n"}
+]

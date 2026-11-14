@@ -1,0 +1,29 @@
+[{"stream_name":"stdout","time":9.416472664,"data":"already scanned: 820 files; shard 0/4\n"}
+,{"stream_name":"stdout","time":11.252316616,"data":"common-canvas/commoncatalog-cc-by 5573 files\n"}
+,{"stream_name":"stdout","time":2399.116437198,"data":"50 files, 122758 photos read, 42 Indian/South Asian wedding photos found, 2398 s\n"}
+,{"stream_name":"stdout","time":4176.634828555,"data":"100 files, 275246 photos read, 60 Indian/South Asian wedding photos found, 4176 s\n"}
+,{"stream_name":"stdout","time":7355.528832471,"data":"150 files, 381867 photos read, 100 Indian/South Asian wedding photos found, 7355 s\n"}
+,{"stream_name":"stdout","time":9027.633814051,"data":"200 files, 521019 photos read, 186 Indian/South Asian wedding photos found, 9027 s\n"}
+,{"stream_name":"stdout","time":11484.49422023,"data":"250 files, 630019 photos read, 239 Indian/South Asian wedding photos found, 11484 s\n"}
+,{"stream_name":"stdout","time":14389.69876961,"data":"300 files, 698845 photos read, 450 Indian/South Asian wedding photos found, 14389 s\n"}
+,{"stream_name":"stdout","time":16148.674302296,"data":"350 files, 856195 photos read, 520 Indian/South Asian wedding photos found, 16148 s\n"}
+,{"stream_name":"stdout","time":18945.655681286,"data":"400 files, 975418 photos read, 605 Indian/South Asian wedding photos found, 18945 s\n"}
+,{"stream_name":"stderr","time":21955.903123185,"data":"'The read operation timed out' thrown while requesting GET https://huggingface.co/datasets/common-canvas/commoncatalog-cc-by/resolve/main/5/least_dim_range%3D2048-4096/aspect_ratio_bucket%3D4-7/part-00005-tid-4668192744559361497-439ce81c-aa67-42b6-8de0-731a25991b78-412515-1-c000.parquet\n"}
+,{"stream_name":"stderr","time":21955.903193082,"data":"Retrying in 1s [Retry 1/5].\n"}
+,{"stream_name":"stdout","time":22067.934602852,"data":"450 files, 1059721 photos read, 631 Indian/South Asian wedding photos found, 22067 s\n"}
+,{"stream_name":"stdout","time":23708.657945056,"data":"500 files, 1243040 photos read, 656 Indian/South Asian wedding photos found, 23708 s\n"}
+,{"stream_name":"stdout","time":26364.36657519,"data":"550 files, 1340419 photos read, 680 Indian/South Asian wedding photos found, 26363 s\n"}
+,{"stream_name":"stdout","time":29043.950196744,"data":"600 files, 1410061 photos read, 727 Indian/South Asian wedding photos found, 29043 s\n"}
+,{"stream_name":"stdout","time":31034.762457913,"data":"650 files, 1554789 photos read, 799 Indian/South Asian wedding photos found, 31034 s\n"}
+,{"stream_name":"stdout","time":33519.938258741,"data":"700 files, 1693358 photos read, 814 Indian/South Asian wedding photos found, 33519 s\n"}
+,{"stream_name":"stdout","time":36719.262188453,"data":"750 files, 1775241 photos read, 862 Indian/South Asian wedding photos found, 36718 s\n"}
+,{"stream_name":"stdout","time":38843.856300185,"data":"800 files, 2237271 photos read, 885 Indian/South Asian wedding photos found, 38843 s\n"}
+,{"stream_name":"stdout","time":40727.810948674,"data":"common-canvas/commoncatalog-cc-by-sa 4129 files\n"}
+,{"stream_name":"stdout","time":40727.811029916,"data":"done: 849 files, 2380401 photos read, 922 found, 40727 s\n"}
+,{"stream_name":"stderr","time":40731.021366302,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":40731.021408907,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":40731.442671924,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":40731.442730095,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":40732.454886963,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":40733.869098879,"data":"[NbConvertApp] Writing 297036 bytes to __results__.html\n"}
+]

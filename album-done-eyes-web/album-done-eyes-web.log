@@ -1,0 +1,32 @@
+[{"stream_name":"stdout","time":28.609931314,"data":"6558 photos listed\n"}
+,{"stream_name":"stdout","time":17870.694748893,"data":"3083 downloaded in 17870 s\n"}
+,{"stream_name":"stderr","time":17873.363899646,"data":"\rFetching 1 files:   0%|          | 0/1 [00:00\u003c?, ?it/s]\rFetching 1 files: 100%|██████████| 1/1 [00:02\u003c00:00,  2.16s/it]\rFetching 1 files: 100%|██████████| 1/1 [00:02\u003c00:00,  2.16s/it]\n"}
+,{"stream_name":"stdout","time":18069.675733071,"data":"siglip done 18069\n"}
+,{"stream_name":"stderr","time":18134.500545318,"data":"\rFetching 10 files:   0%|          | 0/10 [00:00\u003c?, ?it/s]Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n"}
+,{"stream_name":"stderr","time":18140.097984535,"data":"\rFetching 10 files:  10%|█         | 1/10 [00:00\u003c00:02,  3.50it/s]\rFetching 10 files:  70%|███████   | 7/10 [00:00\u003c00:00, 21.81it/s]\rFetching 10 files: 100%|██████████| 10/10 [00:05\u003c00:00,  1.76it/s]\n"}
+,{"stream_name":"stderr","time":18150.725855948,"data":"[transformers] The fast path is not available because one of the required library is not installed. Falling back to torch implementation. To install follow https://github.com/fla-org/flash-linear-attention#installation and https://github.com/Dao-AILab/causal-conv1d\n"}
+,{"stream_name":"stderr","time":18151.930963655,"data":"\rLoading weights:   0%|          | 0/474 [00:00\u003c?, ?it/s]\rLoading weights:   0%|          | 1/474 [00:00\u003c05:13,  1.51it/s]\rLoading weights:  56%|█████▌    | 266/474 [00:00\u003c00:00, 468.01it/s]\rLoading weights:  88%|████████▊ | 417/474 [00:00\u003c00:00, 632.42it/s]\rLoading weights: 100%|██████████| 474/474 [00:00\u003c00:00, 501.07it/s]\n"}
+,{"stream_name":"stdout","time":18161.184110976,"data":"qrealign 0 18160\n"}
+,{"stream_name":"stdout","time":18365.542463786,"data":"qrealign 500 18364\n"}
+,{"stream_name":"stdout","time":18571.426953229,"data":"qrealign 1000 18570\n"}
+,{"stream_name":"stdout","time":18770.559470204,"data":"qrealign 1500 18769\n"}
+,{"stream_name":"stdout","time":18978.519175926,"data":"qrealign 2000 18977\n"}
+,{"stream_name":"stdout","time":19180.846961716,"data":"qrealign 2500 19180\n"}
+,{"stream_name":"stdout","time":19387.014030579,"data":"qrealign 3000 19386\n"}
+,{"stream_name":"stderr","time":19447.834229866,"data":"\rFetching 20 files:   0%|          | 0/20 [00:00\u003c?, ?it/s]\rFetching 20 files:   5%|▌         | 1/20 [00:00\u003c00:04,  4.49it/s]\rFetching 20 files:  20%|██        | 4/20 [00:00\u003c00:01, 14.32it/s]\rFetching 20 files:  45%|████▌     | 9/20 [00:00\u003c00:00, 18.86it/s]\rFetching 20 files:  65%|██████▌   | 13/20 [00:00\u003c00:00, 23.68it/s]\rFetching 20 files:  80%|████████  | 16/20 [00:00\u003c00:00, 15.59it/s]\rFetching 20 files:  95%|█████████▌| 19/20 [00:08\u003c00:00,  1.29it/s]\rFetching 20 files:  95%|█████████▌| 19/20 [00:19\u003c00:00,  1.29it/s]\rFetching 20 files: 100%|██████████| 20/20 [00:26\u003c00:00,  3.04s/it]\rFetching 20 files: 100%|██████████| 20/20 [00:26\u003c00:00,  1.32s/it]\n"}
+,{"stream_name":"stderr","time":19452.771177618,"data":"\rLoading weights:   0%|          | 0/617 [00:00\u003c?, ?it/s]\rLoading weights:   0%|          | 1/617 [00:00\u003c08:36,  1.19it/s]\rLoading weights:  16%|█▌        | 99/617 [00:00\u003c00:03, 134.09it/s]\rLoading weights:  22%|██▏       | 138/617 [00:01\u003c00:02, 170.26it/s]\rLoading weights:  28%|██▊       | 174/617 [00:01\u003c00:02, 189.32it/s]\rLoading weights:  33%|███▎      | 206/617 [00:01\u003c00:02, 193.91it/s]\rLoading weights:  39%|███▊      | 238/617 [00:01\u003c00:01, 214.90it/s]\rLoading weights:  43%|████▎     | 267/617 [00:01\u003c00:01, 223.29it/s]\rLoading weights:  48%|████▊     | 295/617 [00:01\u003c00:01, 231.48it/s]\rLoading weights:  52%|█████▏    | 322/617 [00:01\u003c00:01, 240.02it/s]\rLoading weights:  68%|██████▊   | 420/617 [00:01\u003c00:00, 428.34it/s]\rLoading weights:  84%|████████▍ | 518/617 [00:02\u003c00:00, 569.68it/s]\rLoading weights:  99%|█████████▉| 610/617 [00:02\u003c00:00, 642.95it/s]\rLoading weights: 100%|██████████| 617/617 [00:02\u003c00:00, 284.81it/s]\n"}
+,{"stream_name":"stdout","time":19454.769183556,"data":"intern 0 19454\n"}
+,{"stream_name":"stdout","time":19591.679009879,"data":"intern 500 19591\n"}
+,{"stream_name":"stdout","time":19732.619162443,"data":"intern 1000 19732\n"}
+,{"stream_name":"stdout","time":19869.066451738,"data":"intern 1500 19868\n"}
+,{"stream_name":"stdout","time":20015.824239101,"data":"intern 2000 20015\n"}
+,{"stream_name":"stdout","time":20153.940753793,"data":"intern 2500 20153\n"}
+,{"stream_name":"stdout","time":20298.189606145,"data":"intern 3000 20297\n"}
+,{"stream_name":"stdout","time":20322.223228507,"data":"done {'q_quality': 3083, 'q_aesthetic': 3083, 'i_score': 3083, 'i_keep': 3083} 20321 s\n"}
+,{"stream_name":"stderr","time":20331.040339165,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":20331.040365595,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":20331.311288378,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":20331.311315748,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":20332.081360589,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":20333.103161069,"data":"[NbConvertApp] Writing 313352 bytes to __results__.html\n"}
+]

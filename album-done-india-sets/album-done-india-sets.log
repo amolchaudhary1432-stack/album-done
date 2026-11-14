@@ -1,0 +1,10 @@
+[{"stream_name":"stdout","time":5.649041515,"data":"6334 photos with their picture\n"}
+,{"stream_name":"stdout","time":5.692402021,"data":"157 sets, 1856 photos\n"}
+,{"stream_name":"stdout","time":170.749112572,"data":"done: 1733 photos on 145 sheets\n"}
+,{"stream_name":"stderr","time":174.522972601,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":174.523012474,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":175.142733059,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":175.142768353,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":177.896549138,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":179.676147031,"data":"[NbConvertApp] Writing 302374 bytes to __results__.html\n"}
+]

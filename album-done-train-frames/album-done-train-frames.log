@@ -1,0 +1,25 @@
+[{"stream_name":"stderr","time":30.621385966,"data":"\rFetching 20 files:   0%|          | 0/20 [00:00\u003c?, ?it/s]Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n"}
+,{"stream_name":"stderr","time":38.635490922,"data":"\rFetching 20 files:   5%|▌         | 1/20 [00:00\u003c00:02,  8.29it/s]\rFetching 20 files:  30%|███       | 6/20 [00:00\u003c00:00, 30.63it/s]\rFetching 20 files:  50%|█████     | 10/20 [00:00\u003c00:00, 31.71it/s]\rFetching 20 files:  70%|███████   | 14/20 [00:00\u003c00:00, 33.84it/s]\rFetching 20 files:  90%|█████████ | 18/20 [00:01\u003c00:00,  8.09it/s]\rFetching 20 files: 100%|██████████| 20/20 [00:08\u003c00:00,  2.47it/s]\n"}
+,{"stream_name":"stderr","time":70.674700832,"data":"[transformers] The fast path is not available because one of the required library is not installed. Falling back to torch implementation. To install follow https://github.com/fla-org/flash-linear-attention#installation and https://github.com/Dao-AILab/causal-conv1d\n"}
+,{"stream_name":"stderr","time":71.969314874,"data":"\rLoading weights:   0%|          | 0/473 [00:00\u003c?, ?it/s]\rLoading weights:   0%|          | 1/473 [00:00\u003c06:23,  1.23it/s]\rLoading weights:  71%|███████   | 336/473 [00:00\u003c00:00, 500.45it/s]\rLoading weights: 100%|██████████| 473/473 [00:01\u003c00:00, 456.67it/s]\n"}
+,{"stream_name":"stdout","time":176.343348704,"data":"1334 training examples\n"}
+,{"stream_name":"stdout","time":176.37225294,"data":"96 layers with LoRA, 6389760 trainable numbers\n"}
+,{"stream_name":"stdout","time":2326.178390575,"data":"epoch 1: loss 0.683\n"}
+,{"stream_name":"stdout","time":4357.455676361,"data":"epoch 2: loss 0.510\n"}
+,{"stream_name":"stdout","time":6368.309815519,"data":"epoch 3: loss 0.286\n"}
+,{"stream_name":"stdout","time":6449.152446435,"data":"== frames-before.tsv: 88 groups, 1.2 s per group\n"}
+,{"stream_name":"stdout","time":6449.152478305,"data":"  group question / quality         all       pairs 60.5% of 332 | best photo first 42.0% of 88\n"}
+,{"stream_name":"stdout","time":6449.152501271,"data":"  group question / quality         held back pairs 60.5% of 332 | best photo first 42.0% of 88\n"}
+,{"stream_name":"stdout","time":6449.152506542,"data":"  group question / quality         sure      pairs 50.0% of  22 | best photo first 46.2% of 13\n"}
+,{"stream_name":"stdout","time":6449.15251165,"data":"== frames-after.tsv: 88 groups, 0.9 s per group\n"}
+,{"stream_name":"stdout","time":6449.15251645,"data":"  group question / quality         all       pairs 63.9% of 332 | best photo first 47.7% of 88\n"}
+,{"stream_name":"stdout","time":6449.15252145,"data":"  group question / quality         held back pairs 63.9% of 332 | best photo first 47.7% of 88\n"}
+,{"stream_name":"stdout","time":6449.152525761,"data":"  group question / quality         sure      pairs 68.2% of  22 | best photo first 61.5% of 13\n"}
+,{"stream_name":"stdout","time":6449.152529933,"data":" \n"}
+,{"stream_name":"stderr","time":6457.261028816,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":6457.261058737,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":6457.530148712,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":6457.530193347,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":6458.320866217,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":6459.348931692,"data":"[NbConvertApp] Writing 310442 bytes to __results__.html\n"}
+]

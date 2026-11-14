@@ -1,0 +1,8 @@
+== frames-before.tsv: 88 groups, 1.2 s per group
+  group question / quality         all       pairs 60.5% of 332 | best photo first 42.0% of 88
+  group question / quality         held back pairs 60.5% of 332 | best photo first 42.0% of 88
+  group question / quality         sure      pairs 50.0% of  22 | best photo first 46.2% of 13
+== frames-after.tsv: 88 groups, 0.9 s per group
+  group question / quality         all       pairs 63.9% of 332 | best photo first 47.7% of 88
+  group question / quality         held back pairs 63.9% of 332 | best photo first 47.7% of 88
+  group question / quality         sure      pairs 68.2% of  22 | best photo first 61.5% of 13
