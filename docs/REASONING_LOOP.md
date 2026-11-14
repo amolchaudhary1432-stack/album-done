@@ -111,15 +111,37 @@ brain at 170.
 - First web gold in Claude's words: `tools/reasoner/gold/web-claude.tsv`, 30 photos of 6 sets (Kerala,
   Gujarati, north, Punjabi/Sikh, diaspora), keyed by Flickr photo id.
 
+**14 Nov 2026, 1:25 pm IST. First student scored; web sheets back; 131 web photos judged.**
+
+- **SmolVLM-256M, taught 4 rounds on the 689 wedding-2 moments** (loss 1.22): on the 272 held-out
+  moments same keep-or-skip **70.2%**, same skip/keep/peak **61.4%**. That is only level with the
+  numbers-only scorer (70-75% / 62-67%); the ceiling is 82.7% / 75.6%. It writes in Claude's form but
+  often invents who is in the picture ("the bride's parents", "the mandap"). So: too small, too little
+  teaching, or both. SmolVLM-500M is running now the same way (scratchpad `reader/run-500m`, 3 rounds).
+- The India-sets job worked: 1,733 photos, 157 sets, 145 sheets (`kaggle-results`:
+  `album-done-india-sets/`, copied to scratchpad `india/`). Sets W000-W041 are the ones already called
+  Indian (photos 1-235); then W042 (UK Indian wedding, 150), W043 (Pakistani wedding in Scotland, 119:
+  a neighbour, kept apart), W044/46/52 (Indian wedding in New Mexico), W045 (Gujarati, UK), W047-49/55
+  (Bengali script tags: check if India or Bangladesh), W050/51 (Bangalore), W053 ("Buddhist Indian
+  wedding", Birmingham), W054/56 (India), W057 (Malay-Indian Muslim, Penang), W058 (Mangalore)...
+- Claude's web gold: **131 photos** judged in words (`tools/reasoner/gold/web-claude.tsv`; add with
+  `gold_add.py`): photos 1-120 except 37-48 (sheet Q004). 43 skip, 78 keep, 10 peak. Kerala, Karnataka,
+  Telangana, Bengali, Gujarati, Punjabi/Sikh, north, diaspora. No Indian Muslim or Christian set yet.
+
 ## NEXT STEP
 
-1. Read `reader/run-256m/scores.txt` and `answers-*.jsonl` (scratchpad): verdict agreement against the
-   ceiling (82.7% / 75.6%) and the baseline (70-75% / 62-67%); read 30 of its answers and grade the words.
-2. Run SmolVLM-500M the same way (`reader/SmolVLM-500M-Instruct`), compare.
-3. Fix the long-moment picture (more frames, or pick the frames that differ most) and re-run the better model.
-4. S4, every wake-up: `git fetch origin kaggle-results`, read the next 10-12 sheets
-   `album-done-india-sets/sheets/Q###.jpg`, write the judgement of each photo (verdict, kind, words,
-   community as seen; mark sets that are not Indian) into `tools/reasoner/gold/web-claude.tsv` keyed by
-   the photo id from `india.jsonl`. Thin communities first (Muslim, Sikh, Christian sets).
-5. Then teach the reader on wedding-2 + web gold together (on Kaggle, where the web photos are), and
-   test with one community left out (test D).
+1. Read `reader/run-500m/scores.txt` (scratchpad). If 500M is not clearly above 256M (70.2% / 61.4%),
+   size alone is not the answer: next try (a) the eyes learning too (LoRA on the vision tower and the
+   connector), (b) more rounds, (c) more frames of long moments; one change at a time, same 272 moments.
+2. Web gold, every wake-up: read 10-12 more sheets from scratchpad `india/album-done-india-sets/sheets/`
+   (sheet = (photo number - 1) // 12 + 1) and add the judgements with `gold_add.py`. Order: Q004, then
+   the sets that may be Muslim, Sikh, Christian or Buddhist (W053, W057, W043 as neighbour, then look
+   through W059+ for nikah / gurdwara / church), then W042, W044, W045, W050, W051, W054, W056, W058.
+   Mark each set's community as seen (`W042=uk-gujarati` argument); sets that are not Indian get
+   `not-indian` or `neighbour` and are never an Indian test.
+3. When the web gold passes ~400 photos: a Kaggle GPU job that teaches on wedding-2 + web gold together
+   (the web photos are in the india-sets job's output `india_img/`; wedding-2 needs `"upload": "w2"`),
+   with one community left out (test D).
+4. More Indian Muslim / Sikh / Christian material is needed: a targeted search (Wikimedia Commons
+   categories and the caption catalogues for nikah, walima, anand karaj, gurdwara, church wedding in
+   Kerala / Goa / Mangalore, Parsi, Jain, north-east).
