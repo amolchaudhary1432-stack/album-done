@@ -128,20 +128,38 @@ brain at 170.
   `gold_add.py`): photos 1-120 except 37-48 (sheet Q004). 43 skip, 78 keep, 10 peak. Kerala, Karnataka,
   Telangana, Bengali, Gujarati, Punjabi/Sikh, north, diaspora. No Indian Muslim or Christian set yet.
 
+**14 Nov 2026, 6:50 pm IST. The machine was replaced; the work now lives on the repo and Kaggle.**
+
+- While idle the container was replaced and the scratchpad wiped: the old lock key, the local copies
+  of both weddings, the vectors, the exam files and the SmolVLM-500M result are gone (the 500M score
+  was never read). The repo and the branches are intact.
+- New lock key (public half in `tools/realphotos/claude_pub.pem`; private half only in the scratchpad,
+  it cannot be saved anywhere else). The old locked files cannot be opened; they are remade by re-running
+  `real-photos.yml` (wedding-2 raw is running now; then wedding-1 raw, then wedding-1 album, one push of
+  `tools/realphotos/run.json` each). If the key is lost again: make a new pair the same way, commit the
+  public half, re-run those three.
+- **Teaching moved to Kaggle** so a wiped machine costs nothing: `tools/kaggle/reader_teach.py` builds the
+  examples there (wedding-2 from the private dataset `album-done-w2`, web photos from the india-sets job),
+  teaches SmolVLM 256M, 500M and 2.2B in turn (6 rounds, eyes frozen; `EYES=1` lets the eyes learn too) and
+  scores each on the same 272 held-out wedding-2 moments and on a quarter of the web sets. The gold files
+  travel with the script (`"attach"` in `tools/kaggle/run.json`, new in `kaggle-train.yml`). Tested end to
+  end here on CPU with the web photos. Sent: slug `album-done-reader-teach` (first run also uploads wedding-2).
+- Web gold: **154 photos** (added Kerala's last, a north Indian haldi set, a Goan Christian bride getting
+  ready, a small South Asian Muslim set, a Tamil Brahmin set). Lesson: after the 42 known sets the pool is
+  mostly not weddings at all (W053 is a cricket ground, W150-152 monuments and crafts, W146 Native American):
+  do not read those sheets one by one. A Kaggle step should first rank every photo by "is this a wedding
+  moment" and guess the community (SigLIP words or the open teacher), so Claude reads only what is worth it.
+
 ## NEXT STEP
 
-1. Read `reader/run-500m/scores.txt` (scratchpad). If 500M is not clearly above 256M (70.2% / 61.4%),
-   size alone is not the answer: next try (a) the eyes learning too (LoRA on the vision tower and the
-   connector), (b) more rounds, (c) more frames of long moments; one change at a time, same 272 moments.
-2. Web gold, every wake-up: read 10-12 more sheets from scratchpad `india/album-done-india-sets/sheets/`
-   (sheet = (photo number - 1) // 12 + 1) and add the judgements with `gold_add.py`. Order: Q004, then
-   the sets that may be Muslim, Sikh, Christian or Buddhist (W053, W057, W043 as neighbour, then look
-   through W059+ for nikah / gurdwara / church), then W042, W044, W045, W050, W051, W054, W056, W058.
-   Mark each set's community as seen (`W042=uk-gujarati` argument); sets that are not Indian get
-   `not-indian` or `neighbour` and are never an Indian test.
-3. When the web gold passes ~400 photos: a Kaggle GPU job that teaches on wedding-2 + web gold together
-   (the web photos are in the india-sets job's output `india_img/`; wedding-2 needs `"upload": "w2"`),
-   with one community left out (test D).
-4. More Indian Muslim / Sikh / Christian material is needed: a targeted search (Wikimedia Commons
-   categories and the caption catalogues for nikah, walima, anand karaj, gurdwara, church wedding in
-   Kerala / Goa / Mangalore, Parsi, Jain, north-east).
+1. `git fetch origin kaggle-results`; read `album-done-reader-teach/scores.txt` and the answers files:
+   256M vs 500M vs 2.2B on the 272 held-out moments (ceiling 82.7% / 75.6%, plain scorer 70-75% / 62-67%)
+   and on the held-out web sets. If the run is not finished, send `"mode": "fetch"`. If the upload of
+   wedding-2 failed (cache gone), wait for the real-photos wedding-2 run, then send again.
+2. If no model clears the plain scorer clearly: `EYES=1` (the eyes learn too), then more frames for long
+   moments. One change at a time.
+3. Push `tools/realphotos/run.json` for wedding-1 raw (`{"name": "wedding-1", "occasion": "WEDDING",
+   "step": "raw", "links": "REAL_LINKS"}`), next wake-up the album step: the exam files under the new key.
+4. Web gold: W054 (photos 925-944), W056, W050, W051, W058, W042, W044, W045; W043 as a neighbour
+   (Pakistani Muslim wedding: teaching only, never an Indian test). Add a ranking step on Kaggle first for
+   the rest. Targeted search for Indian Muslim / Sikh / Christian weddings is still to do.
